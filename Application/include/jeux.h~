@@ -1,0 +1,49 @@
+#ifndef jeux_h
+#define jeux_h
+
+#include <stack>
+#include <vector>
+#include "../include/carte.h"
+#include "../include/joueur.h"
+
+
+class jeux{
+
+	//Liste des attributs
+	private :
+		vector<joueur> 	positionnement;
+		stack<carte>    deck;
+		vector<carte> 	table;
+		int 		blind;
+		int 		joueurCourant;
+		int 		pot;
+		int 		nombreDeCoup;
+		
+		
+	//Constructeurs et destructeur
+	public:
+		jeux(int nbJoueur, int blindDepart, int cave, int typeIA);
+		~jeux();
+		
+	//Accesseur
+		int getBlind() const;
+	
+	//Methodes	
+	private:
+		void distributionMain();
+		void distributionFlop();
+		void distributionTurn();
+		void distributionRiver();
+		void miseAJourBlind();
+		
+		
+		
+		
+		
+
+		 
+		
+		
+};
+
+#endif

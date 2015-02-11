@@ -1,0 +1,11 @@
+#ifndef carte_h
+#define carte_h
+
+using namespace std;
+
+class carte{
+
+
+};
+
+#endif

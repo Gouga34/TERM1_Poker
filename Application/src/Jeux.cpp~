@@ -1,0 +1,44 @@
+#include "../include/Jeux.h"
+
+Jeux::Jeux(int nbJoueur, int blindDepart, int cave, int typeIA){
+	this->positionnement = *(new std::vector<Joueur>(nbJoueur));
+	this->deck = nouveauDeck(); 
+	this->table = *(new std::vector<Carte>());
+	this->blind = blindDepart;
+	this->joueurCourant = 0;
+	this->pot = 0;
+	this->nombreDeCoup = 0;
+}
+
+Jeux::~Jeux(){
+
+}
+
+int Jeux::getBlind() const{
+	return this->blind;
+}
+
+void Jeux::distributionMain(){
+
+}
+
+void Jeux::distributionFlop(){
+
+}
+
+void Jeux::distributionTurn(){
+
+}
+
+void Jeux::distributionRiver(){
+
+}
+
+void Jeux::miseAJourBlind(){
+
+}
+
+std::stack<Carte> Jeux::nouveauDeck(){
+	return *(new std::stack<Carte>);
+}
+				
