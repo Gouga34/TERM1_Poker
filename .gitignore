@@ -1,0 +1,6 @@
+# Fichiers temporaires gedit
+*~
+
+# Fichiers et dossiers Projet Qt
+*.pro.user
+*-Debug
