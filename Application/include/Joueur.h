@@ -7,7 +7,7 @@
 class Joueur{
 
 	//Attributs
-	private:
+	protected:
 		bool 			dealer;
 		std::vector<Carte>	main;
 		int			cave;

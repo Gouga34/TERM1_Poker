@@ -29,6 +29,7 @@ class Jeu{
 		
 	//Accesseur
 		int getBlind() const;
+		int getJoueurCourant() const;
 	
 	//Methodes	
 	private:
@@ -38,7 +39,7 @@ class Jeu{
 		void distributionRiver();
 		void miseAJourBlind();
 		void melange();
-		std::vector<Joueur> initialisationTable(int nbJoueur, int cave);
+		void initialisationTable(int nbJoueur, int cave);
 		std::vector<Carte> nouveauDeck();
 		
 			

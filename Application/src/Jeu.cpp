@@ -5,11 +5,11 @@
 *@action : Initialise un nouveau jeu
 **/
 Jeu::Jeu(int nbJoueur, int blindDepart, int cave, int typeIA){
-	this->positionnement = *(new std::vector<Joueur>());
-	this->initialisationTable(nbJoueur, cave);
+	this->positionnement = std::vector<Joueur>();
+	this->initialisationTable(nbJoueur, cave);	
 	this->deck = nouveauDeck(); 
 	this->melange();
-	this->table = *(new std::vector<Carte>());
+	this->table = std::vector<Carte>();
 	this->blind = blindDepart;
 	this->joueurCourant = 0;
 	this->pot = 0;
@@ -28,20 +28,12 @@ Jeu::~Jeu(){
 *@action : Cree les joueurs et les affectent au jeu
 *@return : L'ensemble des joueurs de la partie
 **/
-std::vector<Joueur> Jeu::initialisationTable(int nbJoueur, int cave){
+void Jeu::initialisationTable(int nbJoueur, int cave){
 	
 	for(int i=0; i<nbJoueur; i++){
-		Joueur joueur = *(new Joueur(false,cave));
+		Joueur joueur(false,cave);
 		this->positionnement.push_back(joueur);
 	}
-}
-
-/**
-*@action : Permet d'obtenir le montant de la petite blind
-*@return : Le montant de la petite blind
-**/
-int Jeu::getBlind() const{
-	return this->blind;
 }
 
 /**
@@ -68,7 +60,7 @@ void Jeu::distributionFlop(){
 	srand((unsigned)time(0));
 	
 	for(int i=0; i<3; i++){
-		position = deck.size() + (rand() % (deck.size() - 0));
+		position = deck.size() + (rand() % deck.size());
 		this->table.push_back(this->deck.at(position) );
 		this->deck.erase(this->deck.begin() + position);
 	}	
@@ -117,7 +109,7 @@ std::vector<Carte> Jeu::nouveauDeck(){
 	std::vector<Carte> deck;
 	
 	for(int i = 0; i<4; i++){
-		for(int j= 1; i<14; i++){
+		for(int j= 1; j<14; j++){
 			Carte carte(j,i);
 			deck.push_back(carte);
 		}
@@ -132,4 +124,21 @@ std::vector<Carte> Jeu::nouveauDeck(){
 void Jeu::melange(){
 	srand((unsigned)time(0));
 	std::random_shuffle(this->deck.begin(), this->deck.end());
-}			
+}
+
+/**
+*@action : Permet d'obtenir le montant de la petite blind
+*@return : Le montant de la petite blind
+**/
+int Jeu::getBlind() const{
+	return this->blind;
+}
+
+/**
+*@action : Permet d'obtenir le joueur devant jouer
+*@return : Le joueur courant
+**/
+int Jeu::getJoueurCourant() const{
+	return this->joueurCourant;
+}
+			

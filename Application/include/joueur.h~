@@ -1,8 +1,0 @@
-#ifndef joueur_h
-#define joueur_h
-
-class joueur{
-
-}
-
-#endif
