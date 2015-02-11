@@ -1,6 +1,5 @@
 #include "../include/Carte.h"
 
-
 /**
 *@param  : La couleur et le rang de la carte
 *@action : Initialise une nouvelle carte

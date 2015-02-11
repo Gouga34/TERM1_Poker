@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include "../include/Carte.h"
 #include "../include/Joueur.h"
+#include "../include/IntelligenceArtificielle.h"
 
 
 class Jeu{
