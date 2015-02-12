@@ -9,7 +9,7 @@ CarteGraphique::CarteGraphique(int rang, int couleur) : QLabel()
 {
     int carte = MAKE_CARD(rang, couleur);
     if (carte == 0){
-        setPixmap(Fenetre::textureCartes->copy(QRect(13 * 4 * LARGEUR_CARTE, 0, LARGEUR_CARTE, HAUTEUR_CARTE)));
+        setPixmap(Fenetre::textureCartes->copy(QRect((13 * 4 + 1) * LARGEUR_CARTE, 0, LARGEUR_CARTE, HAUTEUR_CARTE)));
     }
     else{
         setPixmap(Fenetre::textureCartes->copy(QRect(carte * LARGEUR_CARTE, 0, LARGEUR_CARTE, HAUTEUR_CARTE)));

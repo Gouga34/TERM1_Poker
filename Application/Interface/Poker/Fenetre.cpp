@@ -18,9 +18,11 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
 
     this->jeu = j;
 
-    QVBoxLayout *layout = new QVBoxLayout;
+    QHBoxLayout *layout = new QHBoxLayout;
 
-    QHBoxLayout *layoutCommun = new QHBoxLayout;
+    QVBoxLayout *layoutJeu = new QVBoxLayout;
+    QVBoxLayout *layoutOptions = new QVBoxLayout;
+
     QHBoxLayout *layoutJoueur = new QHBoxLayout;
 
 
@@ -97,30 +99,40 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
     //connect(boutonSeCoucher, SIGNAL(clicked()), this, SLOT(seCoucher()));
 
 
-
     // ////////////////////////////////////////////////////
     // Fenetre
     // ////////////////////////////////////////////////////
 
     next = new QPushButton("Next");
+    next->setMaximumSize(70, 30);
     connect(next, SIGNAL(clicked()), this, SLOT(demarragePartie()));
 
-    layoutCommun->addLayout(&layoutCartesCommunes);
-    layoutCommun->addWidget(&pot);
 
-    layoutJoueur->addLayout(&layoutMain);
+    layoutJoueur->setAlignment(Qt::AlignRight);
+    layoutJoueur->setSpacing(50);
+
     layoutJoueur->addWidget(&cave);
     layoutJoueur->addWidget(&valeur);
     layoutJoueur->addLayout(layoutBoutons);
-    layoutJoueur->addWidget(next);
+
+    layoutJeu->setSpacing(150);
+    layoutJeu->setAlignment(Qt::AlignTop);
+
+    layoutJeu->addLayout(&layoutMainAdverse);
+    layoutJeu->addLayout(&layoutCartesCommunes);
+    layoutJeu->addLayout(&layoutMain);
+
+    layoutOptions->setSpacing(150);
+    layoutOptions->setAlignment(Qt::AlignHCenter);
+
+    layoutOptions->addWidget(next);
+    layoutOptions->addWidget(&pot);
+    layoutOptions->addLayout(layoutJoueur);
 
 
-    layout->setSpacing(150);
-    layout->setAlignment(Qt::AlignHCenter);
-
-    layout->addLayout(&layoutMainAdverse);
-    layout->addLayout(layoutCommun);
-    layout->addLayout(layoutJoueur);
+    layout->addSpacing(200);
+    layout->addLayout(layoutJeu);
+    layout->addLayout(layoutOptions);
 
     setLayout(layout);
 }
