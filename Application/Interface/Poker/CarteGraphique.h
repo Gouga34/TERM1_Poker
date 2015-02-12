@@ -29,7 +29,7 @@ class CarteGraphique : public QLabel
 
     public:
 
-        CarteGraphique(QPixmap p, int rang, int couleur);
+        CarteGraphique(int rang, int couleur);
         //CarteGraphique(Carte c);
         ~CarteGraphique();
 };

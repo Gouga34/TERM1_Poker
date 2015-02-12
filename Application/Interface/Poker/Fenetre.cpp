@@ -4,6 +4,8 @@
 #include <QVBoxLayout>
 #include <QPushButton>
 
+QPixmap *Fenetre::textureCartes = 0;
+
 Fenetre::Fenetre() : QWidget()
 {
     setWindowTitle(tr("Poker"));
@@ -27,17 +29,19 @@ Fenetre::Fenetre() : QWidget()
 
 
     // Chargement de l'image
-    textureCartes.load("deck.png");
+    if (!textureCartes){
+        textureCartes = new QPixmap("deck.png");
+    }
 
-    CarteGraphique *c1 = new CarteGraphique(textureCartes, 1, 2);
-    CarteGraphique *c2 = new CarteGraphique(textureCartes, 10, 0);
+    CarteGraphique *c1 = new CarteGraphique(1, 2);
+    CarteGraphique *c2 = new CarteGraphique(10, 0);
 
-    CarteGraphique *dos = new CarteGraphique(textureCartes, 0, 0);
-    CarteGraphique *dos2 = new CarteGraphique(textureCartes, 0, 0);
+    CarteGraphique *dos = new CarteGraphique(0, 0);
+    CarteGraphique *dos2 = new CarteGraphique(0, 0);
 
-    CarteGraphique *c3 = new CarteGraphique(textureCartes, 1, 3);
-    CarteGraphique *c4 = new CarteGraphique(textureCartes, 3, 0);
-    CarteGraphique *c5 = new CarteGraphique(textureCartes, 13, 1);
+    CarteGraphique *c3 = new CarteGraphique(1, 3);
+    CarteGraphique *c4 = new CarteGraphique(3, 0);
+    CarteGraphique *c5 = new CarteGraphique(13, 1);
 
     // Création des listes
 
@@ -62,9 +66,32 @@ Fenetre::Fenetre() : QWidget()
     cave.setSegmentStyle(QLCDNumber::Filled);
     cave.display(500);
 
+
+    // ////////////////////////////////////////////////////
+    // Boutons d'action
+    // ////////////////////////////////////////////////////
+
+    QVBoxLayout *layoutBoutons = new QVBoxLayout;
+
+    layoutBoutons->setSpacing(10);
+    layoutBoutons->setAlignment(Qt::AlignTop);
+
+    QPushButton *boutonChecker = new QPushButton("Checker");
     QPushButton *boutonMiser = new QPushButton("Miser");
+    QPushButton *boutonSuivre = new QPushButton("Suivre");
+    QPushButton *boutonRelancer = new QPushButton("Relancer");
+    QPushButton *boutonSeCoucher = new QPushButton("Se coucher");
+
+    layoutBoutons->addWidget(boutonChecker);
+    layoutBoutons->addWidget(boutonMiser);
+    layoutBoutons->addWidget(boutonSuivre);
+    layoutBoutons->addWidget(boutonRelancer);
+    layoutBoutons->addWidget(boutonSeCoucher);
+
 
     connect(boutonMiser, SIGNAL(clicked()), this, SLOT(miser()));
+    //connect(boutonSeCoucher, SIGNAL(clicked()), this, SLOT(seCoucher()));
+
 
 
     // ////////////////////////////////////////////////////
@@ -80,7 +107,7 @@ Fenetre::Fenetre() : QWidget()
     layoutJoueur->addLayout(&layoutMain);
     layoutJoueur->addWidget(&cave);
     layoutJoueur->addWidget(&valeur);
-    layoutJoueur->addWidget(boutonMiser);
+    layoutJoueur->addLayout(layoutBoutons);
     layoutJoueur->addWidget(next);
 
 

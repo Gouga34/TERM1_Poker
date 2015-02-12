@@ -15,8 +15,6 @@ class Fenetre : public QWidget
 
     private:
 
-        QPixmap textureCartes;
-
         QList<QLabel*> main;
         QList<QLabel*> mainAdverse;
         QList<QLabel*> communes;
@@ -31,6 +29,8 @@ class Fenetre : public QWidget
         QSpinBox valeur;
 
     public:
+
+        static QPixmap *textureCartes;
 
         Fenetre();
         ~Fenetre();
