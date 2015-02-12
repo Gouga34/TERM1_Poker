@@ -2,6 +2,7 @@
 #define CARTEGRAPHIQUE_H
 
 #include <QLabel>
+#include "../../include/Carte.h"
 
 class CarteGraphique : public QLabel
 {
@@ -30,7 +31,7 @@ class CarteGraphique : public QLabel
     public:
 
         CarteGraphique(int rang, int couleur);
-        //CarteGraphique(Carte c);
+        CarteGraphique(Carte c);
         ~CarteGraphique();
 };
 

@@ -17,10 +17,10 @@ CarteGraphique::CarteGraphique(int rang, int couleur) : QLabel()
 }
 
 
-//CarteGraphique::CarteGraphique(Carte c) : QLabel()
-//{
-//  setPixmap(CarteGraphique::textureCartes.copy(QRect(c.getId() * LARGEUR_CARTE, 0, LARGEUR_CARTE, HAUTEUR_CARTE)));
-//}
+CarteGraphique::CarteGraphique(Carte c) : QLabel()
+{
+  setPixmap(Fenetre::textureCartes->copy(QRect(c.getId() * LARGEUR_CARTE, 0, LARGEUR_CARTE, HAUTEUR_CARTE)));
+}
 
 
 CarteGraphique::~CarteGraphique()

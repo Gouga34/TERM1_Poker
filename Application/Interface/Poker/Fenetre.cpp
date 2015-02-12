@@ -2,11 +2,10 @@
 #include "CarteGraphique.h"
 #include <QVBoxLayout>
 #include <QVBoxLayout>
-#include <QPushButton>
 
 QPixmap *Fenetre::textureCartes = 0;
 
-Fenetre::Fenetre() : QWidget()
+Fenetre::Fenetre(Jeu *j) : QWidget()
 {
     setWindowTitle(tr("Poker"));
     resize(800,600);
@@ -16,6 +15,8 @@ Fenetre::Fenetre() : QWidget()
     pal.setColor(QPalette::Background, QColor(20, 127, 20));
     setAutoFillBackground(true);
     setPalette(pal);
+
+    this->jeu = j;
 
     QVBoxLayout *layout = new QVBoxLayout;
 
@@ -33,25 +34,25 @@ Fenetre::Fenetre() : QWidget()
         textureCartes = new QPixmap("deck.png");
     }
 
-    CarteGraphique *c1 = new CarteGraphique(1, 2);
-    CarteGraphique *c2 = new CarteGraphique(10, 0);
+//    CarteGraphique *c1 = new CarteGraphique(1, 2);
+//    CarteGraphique *c2 = new CarteGraphique(10, 0);
 
-    CarteGraphique *dos = new CarteGraphique(0, 0);
-    CarteGraphique *dos2 = new CarteGraphique(0, 0);
+//    CarteGraphique *dos = new CarteGraphique(0, 0);
+//    CarteGraphique *dos2 = new CarteGraphique(0, 0);
 
-    CarteGraphique *c3 = new CarteGraphique(1, 3);
-    CarteGraphique *c4 = new CarteGraphique(3, 0);
-    CarteGraphique *c5 = new CarteGraphique(13, 1);
+//    CarteGraphique *c3 = new CarteGraphique(1, 3);
+//    CarteGraphique *c4 = new CarteGraphique(3, 0);
+//    CarteGraphique *c5 = new CarteGraphique(13, 1);
 
     // Création des listes
 
-    main << c1 << c2;
-    mainAdverse << dos << dos2;
-    communes << c3 << c4 << c5;
+//    main << c1 << c2;
+//    mainAdverse << dos << dos2;
+//    communes << c3 << c4 << c5;
 
-    layoutMain.ajoutCartes(main);
-    layoutMainAdverse.ajoutCartes(mainAdverse);
-    layoutCartesCommunes.ajoutCartes(communes);
+//    layoutMain.ajoutCartes(main);
+//    layoutMainAdverse.ajoutCartes(mainAdverse);
+//    layoutCartesCommunes.ajoutCartes(communes);
 
 
     // ////////////////////////////////////////////////////
@@ -64,7 +65,10 @@ Fenetre::Fenetre() : QWidget()
 
     cave.setMaximumSize(100, 50);
     cave.setSegmentStyle(QLCDNumber::Filled);
-    cave.display(500);
+
+    // TODO Récupérer la valeur de la cave dans le jeu
+    cave.display(1000);
+    //cave.display(j.getJoueur(0).getCave());
 
 
     // ////////////////////////////////////////////////////
@@ -98,8 +102,8 @@ Fenetre::Fenetre() : QWidget()
     // Fenetre
     // ////////////////////////////////////////////////////
 
-    QPushButton *next = new QPushButton("Next");
-    connect(next, SIGNAL(clicked()), this, SLOT(ajouterCarte()));
+    next = new QPushButton("Next");
+    connect(next, SIGNAL(clicked()), this, SLOT(demarragePartie()));
 
     layoutCommun->addLayout(&layoutCartesCommunes);
     layoutCommun->addWidget(&pot);
@@ -124,6 +128,45 @@ Fenetre::Fenetre() : QWidget()
 Fenetre::~Fenetre()
 {
 
+}
+
+void Fenetre::demarragePartie()
+{
+    jeu->distributionMain();
+
+    CarteGraphique *dos = new CarteGraphique(0, 0);
+    CarteGraphique *dos2 = new CarteGraphique(0, 0);
+
+    // Création des listes
+
+    mainAdverse << dos << dos2;
+    layoutMainAdverse.ajoutCartes(mainAdverse);
+/*
+    std::vector<Carte> mainCourante = jeu->getJoueur(0).getMain();
+
+    for (int i = 0; i < mainCourante.size(); i++){
+        CarteGraphique *c = new CarteGraphique(mainCourante.at(i));
+        main.append(c);
+    }
+
+    layoutMain.ajoutCartes(main);*/
+
+    disconnect(next, SIGNAL(clicked()), this, SLOT(demarragePartie()));
+    connect(next, SIGNAL(clicked()), this, SLOT(distributionFlop()));
+}
+
+void Fenetre::distributionFlop()
+{
+    /*jeu->distributionFlop();
+
+    std::vector<Carte> flop = jeu->getTable();
+
+    for (int i = 0; i < flop.size(); i++){
+        CarteGraphique *c = new CarteGraphique(flop.at(i));
+        communes.append(c);
+    }
+
+    layoutCartesCommunes.ajoutCartes(communes);*/
 }
 
 void Fenetre::miser()
