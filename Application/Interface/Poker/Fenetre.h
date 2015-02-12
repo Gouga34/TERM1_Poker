@@ -7,6 +7,7 @@
 #include <QPixmap>
 #include <QLCDNumber>
 #include <QSpinBox>
+#include "ListeCartes.h"
 
 class Fenetre : public QWidget
 {
@@ -19,6 +20,10 @@ class Fenetre : public QWidget
         QList<QLabel*> main;
         QList<QLabel*> mainAdverse;
         QList<QLabel*> communes;
+
+        ListeCartes layoutMain;
+        ListeCartes layoutMainAdverse;
+        ListeCartes layoutCartesCommunes;
 
         QLCDNumber pot;
         QLCDNumber cave;
@@ -33,6 +38,8 @@ class Fenetre : public QWidget
     public slots:
 
         void miser();
+
+        void ajouterCarte();
 };
 
 #endif // FENETRE_H

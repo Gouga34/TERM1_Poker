@@ -1,6 +1,5 @@
 #include "Fenetre.h"
 #include "CarteGraphique.h"
-#include "ListeCartes.h"
 #include <QVBoxLayout>
 #include <QVBoxLayout>
 #include <QPushButton>
@@ -10,7 +9,11 @@ Fenetre::Fenetre() : QWidget()
     setWindowTitle(tr("Poker"));
     resize(800,600);
 
-    setStyleSheet("background: green");
+    // Couleur de fond
+    QPalette pal(palette());
+    pal.setColor(QPalette::Background, QColor(20, 127, 20));
+    setAutoFillBackground(true);
+    setPalette(pal);
 
     QVBoxLayout *layout = new QVBoxLayout;
 
@@ -19,7 +22,7 @@ Fenetre::Fenetre() : QWidget()
 
 
     // ////////////////////////////////////////////////////
-    // Compteurs
+    // Cartes
     // ////////////////////////////////////////////////////
 
 
@@ -38,17 +41,13 @@ Fenetre::Fenetre() : QWidget()
 
     // Création des listes
 
-    ListeCartes *layoutMain = new ListeCartes;
-    ListeCartes *layoutMainAdverse = new ListeCartes;
-    ListeCartes *layoutCartesCommunes = new ListeCartes;
-
     main << c1 << c2;
     mainAdverse << dos << dos2;
     communes << c3 << c4 << c5;
 
-    layoutMain->ajoutCartes(main);
-    layoutMainAdverse->ajoutCartes(mainAdverse);
-    layoutCartesCommunes->ajoutCartes(communes);
+    layoutMain.ajoutCartes(main);
+    layoutMainAdverse.ajoutCartes(mainAdverse);
+    layoutCartesCommunes.ajoutCartes(communes);
 
 
     // ////////////////////////////////////////////////////
@@ -72,19 +71,23 @@ Fenetre::Fenetre() : QWidget()
     // Fenetre
     // ////////////////////////////////////////////////////
 
-    layoutCommun->addLayout(layoutCartesCommunes);
+    QPushButton *next = new QPushButton("Next");
+    connect(next, SIGNAL(clicked()), this, SLOT(ajouterCarte()));
+
+    layoutCommun->addLayout(&layoutCartesCommunes);
     layoutCommun->addWidget(&pot);
 
-    layoutJoueur->addLayout(layoutMain);
+    layoutJoueur->addLayout(&layoutMain);
     layoutJoueur->addWidget(&cave);
     layoutJoueur->addWidget(&valeur);
     layoutJoueur->addWidget(boutonMiser);
+    layoutJoueur->addWidget(next);
 
 
     layout->setSpacing(150);
     layout->setAlignment(Qt::AlignHCenter);
 
-    layout->addLayout(layoutMainAdverse);
+    layout->addLayout(&layoutMainAdverse);
     layout->addLayout(layoutCommun);
     layout->addLayout(layoutJoueur);
 
@@ -102,4 +105,10 @@ void Fenetre::miser()
 
     cave.display(cave.value() - montant);
     pot.display(pot.value() + montant);
+}
+
+void Fenetre::ajouterCarte()
+{
+    //communes << nouvelleCarte
+    //layoutCartesCommunes.addWidget(nouvelleCarte);
 }
