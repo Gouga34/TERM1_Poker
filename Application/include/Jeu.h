@@ -29,11 +29,13 @@ class Jeu{
 		~Jeu();
 		
 	//Accesseur
-		int getBlind() const;
-		int getJoueurCourant() const;
+		int 	getBlind() const;
+		int 	getJoueurCourant() const;
+		Joueur 	getJoueur(int i) const;
+		void 	setJoueur(Joueur joueur);
 	
 	//Methodes	
-	private:
+	//private:
 		void distributionMain();
 		void distributionFlop();
 		void distributionTurn();
@@ -42,6 +44,7 @@ class Jeu{
 		void melange();
 		void initialisationTable(int nbJoueur, int cave);
 		std::vector<Carte> nouveauDeck();
+		
 		
 			
 };

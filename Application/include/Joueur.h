@@ -18,7 +18,8 @@ class Joueur{
 		~Joueur();
 		
 	//Accesseur
-		int  getCave() const;
+		int  			getCave() const;
+		std::vector<Carte>	getMain() const;
 		
 	//Methodes
 		void ajouteJetons(int jetons);

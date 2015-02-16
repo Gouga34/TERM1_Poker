@@ -29,6 +29,14 @@ int Joueur::getCave() const{
 }
 
 /**
+*@action : 
+*@return : 
+**/
+std::vector<Carte> Joueur::getMain() const{
+	return this->main;
+}
+
+/**
 *@param  : Le nombre de jetons a ajouter
 *@action : Ajoute des jetons a la cave d'un joueur
 **/

@@ -17,6 +17,7 @@ class IntelligenceArtificielle : public Joueur {
 	//Constructeur et destructeur
 	public :
 		IntelligenceArtificielle(bool estDealer, int jetons);
+		IntelligenceArtificielle(Joueur joueur);
 		~IntelligenceArtificielle();
 		
 	//Mutateur

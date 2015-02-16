@@ -7,16 +7,23 @@ using namespace std;
 
 int main(){
 	
-	Jeu jeu(2,20,1000,0);
+	Jeu jeu(1,20,1000,0);
 	
 	IntelligenceArtificielle IA(false, 1000);
-	Carte c1(13, 2);
+	
+	jeu.setJoueur(IA);
+	
+	jeu.distributionMain();
+
+	((IntelligenceArtificielle) jeu.getJoueur(1)).jouer();
+	
+	/*Carte c1(13, 2);
 	Carte c2(12, 2);
 
 	IA.ajouteCarte(c2);
 	IA.ajouteCarte(c1);
 	
-	IA.jouer();
+	IA.jouer();*/
 
 	return 1;
 }  

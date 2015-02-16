@@ -1,12 +1,18 @@
 #include "../include/IntelligenceArtificielle.h"
+#include <sstream> 
 
 IntelligenceArtificielle::IntelligenceArtificielle(bool estDealer, int jetons): Joueur(estDealer, jetons){
+
+}
+
+IntelligenceArtificielle::IntelligenceArtificielle(Joueur joueur): Joueur(joueur){
 
 }
 
 IntelligenceArtificielle::~IntelligenceArtificielle(){
 
 }
+
 
 double IntelligenceArtificielle::calculProba(){
 
@@ -94,18 +100,30 @@ double IntelligenceArtificielle::calculProba(){
         	}
         	
         	if(this->main.at(0).getCouleur() == this->main.at(1).getCouleur()){
+        		std::cout << this->main.at(0).getCouleur() << "," << this->main.at(1).getCouleur() << std::endl;
 			main += "*";
 		}
 		
 		std::string ligne;
 		std::size_t found;
+		std::istringstream isstream;
+		std::string mot;
     
     		//TODO : Attention il faudra gérer le cas KQ et QK, il s'agit de la meme main mais seulement une est reconnue
-                while(getline(fichier, ligne) && (found = ligne.find(main))==std::string::npos   ){
+                while(getline(fichier, ligne) ){
+                	
+        		isstream.str(ligne);
+        		getline(isstream, mot, ' ');
+        		
+        		if(mot == main){
+        			break;
+        		}
                 	
                 }
                 
+                std::cout << main << std::endl;
                 probabilite = atof(ligne.substr(4,4).c_str());
+
         	
                 fichier.close();
         }else{
@@ -120,6 +138,8 @@ void IntelligenceArtificielle::setTable(std::vector<Carte> tab){
 }
 
 void IntelligenceArtificielle::jouer(){
+	std::cout << this->main.at(0).getRang() << "," << this->main.at(0).getCouleur() << std::endl;
+	std::cout << this->main.at(1).getRang() << "," << this->main.at(1).getCouleur() << std::endl;
 	std::cout << this->calculProba() << std::endl;
 }
 

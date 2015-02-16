@@ -5,11 +5,10 @@
 *@action : Initialise un nouveau jeu
 **/
 Jeu::Jeu(int nbJoueur, int blindDepart, int cave, int typeIA){
-	this->positionnement = std::vector<Joueur>();
+	srand((unsigned)time(0));
 	this->initialisationTable(nbJoueur, cave);	
 	this->deck = nouveauDeck(); 
 	this->melange();
-	this->table = std::vector<Carte>();
 	this->blind = blindDepart;
 	this->joueurCourant = 0;
 	this->pot = 0;
@@ -42,10 +41,9 @@ void Jeu::initialisationTable(int nbJoueur, int cave){
 void Jeu::distributionMain(){
 
 	int position;
-	srand((unsigned)time(0));
 	
 	for(int i =0; i< 2*this->positionnement.size(); i++){
-		position = deck.size() + (rand() % (deck.size() - 0));
+		position = rand() % deck.size();
 		this->positionnement.at(i % this->positionnement.size()).ajouteCarte(this->deck.at(position));
 		this->deck.erase(this->deck.begin() + position);
 	}
@@ -57,10 +55,9 @@ void Jeu::distributionMain(){
 void Jeu::distributionFlop(){
 	
 	int position;
-	srand((unsigned)time(0));
 	
 	for(int i=0; i<3; i++){
-		position = deck.size() + (rand() % deck.size());
+		position = rand() % deck.size();
 		this->table.push_back(this->deck.at(position) );
 		this->deck.erase(this->deck.begin() + position);
 	}	
@@ -72,9 +69,8 @@ void Jeu::distributionFlop(){
 void Jeu::distributionTurn(){
 
 	int position;
-	srand((unsigned)time(0));
 	
-	position = deck.size() + (rand() % (deck.size() - 0));
+	position = rand() % deck.size();
 	this->table.push_back(this->deck.at(position) );
 	this->deck.erase(this->deck.begin() + position);
 
@@ -86,9 +82,8 @@ void Jeu::distributionTurn(){
 void Jeu::distributionRiver(){
 
 	int position;
-	srand((unsigned)time(0));
 	
-	position = deck.size() + (rand() % (deck.size() - 0));
+	position = rand() % deck.size();
 	this->table.push_back(this->deck.at(position) );
 	this->deck.erase(this->deck.begin() + position);
 
@@ -122,7 +117,6 @@ std::vector<Carte> Jeu::nouveauDeck(){
 *@action : Melange le jeu de carte
 **/	
 void Jeu::melange(){
-	srand((unsigned)time(0));
 	std::random_shuffle(this->deck.begin(), this->deck.end());
 }
 
@@ -140,5 +134,21 @@ int Jeu::getBlind() const{
 **/
 int Jeu::getJoueurCourant() const{
 	return this->joueurCourant;
+}
+
+/**
+*@action : 
+*@return : 
+**/
+Joueur Jeu::getJoueur(int i) const{
+	return this->positionnement.at(i);
+}
+
+/**
+*@action : 
+*@return : 
+**/
+void Jeu::setJoueur(Joueur joueur){
+	this->positionnement.push_back(joueur);
 }
 			
