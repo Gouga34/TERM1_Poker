@@ -7,6 +7,9 @@
 #include <QPixmap>
 #include <QLCDNumber>
 #include <QSpinBox>
+#include <QPushButton>
+#include "ListeCartes.h"
+#include "../../include/Jeu.h"
 
 class Fenetre : public QWidget
 {
@@ -14,25 +17,39 @@ class Fenetre : public QWidget
 
     private:
 
-        QPixmap textureCartes;
-
         QList<QLabel*> main;
         QList<QLabel*> mainAdverse;
         QList<QLabel*> communes;
+
+        ListeCartes layoutMain;
+        ListeCartes layoutMainAdverse;
+        ListeCartes layoutCartesCommunes;
 
         QLCDNumber pot;
         QLCDNumber cave;
 
         QSpinBox valeur;
 
+        QPushButton *next;
+
+        Jeu *jeu;
+
     public:
 
-        Fenetre();
+        static QPixmap *textureCartes;
+
+        Fenetre(Jeu *j);
         ~Fenetre();
 
     public slots:
 
+        void demarragePartie();
+
+        void distributionFlop();
+
         void miser();
+
+        void ajouterCarte();
 };
 
 #endif // FENETRE_H
