@@ -7,6 +7,7 @@
 #include <fstream>
 #include <string>
 
+
 class IntelligenceArtificielle : public Joueur {
 
 	//Attributs

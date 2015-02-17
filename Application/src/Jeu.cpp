@@ -1,4 +1,6 @@
 #include "../include/Jeu.h"
+#include "../include/Joueur.h"
+#include "../include/IntelligenceArtificielle.h"
 
 /**
 *@param  : Le nombre de joueur, le montant de la blind de depart, la *	cave de depart des joueurs et le type de proffiling de l'IA
@@ -31,6 +33,7 @@ void Jeu::initialisationTable(int nbJoueur, int cave){
 	
 	for(int i=0; i<nbJoueur; i++){
 		Joueur joueur(false,cave);
+		joueur.setJeu(this);
 		this->positionnement.push_back(joueur);
 	}
 }
@@ -137,18 +140,83 @@ int Jeu::getJoueurCourant() const{
 }
 
 /**
-*@action : 
-*@return : 
+*@action : Permet d'obtenir le joueur en i-eme position
+*@return : Le joueur en i-eme position
 **/
 Joueur Jeu::getJoueur(int i) const{
 	return this->positionnement.at(i);
 }
 
 /**
-*@action : 
-*@return : 
+*@action : Permet d'ajouter un joueur a la partie
+*@param  : Le joueur a ajouter a la partie
 **/
 void Jeu::setJoueur(Joueur joueur){
 	this->positionnement.push_back(joueur);
 }
-			
+
+/**
+*@action : Permet d'obtenir le pot de la partie
+*@return : Le pot de la partie en cours
+**/
+int Jeu::getPot() const{
+	return this->pot;
+}
+
+/**
+*@action : Permet de modifier le pot de la partie courante
+*@param  : Un entier representant la nouvelle valeur du pot
+**/
+void Jeu::setPot(int jetons){
+	this->pot = jetons;
+}
+
+
+/**
+*@action : Commande permettant a un joueur de miser
+*@param  : Le joueur effectuant l'action ainsi que le montant de la mise
+**/
+void Jeu::miser(Joueur joueur, int jetons){
+	this->setPot(this->getPot() + jetons);
+	joueur.retireJetons(jetons);
+	this->mise = jetons;
+	this->actions.push_back(TYPES::ACTION_LIST::MISER);
+
+}
+
+/**
+*@action : Commande permettant a un joueur de relancer
+*@param  : Le joueur effectuant l'action ainsi que le montant de la relance
+**/
+void Jeu::relancer(Joueur joueur, int jetons){
+	this->setPot(this->getPot() + jetons);
+	joueur.retireJetons(jetons);
+	this->mise = jetons;
+	this->actions.push_back(TYPES::ACTION_LIST::RELANCER);
+}
+
+/**
+*@action : Commande permettant a un joueur de suivre
+*@param  : Le joueur effectuant l'action
+**/
+void Jeu::suivre(Joueur joueur){
+	this->setPot(this->getPot() +  this->mise);
+	joueur.retireJetons(this->mise);
+	this->actions.push_back(TYPES::ACTION_LIST::SUIVRE);
+}
+
+/**
+*@action : Commande permettant a un joueur de checker
+*@param  : Le joueur effectuant l'action
+**/
+void Jeu::checker(Joueur joueur){
+	this->actions.push_back(TYPES::ACTION_LIST::CHECKER);
+}
+
+/**
+*@action : Commande permettant a un joueur de se coucher
+*@param  : Le joueur effectuant l'action
+**/
+void Jeu::seCoucher(Joueur joueur){
+	this->actions.push_back(TYPES::ACTION_LIST::SE_COUCHER);
+}

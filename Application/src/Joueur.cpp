@@ -1,4 +1,5 @@
 #include "../include/Joueur.h"
+#include "../include/Jeu.h" 
 
 /**
 *@param  : Un boolean indiquant si le joueur est le dealer virtuel
@@ -73,4 +74,27 @@ bool Joueur::estDealer(){
 **/
 void Joueur::resetMain(){
 	this->main.clear();
+}
+
+/**
+*@action : Permet de relier le jeu et le joueur
+*@param  : L'instance du jeu
+**/
+void Joueur::setJeu(Jeu* j){
+	this->jeu = j;
+}
+
+/**
+*@action : Permet d'obtenir un pointeur sur l'instance du jeu courant
+*@return : Un pointeur sur l'instance de Jeu
+**/
+Jeu* Joueur::getJeu() const {
+	return this->jeu;
+}
+
+/**
+*@action : Execute les actions 
+**/
+void Joueur::executeCommande(){
+	jeu->miser((*this), 10);
 }

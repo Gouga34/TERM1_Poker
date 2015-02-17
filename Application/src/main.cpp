@@ -3,27 +3,29 @@
 #include <stdlib.h>
 #include <iostream>   
 
-using namespace std;
-
 int main(){
 	
-	Jeu jeu(1,20,1000,0);
+	Jeu* jeu = new Jeu(1,20,1000,0);
 	
-	IntelligenceArtificielle IA(false, 1000);
+	IntelligenceArtificielle IA(true, 1000);
 	
-	jeu.setJoueur(IA);
+	IA.setJeu(jeu);
+	jeu->setJoueur(IA);
 	
-	jeu.distributionMain();
-
-	((IntelligenceArtificielle) jeu.getJoueur(1)).jouer();
+	jeu->distributionMain();
 	
-	/*Carte c1(13, 2);
-	Carte c2(12, 2);
-
-	IA.ajouteCarte(c2);
-	IA.ajouteCarte(c1);
+	((IntelligenceArtificielle) jeu->getJoueur(1)).jouer();
 	
-	IA.jouer();*/
-
+	std::cout << "--------------------------------------------------" << std::endl;
+	
+	((IntelligenceArtificielle) jeu->getJoueur(1)).executeCommande();
+	
+	std::cout << jeu->getPot() << std::endl;
+	
+	jeu->getJoueur(0).executeCommande();
+	
+	std::cout << jeu->getPot() << std::endl;
+	
+	free(jeu);
 	return 1;
 }  

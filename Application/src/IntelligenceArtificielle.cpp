@@ -13,7 +13,10 @@ IntelligenceArtificielle::~IntelligenceArtificielle(){
 
 }
 
-
+/**
+*@action : Permet d'obtenir la probabilité pre-Flop
+*@return : La probabilitee pre-Flop de la main courant
+**/
 double IntelligenceArtificielle::calculProba(){
 
 	std::ifstream fichier("../Probas/probas_preflops", std::ios::in);
@@ -94,7 +97,6 @@ double IntelligenceArtificielle::calculProba(){
 					main += "K";
 					break;
 				}
-			
 			}
 			   	
         	}
@@ -111,7 +113,6 @@ double IntelligenceArtificielle::calculProba(){
     
     		//TODO : Attention il faudra gérer le cas KQ et QK, il s'agit de la meme main mais seulement une est reconnue
                 while(getline(fichier, ligne) ){
-                	
         		isstream.str(ligne);
         		getline(isstream, mot, ' ');
         		
@@ -133,14 +134,20 @@ double IntelligenceArtificielle::calculProba(){
 	return probabilite;
 }
 
+/**
+*@action : Permet d'obtenir les carte communes
+*@param  : Un ensemble de carte representant les cartes communes
+**/
 void IntelligenceArtificielle::setTable(std::vector<Carte> tab){
 	this->table = tab;
 }
 
+
+/**
+*@action : Pemet a l'IA de jouer
+**/
 void IntelligenceArtificielle::jouer(){
 	std::cout << this->main.at(0).getRang() << "," << this->main.at(0).getCouleur() << std::endl;
 	std::cout << this->main.at(1).getRang() << "," << this->main.at(1).getCouleur() << std::endl;
 	std::cout << this->calculProba() << std::endl;
 }
-
-
