@@ -68,11 +68,11 @@ class Jeu{
 		void initialisationTable(int nbJoueur, int cave);
 		std::vector<Carte> nouveauDeck();
 		
-		void miser(Joueur joueur, int jetons);
-		void relancer(Joueur joueur, int jetons);
-		void suivre(Joueur joueur);
-		void checker(Joueur joueur);
-		void seCoucher(Joueur joueur);
+		void miser(int posJoueur, int jetons);
+		void relancer(int posJoueur, int jetons);
+		void suivre(int posJoueur);
+		void checker(int posJoueur);
+		void seCoucher(int posJoueur;
 		void prochainJoueur();
 		bool debutTour();
 		bool finDuTour();
