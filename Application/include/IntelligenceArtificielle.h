@@ -2,12 +2,30 @@
 #define IntelligenceArtificielle_h
 
 #include "Joueur.h"
+#include <vector>
+#include <iostream>
+#include <fstream>
+#include <string>
+
 
 class IntelligenceArtificielle : public Joueur {
 
-	protected :
-		double calculProba();
-			
+	//Attributs
+	private:
+		std::vector<Carte> table;
+		double calculProba();	
+	
+	//Constructeur et destructeur
+	public :
+		IntelligenceArtificielle(bool estDealer, int jetons);
+		IntelligenceArtificielle(Joueur joueur);
+		~IntelligenceArtificielle();
+		
+	//Mutateur
+		void setTable(std::vector<Carte> tab);
+		
+	//Methodes
+		void jouer();		
 	
 };
 

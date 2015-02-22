@@ -2,7 +2,9 @@
 #define Joueur_h
 
 #include <vector>
-#include "../include/Carte.h"
+#include "Carte.h"
+
+class Jeu;
 
 class Joueur{
 
@@ -11,6 +13,7 @@ class Joueur{
 		bool 			dealer;
 		std::vector<Carte>	main;
 		int			cave;
+		Jeu*			jeu;
 		
 	//Constructeur et destructeur
 	public:
@@ -18,7 +21,10 @@ class Joueur{
 		~Joueur();
 		
 	//Accesseur
-		int  getCave() const;
+		int  			getCave() const;
+		std::vector<Carte>	getMain() const;
+		void 			setJeu(Jeu* j);
+		Jeu*			getJeu() const;
 		
 	//Methodes
 		void ajouteJetons(int jetons);
@@ -26,6 +32,7 @@ class Joueur{
 		void ajouteCarte(Carte carte);
 		bool estDealer();
 		void resetMain();
+		void executeCommande();
 		
 };
 

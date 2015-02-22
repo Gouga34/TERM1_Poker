@@ -1,5 +1,14 @@
 #include "../include/Carte.h"
 
+/**
+
+
+Couleur  { Pique = 0, Coeurs = 1, Trefle = 2, Carreau = 3 };
+enum eValue { As = 1, 2, 3, 4, 5,  6,  7, 8,  9, 10, Valet = 11, Dame = 12, Roi = 13 };
+
+
+**/
+
 
 /**
 *@param  : La couleur et le rang de la carte
