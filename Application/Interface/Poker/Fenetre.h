@@ -17,10 +17,6 @@ class Fenetre : public QWidget
 
     private:
 
-        QList<QLabel*> main;
-        QList<QLabel*> mainAdverse;
-        QList<QLabel*> communes;
-
         ListeCartes layoutMain;
         ListeCartes layoutMainAdverse;
         ListeCartes layoutCartesCommunes;
@@ -30,7 +26,13 @@ class Fenetre : public QWidget
 
         QSpinBox valeur;
 
-        QPushButton *next;
+        QPushButton next;
+
+        QPushButton boutonChecker;
+        QPushButton boutonMiser;
+        QPushButton boutonSuivre;
+        QPushButton boutonRelancer;
+        QPushButton boutonSeCoucher;
 
         Jeu *jeu;
 
@@ -41,15 +43,33 @@ class Fenetre : public QWidget
         Fenetre(Jeu *j);
         ~Fenetre();
 
+        void activeBoutons(bool active);
+
+    signals:
+
+        void tourFini();
+
     public slots:
 
         void demarragePartie();
 
         void distributionFlop();
 
+        void joueurCourant();
+
+        void prochainJoueur();
+
+        /** Actions joueur **/
+
+        void checker();
+
         void miser();
 
-        void ajouterCarte();
+        void suivre();
+
+        void relancer();
+
+        void seCoucher();
 };
 
 #endif // FENETRE_H

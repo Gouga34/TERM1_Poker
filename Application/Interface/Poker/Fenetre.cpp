@@ -36,26 +36,6 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
         textureCartes = new QPixmap("deck.png");
     }
 
-//    CarteGraphique *c1 = new CarteGraphique(1, 2);
-//    CarteGraphique *c2 = new CarteGraphique(10, 0);
-
-//    CarteGraphique *dos = new CarteGraphique(0, 0);
-//    CarteGraphique *dos2 = new CarteGraphique(0, 0);
-
-//    CarteGraphique *c3 = new CarteGraphique(1, 3);
-//    CarteGraphique *c4 = new CarteGraphique(3, 0);
-//    CarteGraphique *c5 = new CarteGraphique(13, 1);
-
-    // Création des listes
-
-//    main << c1 << c2;
-//    mainAdverse << dos << dos2;
-//    communes << c3 << c4 << c5;
-
-//    layoutMain.ajoutCartes(main);
-//    layoutMainAdverse.ajoutCartes(mainAdverse);
-//    layoutCartesCommunes.ajoutCartes(communes);
-
 
     // ////////////////////////////////////////////////////
     // Compteurs
@@ -82,30 +62,34 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
     layoutBoutons->setSpacing(10);
     layoutBoutons->setAlignment(Qt::AlignTop);
 
-    QPushButton *boutonChecker = new QPushButton("Checker");
-    QPushButton *boutonMiser = new QPushButton("Miser");
-    QPushButton *boutonSuivre = new QPushButton("Suivre");
-    QPushButton *boutonRelancer = new QPushButton("Relancer");
-    QPushButton *boutonSeCoucher = new QPushButton("Se coucher");
+    boutonChecker.setText("Checker");
+    boutonMiser.setText("Miser");
+    boutonSuivre.setText("Suivre");
+    boutonRelancer.setText("Relancer");
+    boutonSeCoucher.setText("Se coucher");
 
-    layoutBoutons->addWidget(boutonChecker);
-    layoutBoutons->addWidget(boutonMiser);
-    layoutBoutons->addWidget(boutonSuivre);
-    layoutBoutons->addWidget(boutonRelancer);
-    layoutBoutons->addWidget(boutonSeCoucher);
+    layoutBoutons->addWidget(&boutonChecker);
+    layoutBoutons->addWidget(&boutonMiser);
+    layoutBoutons->addWidget(&boutonSuivre);
+    layoutBoutons->addWidget(&boutonRelancer);
+    layoutBoutons->addWidget(&boutonSeCoucher);
 
 
-    connect(boutonMiser, SIGNAL(clicked()), this, SLOT(miser()));
-    //connect(boutonSeCoucher, SIGNAL(clicked()), this, SLOT(seCoucher()));
+    connect(&boutonChecker, SIGNAL(clicked()), this, SLOT(checker()));
+    connect(&boutonMiser, SIGNAL(clicked()), this, SLOT(miser()));
+    connect(&boutonSuivre, SIGNAL(clicked()), this, SLOT(suivre()));
+    connect(&boutonRelancer, SIGNAL(clicked()), this, SLOT(relancer()));
+    connect(&boutonSeCoucher, SIGNAL(clicked()), this, SLOT(seCoucher()));
 
+    activeBoutons(false);
 
     // ////////////////////////////////////////////////////
     // Fenetre
     // ////////////////////////////////////////////////////
 
-    next = new QPushButton("Next");
-    next->setMaximumSize(70, 30);
-    connect(next, SIGNAL(clicked()), this, SLOT(demarragePartie()));
+    next.setText("Next");
+    next.setMaximumSize(70, 30);
+    connect(&next, SIGNAL(clicked()), this, SLOT(demarragePartie()));
 
 
     layoutJoueur->setAlignment(Qt::AlignRight);
@@ -125,7 +109,7 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
     layoutOptions->setSpacing(150);
     layoutOptions->setAlignment(Qt::AlignHCenter);
 
-    layoutOptions->addWidget(next);
+    layoutOptions->addWidget(&next);
     layoutOptions->addWidget(&pot);
     layoutOptions->addLayout(layoutJoueur);
 
@@ -135,6 +119,8 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
     layout->addLayout(layoutOptions);
 
     setLayout(layout);
+
+    connect(this, SIGNAL(tourFini()), this, SLOT(prochainJoueur()));
 }
 
 Fenetre::~Fenetre()
@@ -146,25 +132,36 @@ void Fenetre::demarragePartie()
 {
     jeu->distributionMain();
 
+    // Main du joueur
+
+    // TODO Récupérer les cartes distribuées par le jeu
+
+    /*
+        std::vector<Carte> mainCourante = jeu->getJoueur(0).getMain();
+
+        for (int i = 0; i < mainCourante.size(); i++){
+            CarteGraphique *c = new CarteGraphique(mainCourante.at(i));
+            layoutMain.addWidget(c);
+        }
+    */
+
+    CarteGraphique *c1 = new CarteGraphique(1, 1);
+    CarteGraphique *c2 = new CarteGraphique(2, 1);
+
+    layoutMain.addWidget(c1);
+    layoutMain.addWidget(c2);
+
+    // Main adverse
+
     CarteGraphique *dos = new CarteGraphique(0, 0);
     CarteGraphique *dos2 = new CarteGraphique(0, 0);
 
-    // Création des listes
+    layoutMainAdverse.addWidget(dos);
+    layoutMainAdverse.addWidget(dos2);
 
-    mainAdverse << dos << dos2;
-    layoutMainAdverse.ajoutCartes(mainAdverse);
-/*
-    std::vector<Carte> mainCourante = jeu->getJoueur(0).getMain();
 
-    for (int i = 0; i < mainCourante.size(); i++){
-        CarteGraphique *c = new CarteGraphique(mainCourante.at(i));
-        main.append(c);
-    }
-
-    layoutMain.ajoutCartes(main);*/
-
-    disconnect(next, SIGNAL(clicked()), this, SLOT(demarragePartie()));
-    connect(next, SIGNAL(clicked()), this, SLOT(distributionFlop()));
+    disconnect(&next, SIGNAL(clicked()), this, SLOT(demarragePartie()));
+    connect(&next, SIGNAL(clicked()), this, SLOT(distributionFlop()));
 }
 
 void Fenetre::distributionFlop()
@@ -179,18 +176,85 @@ void Fenetre::distributionFlop()
     }
 
     layoutCartesCommunes.ajoutCartes(communes);*/
+
+    CarteGraphique *c1 = new CarteGraphique(3, 1);
+    CarteGraphique *c2 = new CarteGraphique(4, 1);
+    CarteGraphique *c3 = new CarteGraphique(5, 1);
+
+    layoutCartesCommunes.addWidget(c1);
+    layoutCartesCommunes.addWidget(c2);
+    layoutCartesCommunes.addWidget(c3);
+
+    disconnect(&next, SIGNAL(clicked()), this, SLOT(distributionFlop()));
+    connect(&next, SIGNAL(clicked()), this, SLOT(joueurCourant()));
+
+    joueurCourant();
+}
+
+void Fenetre::activeBoutons(bool active)
+{
+    boutonChecker.setEnabled(active);
+    boutonMiser.setEnabled(active);
+    boutonRelancer.setEnabled(active);
+    boutonSuivre.setEnabled(active);
+    boutonSeCoucher.setEnabled(active);
+}
+
+void Fenetre::joueurCourant()
+{
+    activeBoutons(true);
+    next.setEnabled(false);
+}
+
+void Fenetre::prochainJoueur()
+{
+    activeBoutons(false);
+
+    /*if (jeu->isDealer(0)) {
+        jeu->etapeSuivante();
+    }
+    else {
+        // jeu IA
+    }*/
+
+    next.setEnabled(true);
+}
+
+void Fenetre::checker()
+{
+    //jeu->checker(0);
+    emit tourFini();
 }
 
 void Fenetre::miser()
 {
+    //jeu->miser(0);
+
     int montant = valeur.value();
 
     cave.display(cave.value() - montant);
     pot.display(pot.value() + montant);
+
+    emit tourFini();
 }
 
-void Fenetre::ajouterCarte()
+void Fenetre::suivre()
 {
-    //communes << nouvelleCarte
-    //layoutCartesCommunes.addWidget(nouvelleCarte);
+    //jeu->suivre(0);
+
+    emit tourFini();
+}
+
+void Fenetre::relancer()
+{
+    //jeu->relancer(0);
+
+    emit tourFini();
+}
+
+void Fenetre::seCoucher()
+{
+    //jeu->seCoucher(0);
+
+    emit tourFini();
 }
