@@ -154,7 +154,7 @@ int Jeu::getJoueurCourant() const{
 *@action : Permet d'obtenir le joueur en i-eme position
 *@return : Le joueur en i-eme position
 **/
-Joueur Jeu::getJoueur(int i) const{
+Joueur& Jeu::getJoueur(int i){
 	return this->positionnement.at(i);
 }
 
@@ -211,7 +211,7 @@ void Jeu::relancer(int posJoueur, int jetons){
 **/
 void Jeu::suivre(int posJoueur){
 	this->setPot(this->getPot() +  this->mise);
-	this->getJoueur(posJoueur).retireJetons(jetons);
+    this->getJoueur(posJoueur).retireJetons(this->mise);
 	this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::SUIVRE;
 }
 
@@ -287,6 +287,11 @@ void Jeu::prochainJoueur(){
 
 void Jeu::resetActions(){
 	for(int i=0; i<this->actions.size(); i++){
-		this->action.at(i) = TYPES::ACTION_LIST::EN_ATTENTE;
+        this->actions.at(i) = TYPES::ACTION_LIST::EN_ATTENTE;
 	}
 }
+
+std::vector<Carte> Jeu::getTable() const{
+    return this->table;
+}
+

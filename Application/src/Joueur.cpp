@@ -104,7 +104,7 @@ Jeu* Joueur::getJeu() const {
 *@action : Execute les actions 
 **/
 void Joueur::executeCommande(){
-	jeu->miser((*this), 10);
+    //jeu->miser((*this), 10);
 }
 
 void Joueur::changeDealer(){

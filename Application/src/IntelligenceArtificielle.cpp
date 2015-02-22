@@ -19,13 +19,14 @@ IntelligenceArtificielle::~IntelligenceArtificielle(){
 **/
 double IntelligenceArtificielle::calculProba(){
 
-	std::ifstream fichier("../Probas/probas_preflops", std::ios::in);
+    std::ifstream fichier("../../Probas/probas_preflops", std::ios::in);
 	double probabilite = 0;
  
         if(fichier){
         	int rangCarte;       
         	    	
         	std::string main = "";
+            std::string main2 = "";
         	
         	for(int i=0; i<2; i++){
         	
@@ -35,75 +36,46 @@ double IntelligenceArtificielle::calculProba(){
 			
 				case 1 : {
 					main += "A";
-					break;
-				}
-				
-				case 2 : {
-					main += "2";
-					break;
-				}
-				
-				case 3 : {
-					main += "3";
-					break;
-				}
-				
-				case 4 : {
-					main += "4";
-					break;
-				}
-				
-				case 5 : {
-					main += "5";
-					break;
-				}
-				
-				case 6 : {
-					main += "6";
-					break;
-				}
-				
-				case 7 : {
-					main += "7";
-					break;
-				}
-				
-				case 8 : {
-					main += "8";
-					break;
-				}
-				
-				case 9 : {
-					main += "9";
+                    main2 = "A" + main2;
 					break;
 				}
 				
 				case 10 : {
 					main += "T";
+                    main2 = "T" + main2;
 					break;
 				}
 				
 				case 11 : {
 					main += "J";
+                    main2 = "J" + main2;
 					break;
 				}
 				
 				case 12 : {
 					main += "Q";
+                    main2 = "Q" + main2;
 					break;
 				}
 				
 				case 13 : {
 					main += "K";
+                    main2 = "K" + main2;
 					break;
 				}
+
+                default:
+                    main += std::to_string(rangCarte);
+                    main2 = std::to_string(rangCarte) + main2;
+                    break;
 			}
 			   	
-        	}
+        }
         	
-        	if(this->main.at(0).getCouleur() == this->main.at(1).getCouleur()){
+        if(this->main.at(0).getCouleur() == this->main.at(1).getCouleur()){
         		std::cout << this->main.at(0).getCouleur() << "," << this->main.at(1).getCouleur() << std::endl;
 			main += "*";
+            main2 += "*";
 		}
 		
 		std::string ligne;
@@ -116,16 +88,13 @@ double IntelligenceArtificielle::calculProba(){
         		isstream.str(ligne);
         		getline(isstream, mot, ' ');
         		
-        		if(mot == main){
+                if(mot == main || mot == main2){
+                    probabilite = atof(ligne.substr(4,4).c_str());
         			break;
         		}
                 	
                 }
-                
-                std::cout << main << std::endl;
-                probabilite = atof(ligne.substr(4,4).c_str());
 
-        	
                 fichier.close();
         }else{
         	 std::cerr << "Impossible d'ouvrir le fichier !" << std::endl;
