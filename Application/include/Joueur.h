@@ -14,10 +14,11 @@ class Joueur{
 		std::vector<Carte>	main;
 		int			cave;
 		Jeu*			jeu;
+		int			position;
 		
 	//Constructeur et destructeur
 	public:
-		Joueur(bool estDealer, int jetons);
+		Joueur(bool estDealer, int jetons, int position);
 		~Joueur();
 		
 	//Accesseur
@@ -25,6 +26,7 @@ class Joueur{
 		std::vector<Carte>	getMain() const;
 		void 			setJeu(Jeu* j);
 		Jeu*			getJeu() const;
+		int			getPosition() const;
 		
 	//Methodes
 		void ajouteJetons(int jetons);
@@ -33,6 +35,7 @@ class Joueur{
 		bool estDealer();
 		void resetMain();
 		void executeCommande();
+		void changeDealer();
 		
 };
 

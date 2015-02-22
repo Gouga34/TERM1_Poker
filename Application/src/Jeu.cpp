@@ -3,7 +3,7 @@
 #include "../include/IntelligenceArtificielle.h"
 
 /**
-*@param  : Le nombre de joueur, le montant de la blind de depart, la *	cave de depart des joueurs et le type de proffiling de l'IA
+*@param  : Le nombre de joueur, le montant de la blind de depart, la cave de depart des joueurs et le type de proffiling de l'IA
 *@action : Initialise un nouveau jeu
 **/
 Jeu::Jeu(int nbJoueur, int blindDepart, int cave, int typeIA){
@@ -15,6 +15,7 @@ Jeu::Jeu(int nbJoueur, int blindDepart, int cave, int typeIA){
 	this->joueurCourant = 0;
 	this->pot = 0;
 	this->nombreDeCoup = 0;
+	this->dealer = 0;
 }
 
 /**
@@ -32,7 +33,11 @@ Jeu::~Jeu(){
 void Jeu::initialisationTable(int nbJoueur, int cave){
 	
 	for(int i=0; i<nbJoueur; i++){
-		Joueur joueur(false,cave);
+		if( i == 0){
+			Joueur joueur(true,cave,i);
+		}else{
+			Joueur joueur(false,cave,i);
+		}
 		joueur.setJeu(this);
 		this->positionnement.push_back(joueur);
 	}
@@ -45,6 +50,7 @@ void Jeu::distributionMain(){
 
 	int position;
 	
+	this->actions.clear();
 	for(int i =0; i< 2*this->positionnement.size(); i++){
 		position = rand() % deck.size();
 		this->positionnement.at(i % this->positionnement.size()).ajouteCarte(this->deck.at(position));
@@ -59,6 +65,7 @@ void Jeu::distributionFlop(){
 	
 	int position;
 	
+	this->actions.clear();
 	for(int i=0; i<3; i++){
 		position = rand() % deck.size();
 		this->table.push_back(this->deck.at(position) );
@@ -73,6 +80,7 @@ void Jeu::distributionTurn(){
 
 	int position;
 	
+	this->actions.clear();
 	position = rand() % deck.size();
 	this->table.push_back(this->deck.at(position) );
 	this->deck.erase(this->deck.begin() + position);
@@ -86,6 +94,7 @@ void Jeu::distributionRiver(){
 
 	int position;
 	
+	this->actions.clear();
 	position = rand() % deck.size();
 	this->table.push_back(this->deck.at(position) );
 	this->deck.erase(this->deck.begin() + position);
@@ -180,8 +189,7 @@ void Jeu::miser(Joueur joueur, int jetons){
 	this->setPot(this->getPot() + jetons);
 	joueur.retireJetons(jetons);
 	this->mise = jetons;
-	this->actions.push_back(TYPES::ACTION_LIST::MISER);
-
+	this->actions[joueur.getPosition()] = TYPES::ACTION_LIST::MISER;
 }
 
 /**
@@ -192,7 +200,7 @@ void Jeu::relancer(Joueur joueur, int jetons){
 	this->setPot(this->getPot() + jetons);
 	joueur.retireJetons(jetons);
 	this->mise = jetons;
-	this->actions.push_back(TYPES::ACTION_LIST::RELANCER);
+	this->actions[joueur.getPosition()] = TYPES::ACTION_LIST::RELANCER;
 }
 
 /**
@@ -202,7 +210,7 @@ void Jeu::relancer(Joueur joueur, int jetons){
 void Jeu::suivre(Joueur joueur){
 	this->setPot(this->getPot() +  this->mise);
 	joueur.retireJetons(this->mise);
-	this->actions.push_back(TYPES::ACTION_LIST::SUIVRE);
+	this->actions[joueur.getPosition()] = TYPES::ACTION_LIST::SUIVRE;
 }
 
 /**
@@ -210,7 +218,7 @@ void Jeu::suivre(Joueur joueur){
 *@param  : Le joueur effectuant l'action
 **/
 void Jeu::checker(Joueur joueur){
-	this->actions.push_back(TYPES::ACTION_LIST::CHECKER);
+	this->actions[joueur.getPosition()] = TYPES::ACTION_LIST::CHECKER;
 }
 
 /**
@@ -219,4 +227,58 @@ void Jeu::checker(Joueur joueur){
 **/
 void Jeu::seCoucher(Joueur joueur){
 	this->actions.push_back(TYPES::ACTION_LIST::SE_COUCHER);
+}
+
+/**
+*@action  : Permet de savoir si l'on est en début de tour
+*@return  : Vrai si l'on se trouve en debut de tour, faux sinon
+**/
+bool Jeu::debutTour(){
+	if(this->actions.size() == 0){
+		return true;
+	}else{
+		return false;
+	}
+}
+
+/**
+*@action  : Permet de savoit si le tour est terminé
+*@return  : Vrai si le tour est termnié, faux sinon
+**/
+bool Jeu::finDuTour(){
+	int i = 1;
+	while( i <= this->positionnement.size() - 1){
+		if( this->actions.at( (this->getJoueurCourant() + i) % this->positionnement.size() ) != TYPES::ACTION_LIST::CHECKER 
+		&&  this->actions.at( (this->getJoueurCourant() + i) % this->positionnement.size() ) != TYPES::ACTION_LIST::SUIVRE
+		&&  this->actions.at( (this->getJoueurCourant() + i) % this->positionnement.size() ) != TYPES::ACTION_LIST::SE_COUCHER  ){
+			return false;
+		}
+		
+		i++;
+	}
+	
+	return true;
+}
+
+/**
+*@action  : Permet de connaitre l'action effectué par le joueur courant
+*@return  : L'action effectué par le joueur courant
+**/
+TYPES::ACTION_LIST Jeu::getAction() const{
+	return this->actions.at(this->getJoueurCourant());
+}
+
+void Jeu::prochainJoueur(){
+	if(this->finDuTour()){
+		this->joueurCourant = this->dealer;
+		if(this->table.size() == 0 ){
+			this->distributionFlop();
+		}else if (this->table.size() == 3){
+			this->distributionTurn();
+		}else{
+			this->distributionRiver();
+		}
+	}else{
+		this->joueurCourant = (this->joueurCourant + 1) % this->positionnement.size();
+	}
 }

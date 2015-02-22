@@ -38,6 +38,7 @@ class Jeu{
 		int 					pot;
 		int 					nombreDeCoup;
 		int 					mise;
+		int					dealer;
 		
 	//Constructeur et destructeur
 	public:
@@ -45,12 +46,15 @@ class Jeu{
 		~Jeu();
 		
 	//Accesseur
-		int 		getBlind() const;
-		int 		getJoueurCourant() const;
-		Joueur 		getJoueur(int i) const;
-		void 		setJoueur(Joueur joueur);
-		int		getPot() const;
-		void		setPot(int jetons);
+		int 			getBlind() const;
+		int 			getJoueurCourant() const;
+		Joueur 			getJoueur(int i) const;
+		void 			setJoueur(Joueur joueur);
+		std::vector<Carte>	getTable() const;
+		int			getPot() const;
+		void			setPot(int jetons);
+		TYPES::ACTION_LIST	getAction() const;
+		int 			getDealer() const;
 	
 	//Methodes	
 	//private:
@@ -68,6 +72,9 @@ class Jeu{
 		void suivre(Joueur joueur);
 		void checker(Joueur joueur);
 		void seCoucher(Joueur joueur);
+		void prochainJoueur();
+		bool debutTour();
+		bool finDuTour();
 		
 	
 		
