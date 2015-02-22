@@ -6,9 +6,9 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-    Jeu jeu(2, 20, 1000, 0);
+    Jeu *jeu = new Jeu(2, 20, 1000, 0);
 
-    Fenetre fenetre(&jeu);
+    Fenetre fenetre(jeu);
     fenetre.show();
 
     return app.exec();

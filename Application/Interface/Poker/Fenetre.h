@@ -22,7 +22,8 @@ class Fenetre : public QWidget
         ListeCartes layoutCartesCommunes;
 
         QLCDNumber pot;
-        QLCDNumber cave;
+        QLCDNumber caveJoueur;
+        QLCDNumber caveIA;
 
         QSpinBox valeur;
 
@@ -53,7 +54,7 @@ class Fenetre : public QWidget
 
         void demarragePartie();
 
-        void distributionFlop();
+        void afficheTable();
 
         void joueurCourant();
 

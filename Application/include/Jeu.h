@@ -49,7 +49,7 @@ class Jeu{
 	//Accesseur
 		int 			getBlind() const;
 		int 			getJoueurCourant() const;
-		Joueur 			getJoueur(int i) const;
+        Joueur& 		getJoueur(int i);
 		void 			setJoueur(Joueur joueur);
 		std::vector<Carte>	getTable() const;
 		int			getPot() const;
@@ -72,7 +72,7 @@ class Jeu{
 		void relancer(int posJoueur, int jetons);
 		void suivre(int posJoueur);
 		void checker(int posJoueur);
-		void seCoucher(int posJoueur;
+        void seCoucher(int posJoueur);
 		void prochainJoueur();
 		bool debutTour();
 		bool finDuTour();

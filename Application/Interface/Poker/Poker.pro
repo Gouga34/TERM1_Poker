@@ -5,7 +5,8 @@ SOURCES += \
     ListeCartes.cpp \
     ../../src/Jeu.cpp \
     ../../src/Carte.cpp \
-    ../../src/Joueur.cpp
+    ../../src/Joueur.cpp \
+    ../../src/IntelligenceArtificielle.cpp
 
 QT+=widgets
 
@@ -15,4 +16,7 @@ HEADERS += \
     ListeCartes.h \
     ../../include/Jeu.h \
     ../../include/Carte.h \
-    ../../include/Joueur.h
+    ../../include/Joueur.h \
+    ../../include/IntelligenceArtificielle.h
+
+CONFIG += c++11

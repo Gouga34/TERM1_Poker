@@ -45,12 +45,13 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
     pot.setSegmentStyle(QLCDNumber::Filled);
     pot.display(0);
 
-    cave.setMaximumSize(100, 50);
-    cave.setSegmentStyle(QLCDNumber::Filled);
+    caveJoueur.setMaximumSize(100, 50);
+    caveJoueur.setSegmentStyle(QLCDNumber::Filled);
+    caveJoueur.display(jeu->getJoueur(0).getCave());
 
-    // TODO Récupérer la valeur de la cave dans le jeu
-    cave.display(1000);
-    //cave.display(j.getJoueur(0).getCave());
+    caveIA.setMaximumSize(100, 50);
+    caveIA.setSegmentStyle(QLCDNumber::Filled);
+    caveIA.display(jeu->getJoueur(1).getCave());
 
 
     // ////////////////////////////////////////////////////
@@ -95,7 +96,7 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
     layoutJoueur->setAlignment(Qt::AlignRight);
     layoutJoueur->setSpacing(50);
 
-    layoutJoueur->addWidget(&cave);
+    layoutJoueur->addWidget(&caveJoueur);
     layoutJoueur->addWidget(&valeur);
     layoutJoueur->addLayout(layoutBoutons);
 
@@ -110,6 +111,7 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
     layoutOptions->setAlignment(Qt::AlignHCenter);
 
     layoutOptions->addWidget(&next);
+    layoutOptions->addWidget(&caveIA);
     layoutOptions->addWidget(&pot);
     layoutOptions->addLayout(layoutJoueur);
 
@@ -134,22 +136,12 @@ void Fenetre::demarragePartie()
 
     // Main du joueur
 
-    // TODO Récupérer les cartes distribuées par le jeu
+    std::vector<Carte> mainCourante = jeu->getJoueur(0).getMain();
 
-    /*
-        std::vector<Carte> mainCourante = jeu->getJoueur(0).getMain();
-
-        for (int i = 0; i < mainCourante.size(); i++){
-            CarteGraphique *c = new CarteGraphique(mainCourante.at(i));
-            layoutMain.addWidget(c);
-        }
-    */
-
-    CarteGraphique *c1 = new CarteGraphique(1, 1);
-    CarteGraphique *c2 = new CarteGraphique(2, 1);
-
-    layoutMain.addWidget(c1);
-    layoutMain.addWidget(c2);
+    for (int i = 0; i < mainCourante.size(); i++){
+        CarteGraphique *c = new CarteGraphique(mainCourante.at(i));
+        layoutMain.addWidget(c);
+    }
 
     // Main adverse
 
@@ -159,36 +151,50 @@ void Fenetre::demarragePartie()
     layoutMainAdverse.addWidget(dos);
     layoutMainAdverse.addWidget(dos2);
 
-
     disconnect(&next, SIGNAL(clicked()), this, SLOT(demarragePartie()));
-    connect(&next, SIGNAL(clicked()), this, SLOT(distributionFlop()));
-}
 
-void Fenetre::distributionFlop()
-{
-    /*jeu->distributionFlop();
+    if (jeu->getJoueurCourant() == 0) {     // Joueur humain
+        joueurCourant();
+    }
+    else {                                  // Intelligence artificielle
+        static_cast<IntelligenceArtificielle>(jeu->getJoueur(jeu->getJoueurCourant())).jouer();
 
-    std::vector<Carte> flop = jeu->getTable();
+        switch (jeu->getAction()) {
+            case TYPES::ACTION_LIST::MISER:
 
-    for (int i = 0; i < flop.size(); i++){
-        CarteGraphique *c = new CarteGraphique(flop.at(i));
-        communes.append(c);
+                break;
+            case TYPES::ACTION_LIST::RELANCER:
+
+                break;
+            case TYPES::ACTION_LIST::SE_COUCHER:
+
+                break;
+            default:
+                break;
+        }
     }
 
-    layoutCartesCommunes.ajoutCartes(communes);*/
-
-    CarteGraphique *c1 = new CarteGraphique(3, 1);
-    CarteGraphique *c2 = new CarteGraphique(4, 1);
-    CarteGraphique *c3 = new CarteGraphique(5, 1);
-
-    layoutCartesCommunes.addWidget(c1);
-    layoutCartesCommunes.addWidget(c2);
-    layoutCartesCommunes.addWidget(c3);
-
-    disconnect(&next, SIGNAL(clicked()), this, SLOT(distributionFlop()));
+    disconnect(&next, SIGNAL(clicked()), this, SLOT(demarragePartie()));
     connect(&next, SIGNAL(clicked()), this, SLOT(joueurCourant()));
+}
 
-    joueurCourant();
+void Fenetre::afficheTable()
+{
+    QLayoutItem *item;
+
+    while ((item = layoutCartesCommunes.takeAt(0)) != 0) {
+        delete item->widget();
+        delete item;
+    }
+
+    std::vector<Carte> table = jeu->getTable();
+
+    for (int i = 0; i < table.size(); i++){
+        CarteGraphique *c = new CarteGraphique(table.at(i));
+        layoutCartesCommunes.addWidget(c);
+    }
+
+    //joueurCourant();
 }
 
 void Fenetre::activeBoutons(bool active)
@@ -210,44 +216,65 @@ void Fenetre::prochainJoueur()
 {
     activeBoutons(false);
 
-    /*if (jeu->isDealer(0)) {
-        jeu->etapeSuivante();
+    jeu->prochainJoueur();
+
+    if (jeu->debutTour()) {
+        afficheTable();
     }
-    else {
-        // jeu IA
-    }*/
+
+    if (jeu->getJoueurCourant() == 0) {     // Joueur humain
+        joueurCourant();
+    }
+    else {                                  // Intelligence artificielle
+        static_cast<IntelligenceArtificielle>(jeu->getJoueur(jeu->getJoueurCourant())).jouer();
+
+        switch (jeu->getAction()) {
+            case TYPES::ACTION_LIST::MISER:
+
+                break;
+            case TYPES::ACTION_LIST::RELANCER:
+
+                break;
+            case TYPES::ACTION_LIST::SE_COUCHER:
+
+                break;
+            default:
+                break;
+        }
+    }
 
     next.setEnabled(true);
 }
 
 void Fenetre::checker()
 {
-    //jeu->checker(0);
+    jeu->checker(0);
+
     emit tourFini();
 }
 
 void Fenetre::miser()
 {
-    //jeu->miser(0);
+    jeu->miser(0, valeur.value());
 
-    int montant = valeur.value();
-
-    cave.display(cave.value() - montant);
-    pot.display(pot.value() + montant);
+    caveJoueur.display(jeu->getJoueur(0).getCave());
+    pot.display(jeu->getPot());
 
     emit tourFini();
 }
 
 void Fenetre::suivre()
 {
-    //jeu->suivre(0);
+    jeu->suivre(0);
 
     emit tourFini();
 }
 
 void Fenetre::relancer()
 {
-    //jeu->relancer(0);
+    // TODO Vérifier que la valeur est supérieure à la mise courante
+
+    jeu->relancer(0, valeur.value());
 
     emit tourFini();
 }
