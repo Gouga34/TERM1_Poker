@@ -20,7 +20,8 @@ namespace TYPES
         RELANCER,
         SUIVRE,
         CHECKER,
-        SE_COUCHER
+        SE_COUCHER,
+        EN_ATTENTE
     };
 };
 
@@ -75,6 +76,7 @@ class Jeu{
 		void prochainJoueur();
 		bool debutTour();
 		bool finDuTour();
+		void resetActions();
 		
 	
 		

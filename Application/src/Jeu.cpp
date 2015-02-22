@@ -6,7 +6,7 @@
 *@param  : Le nombre de joueur, le montant de la blind de depart, la cave de depart des joueurs et le type de proffiling de l'IA
 *@action : Initialise un nouveau jeu
 **/
-Jeu::Jeu(int nbJoueur, int blindDepart, int cave, int typeIA){
+Jeu::Jeu(int nbJoueur, int blindDepart, int cave, int typeIA) : actions(nbJoueur,TYPES::ACTION_LIST::EN_ATTENTE){
 	srand((unsigned)time(0));
 	this->initialisationTable(nbJoueur, cave);	
 	this->deck = nouveauDeck(); 
@@ -35,11 +35,13 @@ void Jeu::initialisationTable(int nbJoueur, int cave){
 	for(int i=0; i<nbJoueur; i++){
 		if( i == 0){
 			Joueur joueur(true,cave,i);
+			joueur.setJeu(this);
+			this->positionnement.push_back(joueur);
 		}else{
 			Joueur joueur(false,cave,i);
+			joueur.setJeu(this);
+			this->positionnement.push_back(joueur);
 		}
-		joueur.setJeu(this);
-		this->positionnement.push_back(joueur);
 	}
 }
 
@@ -50,7 +52,7 @@ void Jeu::distributionMain(){
 
 	int position;
 	
-	this->actions.clear();
+	this->resetActions();
 	for(int i =0; i< 2*this->positionnement.size(); i++){
 		position = rand() % deck.size();
 		this->positionnement.at(i % this->positionnement.size()).ajouteCarte(this->deck.at(position));
@@ -65,7 +67,7 @@ void Jeu::distributionFlop(){
 	
 	int position;
 	
-	this->actions.clear();
+	this->resetActions();
 	for(int i=0; i<3; i++){
 		position = rand() % deck.size();
 		this->table.push_back(this->deck.at(position) );
@@ -80,7 +82,7 @@ void Jeu::distributionTurn(){
 
 	int position;
 	
-	this->actions.clear();
+	this->resetActions();
 	position = rand() % deck.size();
 	this->table.push_back(this->deck.at(position) );
 	this->deck.erase(this->deck.begin() + position);
@@ -94,7 +96,7 @@ void Jeu::distributionRiver(){
 
 	int position;
 	
-	this->actions.clear();
+	this->resetActions();
 	position = rand() % deck.size();
 	this->table.push_back(this->deck.at(position) );
 	this->deck.erase(this->deck.begin() + position);
@@ -226,7 +228,7 @@ void Jeu::checker(Joueur joueur){
 *@param  : Le joueur effectuant l'action
 **/
 void Jeu::seCoucher(Joueur joueur){
-	this->actions.push_back(TYPES::ACTION_LIST::SE_COUCHER);
+	this->actions[joueur.getPosition()] = TYPES::ACTION_LIST::SE_COUCHER;
 }
 
 /**
@@ -250,7 +252,7 @@ bool Jeu::finDuTour(){
 	while( i <= this->positionnement.size() - 1){
 		if( this->actions.at( (this->getJoueurCourant() + i) % this->positionnement.size() ) != TYPES::ACTION_LIST::CHECKER 
 		&&  this->actions.at( (this->getJoueurCourant() + i) % this->positionnement.size() ) != TYPES::ACTION_LIST::SUIVRE
-		&&  this->actions.at( (this->getJoueurCourant() + i) % this->positionnement.size() ) != TYPES::ACTION_LIST::SE_COUCHER  ){
+		&&  this->actions.at( (this->getJoueurCourant() + i) % this->positionnement.size() ) != TYPES::ACTION_LIST::SE_COUCHER){
 			return false;
 		}
 		
@@ -280,5 +282,11 @@ void Jeu::prochainJoueur(){
 		}
 	}else{
 		this->joueurCourant = (this->joueurCourant + 1) % this->positionnement.size();
+	}
+}
+
+void Jeu::resetActions(){
+	for(int i=0; i<this->actions.size(); i++){
+		this->action.at(i) = TYPES::ACTION_LIST::EN_ATTENTE;
 	}
 }
