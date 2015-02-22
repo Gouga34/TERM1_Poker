@@ -187,48 +187,48 @@ void Jeu::setPot(int jetons){
 *@action : Commande permettant a un joueur de miser
 *@param  : Le joueur effectuant l'action ainsi que le montant de la mise
 **/
-void Jeu::miser(Joueur joueur, int jetons){
+void Jeu::miser(int posJoueur, int jetons){
 	this->setPot(this->getPot() + jetons);
-	joueur.retireJetons(jetons);
+	this->getJoueur(posJoueur).retireJetons(jetons);
 	this->mise = jetons;
-	this->actions[joueur.getPosition()] = TYPES::ACTION_LIST::MISER;
+	this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::MISER;
 }
 
 /**
 *@action : Commande permettant a un joueur de relancer
 *@param  : Le joueur effectuant l'action ainsi que le montant de la relance
 **/
-void Jeu::relancer(Joueur joueur, int jetons){
+void Jeu::relancer(int posJoueur, int jetons){
 	this->setPot(this->getPot() + jetons);
-	joueur.retireJetons(jetons);
+	this->getJoueur(posJoueur).retireJetons(jetons);
 	this->mise = jetons;
-	this->actions[joueur.getPosition()] = TYPES::ACTION_LIST::RELANCER;
+	this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::RELANCER;
 }
 
 /**
 *@action : Commande permettant a un joueur de suivre
 *@param  : Le joueur effectuant l'action
 **/
-void Jeu::suivre(Joueur joueur){
+void Jeu::suivre(int posJoueur){
 	this->setPot(this->getPot() +  this->mise);
-	joueur.retireJetons(this->mise);
-	this->actions[joueur.getPosition()] = TYPES::ACTION_LIST::SUIVRE;
+	this->getJoueur(posJoueur).retireJetons(jetons);
+	this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::SUIVRE;
 }
 
 /**
 *@action : Commande permettant a un joueur de checker
 *@param  : Le joueur effectuant l'action
 **/
-void Jeu::checker(Joueur joueur){
-	this->actions[joueur.getPosition()] = TYPES::ACTION_LIST::CHECKER;
+void Jeu::checker(int posJoueur){
+	this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::CHECKER;
 }
 
 /**
 *@action : Commande permettant a un joueur de se coucher
 *@param  : Le joueur effectuant l'action
 **/
-void Jeu::seCoucher(Joueur joueur){
-	this->actions[joueur.getPosition()] = TYPES::ACTION_LIST::SE_COUCHER;
+void Jeu::seCoucher(int posJoueur){
+	this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::SE_COUCHER;
 }
 
 /**
