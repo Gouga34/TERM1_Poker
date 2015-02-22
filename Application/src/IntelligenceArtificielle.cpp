@@ -1,7 +1,7 @@
 #include "../include/IntelligenceArtificielle.h"
 #include <sstream> 
 
-IntelligenceArtificielle::IntelligenceArtificielle(bool estDealer, int jetons): Joueur(estDealer, jetons){
+IntelligenceArtificielle::IntelligenceArtificielle(bool estDealer, int jetons, int position): Joueur(estDealer, jetons, position){
 
 }
 

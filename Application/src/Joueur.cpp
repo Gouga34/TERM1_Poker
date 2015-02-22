@@ -7,10 +7,10 @@
 *		debut de la partie
 *@action : Cree un nouveau joueur
 **/
-Joueur::Joueur(bool estDealer, int jetons){
+Joueur::Joueur(bool estDealer, int jetons, int position){
 	this->dealer = estDealer;
-	this->main = *(new std::vector<Carte>());
 	this->cave = jetons;
+	this->position = position;
 }
 
 /**
@@ -27,6 +27,14 @@ Joueur::~Joueur(){
 **/
 int Joueur::getCave() const{
 	return this->cave;
+}
+
+/**
+*@action : Permet d'obtenir la position du joueur
+*@return : La position du joueur
+**/
+int Joueur::getPosition() const{
+	return this->position;
 }
 
 /**
@@ -97,4 +105,12 @@ Jeu* Joueur::getJeu() const {
 **/
 void Joueur::executeCommande(){
 	jeu->miser((*this), 10);
+}
+
+void Joueur::changeDealer(){
+	if(this->dealer){
+		this->dealer = false;
+	}else{
+		this->dealer = true;
+	}
 }

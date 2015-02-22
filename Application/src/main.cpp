@@ -7,7 +7,7 @@ int main(){
 	
 	Jeu* jeu = new Jeu(1,20,1000,0);
 	
-	IntelligenceArtificielle IA(true, 1000);
+	IntelligenceArtificielle IA(true, 1000,1);
 	
 	IA.setJeu(jeu);
 	jeu->setJoueur(IA);
