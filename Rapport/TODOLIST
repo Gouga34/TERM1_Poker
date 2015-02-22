@@ -1,0 +1,44 @@
+/************************************ TODOLIST  ******************************************************/
+
+- lire les articles fournis par le prof (ProbabilitiesAndSimulationsInPoker [morgane : en cours] / ComputerPoker)
+- analyse de l'existant : noter les différentes méthodes pour le profilage statique
+- faire chacun le résumé de son article (Morgane OK)
+- faire une interface graphique simple (En cours   manu)
+- IA basique (en cours, benjamin)
+- mise en commun IA basique et interface graphique (en cours )
+- Vérifier que les normes de prog sont bien respectées pr IA basique et interface graphique
+- faire un makefile
+- chercher et lire des articles sur le profilage dynamique
+- gestion de projet: planning previsionnel (Morgane, ok, à confirmer et à envoyer)
+- Interface graphique : Ajouter un tableau de bord pour debug (voir les différentes actions).
+- réfléchir à la façon de SAV les données de profilage (JSON ?)
+
+
+/**************************************** Articles à lire ************************************************/
+
+- Using  Probabilistic  Knowledge  and  Simulation  to  Play  Poker  
+- Opponent Modeling in Poker 
+- Poker as a Testbed for AI Research' 
+
+
+/****************************************** Articles lus ***********************************************/
+- Player Profiling in Texas Holdem          MORGANE
+- Adaptative play in texas hold'em poker    Benjamin
+- Improved Opponent Modeling In Poker       Manu
+
+
+
+/******************************************* @ GIT *****************************************************/
+https://github.com/Gouga34/TERM1_Poker
+
+
+
+/***************************************** Rapport ******************************************************/
+plan du cahier des charges :
+1. Problématique (la diviser en d'autres points?)
+2. Fonctionnalités obligatoires (Cf besoins) (la diviser en d'autres points?)
+3. Fonctionnalités optionnelles (plusieurs joueurs, possibilité de discuter entre joueurs)
+4. Spécifications techniques 
+5. Organisation prévisionnelle (gantt)
+
+
