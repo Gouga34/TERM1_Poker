@@ -41,14 +41,19 @@ class Fenetre : public QWidget
 
         Jeu *jeu;
 
+
+        void activeBoutons(bool active);
+
+        void ajoutLogs(QString contenu);
+
+        void jeuIA();
+
     public:
 
         static QPixmap *textureCartes;
 
         Fenetre(Jeu *j);
         ~Fenetre();
-
-        void activeBoutons(bool active);
 
     signals:
 
