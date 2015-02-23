@@ -8,6 +8,7 @@
 #include <QLCDNumber>
 #include <QSpinBox>
 #include <QPushButton>
+#include <QTextEdit>
 #include "ListeCartes.h"
 #include "../../include/Jeu.h"
 
@@ -16,6 +17,9 @@ class Fenetre : public QWidget
     Q_OBJECT
 
     private:
+
+        QTextEdit logs;
+        QPushButton boutonLogs;
 
         ListeCartes layoutMain;
         ListeCartes layoutMainAdverse;
@@ -51,6 +55,8 @@ class Fenetre : public QWidget
         void tourFini();
 
     public slots:
+
+        void affichageLogs();
 
         void demarragePartie();
 

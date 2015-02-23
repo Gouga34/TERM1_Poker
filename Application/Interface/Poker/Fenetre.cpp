@@ -20,10 +20,25 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
 
     QHBoxLayout *layout = new QHBoxLayout;
 
+    QVBoxLayout *layoutLogs = new QVBoxLayout;
     QVBoxLayout *layoutJeu = new QVBoxLayout;
     QVBoxLayout *layoutOptions = new QVBoxLayout;
 
     QHBoxLayout *layoutJoueur = new QHBoxLayout;
+
+
+
+    // ////////////////////////////////////////////////////
+    // Logs
+    // ////////////////////////////////////////////////////
+
+    logs.setReadOnly(true);
+    logs.setMaximumSize(300, 300);
+
+    boutonLogs.setText("Afficher/Cacher");
+    boutonLogs.setMaximumWidth(300);
+
+    connect(&boutonLogs, SIGNAL(clicked()), this, SLOT(affichageLogs()));
 
 
     // ////////////////////////////////////////////////////
@@ -92,6 +107,12 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
     next.setMaximumSize(70, 30);
     connect(&next, SIGNAL(clicked()), this, SLOT(demarragePartie()));
 
+    layoutLogs->setAlignment(Qt::AlignTop);
+    layoutLogs->setSpacing(20);
+
+    layoutLogs->addWidget(&logs);
+    layoutLogs->addWidget(&boutonLogs);
+
 
     layoutJoueur->setAlignment(Qt::AlignRight);
     layoutJoueur->setSpacing(50);
@@ -115,8 +136,8 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
     layoutOptions->addWidget(&pot);
     layoutOptions->addLayout(layoutJoueur);
 
-
-    layout->addSpacing(200);
+    layout->setSpacing(100);
+    layout->addLayout(layoutLogs);
     layout->addLayout(layoutJeu);
     layout->addLayout(layoutOptions);
 
@@ -128,6 +149,13 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
 Fenetre::~Fenetre()
 {
 
+}
+
+void Fenetre::affichageLogs()
+{
+    bool visible = !logs.isHidden();
+
+    logs.setHidden(visible);
 }
 
 void Fenetre::demarragePartie()
