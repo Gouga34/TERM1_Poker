@@ -20,10 +20,25 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
 
     QHBoxLayout *layout = new QHBoxLayout;
 
+    QVBoxLayout *layoutLogs = new QVBoxLayout;
     QVBoxLayout *layoutJeu = new QVBoxLayout;
     QVBoxLayout *layoutOptions = new QVBoxLayout;
 
     QHBoxLayout *layoutJoueur = new QHBoxLayout;
+
+
+
+    // ////////////////////////////////////////////////////
+    // Logs
+    // ////////////////////////////////////////////////////
+
+    logs.setReadOnly(true);
+    logs.setMaximumSize(300, 300);
+
+    boutonLogs.setText("Afficher/Cacher");
+    boutonLogs.setMaximumWidth(300);
+
+    connect(&boutonLogs, SIGNAL(clicked()), this, SLOT(affichageLogs()));
 
 
     // ////////////////////////////////////////////////////
@@ -92,6 +107,12 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
     next.setMaximumSize(70, 30);
     connect(&next, SIGNAL(clicked()), this, SLOT(demarragePartie()));
 
+    layoutLogs->setAlignment(Qt::AlignTop);
+    layoutLogs->setSpacing(20);
+
+    layoutLogs->addWidget(&logs);
+    layoutLogs->addWidget(&boutonLogs);
+
 
     layoutJoueur->setAlignment(Qt::AlignRight);
     layoutJoueur->setSpacing(50);
@@ -115,8 +136,8 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
     layoutOptions->addWidget(&pot);
     layoutOptions->addLayout(layoutJoueur);
 
-
-    layout->addSpacing(200);
+    layout->setSpacing(100);
+    layout->addLayout(layoutLogs);
     layout->addLayout(layoutJeu);
     layout->addLayout(layoutOptions);
 
@@ -130,8 +151,22 @@ Fenetre::~Fenetre()
 
 }
 
+void Fenetre::affichageLogs()
+{
+    bool visible = !logs.isHidden();
+
+    logs.setHidden(visible);
+}
+
+void Fenetre::ajoutLogs(QString contenu)
+{
+    logs.setText(logs.toPlainText() + contenu + "\n");
+}
+
 void Fenetre::demarragePartie()
 {
+    ajoutLogs("Distribution des cartes");
+
     jeu->distributionMain();
 
     // Main du joueur
@@ -157,21 +192,7 @@ void Fenetre::demarragePartie()
         joueurCourant();
     }
     else {                                  // Intelligence artificielle
-        static_cast<IntelligenceArtificielle>(jeu->getJoueur(jeu->getJoueurCourant())).jouer();
-
-        switch (jeu->getAction()) {
-            case TYPES::ACTION_LIST::MISER:
-
-                break;
-            case TYPES::ACTION_LIST::RELANCER:
-
-                break;
-            case TYPES::ACTION_LIST::SE_COUCHER:
-
-                break;
-            default:
-                break;
-        }
+        jeuIA();
     }
 
     disconnect(&next, SIGNAL(clicked()), this, SLOT(demarragePartie()));
@@ -194,6 +215,8 @@ void Fenetre::afficheTable()
         layoutCartesCommunes.addWidget(c);
     }
 
+    ajoutLogs("Ajout de cartes sur la table");
+
     //joueurCourant();
 }
 
@@ -212,6 +235,31 @@ void Fenetre::joueurCourant()
     next.setEnabled(false);
 }
 
+void Fenetre::jeuIA()
+{
+    static_cast<IntelligenceArtificielle>(jeu->getJoueur(jeu->getJoueurCourant())).jouer();
+
+    switch (jeu->getAction()) {
+        case TYPES::ACTION_LIST::CHECKER:
+            ajoutLogs("IA check");
+            break;
+        case TYPES::ACTION_LIST::MISER:
+            ajoutLogs("IA mise");
+            break;
+        case TYPES::ACTION_LIST::SUIVRE:
+            ajoutLogs("IA suit");
+            break;
+        case TYPES::ACTION_LIST::RELANCER:
+            ajoutLogs("IA relance");
+            break;
+        case TYPES::ACTION_LIST::SE_COUCHER:
+            ajoutLogs("IA se couche");
+            break;
+        default:
+            break;
+    }
+}
+
 void Fenetre::prochainJoueur()
 {
     activeBoutons(false);
@@ -226,21 +274,7 @@ void Fenetre::prochainJoueur()
         joueurCourant();
     }
     else {                                  // Intelligence artificielle
-        static_cast<IntelligenceArtificielle>(jeu->getJoueur(jeu->getJoueurCourant())).jouer();
-
-        switch (jeu->getAction()) {
-            case TYPES::ACTION_LIST::MISER:
-
-                break;
-            case TYPES::ACTION_LIST::RELANCER:
-
-                break;
-            case TYPES::ACTION_LIST::SE_COUCHER:
-
-                break;
-            default:
-                break;
-        }
+        jeuIA();
     }
 
     next.setEnabled(true);
@@ -250,15 +284,21 @@ void Fenetre::checker()
 {
     jeu->checker(0);
 
+    ajoutLogs("Joueur 1 check");
+
     emit tourFini();
 }
 
 void Fenetre::miser()
 {
-    jeu->miser(0, valeur.value());
+    int montant = valeur.value();
+
+    jeu->miser(0, montant);
 
     caveJoueur.display(jeu->getJoueur(0).getCave());
     pot.display(jeu->getPot());
+
+    ajoutLogs("Joueur 1 mise " + QString::number(montant));
 
     emit tourFini();
 }
@@ -267,6 +307,8 @@ void Fenetre::suivre()
 {
     jeu->suivre(0);
 
+    ajoutLogs("Joueur 1 suit");
+
     emit tourFini();
 }
 
@@ -274,7 +316,11 @@ void Fenetre::relancer()
 {
     // TODO Vérifier que la valeur est supérieure à la mise courante
 
-    jeu->relancer(0, valeur.value());
+    int montant = valeur.value();
+
+    jeu->relancer(0, montant);
+
+    ajoutLogs("Joueur 1 relance " + QString::number(montant));
 
     emit tourFini();
 }
@@ -282,6 +328,8 @@ void Fenetre::relancer()
 void Fenetre::seCoucher()
 {
     //jeu->seCoucher(0);
+
+    ajoutLogs("Joueur 1 se couche");
 
     emit tourFini();
 }
