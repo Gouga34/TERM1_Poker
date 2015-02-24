@@ -18,25 +18,28 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
 
     this->jeu = j;
 
+
+    // Layout principal
     QHBoxLayout *layout = new QHBoxLayout;
-
-    QVBoxLayout *layoutLogs = new QVBoxLayout;
-    QVBoxLayout *layoutJeu = new QVBoxLayout;
-    QVBoxLayout *layoutOptions = new QVBoxLayout;
-
-    QHBoxLayout *layoutJoueur = new QHBoxLayout;
-
 
 
     // ////////////////////////////////////////////////////
     // Logs
     // ////////////////////////////////////////////////////
 
+    QVBoxLayout *layoutLogs = new QVBoxLayout;
+
     logs.setReadOnly(true);
     logs.setMaximumSize(300, 300);
 
     boutonLogs.setText("Afficher/Cacher");
-    boutonLogs.setMaximumWidth(300);
+    boutonLogs.setFixedWidth(300);
+
+    layoutLogs->setAlignment(Qt::AlignTop);
+    layoutLogs->setSpacing(20);
+
+    layoutLogs->addWidget(&logs);
+    layoutLogs->addWidget(&boutonLogs);
 
     connect(&boutonLogs, SIGNAL(clicked()), this, SLOT(affichageLogs()));
 
@@ -45,11 +48,19 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
     // Cartes
     // ////////////////////////////////////////////////////
 
+    QVBoxLayout *layoutJeu = new QVBoxLayout;
 
     // Chargement de l'image
     if (!textureCartes){
         textureCartes = new QPixmap("deck.png");
     }
+
+    layoutJeu->setSpacing(150);
+    layoutJeu->setAlignment(Qt::AlignTop);
+
+    layoutJeu->addLayout(&layoutMainAdverse);
+    layoutJeu->addLayout(&layoutCartesCommunes);
+    layoutJeu->addLayout(&layoutMain);
 
 
     // ////////////////////////////////////////////////////
@@ -73,6 +84,11 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
     // Boutons d'action
     // ////////////////////////////////////////////////////
 
+    next.setText("Next");
+    next.setMaximumSize(70, 30);
+    connect(&next, SIGNAL(clicked()), this, SLOT(demarragePartie()));
+
+
     QVBoxLayout *layoutBoutons = new QVBoxLayout;
 
     layoutBoutons->setSpacing(10);
@@ -90,7 +106,6 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
     layoutBoutons->addWidget(&boutonRelancer);
     layoutBoutons->addWidget(&boutonSeCoucher);
 
-
     connect(&boutonChecker, SIGNAL(clicked()), this, SLOT(checker()));
     connect(&boutonMiser, SIGNAL(clicked()), this, SLOT(miser()));
     connect(&boutonSuivre, SIGNAL(clicked()), this, SLOT(suivre()));
@@ -99,34 +114,22 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
 
     activeBoutons(false);
 
+
     // ////////////////////////////////////////////////////
     // Fenetre
     // ////////////////////////////////////////////////////
 
-    next.setText("Next");
-    next.setMaximumSize(70, 30);
-    connect(&next, SIGNAL(clicked()), this, SLOT(demarragePartie()));
-
-    layoutLogs->setAlignment(Qt::AlignTop);
-    layoutLogs->setSpacing(20);
-
-    layoutLogs->addWidget(&logs);
-    layoutLogs->addWidget(&boutonLogs);
-
+    QHBoxLayout *layoutJoueur = new QHBoxLayout;
 
     layoutJoueur->setAlignment(Qt::AlignRight);
     layoutJoueur->setSpacing(50);
 
     layoutJoueur->addWidget(&caveJoueur);
-    layoutJoueur->addWidget(&valeur);
+    layoutJoueur->addWidget(&valeurMise);
     layoutJoueur->addLayout(layoutBoutons);
 
-    layoutJeu->setSpacing(150);
-    layoutJeu->setAlignment(Qt::AlignTop);
 
-    layoutJeu->addLayout(&layoutMainAdverse);
-    layoutJeu->addLayout(&layoutCartesCommunes);
-    layoutJeu->addLayout(&layoutMain);
+    QVBoxLayout *layoutOptions = new QVBoxLayout;
 
     layoutOptions->setSpacing(150);
     layoutOptions->setAlignment(Qt::AlignHCenter);
@@ -136,6 +139,8 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
     layoutOptions->addWidget(&pot);
     layoutOptions->addLayout(layoutJoueur);
 
+
+    // Layout principal
     layout->setSpacing(100);
     layout->addLayout(layoutLogs);
     layout->addLayout(layoutJeu);
@@ -291,7 +296,7 @@ void Fenetre::checker()
 
 void Fenetre::miser()
 {
-    int montant = valeur.value();
+    int montant = valeurMise.value();
 
     jeu->miser(0, montant);
 
@@ -316,7 +321,7 @@ void Fenetre::relancer()
 {
     // TODO Vérifier que la valeur est supérieure à la mise courante
 
-    int montant = valeur.value();
+    int montant = valeurMise.value();
 
     jeu->relancer(0, montant);
 
