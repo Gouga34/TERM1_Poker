@@ -18,21 +18,26 @@ class Fenetre : public QWidget
 
     private:
 
+        // Logs
         QTextEdit logs;
         QPushButton boutonLogs;
 
+        // Liste des cartes
         ListeCartes layoutMain;
         ListeCartes layoutMainAdverse;
         ListeCartes layoutCartesCommunes;
 
+        // Compteur du pot et des caves des joueurs
         QLCDNumber pot;
         QLCDNumber caveJoueur;
         QLCDNumber caveIA;
 
-        QSpinBox valeur;
+        // Boite de saisie du montant de la mise
+        QSpinBox valeurMise;
 
         QPushButton next;
 
+        // Boutons d'action de jeu
         QPushButton boutonChecker;
         QPushButton boutonMiser;
         QPushButton boutonSuivre;
