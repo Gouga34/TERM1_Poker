@@ -96,7 +96,7 @@ void Joueur::setJeu(Jeu* j){
 *@action : Permet d'obtenir un pointeur sur l'instance du jeu courant
 *@return : Un pointeur sur l'instance de Jeu
 **/
-Jeu* Joueur::getJeu() const {
+Jeu* Joueur::getJeu(){
 	return this->jeu;
 }
 

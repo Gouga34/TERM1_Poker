@@ -25,7 +25,7 @@ class Joueur{
 		int  			getCave() const;
 		std::vector<Carte>	getMain() const;
 		void 			setJeu(Jeu* j);
-		Jeu*			getJeu() const;
+		Jeu*			getJeu();
 		int			getPosition() const;
 		
 	//Methodes

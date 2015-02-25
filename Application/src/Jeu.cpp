@@ -104,6 +104,22 @@ void Jeu::distributionRiver(){
 }
 
 /**
+*@action : Distribue les blinds en debut de partie
+**/
+void Jeu::distributionBlind(){
+
+	this->getJoueur( (this->getDealer() + 1) % this->positionnement.size() ).retireJetons(this->getBlind());
+	this->setPot(this->getBlind());
+	this->getJoueur( (this->getDealer() + 2) % this->positionnement.size() ).retireJetons(2 * this->getBlind());
+	this->setPot(this->getPot() + 2*this->getBlind());
+	this->joueurCourant = (this->getDealer() + 3)  % this->positionnement.size();
+}
+
+int Jeu::getDealer(){
+	return this->dealer;
+}
+
+/**
 *@action : Augmente le montant de la petite blind
 **/
 void Jeu::miseAJourBlind(){
@@ -293,5 +309,30 @@ void Jeu::resetActions(){
 
 std::vector<Carte> Jeu::getTable() const{
     return this->table;
+}
+
+/**
+*@action : Permet d'obtenir la mise de la partie courante
+*@return : Un entier représentant la mise courante
+**/
+int Jeu::getMise(){
+	return this->mise;
+}
+
+/**
+*@action : Permet de savoir si le joueur a la possibilite checker
+*@return : vrai si le joueur peut checker, faux sinon 
+**/
+bool Jeu::peutChecker(){
+
+	for(int i=0; i<this->actions.size(); i++){
+	
+		if(this->actions.at(i) == TYPES::ACTION_LIST::MISER || this->actions.at(i) == TYPES::ACTION_LIST::RELANCER){
+			return false;
+		}
+	
+	}
+	
+	return true;
 }
 

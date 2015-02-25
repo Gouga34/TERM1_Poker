@@ -116,7 +116,38 @@ void IntelligenceArtificielle::setTable(std::vector<Carte> tab){
 *@action : Pemet a l'IA de jouer
 **/
 void IntelligenceArtificielle::jouer(){
-	std::cout << this->main.at(0).getRang() << "," << this->main.at(0).getCouleur() << std::endl;
-	std::cout << this->main.at(1).getRang() << "," << this->main.at(1).getCouleur() << std::endl;
-	std::cout << this->calculProba() << std::endl;
+	
+	double proba = this->calculProba();
+	
+	if(proba > 75){
+		this->getJeu()->relancer(this->getPosition(), this->getJeu()->getMise() * 2);
+	}else if (proba > 50 ){
+		if(this->getJeu()->getMise() == 0){
+			this->getJeu()->miser(this->getPosition(), this->getJeu()->getBlind());
+		}else{
+			this->getJeu()->suivre(this->getPosition());
+		}
+		
+	}else{
+		if(this->getJeu()->peutChecker()){
+			this->getJeu()->checker(this->getPosition());
+		}else{
+			this->getJeu()->seCoucher(this->getPosition());
+		}
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

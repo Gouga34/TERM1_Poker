@@ -49,13 +49,15 @@ class Jeu{
 	//Accesseur
 		int 			getBlind() const;
 		int 			getJoueurCourant() const;
-        Joueur& 		getJoueur(int i);
+        	Joueur& 		getJoueur(int i);
 		void 			setJoueur(Joueur joueur);
 		std::vector<Carte>	getTable() const;
 		int			getPot() const;
 		void			setPot(int jetons);
 		TYPES::ACTION_LIST	getAction() const;
-		int 			getDealer() const;
+		int 			getDealer();
+		int			getMise();
+
 	
 	//Methodes	
 	//private:
@@ -63,16 +65,18 @@ class Jeu{
 		void distributionFlop();
 		void distributionTurn();
 		void distributionRiver();
+		void distributionBlind();
 		void miseAJourBlind();
 		void melange();
 		void initialisationTable(int nbJoueur, int cave);
 		std::vector<Carte> nouveauDeck();
+		bool peutChecker();
 		
 		void miser(int posJoueur, int jetons);
 		void relancer(int posJoueur, int jetons);
 		void suivre(int posJoueur);
 		void checker(int posJoueur);
-        void seCoucher(int posJoueur);
+       		void seCoucher(int posJoueur);
 		void prochainJoueur();
 		bool debutTour();
 		bool finDuTour();

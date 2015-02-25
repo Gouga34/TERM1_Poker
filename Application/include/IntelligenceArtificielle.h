@@ -2,11 +2,11 @@
 #define IntelligenceArtificielle_h
 
 #include "Joueur.h"
+#include "Jeu.h"
 #include <vector>
 #include <iostream>
 #include <fstream>
 #include <string>
-
 
 class IntelligenceArtificielle : public Joueur {
 
