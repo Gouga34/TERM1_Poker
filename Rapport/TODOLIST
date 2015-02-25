@@ -1,23 +1,21 @@
 /************************************ TODOLIST  ******************************************************/
 
- /**********ARTICLES***************/
+ /********** ARTICLES ***************/
 - lire les articles fournis par le prof (ProbabilitiesAndSimulationsInPoker [morgane : en cours] / ComputerPoker)
 - analyse de l'existant : noter les différentes méthodes pour le profilage statique
 - faire chacun le résumé de son article (Morgane OK)
 - chercher et lire des articles sur le profilage dynamique
 
- /**********Interface graphique***************/
+ /********** Interface graphique ***************/
 - faire une interface graphique simple (En cours   manu)
-- Interface graphique : Ajouter un tableau de bord pour debug (voir les différentes actions).
+- Afficher dans le tableau de bord les cartes de l'IA
 
  /**********IA basique***************/
 - IA basique (en cours, benjamin)
+- mise en commun IA basique et interface graphique (en cours)
 
-- mise en commun IA basique et interface graphique (en cours )
-
- /**********Appli en général***************/
+ /********** Appli en général ***************/
 - Vérifier que les normes de prog sont bien respectées pr IA basique et interface graphique
-- faire un makefile
 - réfléchir à la façon de SAV les données de profilage, aux données à SAV (JSON ?)
 
 
