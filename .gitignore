@@ -5,5 +5,11 @@
 *.pro.user
 *-Debug
 
-# Fichiers
+# Fichiers de compilation
+Application/Interface/tmp/
 *.o
+Application/Interface/Poker/Makefile
+
+# Exécutable
+Application/Interface/Poker/Poker
+

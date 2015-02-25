@@ -1,3 +1,4 @@
 #!/bin/sh
 
-./Interface/Poker/Poker
+cd Interface/Poker
+./Poker
