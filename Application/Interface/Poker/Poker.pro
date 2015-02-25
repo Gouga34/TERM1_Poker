@@ -20,3 +20,6 @@ HEADERS += \
     ../../include/IntelligenceArtificielle.h
 
 CONFIG += c++11
+
+MOC_DIR = ../tmp
+OBJECTS_DIR = ../tmp
