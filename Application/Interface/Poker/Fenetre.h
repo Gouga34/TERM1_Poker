@@ -11,8 +11,6 @@ Specification: Classe contenant l'ensemble des propriétés de la fenêtre
 #define FENETRE_H
 
 #include <QWidget>
-#include <QLabel>
-#include <QList>
 #include <QPixmap>
 #include <QLCDNumber>
 #include <QSpinBox>
@@ -115,6 +113,8 @@ class Fenetre : public QWidget
          * @action Lance le tour du prochain joueur à partir du jeu et met à jour la table si besoin
          */
         void prochainJoueur();
+
+        void partieTermine();
 
         /** Méthodes d'action de jeu appelées une fois l'action choisie par le joueur courant **/
 

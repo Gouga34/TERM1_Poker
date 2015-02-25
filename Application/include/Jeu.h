@@ -77,7 +77,7 @@ class Jeu{
 		void suivre(int posJoueur);
 		void checker(int posJoueur);
        		void seCoucher(int posJoueur);
-		void prochainJoueur();
+        bool prochainJoueur();
 		bool debutTour();
 		bool finDuTour();
 		void resetActions();
