@@ -1,3 +1,11 @@
+/*========================================================================
+Nom: main.cpp              Auteur: Manuel CHATAIGNER
+Maj: 11/02/2015            Creation: 11/02/2015
+Projet: Profilage par essais et erreurs au poker
+--------------------------------------------------------------------------
+Specification: Fichier contenant le main de l'application graphique.
+=========================================================================*/
+
 #include <QApplication>
 #include "Fenetre.h"
 #include "../../include/Jeu.h"

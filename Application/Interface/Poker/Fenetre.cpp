@@ -1,6 +1,13 @@
+/*========================================================================
+Nom: Fenetre.cpp       Auteur: Manuel CHATAIGNER
+Maj: 11/02/2015            Creation: 11/02/2015
+Projet: Profilage par essais et erreurs au poker
+--------------------------------------------------------------------------
+Specification: Fichier contenant les définitions de la classe Fenetre.
+=========================================================================*/
+
 #include "Fenetre.h"
 #include "CarteGraphique.h"
-#include <QVBoxLayout>
 #include <QVBoxLayout>
 
 QPixmap *Fenetre::textureCartes = 0;
@@ -199,9 +206,6 @@ void Fenetre::demarragePartie()
     else {                                  // Intelligence artificielle
         jeuIA();
     }
-
-    disconnect(&next, SIGNAL(clicked()), this, SLOT(demarragePartie()));
-    connect(&next, SIGNAL(clicked()), this, SLOT(joueurCourant()));
 }
 
 void Fenetre::afficheTable()
@@ -221,8 +225,6 @@ void Fenetre::afficheTable()
     }
 
     ajoutLogs("Ajout de cartes sur la table");
-
-    //joueurCourant();
 }
 
 void Fenetre::activeBoutons(bool active)
@@ -237,7 +239,6 @@ void Fenetre::activeBoutons(bool active)
 void Fenetre::joueurCourant()
 {
     activeBoutons(true);
-    next.setEnabled(false);
 }
 
 void Fenetre::jeuIA()
@@ -263,6 +264,8 @@ void Fenetre::jeuIA()
         default:
             break;
     }
+
+    emit tourFini();
 }
 
 void Fenetre::prochainJoueur()
@@ -281,8 +284,6 @@ void Fenetre::prochainJoueur()
     else {                                  // Intelligence artificielle
         jeuIA();
     }
-
-    next.setEnabled(true);
 }
 
 void Fenetre::checker()

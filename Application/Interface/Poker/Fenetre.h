@@ -1,3 +1,12 @@
+/*========================================================================
+Nom: Fenetre.h       Auteur: Manuel CHATAIGNER
+Maj: 11/02/2015          Creation: 11/02/2015
+Projet: Profilage par essais et erreurs au poker
+--------------------------------------------------------------------------
+Specification: Classe contenant l'ensemble des propriétés de la fenêtre
+               graphique.
+=========================================================================*/
+
 #ifndef FENETRE_H
 #define FENETRE_H
 
@@ -47,14 +56,37 @@ class Fenetre : public QWidget
         Jeu *jeu;
 
 
+        /**
+         * @action Active ou désactive l'ensemble des boutons d'action du joueur
+         * @param active Vrai s'il faut activer les boutons, faux pour les désactiver
+         */
         void activeBoutons(bool active);
 
+        /**
+         * @action afficheTable Réupère l'ensemble des cartes de la table
+         *                      à partir du jeu et les affiche
+         */
+        void afficheTable();
+
+        /**
+         * @action Ajoute dans les logs le contenu passé en paramètre
+         * @param contenu Texte à ajouter aux logs
+         */
         void ajoutLogs(QString contenu);
 
+        /**
+         * @action joueurCourant Active les boutons permettant au joueur d'effectuer une action
+         */
+        void joueurCourant();
+
+        /**
+         * @action jeuIA Lance la méthode de jeu de l'IA et actulaise l'interface en conséquence
+         */
         void jeuIA();
 
     public:
 
+        // Image contenant l'ensemble des cartes graphiques du jeu de carte
         static QPixmap *textureCartes;
 
         Fenetre(Jeu *j);
@@ -62,21 +94,29 @@ class Fenetre : public QWidget
 
     signals:
 
+        /**
+         * @action Signal émis lorsque le tour d'un joueur (humain/IA) est terminé
+         */
         void tourFini();
 
     public slots:
 
+        /**
+         * @action Affiche/cache la boite de logs lorsque le joueur appuie sur le bouton correspondant
+         */
         void affichageLogs();
 
+        /**
+         * @action Distribue les cartes de pre-flop à tous les joueurs et lance le jeu
+         */
         void demarragePartie();
 
-        void afficheTable();
-
-        void joueurCourant();
-
+        /**
+         * @action Lance le tour du prochain joueur à partir du jeu et met à jour la table si besoin
+         */
         void prochainJoueur();
 
-        /** Actions joueur **/
+        /** Méthodes d'action de jeu appelées une fois l'action choisie par le joueur courant **/
 
         void checker();
 

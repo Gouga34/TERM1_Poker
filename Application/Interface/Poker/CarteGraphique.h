@@ -1,3 +1,11 @@
+/*========================================================================
+Nom: CarteGraphique.h       Auteur: Manuel CHATAIGNER
+Maj: 11/02/2015          Creation: 11/02/2015
+Projet: Profilage par essais et erreurs au poker
+--------------------------------------------------------------------------
+Specification: Classe définissant une carte graphique.
+=========================================================================*/
+
 #ifndef CARTEGRAPHIQUE_H
 #define CARTEGRAPHIQUE_H
 
@@ -8,30 +16,32 @@ class CarteGraphique : public QLabel
 {
     private:
 
+        // Constantes définissant la taille d'une carte
         static const unsigned int LARGEUR_CARTE;
         static const unsigned int HAUTEUR_CARTE;
 
-
-        /*
-        enum eSuit  { Spades = 0, Hearts = 1, Clubs = 2, Diamonds = 3 };
-        enum eValue { Ace = 1, Two = 2, Three = 3, Four = 4, Five = 5, Six = 6, Seven = 7,
-                      Eight = 8, Nine = 9, Ten = 10, Jack = 11, Queen = 12, King = 13 };
-        */
-        inline int MAKE_CARD(int Value, int Suit)
-        {
-            if(Value == 0)   return 0;
-            if(Value >  13) Value = 13;
-
-            if(Suit < 0)    Suit = 0;
-            if(Suit > 3)    Suit = 3;
-
-            return ( (Suit * 13) + (Value - 1) );
-        }
+        /**
+         * @param rang Rang de la carte
+         * @param couleur Couleur de la carte
+         * @return Identifiant de la carte à partir de son rang et sa couleur
+         */
+        int makeCard(int rang, int couleur) const;
 
     public:
 
+        /**
+         * @action Constructeur de la carte graphique avec son rang et sa couleur
+         * @param rang Rang de la carte
+         * @param couleur Couleur de la carte
+         */
         CarteGraphique(int rang, int couleur);
+
+        /**
+         * @action Constructeur de la carte graphique avec un objet de type Carte
+         * @param c Carte à créer
+         */
         CarteGraphique(Carte c);
+
         ~CarteGraphique();
 };
 
