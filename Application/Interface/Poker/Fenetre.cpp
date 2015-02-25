@@ -128,6 +128,8 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
 
     QHBoxLayout *layoutJoueur = new QHBoxLayout;
 
+    valeurMise.setMaximum(10000);
+
     layoutJoueur->setAlignment(Qt::AlignRight);
     layoutJoueur->setSpacing(50);
 
@@ -177,6 +179,15 @@ void Fenetre::ajoutLogs(QString contenu)
 
 void Fenetre::demarragePartie()
 {
+    // Distribution des blinds
+
+    jeu->distributionBlind();
+
+    pot.display(jeu->getPot());
+    caveJoueur.display(jeu->getJoueur(0).getCave());
+    caveIA.display(jeu->getJoueur(1).getCave());
+
+
     ajoutLogs("Distribution des cartes");
 
     jeu->distributionMain();
@@ -199,6 +210,7 @@ void Fenetre::demarragePartie()
     layoutMainAdverse.addWidget(dos2);
 
     disconnect(&next, SIGNAL(clicked()), this, SLOT(demarragePartie()));
+    next.hide();
 
     if (jeu->getJoueurCourant() == 0) {     // Joueur humain
         joueurCourant();
@@ -210,6 +222,8 @@ void Fenetre::demarragePartie()
 
 void Fenetre::afficheTable()
 {
+    std::cout << "Affiche table" << std::endl;
+
     QLayoutItem *item;
 
     while ((item = layoutCartesCommunes.takeAt(0)) != 0) {
@@ -218,6 +232,8 @@ void Fenetre::afficheTable()
     }
 
     std::vector<Carte> table = jeu->getTable();
+
+    std::cout << table.size() << std::endl;
 
     for (int i = 0; i < table.size(); i++){
         CarteGraphique *c = new CarteGraphique(table.at(i));
@@ -250,16 +266,31 @@ void Fenetre::jeuIA()
             ajoutLogs("IA check");
             break;
         case TYPES::ACTION_LIST::MISER:
-            ajoutLogs("IA mise");
+            boutonMiser.setEnabled(false);
+            valeurMise.setMinimum(2 * jeu->getMise());
+
+            caveIA.display(jeu->getJoueur(1).getCave());
+            pot.display(jeu->getPot());
+
+            ajoutLogs("IA mise " + QString::number(jeu->getMise()));
             break;
         case TYPES::ACTION_LIST::SUIVRE:
+            caveIA.display(jeu->getJoueur(1).getCave());
+            pot.display(jeu->getPot());
+
             ajoutLogs("IA suit");
             break;
         case TYPES::ACTION_LIST::RELANCER:
-            ajoutLogs("IA relance");
+            valeurMise.setMinimum(2 * jeu->getMise());
+
+            caveIA.display(jeu->getJoueur(1).getCave());
+            pot.display(jeu->getPot());
+
+            ajoutLogs("IA relance " + QString::number(jeu->getMise()));
             break;
         case TYPES::ACTION_LIST::SE_COUCHER:
             ajoutLogs("IA se couche");
+            partieTermine();
             break;
         default:
             break;
@@ -272,9 +303,14 @@ void Fenetre::prochainJoueur()
 {
     activeBoutons(false);
 
-    jeu->prochainJoueur();
+    if (!jeu->prochainJoueur()){
+        partieTermine();
+    }
+
+    ajoutLogs(QString::number(jeu->getJoueurCourant()));
 
     if (jeu->debutTour()) {
+        valeurMise.setMinimum(0);
         afficheTable();
     }
 
@@ -320,11 +356,12 @@ void Fenetre::suivre()
 
 void Fenetre::relancer()
 {
-    // TODO Vérifier que la valeur est supérieure à la mise courante
-
     int montant = valeurMise.value();
 
     jeu->relancer(0, montant);
+
+    caveJoueur.display(jeu->getJoueur(0).getCave());
+    pot.display(jeu->getPot());
 
     ajoutLogs("Joueur 1 relance " + QString::number(montant));
 
@@ -333,9 +370,17 @@ void Fenetre::relancer()
 
 void Fenetre::seCoucher()
 {
-    //jeu->seCoucher(0);
+    jeu->seCoucher(0);
 
     ajoutLogs("Joueur 1 se couche");
 
+    partieTermine();
+
     emit tourFini();
+}
+
+void Fenetre::partieTermine()
+{
+    ajoutLogs("Partie terminée !");
+    activeBoutons(false);
 }
