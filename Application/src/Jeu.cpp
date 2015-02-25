@@ -186,11 +186,14 @@ void Jeu::seCoucher(int posJoueur){
 
 
 bool Jeu::debutTour(){
-	if(this->actions.size() == 0){
-		return true;
-	}else{
-		return false;
-	}
+
+    for(int i=0; i<this->actions.size(); i++){
+        if(this->actions.at(i) != TYPES::ACTION_LIST::EN_ATTENTE){
+            return false;
+        }
+    }
+        return true;
+
 }
 
 
@@ -206,7 +209,7 @@ bool Jeu::finDuTour(){
 		i++;
 	}
 	
-	return true;
+    return (this->actions.at(this->getJoueurCourant()) != TYPES::ACTION_LIST::EN_ATTENTE);
 }
 
 
@@ -214,19 +217,26 @@ TYPES::ACTION_LIST Jeu::getAction() const{
 	return this->actions.at(this->getJoueurCourant());
 }
 
-void Jeu::prochainJoueur(){
-	if(this->finDuTour()){
+bool Jeu::prochainJoueur(){
+
+    if(this->finDuTour() && this->table.size() == 5){
+        return false;
+    }
+
+    this->joueurCourant = (this->joueurCourant + 1) % this->positionnement.size();
+
+    if(this->finDuTour() && this->table.size() != 5){
 		this->joueurCourant = this->dealer;
 		if(this->table.size() == 0 ){
 			this->distributionFlop();
 		}else if (this->table.size() == 3){
 			this->distributionTurn();
-		}else{
+        }else if (this->table.size() == 4){
 			this->distributionRiver();
-		}
-	}else{
-		this->joueurCourant = (this->joueurCourant + 1) % this->positionnement.size();
-	}
+        }
+    }
+
+    return true;
 }
 
 void Jeu::resetActions(){

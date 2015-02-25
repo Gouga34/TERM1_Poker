@@ -4,3 +4,12 @@
 # Fichiers et dossiers Projet Qt
 *.pro.user
 *-Debug
+
+# Fichiers de compilation
+Application/Interface/tmp/
+*.o
+Application/Interface/Poker/Makefile
+
+# Exécutable
+Application/Interface/Poker/Poker
+
