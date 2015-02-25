@@ -1,3 +1,12 @@
+/*========================================================================
+Nom: ListeCartes.h       Auteur: Manuel CHATAIGNER
+Maj: 11/02/2015          Creation: 11/02/2015
+Projet: Profilage par essais et erreurs au poker
+--------------------------------------------------------------------------
+Specification: Classe correspondant à un ensemble de cartes contenues
+               dans un layout.
+=========================================================================*/
+
 #ifndef LISTECARTES_H
 #define LISTECARTES_H
 
@@ -12,6 +21,10 @@ class ListeCartes : public QHBoxLayout
         ListeCartes();
         ~ListeCartes();
 
+        /**
+         * @action Ajoute les cartes de la liste passées en paramètres à l'objet courant
+         * @param cartes Ensemble de cartes à ajouter
+         */
         void ajoutCartes(QList<QLabel*> cartes);
 };
 
