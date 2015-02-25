@@ -4,3 +4,6 @@
 # Fichiers et dossiers Projet Qt
 *.pro.user
 *-Debug
+
+# Fichiers
+*.o
