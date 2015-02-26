@@ -29,6 +29,8 @@ class CarteGraphique : public QLabel
 
     public:
 
+        static const QString couleurs[4];
+
         /**
          * @action Constructeur de la carte graphique avec son rang et sa couleur
          * @param rang Rang de la carte

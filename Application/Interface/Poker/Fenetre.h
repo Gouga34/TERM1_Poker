@@ -42,14 +42,15 @@ class Fenetre : public QWidget
         // Boite de saisie du montant de la mise
         QSpinBox valeurMise;
 
-        QPushButton next;
+        QPushButton boutonDemarrage;
+
+
+        enum { CHECKER, MISER, SUIVRE, RELANCER, SE_COUCHER, NB_BOUTONS };
 
         // Boutons d'action de jeu
-        QPushButton boutonChecker;
-        QPushButton boutonMiser;
-        QPushButton boutonSuivre;
-        QPushButton boutonRelancer;
-        QPushButton boutonSeCoucher;
+        QPushButton boutons[NB_BOUTONS];
+
+        bool activationBoutons[NB_BOUTONS];
 
         Jeu *jeu;
 
