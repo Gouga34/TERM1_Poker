@@ -25,6 +25,10 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
 
     this->jeu = j;
 
+    for (int i = 0; i < NB_BOUTONS; i++) {
+        activationBoutons[i] = true;
+    }
+
 
     // Layout principal
     QHBoxLayout *layout = new QHBoxLayout;
@@ -101,23 +105,23 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
     layoutBoutons->setSpacing(10);
     layoutBoutons->setAlignment(Qt::AlignTop);
 
-    boutonChecker.setText("Checker");
-    boutonMiser.setText("Miser");
-    boutonSuivre.setText("Suivre");
-    boutonRelancer.setText("Relancer");
-    boutonSeCoucher.setText("Se coucher");
+    boutons[CHECKER].setText("Checker");
+    boutons[MISER].setText("Miser");
+    boutons[SUIVRE].setText("Suivre");
+    boutons[RELANCER].setText("Relancer");
+    boutons[SE_COUCHER].setText("Se coucher");
 
-    layoutBoutons->addWidget(&boutonChecker);
-    layoutBoutons->addWidget(&boutonMiser);
-    layoutBoutons->addWidget(&boutonSuivre);
-    layoutBoutons->addWidget(&boutonRelancer);
-    layoutBoutons->addWidget(&boutonSeCoucher);
+    layoutBoutons->addWidget(&boutons[CHECKER]);
+    layoutBoutons->addWidget(&boutons[MISER]);
+    layoutBoutons->addWidget(&boutons[SUIVRE]);
+    layoutBoutons->addWidget(&boutons[RELANCER]);
+    layoutBoutons->addWidget(&boutons[SE_COUCHER]);
 
-    connect(&boutonChecker, SIGNAL(clicked()), this, SLOT(checker()));
-    connect(&boutonMiser, SIGNAL(clicked()), this, SLOT(miser()));
-    connect(&boutonSuivre, SIGNAL(clicked()), this, SLOT(suivre()));
-    connect(&boutonRelancer, SIGNAL(clicked()), this, SLOT(relancer()));
-    connect(&boutonSeCoucher, SIGNAL(clicked()), this, SLOT(seCoucher()));
+    connect(&boutons[CHECKER], SIGNAL(clicked()), this, SLOT(checker()));
+    connect(&boutons[MISER], SIGNAL(clicked()), this, SLOT(miser()));
+    connect(&boutons[SUIVRE], SIGNAL(clicked()), this, SLOT(suivre()));
+    connect(&boutons[RELANCER], SIGNAL(clicked()), this, SLOT(relancer()));
+    connect(&boutons[SE_COUCHER], SIGNAL(clicked()), this, SLOT(seCoucher()));
 
     activeBoutons(false);
 
@@ -222,8 +226,6 @@ void Fenetre::demarragePartie()
 
 void Fenetre::afficheTable()
 {
-    std::cout << "Affiche table" << std::endl;
-
     QLayoutItem *item;
 
     while ((item = layoutCartesCommunes.takeAt(0)) != 0) {
@@ -232,8 +234,6 @@ void Fenetre::afficheTable()
     }
 
     std::vector<Carte> table = jeu->getTable();
-
-    std::cout << table.size() << std::endl;
 
     for (int i = 0; i < table.size(); i++){
         CarteGraphique *c = new CarteGraphique(table.at(i));
@@ -245,11 +245,12 @@ void Fenetre::afficheTable()
 
 void Fenetre::activeBoutons(bool active)
 {
-    boutonChecker.setEnabled(active);
-    boutonMiser.setEnabled(active);
-    boutonRelancer.setEnabled(active);
-    boutonSuivre.setEnabled(active);
-    boutonSeCoucher.setEnabled(active);
+    // Pour chaque bouton, soit on le désactive ou on regarde son état si activation
+
+    for (int i = 0; i < NB_BOUTONS; i++) {
+        bool enable = active ? activationBoutons[i] : active;
+        boutons[i].setEnabled(enable);
+    }
 }
 
 void Fenetre::joueurCourant()
@@ -266,7 +267,9 @@ void Fenetre::jeuIA()
             ajoutLogs("IA check");
             break;
         case TYPES::ACTION_LIST::MISER:
-            boutonMiser.setEnabled(false);
+            activationBoutons[MISER] = false;
+            activationBoutons[CHECKER] = false;
+
             valeurMise.setMinimum(2 * jeu->getMise());
 
             caveIA.display(jeu->getJoueur(1).getCave());
@@ -307,8 +310,6 @@ void Fenetre::prochainJoueur()
         partieTermine();
     }
 
-    ajoutLogs(QString::number(jeu->getJoueurCourant()));
-
     if (jeu->debutTour()) {
         valeurMise.setMinimum(0);
         afficheTable();
@@ -348,6 +349,12 @@ void Fenetre::miser()
 void Fenetre::suivre()
 {
     jeu->suivre(0);
+
+    caveJoueur.display(jeu->getJoueur(0).getCave());
+    pot.display(jeu->getPot());
+
+    activationBoutons[CHECKER] = true;
+    activationBoutons[MISER] = true;
 
     ajoutLogs("Joueur 1 suit");
 

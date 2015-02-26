@@ -44,12 +44,13 @@ class Fenetre : public QWidget
 
         QPushButton next;
 
+
+        enum { CHECKER, MISER, SUIVRE, RELANCER, SE_COUCHER, NB_BOUTONS };
+
         // Boutons d'action de jeu
-        QPushButton boutonChecker;
-        QPushButton boutonMiser;
-        QPushButton boutonSuivre;
-        QPushButton boutonRelancer;
-        QPushButton boutonSeCoucher;
+        QPushButton boutons[NB_BOUTONS];
+
+        bool activationBoutons[NB_BOUTONS];
 
         Jeu *jeu;
 
