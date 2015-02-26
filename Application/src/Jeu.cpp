@@ -50,6 +50,7 @@ void Jeu::distributionFlop(){
 	
 	int position;
 	
+	this->mise = 0;
 	this->resetActions();
 	for(int i=0; i<3; i++){
 		position = rand() % deck.size();
@@ -63,6 +64,7 @@ void Jeu::distributionTurn(){
 
 	int position;
 	
+	this->mise = 0;
 	this->resetActions();
 	position = rand() % deck.size();
 	this->table.push_back(this->deck.at(position) );
@@ -75,6 +77,7 @@ void Jeu::distributionRiver(){
 
 	int position;
 	
+	this->mise = 0;
 	this->resetActions();
 	position = rand() % deck.size();
 	this->table.push_back(this->deck.at(position) );
@@ -85,10 +88,8 @@ void Jeu::distributionRiver(){
 
 void Jeu::distributionBlind(){
 
-	this->getJoueur( (this->getDealer() + 1) % this->positionnement.size() ).retireJetons(this->getBlind());
-	this->setPot(this->getBlind());
-	this->getJoueur( (this->getDealer() + 2) % this->positionnement.size() ).retireJetons(2 * this->getBlind());
-	this->setPot(this->getPot() + 2*this->getBlind());
+	this->miser((this->getDealer() + 1) % this->positionnement.size(), this->getBlind());
+	this->relancer((this->getDealer() + 2) % this->positionnement.size(), 2 * this->getBlind() );
 	this->joueurCourant = (this->getDealer() + 3)  % this->positionnement.size();
 }
 

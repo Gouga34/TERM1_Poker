@@ -197,22 +197,20 @@ class Jeu{
 		*@param  : Le joueur effectuant l'action
 		**/
        		void seCoucher(int posJoueur);
-<<<<<<< HEAD
        		
        		/**
-		*@action  : Affecte le joueur suivant en tant que joueur courant
+		*@action  : Affecte le joueur suivant en tant que joueur courant et renvoi vrai s'il existe
+		*@return : vrai s'il y a un joueur suivant, faux sinon
 		**/
-		void prochainJoueur();
+		bool prochainJoueur();
 		
 		/**
 		*@action  : Permet de savoir si l'on est en début de tour
 		*@return  : Vrai si l'on se trouve en debut de tour, faux sinon
 		**/
-=======
-        bool prochainJoueur();
->>>>>>> 9baa4cf8869b986057f14f417af200777697822b
 		bool debutTour();
 		
+	
 		/**
 		*@action  : Permet de savoit si le tour est terminé
 		*@return  : Vrai si le tour est termnié, faux sinon
