@@ -21,7 +21,9 @@ namespace TYPES
         SUIVRE,
         CHECKER,
         SE_COUCHER,
-        EN_ATTENTE
+        EN_ATTENTE,
+        PETITE_BLIND,
+        GROSSE_BLIND
     };
 };
 
@@ -79,6 +81,11 @@ class Jeu{
 		*@param  : Le joueur a ajouter a la partie
 		**/
 		void 			setJoueur(Joueur joueur);
+		
+		/**
+		*@action : Permet d'obtenir les carte communes
+		*@return : L'ensemble des cartes commune
+		**/
 		std::vector<Carte>	getTable() const;
 		
 		/**
@@ -221,6 +228,11 @@ class Jeu{
 		*@action  : Permet de reinitialiser le tableau des actions
 		**/		
 		void resetActions();
+		
+		/**
+		*@action  : Relance une nouvelle main
+		**/			
+		void nouvelleMain(int posJoueur);
 		
 	
 		
