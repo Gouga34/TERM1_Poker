@@ -7,6 +7,7 @@ Specification: Fichier contenant les définitions de la classe ListeCartes.
 =========================================================================*/
 
 #include "ListeCartes.h"
+#include <CarteGraphique.h>
 
 
 ListeCartes::ListeCartes() : QHBoxLayout()
@@ -20,10 +21,20 @@ ListeCartes::~ListeCartes()
 
 }
 
-void ListeCartes::ajoutCartes(QList<QLabel*> cartes)
+void ListeCartes::ajoutCartes(std::vector<Carte> cartes)
 {
-    for (int i = 0; i < cartes.size(); ++i)
-    {
-        this->addWidget(cartes.at(i));
+    for (int i = 0; i < cartes.size(); i++) {
+        CarteGraphique *c = new CarteGraphique(cartes.at(i));
+        this->addWidget(c);
+    }
+}
+
+void ListeCartes::vider()
+{
+    QLayoutItem *item;
+
+    while ((item = this->takeAt(0)) != 0) {
+        delete item->widget();
+        delete item;
     }
 }
