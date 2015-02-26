@@ -95,9 +95,9 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
     // Boutons d'action
     // ////////////////////////////////////////////////////
 
-    next.setText("Next");
-    next.setMaximumSize(70, 30);
-    connect(&next, SIGNAL(clicked()), this, SLOT(demarragePartie()));
+    boutonDemarrage.setText("Démarrage partie");
+    boutonDemarrage.setMaximumWidth(150);
+    connect(&boutonDemarrage, SIGNAL(clicked()), this, SLOT(demarragePartie()));
 
 
     QVBoxLayout *layoutBoutons = new QVBoxLayout;
@@ -147,7 +147,7 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
     layoutOptions->setSpacing(150);
     layoutOptions->setAlignment(Qt::AlignHCenter);
 
-    layoutOptions->addWidget(&next);
+    layoutOptions->addWidget(&boutonDemarrage);
     layoutOptions->addWidget(&caveIA);
     layoutOptions->addWidget(&pot);
     layoutOptions->addLayout(layoutJoueur);
@@ -213,8 +213,7 @@ void Fenetre::demarragePartie()
     layoutMainAdverse.addWidget(dos);
     layoutMainAdverse.addWidget(dos2);
 
-    disconnect(&next, SIGNAL(clicked()), this, SLOT(demarragePartie()));
-    next.hide();
+    boutonDemarrage.hide();
 
     if (jeu->getJoueurCourant() == 0) {     // Joueur humain
         joueurCourant();
