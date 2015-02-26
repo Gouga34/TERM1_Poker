@@ -12,6 +12,10 @@ int main(){
 	IA.setJeu(jeu);
 	jeu->setJoueur(IA);
 	
+	jeu->distributionBlind();
+	
+	std::cout << jeu->getPot() << std::endl;
+	
 	jeu->distributionMain();
 	
 	((IntelligenceArtificielle) jeu->getJoueur(1)).jouer();

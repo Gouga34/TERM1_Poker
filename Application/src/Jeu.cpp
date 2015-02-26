@@ -2,10 +2,6 @@
 #include "../include/Joueur.h"
 #include "../include/IntelligenceArtificielle.h"
 
-/**
-*@param  : Le nombre de joueur, le montant de la blind de depart, la cave de depart des joueurs et le type de proffiling de l'IA
-*@action : Initialise un nouveau jeu
-**/
 Jeu::Jeu(int nbJoueur, int blindDepart, int cave, int typeIA) : actions(nbJoueur,TYPES::ACTION_LIST::EN_ATTENTE){
 	srand((unsigned)time(0));
 	this->initialisationTable(nbJoueur, cave);	
@@ -18,18 +14,10 @@ Jeu::Jeu(int nbJoueur, int blindDepart, int cave, int typeIA) : actions(nbJoueur
 	this->dealer = 0;
 }
 
-/**
-*@action : Destructeur de la classe Jeu
-**/
 Jeu::~Jeu(){
 
 }
 
-/**
-*@param  : Le nombre de joueur et le montant de depart d leur cave
-*@action : Cree les joueurs et les affectent au jeu
-*@return : L'ensemble des joueurs de la partie
-**/
 void Jeu::initialisationTable(int nbJoueur, int cave){
 	
 	for(int i=0; i<nbJoueur; i++){
@@ -45,9 +33,7 @@ void Jeu::initialisationTable(int nbJoueur, int cave){
 	}
 }
 
-/**
-*@action : Distribue a chaque joueur ses cartes
-**/
+
 void Jeu::distributionMain(){
 
 	int position;
@@ -60,13 +46,11 @@ void Jeu::distributionMain(){
 	}
 }
 
-/**
-*@action : Distribue les trois premieres carte commune : le Flop, tirees aleatoirement dans le deck
-**/
 void Jeu::distributionFlop(){
 	
 	int position;
 	
+	this->mise = 0;
 	this->resetActions();
 	for(int i=0; i<3; i++){
 		position = rand() % deck.size();
@@ -75,13 +59,12 @@ void Jeu::distributionFlop(){
 	}	
 }
 
-/**
-*@action : Distribue la quatrieme carte : le Turn, tiree aleatoirement dans le deck
-**/
+
 void Jeu::distributionTurn(){
 
 	int position;
 	
+	this->mise = 0;
 	this->resetActions();
 	position = rand() % deck.size();
 	this->table.push_back(this->deck.at(position) );
@@ -89,13 +72,12 @@ void Jeu::distributionTurn(){
 
 }
 
-/**
-*@action : Distribue la cinquieme carte : la River, tiree aleatoirement dans le deck
-**/
+
 void Jeu::distributionRiver(){
 
 	int position;
 	
+	this->mise = 0;
 	this->resetActions();
 	position = rand() % deck.size();
 	this->table.push_back(this->deck.at(position) );
@@ -103,33 +85,25 @@ void Jeu::distributionRiver(){
 
 }
 
-/**
-*@action : Distribue les blinds en debut de partie
-**/
+
 void Jeu::distributionBlind(){
 
-	this->getJoueur( (this->getDealer() + 1) % this->positionnement.size() ).retireJetons(this->getBlind());
-	this->setPot(this->getBlind());
-	this->getJoueur( (this->getDealer() + 2) % this->positionnement.size() ).retireJetons(2 * this->getBlind());
-	this->setPot(this->getPot() + 2*this->getBlind());
+	this->miser((this->getDealer() + 1) % this->positionnement.size(), this->getBlind());
+	this->relancer((this->getDealer() + 2) % this->positionnement.size(), 2 * this->getBlind() );
 	this->joueurCourant = (this->getDealer() + 3)  % this->positionnement.size();
 }
+
 
 int Jeu::getDealer(){
 	return this->dealer;
 }
 
-/**
-*@action : Augmente le montant de la petite blind
-**/
+
 void Jeu::miseAJourBlind(){
 	this->blind = this->blind * 2;
 }
 
-/**
-*@action : Cree l'ensemble des cartes utilisees dans le jeu
-*@return : Le "deck", l'ensemble du jeu de carte
-**/
+
 std::vector<Carte> Jeu::nouveauDeck(){
 	std::vector<Carte> deck;
 	
@@ -142,67 +116,43 @@ std::vector<Carte> Jeu::nouveauDeck(){
 	return deck;
 }
 	
-
-/**
-*@action : Melange le jeu de carte
-**/	
+	
 void Jeu::melange(){
 	std::random_shuffle(this->deck.begin(), this->deck.end());
 }
 
-/**
-*@action : Permet d'obtenir le montant de la petite blind
-*@return : Le montant de la petite blind
-**/
+
 int Jeu::getBlind() const{
 	return this->blind;
 }
 
-/**
-*@action : Permet d'obtenir le joueur devant jouer
-*@return : Le joueur courant
-**/
+
 int Jeu::getJoueurCourant() const{
 	return this->joueurCourant;
 }
 
-/**
-*@action : Permet d'obtenir le joueur en i-eme position
-*@return : Le joueur en i-eme position
-**/
+
 Joueur& Jeu::getJoueur(int i){
 	return this->positionnement.at(i);
 }
 
-/**
-*@action : Permet d'ajouter un joueur a la partie
-*@param  : Le joueur a ajouter a la partie
-**/
+
 void Jeu::setJoueur(Joueur joueur){
 	this->positionnement.push_back(joueur);
 }
 
-/**
-*@action : Permet d'obtenir le pot de la partie
-*@return : Le pot de la partie en cours
-**/
+
 int Jeu::getPot() const{
 	return this->pot;
 }
 
-/**
-*@action : Permet de modifier le pot de la partie courante
-*@param  : Un entier representant la nouvelle valeur du pot
-**/
+
 void Jeu::setPot(int jetons){
 	this->pot = jetons;
 }
 
 
-/**
-*@action : Commande permettant a un joueur de miser
-*@param  : Le joueur effectuant l'action ainsi que le montant de la mise
-**/
+
 void Jeu::miser(int posJoueur, int jetons){
 	this->setPot(this->getPot() + jetons);
 	this->getJoueur(posJoueur).retireJetons(jetons);
@@ -210,10 +160,7 @@ void Jeu::miser(int posJoueur, int jetons){
 	this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::MISER;
 }
 
-/**
-*@action : Commande permettant a un joueur de relancer
-*@param  : Le joueur effectuant l'action ainsi que le montant de la relance
-**/
+
 void Jeu::relancer(int posJoueur, int jetons){
 	this->setPot(this->getPot() + jetons);
 	this->getJoueur(posJoueur).retireJetons(jetons);
@@ -221,36 +168,24 @@ void Jeu::relancer(int posJoueur, int jetons){
 	this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::RELANCER;
 }
 
-/**
-*@action : Commande permettant a un joueur de suivre
-*@param  : Le joueur effectuant l'action
-**/
+
 void Jeu::suivre(int posJoueur){
 	this->setPot(this->getPot() +  this->mise);
     this->getJoueur(posJoueur).retireJetons(this->mise);
 	this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::SUIVRE;
 }
 
-/**
-*@action : Commande permettant a un joueur de checker
-*@param  : Le joueur effectuant l'action
-**/
+
 void Jeu::checker(int posJoueur){
 	this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::CHECKER;
 }
 
-/**
-*@action : Commande permettant a un joueur de se coucher
-*@param  : Le joueur effectuant l'action
-**/
+
 void Jeu::seCoucher(int posJoueur){
 	this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::SE_COUCHER;
 }
 
-/**
-*@action  : Permet de savoir si l'on est en début de tour
-*@return  : Vrai si l'on se trouve en debut de tour, faux sinon
-**/
+
 bool Jeu::debutTour(){
 
     for(int i=0; i<this->actions.size(); i++){
@@ -262,10 +197,7 @@ bool Jeu::debutTour(){
 
 }
 
-/**
-*@action  : Permet de savoit si le tour est terminé
-*@return  : Vrai si le tour est termnié, faux sinon
-**/
+
 bool Jeu::finDuTour(){
 	int i = 1;
 	while( i <= this->positionnement.size() - 1){
@@ -281,10 +213,7 @@ bool Jeu::finDuTour(){
     return (this->actions.at(this->getJoueurCourant()) != TYPES::ACTION_LIST::EN_ATTENTE);
 }
 
-/**
-*@action  : Permet de connaitre l'action effectué par le joueur courant
-*@return  : L'action effectué par le joueur courant
-**/
+
 TYPES::ACTION_LIST Jeu::getAction() const{
 	return this->actions.at(this->getJoueurCourant());
 }
@@ -321,18 +250,12 @@ std::vector<Carte> Jeu::getTable() const{
     return this->table;
 }
 
-/**
-*@action : Permet d'obtenir la mise de la partie courante
-*@return : Un entier représentant la mise courante
-**/
+
 int Jeu::getMise(){
 	return this->mise;
 }
 
-/**
-*@action : Permet de savoir si le joueur a la possibilite checker
-*@return : vrai si le joueur peut checker, faux sinon 
-**/
+
 bool Jeu::peutChecker(){
 
 	for(int i=0; i<this->actions.size(); i++){
