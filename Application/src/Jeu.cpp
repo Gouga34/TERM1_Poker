@@ -295,6 +295,10 @@ std::vector<Carte> Jeu::getTable() const{
     return this->table;
 }
 
+std::vector<TYPES::ACTION_LIST>  Jeu::getListeActions() const{
+    return this->actions;
+}
+
 
 int Jeu::getMise(){
 	return this->mise;
@@ -318,13 +322,12 @@ void Jeu::nouvelleMain(int posJoueur){
 }
 
 
-bool Jeu::peutChecker(){
+bool Jeu::peutChecker(int posJoueur){
 
-	for(int i=0; i< (int) this->actions.size(); i++){
-		if(this->actions[i] == TYPES::ACTION_LIST::MISER || this->actions[i] == TYPES::ACTION_LIST::RELANCER || this->actions[i] == TYPES::ACTION_LIST::GROSSE_BLIND ){
+	for(int i=1; i<= (int) this->actions.size() - 1; i++){
+		if(this->actions[(posJoueur + i) % this->actions.size() ] == TYPES::ACTION_LIST::MISER || this->actions[(posJoueur + i) % this->actions.size()] == TYPES::ACTION_LIST::RELANCER || this->actions[(posJoueur + i) % this->actions.size()] == TYPES::ACTION_LIST::GROSSE_BLIND){ 
 			return false;
 		}
-	
 	}
 	
 	return true;

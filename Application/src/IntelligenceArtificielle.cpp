@@ -124,7 +124,9 @@ void IntelligenceArtificielle::jouer(){
 		}
 		
 	}else{
-		if(this->getJeu()->peutChecker()){
+		if(this->getJeu()->getListeActions().at(this->getPosition()) == TYPES::ACTION_LIST::PETITE_BLIND){
+			this->getJeu()->suivre(this->getPosition());
+		}else if(this->getJeu()->peutChecker(this->getPosition())){
 			this->getJeu()->checker(this->getPosition());
 		}else{
 			this->getJeu()->seCoucher(this->getPosition());

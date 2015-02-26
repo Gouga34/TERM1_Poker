@@ -118,6 +118,12 @@ class Jeu{
 		*@return : Un entier représentant la mise courante
 		**/
 		int			getMise();
+		
+		/**
+		*@action : Permet d'obtenir l'ensemble des actions
+		*@return : L'ensemble des actions
+		**/
+		std::vector<TYPES::ACTION_LIST> getListeActions() const;
 
 	
 	//Methodes	
@@ -172,9 +178,10 @@ class Jeu{
 		
 		/**
 		*@action : Permet de savoir si le joueur a la possibilite checker
+		*@param  : la position du joueur dont on veut savoir s'il peut checker
 		*@return : vrai si le joueur peut checker, faux sinon 
 		**/
-		bool peutChecker();
+		bool peutChecker(int posJoueur);
 		
 		/**
 		*@action : Commande permettant a un joueur de miser
