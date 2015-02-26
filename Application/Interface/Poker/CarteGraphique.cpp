@@ -13,6 +13,8 @@ Specification: Fichier contenant les définitions de la classe CarteGraphique.
 const unsigned int CarteGraphique::LARGEUR_CARTE = 73;
 const unsigned int CarteGraphique::HAUTEUR_CARTE = 97;
 
+const QString CarteGraphique::couleurs[] = {"Pique", "Coeur", "Trèfle", "Carreau" };
+
 
 CarteGraphique::CarteGraphique(int rang, int couleur) : QLabel()
 {
