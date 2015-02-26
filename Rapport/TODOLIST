@@ -1,22 +1,24 @@
 /************************************ TODOLIST  ******************************************************/
 
  /********** ARTICLES ***************/
-- lire les articles fournis par le prof (ProbabilitiesAndSimulationsInPoker [morgane : en cours] / ComputerPoker)
-- analyse de l'existant : noter les différentes méthodes pour le profilage statique
+- lire les articles fournis par le prof (ComputerPoker)
+- analyse de l'existant / étude technique : réfléchir sur la méthode de profilage statique (en cours)
 - faire chacun le résumé de son article (Morgane OK)
 - chercher et lire des articles sur le profilage dynamique
 
  /********** Interface graphique ***************/
-- faire une interface graphique simple (En cours   manu)
-- Afficher dans le tableau de bord les cartes de l'IA
+- ajouter la possibilité de choisir les cartes du jeu (cartes des joueurs et du milieu)
+- ajouter un système de pseudos
+- le joueur ne doit pas jouer en négatif
+- déplacer les cartes
 
  /**********IA basique***************/
-- IA basique (en cours, benjamin)
-- mise en commun IA basique et interface graphique (en cours)
+- ajouter évaluateur.
+- ne doit pas jouer en negatif
 
  /********** Appli en général ***************/
 - Vérifier que les normes de prog sont bien respectées pr IA basique et interface graphique
-- réfléchir à la façon de SAV les données de profilage, aux données à SAV (JSON ?)
+- réfléchir à la façon de SAV les données de profilage, aux données à SAV : en cours, à faire confirmer (JSON)
 
 
 /**************************************** Articles à lire ************************************************/
@@ -27,10 +29,10 @@
 
 
 /****************************************** Articles lus ***********************************************/
-- Player Profiling in Texas Holdem          MORGANE
+- Player Profiling in Texas Holdem          MORGANE --> résumé en ligne
 - Adaptative play in texas hold'em poker    Benjamin
 - Improved Opponent Modeling In Poker       Manu
-
+- ProbabilitiesAndSimulationsInPoker [morgane : OK] --> résumé en ligne.
 
 
 /******************************************* @ GIT *****************************************************/
