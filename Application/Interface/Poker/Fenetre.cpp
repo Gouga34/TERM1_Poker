@@ -183,17 +183,16 @@ void Fenetre::ajoutLogs(QString contenu)
 
 void Fenetre::demarragePartie()
 {
-    // Distribution des blinds
-
-    jeu->distributionBlind();
-
-    pot.display(jeu->getPot());
-    caveJoueur.display(jeu->getJoueur(0).getCave());
-    caveIA.display(jeu->getJoueur(1).getCave());
+    boutonDemarrage.hide();
+    layoutCartesCommunes.vider();
 
     ajoutLogs("Distribution des cartes");
 
     jeu->distributionMain();
+    
+    pot.display(jeu->getPot());
+    caveJoueur.display(jeu->getJoueur(0).getCave());
+    caveIA.display(jeu->getJoueur(1).getCave());
 
 
     // Affichage de la main adverse dans les logs
@@ -208,23 +207,20 @@ void Fenetre::demarragePartie()
 
 
     // Main du joueur
-
-    std::vector<Carte> mainCourante = jeu->getJoueur(0).getMain();
-
-    for (int i = 0; i < mainCourante.size(); i++){
-        CarteGraphique *c = new CarteGraphique(mainCourante.at(i));
-        layoutMain.addWidget(c);
-    }
+    layoutMain.vider();
+    layoutMain.ajoutCartes(jeu->getJoueur(0).getMain());
 
     // Main adverse
 
     CarteGraphique *dos = new CarteGraphique(0, 0);
     CarteGraphique *dos2 = new CarteGraphique(0, 0);
 
+    layoutMainAdverse.vider();
     layoutMainAdverse.addWidget(dos);
     layoutMainAdverse.addWidget(dos2);
 
-    boutonDemarrage.hide();
+
+    valeurMise.setMinimum(jeu->getBlind());
 
     if (jeu->getJoueurCourant() == 0) {     // Joueur humain
         joueurCourant();
@@ -236,19 +232,8 @@ void Fenetre::demarragePartie()
 
 void Fenetre::afficheTable()
 {
-    QLayoutItem *item;
-
-    while ((item = layoutCartesCommunes.takeAt(0)) != 0) {
-        delete item->widget();
-        delete item;
-    }
-
-    std::vector<Carte> table = jeu->getTable();
-
-    for (int i = 0; i < table.size(); i++){
-        CarteGraphique *c = new CarteGraphique(table.at(i));
-        layoutCartesCommunes.addWidget(c);
-    }
+    layoutCartesCommunes.vider();
+    layoutCartesCommunes.ajoutCartes(jeu->getTable());
 
     ajoutLogs("Ajout de cartes sur la table");
 }
@@ -304,6 +289,7 @@ void Fenetre::jeuIA()
         case TYPES::ACTION_LIST::SE_COUCHER:
             ajoutLogs("IA se couche");
             partieTermine();
+            return;
             break;
         default:
             break;
@@ -318,10 +304,10 @@ void Fenetre::prochainJoueur()
 
     if (!jeu->prochainJoueur()){
         partieTermine();
+        return;
     }
 
     if (jeu->debutTour()) {
-        valeurMise.setMinimum(0);
         afficheTable();
     }
 
@@ -365,6 +351,7 @@ void Fenetre::suivre()
 
     activationBoutons[CHECKER] = true;
     activationBoutons[MISER] = true;
+    valeurMise.setMinimum(jeu->getBlind());
 
     ajoutLogs("Joueur 1 suit");
 
@@ -380,6 +367,10 @@ void Fenetre::relancer()
     caveJoueur.display(jeu->getJoueur(0).getCave());
     pot.display(jeu->getPot());
 
+    activationBoutons[CHECKER] = true;
+    activationBoutons[MISER] = true;
+    valeurMise.setMinimum(jeu->getBlind());
+
     ajoutLogs("Joueur 1 relance " + QString::number(montant));
 
     emit tourFini();
@@ -392,12 +383,18 @@ void Fenetre::seCoucher()
     ajoutLogs("Joueur 1 se couche");
 
     partieTermine();
-
-    emit tourFini();
 }
 
 void Fenetre::partieTermine()
 {
     ajoutLogs("Partie terminée !");
     activeBoutons(false);
+
+    layoutMainAdverse.vider();
+    layoutMainAdverse.ajoutCartes(jeu->getJoueur(1).getMain());
+
+    jeu->nouvelleMain(0);
+
+    boutonDemarrage.setText("Rejouer");
+    boutonDemarrage.setHidden(false);
 }
