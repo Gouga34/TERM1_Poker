@@ -157,6 +157,7 @@ void Jeu::miser(int posJoueur, int jetons){
 	this->setPot(this->getPot() + jetons);
 	this->getJoueur(posJoueur).retireJetons(jetons);
 	this->mise = jetons;
+	this->getJoueur(posJoueur).setMiseJoueur(jetons);
 	this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::MISER;
 }
 
@@ -165,13 +166,15 @@ void Jeu::relancer(int posJoueur, int jetons){
 	this->setPot(this->getPot() + jetons);
 	this->getJoueur(posJoueur).retireJetons(jetons);
 	this->mise = jetons;
+	this->getJoueur(posJoueur).setMiseJoueur(jetons);
 	this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::RELANCER;
 }
 
 
 void Jeu::suivre(int posJoueur){
-	this->setPot(this->getPot() +  this->mise);
-    this->getJoueur(posJoueur).retireJetons(this->mise);
+	this->setPot(this->getPot() + (this->mise - this->getJoueur(posJoueur).getMiseJoueur());
+  	this->getJoueur(posJoueur).retireJetons(this->mise - this->getJoueur(posJoueur).getMiseJoueur());
+  	this->getJoueur(posJoueur).setMiseJoueur(this->mise);
 	this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::SUIVRE;
 }
 
