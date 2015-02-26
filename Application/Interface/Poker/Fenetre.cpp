@@ -191,6 +191,7 @@ void Fenetre::demarragePartie()
     caveJoueur.display(jeu->getJoueur(0).getCave());
     caveIA.display(jeu->getJoueur(1).getCave());
 
+
     ajoutLogs("Distribution des cartes");
 
     jeu->distributionMain();
@@ -208,13 +209,7 @@ void Fenetre::demarragePartie()
 
 
     // Main du joueur
-
-    std::vector<Carte> mainCourante = jeu->getJoueur(0).getMain();
-
-    for (int i = 0; i < mainCourante.size(); i++){
-        CarteGraphique *c = new CarteGraphique(mainCourante.at(i));
-        layoutMain.addWidget(c);
-    }
+    layoutMain.ajoutCartes(jeu->getJoueur(0).getMain());
 
     // Main adverse
 
@@ -223,6 +218,7 @@ void Fenetre::demarragePartie()
 
     layoutMainAdverse.addWidget(dos);
     layoutMainAdverse.addWidget(dos2);
+
 
     boutonDemarrage.hide();
 
@@ -236,19 +232,8 @@ void Fenetre::demarragePartie()
 
 void Fenetre::afficheTable()
 {
-    QLayoutItem *item;
-
-    while ((item = layoutCartesCommunes.takeAt(0)) != 0) {
-        delete item->widget();
-        delete item;
-    }
-
-    std::vector<Carte> table = jeu->getTable();
-
-    for (int i = 0; i < table.size(); i++){
-        CarteGraphique *c = new CarteGraphique(table.at(i));
-        layoutCartesCommunes.addWidget(c);
-    }
+    layoutCartesCommunes.vider();
+    layoutCartesCommunes.ajoutCartes(jeu->getTable());
 
     ajoutLogs("Ajout de cartes sur la table");
 }
@@ -318,6 +303,7 @@ void Fenetre::prochainJoueur()
 
     if (!jeu->prochainJoueur()){
         partieTermine();
+        return;
     }
 
     if (jeu->debutTour()) {
@@ -400,4 +386,7 @@ void Fenetre::partieTermine()
 {
     ajoutLogs("Partie terminée !");
     activeBoutons(false);
+
+    layoutMainAdverse.vider();
+    layoutMainAdverse.ajoutCartes(jeu->getJoueur(1).getMain());
 }

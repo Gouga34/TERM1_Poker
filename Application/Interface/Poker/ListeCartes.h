@@ -13,6 +13,7 @@ Specification: Classe correspondant à un ensemble de cartes contenues
 #include <QHBoxLayout>
 #include <QList>
 #include <QLabel>
+#include "../../include/Carte.h"
 
 class ListeCartes : public QHBoxLayout
 {
@@ -25,7 +26,12 @@ class ListeCartes : public QHBoxLayout
          * @action Ajoute les cartes de la liste passées en paramètres à l'objet courant
          * @param cartes Ensemble de cartes à ajouter
          */
-        void ajoutCartes(QList<QLabel*> cartes);
+        void ajoutCartes(std::vector<Carte> cartes);
+
+        /**
+         * @action Retire l'ensemble des cartes de la liste
+         */
+        void vider();
 };
 
 #endif // LISTECARTES_H
