@@ -191,10 +191,21 @@ void Fenetre::demarragePartie()
     caveJoueur.display(jeu->getJoueur(0).getCave());
     caveIA.display(jeu->getJoueur(1).getCave());
 
-
     ajoutLogs("Distribution des cartes");
 
     jeu->distributionMain();
+
+
+    // Affichage de la main adverse dans les logs
+
+    std::vector<Carte> jeuAdverse = jeu->getJoueur(1).getMain();
+
+    ajoutLogs("Jeu adverse : ");
+    for (int i = 0; i < jeuAdverse.size(); i++) {
+        ajoutLogs("-> " + QString::number(jeuAdverse.at(i).getRang())
+                  + " " + CarteGraphique::couleurs[jeuAdverse.at(i).getCouleur()]);
+    }
+
 
     // Main du joueur
 
