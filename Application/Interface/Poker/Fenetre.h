@@ -115,6 +115,9 @@ class Fenetre : public QWidget
          */
         void prochainJoueur();
 
+        /**
+         * @action Effectue les actions de fin de partie
+         */
         void partieTermine();
 
         /** Méthodes d'action de jeu appelées une fois l'action choisie par le joueur courant **/

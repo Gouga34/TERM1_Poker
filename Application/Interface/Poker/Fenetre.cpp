@@ -183,6 +183,8 @@ void Fenetre::ajoutLogs(QString contenu)
 
 void Fenetre::demarragePartie()
 {
+    boutonDemarrage.hide();
+    layoutCartesCommunes.vider();
 
     ajoutLogs("Distribution des cartes");
 
@@ -205,6 +207,7 @@ void Fenetre::demarragePartie()
 
 
     // Main du joueur
+    layoutMain.vider();
     layoutMain.ajoutCartes(jeu->getJoueur(0).getMain());
 
     // Main adverse
@@ -212,10 +215,10 @@ void Fenetre::demarragePartie()
     CarteGraphique *dos = new CarteGraphique(0, 0);
     CarteGraphique *dos2 = new CarteGraphique(0, 0);
 
+    layoutMainAdverse.vider();
     layoutMainAdverse.addWidget(dos);
     layoutMainAdverse.addWidget(dos2);
 
-    boutonDemarrage.hide();
 
     valeurMise.setMinimum(jeu->getBlind());
 
@@ -389,4 +392,9 @@ void Fenetre::partieTermine()
 
     layoutMainAdverse.vider();
     layoutMainAdverse.ajoutCartes(jeu->getJoueur(1).getMain());
+
+    jeu->nouvelleMain(0);
+
+    boutonDemarrage.setText("Rejouer");
+    boutonDemarrage.setHidden(false);
 }
