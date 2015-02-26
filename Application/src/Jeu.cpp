@@ -251,11 +251,11 @@ TYPES::ACTION_LIST Jeu::getAction() const{
 
 bool Jeu::prochainJoueur(){
 
+    this->joueurCourant = (this->joueurCourant + 1) % this->positionnement.size();
+    
     if(this->finDuTour() && this->table.size() == 5){
         return false;
     }
-
-    this->joueurCourant = (this->joueurCourant + 1) % this->positionnement.size();
 
     if(this->finDuTour() && this->table.size() != 5){
 		this->joueurCourant = this->dealer;
