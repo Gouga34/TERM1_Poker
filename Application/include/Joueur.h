@@ -39,6 +39,7 @@ class Joueur{
 		void resetMain();
 		void executeCommande();
 		void changeDealer();
+		void videMain();
 		
 };
 

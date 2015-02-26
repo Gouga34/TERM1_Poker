@@ -124,5 +124,9 @@ void Joueur::setMiseJoueur(int jetons){
 	this->miseJoueur = jetons;
 }
 
+void Joueur::videMain(){
+	this->main.clear();
+}
+
 
 

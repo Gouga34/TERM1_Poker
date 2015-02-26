@@ -287,6 +287,21 @@ int Jeu::getMise(){
 	return this->mise;
 }
 
+void Jeu::nouvelleMain(int posJoueur){
+	this->getJoueur(posJoueur).ajouteJetons(this->getPot());
+	this->setPot(0);
+	this->table.clear();
+	
+	for(int i =0; i< this->positionnement.size(); i++){
+		this->getJoueur(i).videMain();
+	}
+	
+	this->deck = nouveauDeck();
+	
+	this->dealer = (this->dealer + 1) % this->positionnement.size();
+	
+}
+
 
 bool Jeu::peutChecker(){
 

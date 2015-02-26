@@ -229,6 +229,11 @@ class Jeu{
 		**/		
 		void resetActions();
 		
+		/**
+		*@action  : Relance une nouvelle main
+		**/			
+		void nouvelleMain(int posJoueur);
+		
 	
 		
 			
