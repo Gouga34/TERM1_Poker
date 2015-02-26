@@ -181,16 +181,21 @@ void Fenetre::demarragePartie()
 {
     // Distribution des blinds
 
-    jeu->distributionBlind();
+    //jeu->distributionBlind();
 
+/*
     pot.display(jeu->getPot());
     caveJoueur.display(jeu->getJoueur(0).getCave());
     caveIA.display(jeu->getJoueur(1).getCave());
-
+*/
 
     ajoutLogs("Distribution des cartes");
 
     jeu->distributionMain();
+    
+    pot.display(jeu->getPot());
+    caveJoueur.display(jeu->getJoueur(0).getCave());
+    caveIA.display(jeu->getJoueur(1).getCave());
 
     // Main du joueur
 

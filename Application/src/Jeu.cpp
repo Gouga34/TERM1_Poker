@@ -39,7 +39,10 @@ void Jeu::distributionMain(){
 	int position;
 	
 	this->resetActions();
-	for(int i =0; i< 2*this->positionnement.size(); i++){
+	
+	this->distributionBlind();
+	
+	for(int i =0; i< (int) (2*this->positionnement.size()); i++){
 		position = rand() % deck.size();
 		this->positionnement.at(i % this->positionnement.size()).ajouteCarte(this->deck.at(position));
 		this->deck.erase(this->deck.begin() + position);
@@ -51,6 +54,11 @@ void Jeu::distributionFlop(){
 	int position;
 	
 	this->mise = 0;
+	
+	for(int i=0; i< (int)this->positionnement.size(); i++){
+		this->getJoueur(i).setMiseJoueur(0);
+	}
+	
 	this->resetActions();
 	for(int i=0; i<3; i++){
 		position = rand() % deck.size();
@@ -65,6 +73,11 @@ void Jeu::distributionTurn(){
 	int position;
 	
 	this->mise = 0;
+	
+	for(int i=0; i< (int)this->positionnement.size(); i++){
+		this->getJoueur(i).setMiseJoueur(0);
+	}
+	
 	this->resetActions();
 	position = rand() % deck.size();
 	this->table.push_back(this->deck.at(position) );
@@ -78,6 +91,11 @@ void Jeu::distributionRiver(){
 	int position;
 	
 	this->mise = 0;
+	
+	for(int i=0; i< (int)this->positionnement.size(); i++){
+		this->getJoueur(i).setMiseJoueur(0);
+	}
+	
 	this->resetActions();
 	position = rand() % deck.size();
 	this->table.push_back(this->deck.at(position) );
@@ -89,7 +107,9 @@ void Jeu::distributionRiver(){
 void Jeu::distributionBlind(){
 
 	this->miser((this->getDealer() + 1) % this->positionnement.size(), this->getBlind());
+	this->actions[(this->getDealer() + 1) % this->positionnement.size()] = TYPES::ACTION_LIST::PETITE_BLIND;
 	this->relancer((this->getDealer() + 2) % this->positionnement.size(), 2 * this->getBlind() );
+	this->actions[(this->getDealer() + 2) % this->positionnement.size()] = TYPES::ACTION_LIST::GROSSE_BLIND;
 	this->joueurCourant = (this->getDealer() + 3)  % this->positionnement.size();
 }
 
@@ -172,7 +192,7 @@ void Jeu::relancer(int posJoueur, int jetons){
 
 
 void Jeu::suivre(int posJoueur){
-	this->setPot(this->getPot() + (this->mise - this->getJoueur(posJoueur).getMiseJoueur());
+	this->setPot(this->getPot() + (this->mise - this->getJoueur(posJoueur).getMiseJoueur()));
   	this->getJoueur(posJoueur).retireJetons(this->mise - this->getJoueur(posJoueur).getMiseJoueur());
   	this->getJoueur(posJoueur).setMiseJoueur(this->mise);
 	this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::SUIVRE;
@@ -186,12 +206,11 @@ void Jeu::checker(int posJoueur){
 
 void Jeu::seCoucher(int posJoueur){
 	this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::SE_COUCHER;
-}
-
+}    
 
 bool Jeu::debutTour(){
 
-    for(int i=0; i<this->actions.size(); i++){
+    for(int i=0; i< (int) this->actions.size(); i++){
         if(this->actions.at(i) != TYPES::ACTION_LIST::EN_ATTENTE){
             return false;
         }
@@ -202,8 +221,10 @@ bool Jeu::debutTour(){
 
 
 bool Jeu::finDuTour(){
+
 	int i = 1;
-	while( i <= this->positionnement.size() - 1){
+
+	while(  i <= (int) this->positionnement.size() - 1){
 		if( this->actions.at( (this->getJoueurCourant() + i) % this->positionnement.size() ) != TYPES::ACTION_LIST::CHECKER 
 		&&  this->actions.at( (this->getJoueurCourant() + i) % this->positionnement.size() ) != TYPES::ACTION_LIST::SUIVRE
 		&&  this->actions.at( (this->getJoueurCourant() + i) % this->positionnement.size() ) != TYPES::ACTION_LIST::SE_COUCHER){
@@ -213,7 +234,7 @@ bool Jeu::finDuTour(){
 		i++;
 	}
 	
-    return (this->actions.at(this->getJoueurCourant()) != TYPES::ACTION_LIST::EN_ATTENTE);
+    return (this->actions.at(this->getJoueurCourant()) != TYPES::ACTION_LIST::EN_ATTENTE && this->actions.at(this->getJoueurCourant()) != TYPES::ACTION_LIST::GROSSE_BLIND );
 }
 
 
@@ -244,7 +265,7 @@ bool Jeu::prochainJoueur(){
 }
 
 void Jeu::resetActions(){
-	for(int i=0; i<this->actions.size(); i++){
+	for(int i=0; i< (int) this->actions.size(); i++){
         this->actions.at(i) = TYPES::ACTION_LIST::EN_ATTENTE;
 	}
 }
@@ -261,9 +282,8 @@ int Jeu::getMise(){
 
 bool Jeu::peutChecker(){
 
-	for(int i=0; i<this->actions.size(); i++){
-	
-		if(this->actions.at(i) == TYPES::ACTION_LIST::MISER || this->actions.at(i) == TYPES::ACTION_LIST::RELANCER){
+	for(int i=0; i< (int) this->actions.size(); i++){
+		if(this->actions[i] == TYPES::ACTION_LIST::MISER || this->actions[i] == TYPES::ACTION_LIST::RELANCER){
 			return false;
 		}
 	
