@@ -183,18 +183,6 @@ void Fenetre::ajoutLogs(QString contenu)
 
 void Fenetre::demarragePartie()
 {
-    // Distribution des blinds
-
-    //jeu->distributionBlind();
-
-/*
-    pot.display(jeu->getPot());
-    caveJoueur.display(jeu->getJoueur(0).getCave());
-    caveIA.display(jeu->getJoueur(1).getCave());
-<<<<<<< HEAD
-*/
-=======
->>>>>>> e00aa428c999683f432fcecc7cf8c4f03a248537
 
     ajoutLogs("Distribution des cartes");
 

@@ -108,8 +108,10 @@ void Jeu::distributionBlind(){
 
 	this->miser((this->getDealer() + 1) % this->positionnement.size(), this->getBlind());
 	this->actions[(this->getDealer() + 1) % this->positionnement.size()] = TYPES::ACTION_LIST::PETITE_BLIND;
+	
 	this->relancer((this->getDealer() + 2) % this->positionnement.size(), 2 * this->getBlind() );
 	this->actions[(this->getDealer() + 2) % this->positionnement.size()] = TYPES::ACTION_LIST::GROSSE_BLIND;
+	
 	this->joueurCourant = (this->getDealer() + 3)  % this->positionnement.size();
 }
 
@@ -179,6 +181,11 @@ void Jeu::miser(int posJoueur, int jetons){
 	this->mise = jetons;
 	this->getJoueur(posJoueur).setMiseJoueur(jetons);
 	this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::MISER;
+	
+	for(int i=1; i <= this->positionnement.size() - 1 ; i++){
+		this->getJoueur( (posJoueur + i) % this->positionnement.size()).setMiseJoueur(0);
+	}
+	
 }
 
 
@@ -234,7 +241,7 @@ bool Jeu::finDuTour(){
 		i++;
 	}
 	
-    return (this->actions.at(this->getJoueurCourant()) != TYPES::ACTION_LIST::EN_ATTENTE && this->actions.at(this->getJoueurCourant()) != TYPES::ACTION_LIST::GROSSE_BLIND );
+    return (this->actions.at(this->getJoueurCourant()) != TYPES::ACTION_LIST::EN_ATTENTE && this->actions.at(this->getJoueurCourant()) != TYPES::ACTION_LIST::GROSSE_BLIND);
 }
 
 
@@ -266,7 +273,8 @@ bool Jeu::prochainJoueur(){
 
 void Jeu::resetActions(){
 	for(int i=0; i< (int) this->actions.size(); i++){
-        this->actions.at(i) = TYPES::ACTION_LIST::EN_ATTENTE;
+        	this->actions.at(i) = TYPES::ACTION_LIST::EN_ATTENTE;
+        	this->getJoueur(i).setMiseJoueur(0);
 	}
 }
 
@@ -283,7 +291,7 @@ int Jeu::getMise(){
 bool Jeu::peutChecker(){
 
 	for(int i=0; i< (int) this->actions.size(); i++){
-		if(this->actions[i] == TYPES::ACTION_LIST::MISER || this->actions[i] == TYPES::ACTION_LIST::RELANCER){
+		if(this->actions[i] == TYPES::ACTION_LIST::MISER || this->actions[i] == TYPES::ACTION_LIST::RELANCER || this->actions[i] == TYPES::ACTION_LIST::GROSSE_BLIND ){
 			return false;
 		}
 	
