@@ -219,8 +219,9 @@ void Fenetre::demarragePartie()
     layoutMainAdverse.addWidget(dos);
     layoutMainAdverse.addWidget(dos2);
 
-
     boutonDemarrage.hide();
+
+    valeurMise.setMinimum(jeu->getBlind());
 
     if (jeu->getJoueurCourant() == 0) {     // Joueur humain
         joueurCourant();
@@ -289,6 +290,7 @@ void Fenetre::jeuIA()
         case TYPES::ACTION_LIST::SE_COUCHER:
             ajoutLogs("IA se couche");
             partieTermine();
+            return;
             break;
         default:
             break;
@@ -307,7 +309,6 @@ void Fenetre::prochainJoueur()
     }
 
     if (jeu->debutTour()) {
-        valeurMise.setMinimum(0);
         afficheTable();
     }
 
@@ -351,6 +352,7 @@ void Fenetre::suivre()
 
     activationBoutons[CHECKER] = true;
     activationBoutons[MISER] = true;
+    valeurMise.setMinimum(jeu->getBlind());
 
     ajoutLogs("Joueur 1 suit");
 
@@ -366,6 +368,10 @@ void Fenetre::relancer()
     caveJoueur.display(jeu->getJoueur(0).getCave());
     pot.display(jeu->getPot());
 
+    activationBoutons[CHECKER] = true;
+    activationBoutons[MISER] = true;
+    valeurMise.setMinimum(jeu->getBlind());
+
     ajoutLogs("Joueur 1 relance " + QString::number(montant));
 
     emit tourFini();
@@ -378,8 +384,6 @@ void Fenetre::seCoucher()
     ajoutLogs("Joueur 1 se couche");
 
     partieTermine();
-
-    emit tourFini();
 }
 
 void Fenetre::partieTermine()
