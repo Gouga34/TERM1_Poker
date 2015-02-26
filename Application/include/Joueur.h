@@ -15,6 +15,7 @@ class Joueur{
 		int			cave;
 		Jeu*			jeu;
 		int			position;
+		int			miseJoueur;
 		
 	//Constructeur et destructeur
 	public:
@@ -27,6 +28,8 @@ class Joueur{
 		void 			setJeu(Jeu* j);
 		Jeu*			getJeu();
 		int			getPosition() const;
+		int			getMiseJoueur();
+		void			setMiseJoueur(int jetons);
 		
 	//Methodes
 		void ajouteJetons(int jetons);

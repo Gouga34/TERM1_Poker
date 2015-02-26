@@ -11,6 +11,7 @@ Joueur::Joueur(bool estDealer, int jetons, int position){
 	this->dealer = estDealer;
 	this->cave = jetons;
 	this->position = position;
+	this->miseJoueur = 0;
 }
 
 /**
@@ -114,3 +115,14 @@ void Joueur::changeDealer(){
 		this->dealer = true;
 	}
 }
+
+int Joueur::getMiseJoueur(){
+	return this->miseJoueur;
+}
+
+void Joueur::setMiseJoueur(int jetons){
+	this->miseJoueur = jetons;
+}
+
+
+
