@@ -73,7 +73,6 @@ double IntelligenceArtificielle::calculProba(){
         }
         	
         if(this->main.at(0).getCouleur() == this->main.at(1).getCouleur()){
-        		std::cout << this->main.at(0).getCouleur() << "," << this->main.at(1).getCouleur() << std::endl;
 			main += "*";
             main2 += "*";
 		}
