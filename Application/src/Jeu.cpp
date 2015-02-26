@@ -184,8 +184,21 @@ void Jeu::miser(int posJoueur, int jetons){
 	
 	for(int i=1; i <= this->positionnement.size() - 1 ; i++){
 		this->getJoueur( (posJoueur + i) % this->positionnement.size()).setMiseJoueur(0);
+	}	
+}
+
+void Jeu::tapis(int posJoueur){
+
+	this->setPot(this->getPot() + this->getJoueur(posJoueur).getCave());
+	
+	if(this->getJoueur(posJoueur).getCave() > this->mise){
+		this->mise = this->getJoueur(posJoueur).getCave();
 	}
 	
+	this->getJoueur(posJoueur).retireJetons(this->getJoueur(posJoueur).getCave());
+	this->getJoueur(posJoueur).setMiseJoueur(this->getJoueur(posJoueur).getCave());
+	
+	this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::TAPIS;
 }
 
 
@@ -298,7 +311,9 @@ void Jeu::nouvelleMain(int posJoueur){
 	
 	this->deck = nouveauDeck();
 	
+	this->getJoueur(this->dealer).changeDealer();
 	this->dealer = (this->dealer + 1) % this->positionnement.size();
+	this->getJoueur(this->dealer).changeDealer();
 	
 }
 

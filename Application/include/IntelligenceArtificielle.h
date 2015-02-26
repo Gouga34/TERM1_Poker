@@ -10,21 +10,52 @@
 
 class IntelligenceArtificielle : public Joueur {
 
-	//Attributs
 	private:
+		//Attributs
 		std::vector<Carte> table;
+		
+		//Méthodes
+		
+		/**
+		*@action : Permet d'obtenir la probabilité pre-Flop
+		*@return : La probabilitee pre-Flop de la main courant
+		**/
 		double calculProba();	
 	
-	//Constructeur et destructeur
+	
 	public :
+		//Constructeur et destructeur
+		
+		/**
+		*@action : Constructeur de la classe Intelligence Artificielle
+		*@param  : Un boolean indiquant si le jouer est le dealer, sa cave de depart et sa position
+		**/
 		IntelligenceArtificielle(bool estDealer, int jetons, int position);
+		
+		/**
+		*@action : Constructeur de la classe Intelligence Artificielle par copie de la classe Joueur
+		*@param  : L'instance de la classe Joueur utilisee pour la copie
+		**/		
 		IntelligenceArtificielle(Joueur joueur);
+		
+		/**
+		*@action : Destructeur de la classe Intelligence Artificielle
+		**/
 		~IntelligenceArtificielle();
 		
-	//Mutateur
+		//Mutateur
+		
+		/**
+		*@action : Permet d'obtenir les carte communes
+		*@param  : Un ensemble de carte representant les cartes communes
+		**/
 		void setTable(std::vector<Carte> tab);
 		
-	//Methodes
+		//Methodes
+	
+		/**
+		*@action : Pemet a l'IA de jouer
+		**/
 		void jouer();		
 	
 };
