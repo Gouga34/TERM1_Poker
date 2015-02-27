@@ -22,6 +22,7 @@ namespace TYPES
         CHECKER,
         SE_COUCHER,
         EN_ATTENTE,
+        TAPIS,
         PETITE_BLIND,
         GROSSE_BLIND
     };
@@ -117,6 +118,12 @@ class Jeu{
 		*@return : Un entier représentant la mise courante
 		**/
 		int			getMise();
+		
+		/**
+		*@action : Permet d'obtenir l'ensemble des actions
+		*@return : L'ensemble des actions
+		**/
+		std::vector<TYPES::ACTION_LIST> getListeActions() const;
 
 	
 	//Methodes	
@@ -171,31 +178,38 @@ class Jeu{
 		
 		/**
 		*@action : Permet de savoir si le joueur a la possibilite checker
+		*@param  : la position du joueur dont on veut savoir s'il peut checker
 		*@return : vrai si le joueur peut checker, faux sinon 
 		**/
-		bool peutChecker();
+		bool peutChecker(int posJoueur);
 		
 		/**
 		*@action : Commande permettant a un joueur de miser
-		*@param  : Le joueur effectuant l'action ainsi que le montant de la mise
+		*@param  : La position du joueur effectuant l'action ainsi que le montant de la mise
 		**/
 		void miser(int posJoueur, int jetons);
 		
 		/**
 		*@action : Commande permettant a un joueur de relancer
-		*@param  : Le joueur effectuant l'action ainsi que le montant de la relance
+		*@param  : La position du joueur effectuant l'action ainsi que le montant de la relance
 		**/
 		void relancer(int posJoueur, int jetons);
 		
 		/**
+		*@action : Commande permettant a un joueur de faire "tapis"
+		*@param  : La position du joueur effectuant l'action
+		**/
+		void tapis(int posJoueur);
+		
+		/**
 		*@action : Commande permettant a un joueur de suivre
-		*@param  : Le joueur effectuant l'action
+		*@param  : La position du joueur effectuant l'action
 		**/
 		void suivre(int posJoueur);
 		
 		/**
 		*@action : Commande permettant a un joueur de checker
-		*@param  : Le joueur effectuant l'action
+		*@param  : La position du joueur effectuant l'action
 		**/
 		void checker(int posJoueur);
 		
