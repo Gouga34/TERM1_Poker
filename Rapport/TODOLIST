@@ -2,23 +2,26 @@
 
  /********** ARTICLES ***************/
 - lire les articles fournis par le prof (ComputerPoker)
-- analyse de l'existant / étude technique : réfléchir sur la méthode de profilage statique (en cours)
+- analyse de l'existant / étude technique : la méthode de profilage statique 
 - faire chacun le résumé de son article (Morgane OK)
 - chercher et lire des articles sur le profilage dynamique
 
  /********** Interface graphique ***************/
 - ajouter la possibilité de choisir les cartes du jeu (cartes des joueurs et du milieu)
 - ajouter un système de pseudos
-- le joueur ne doit pas jouer en négatif
+- le joueur ne doit pas jouer en négatif ( à l'IA d'envoyer un signal à l'interface graphique pour dire "stop, le joueur ne peut pas jouer en négatif").
 - déplacer les cartes
 
- /**********IA basique***************/
+ /********** IA ***************/
 - ajouter évaluateur.
-- ne doit pas jouer en negatif
+- ajouter la fonction qui calculera la proba de gagner ou de perdre.
+- 
 
  /********** Appli en général ***************/
-- Vérifier que les normes de prog sont bien respectées pr IA basique et interface graphique
-- réfléchir à la façon de SAV les données de profilage, aux données à SAV : en cours, à faire confirmer (JSON)
+- Vérifier que les normes de prog sont bien respectées 
+- Créer la méthode de mémorisation des données pour le profilage
+- définir des scénarios de tests
+- Créer la méthode permettant de lire les données pour le profilage
 
 
 /**************************************** Articles à lire ************************************************/
