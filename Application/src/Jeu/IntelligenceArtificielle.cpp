@@ -1,4 +1,5 @@
 #include "../../include/Jeu/IntelligenceArtificielle.h"
+#include "../../include/Jeu/EstimationProba.h"
 #include <sstream> 
 
 IntelligenceArtificielle::IntelligenceArtificielle(bool estDealer, int jetons, int position): Joueur(estDealer, jetons, position){
@@ -75,7 +76,6 @@ double IntelligenceArtificielle::calculProba(){
 	}
 		
 		std::string ligne;
-		std::size_t found;
 		std::istringstream isstream;
 		std::string mot;
     
@@ -105,6 +105,11 @@ void IntelligenceArtificielle::setTable(std::vector<Carte> tab){
 void IntelligenceArtificielle::jouer(){
 	
 	double proba = this->calculProba();
+	
+	EstimationProba estime( this->getJeu(), &this->getJeu()->getJoueur(this->getPosition()) );
+	//double test = estime.estimation();
+	
+
 	
 	if(proba > 75){
 		if(this->getCave() < this->getJeu()->getMise() * 2){
