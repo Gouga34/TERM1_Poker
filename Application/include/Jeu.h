@@ -186,38 +186,44 @@ class Jeu{
 		/**
 		*@action : Commande permettant a un joueur de miser
 		*@param  : La position du joueur effectuant l'action ainsi que le montant de la mise
+		*@return : Retourne vrai si l'action est possible, faux sinon
 		**/
-		void miser(int posJoueur, int jetons);
+		bool miser(int posJoueur, int jetons);
 		
 		/**
 		*@action : Commande permettant a un joueur de relancer
 		*@param  : La position du joueur effectuant l'action ainsi que le montant de la relance
+		*@return : Retourne vrai si l'action est possible, faux sinon
 		**/
-		void relancer(int posJoueur, int jetons);
+		bool relancer(int posJoueur, int jetons);
 		
 		/**
 		*@action : Commande permettant a un joueur de faire "tapis"
 		*@param  : La position du joueur effectuant l'action
+		*@return : Retourne vrai si l'action est possible, faux sinon
 		**/
-		void tapis(int posJoueur);
+		bool tapis(int posJoueur);
 		
 		/**
 		*@action : Commande permettant a un joueur de suivre
 		*@param  : La position du joueur effectuant l'action
+		*@return : Retourne vrai si l'action est possible, faux sinon
 		**/
-		void suivre(int posJoueur);
+		bool suivre(int posJoueur);
 		
 		/**
 		*@action : Commande permettant a un joueur de checker
 		*@param  : La position du joueur effectuant l'action
+		*@return : Retourne vrai si l'action est possible, faux sinon
 		**/
-		void checker(int posJoueur);
+		bool checker(int posJoueur);
 		
 		/**
 		*@action : Commande permettant a un joueur de se coucher
 		*@param  : Le joueur effectuant l'action
+		*@return : Retourne vrai si l'action est possible, faux sinon
 		**/
-       		void seCoucher(int posJoueur);
+       		bool seCoucher(int posJoueur);
        		
        		/**
 		*@action  : Affecte le joueur suivant en tant que joueur courant et renvoi vrai s'il existe
@@ -245,12 +251,9 @@ class Jeu{
 		
 		/**
 		*@action  : Relance une nouvelle main
+		*@param   : La position du joueur ayant gagné la main
 		**/			
-		void nouvelleMain(int posJoueur);
-		
-	
-		
-			
+		void nouvelleMain(int posJoueur);			
 };
 
 #endif
