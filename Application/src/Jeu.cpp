@@ -46,7 +46,7 @@ void Jeu::distributionMain(){
 		position = rand() % deck.size();
 		this->positionnement.at(i % this->positionnement.size()).ajouteCarte(this->deck.at(position));
 		this->deck.erase(this->deck.begin() + position);
-	}
+	}	
 }
 
 void Jeu::distributionFlop(){
@@ -175,19 +175,27 @@ void Jeu::setPot(int jetons){
 
 
 
-void Jeu::miser(int posJoueur, int jetons){
-	this->setPot(this->getPot() + jetons);
-	this->getJoueur(posJoueur).retireJetons(jetons);
-	this->mise = jetons;
-	this->getJoueur(posJoueur).setMiseJoueur(jetons);
-	this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::MISER;
+bool Jeu::miser(int posJoueur, int jetons){
+
+	if(this->getJoueur(posJoueur).getCave() >= jetons){
+		this->setPot(this->getPot() + jetons);
+		this->getJoueur(posJoueur).retireJetons(jetons);
+		this->mise = jetons;
+		this->getJoueur(posJoueur).setMiseJoueur(jetons);
+		this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::MISER;
 	
-	for(int i=1; i <= this->positionnement.size() - 1 ; i++){
-		this->getJoueur( (posJoueur + i) % this->positionnement.size()).setMiseJoueur(0);
-	}	
+		for(int i=1; i <= this->positionnement.size() - 1 ; i++){
+			this->getJoueur( (posJoueur + i) % this->positionnement.size()).setMiseJoueur(0);
+		}
+		
+		return true;
+	}
+	
+	return false;
+	
 }
 
-void Jeu::tapis(int posJoueur){
+bool Jeu::tapis(int posJoueur){
 
 	this->setPot(this->getPot() + this->getJoueur(posJoueur).getCave());
 	
@@ -199,33 +207,51 @@ void Jeu::tapis(int posJoueur){
 	this->getJoueur(posJoueur).setMiseJoueur(this->getJoueur(posJoueur).getCave());
 	
 	this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::TAPIS;
+	
+	return true;
 }
 
 
-void Jeu::relancer(int posJoueur, int jetons){
-	this->setPot(this->getPot() + jetons);
-	this->getJoueur(posJoueur).retireJetons(jetons);
-	this->mise = jetons;
-	this->getJoueur(posJoueur).setMiseJoueur(jetons);
-	this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::RELANCER;
+bool Jeu::relancer(int posJoueur, int jetons){
+	
+	if(this->getJoueur(posJoueur).getCave() >= jetons){
+		this->setPot(this->getPot() + jetons);
+		this->getJoueur(posJoueur).retireJetons(jetons);
+		this->mise = jetons;
+		this->getJoueur(posJoueur).setMiseJoueur(jetons);
+		this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::RELANCER;
+		return true;	
+	}
+	
+	return false;
+
 }
 
 
-void Jeu::suivre(int posJoueur){
-	this->setPot(this->getPot() + (this->mise - this->getJoueur(posJoueur).getMiseJoueur()));
-  	this->getJoueur(posJoueur).retireJetons(this->mise - this->getJoueur(posJoueur).getMiseJoueur());
-  	this->getJoueur(posJoueur).setMiseJoueur(this->mise);
-	this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::SUIVRE;
+bool Jeu::suivre(int posJoueur){
+	
+	if(this->getJoueur(posJoueur).getCave() >= this->mise){
+		this->setPot(this->getPot() + (this->mise - this->getJoueur(posJoueur).getMiseJoueur()));
+	  	this->getJoueur(posJoueur).retireJetons(this->mise - this->getJoueur(posJoueur).getMiseJoueur());
+	  	this->getJoueur(posJoueur).setMiseJoueur(this->mise);
+		this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::SUIVRE;
+		
+		return true;
+	}
+	
+	return this->tapis(posJoueur);
 }
 
 
-void Jeu::checker(int posJoueur){
+bool Jeu::checker(int posJoueur){
 	this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::CHECKER;
+	return true;
 }
 
 
-void Jeu::seCoucher(int posJoueur){
+bool Jeu::seCoucher(int posJoueur){
 	this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::SE_COUCHER;
+	return true;
 }    
 
 bool Jeu::debutTour(){
@@ -263,11 +289,11 @@ TYPES::ACTION_LIST Jeu::getAction() const{
 }
 
 bool Jeu::prochainJoueur(){
-
+	
     this->joueurCourant = (this->joueurCourant + 1) % this->positionnement.size();
     
     if(this->finDuTour() && this->table.size() == 5){
-        return false;
+	return false;
     }
 
     if(this->finDuTour() && this->table.size() != 5){
@@ -332,4 +358,35 @@ bool Jeu::peutChecker(int posJoueur){
 	
 	return true;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

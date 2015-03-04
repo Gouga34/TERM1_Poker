@@ -39,7 +39,25 @@ void Joueur::retireJetons(int jetons){
 
 
 void Joueur::ajouteCarte(Carte carte){
-	this->main.push_back(carte);
+	if(this->main.size() == 0){
+		this->main.push_back(carte);
+	}else{
+		if(carte.getRang() == 1){
+			Carte c = this->main.at(0);
+			this->main.pop_back();
+			this->main.push_back(carte);
+			this->main.push_back(c);
+		}else if(this->main.at(0).getRang() == 1){
+			this->main.push_back(carte);
+		}else if(this->main.at(0).getRang() < carte.getRang()){
+			Carte c = this->main.at(0);
+			this->main.pop_back();
+			this->main.push_back(carte);
+			this->main.push_back(c);
+		}else{
+			this->main.push_back(carte);
+		}
+	}
 }
 
 
