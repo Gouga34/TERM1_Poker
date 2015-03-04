@@ -1,4 +1,4 @@
 all : main
 
 main :
-	cd Interface/Poker && qmake && make
+	cd src/Interface/ && qmake && make

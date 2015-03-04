@@ -17,7 +17,7 @@ Specification: Classe contenant l'ensemble des propriétés de la fenêtre
 #include <QPushButton>
 #include <QTextEdit>
 #include "ListeCartes.h"
-#include "../../include/Jeu.h"
+#include "../Jeu/Jeu.h"
 
 class Fenetre : public QWidget
 {

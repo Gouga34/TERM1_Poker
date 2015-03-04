@@ -6,8 +6,8 @@ Projet: Profilage par essais et erreurs au poker
 Specification: Fichier contenant les définitions de la classe Fenetre.
 =========================================================================*/
 
-#include "Fenetre.h"
-#include "CarteGraphique.h"
+#include "../../include/Interface/Fenetre.h"
+#include "../../include/Interface/CarteGraphique.h"
 #include <QVBoxLayout>
 
 QPixmap *Fenetre::textureCartes = 0;
@@ -63,7 +63,7 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
 
     // Chargement de l'image
     if (!textureCartes){
-        textureCartes = new QPixmap("deck.png");
+        textureCartes = new QPixmap("../Application/ressources/Interface/deck.png");
     }
 
     layoutJeu->setSpacing(150);

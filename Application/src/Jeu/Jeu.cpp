@@ -1,6 +1,6 @@
-#include "../include/Jeu.h"
-#include "../include/Joueur.h"
-#include "../include/IntelligenceArtificielle.h"
+#include "../../include/Jeu/Jeu.h"
+#include "../../include/Jeu/Joueur.h"
+#include "../../include/Jeu/IntelligenceArtificielle.h"
 
 Jeu::Jeu(int nbJoueur, int blindDepart, int cave, int typeIA) : actions(nbJoueur,TYPES::ACTION_LIST::EN_ATTENTE){
 	srand((unsigned)time(0));

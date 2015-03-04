@@ -6,8 +6,8 @@ Projet: Profilage par essais et erreurs au poker
 Specification: Fichier contenant les définitions de la classe ListeCartes.
 =========================================================================*/
 
-#include "ListeCartes.h"
-#include <CarteGraphique.h>
+#include "../../include/Interface/ListeCartes.h"
+#include "../../include/Interface/CarteGraphique.h"
 
 
 ListeCartes::ListeCartes() : QHBoxLayout()

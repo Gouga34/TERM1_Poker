@@ -1,5 +1,5 @@
-#include "../include/Joueur.h"
-#include "../include/Jeu.h" 
+#include "../../include/Jeu/Joueur.h"
+#include "../../include/Jeu/Jeu.h" 
 
 Joueur::Joueur(bool estDealer, int jetons, int position){
 	this->dealer = estDealer;

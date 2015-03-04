@@ -6,8 +6,8 @@ Projet: Profilage par essais et erreurs au poker
 Specification: Fichier contenant les définitions de la classe CarteGraphique.
 =========================================================================*/
 
-#include "CarteGraphique.h"
-#include "Fenetre.h"
+#include "../../include/Interface/CarteGraphique.h"
+#include "../../include/Interface/Fenetre.h"
 
 // Définition de la taille d'une carte
 const unsigned int CarteGraphique::LARGEUR_CARTE = 73;

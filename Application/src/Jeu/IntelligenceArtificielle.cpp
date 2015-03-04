@@ -1,4 +1,4 @@
-#include "../include/IntelligenceArtificielle.h"
+#include "../../include/Jeu/IntelligenceArtificielle.h"
 #include <sstream> 
 
 IntelligenceArtificielle::IntelligenceArtificielle(bool estDealer, int jetons, int position): Joueur(estDealer, jetons, position){
@@ -15,7 +15,8 @@ IntelligenceArtificielle::~IntelligenceArtificielle(){
 
 double IntelligenceArtificielle::calculProba(){
 
-    std::ifstream fichier("../../Probas/probas_preflops", std::ios::in);
+
+    std::ifstream fichier("../Application/ressources/Probas/probas_preflops", std::ios::in);
 	double probabilite = 0;
  
         if(fichier){
