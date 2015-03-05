@@ -15,7 +15,7 @@ CXX           = g++
 DEFINES       = -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -m64 -pipe -O2 -Wall -W -D_REENTRANT -fPIE $(DEFINES)
 CXXFLAGS      = -m64 -pipe -O2 -std=c++0x -Wall -W -D_REENTRANT -fPIE $(DEFINES)
-INCPATH       = -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -Itmp
+INCPATH       = -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I../tmp
 LINK          = g++
 LFLAGS        = -m64 -Wl,-O1
 LIBS          = $(SUBLIBS) -L/usr/X11R6/lib64 -lQt5Widgets -L/usr/lib/x86_64-linux-gnu -lQt5Gui -lQt5Core -lGL -lpthread 
@@ -41,29 +41,29 @@ MKDIR         = mkdir -p
 
 ####### Output directory
 
-OBJECTS_DIR   = tmp/
+OBJECTS_DIR   = ../tmp/
 
 ####### Files
 
-SOURCES       = src/Interface/main.cpp \
-		src/Interface/Fenetre.cpp \
-		src/Interface/CarteGraphique.cpp \
-		src/Interface/ListeCartes.cpp \
-		src/Jeu/Jeu.cpp \
-		src/Jeu/Carte.cpp \
-		src/Jeu/Joueur.cpp \
-		src/Jeu/IntelligenceArtificielle.cpp \
-		src/Jeu/EstimationProba.cpp tmp/moc_Fenetre.cpp
-OBJECTS       = tmp/main.o \
-		tmp/Fenetre.o \
-		tmp/CarteGraphique.o \
-		tmp/ListeCartes.o \
-		tmp/Jeu.o \
-		tmp/Carte.o \
-		tmp/Joueur.o \
-		tmp/IntelligenceArtificielle.o \
-		tmp/EstimationProba.o \
-		tmp/moc_Fenetre.o
+SOURCES       = main.cpp \
+		Fenetre.cpp \
+		CarteGraphique.cpp \
+		ListeCartes.cpp \
+		../../src/Jeu.cpp \
+		../../src/Carte.cpp \
+		../../src/Joueur.cpp \
+		../..src/EstimationProba.cpp \
+		../../src/IntelligenceArtificielle.cpp ../tmp/moc_Fenetre.cpp
+OBJECTS       = ../tmp/main.o \
+		../tmp/Fenetre.o \
+		../tmp/CarteGraphique.o \
+		../tmp/ListeCartes.o \
+		../tmp/Jeu.o \
+		../tmp/Carte.o \
+		../tmp/Joueur.o \
+		../tmp/EstimationProba.o \
+		../tmp/IntelligenceArtificielle.o \
+		../tmp/moc_Fenetre.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/shell-unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
@@ -290,8 +290,8 @@ qmake: FORCE
 qmake_all: FORCE
 
 dist: 
-	@test -d tmp/Poker1.0.0 || mkdir -p tmp/Poker1.0.0
-	$(COPY_FILE) --parents $(SOURCES) $(DIST) tmp/Poker1.0.0/ && $(COPY_FILE) --parents include/Interface/Fenetre.h include/Interface/CarteGraphique.h include/Interface/ListeCartes.h include/Jeu/Jeu.h include/Jeu/Carte.h include/Jeu/Joueur.h include/Jeu/IntelligenceArtificielle.h include/Jeu/EstimationProba.h include/Jeu/Constantes.h include/Constantes.h tmp/Poker1.0.0/ && $(COPY_FILE) --parents src/Interface/main.cpp src/Interface/Fenetre.cpp src/Interface/CarteGraphique.cpp src/Interface/ListeCartes.cpp src/Jeu/Jeu.cpp src/Jeu/Carte.cpp src/Jeu/Joueur.cpp src/Jeu/IntelligenceArtificielle.cpp src/Jeu/EstimationProba.cpp tmp/Poker1.0.0/ && (cd `dirname tmp/Poker1.0.0` && $(TAR) Poker1.0.0.tar Poker1.0.0 && $(COMPRESS) Poker1.0.0.tar) && $(MOVE) `dirname tmp/Poker1.0.0`/Poker1.0.0.tar.gz . && $(DEL_FILE) -r tmp/Poker1.0.0
+	@test -d ../tmp/Poker1.0.0 || mkdir -p ../tmp/Poker1.0.0
+	$(COPY_FILE) --parents $(SOURCES) $(DIST) ../tmp/Poker1.0.0/ && $(COPY_FILE) --parents Fenetre.h CarteGraphique.h ListeCartes.h ../../include/Jeu.h ../../include/Carte.h ../../include/Joueur.h ../../include/IntelligenceArtificielle.h ../tmp/Poker1.0.0/ && $(COPY_FILE) --parents main.cpp Fenetre.cpp CarteGraphique.cpp ListeCartes.cpp ../../src/Jeu.cpp ../../src/Carte.cpp ../../src/Joueur.cpp ../../src/IntelligenceArtificielle.cpp ../tmp/Poker1.0.0/ && (cd `dirname ../tmp/Poker1.0.0` && $(TAR) Poker1.0.0.tar Poker1.0.0 && $(COMPRESS) Poker1.0.0.tar) && $(MOVE) `dirname ../tmp/Poker1.0.0`/Poker1.0.0.tar.gz . && $(DEL_FILE) -r ../tmp/Poker1.0.0
 
 
 clean:compiler_clean 
@@ -314,10 +314,10 @@ check: first
 
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_header_make_all: tmp/moc_Fenetre.cpp
+compiler_moc_header_make_all: ../tmp/moc_Fenetre.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) tmp/moc_Fenetre.cpp
-tmp/moc_Fenetre.cpp: /usr/include/qt5/QtWidgets/QWidget \
+	-$(DEL_FILE) ../tmp/moc_Fenetre.cpp
+../tmp/moc_Fenetre.cpp: /usr/include/qt5/QtWidgets/QWidget \
 		/usr/include/qt5/QtWidgets/qwidget.h \
 		/usr/include/qt5/QtGui/qwindowdefs.h \
 		/usr/include/qt5/QtCore/qglobal.h \
@@ -447,7 +447,7 @@ tmp/moc_Fenetre.cpp: /usr/include/qt5/QtWidgets/QWidget \
 		/usr/include/qt5/QtGui/qtextcursor.h \
 		/usr/include/qt5/QtGui/qtextformat.h \
 		/usr/include/qt5/QtGui/qpen.h \
-		include/Interface/ListeCartes.h \
+		ListeCartes.h \
 		/usr/include/qt5/QtWidgets/QHBoxLayout \
 		/usr/include/qt5/QtWidgets/qboxlayout.h \
 		/usr/include/qt5/QtWidgets/qlayout.h \
@@ -456,13 +456,12 @@ tmp/moc_Fenetre.cpp: /usr/include/qt5/QtWidgets/QWidget \
 		/usr/include/qt5/QtCore/QList \
 		/usr/include/qt5/QtWidgets/QLabel \
 		/usr/include/qt5/QtWidgets/qlabel.h \
-		include/Jeu/Carte.h \
-		include/Constantes.h \
-		include/Jeu/Jeu.h \
-		include/Jeu/Joueur.h \
-		include/Jeu/IntelligenceArtificielle.h \
-		include/Interface/Fenetre.h
-	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include include/Interface/Fenetre.h -o tmp/moc_Fenetre.cpp
+		../../include/Carte.h \
+		../../include/Jeu.h \
+		../../include/Joueur.h \
+		../../include/IntelligenceArtificielle.h \
+		Fenetre.h
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Fenetre.h -o ../tmp/moc_Fenetre.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -478,7 +477,7 @@ compiler_clean: compiler_moc_header_clean
 
 ####### Compile
 
-tmp/main.o: src/Interface/main.cpp /usr/include/qt5/QtWidgets/QApplication \
+../tmp/main.o: main.cpp /usr/include/qt5/QtWidgets/QApplication \
 		/usr/include/qt5/QtWidgets/qapplication.h \
 		/usr/include/qt5/QtCore/qcoreapplication.h \
 		/usr/include/qt5/QtCore/qglobal.h \
@@ -592,7 +591,7 @@ tmp/main.o: src/Interface/main.cpp /usr/include/qt5/QtWidgets/QApplication \
 		/usr/include/qt5/QtGui/qtouchdevice.h \
 		/usr/include/qt5/QtGui/qguiapplication.h \
 		/usr/include/qt5/QtGui/qinputmethod.h \
-		include/Interface/Fenetre.h \
+		Fenetre.h \
 		/usr/include/qt5/QtWidgets/QWidget \
 		/usr/include/qt5/QtGui/QPixmap \
 		/usr/include/qt5/QtWidgets/QLCDNumber \
@@ -616,7 +615,7 @@ tmp/main.o: src/Interface/main.cpp /usr/include/qt5/QtWidgets/QApplication \
 		/usr/include/qt5/QtGui/qtextcursor.h \
 		/usr/include/qt5/QtGui/qtextformat.h \
 		/usr/include/qt5/QtGui/qpen.h \
-		include/Interface/ListeCartes.h \
+		ListeCartes.h \
 		/usr/include/qt5/QtWidgets/QHBoxLayout \
 		/usr/include/qt5/QtWidgets/qboxlayout.h \
 		/usr/include/qt5/QtWidgets/qlayout.h \
@@ -625,14 +624,13 @@ tmp/main.o: src/Interface/main.cpp /usr/include/qt5/QtWidgets/QApplication \
 		/usr/include/qt5/QtCore/QList \
 		/usr/include/qt5/QtWidgets/QLabel \
 		/usr/include/qt5/QtWidgets/qlabel.h \
-		include/Jeu/Carte.h \
-		include/Constantes.h \
-		include/Jeu/Jeu.h \
-		include/Jeu/Joueur.h \
-		include/Jeu/IntelligenceArtificielle.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/main.o src/Interface/main.cpp
+		../../include/Carte.h \
+		../../include/Jeu.h \
+		../../include/Joueur.h \
+		../../include/IntelligenceArtificielle.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../tmp/main.o main.cpp
 
-tmp/Fenetre.o: src/Interface/Fenetre.cpp include/Interface/Fenetre.h \
+../tmp/Fenetre.o: Fenetre.cpp Fenetre.h \
 		/usr/include/qt5/QtWidgets/QWidget \
 		/usr/include/qt5/QtWidgets/qwidget.h \
 		/usr/include/qt5/QtGui/qwindowdefs.h \
@@ -763,7 +761,7 @@ tmp/Fenetre.o: src/Interface/Fenetre.cpp include/Interface/Fenetre.h \
 		/usr/include/qt5/QtGui/qtextcursor.h \
 		/usr/include/qt5/QtGui/qtextformat.h \
 		/usr/include/qt5/QtGui/qpen.h \
-		include/Interface/ListeCartes.h \
+		ListeCartes.h \
 		/usr/include/qt5/QtWidgets/QHBoxLayout \
 		/usr/include/qt5/QtWidgets/qboxlayout.h \
 		/usr/include/qt5/QtWidgets/qlayout.h \
@@ -772,16 +770,15 @@ tmp/Fenetre.o: src/Interface/Fenetre.cpp include/Interface/Fenetre.h \
 		/usr/include/qt5/QtCore/QList \
 		/usr/include/qt5/QtWidgets/QLabel \
 		/usr/include/qt5/QtWidgets/qlabel.h \
-		include/Jeu/Carte.h \
-		include/Constantes.h \
-		include/Jeu/Jeu.h \
-		include/Jeu/Joueur.h \
-		include/Jeu/IntelligenceArtificielle.h \
-		include/Interface/CarteGraphique.h \
+		../../include/Carte.h \
+		../../include/Jeu.h \
+		../../include/Joueur.h \
+		../../include/IntelligenceArtificielle.h \
+		CarteGraphique.h \
 		/usr/include/qt5/QtWidgets/QVBoxLayout
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/Fenetre.o src/Interface/Fenetre.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../tmp/Fenetre.o Fenetre.cpp
 
-tmp/CarteGraphique.o: src/Interface/CarteGraphique.cpp include/Interface/CarteGraphique.h \
+../tmp/CarteGraphique.o: CarteGraphique.cpp CarteGraphique.h \
 		/usr/include/qt5/QtWidgets/QLabel \
 		/usr/include/qt5/QtWidgets/qlabel.h \
 		/usr/include/qt5/QtWidgets/qframe.h \
@@ -892,9 +889,8 @@ tmp/CarteGraphique.o: src/Interface/CarteGraphique.cpp include/Interface/CarteGr
 		/usr/include/qt5/QtCore/qfiledevice.h \
 		/usr/include/qt5/QtGui/qvector2d.h \
 		/usr/include/qt5/QtGui/qtouchdevice.h \
-		include/Jeu/Carte.h \
-		include/Constantes.h \
-		include/Interface/Fenetre.h \
+		../../include/Carte.h \
+		Fenetre.h \
 		/usr/include/qt5/QtWidgets/QWidget \
 		/usr/include/qt5/QtGui/QPixmap \
 		/usr/include/qt5/QtWidgets/QLCDNumber \
@@ -917,19 +913,19 @@ tmp/CarteGraphique.o: src/Interface/CarteGraphique.cpp include/Interface/CarteGr
 		/usr/include/qt5/QtGui/qtextcursor.h \
 		/usr/include/qt5/QtGui/qtextformat.h \
 		/usr/include/qt5/QtGui/qpen.h \
-		include/Interface/ListeCartes.h \
+		ListeCartes.h \
 		/usr/include/qt5/QtWidgets/QHBoxLayout \
 		/usr/include/qt5/QtWidgets/qboxlayout.h \
 		/usr/include/qt5/QtWidgets/qlayout.h \
 		/usr/include/qt5/QtWidgets/qlayoutitem.h \
 		/usr/include/qt5/QtWidgets/qgridlayout.h \
 		/usr/include/qt5/QtCore/QList \
-		include/Jeu/Jeu.h \
-		include/Jeu/Joueur.h \
-		include/Jeu/IntelligenceArtificielle.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/CarteGraphique.o src/Interface/CarteGraphique.cpp
+		../../include/Jeu.h \
+		../../include/Joueur.h \
+		../../include/IntelligenceArtificielle.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../tmp/CarteGraphique.o CarteGraphique.cpp
 
-tmp/ListeCartes.o: src/Interface/ListeCartes.cpp include/Interface/ListeCartes.h \
+../tmp/ListeCartes.o: ListeCartes.cpp ListeCartes.h \
 		/usr/include/qt5/QtWidgets/QHBoxLayout \
 		/usr/include/qt5/QtWidgets/qboxlayout.h \
 		/usr/include/qt5/QtWidgets/qlayout.h \
@@ -1046,47 +1042,33 @@ tmp/ListeCartes.o: src/Interface/ListeCartes.cpp include/Interface/ListeCartes.h
 		/usr/include/qt5/QtWidgets/QLabel \
 		/usr/include/qt5/QtWidgets/qlabel.h \
 		/usr/include/qt5/QtWidgets/qframe.h \
-		include/Jeu/Carte.h \
-		include/Constantes.h \
-		include/Interface/CarteGraphique.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/ListeCartes.o src/Interface/ListeCartes.cpp
+		../../include/Carte.h \
+		CarteGraphique.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../tmp/ListeCartes.o ListeCartes.cpp
 
-tmp/Jeu.o: src/Jeu/Jeu.cpp include/Jeu/Jeu.h \
-		include/Jeu/Carte.h \
-		include/Constantes.h \
-		include/Jeu/Joueur.h \
-		include/Jeu/IntelligenceArtificielle.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/Jeu.o src/Jeu/Jeu.cpp
+../tmp/Jeu.o: ../../src/Jeu.cpp ../../include/Jeu.h \
+		../../include/Carte.h \
+		../../include/Joueur.h \
+		../../include/IntelligenceArtificielle.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../tmp/Jeu.o ../../src/Jeu.cpp
 
-tmp/Carte.o: src/Jeu/Carte.cpp include/Jeu/Carte.h \
-		include/Constantes.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/Carte.o src/Jeu/Carte.cpp
+../tmp/Carte.o: ../../src/Carte.cpp ../../include/Carte.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../tmp/Carte.o ../../src/Carte.cpp
 
-tmp/Joueur.o: src/Jeu/Joueur.cpp include/Jeu/Joueur.h \
-		include/Jeu/Carte.h \
-		include/Constantes.h \
-		include/Jeu/Jeu.h \
-		include/Jeu/IntelligenceArtificielle.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/Joueur.o src/Jeu/Joueur.cpp
+../tmp/Joueur.o: ../../src/Joueur.cpp ../../include/Joueur.h \
+		../../include/Carte.h \
+		../../include/Jeu.h \
+		../../include/IntelligenceArtificielle.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../tmp/Joueur.o ../../src/Joueur.cpp
 
-tmp/IntelligenceArtificielle.o: src/Jeu/IntelligenceArtificielle.cpp include/Jeu/IntelligenceArtificielle.h \
-		include/Jeu/Joueur.h \
-		include/Jeu/Carte.h \
-		include/Constantes.h \
-		include/Jeu/Jeu.h \
-		include/Jeu/EstimationProba.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/IntelligenceArtificielle.o src/Jeu/IntelligenceArtificielle.cpp
+../tmp/IntelligenceArtificielle.o: ../../src/IntelligenceArtificielle.cpp ../../include/IntelligenceArtificielle.h \
+		../../include/Joueur.h \
+		../../include/Carte.h \
+		../../include/Jeu.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../tmp/IntelligenceArtificielle.o ../../src/IntelligenceArtificielle.cpp
 
-tmp/EstimationProba.o: src/Jeu/EstimationProba.cpp include/Jeu/EstimationProba.h \
-		include/Jeu/Jeu.h \
-		include/Jeu/Carte.h \
-		include/Constantes.h \
-		include/Jeu/Joueur.h \
-		include/Jeu/IntelligenceArtificielle.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/EstimationProba.o src/Jeu/EstimationProba.cpp
-
-tmp/moc_Fenetre.o: tmp/moc_Fenetre.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/moc_Fenetre.o tmp/moc_Fenetre.cpp
+../tmp/moc_Fenetre.o: ../tmp/moc_Fenetre.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../tmp/moc_Fenetre.o ../tmp/moc_Fenetre.cpp
 
 ####### Install
 
