@@ -30,7 +30,7 @@ bool Evaluateur::comparerMains(vector<Carte> table, vector<Carte> mainJoueur1, v
 					return true;
 				}
 				else{
-					cout<<main1.getPoids()<<"<"<<main2.getPoids()<<endl;
+                  //  cout<<main1.getPoids()<<"<"<<main2.getPoids()<<endl;
 					return false;
 					
 				}

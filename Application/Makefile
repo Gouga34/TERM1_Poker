@@ -53,7 +53,10 @@ SOURCES       = src/Interface/main.cpp \
 		src/Jeu/Carte.cpp \
 		src/Jeu/Joueur.cpp \
 		src/Jeu/IntelligenceArtificielle.cpp \
-		src/Jeu/EstimationProba.cpp tmp/moc_Fenetre.cpp
+		src/Jeu/Profilage.cpp \
+		src/Jeu/EstimationProba.cpp \
+		src/Evaluateur/Evaluateur.cpp \
+		src/Evaluateur/CartesJoueur.cpp tmp/moc_Fenetre.cpp
 OBJECTS       = tmp/main.o \
 		tmp/Fenetre.o \
 		tmp/CarteGraphique.o \
@@ -62,7 +65,10 @@ OBJECTS       = tmp/main.o \
 		tmp/Carte.o \
 		tmp/Joueur.o \
 		tmp/IntelligenceArtificielle.o \
+		tmp/Profilage.o \
 		tmp/EstimationProba.o \
+		tmp/Evaluateur.o \
+		tmp/CartesJoueur.o \
 		tmp/moc_Fenetre.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/shell-unix.conf \
@@ -291,7 +297,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d tmp/Poker1.0.0 || mkdir -p tmp/Poker1.0.0
-	$(COPY_FILE) --parents $(SOURCES) $(DIST) tmp/Poker1.0.0/ && $(COPY_FILE) --parents include/Interface/Fenetre.h include/Interface/CarteGraphique.h include/Interface/ListeCartes.h include/Jeu/Jeu.h include/Jeu/Carte.h include/Jeu/Joueur.h include/Jeu/IntelligenceArtificielle.h include/Jeu/EstimationProba.h include/Jeu/Constantes.h include/Constantes.h tmp/Poker1.0.0/ && $(COPY_FILE) --parents src/Interface/main.cpp src/Interface/Fenetre.cpp src/Interface/CarteGraphique.cpp src/Interface/ListeCartes.cpp src/Jeu/Jeu.cpp src/Jeu/Carte.cpp src/Jeu/Joueur.cpp src/Jeu/IntelligenceArtificielle.cpp src/Jeu/EstimationProba.cpp tmp/Poker1.0.0/ && (cd `dirname tmp/Poker1.0.0` && $(TAR) Poker1.0.0.tar Poker1.0.0 && $(COMPRESS) Poker1.0.0.tar) && $(MOVE) `dirname tmp/Poker1.0.0`/Poker1.0.0.tar.gz . && $(DEL_FILE) -r tmp/Poker1.0.0
+	$(COPY_FILE) --parents $(SOURCES) $(DIST) tmp/Poker1.0.0/ && $(COPY_FILE) --parents include/Interface/Fenetre.h include/Interface/CarteGraphique.h include/Interface/ListeCartes.h include/Jeu/Jeu.h include/Jeu/Carte.h include/Jeu/Joueur.h include/Jeu/IntelligenceArtificielle.h include/Jeu/Profilage.h include/Jeu/EstimationProba.h include/Constantes.h include/Evaluateur/CartesJoueur.h include/Evaluateur/Evaluateur.h tmp/Poker1.0.0/ && $(COPY_FILE) --parents src/Interface/main.cpp src/Interface/Fenetre.cpp src/Interface/CarteGraphique.cpp src/Interface/ListeCartes.cpp src/Jeu/Jeu.cpp src/Jeu/Carte.cpp src/Jeu/Joueur.cpp src/Jeu/IntelligenceArtificielle.cpp src/Jeu/Profilage.cpp src/Jeu/EstimationProba.cpp src/Evaluateur/Evaluateur.cpp src/Evaluateur/CartesJoueur.cpp tmp/Poker1.0.0/ && (cd `dirname tmp/Poker1.0.0` && $(TAR) Poker1.0.0.tar Poker1.0.0 && $(COMPRESS) Poker1.0.0.tar) && $(MOVE) `dirname tmp/Poker1.0.0`/Poker1.0.0.tar.gz . && $(DEL_FILE) -r tmp/Poker1.0.0
 
 
 clean:compiler_clean 
@@ -1074,16 +1080,103 @@ tmp/IntelligenceArtificielle.o: src/Jeu/IntelligenceArtificielle.cpp include/Jeu
 		include/Jeu/Carte.h \
 		include/Constantes.h \
 		include/Jeu/Jeu.h \
-		include/Jeu/EstimationProba.h
+		include/Jeu/EstimationProba.h \
+		include/Evaluateur/Evaluateur.h \
+		include/Evaluateur/CartesJoueur.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/IntelligenceArtificielle.o src/Jeu/IntelligenceArtificielle.cpp
+
+tmp/Profilage.o: src/Jeu/Profilage.cpp include/Jeu/Profilage.h \
+		/usr/include/qt5/QtCore/QString \
+		/usr/include/qt5/QtCore/qstring.h \
+		/usr/include/qt5/QtCore/qchar.h \
+		/usr/include/qt5/QtCore/qglobal.h \
+		/usr/include/qt5/QtCore/qconfig.h \
+		/usr/include/qt5/QtCore/qfeatures.h \
+		/usr/include/qt5/QtCore/qsystemdetection.h \
+		/usr/include/qt5/QtCore/qprocessordetection.h \
+		/usr/include/qt5/QtCore/qcompilerdetection.h \
+		/usr/include/qt5/QtCore/qglobalstatic.h \
+		/usr/include/qt5/QtCore/qatomic.h \
+		/usr/include/qt5/QtCore/qbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_bootstrap.h \
+		/usr/include/qt5/QtCore/qgenericatomic.h \
+		/usr/include/qt5/QtCore/qatomic_msvc.h \
+		/usr/include/qt5/QtCore/qatomic_integrity.h \
+		/usr/include/qt5/QtCore/qoldbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_vxworks.h \
+		/usr/include/qt5/QtCore/qatomic_power.h \
+		/usr/include/qt5/QtCore/qatomic_alpha.h \
+		/usr/include/qt5/QtCore/qatomic_armv7.h \
+		/usr/include/qt5/QtCore/qatomic_armv6.h \
+		/usr/include/qt5/QtCore/qatomic_armv5.h \
+		/usr/include/qt5/QtCore/qatomic_bfin.h \
+		/usr/include/qt5/QtCore/qatomic_ia64.h \
+		/usr/include/qt5/QtCore/qatomic_mips.h \
+		/usr/include/qt5/QtCore/qatomic_s390.h \
+		/usr/include/qt5/QtCore/qatomic_sh4a.h \
+		/usr/include/qt5/QtCore/qatomic_sparc.h \
+		/usr/include/qt5/QtCore/qatomic_gcc.h \
+		/usr/include/qt5/QtCore/qatomic_x86.h \
+		/usr/include/qt5/QtCore/qatomic_cxx11.h \
+		/usr/include/qt5/QtCore/qatomic_unix.h \
+		/usr/include/qt5/QtCore/qmutex.h \
+		/usr/include/qt5/QtCore/qlogging.h \
+		/usr/include/qt5/QtCore/qflags.h \
+		/usr/include/qt5/QtCore/qtypeinfo.h \
+		/usr/include/qt5/QtCore/qtypetraits.h \
+		/usr/include/qt5/QtCore/qsysinfo.h \
+		/usr/include/qt5/QtCore/qbytearray.h \
+		/usr/include/qt5/QtCore/qrefcount.h \
+		/usr/include/qt5/QtCore/qnamespace.h \
+		/usr/include/qt5/QtCore/qarraydata.h \
+		/usr/include/qt5/QtCore/qstringbuilder.h \
+		/usr/include/qt5/QtCore/QFile \
+		/usr/include/qt5/QtCore/qfile.h \
+		/usr/include/qt5/QtCore/qfiledevice.h \
+		/usr/include/qt5/QtCore/qiodevice.h \
+		/usr/include/qt5/QtCore/qobject.h \
+		/usr/include/qt5/QtCore/qobjectdefs.h \
+		/usr/include/qt5/QtCore/qobjectdefs_impl.h \
+		/usr/include/qt5/QtCore/qlist.h \
+		/usr/include/qt5/QtCore/qalgorithms.h \
+		/usr/include/qt5/QtCore/qiterator.h \
+		/usr/include/qt5/QtCore/qcoreevent.h \
+		/usr/include/qt5/QtCore/qscopedpointer.h \
+		/usr/include/qt5/QtCore/qmetatype.h \
+		/usr/include/qt5/QtCore/qvarlengtharray.h \
+		/usr/include/qt5/QtCore/qcontainerfwd.h \
+		/usr/include/qt5/QtCore/qisenum.h \
+		/usr/include/qt5/QtCore/qobject_impl.h \
+		/usr/include/qt5/QtCore/QIODevice \
+		/usr/include/qt5/QtCore/QJsonObject \
+		/usr/include/qt5/QtCore/qjsonobject.h \
+		/usr/include/qt5/QtCore/qjsonvalue.h \
+		/usr/include/qt5/QtCore/QJsonDocument \
+		/usr/include/qt5/QtCore/qjsondocument.h \
+		/usr/include/qt5/QtCore/QJsonArray \
+		/usr/include/qt5/QtCore/qjsonarray.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/Profilage.o src/Jeu/Profilage.cpp
 
 tmp/EstimationProba.o: src/Jeu/EstimationProba.cpp include/Jeu/EstimationProba.h \
 		include/Jeu/Jeu.h \
 		include/Jeu/Carte.h \
 		include/Constantes.h \
 		include/Jeu/Joueur.h \
-		include/Jeu/IntelligenceArtificielle.h
+		include/Jeu/IntelligenceArtificielle.h \
+		include/Evaluateur/Evaluateur.h \
+		include/Evaluateur/CartesJoueur.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/EstimationProba.o src/Jeu/EstimationProba.cpp
+
+tmp/Evaluateur.o: src/Evaluateur/Evaluateur.cpp include/Evaluateur/Evaluateur.h \
+		include/Evaluateur/CartesJoueur.h \
+		include/Jeu/Carte.h \
+		include/Constantes.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/Evaluateur.o src/Evaluateur/Evaluateur.cpp
+
+tmp/CartesJoueur.o: src/Evaluateur/CartesJoueur.cpp include/Evaluateur/CartesJoueur.h \
+		include/Jeu/Carte.h \
+		include/Constantes.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/CartesJoueur.o src/Evaluateur/CartesJoueur.cpp
 
 tmp/moc_Fenetre.o: tmp/moc_Fenetre.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp/moc_Fenetre.o tmp/moc_Fenetre.cpp
