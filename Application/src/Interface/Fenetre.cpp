@@ -207,8 +207,18 @@ void Fenetre::demarragePartie()
 
 
     // Main du joueur
+
     layoutMain.vider();
     layoutMain.ajoutCartes(jeu->getJoueur(0).getMain());
+
+    // Cartes communes
+
+    layoutCartesCommunes.vider();
+
+    for (int i = 0; i < 5; i++) {
+        CarteGraphique *dos = new CarteGraphique(0, 0);
+        layoutCartesCommunes.addWidget(dos);
+    }
 
     // Main adverse
 
@@ -232,8 +242,16 @@ void Fenetre::demarragePartie()
 
 void Fenetre::afficheTable()
 {
+    std::vector<Carte> table = jeu->getTable();
+
     layoutCartesCommunes.vider();
-    layoutCartesCommunes.ajoutCartes(jeu->getTable());
+    layoutCartesCommunes.ajoutCartes(table);
+
+    // On complète la table avec des dos de carte
+    for (int i = 0; i < 5 - table.size(); i++) {
+        CarteGraphique *dos = new CarteGraphique(0, 0);
+        layoutCartesCommunes.addWidget(dos);
+    }
 
     ajoutLogs("Ajout de cartes sur la table");
 }
