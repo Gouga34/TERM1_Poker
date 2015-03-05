@@ -6,7 +6,8 @@ SOURCES += \
     src/Jeu/Jeu.cpp \
     src/Jeu/Carte.cpp \
     src/Jeu/Joueur.cpp \
-    src/Jeu/IntelligenceArtificielle.cpp
+    src/Jeu/IntelligenceArtificielle.cpp \
+    src/Jeu/Profilage.cpp
 
 QT+=widgets
 
@@ -17,7 +18,8 @@ HEADERS += \
     include/Jeu/Jeu.h \
     include/Jeu/Carte.h \
     include/Jeu/Joueur.h \
-    include/Jeu/IntelligenceArtificielle.h
+    include/Jeu/IntelligenceArtificielle.h \
+    include/Jeu/Profilage.h
 
 CONFIG += c++11
 
