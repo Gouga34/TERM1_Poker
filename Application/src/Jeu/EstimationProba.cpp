@@ -20,6 +20,7 @@ double EstimationProba::estimation(){
 
 	int nombreDeCoupGagner = 0;
 	int position;
+    int tailleTable;
 	std::string ensembleCourant;
 	std::vector<Carte> table;
 	std::vector<Carte> mainAdverse;
@@ -35,22 +36,24 @@ double EstimationProba::estimation(){
 			this->melange(deck);
 			table.clear();
 			mainAdverse.clear();
-			ensembleCourant = "";
+            ensembleCourant.clear();
 		
 			table = jeuCourant->getTable();
-            for(int i=0; i< 5 - (int) table.size(); i++){
+            tailleTable =  5 - (int) table.size();
+            for(int i=0; i< tailleTable; i++){
 				position = rand() % deck.size();
-				ensembleCourant += std::to_string(deck.at(position).getRang()) + std::to_string(deck.at(position).getCouleur()) ;
+                ensembleCourant += std::to_string(deck.at(position).getRang());
+                ensembleCourant += std::to_string(deck.at(position).getCouleur()) ;
 				table.push_back(deck.at(position));
 				deck.erase(deck.begin() + position);
 			}
-		
+
 			for(int i=0; i< 2; i++){
 				position = rand() % deck.size();
 				ensembleCourant += std::to_string(deck.at(position).getRang()) + std::to_string(deck.at(position).getCouleur()) ;
 				mainAdverse.push_back(deck.at(position));
 				deck.erase(deck.begin() + position);
-			}
+            }
 			
 			iterateurEnsembleCarte  = listeEnsembleCarte.find (ensembleCourant);
 		}while( iterateurEnsembleCarte != listeEnsembleCarte.end());

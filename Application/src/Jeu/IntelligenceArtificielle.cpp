@@ -107,7 +107,7 @@ void IntelligenceArtificielle::jouer(){
 	double proba = this->calculProba();
 	
 	EstimationProba estime( this->getJeu(), &this->getJeu()->getJoueur(this->getPosition()) );
-	//double test = estime.estimation();
+    double test = estime.estimation();
 	
 
 	

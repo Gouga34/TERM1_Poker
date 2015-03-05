@@ -8,41 +8,26 @@
 #include "Carte.h"
 #include "Joueur.h"
 #include "IntelligenceArtificielle.h"
+#include "../Constantes.h"
 
 class Joueur;
 class IntelligenceArtificielle;
-
-namespace TYPES
-{
-    enum ACTION_LIST
-    {
-        MISER,
-        RELANCER,
-        SUIVRE,
-        CHECKER,
-        SE_COUCHER,
-        EN_ATTENTE,
-        TAPIS,
-        PETITE_BLIND,
-        GROSSE_BLIND
-    };
-};
-
 
 class Jeu{
 
 	//Liste des attributs
 	private :
-		std::vector<Joueur> 			positionnement;
-		std::vector<Carte>    			deck;
-		std::vector<Carte> 			table;
+        std::vector<Joueur>                 positionnement;
+        std::vector<Carte>                  deck;
+        std::vector<Carte>                  table;
 		std::vector<TYPES::ACTION_LIST>		actions;
-		int 					blind;
-		int 					joueurCourant;
-		int 					pot;
-		int 					nombreDeCoup;
-		int 					mise;
-		int					dealer;
+        int                                 blind;
+        int                                 joueurCourant;
+        int                                 pot;
+        int                                 nombreDeCoup;
+        int                                 mise;
+        int                                 dealer;
+
 		
 	//Constructeur et destructeur
 	public:

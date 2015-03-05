@@ -127,12 +127,13 @@ void Jeu::miseAJourBlind(){
 
 
 std::vector<Carte> Jeu::nouveauDeck(){
+
 	std::vector<Carte> deck;
-	
-	for(int i = 0; i<4; i++){
-		for(int j= 1; j<14; j++){
-			Carte carte(j,i);
-			deck.push_back(carte);
+
+    for(int i = COULEUR_CARTE::PIQUE; i <= COULEUR_CARTE::CARREAU; i++ ){
+        for(int j = RANG_CARTE::AS; j<=RANG_CARTE::K; j++){
+            Carte carte(j,i);
+            deck.push_back(carte);
 		}
 	}
 	return deck;
@@ -172,8 +173,6 @@ int Jeu::getPot() const{
 void Jeu::setPot(int jetons){
 	this->pot = jetons;
 }
-
-
 
 bool Jeu::miser(int posJoueur, int jetons){
 
