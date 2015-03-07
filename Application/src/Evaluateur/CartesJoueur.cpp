@@ -123,7 +123,7 @@ bool CartesJoueur::estSuite(int depart, int ligne) const{
 }
 
 bool CartesJoueur::contientSuite(int ligne) const{
-	cout<<"contientSuite"<<endl;
+    //cout<<"contientSuite"<<endl;
 	int i=0;
 	int cpt = 0;
 	while(i<14 && cpt<5){
@@ -137,19 +137,19 @@ bool CartesJoueur::contientSuite(int ligne) const{
 
 		i++;
 	}
-	cout<<cpt<<" "<<i<<endl;
+    //cout<<cpt<<" "<<i<<endl;
 	return (cpt==5);	
 }
 
 bool CartesJoueur::cartesIdentiques(int nb, int nbfois) const{
-	cout<<"cartesIdentiques("<<nb<<","<<nbfois<<")"<<endl;
+    //cout<<"cartesIdentiques("<<nb<<","<<nbfois<<")"<<endl;
 	int cpt=0;
 	for(int i=0; i<12;i++){
 		if (occurrences[i][4]==nb){
 			cpt++;
 
 			if(cpt==nbfois){
-				cout<<"return true"<<endl;
+                //cout<<"return true"<<endl;
 				return true;
 			}
 		}
@@ -239,7 +239,7 @@ void CartesJoueur::calculCombinaison(){
 					}
 				}
 		}
-		cout<<"combinaison calculée : "<<getCombinaison()<<endl;
+        //cout<<"combinaison calculée : "<<getCombinaison()<<endl;
 }
 
 

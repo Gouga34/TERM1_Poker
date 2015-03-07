@@ -3,6 +3,7 @@
 
 #include "Jeu.h"
 #include "Joueur.h"
+#include "../Evaluateur/Evaluateur.h"
 
 class EstimationProba{
 
