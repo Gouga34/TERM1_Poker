@@ -184,7 +184,7 @@ bool Jeu::miser(int posJoueur, int jetons){
 		this->getJoueur(posJoueur).setMiseJoueur(jetons);
 		this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::MISER;
 	
-		for(int i=1; i <= this->positionnement.size() - 1 ; i++){
+        for(int i=1; i <= (int) this->positionnement.size() - 1 ; i++){
 			this->getJoueur( (posJoueur + i) % this->positionnement.size()).setMiseJoueur(0);
 		}
 		
@@ -335,7 +335,7 @@ void Jeu::nouvelleMain(int posJoueur){
 	this->setPot(0);
 	this->table.clear();
 	
-	for(int i =0; i< this->positionnement.size(); i++){
+    for(int i =0; i< (int) this->positionnement.size(); i++){
 		this->getJoueur(i).videMain();
 	}
 	

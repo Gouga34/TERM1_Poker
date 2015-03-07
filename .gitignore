@@ -6,10 +6,10 @@
 *-Debug
 
 # Fichiers de compilation
-Application/Interface/tmp/
+Application/tmp/
 *.o
-Application/Interface/Poker/Makefile
+Application/Makefile
 
 # Exécutable
-Application/Interface/Poker/Poker
+Application/Poker
 
