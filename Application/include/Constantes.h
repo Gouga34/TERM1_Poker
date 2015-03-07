@@ -30,16 +30,16 @@ enum RANG_CARTE{
  */
 enum FORCE_MAIN{
 
-    QUINTE_FLUSH_ROYAL = 0,
-    QUINTE_FLUSH       = 1,
-    CARRE              = 2,
-    FULL               = 3,
-    COULEUR            = 4,
+    QUINTE_FLUSH_ROYALE = 10,
+    QUINTE_FLUSH       = 9,
+    CARRE              = 8,
+    FULL               = 7,
+    COULEUR            = 6,
     SUITE              = 5,
-    BRELAN             = 6,
-    DOUBLE_PAIRES      = 7,
-    PAIRE              = 8,
-    CARTE_HAUTE        = 9
+    BRELAN             = 4,
+    DOUBLE_PAIRES      = 3,
+    PAIRE              = 2,
+    CARTE_HAUTE        = 1
 };
 
 /**
