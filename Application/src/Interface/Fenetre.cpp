@@ -8,6 +8,7 @@ Specification: Fichier contenant les définitions de la classe Fenetre.
 
 #include "../../include/Interface/Fenetre.h"
 #include "../../include/Interface/CarteGraphique.h"
+#include "../../include/Interface/CartesDialog.h"
 #include <QVBoxLayout>
 
 QPixmap *Fenetre::textureCartes = 0;
@@ -20,7 +21,6 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
     // Couleur de fond
     QPalette pal(palette());
     pal.setColor(QPalette::Background, QColor(20, 127, 20));
-    setAutoFillBackground(true);
     setPalette(pal);
 
     this->jeu = j;
@@ -187,6 +187,18 @@ void Fenetre::demarragePartie()
     layoutCartesCommunes.vider();
 
     ajoutLogs("Distribution des cartes");
+
+    // Sélection des cartes par l'utilisateur
+
+    CartesDialog fenetreCartes(this);
+    std::vector<int> ids = fenetreCartes.choixCartes();
+
+    /*if (!ids.empty()) {
+        // Appeler la méthode de jeu
+    }
+    else {
+
+    }*/
 
     jeu->distributionMain();
     

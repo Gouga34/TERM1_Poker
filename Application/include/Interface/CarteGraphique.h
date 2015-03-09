@@ -27,6 +27,10 @@ class CarteGraphique : public QLabel
          */
         int makeCard(int rang, int couleur) const;
 
+    protected:
+
+        int id;
+
     public:
 
         static const QString couleurs[4];
