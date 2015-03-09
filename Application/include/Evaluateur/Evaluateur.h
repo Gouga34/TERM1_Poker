@@ -19,9 +19,9 @@ class Evaluateur{
 	public:
 		/**
 		* @action compare les deux mains pour voir laquelle a le poids le plus fort
-		* @return true si main1 a gagné, false sinon
+		* @return 0 si main1 a gagné, 1 si elle a perdu et 2 si égalité
 		*/
-		static bool comparerMains(std::vector<Carte> table, std::vector<Carte> mainJoueur1, std::vector<Carte> mainJoueur2);
+		static int comparerMains(std::vector<Carte> table, std::vector<Carte> mainJoueur1, std::vector<Carte> mainJoueur2);
 
 };
 

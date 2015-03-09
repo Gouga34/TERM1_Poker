@@ -37,9 +37,18 @@ enum FORCE_MAIN{
     COULEUR            = 6,
     SUITE              = 5,
     BRELAN             = 4,
-    DOUBLE_PAIRES      = 3,
+    DOUBLE_PAIRE       = 3,
     PAIRE              = 2,
     CARTE_HAUTE        = 1
+};
+
+/**
+  * enum utilisé lors de la comparaison de deux mains. 
+  */
+enum {
+    EGALITE,
+    GAGNE,
+    PERDU
 };
 
 /**

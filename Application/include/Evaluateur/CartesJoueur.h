@@ -62,20 +62,20 @@ class CartesJoueur{
 		 * @param ligne ligne qui sera traitée
 		 * @return true si la ligne contient une suite
 		 */
-		bool contientSuite(int ligne) const;
+		bool contientSuite(int ligne);
 
 		/**
 		 * @param nb nombre de cartes identiques cherchées
 		 * @param nbfois nombre de fois où l'on veut nb cartes identiques, 1 par défaut
-		 * @return true si on a nb cartes identiques nbfois fois
+		 * @return la carte si on a nb cartes identiques nbfois fois, -1 sinon
 		 */
-		bool cartesIdentiques(int nb, int nbfois = 1) const;
+		int cartesIdentiques(int nb, int nbfois = 1) const;
 
 		/**
 		 * @action regarde si on a un flush (5 cartes de la même couleur)
 		 * @return true si on a un flush
 		 */
-		bool flush() const;
+		bool flush() ;
 
 		/**
 		 * @action calcule la combinaison la plus haute
@@ -86,7 +86,7 @@ class CartesJoueur{
 		/**
 		 *@action calcule le poids calculé de la carte la plus haute (si pas d'autre combinaison)
 		 */
-		void calculerPoids();
+		void calculerPoidsBasique();
 
 
 
@@ -105,6 +105,14 @@ class CartesJoueur{
 		  * @return le poids des cartes du joueur
 		  */
 		 int getPoids();
+
+		 /**
+		  * @param main2 la main à comparer avec this 
+		  * @return 0 si la main1 perd face à la main2, 1 si elle gagne et 2 si égalité
+		  * @action prend en compte que this et main2 ont la même combinaison 
+		  * et calcule laquelle a les cartes les plus fortes
+		  */
+		 int comparerCombinaisonsEgales(CartesJoueur main2);
 
 
 
