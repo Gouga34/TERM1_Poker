@@ -10,7 +10,9 @@ SOURCES += \
     src/Jeu/Profilage.cpp \
     src/Jeu/EstimationProba.cpp \
     src/Evaluateur/Evaluateur.cpp \
-    src/Evaluateur/CartesJoueur.cpp
+    src/Evaluateur/CartesJoueur.cpp \
+    src/Interface/CartesDialog.cpp \
+    src/Interface/CarteCliquable.cpp
 
 QT+=widgets
 
@@ -26,7 +28,9 @@ HEADERS += \
     include/Jeu/EstimationProba.h \
     include/Constantes.h \
     include/Evaluateur/CartesJoueur.h \
-    include/Evaluateur/Evaluateur.h
+    include/Evaluateur/Evaluateur.h \
+    include/Interface/CartesDialog.h \
+    include/Interface/CarteCliquable.h
 
 CONFIG += c++11
 
