@@ -6,10 +6,11 @@
 *-Debug
 moc_*
 
-# Fichiers de compilation
-*tmp/
+# Fichiers et dossiers de compilation
+_*
+*moc_dir/
+*obj_dir/
 *.o
-Application/Makefile
 
 # Exécutable
 Application/Poker
