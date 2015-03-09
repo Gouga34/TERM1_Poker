@@ -34,5 +34,5 @@ HEADERS += \
 
 CONFIG += c++11
 
-MOC_DIR = tmp
-OBJECTS_DIR = tmp
+MOC_DIR = moc_dir
+OBJECTS_DIR = obj_dir
