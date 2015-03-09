@@ -115,7 +115,7 @@ bool CartesJoueur::estSuite(int depart, int ligne) const{
 }
 
 bool CartesJoueur::contientSuite(int ligne) {
-    //cout<<"contientSuite"<<endl;
+
 	int i=0;
 	int cpt = 0;
 	while(i<14 && cpt<5){
@@ -256,7 +256,7 @@ void CartesJoueur::calculerPoidsBasique(){
 		int p=0;
 		while(p==0 && i>0){
 			if(occurrences[i][getPoids()]>0){
-				cout<<"i : "<<i<<endl;
+
 				setPoids(i);
 				p=i;
 			}
@@ -280,7 +280,6 @@ void CartesJoueur::calculerPoidsBasique(){
 		while(p==0 && i>0){
 			if(occurrences[i][4]>0){
 				p=i;
-				cout<<" i : "<<i<<endl; 
 				setPoids(p);
 			}
 			i--;
@@ -291,8 +290,6 @@ void CartesJoueur::calculerPoidsBasique(){
 }
 
  int CartesJoueur::comparerCombinaisonsEgales(CartesJoueur main2){
- 		cout<<"Combinaison : "<<getCombinaison()<<endl;
- 		cout<<"poids this : "<<getPoids()<<"poids main2 : "<<main2.getPoids()<<endl;
  	
  	if(getPoids()==0){
  		calculerPoidsBasique();
@@ -301,7 +298,7 @@ void CartesJoueur::calculerPoidsBasique(){
  		main2.calculerPoidsBasique();
  	}
 
- 	 		cout<<"poids this : "<<getPoids()<<"poids main2 : "<<main2.getPoids()<<endl;
+
 
  	if(getPoids()==main2.getPoids()){
  		if(getCombinaison()==CARRE){
@@ -354,12 +351,12 @@ void CartesJoueur::calculerPoidsBasique(){
 
  			while(i>0 && p==0){
  				if(occurrences[i][couleurThis]>0){
- 					cout<<"carte de this : "<<i<<endl;
+
  					setPoids(i);
  				}
  				if(main2.occurrences[i][couleurMain2]>0){
  					main2.setPoids(i);
- 					cout<<" carte de main2 : "<<i<<endl;
+
  				}
  				if(occurrences[i][couleurThis]!=occurrences[i][couleurMain2]){
  					p=1;
@@ -367,7 +364,6 @@ void CartesJoueur::calculerPoidsBasique(){
  				i--;
  			}
 
- 			cout<<"carte this : "<<getPoids()<<" carte main2"<<main2.getPoids()<<endl;
 
  		}
  		else if(getCombinaison()==BRELAN){
@@ -450,6 +446,7 @@ void CartesJoueur::calculerPoidsBasique(){
  				if(getPoids()!=main2.getPoids()){
  					p=1;
  				}
+ 				i--;
  			}
 
 
