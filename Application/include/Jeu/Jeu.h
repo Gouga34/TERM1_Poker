@@ -104,6 +104,12 @@ class Jeu{
 		*@return : Un entier représentant la mise courante
 		**/
 		int			getMise();
+
+        /**
+        *@action : Permet d'obtenir le deck
+        *@return : Un vecteur représentant le deck
+        **/
+        std::vector<Carte>			getDeck();
 		
 		/**
 		*@action : Permet d'obtenir l'ensemble des actions
@@ -175,6 +181,13 @@ class Jeu{
         *@return : vrai si le joueur peut relancer, faux sinon
         **/
         bool peutRelancer(int posJoueur);
+
+        /**
+        *@action : Permet de savoir si le joueur a la possibilite de miser
+        *@param  : la position du joueur dont on veut savoir s'il peut miser
+        *@return : vrai si le joueur peut miser, faux sinon
+        **/
+        bool peutMiser(int posJoueur);
 
 		
 		/**

@@ -45,10 +45,14 @@ void Jeu::distributionMain(){
 	this->distributionBlind();
 	
 	for(int i =0; i< (int) (2*this->positionnement.size()); i++){
-		position = rand() % deck.size();
-		this->positionnement.at(i % this->positionnement.size()).ajouteCarte(this->deck.at(position));
-		this->deck.erase(this->deck.begin() + position);
+       if(this->positionnement.at(i % this->positionnement.size()).getMain().size() != 2){
+            position = rand() % deck.size();
+            this->positionnement.at(i % this->positionnement.size()).ajouteCarte(this->deck.at(position));
+            this->deck.erase(this->deck.begin() + position);
+        }
 	}	
+
+    std::cout << this->deck.size() << std::endl;
 }
 
 void Jeu::distributionFlop(){
@@ -131,7 +135,6 @@ void Jeu::miseAJourBlind(){
 std::vector<Carte> Jeu::nouveauDeck(){
 
 	std::vector<Carte> deck;
-    std::vector<Carte>::iterator iterateur;
 
     for(int i = COULEUR_CARTE::PIQUE; i <= COULEUR_CARTE::CARREAU; i++ ){
         for(int j = RANG_CARTE::AS; j<=RANG_CARTE::K; j++){
@@ -139,19 +142,6 @@ std::vector<Carte> Jeu::nouveauDeck(){
             deck.push_back(carte);
 		}
 	}
-
-    for(Carte carte : this->getJoueur(0).getMain()){
-         iterateur = deck.begin();
-         std::advance(iterateur, carte.getId());
-         deck.erase(iterateur);
-    }
-
-
-    for(Carte carte : this->getJoueur(1).getMain()){
-         iterateur = deck.begin();
-         std::advance(iterateur, carte.getId());
-         deck.erase(iterateur);
-    }
 
 	return deck;
 }
@@ -166,11 +156,13 @@ int Jeu::getBlind() const{
 	return this->blind;
 }
 
+std::vector<Carte> Jeu::getDeck(){
+    return this->deck;
+}
 
 int Jeu::getJoueurCourant() const{
 	return this->joueurCourant;
 }
-
 
 Joueur& Jeu::getJoueur(int i){
 	return this->positionnement.at(i);
@@ -233,7 +225,7 @@ bool Jeu::relancer(int posJoueur, int jetons){
 	if(this->getJoueur(posJoueur).getCave() >= jetons){
 		this->setPot(this->getPot() + jetons);
 		this->getJoueur(posJoueur).retireJetons(jetons);
-		this->mise = jetons;
+        this->mise = this->getJoueur(posJoueur).getMiseJoueur() + jetons;
 		this->getJoueur(posJoueur).setMiseJoueur(jetons);
 		this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::RELANCER;
 		return true;	
@@ -248,7 +240,7 @@ bool Jeu::suivre(int posJoueur){
 	
 	if(this->getJoueur(posJoueur).getCave() >= this->mise){
 		this->setPot(this->getPot() + (this->mise - this->getJoueur(posJoueur).getMiseJoueur()));
-	  	this->getJoueur(posJoueur).retireJetons(this->mise - this->getJoueur(posJoueur).getMiseJoueur());
+        this->getJoueur(posJoueur).retireJetons(this->mise - this->getJoueur(posJoueur).getMiseJoueur());
 	  	this->getJoueur(posJoueur).setMiseJoueur(this->mise);
 		this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::SUIVRE;
 		
@@ -260,10 +252,15 @@ bool Jeu::suivre(int posJoueur){
 
 
 bool Jeu::checker(int posJoueur){
-	this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::CHECKER;
-	return true;
-}
 
+    if(this->peutChecker(posJoueur)){
+        this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::CHECKER;
+        return true;
+    }else{
+        return false;
+    }
+
+}
 
 bool Jeu::seCoucher(int posJoueur){
 	this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::SE_COUCHER;
@@ -357,11 +354,39 @@ void Jeu::nouvelleMain(int posJoueur){
     }
 
     if(joueurRestant.size() != 1){
+
+
+        std::cout << std::endl << "Table : " << std::endl;
+        for(int i=0; i<5; i++){
+            std::cout << this->getTable().at(i).getRang() << "," << this->getTable().at(i).getCouleur() << "; ";
+        }
+        std::cout << std::endl;
+
+
+        std::cout << "Main adverse : " << std::endl;
+        for(int i=0; i<2; i++){
+            std::cout << this->getJoueur(1).getMain().at(i).getRang()  << "," << this->getJoueur(1).getMain().at(i).getCouleur() << ";";
+        }
+
+        std::cout << std::endl;
+        std::cout << "Main du joueur : " << std::endl;
+        for(int i=0; i<2; i++){
+            std::cout << this->getJoueur(0).getMain().at(i).getRang()  << "," << this->getJoueur(0).getMain().at(i).getCouleur() << "; ";
+        }
+
+
+
+    int result = Evaluateur::comparerMains(this->getTable(), this->getJoueur(0).getMain(), this->getJoueur(1).getMain());
+        std::cout << "Resultat : " <<  result << std::endl;
         if(Evaluateur::comparerMains(this->getTable(), this->getJoueur(0).getMain(), this->getJoueur(1).getMain()) == GAGNE){
+            std::cout << "Humain gagne " << std::endl;
             this->getJoueur(0).ajouteJetons(this->getPot());
         }else if(Evaluateur::comparerMains(this->getTable(), this->getJoueur(0).getMain(), this->getJoueur(1).getMain()) == PERDU){
+            std::cout << "IA gagne " << std::endl;
             this->getJoueur(1).ajouteJetons(this->getPot());
         }else{
+
+            std::cout << "Egalite " << std::endl;
             if(this->getPot() % 2 == 0){
                 this->getJoueur(0).ajouteJetons(this->getPot() / 2 );
                 this->getJoueur(1).ajouteJetons(this->getPot() / 2 );
@@ -402,6 +427,20 @@ bool Jeu::peutChecker(int posJoueur){
 	return true;
 }
 
+bool Jeu::peutMiser(int posJoueur){
+
+    for(int i=1; i<= (int) this->actions.size() - 1; i++){
+        if(this->actions[(posJoueur + i) % this->actions.size() ] == TYPES::ACTION_LIST::MISER ||
+           this->actions[(posJoueur + i) % this->actions.size()] == TYPES::ACTION_LIST::RELANCER ||
+           this->actions[(posJoueur + i) % this->actions.size()] == TYPES::ACTION_LIST::GROSSE_BLIND ||
+           this->actions[(posJoueur + i) % this->actions.size()] == TYPES::ACTION_LIST::TAPIS){
+            return false;
+        }
+    }
+
+    return true;
+}
+
 
 bool Jeu::peutRelancer(int posJoueur){
 
@@ -419,10 +458,18 @@ bool Jeu::peutRelancer(int posJoueur){
 
 void Jeu::affecteMainIA(std::vector<int> listeId){
 
-    for(int id : listeId){
-        this->getJoueur(1).ajouteCarte(this->deck.at(id));
-    }
+    int pos = 0;
 
+    for(Carte carte : this->getDeck()){
+        if(carte.getId() == listeId.at(0) || carte.getId() == listeId.at(1)){
+            this->positionnement.at(1).ajouteCarte(this->deck.at(pos));
+            this->deck.erase(this->deck.begin() + pos);
+            pos--;
+        }
+
+        pos++;
+
+    }
 }
 
 

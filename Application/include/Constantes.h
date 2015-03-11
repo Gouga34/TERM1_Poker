@@ -46,9 +46,9 @@ enum FORCE_MAIN{
   * enum utilisé lors de la comparaison de deux mains. 
   */
 enum {
-    EGALITE,
-    GAGNE,
-    PERDU
+    EGALITE = 2,
+    GAGNE = 1,
+    PERDU = 0
 };
 
 /**
