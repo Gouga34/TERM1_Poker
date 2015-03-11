@@ -92,9 +92,19 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
     // Boutons d'action
     // ////////////////////////////////////////////////////
 
+    QHBoxLayout *layoutDemarrage = new QHBoxLayout;
+
     boutonDemarrage.setText("Démarrage partie");
     boutonDemarrage.setMaximumWidth(150);
     connect(&boutonDemarrage, SIGNAL(clicked()), this, SLOT(demarragePartie()));
+
+    boutonChoixCartes.setChecked(false);
+    boutonChoixCartes.setText("Choix des cartes");
+
+    layoutDemarrage->setAlignment(Qt::AlignLeft);
+    layoutDemarrage->setSpacing(10);
+    layoutDemarrage->addWidget(&boutonDemarrage);
+    layoutDemarrage->addWidget(&boutonChoixCartes);
 
 
     QVBoxLayout *layoutBoutons = new QVBoxLayout;
@@ -144,7 +154,7 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
     layoutOptions->setSpacing(150);
     layoutOptions->setAlignment(Qt::AlignHCenter);
 
-    layoutOptions->addWidget(&boutonDemarrage);
+    layoutOptions->addLayout(layoutDemarrage);
     layoutOptions->addWidget(&caveIA);
     layoutOptions->addWidget(&pot);
     layoutOptions->addLayout(layoutJoueur);
@@ -191,8 +201,10 @@ void Fenetre::demarragePartie()
 
     // Sélection des cartes par l'utilisateur
 
-    CartesDialog fenetreCartes(this);
-    std::vector<int> ids = fenetreCartes.choixCartes();
+    if (boutonChoixCartes.isChecked()) {
+        CartesDialog fenetreCartes(this);
+        std::vector<int> ids = fenetreCartes.choixCartes();
+    }
 
     /*if (!ids.empty()) {
         // Appeler la méthode de jeu

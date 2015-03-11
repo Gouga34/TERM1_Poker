@@ -14,6 +14,7 @@ Specification: Classe contenant l'ensemble des propriétés de la fenêtre
 #include <QPixmap>
 #include <QSpinBox>
 #include <QPushButton>
+#include <QCheckBox>
 #include <QTextEdit>
 #include "ListeCartes.h"
 #include "CompteurJetons.h"
@@ -43,6 +44,7 @@ class Fenetre : public QWidget
         QSpinBox valeurMise;
 
         QPushButton boutonDemarrage;
+        QCheckBox boutonChoixCartes;
 
 
         enum { CHECKER, MISER, SUIVRE, RELANCER, SE_COUCHER, NB_BOUTONS };
