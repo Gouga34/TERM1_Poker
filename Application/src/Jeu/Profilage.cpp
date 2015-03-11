@@ -8,6 +8,7 @@ Specification: Fichier contenant les définitions de la classe Profilage.
 
 #include "../../include/Jeu/Profilage.h"
 #include <QFile>
+#include <QTextStream>
 #include <QIODevice>
 #include <iostream>
 #include <QJsonObject>
@@ -29,13 +30,77 @@ Profilage::~Profilage()
 
 }
 
+void Profilage::charger()
+{
+    QString nomFichier = QString::fromStdString(nomJoueur) + ".json";
+    QFile fichier("../Application/ressources/Profilage/ProfilageStatique/" + nomFichier);
+    if (!fichier.open(QIODevice::ReadOnly)) {
+        std::cerr << "Le fichier du pseudo " << nomJoueur << " n'existe pas encore." << std::endl;
+        return;
+    }
+
+    QByteArray donneesJson = fichier.readAll();
+    QJsonDocument doc(QJsonDocument::fromJson(donneesJson));
+    QJsonObject json(doc.object());
+
+    QJsonArray parties = json["parties"].toArray();
+
+    for (int i = 0; i < parties.size(); i++) {
+        QJsonObject partie = parties[i].toObject();
+
+        partieGagnee = partie["gainIA"].toBool();
+
+        for (int i = 0; i < NB_ETAPES; i++) {
+            QString nomEtape = etapes[i];
+            QJsonObject etape = partie[nomEtape].toObject();
+
+            profil[i].couche = etape["couche"].toBool();
+
+            profil[i].probaGainAdversaire = etape["probaGainAdversaire"].toDouble();
+            profil[i].pot = etape["pot"].toDouble();
+
+            profil[i].tauxAgressivite = etape["agressivité"].toDouble();
+            profil[i].tauxRationnalite = etape["rationnalite"].toDouble();
+            profil[i].tauxBluff = etape["bluff"].toDouble();
+            profil[i].tauxPassivite = etape["passivite"].toDouble();
+
+            profil[i].tauxSuivis = etape["suivis"].toDouble();
+            profil[i].tauxChecks = etape["checks"].toDouble();
+            profil[i].tauxMises = etape["mises"].toDouble();
+
+            profil[i].misePlusHaute = etape["misePlusHaute"].toInt();
+            profil[i].miseTotaleJoueur = etape["miseTotaleJoueur"].toInt();
+            profil[i].miseTotaleIA = etape["miseTotaleIA"].toDouble();
+        }
+    }
+
+    fichier.close();
+}
+
 void Profilage::sauvegarder() const
 {
    QString nomFichier = QString::fromStdString(nomJoueur) + ".json";
-   QFile fichier(nomFichier);
-   if (!fichier.open(QIODevice::ReadWrite)) {
-       std::cerr << "Erreur lors de l'ouverture du fichier " << nomFichier.toStdString() << std::endl;
-       return;
+   QFile fichier("../Application/ressources/Profilage/ProfilageStatique/" + nomFichier);
+
+   if (!fichier.open(QIODevice::ReadOnly)) {
+
+       // Ouverture de la liste des pseudos
+       QFile listePseudos("../Application/ressources/Profilage/ProfilageStatique/pseudos.txt");
+       if (!listePseudos.open(QIODevice::Append | QIODevice::Text)) {
+           std::cerr << "Erreur lors de l'ouverture du fichier des pseudos !" << std::endl;
+           return;
+       }
+
+       QTextStream out(&listePseudos);
+       out << QString::fromStdString(nomJoueur) << endl;
+
+       listePseudos.close();
+
+       // Création du fichier du joueur
+       if (!fichier.open(QIODevice::ReadWrite)) {
+           std::cerr << "Erreur lors de l'ouverture du fichier " << nomFichier.toStdString() << std::endl;
+           return;
+       }
    }
 
    QJsonObject partie;
