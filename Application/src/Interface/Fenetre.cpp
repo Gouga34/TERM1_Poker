@@ -83,26 +83,28 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
     // Compteurs
     // ////////////////////////////////////////////////////
 
-    pot.setMaximumSize(100, 50);
-    pot.setSegmentStyle(QLCDNumber::Filled);
-    pot.display(0);
-
-    caveJoueur.setMaximumSize(100, 50);
-    caveJoueur.setSegmentStyle(QLCDNumber::Filled);
-    caveJoueur.display(jeu->getJoueur(0).getCave());
-
-    caveIA.setMaximumSize(100, 50);
-    caveIA.setSegmentStyle(QLCDNumber::Filled);
     caveIA.display(jeu->getJoueur(1).getCave());
+    pot.display(0);
+    caveJoueur.display(jeu->getJoueur(0).getCave());
 
 
     // ////////////////////////////////////////////////////
     // Boutons d'action
     // ////////////////////////////////////////////////////
 
+    QHBoxLayout *layoutDemarrage = new QHBoxLayout;
+
     boutonDemarrage.setText("Démarrage partie");
     boutonDemarrage.setMaximumWidth(150);
     connect(&boutonDemarrage, SIGNAL(clicked()), this, SLOT(demarragePartie()));
+
+    boutonChoixCartes.setChecked(false);
+    boutonChoixCartes.setText("Choix des cartes");
+
+    layoutDemarrage->setAlignment(Qt::AlignLeft);
+    layoutDemarrage->setSpacing(10);
+    layoutDemarrage->addWidget(&boutonDemarrage);
+    layoutDemarrage->addWidget(&boutonChoixCartes);
 
 
     QVBoxLayout *layoutBoutons = new QVBoxLayout;
@@ -152,7 +154,7 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
     layoutOptions->setSpacing(150);
     layoutOptions->setAlignment(Qt::AlignHCenter);
 
-    layoutOptions->addWidget(&boutonDemarrage);
+    layoutOptions->addLayout(layoutDemarrage);
     layoutOptions->addWidget(&caveIA);
     layoutOptions->addWidget(&pot);
     layoutOptions->addLayout(layoutJoueur);
@@ -199,8 +201,10 @@ void Fenetre::demarragePartie()
 
     // Sélection des cartes par l'utilisateur
 
-    CartesDialog fenetreCartes(this);
-    std::vector<int> ids = fenetreCartes.choixCartes();
+    if (boutonChoixCartes.isChecked()) {
+        CartesDialog fenetreCartes(this);
+        std::vector<int> ids = fenetreCartes.choixCartes();
+    }
 
     /*if (!ids.empty()) {
         // Appeler la méthode de jeu
