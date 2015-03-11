@@ -10,12 +10,12 @@ class Joueur{
 
 	//Attributs
 	protected:
-		bool 			dealer;
+        bool                dealer;
 		std::vector<Carte>	main;
-		int			cave;
-		Jeu*			jeu;
-		int			position;
-		int			miseJoueur;
+        int                 cave;
+        Jeu*                jeu;
+        int                 position;
+        int                 miseJoueur;
 		
 	//Constructeur et destructeur
 	public:

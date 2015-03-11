@@ -5,7 +5,7 @@
 #include <unordered_map>
 #include <vector>
 
-int nombreDeTest = 20000;
+int nombreDeTest = 70000;
 
 EstimationProba::EstimationProba(Jeu* jeu, Joueur* joueur){
 	srand((unsigned)time(0));
@@ -18,7 +18,7 @@ EstimationProba::~EstimationProba(){
 
 double EstimationProba::estimation(){
 
-	int nombreDeCoupGagner = 0;
+    double nombreDeCoupGagner = 0;
 	int position;
     int tailleTable;
 	std::string ensembleCourant;
@@ -58,8 +58,9 @@ double EstimationProba::estimation(){
 		}while( iterateurEnsembleCarte != listeEnsembleCarte.end());
 		
 		
-        if(Evaluateur::comparerMains(table,this->joueurCourant->getMain(), mainAdverse)){
+        if(Evaluateur::comparerMains(table,this->joueurCourant->getMain(), mainAdverse) == GAGNE){
 
+            /*
             std::cout << std::endl << "Table : " << std::endl;
             for(int i=0; i<5; i++){
                 std::cout << table.at(i).getRang() << "," << table.at(i).getCouleur() << "; ";
@@ -69,20 +70,20 @@ double EstimationProba::estimation(){
 
             std::cout << "Main adverse : " << std::endl;
             for(int i=0; i<2; i++){
-                std::cout << mainAdverse.at(i).getRang()  << "," << mainAdverse.at(i).getCouleur();
+                std::cout << mainAdverse.at(i).getRang()  << "," << mainAdverse.at(i).getCouleur() << ";";
             }
 
             std::cout << std::endl;
             std::cout << "Main du joueur : " << std::endl;
             for(int i=0; i<2; i++){
                 std::cout << this->joueurCourant->getMain().at(i).getRang()  << "," << this->joueurCourant->getMain().at(i).getCouleur() << "; ";
-            }
+            }*/
 
 			nombreDeCoupGagner++;
-            std::cout << std::endl;
-		}
-	
-	
+           // std::cout << std::endl;
+        }else if(Evaluateur::comparerMains(table,this->joueurCourant->getMain(), mainAdverse) == EGALITE){
+            nombreDeCoupGagner = nombreDeCoupGagner + 0.1;
+        }
 	}
 	
     return (double) nombreDeCoupGagner / nombreDeTest;

@@ -8,6 +8,7 @@
 #include "Carte.h"
 #include "Joueur.h"
 #include "IntelligenceArtificielle.h"
+#include "../Evaluateur/Evaluateur.h"
 #include "../Constantes.h"
 
 class Joueur;
@@ -60,7 +61,7 @@ class Jeu{
 		*@action : Permet d'obtenir le joueur en i-eme position
 		*@return : Le joueur en i-eme position
 		**/
-        	Joueur& 		getJoueur(int i);
+        Joueur& 		getJoueur(int i);
         	
         	/**
 		*@action : Permet d'ajouter un joueur a la partie
@@ -103,6 +104,12 @@ class Jeu{
 		*@return : Un entier représentant la mise courante
 		**/
 		int			getMise();
+
+        /**
+        *@action : Permet d'obtenir le deck
+        *@return : Un vecteur représentant le deck
+        **/
+        std::vector<Carte>			getDeck();
 		
 		/**
 		*@action : Permet d'obtenir l'ensemble des actions
@@ -167,6 +174,21 @@ class Jeu{
 		*@return : vrai si le joueur peut checker, faux sinon 
 		**/
 		bool peutChecker(int posJoueur);
+
+        /**
+        *@action : Permet de savoir si le joueur a la possibilite de relancer
+        *@param  : la position du joueur dont on veut savoir s'il peut relancer
+        *@return : vrai si le joueur peut relancer, faux sinon
+        **/
+        bool peutRelancer(int posJoueur);
+
+        /**
+        *@action : Permet de savoir si le joueur a la possibilite de miser
+        *@param  : la position du joueur dont on veut savoir s'il peut miser
+        *@return : vrai si le joueur peut miser, faux sinon
+        **/
+        bool peutMiser(int posJoueur);
+
 		
 		/**
 		*@action : Commande permettant a un joueur de miser
@@ -238,7 +260,13 @@ class Jeu{
 		*@action  : Relance une nouvelle main
 		*@param   : La position du joueur ayant gagné la main
 		**/			
-		void nouvelleMain(int posJoueur);			
+        void nouvelleMain(int posJoueur);
+
+        /**
+        *@action  : Affecte les cartes choisies via l'interface a l'ia
+        *@param   : Un vecteur d'entier correspondant a la liste des ids des cartes
+        **/
+        void affecteMainIA(std::vector<int> listeId);
 };
 
 #endif
