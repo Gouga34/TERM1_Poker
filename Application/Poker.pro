@@ -12,7 +12,8 @@ SOURCES += \
     src/Evaluateur/Evaluateur.cpp \
     src/Evaluateur/CartesJoueur.cpp \
     src/Interface/CartesDialog.cpp \
-    src/Interface/CarteCliquable.cpp
+    src/Interface/CarteCliquable.cpp \
+    src/Interface/ChoixPseudoDialog.cpp
 
 QT+=widgets
 
@@ -30,7 +31,8 @@ HEADERS += \
     include/Evaluateur/CartesJoueur.h \
     include/Evaluateur/Evaluateur.h \
     include/Interface/CartesDialog.h \
-    include/Interface/CarteCliquable.h
+    include/Interface/CarteCliquable.h \
+    include/Interface/ChoixPseudoDialog.h
 
 CONFIG += c++11
 
