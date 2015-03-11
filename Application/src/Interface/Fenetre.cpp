@@ -9,7 +9,12 @@ Specification: Fichier contenant les définitions de la classe Fenetre.
 #include "../../include/Interface/Fenetre.h"
 #include "../../include/Interface/CarteGraphique.h"
 #include "../../include/Interface/CartesDialog.h"
+#include "../../include/Interface/ChoixPseudoDialog.h"
+
+#include<QString>
 #include <QVBoxLayout>
+#include <iostream>
+using namespace std;
 
 QPixmap *Fenetre::textureCartes = 0;
 
@@ -162,6 +167,10 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
     setLayout(layout);
 
     connect(this, SIGNAL(tourFini()), this, SLOT(prochainJoueur()));
+
+    //Récupération du pseudo du joueur
+    ChoixPseudoDialog pseudo;
+    QString pseudoJoueur = pseudo.getPseudo();
 }
 
 Fenetre::~Fenetre()
