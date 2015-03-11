@@ -189,6 +189,14 @@ class Jeu{
         **/
         bool peutMiser(int posJoueur);
 
+
+        /**
+        *@action : Permet de savoir si le joueur a la possibilite de suivre
+        *@param  : la position du joueur dont on veut savoir s'il peut suivre
+        *@return : vrai si le joueur peut suivre, faux sinon
+        **/
+        bool peutSuivre(int posJoueur);
+
 		
 		/**
 		*@action : Commande permettant a un joueur de miser
