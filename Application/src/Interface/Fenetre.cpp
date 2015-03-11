@@ -83,17 +83,9 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
     // Compteurs
     // ////////////////////////////////////////////////////
 
-    pot.setMaximumSize(100, 50);
-    pot.setSegmentStyle(QLCDNumber::Filled);
-    pot.display(0);
-
-    caveJoueur.setMaximumSize(100, 50);
-    caveJoueur.setSegmentStyle(QLCDNumber::Filled);
-    caveJoueur.display(jeu->getJoueur(0).getCave());
-
-    caveIA.setMaximumSize(100, 50);
-    caveIA.setSegmentStyle(QLCDNumber::Filled);
     caveIA.display(jeu->getJoueur(1).getCave());
+    pot.display(0);
+    caveJoueur.display(jeu->getJoueur(0).getCave());
 
 
     // ////////////////////////////////////////////////////

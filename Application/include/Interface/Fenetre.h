@@ -12,11 +12,11 @@ Specification: Classe contenant l'ensemble des propriétés de la fenêtre
 
 #include <QWidget>
 #include <QPixmap>
-#include <QLCDNumber>
 #include <QSpinBox>
 #include <QPushButton>
 #include <QTextEdit>
 #include "ListeCartes.h"
+#include "CompteurJetons.h"
 #include "../Jeu/Jeu.h"
 
 class Fenetre : public QWidget
@@ -35,9 +35,9 @@ class Fenetre : public QWidget
         ListeCartes layoutCartesCommunes;
 
         // Compteur du pot et des caves des joueurs
-        QLCDNumber pot;
-        QLCDNumber caveJoueur;
-        QLCDNumber caveIA;
+        CompteurJetons pot;
+        CompteurJetons caveJoueur;
+        CompteurJetons caveIA;
 
         // Boite de saisie du montant de la mise
         QSpinBox valeurMise;
