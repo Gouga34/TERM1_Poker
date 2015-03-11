@@ -2,6 +2,8 @@
 #include "../../include/Jeu/Joueur.h"
 #include "../../include/Jeu/IntelligenceArtificielle.h"
 
+#include <iterator>
+
 Jeu::Jeu(int nbJoueur, int blindDepart, int cave, int typeIA) : actions(nbJoueur,TYPES::ACTION_LIST::EN_ATTENTE){
 	srand((unsigned)time(0));
 	this->initialisationTable(nbJoueur, cave);	
@@ -129,6 +131,7 @@ void Jeu::miseAJourBlind(){
 std::vector<Carte> Jeu::nouveauDeck(){
 
 	std::vector<Carte> deck;
+    std::vector<Carte>::iterator iterateur;
 
     for(int i = COULEUR_CARTE::PIQUE; i <= COULEUR_CARTE::CARREAU; i++ ){
         for(int j = RANG_CARTE::AS; j<=RANG_CARTE::K; j++){
@@ -136,6 +139,20 @@ std::vector<Carte> Jeu::nouveauDeck(){
             deck.push_back(carte);
 		}
 	}
+
+    for(Carte carte : this->getJoueur(0).getMain()){
+         iterateur = deck.begin();
+         std::advance(iterateur, carte.getId());
+         deck.erase(iterateur);
+    }
+
+
+    for(Carte carte : this->getJoueur(1).getMain()){
+         iterateur = deck.begin();
+         std::advance(iterateur, carte.getId());
+         deck.erase(iterateur);
+    }
+
 	return deck;
 }
 	
@@ -292,7 +309,7 @@ bool Jeu::prochainJoueur(){
     this->joueurCourant = (this->joueurCourant + 1) % this->positionnement.size();
     
     if(this->finDuTour() && this->table.size() == 5){
-	return false;
+        return false;
     }
 
     if(this->finDuTour() && this->table.size() != 5){
@@ -330,7 +347,34 @@ int Jeu::getMise(){
 }
 
 void Jeu::nouvelleMain(int posJoueur){
-	this->getJoueur(posJoueur).ajouteJetons(this->getPot());
+
+    std::vector<Joueur> joueurRestant;
+
+    for(Joueur joueur : this->positionnement){
+        if(this->getListeActions().at(joueur.getPosition()) != TYPES::ACTION_LIST::SE_COUCHER){
+            joueurRestant.push_back(joueur);
+        }
+    }
+
+    if(joueurRestant.size() != 1){
+        if(Evaluateur::comparerMains(this->getTable(), this->getJoueur(0).getMain(), this->getJoueur(1).getMain()) == GAGNE){
+            this->getJoueur(0).ajouteJetons(this->getPot());
+        }else if(Evaluateur::comparerMains(this->getTable(), this->getJoueur(0).getMain(), this->getJoueur(1).getMain()) == PERDU){
+            this->getJoueur(1).ajouteJetons(this->getPot());
+        }else{
+            if(this->getPot() % 2 == 0){
+                this->getJoueur(0).ajouteJetons(this->getPot() / 2 );
+                this->getJoueur(1).ajouteJetons(this->getPot() / 2 );
+            }else{
+                this->setPot(this->getPot() -1);
+                this->getJoueur(0).ajouteJetons(this->getPot() / 2 );
+                this->getJoueur(1).ajouteJetons(this->getPot() / 2 );
+            }
+        }
+    }else{
+        this->getJoueur(joueurRestant.at(0).getPosition()).ajouteJetons(this->getPot());
+    }
+
 	this->setPot(0);
 	this->table.clear();
 	
@@ -359,6 +403,27 @@ bool Jeu::peutChecker(int posJoueur){
 }
 
 
+bool Jeu::peutRelancer(int posJoueur){
+
+    for(int i=1; i<= (int) this->actions.size() - 1; i++){
+        if(this->actions[(posJoueur + i) % this->actions.size() ] == TYPES::ACTION_LIST::MISER ||
+            this->actions[(posJoueur + i) % this->actions.size()] == TYPES::ACTION_LIST::RELANCER ||
+            this->actions[(posJoueur + i) % this->actions.size()] == TYPES::ACTION_LIST::GROSSE_BLIND ||
+            this->actions[(posJoueur + i) % this->actions.size()] == TYPES::ACTION_LIST::PETITE_BLIND ){
+                return true;
+        }
+    }
+
+    return false;
+}
+
+void Jeu::affecteMainIA(std::vector<int> listeId){
+
+    for(int id : listeId){
+        this->getJoueur(1).ajouteCarte(this->deck.at(id));
+    }
+
+}
 
 
 
