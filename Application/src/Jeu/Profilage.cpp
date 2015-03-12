@@ -68,8 +68,8 @@ void Profilage::charger()
             profil[i].tauxChecks = etape["checks"].toDouble();
             profil[i].tauxMises = etape["mises"].toDouble();
 
-            profil[i].misePlusHaute = etape["misePlusHaute"].toInt();
-            profil[i].miseTotaleJoueur = etape["miseTotaleJoueur"].toInt();
+            profil[i].misePlusHaute = etape["misePlusHaute"].toDouble();
+            profil[i].miseTotaleJoueur = etape["miseTotaleJoueur"].toDouble();
             profil[i].miseTotaleIA = etape["miseTotaleIA"].toDouble();
         }
     }
