@@ -61,6 +61,11 @@ class Profilage
         ~Profilage();
 
         /**
+         * @action Remplit les données de profilage avec le contenu du fichier correspondant au joueur
+         */
+        void charger();
+
+        /**
          * @action Ajoute les données de profilage de la partie dans le fichier correspondant au joueur
          */
         void sauvegarder() const;
