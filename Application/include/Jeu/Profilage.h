@@ -16,16 +16,16 @@ Specification: Classe contenant l'écriture et la lecture
 
 class Profilage
 {
+    private:
+
+        std::string nomJoueur;
+
     public:
 
         // Etapes de jeu
         enum { PREFLOP, FLOP, TURN, RIVER, NB_ETAPES };
 
         static const QString etapes[4];
-
-    private:
-
-        std::string nomJoueur;
 
         struct Profil
         {
@@ -45,17 +45,17 @@ class Profilage
             double tauxChecks;
             double tauxMises;
 
-            int misePlusHaute;
-            int miseTotaleJoueur;
-
-            double miseTotaleIA;            // Mise de l'IA en fonction des jetons du joueur
+            /* Taux en % des mises en fonction des jetons du joueur */
+            double misePlusHaute;           // Mise plus haute du joueur
+            double miseTotaleJoueur;        // Mise totale du joueur
+            double miseTotaleIA;            // Mise totale de l'IA
         };
 
         bool partieGagnee;              // vrai si l'IA a gagné la partie
 
         Profil profil[NB_ETAPES];
 
-    public:
+
 
         Profilage(std::string joueur);
         ~Profilage();
