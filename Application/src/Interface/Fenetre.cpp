@@ -204,14 +204,11 @@ void Fenetre::demarragePartie()
     if (boutonChoixCartes.isChecked()) {
         CartesDialog fenetreCartes(this);
         std::vector<int> ids = fenetreCartes.choixCartes();
-    }
 
-    /*if (!ids.empty()) {
-        // Appeler la méthode de jeu
+        if (!ids.empty()) {
+            jeu->affecteMainIA(ids);
+        }
     }
-    else {
-
-    }*/
 
     jeu->distributionMain();
     
