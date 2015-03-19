@@ -11,6 +11,7 @@ Specification: Classe définissant la fenêtre de choix des cartes.
 
 #include <QDialog>
 #include <QGridLayout>
+#include <QRadioButton>
 #include <vector>
 #include "CarteCliquable.h"
 
@@ -20,9 +21,24 @@ class CartesDialog : public QDialog
 
     private:
 
+        enum ListeCartes { JOUEUR, IA, MILIEU };
+
         QGridLayout layoutCartes;
 
+        // Vecteur des identifants des cartes choisies (2 Joueur, 2 IA, 5 milieu)
         std::vector<int> cartesSelectionnees;
+
+        QRadioButton choixJoueur;
+        QRadioButton choixIA;
+        QRadioButton choixMilieu;
+
+        /**
+         * @action Ajoute la carte sélectionnée dans la liste de cartes correspondante
+         * @param id Identifiant de la carte à ajouter
+         * @param liste Liste dans laquelle ajouter la carte
+         * @return true si la carte a été ajoutée, faux sinon (carte déjà sélectionné, liste pleine)
+         */
+        bool ajoutCarte(int id, ListeCartes liste);
 
     public:
 
