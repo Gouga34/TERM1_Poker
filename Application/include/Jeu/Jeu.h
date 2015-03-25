@@ -64,7 +64,7 @@ class Jeu{
 		*@action : Permet d'obtenir le joueur en i-eme position
 		*@return : Le joueur en i-eme position
 		**/
-        Joueur& 		getJoueur(int i);
+		Joueur& 		getJoueur(int i);
         	
         	/**
 		*@action : Permet d'ajouter un joueur a la partie
@@ -108,11 +108,11 @@ class Jeu{
 		**/
 		int			getMise();
 
-        /**
-        *@action : Permet d'obtenir le deck
-        *@return : Un vecteur représentant le deck
-        **/
-        std::vector<Carte>			getDeck();
+		/**
+		*@action : Permet d'obtenir le deck
+		*@return : Un vecteur représentant le deck
+		**/
+		std::vector<Carte>			getDeck();
 		
 		/**
 		*@action : Permet d'obtenir l'ensemble des actions
@@ -120,17 +120,29 @@ class Jeu{
 		**/
 		std::vector<TYPES::ACTION_LIST> getListeActions() const;
 
-        /**
-        *@action : Permet d'obtenir l'agressivite de l'IA
-        *@return : L'agressivite de l'IA
-        **/
-        double getAgressiviteIA() const;
+		/**
+		*@action : Permet d'obtenir l'agressivite de l'IA
+		*@return : L'agressivite de l'IA
+		**/
+		double getAgressiviteIA() const;
+
+		/**
+		*@action : Permet d'obtenir la rationnalite de l'IA
+		*@return : La rationnalite de l'IA
+		**/
+		double getRationaliteIA() const;
 
         /**
-        *@action : Permet d'obtenir la rationnalite de l'IA
-        *@return : La rationnalite de l'IA
+        *@action : Permet d'affecter l'agressivite de l'IA
+        *@param : L'agressivite de l'IA
         **/
-        double getRationnaliteIA() const;
+        void setAgressiviteIA(double agressivite);
+
+        /**
+        *@action : Permet d'affecter la rationnalite de l'IA
+        *@param : La rationnalite de l'IA
+        **/
+        void setRationaliteIA(double rationalite);
 
 	
 	//Methodes	

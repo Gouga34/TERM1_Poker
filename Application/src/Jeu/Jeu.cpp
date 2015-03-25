@@ -12,8 +12,8 @@ Jeu::Jeu(int nbJoueur, int blindDepart, int cave, double agressivite, double rat
 	this->pot = 0;
 	this->nombreDeCoup = 0;
 	this->dealer = 0;
-    this->agressiviteIA = agressivite;
-    this->rationaliteIA = rationalite;
+    	this->agressiviteIA = agressivite;
+   	this->rationaliteIA = rationalite;
 }
 
 Jeu::~Jeu(){
@@ -340,9 +340,18 @@ double Jeu::getAgressiviteIA() const{
     return this->agressiviteIA;
 }
 
-double Jeu::getRationnaliteIA() const{
+double Jeu::getRationaliteIA() const{
     return this->rationaliteIA;
 }
+
+void Jeu::setAgressiviteIA(double agressivite){
+    this->agressiviteIA = agressivite;
+}
+
+void Jeu::setRationaliteIA(double rationalite){
+    this->rationaliteIA = rationalite;
+}
+
 
 int Jeu::getMise(){
 	return this->mise;
