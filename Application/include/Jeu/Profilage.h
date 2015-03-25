@@ -25,7 +25,18 @@ class Profilage
         // Etapes de jeu
         enum { PREFLOP, FLOP, TURN, RIVER, NB_ETAPES };
 
-        static const QString etapes[4];
+        // Profils de l'adversaire
+        /**
+         * Rationnel Agressif (RA)
+         * Rationnel Passif (RP)
+         * Bluffeur Agressif (BA)
+         * Bluffeur Passif (BP)
+         */
+        enum { RA, RP, BA, BP, NB_PROFILS };
+
+        static const QString etapes[NB_ETAPES];
+
+        int typeJoueur[NB_PROFILS];
 
         struct Profil
         {
