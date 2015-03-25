@@ -10,6 +10,7 @@
 #include "IntelligenceArtificielle.h"
 #include "../Evaluateur/Evaluateur.h"
 #include "../Constantes.h"
+#include "../../include/Jeu/Joueur.h"
 
 class Joueur;
 class IntelligenceArtificielle;
@@ -28,6 +29,8 @@ class Jeu{
         int                                 nombreDeCoup;
         int                                 mise;
         int                                 dealer;
+        double                              agressiviteIA;
+        double                              rationaliteIA;
 
 		
 	//Constructeur et destructeur
@@ -36,7 +39,7 @@ class Jeu{
 		*@param  : Le nombre de joueur, le montant de la blind de depart, la cave de depart des joueurs et le type de proffiling de l'IA
 		*@action : Initialise un nouveau jeu
 		**/
-		Jeu(int nbJoueur, int blindDepart, int cave, int typeIA);
+        Jeu(int nbJoueur, int blindDepart, int cave, double agressivite, double rationalite);
 		
 		/**
 		*@action : Destructeur de la classe Jeu
@@ -116,6 +119,18 @@ class Jeu{
 		*@return : L'ensemble des actions
 		**/
 		std::vector<TYPES::ACTION_LIST> getListeActions() const;
+
+        /**
+        *@action : Permet d'obtenir l'agressivite de l'IA
+        *@return : L'agressivite de l'IA
+        **/
+        double getAgressiviteIA() const;
+
+        /**
+        *@action : Permet d'obtenir la rationnalite de l'IA
+        *@return : La rationnalite de l'IA
+        **/
+        double getRationnaliteIA() const;
 
 	
 	//Methodes	
