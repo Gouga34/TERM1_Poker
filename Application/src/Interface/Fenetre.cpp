@@ -10,6 +10,7 @@ Specification: Fichier contenant les définitions de la classe Fenetre.
 #include "../../include/Interface/CarteGraphique.h"
 #include "../../include/Interface/CartesDialog.h"
 #include "../../include/Interface/ChoixPseudoDialog.h"
+#include "../../include/Interface/CalibrageIA.h"
 
 #include<QString>
 #include <QVBoxLayout>
@@ -173,6 +174,13 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
     //Récupération du pseudo du joueur
     ChoixPseudoDialog pseudo;
     QString pseudoJoueur = pseudo.getPseudo();
+
+    // Réupération du calibrage
+    CalibrageIA calibrage;
+    std::pair<double, double> valeurs = calibrage.getCalibrage();
+
+    //jeu->setAgressiviteIA(valeurs.second);
+    //jeu->setRationaliteIA(valeurs.first);
 }
 
 Fenetre::~Fenetre()
