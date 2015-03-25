@@ -14,7 +14,8 @@ SOURCES += \
     src/Interface/CartesDialog.cpp \
     src/Interface/CarteCliquable.cpp \
     src/Interface/ChoixPseudoDialog.cpp \
-    src/Interface/CompteurJetons.cpp
+    src/Interface/CompteurJetons.cpp \
+    src/Interface/CalibrageIA.cpp
 
 QT+=widgets
 
@@ -34,7 +35,8 @@ HEADERS += \
     include/Interface/CartesDialog.h \
     include/Interface/CarteCliquable.h \
     include/Interface/ChoixPseudoDialog.h \
-    include/Interface/CompteurJetons.h
+    include/Interface/CompteurJetons.h \
+    include/Interface/CalibrageIA.h
 
 CONFIG += c++11
 
