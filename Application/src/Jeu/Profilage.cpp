@@ -20,7 +20,8 @@ const QString Profilage::etapes[] = {"preflop", "flop", "turn", "river" };
 
 
 Profilage::Profilage(std::string joueur)
-    : nomJoueur(joueur)
+    : nomJoueur(joueur), typeJoueur{0}, partieGagnee(false),
+      profil{{false, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}}
 {
 
 }
@@ -42,6 +43,13 @@ void Profilage::charger()
     QByteArray donneesJson = fichier.readAll();
     QJsonDocument doc(QJsonDocument::fromJson(donneesJson));
     QJsonObject json(doc.object());
+
+    // Type du joueur
+    typeJoueur[RA] = json["RA"].toInt();
+    typeJoueur[RP] = json["RP"].toInt();
+    typeJoueur[BA] = json["BA"].toInt();
+    typeJoueur[BP] = json["BP"].toInt();
+
 
     QJsonArray parties = json["parties"].toArray();
 
@@ -82,6 +90,10 @@ void Profilage::sauvegarder() const
    QString nomFichier = QString::fromStdString(nomJoueur) + ".json";
    QFile fichier("../Application/ressources/Profilage/ProfilageStatique/" + nomFichier);
 
+   QJsonDocument doc;
+   QJsonObject json;
+   QJsonArray parties;
+
    if (!fichier.open(QIODevice::ReadOnly)) {
 
        // Ouverture de la liste des pseudos
@@ -95,12 +107,16 @@ void Profilage::sauvegarder() const
        out << QString::fromStdString(nomJoueur) << endl;
 
        listePseudos.close();
+   }
+   else {
+       // Récupération du contenu existant
+       QByteArray donneesJson = fichier.readAll();
+       doc = QJsonDocument::fromJson(donneesJson);
+       json = doc.object();
 
-       // Création du fichier du joueur
-       if (!fichier.open(QIODevice::ReadWrite)) {
-           std::cerr << "Erreur lors de l'ouverture du fichier " << nomFichier.toStdString() << std::endl;
-           return;
-       }
+       parties = json["parties"].toArray();
+
+       fichier.close();
    }
 
    QJsonObject partie;
@@ -134,23 +150,26 @@ void Profilage::sauvegarder() const
         partie[nomEtape] = etape;
    }
 
-   /* Ajout de la partie courante à la liste de parties enregistrées */
-
-   // Récupération du contenu existant
-   QByteArray donneesJson = fichier.readAll();
-   QJsonDocument doc(QJsonDocument::fromJson(donneesJson));
-   QJsonObject json(doc.object());
-
-   QJsonArray parties = json["parties"].toArray();
+   // Ajout de la partie courante à la liste de parties enregistrées
    parties.append(partie);
 
+   // Ecriture du type du joueur
+   json["RA"] = typeJoueur[RA];
+   json["RP"] = typeJoueur[RP];
+   json["BA"] = typeJoueur[BA];
+   json["BP"] = typeJoueur[BP];
 
    // On modifie le QJsonObject
    json["parties"] = parties;
    // On modifie le QJsonDocument
    doc.setObject(json);
+
    // On écrit dans le fichier
-   fichier.resize(0);
+   if (!fichier.open(QIODevice::ReadWrite | QIODevice::Truncate)) {
+       std::cerr << "Erreur lors de l'ouverture du fichier " << nomFichier.toStdString() << std::endl;
+       return;
+   }
+
    fichier.write(doc.toJson());
 
    fichier.close();
