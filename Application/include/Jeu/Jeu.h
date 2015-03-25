@@ -10,6 +10,7 @@
 #include "IntelligenceArtificielle.h"
 #include "../Evaluateur/Evaluateur.h"
 #include "../Constantes.h"
+#include "../../include/Jeu/Joueur.h"
 
 class Joueur;
 class IntelligenceArtificielle;
@@ -28,6 +29,8 @@ class Jeu{
         int                                 nombreDeCoup;
         int                                 mise;
         int                                 dealer;
+        double                              agressiviteIA;
+        double                              rationaliteIA;
 
 		
 	//Constructeur et destructeur
@@ -36,7 +39,7 @@ class Jeu{
 		*@param  : Le nombre de joueur, le montant de la blind de depart, la cave de depart des joueurs et le type de proffiling de l'IA
 		*@action : Initialise un nouveau jeu
 		**/
-		Jeu(int nbJoueur, int blindDepart, int cave, int typeIA);
+        Jeu(int nbJoueur, int blindDepart, int cave, double agressivite, double rationalite);
 		
 		/**
 		*@action : Destructeur de la classe Jeu
@@ -61,7 +64,7 @@ class Jeu{
 		*@action : Permet d'obtenir le joueur en i-eme position
 		*@return : Le joueur en i-eme position
 		**/
-        Joueur& 		getJoueur(int i);
+		Joueur& 		getJoueur(int i);
         	
         	/**
 		*@action : Permet d'ajouter un joueur a la partie
@@ -105,17 +108,41 @@ class Jeu{
 		**/
 		int			getMise();
 
-        /**
-        *@action : Permet d'obtenir le deck
-        *@return : Un vecteur représentant le deck
-        **/
-        std::vector<Carte>			getDeck();
+		/**
+		*@action : Permet d'obtenir le deck
+		*@return : Un vecteur représentant le deck
+		**/
+		std::vector<Carte>			getDeck();
 		
 		/**
 		*@action : Permet d'obtenir l'ensemble des actions
 		*@return : L'ensemble des actions
 		**/
 		std::vector<TYPES::ACTION_LIST> getListeActions() const;
+
+		/**
+		*@action : Permet d'obtenir l'agressivite de l'IA
+		*@return : L'agressivite de l'IA
+		**/
+		double getAgressiviteIA() const;
+
+		/**
+		*@action : Permet d'obtenir la rationnalite de l'IA
+		*@return : La rationnalite de l'IA
+		**/
+		double getRationaliteIA() const;
+
+        /**
+        *@action : Permet d'affecter l'agressivite de l'IA
+        *@param : L'agressivite de l'IA
+        **/
+        void setAgressiviteIA(double agressivite);
+
+        /**
+        *@action : Permet d'affecter la rationnalite de l'IA
+        *@param : La rationnalite de l'IA
+        **/
+        void setRationaliteIA(double rationalite);
 
 	
 	//Methodes	
@@ -188,6 +215,14 @@ class Jeu{
         *@return : vrai si le joueur peut miser, faux sinon
         **/
         bool peutMiser(int posJoueur);
+
+
+        /**
+        *@action : Permet de savoir si le joueur a la possibilite de suivre
+        *@param  : la position du joueur dont on veut savoir s'il peut suivre
+        *@return : vrai si le joueur peut suivre, faux sinon
+        **/
+        bool peutSuivre(int posJoueur);
 
 		
 		/**

@@ -107,24 +107,23 @@ void IntelligenceArtificielle::jouer(){
     //double proba = this->calculProba();
 	
 	EstimationProba estime( this->getJeu(), &this->getJeu()->getJoueur(this->getPosition()) );
-    double estimation = 100 * estime.estimation();
+	double estimation = 100 * estime.estimation();
 
-    std::cout << estimation << std::endl;
+   	double agressivite = this->getJeu()->getAgressiviteIA();
+   	double rationalite = this->getJeu()->getRationaliteIA();
+
 	
-    if(estimation > 75){
-
+	if(estimation > 75){
 		if(this->getCave() < this->getJeu()->getMise() * 2){
 			this->getJeu()->tapis(this->getPosition());
-        }else if(this->getJeu()->peutRelancer(this->getPosition())){
+		}else if(this->getJeu()->peutRelancer(this->getPosition())){
 			this->getJeu()->relancer(this->getPosition(), this->getJeu()->getMise() * 2);
-        }else if(this->getCave() > this->getJeu()->getBlind()*2){
-            this->getJeu()->miser(this->getPosition(), 2*this->getJeu()->getBlind());
-        }else{
-            this->getJeu()->tapis(this->getPosition());
-        }
-		
-    }else if (estimation > 50 ){
-
+		}else if(this->getCave() > this->getJeu()->getBlind()*2){
+			this->getJeu()->miser(this->getPosition(), 2*this->getJeu()->getBlind());
+		}else{
+			this->getJeu()->tapis(this->getPosition());
+		}	
+	}else if (estimation > 50 ){
 		if(this->getJeu()->getMise() == 0 && this->getCave() > this->getJeu()->getBlind()){
 			this->getJeu()->miser(this->getPosition(), this->getJeu()->getBlind());
 		}else if(this->getJeu()->getMise() == 0 && this->getCave() < this->getJeu()->getBlind()){
@@ -133,10 +132,8 @@ void IntelligenceArtificielle::jouer(){
 			this->getJeu()->tapis(this->getPosition());
 		}else{
 			this->getJeu()->suivre(this->getPosition());
-		}
-		
+		}	
 	}else{
-
 		if(this->getJeu()->getListeActions().at(this->getPosition()) == TYPES::ACTION_LIST::PETITE_BLIND){
 			this->getJeu()->suivre(this->getPosition());
 		}else if(this->getJeu()->peutChecker(this->getPosition())){
@@ -144,6 +141,5 @@ void IntelligenceArtificielle::jouer(){
 		}else{
 			this->getJeu()->seCoucher(this->getPosition());
 		}
-
 	}
 }

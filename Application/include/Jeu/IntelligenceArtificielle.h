@@ -56,7 +56,7 @@ class IntelligenceArtificielle : public Joueur {
 		/**
 		*@action : Pemet a l'IA de jouer
 		**/
-		void jouer();		
+        void jouer();
 	
 };
 
