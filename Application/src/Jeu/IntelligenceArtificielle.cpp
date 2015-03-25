@@ -102,52 +102,52 @@ void IntelligenceArtificielle::setTable(std::vector<Carte> tab){
 	this->table = tab;
 }
 
-std::vector<Integer> IntelligenceArtificielle::getBornesRationalite(double estimation){
+std::vector<int> IntelligenceArtificielle::getBornesRationalite(double estimation){
 
-    std::vector<Integer> bornes;
+	std::vector<int> bornes;
 	
 	for(int i=0; i< RATIONALITE::NB_PALLIERS; i++){
-        if( estimation >= RATIONALITE::PALLIER1::DEBUT_GAIN &&  estimation <= RATIONALITE::PALLIER1::DEBUT_GAIN ){
-            borne.push_back(RATIONALITE::PALLIER1::DEBUT_GAIN);
-            borne.push_back(RATIONALITE::PALLIER1::FIN_GAIN);
-            borne.push_back(RATIONALITE::PALLIER1::DEBUT_RA_THEORIQUE);
-            borne.push_back(RATIONALITE::PALLIER1::FIN_RA_THEORIQUE);
+		if( estimation >= RATIONALITE::PALIER1::DEBUT_GAIN &&  estimation <= RATIONALITE::PALIER1::DEBUT_GAIN ){
+		    bornes.push_back(RATIONALITE::PALIER1::DEBUT_GAIN);
+		    bornes.push_back(RATIONALITE::PALIER1::FIN_GAIN);
+		    bornes.push_back(RATIONALITE::PALIER1::DEBUT_RA_THEORIQUE);
+		    bornes.push_back(RATIONALITE::PALIER1::FIN_RA_THEORIQUE);
 
-            return bornes;
-        }else if ( estimation >= RATIONALITE::PALLIER2::DEBUT_GAIN &&  estimation <= RATIONALITE::PALLIER2::DEBUT_GAIN ){
-            borne.push_back(RATIONALITE::PALLIER2::DEBUT_GAIN);
-            borne.push_back(RATIONALITE::PALLIER2::FIN_GAIN);
-            borne.push_back(RATIONALITE::PALLIER2::DEBUT_RA_THEORIQUE);
-            borne.push_back(RATIONALITE::PALLIER2::FIN_RA_THEORIQUE);
+		    return bornes;
+		}else if ( estimation >= RATIONALITE::PALIER2::DEBUT_GAIN &&  estimation <= RATIONALITE::PALIER2::DEBUT_GAIN ){
+		    bornes.push_back(RATIONALITE::PALIER2::DEBUT_GAIN);
+		    bornes.push_back(RATIONALITE::PALIER2::FIN_GAIN);
+		    bornes.push_back(RATIONALITE::PALIER2::DEBUT_RA_THEORIQUE);
+		    bornes.push_back(RATIONALITE::PALIER2::FIN_RA_THEORIQUE);
 
-            return bornes;
-        }else if ( estimation >= RATIONALITE::PALLIER3::DEBUT_GAIN &&  estimation <= RATIONALITE::PALLIER3::DEBUT_GAIN ){
-            borne.push_back(RATIONALITE::PALLIER3::DEBUT_GAIN);
-            borne.push_back(RATIONALITE::PALLIER3::FIN_GAIN);
-            borne.push_back(RATIONALITE::PALLIER3::DEBUT_RA_THEORIQUE);
-            borne.push_back(RATIONALITE::PALLIER3::FIN_RA_THEORIQUE);
+		    return bornes;
+		}else if ( estimation >= RATIONALITE::PALIER3::DEBUT_GAIN &&  estimation <= RATIONALITE::PALIER3::DEBUT_GAIN ){
+		    bornes.push_back(RATIONALITE::PALIER3::DEBUT_GAIN);
+		    bornes.push_back(RATIONALITE::PALIER3::FIN_GAIN);
+		    bornes.push_back(RATIONALITE::PALIER3::DEBUT_RA_THEORIQUE);
+		    bornes.push_back(RATIONALITE::PALIER3::FIN_RA_THEORIQUE);
 
-            return bornes;
-        }else if ( estimation >= RATIONALITE::PALLIER4::DEBUT_GAIN &&  estimation <= RATIONALITE::PALLIER4::DEBUT_GAIN ){
-            borne.push_back(RATIONALITE::PALLIER4::DEBUT_GAIN);
-            borne.push_back(RATIONALITE::PALLIER4::FIN_GAIN);
-            borne.push_back(RATIONALITE::PALLIER4::DEBUT_RA_THEORIQUE);
-            borne.push_back(RATIONALITE::PALLIER4::FIN_RA_THEORIQUE);
+		    return bornes;
+		}else if ( estimation >= RATIONALITE::PALIER4::DEBUT_GAIN &&  estimation <= RATIONALITE::PALIER4::DEBUT_GAIN ){
+		    bornes.push_back(RATIONALITE::PALIER4::DEBUT_GAIN);
+		    bornes.push_back(RATIONALITE::PALIER4::FIN_GAIN);
+		    bornes.push_back(RATIONALITE::PALIER4::DEBUT_RA_THEORIQUE);
+		    bornes.push_back(RATIONALITE::PALIER4::FIN_RA_THEORIQUE);
 
-            return bornes;
-        }
+		    return bornes;
+		}
 	}
+	return bornes;
 }
 
-/*
 int IntelligenceArtificielle::calculMiseTheorique(double estimation){
 	
-    //return
+	std::vector<int> bornes = this->getBornesRationalite(estimation);
+    
+    	return 0;
+	//return ( (estimation-bornes.at(0)*[(bornes.at(3)-bornes.at(2)/(bornes.at(1)-bornes.at(0))] ) + bornes.at(2) ;
 	
-    //( ((p-g1)*[(m2-m1)/(g2-g1)] ) + m1
-	
-	return 0;
-}*/
+}
 
 void IntelligenceArtificielle::jouer(){
 	
@@ -155,17 +155,17 @@ void IntelligenceArtificielle::jouer(){
 	
 	EstimationProba estime( this->getJeu(), &this->getJeu()->getJoueur(this->getPosition()) );
 	double estimation = 100 * estime.estimation();
-
+/*
    	double agressivite = this->getJeu()->getAgressiviteIA();
    	double rationalite = this->getJeu()->getRationaliteIA();
    	
-     std::vector<Integer> bornes;
+     std::vector<int> bornes;
 
      bornes = getBornesRationalite(10);
 
      for(int i = 0; i< bornes.size(); i++){
          std::cout << bornes.at(i) << std::endl;
-     }
+     }*/
 	
 	if(estimation > 75){
 		if(this->getCave() < this->getJeu()->getMise() * 2){

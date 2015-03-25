@@ -63,7 +63,7 @@ class IntelligenceArtificielle : public Joueur {
         *@param  : La probabilite de gain
         *@return : Un vecteur contenant : debut_gain, fin_gain, debut_ra_theorique, fin_ra_theorique
         **/
-        std::vector<Integer> getBornesRationalite(double estimation);
+        std::vector<int> getBornesRationalite(double estimation);
 
         /**
         *@action : Permet de calculer la mise theorique en fonction de la probabilite de gain
