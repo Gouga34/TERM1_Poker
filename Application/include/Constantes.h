@@ -74,72 +74,80 @@ namespace TYPES
 
 //Rationalité
 namespace RATIONALITE{
-	NB_PALLIERS = 4;
 
-	enum PALLIER1 {
-		DEBUT_GAIN = 0,
-		FIN_GAIN = 30,
+	int NB_PALLIERS=4;
 
-		DEBUT_RA_THEORIQUE = 0,
-		FIN_RA_THEORIQUE = 10
-	};
+	namespace PALIER1 {
+		int DEBUT_GAIN=0;
+		int FIN_GAIN=30;
 
-	enum PALLIER2 {
-		DEBUT_GAIN = 31,
-		FIN_GAIN = 50,
-		DEBUT_RA_THEORIQUE = 11,
-		FIN_RA_THEORIQUE = 15	
-	};
-	enum PALLIER3 {
-		DEBUT_GAIN = 51,
-		FIN_GAIN = 69,
-		DEBUT_RA_THEORIQUE = 16,
-		FIN_RA_THEORIQUE = 65		
-	};
+		int DEBUT_RA_THEORIQUE=0;
+		int FIN_RA_THEORIQUE=10;
+	}
 
-	enum PALLIER4 {
-		DEBUT_GAIN  = 70,
-		FIN_GAIN  = 100,
-		DEBUT_RA_THEORIQUE = 66,
-		FIN_RA_THEORIQUE = 100			
-	};	
+	namespace PALIER2 {
+		int DEBUT_GAIN=31;
+		int FIN_GAIN=50;
+
+		int DEBUT_RA_THEORIQUE=11;
+		int FIN_RA_THEORIQUE=15;	
+	}
+
+	namespace PALIER3 {
+		int DEBUT_GAIN=51;
+		int FIN_GAIN=69;
+
+		int DEBUT_RA_THEORIQUE=16;
+		int FIN_RA_THEORIQUE=65;		
+	}
+
+	namespace PALIER4 {
+		int DEBUT_GAIN=70;
+		int FIN_GAIN=100;
+
+		int DEBUT_RA_THEORIQUE=66;
+		int FIN_RA_THEORIQUE=100;
+	}	
 }
 
 //Agressivité
 namespace AGRESSIVITE{
-	NB_PALLIERS = 3;
+
+	int NB_PALIERS=3;
+
 	//MPH = mise la plus haute
-	enum PALLIER1 {
+	namespace PALIER1 {
 		
-		DEBUT_MPH = 0,
-		FIN_MPH = 25,
+		int DEBUT_MPH=0;
+		int FIN_MPH=25;
 
-		DEBUT_AG_THEORIQUE = 0,
-		FIN_AG_THEORIQUE = 50,
+		int DEBUT_AG_THEORIQUE=0;
+		int FIN_AG_THEORIQUE=50;
 
-		RATIO_NB_MISES = 1/2,
-		RATIO_TOTAL_MISES = 1/2
+		int RATIO_NB_MISES=0.5;
+		int RATIO_TOTAL_MISES=0.5;
 	};
 
-	enum PALLIER2 {
-		DEBUT_MPH = 26,
-		FIN_MPH = 50,
+	namespace PALIER2 {
+		int DEBUT_MPH=26;
+		int FIN_MPH=50;
 
-		DEBUT_AG_THEORIQUE = 51,
-		FIN_AG_THEORIQUE = 80
+		int DEBUT_AG_THEORIQUE=51;
+		int FIN_AG_THEORIQUE=80;
 
-		RATIO_NB_MISES = 2/3,
-		RATIO_TOTAL_MISES = 1/3
+		int RATIO_NB_MISES=0.666666667;
+		int RATIO_TOTAL_MISES=0.333333333;
 	};
-	enum PALLIER3 {
-		DEBUT_MPH = 51,
-		FIN_MPH = 100,
 
-		DEBUT_AG_THEORIQUE = 81,
-		FIN_AG_THEORIQUE = 100
+	namespace PALIER3 {
+		int DEBUT_MPH=51;
+		int FIN_MPH=100;
 
-		RATIO_NB_MISES = 2/3,
-		RATIO_TOTAL_MISES = 1/3		
+		int DEBUT_AG_THEORIQUE=81;
+		int FIN_AG_THEORIQUE=100;
+
+		int RATIO_NB_MISES=0.666666667;
+		int RATIO_TOTAL_MISES=0.333333333;
 	};	
 
 }
