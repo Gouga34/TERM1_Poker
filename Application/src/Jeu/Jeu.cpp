@@ -61,6 +61,7 @@ void Jeu::distributionFlop(){
 	
 	for(int i=0; i< (int)this->positionnement.size(); i++){
 		this->getJoueur(i).setMiseJoueur(0);
+        this->getJoueur(i).resetCompteurActions();
 	}
 	
 	this->resetActions();
@@ -80,6 +81,7 @@ void Jeu::distributionTurn(){
 	
 	for(int i=0; i< (int)this->positionnement.size(); i++){
 		this->getJoueur(i).setMiseJoueur(0);
+        this->getJoueur(i).resetCompteurActions();
 	}
 	
 	this->resetActions();
@@ -98,6 +100,7 @@ void Jeu::distributionRiver(){
 	
 	for(int i=0; i< (int)this->positionnement.size(); i++){
 		this->getJoueur(i).setMiseJoueur(0);
+        this->getJoueur(i).resetCompteurActions();
 	}
 	
 	this->resetActions();
@@ -199,9 +202,6 @@ bool Jeu::miser(int posJoueur, int jetons){
 		}
 
         this->getJoueur(posJoueur).getCompteurActions()[0]++;
-
-        std::cout << this->getJoueur(posJoueur).getCompteurActions()[0] << std::endl;
-
 		
 		return true;
 	}
@@ -222,6 +222,9 @@ bool Jeu::tapis(int posJoueur){
 	this->getJoueur(posJoueur).setMiseJoueur(this->getJoueur(posJoueur).getCave());
 	
 	this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::TAPIS;
+
+    this->getJoueur(posJoueur).getCompteurActions()[0]++;
+
 	
 	return true;
 }
@@ -242,6 +245,7 @@ bool Jeu::relancer(int posJoueur, int jetons){
         std::cout << this->getMise() << std::endl;
 		this->getJoueur(posJoueur).setMiseJoueur(jetons);
 		this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::RELANCER;
+        this->getJoueur(posJoueur).getCompteurActions()[0]++;
 		return true;	
 	}
 	
@@ -257,7 +261,7 @@ bool Jeu::suivre(int posJoueur){
         this->getJoueur(posJoueur).retireJetons(this->mise - this->getJoueur(posJoueur).getMiseJoueur());
 	  	this->getJoueur(posJoueur).setMiseJoueur(this->mise);
 		this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::SUIVRE;
-		
+        this->getJoueur(posJoueur).getCompteurActions()[1]++;
 		return true;
 	}
 	
@@ -269,6 +273,7 @@ bool Jeu::checker(int posJoueur){
 
     if(this->peutChecker(posJoueur)){
         this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::CHECKER;
+        this->getJoueur(posJoueur).getCompteurActions()[2]++;
         return true;
     }else{
         return false;
@@ -320,10 +325,14 @@ bool Jeu::prochainJoueur(){
     this->joueurCourant = (this->joueurCourant + 1) % this->positionnement.size();
     
     if(this->finDuTour() && this->table.size() == 5){
+        //remplissage complet du tableau
         return false;
     }
 
     if(this->finDuTour() && this->table.size() != 5){
+
+        //remplissage partiel du tableau avec les valeurs des compteurs d'actions + la mise
+
 		this->joueurCourant = this->dealer;
 		if(this->table.size() == 0 ){
 			this->distributionFlop();
@@ -495,7 +504,6 @@ void Jeu::affectationCarte(std::vector<int> listeId){
                     this->table.push_back(this->deck.at(pos));
                     this->deck.erase(this->deck.begin() + pos);
                     pos--;
-                    std::cout << this->table.size() << std::endl;
                 }
             }
 
