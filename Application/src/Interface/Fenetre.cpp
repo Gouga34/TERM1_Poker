@@ -101,6 +101,8 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
 
     boutonChoixCartes.setChecked(false);
     boutonChoixCartes.setText("Choix des cartes");
+    boutonChoixCartes.setObjectName(QString("Checkbox"));
+    boutonChoixCartes.setStyleSheet("QWidget#Checkbox { background-color: rgb(200, 200, 200); border-style: solid; border-color: black; border-width: 1px }");
 
     layoutDemarrage->setAlignment(Qt::AlignLeft);
     layoutDemarrage->setSpacing(10);
