@@ -221,6 +221,10 @@ bool Jeu::tapis(int posJoueur){
 bool Jeu::relancer(int posJoueur, int jetons){
 	
 	if(this->getJoueur(posJoueur).getCave() >= jetons){
+
+        this->setPot(this->getPot() +  (this->getMise() - this->getJoueur(posJoueur).getMiseJoueur()));
+        this->getJoueur(posJoueur).retireJetons(this->getMise() - this->getJoueur(posJoueur).getMiseJoueur());
+
 		this->setPot(this->getPot() + jetons);
 		this->getJoueur(posJoueur).retireJetons(jetons);
         this->mise = this->getJoueur(posJoueur).getMiseJoueur() + jetons;
