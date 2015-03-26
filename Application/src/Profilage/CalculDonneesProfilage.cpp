@@ -12,10 +12,12 @@ Specification: Fichier contenant les définitions de
 
 #include <cmath>
 
+
 using namespace std;
 
-double CalculDonneesProfilage::rationalite(const double chancesGain, const double totalMises){
 
+
+double CalculDonneesProfilage::miseTheorique(const double chancesGain){
     //Variable qui contiendront les données des paliers : 
     double gainMin, gainMax, miseTheoriqueMin, miseTheoriqueMax;
 
@@ -55,8 +57,20 @@ double CalculDonneesProfilage::rationalite(const double chancesGain, const doubl
     //Calcul de la mise théorique : 
     double dividende=(gainMax-gainMin);
     if(dividende!=0){
-        double miseTheorique=((chancesGain-gainMin)*((miseTheoriqueMax-miseTheoriqueMin)/dividende))+miseTheoriqueMin;
-        double rationalite = 100-abs(miseTheorique-totalMises);
+        double miseTh=((chancesGain-gainMin)*((miseTheoriqueMax-miseTheoriqueMin)/dividende))+miseTheoriqueMin;
+        return miseTh;
+    }
+    else{
+        return -1;
+    }
+}
+
+double CalculDonneesProfilage::rationalite(const double chancesGain, const double totalMises){
+
+    double miseTh=miseTheorique(chancesGain);
+    if(miseTh!=0){
+
+        double rationalite = 100-abs(miseTh-totalMises);
         return rationalite;
     }
     else{
