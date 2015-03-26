@@ -113,10 +113,14 @@ void Jeu::distributionBlind(){
 	this->miser((this->getDealer() + 1) % this->positionnement.size(), this->getBlind());
 	this->actions[(this->getDealer() + 1) % this->positionnement.size()] = TYPES::ACTION_LIST::PETITE_BLIND;
 	
-	this->relancer((this->getDealer() + 2) % this->positionnement.size(), 2 * this->getBlind() );
+    this->relancer((this->getDealer() + 2) % this->positionnement.size(),this->getBlind() );
 	this->actions[(this->getDealer() + 2) % this->positionnement.size()] = TYPES::ACTION_LIST::GROSSE_BLIND;
 	
 	this->joueurCourant = (this->getDealer() + 3)  % this->positionnement.size();
+
+    for(int i=0; i<this->positionnement.size(); i++){
+        this->getJoueur(i).resetCompteurActions();
+    }
 }
 
 
@@ -193,6 +197,11 @@ bool Jeu::miser(int posJoueur, int jetons){
         for(int i=1; i <= (int) this->positionnement.size() - 1 ; i++){
 			this->getJoueur( (posJoueur + i) % this->positionnement.size()).setMiseJoueur(0);
 		}
+
+        this->getJoueur(posJoueur).getCompteurActions()[0]++;
+
+        std::cout << this->getJoueur(posJoueur).getCompteurActions()[0] << std::endl;
+
 		
 		return true;
 	}
@@ -227,7 +236,10 @@ bool Jeu::relancer(int posJoueur, int jetons){
 
 		this->setPot(this->getPot() + jetons);
 		this->getJoueur(posJoueur).retireJetons(jetons);
-        this->mise = this->getJoueur(posJoueur).getMiseJoueur() + jetons;
+
+        //this->mise = this->getJoueur(posJoueur).getMiseJoueur() + jetons;
+        this->mise = this->getMise() + jetons;
+        std::cout << this->getMise() << std::endl;
 		this->getJoueur(posJoueur).setMiseJoueur(jetons);
 		this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::RELANCER;
 		return true;	

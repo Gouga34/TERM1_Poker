@@ -12,6 +12,7 @@ class Joueur{
 	protected:
         bool                dealer;
 		std::vector<Carte>	main;
+        int*                compteurActions;
         int                 cave;
         Jeu*                jeu;
         int                 position;
@@ -76,6 +77,13 @@ class Joueur{
 		*@param :  La nouvelle mise
 		**/		
 		void			setMiseJoueur(int jetons);
+
+
+        /**
+        *@action : Permet d'obtenir le compteur des actions du joueur
+        *@return : Les compteurs d'actions du joueur
+        **/
+        int*            getCompteurActions();
 		
 	//Methodes
 	
@@ -118,6 +126,11 @@ class Joueur{
 		*@action : Vide la main du joueur
 		**/		
 		void videMain();
+
+        /**
+        *@action : Remet a zero les compteurs comptabilisant les actions du joueur
+        **/
+        void resetCompteurActions();
 		
 };
 

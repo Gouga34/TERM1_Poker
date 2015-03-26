@@ -6,6 +6,10 @@ Joueur::Joueur(bool estDealer, int jetons, int position){
 	this->cave = jetons;
 	this->position = position;
 	this->miseJoueur = 0;
+    this->compteurActions = new int[3];
+    for(int i =0; i<3;i++){
+        this->compteurActions[i] = 0;
+    }
 }
 
 
@@ -99,5 +103,12 @@ void Joueur::videMain(){
 	this->main.clear();
 }
 
+void Joueur::resetCompteurActions(){
+    for(int i = 0 ; i <3; i++){
+        this->compteurActions[i] = 0;
+    }
+}
 
-
+int* Joueur::getCompteurActions(){
+    return this->compteurActions;
+}
