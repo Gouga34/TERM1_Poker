@@ -7,10 +7,11 @@
 #include <stdlib.h>
 #include "Carte.h"
 #include "Joueur.h"
+#include "../Constantes.h"
 #include "IntelligenceArtificielle.h"
 #include "../Evaluateur/Evaluateur.h"
-#include "../Constantes.h"
-#include "../../include/Jeu/Joueur.h"
+#include "../Profilage/CalculDonneesProfilage.h"
+#include "../Profilage/Profilage.h"
 
 class Joueur;
 class IntelligenceArtificielle;

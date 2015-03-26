@@ -55,7 +55,8 @@ void Jeu::distributionMain(){
 
 void Jeu::distributionFlop(){
 	
-	int position;
+
+    int position;
 	
 	this->mise = 0;
 	
@@ -67,9 +68,10 @@ void Jeu::distributionFlop(){
 	this->resetActions();
 	for(int i=0; i<3; i++){
 		position = rand() % deck.size();
-        this->getTable().push_back(this->deck.at(position) );
+        this->table.push_back(this->deck.at(position) );
 		this->deck.erase(this->deck.begin() + position);
-	}	
+    }
+
 }
 
 
@@ -242,7 +244,6 @@ bool Jeu::relancer(int posJoueur, int jetons){
 
         //this->mise = this->getJoueur(posJoueur).getMiseJoueur() + jetons;
         this->mise = this->getMise() + jetons;
-        std::cout << this->getMise() << std::endl;
 		this->getJoueur(posJoueur).setMiseJoueur(jetons);
 		this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::RELANCER;
         this->getJoueur(posJoueur).getCompteurActions()[0]++;
@@ -330,6 +331,20 @@ bool Jeu::prochainJoueur(){
     }
 
     if(this->finDuTour() && this->table.size() != 5){
+
+        int nbTotalActions = 0;
+
+        for(int i = 0; i<3; i++){
+            nbTotalActions += this->getJoueur(0).getCompteurActions()[i];
+        }
+
+
+        Profilage p("pseudo");
+
+        p.profil[p.PREFLOP].tauxSuivis = CalculDonneesProfilage::taux(this->getJoueur(0).getCompteurActions()[2],nbTotalActions);
+
+        std::cout <<  p.profil[p.PREFLOP].tauxSuivis << std::endl;
+  //      p.sauvegarder();
 
         //remplissage partiel du tableau avec les valeurs des compteurs d'actions + la mise
 
@@ -448,6 +463,7 @@ bool Jeu::peutMiser(int posJoueur){
         if(this->actions[(posJoueur + i) % this->actions.size() ] == TYPES::ACTION_LIST::MISER ||
            this->actions[(posJoueur + i) % this->actions.size()] == TYPES::ACTION_LIST::RELANCER ||
            this->actions[(posJoueur + i) % this->actions.size()] == TYPES::ACTION_LIST::GROSSE_BLIND ||
+           this->actions[(posJoueur + i) % this->actions.size()] == TYPES::ACTION_LIST::SUIVRE||
            this->actions[(posJoueur + i) % this->actions.size()] == TYPES::ACTION_LIST::TAPIS){
             return false;
         }

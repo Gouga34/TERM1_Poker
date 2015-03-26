@@ -111,14 +111,13 @@ void IntelligenceArtificielle::jouer(){
 
    	double agressivite = this->getJeu()->getAgressiviteIA();
    	double rationalite = this->getJeu()->getRationaliteIA();
-
 	
 	if(estimation > 75){
 		if(this->getCave() < this->getJeu()->getMise() * 2){
 			this->getJeu()->tapis(this->getPosition());
 		}else if(this->getJeu()->peutRelancer(this->getPosition())){
 			this->getJeu()->relancer(this->getPosition(), this->getJeu()->getMise() * 2);
-		}else if(this->getCave() > this->getJeu()->getBlind()*2){
+        }else if(this->getJeu()->peutMiser(this->getPosition()) && this->getCave() > this->getJeu()->getBlind()*2){
 			this->getJeu()->miser(this->getPosition(), 2*this->getJeu()->getBlind());
 		}else{
 			this->getJeu()->tapis(this->getPosition());
