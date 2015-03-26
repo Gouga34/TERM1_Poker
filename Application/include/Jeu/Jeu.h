@@ -22,7 +22,7 @@ class Jeu{
         std::vector<Joueur>                 positionnement;
         std::vector<Carte>                  deck;
         std::vector<Carte>                  table;
-		std::vector<TYPES::ACTION_LIST>		actions;
+        std::vector<TYPES::ACTION_LIST>	    actions;
         int                                 blind;
         int                                 joueurCourant;
         int                                 pot;
@@ -132,17 +132,17 @@ class Jeu{
 		**/
 		double getRationaliteIA() const;
 
-        /**
-        *@action : Permet d'affecter l'agressivite de l'IA
-        *@param : L'agressivite de l'IA
-        **/
-        void setAgressiviteIA(double agressivite);
+		/**
+		*@action : Permet d'affecter l'agressivite de l'IA
+		*@param : L'agressivite de l'IA
+		**/
+		void setAgressiviteIA(double agressivite);
 
-        /**
-        *@action : Permet d'affecter la rationnalite de l'IA
-        *@param : La rationnalite de l'IA
-        **/
-        void setRationaliteIA(double rationalite);
+		/**
+		*@action : Permet d'affecter la rationnalite de l'IA
+		*@param : La rationnalite de l'IA
+		**/
+		void setRationaliteIA(double rationalite);
 
 	
 	//Methodes	
@@ -202,27 +202,27 @@ class Jeu{
 		**/
 		bool peutChecker(int posJoueur);
 
-        /**
-        *@action : Permet de savoir si le joueur a la possibilite de relancer
-        *@param  : la position du joueur dont on veut savoir s'il peut relancer
-        *@return : vrai si le joueur peut relancer, faux sinon
-        **/
-        bool peutRelancer(int posJoueur);
+		/**
+		*@action : Permet de savoir si le joueur a la possibilite de relancer
+		*@param  : la position du joueur dont on veut savoir s'il peut relancer
+		*@return : vrai si le joueur peut relancer, faux sinon
+		**/
+		bool peutRelancer(int posJoueur);
 
-        /**
-        *@action : Permet de savoir si le joueur a la possibilite de miser
-        *@param  : la position du joueur dont on veut savoir s'il peut miser
-        *@return : vrai si le joueur peut miser, faux sinon
-        **/
-        bool peutMiser(int posJoueur);
+		/**
+		*@action : Permet de savoir si le joueur a la possibilite de miser
+		*@param  : la position du joueur dont on veut savoir s'il peut miser
+		*@return : vrai si le joueur peut miser, faux sinon
+		**/
+		bool peutMiser(int posJoueur);
 
 
-        /**
-        *@action : Permet de savoir si le joueur a la possibilite de suivre
-        *@param  : la position du joueur dont on veut savoir s'il peut suivre
-        *@return : vrai si le joueur peut suivre, faux sinon
-        **/
-        bool peutSuivre(int posJoueur);
+		/**
+		*@action : Permet de savoir si le joueur a la possibilite de suivre
+		*@param  : la position du joueur dont on veut savoir s'il peut suivre
+		*@return : vrai si le joueur peut suivre, faux sinon
+		**/
+		bool peutSuivre(int posJoueur);
 
 		
 		/**
@@ -293,15 +293,14 @@ class Jeu{
 		
 		/**
 		*@action  : Relance une nouvelle main
-		*@param   : La position du joueur ayant gagné la main
 		**/			
-        void nouvelleMain(int posJoueur);
+        void nouvelleMain();
 
-        /**
-        *@action  : Affecte les cartes choisies via l'interface a l'ia
-        *@param   : Un vecteur d'entier correspondant a la liste des ids des cartes
-        **/
-        void affecteMainIA(std::vector<int> listeId);
+		/**
+		*@action  : Affecte les cartes choisies via l'interface
+		*@param   : Un vecteur d'entier correspondant a la liste des ids des cartes
+		**/
+		void affectationCarte(std::vector<int> listeId);
 };
 
 #endif

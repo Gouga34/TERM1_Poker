@@ -12,7 +12,7 @@ Jeu::Jeu(int nbJoueur, int blindDepart, int cave, double agressivite, double rat
 	this->pot = 0;
 	this->nombreDeCoup = 0;
 	this->dealer = 0;
-    	this->agressiviteIA = agressivite;
+    this->agressiviteIA = agressivite;
    	this->rationaliteIA = rationalite;
 }
 
@@ -66,7 +66,7 @@ void Jeu::distributionFlop(){
 	this->resetActions();
 	for(int i=0; i<3; i++){
 		position = rand() % deck.size();
-		this->table.push_back(this->deck.at(position) );
+        this->getTable().push_back(this->deck.at(position) );
 		this->deck.erase(this->deck.begin() + position);
 	}	
 }
@@ -357,7 +357,7 @@ int Jeu::getMise(){
 	return this->mise;
 }
 
-void Jeu::nouvelleMain(int posJoueur){
+void Jeu::nouvelleMain(){
 
     std::vector<Joueur> joueurRestant;
 
@@ -459,19 +459,32 @@ bool Jeu::peutSuivre(int posJoueur){
 }
 
 
-void Jeu::affecteMainIA(std::vector<int> listeId){
+void Jeu::affectationCarte(std::vector<int> listeId){
 
     int pos = 0;
 
-    for(Carte carte : this->getDeck()){
-        if(carte.getId() == listeId.at(0) || carte.getId() == listeId.at(1)){
-            this->positionnement.at(1).ajouteCarte(this->deck.at(pos));
-            this->deck.erase(this->deck.begin() + pos);
-            pos--;
+    for(int i=0; i< (int) listeId.size(); i++){
+        pos = 0;
+        for(Carte carte : this->getDeck()){
+            if(carte.getId() == listeId.at(i)){
+                if(i<2){
+                    this->positionnement.at(1).ajouteCarte(this->deck.at(pos));
+                    this->deck.erase(this->deck.begin() + pos);
+                    pos--;
+                }else if (i<4){
+                    this->positionnement.at(0).ajouteCarte(this->deck.at(pos));
+                    this->deck.erase(this->deck.begin() + pos);
+                    pos--;
+                }else{
+                    this->table.push_back(this->deck.at(pos));
+                    this->deck.erase(this->deck.begin() + pos);
+                    pos--;
+                    std::cout << this->table.size() << std::endl;
+                }
+            }
+
+            pos++;
         }
-
-        pos++;
-
     }
 }
 

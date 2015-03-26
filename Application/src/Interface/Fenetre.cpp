@@ -214,7 +214,7 @@ void Fenetre::demarragePartie()
         std::vector<int> ids = fenetreCartes.choixCartes();
 
         if (!ids.empty()) {
-            jeu->affecteMainIA(ids);
+            jeu->affectationCarte(ids);
         }
     }
 
@@ -441,7 +441,7 @@ void Fenetre::partieTermine()
     layoutMainAdverse.vider();
     layoutMainAdverse.ajoutCartes(jeu->getJoueur(1).getMain());
 
-    jeu->nouvelleMain(0);
+    jeu->nouvelleMain();
 
     boutonDemarrage.setText("Rejouer");
     boutonDemarrage.setHidden(false);
