@@ -45,6 +45,12 @@ class Logger
          * @action Ajoute dans les logs de la fenêtre le contenu passé en paramètre
          * @param contenu Contenu à ajouter au tableau de bord
          */
+        void ajoutLogs(const char *contenu);
+
+        /**
+         * @action Ajoute dans les logs de la fenêtre le contenu passé en paramètre
+         * @param contenu Contenu à ajouter au tableau de bord
+         */
         void ajoutLogs(std::string contenu);
 
         /**
