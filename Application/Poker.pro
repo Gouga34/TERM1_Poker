@@ -8,14 +8,15 @@ SOURCES += \
     src/Jeu/Joueur.cpp \
     src/Jeu/IntelligenceArtificielle.cpp \
     src/Profilage/Profilage.cpp \
-    src/Profilage.CalculDonneesProfilage.cpp \
+    src/Profilage/CalculDonneesProfilage.cpp \
     src/Jeu/EstimationProba.cpp \
     src/Evaluateur/Evaluateur.cpp \
     src/Evaluateur/CartesJoueur.cpp \
     src/Interface/CartesDialog.cpp \
     src/Interface/CarteCliquable.cpp \
     src/Interface/ChoixOptionsDialog.cpp \
-    src/Interface/CompteurJetons.cpp
+    src/Interface/CompteurJetons.cpp \
+    src/Interface/Logger.cpp
 
 
 QT+=widgets
@@ -37,7 +38,8 @@ HEADERS += \
     include/Interface/CartesDialog.h \
     include/Interface/CarteCliquable.h \
     include/Interface/ChoixOptionsDialog.h \
-    include/Interface/CompteurJetons.h
+    include/Interface/CompteurJetons.h \
+    include/Interface/Logger.h
 
 CONFIG += c++11
 

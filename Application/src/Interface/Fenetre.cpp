@@ -10,7 +10,7 @@ Specification: Fichier contenant les définitions de la classe Fenetre.
 #include "../../include/Interface/CarteGraphique.h"
 #include "../../include/Interface/CartesDialog.h"
 #include "../../include/Interface/ChoixOptionsDialog.h"
-#include "../../include/Interface/CalibrageIA.h"
+#include "../../include/Interface/Logger.h"
 
 #include<QString>
 #include <QVBoxLayout>
@@ -182,7 +182,7 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
 
 Fenetre::~Fenetre()
 {
-
+    Logger::supprimerInstance();
 }
 
 void Fenetre::affichageLogs()
@@ -202,7 +202,7 @@ void Fenetre::demarragePartie()
     boutonDemarrage.hide();
     layoutCartesCommunes.vider();
 
-    ajoutLogs("Distribution des cartes");
+    Logger::ajoutLogs("Distribution des cartes");
 
     // Sélection des cartes par l'utilisateur
 
@@ -226,9 +226,9 @@ void Fenetre::demarragePartie()
 
     std::vector<Carte> jeuAdverse = jeu->getJoueur(1).getMain();
 
-    ajoutLogs("Jeu adverse : ");
+    Logger::ajoutLogs("Jeu adverse : ");
     for (int i = 0; i < jeuAdverse.size(); i++) {
-        ajoutLogs("-> " + QString::number(jeuAdverse.at(i).getRang())
+        Logger::ajoutLogs("-> " + QString::number(jeuAdverse.at(i).getRang())
                   + " " + CarteGraphique::couleurs[jeuAdverse.at(i).getCouleur()]);
     }
 
@@ -280,7 +280,7 @@ void Fenetre::afficheTable()
         layoutCartesCommunes.addWidget(dos);
     }
 
-    ajoutLogs("Ajout de cartes sur la table");
+    Logger::ajoutLogs("Ajout de cartes sur la table");
 }
 
 void Fenetre::activeBoutons(bool active)
@@ -304,7 +304,7 @@ void Fenetre::jeuIA()
 
     switch (jeu->getAction()) {
         case TYPES::ACTION_LIST::CHECKER:
-            ajoutLogs("IA check");
+            Logger::ajoutLogs("IA check");
             break;
         case TYPES::ACTION_LIST::MISER:
             activationBoutons[MISER] = false;
@@ -315,13 +315,13 @@ void Fenetre::jeuIA()
             caveIA.display(jeu->getJoueur(1).getCave());
             pot.display(jeu->getPot());
 
-            ajoutLogs("IA mise " + QString::number(jeu->getMise()));
+            Logger::ajoutLogs("IA mise " + QString::number(jeu->getMise()));
             break;
         case TYPES::ACTION_LIST::SUIVRE:
             caveIA.display(jeu->getJoueur(1).getCave());
             pot.display(jeu->getPot());
 
-            ajoutLogs("IA suit");
+            Logger::ajoutLogs("IA suit");
             break;
         case TYPES::ACTION_LIST::RELANCER:
             valeurMise.setMinimum(2 * jeu->getMise());
@@ -329,10 +329,10 @@ void Fenetre::jeuIA()
             caveIA.display(jeu->getJoueur(1).getCave());
             pot.display(jeu->getPot());
 
-            ajoutLogs("IA relance " + QString::number(jeu->getMise()));
+            Logger::ajoutLogs("IA relance " + QString::number(jeu->getMise()));
             break;
         case TYPES::ACTION_LIST::SE_COUCHER:
-            ajoutLogs("IA se couche");
+            Logger::ajoutLogs("IA se couche");
             partieTermine();
             return;
             break;
@@ -368,7 +368,7 @@ void Fenetre::checker()
 {
     jeu->checker(0);
 
-    ajoutLogs("Joueur 1 check");
+    Logger::ajoutLogs("Joueur 1 check");
 
     emit tourFini();
 }
@@ -382,7 +382,7 @@ void Fenetre::miser()
     caveJoueur.display(jeu->getJoueur(0).getCave());
     pot.display(jeu->getPot());
 
-    ajoutLogs("Joueur 1 mise " + QString::number(montant));
+    Logger::ajoutLogs("Joueur 1 mise " + QString::number(montant));
 
     emit tourFini();
 }
@@ -398,7 +398,7 @@ void Fenetre::suivre()
     activationBoutons[MISER] = true;
     valeurMise.setMinimum(jeu->getBlind());
 
-    ajoutLogs("Joueur 1 suit");
+    Logger::ajoutLogs("Joueur 1 suit");
 
     emit tourFini();
 }
@@ -416,7 +416,7 @@ void Fenetre::relancer()
     activationBoutons[MISER] = true;
     valeurMise.setMinimum(jeu->getBlind());
 
-    ajoutLogs("Joueur 1 relance " + QString::number(montant));
+    Logger::ajoutLogs("Joueur 1 relance " + QString::number(montant));
 
     emit tourFini();
 }
@@ -425,14 +425,14 @@ void Fenetre::seCoucher()
 {
     jeu->seCoucher(0);
 
-    ajoutLogs("Joueur 1 se couche");
+    Logger::ajoutLogs("Joueur 1 se couche");
 
     partieTermine();
 }
 
 void Fenetre::partieTermine()
 {
-    ajoutLogs("Partie terminée !");
+    Logger::ajoutLogs("Partie terminée !");
     activeBoutons(false);
 
     layoutMainAdverse.vider();
