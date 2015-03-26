@@ -15,6 +15,11 @@ class CalculDonneesProfilage
 public:
 
     /*
+     * @param chancesGain pourcentage de chances de gain du joueur
+     * @return la mise théorique qui devrait être faite.
+    */
+    static double miseTheorique(const double chancesGain);
+    /*
      * @param chancesGain pourcentage de chances de gagner du joueur
      * @param totalMises total des mises effectuées par le joueur. Il est exprimé en pourcentage par rapport aux jetons du joueur.
      * @return retourne le pourcentage de rationalité du joueur. Plus ce pourcentage est proche de 100, plus le joueur est rationnel.
