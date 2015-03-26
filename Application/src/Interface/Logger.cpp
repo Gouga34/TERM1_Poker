@@ -41,6 +41,11 @@ void Logger::supprimerInstance()
     }
 }
 
+void Logger::ajoutLogs(const char *contenu)
+{
+    fenetre->ajoutLogs(QString(contenu));
+}
+
 void Logger::ajoutLogs(std::string contenu)
 {
     fenetre->ajoutLogs(QString::fromStdString(contenu));
