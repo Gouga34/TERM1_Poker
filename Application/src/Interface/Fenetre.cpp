@@ -57,10 +57,14 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
     boutonLogs.setFixedWidth(300);
 
     layoutLogs->setAlignment(Qt::AlignTop);
+    layoutLogs->setAlignment(Qt::AlignHCenter);
     layoutLogs->setSpacing(20);
 
     layoutLogs->addWidget(&logs);
     layoutLogs->addWidget(&boutonLogs);
+    layoutLogs->addWidget(&resultatPartie);
+
+
 
     connect(&boutonLogs, SIGNAL(clicked()), this, SLOT(affichageLogs()));
 
@@ -217,6 +221,7 @@ void Fenetre::ajoutLogs(QString contenu)
 
 void Fenetre::demarragePartie()
 {
+    resultatPartie.setText("");
     boutonDemarrage.hide();
     layoutCartesCommunes.vider();
 
@@ -468,6 +473,21 @@ void Fenetre::partieTermine()
     layoutMainAdverse.ajoutCartes(jeu->getJoueur(1).getMain());
 
     jeu->nouvelleMain(0);
+//     int gagne = jeu->nouvelleMain(0)
+//        if(gagne==GAGNE){
+//            resultatPartie.setStyleSheet("QLabel {color : #89DF57; font-size : 40px; text-align:center; padding-left:80px; font-weight:bold;}");
+//            resultatPartie.setText("Gagné !");
+//        }
+//        else if(gagne==EGALITE){
+//            resultatPartie.setStyleSheet("QLabel {color : #23BDFE; font-size : 40px; text-align:center; padding-left:80px; font-weight:bold;}");
+//            resultatPartie.setText("Egalité");
+//        }
+//        else{
+//            resultatPartie.setStyleSheet("QLabel {color : #FE0000; font-size : 40px; text-align:center; padding-left:70px; font-weight:bold;}");
+//            resultatPartie.setText("Perdu !");
+//        }
+
+
 
     boutonDemarrage.setText("Rejouer");
     boutonDemarrage.setHidden(false);

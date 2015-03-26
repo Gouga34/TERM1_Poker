@@ -30,6 +30,7 @@ class Fenetre : public QWidget
 
         //Informations jeu
         QLineEdit actionEffectueeIA;
+        QLabel resultatPartie;
 
         // Logs
         QTextEdit logs;
