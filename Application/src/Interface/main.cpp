@@ -9,6 +9,7 @@ Specification: Fichier contenant le main de l'application graphique.
 #include <QApplication>
 #include "../../include/Interface/Fenetre.h"
 #include "../../include/Jeu/Jeu.h"
+#include "../../include/Interface/Logger.h"
 
 int main(int argc, char *argv[])
 {
@@ -18,6 +19,8 @@ int main(int argc, char *argv[])
 
     Fenetre fenetre(jeu);
     fenetre.show();
+
+    Logger::creerInstance(&fenetre);
 
     return app.exec();
 }
