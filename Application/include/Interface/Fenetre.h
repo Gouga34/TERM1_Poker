@@ -1,6 +1,6 @@
 /*========================================================================
 Nom: Fenetre.h       Auteur: Manuel CHATAIGNER
-Maj: 11/02/2015          Creation: 11/02/2015
+Maj: 26/03/2015          Creation: 11/02/2015
 Projet: Profilage par essais et erreurs au poker
 --------------------------------------------------------------------------
 Specification: Classe contenant l'ensemble des propriétés de la fenêtre
@@ -70,12 +70,6 @@ class Fenetre : public QWidget
         void afficheTable();
 
         /**
-         * @action Ajoute dans les logs le contenu passé en paramètre
-         * @param contenu Texte à ajouter aux logs
-         */
-        void ajoutLogs(QString contenu);
-
-        /**
          * @action joueurCourant Active les boutons permettant au joueur d'effectuer une action
          */
         void joueurCourant();
@@ -92,6 +86,12 @@ class Fenetre : public QWidget
 
         Fenetre(Jeu *j);
         ~Fenetre();
+
+        /**
+         * @action Ajoute dans les logs le contenu passé en paramètre
+         * @param contenu Texte à ajouter aux logs
+         */
+        void ajoutLogs(QString contenu);
 
     signals:
 
