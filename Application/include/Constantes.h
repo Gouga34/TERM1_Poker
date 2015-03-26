@@ -84,8 +84,8 @@ namespace RATIONALITE{
     		 DEBUT_GAIN=0,
     		 FIN_GAIN=30,
 
-    		 DEBUT_RA_THEORIQUE=0,
-    		 FIN_RA_THEORIQUE=10
+    		 DEBUT_MISE_THEORIQUE=0,
+    		 FIN_MISE_THEORIQUE=10
         };
 	}
 
@@ -94,8 +94,8 @@ namespace RATIONALITE{
     		DEBUT_GAIN=31,
     		FIN_GAIN=50,
 
-    		DEBUT_RA_THEORIQUE=11,
-    	   	FIN_RA_THEORIQUE=15	
+    		DEBUT_MISE_THEORIQUE=11,
+    	   	FIN_MISE_THEORIQUE=15	
      };
 	}
 
@@ -104,8 +104,8 @@ namespace RATIONALITE{
     		DEBUT_GAIN=51,
     		FIN_GAIN=69,
 
-    		DEBUT_RA_THEORIQUE=16,
-    		FIN_RA_THEORIQUE=65
+    		DEBUT_MISE_THEORIQUE=16,
+    		FIN_MISE_THEORIQUE=65
         };		
 	}
 
@@ -114,8 +114,8 @@ namespace RATIONALITE{
     		DEBUT_GAIN=70,
     		FIN_GAIN=100,
 
-    		DEBUT_RA_THEORIQUE=66,
-    		FIN_RA_THEORIQUE=100
+    		DEBUT_MISE_THEORIQUE=66,
+    		FIN_MISE_THEORIQUE=100
         };
 	}	
 }
@@ -123,7 +123,7 @@ namespace RATIONALITE{
 //Agressivité
 namespace AGRESSIVITE{
     enum{
-	   NB_PALIERS=3
+	   NB_PALIERS=4
     };
 	
     //MPH = mise la plus haute
@@ -156,7 +156,7 @@ namespace AGRESSIVITE{
 	namespace PALIER3 {
         enum{
     		DEBUT_MPH=51,
-    		FIN_MPH=100,
+    		FIN_MPH=100, //jusqu'à 100 exclu
 
     		DEBUT_AG_THEORIQUE=81,
     		FIN_AG_THEORIQUE=100,
@@ -165,6 +165,15 @@ namespace AGRESSIVITE{
     		RATIO_TOTAL_MISES=1/3
         };
 	}	
+
+    namespace PALIER4{ //PALIER tapis
+
+        enum{
+            MPH=100,
+
+            AG_THEORIQUE=100,
+        };
+    }
 
 }
 

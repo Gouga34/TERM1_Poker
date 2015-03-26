@@ -7,7 +7,8 @@ SOURCES += \
     src/Jeu/Carte.cpp \
     src/Jeu/Joueur.cpp \
     src/Jeu/IntelligenceArtificielle.cpp \
-    src/Jeu/Profilage.cpp \
+    src/Profilage/Profilage.cpp \
+    src/Profilage.CalculDonneesProfilage.cpp \
     src/Jeu/EstimationProba.cpp \
     src/Evaluateur/Evaluateur.cpp \
     src/Evaluateur/CartesJoueur.cpp \
@@ -15,7 +16,8 @@ SOURCES += \
     src/Interface/CarteCliquable.cpp \
     src/Interface/ChoixPseudoDialog.cpp \
     src/Interface/CompteurJetons.cpp \
-    src/Interface/CalibrageIA.cpp
+    src/Interface/CalibrageIA.cpp 
+
 
 QT+=widgets
 
@@ -27,7 +29,8 @@ HEADERS += \
     include/Jeu/Carte.h \
     include/Jeu/Joueur.h \
     include/Jeu/IntelligenceArtificielle.h \
-    include/Jeu/Profilage.h \
+    include/Profilage/Profilage.h \
+    include/Profilage/CalculDonneesProfilage.h \
     include/Jeu/EstimationProba.h \
     include/Constantes.h \
     include/Evaluateur/CartesJoueur.h \
