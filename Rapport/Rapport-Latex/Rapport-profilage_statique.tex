@@ -1,0 +1,102 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{amsmath}
+
+\title{Rapport - calcul des pourcentages de type de jeu du joueur}
+\author{}
+\date{}
+
+
+\begin{document}
+\maketitle
+
+\section{Données enregistrées pour profiler un joueur}
+
+\subsection{Choix d'enregistrement des données}
+
+Afin de profiler nos joueurs, nous avons choisi d'enregistrer un certain nombre de données dans des fichiers de sortie. Nous avons décidé de mettre en place un fichier par joueur. De ce fait, chaque fichier est représenté par le pseudo du joueur. Soit joueur ayant pour pseudo "Alain". Le fichier contenant les données de profilage de ce joueur sera donc "Alain.json". De ce fait, s'il se déconnecte et souhaite rejouer un autre jour, nous auront toujours le précédent profilage effectué.
+Comme on peut le constater, nous avons choisi d'enregistrer nos données en JSON. en effet, ce format de données a l'avantage d'être facilement exploité. De plus, nous pouvons utiliser la librairie QJson pour exploiter les données du fichier.
+
+\subsection{Données enregistrées}
+Nous avons donc choisi d'enregistrer dans nos fichiers de profilage un certain nombre de données. Tout d'abord, nous avons choisi d'enregistrer des données communes à toutes les parties : \\
+	- AR (agressif rationnel)
+	- AB (agressif bluffeur)
+	- PR (passif rationnel)
+	- PB (passif bluffer)
+\section{Mise en place de la formule de calcul du taux de rationalité d'un joueur}
+
+Afin de calculer à combien de pourcentages un joueur a été rationnel pendant une partie, nous avons choisi de nous baser sur une courbe [ajouter un schéma de la courbe et l'expliquer] correspondant aux pourcentages théoriques de rationalité en fonction des chances de gagner. A partir de cette courbe, nous avons décidé de calculer la mise théorique que le joueur aurait dû miser en nous basant sur quatre paliers, comme on peut le voir dans la formule suivante. \par
+Pour chaque palier, on regarde si les chances de gain du joueur sont comprises entre g1 et g2. Une fois le palier trouvé, on calcule la mise théorique, en sachant que celle-ci sera comprise entre les m1 et m2 correspondant au palier. 
+	Gain = chances de gain du joueur,\\
+	Ra = rationalité\\
+	$M_{th}$ = Mise théorique.\\
+
+\small{
+\begin{align*}
+	M_{th} = \left((Gain - g1) * \left(\frac{m2-m1}{g2-g1}\right)\right)+m1
+	\begin{cases}
+		Ra \in [m1=0 - m2=10] &\text{Si Gain} \in [g1=0 - g2=30]\\
+		Ra \in [m1=11 - m2=25] &\text{Si Gain} \in [g1=31 - g2=50]\\
+		Ra \in [m1=26 - m2=65] &\text{Si Gain} \in [g1=51 - g2=69]\\
+		Ra \in [m1=66 - m2=100] &\text{Si Gain} \in [g1=70 - g2=100]\\
+	\end{cases}
+\end{align*}
+}
+
+Après avoir calculé la mise théorique que le joueur aurait dû faire, nous la comparons avec la mise réelle du joueur. On obtient alors la formule suivante pour calculer la rationalité : 
+
+\begin{align*}
+Rationalit\acute{e} = 100-abs(M_{th}-M_{r\acute{e}elle})
+\end{align*}
+
+
+
+\section{Mise en place de la formule de calcul du taux d'agressivité d'un joueur}
+
+Afin de calculer le pourcentage d'agressivité d'un joueur pendant une partie, de même que pour la rationalité, nous avons choisi de nous baser sur un système de paliers, en prenant en compte trois paramètres : le pourcentage de mises, le total des mises qui est exprimé en pourcentage de jetons par rapport aux jetons de départ du joueur et, la mise la plus haute du joueur, elle aussi exprimée en pourcentage de jetons par rapport aux jetons de base.\par
+De même que précédemment, pour chaque palier, on va regarder si la mise la plus haute (mph) est comprise entre mph1 (mise la plus haute 1) et mph2. Une fois le palier trouvé, on calcule le pourcentage d'agressivité théorique qui sera compris entre ag1 et ag2. 
+
+
+\small{
+\begin{align*}
+	Ag_{th}=
+	\begin{cases}
+		Ag_{th} \in [0-50] Si mph \in [0-25] &\text{ratio1}=\frac{1}{2} \text{ ratio2}=\frac{1}{2} \\
+		Ag_{th} \in [51-80] Si mph \in [26-50] &\text{ratio1}=\frac{2}{3} \text{ ratio2}=\frac{1}{3} \\
+		Ag_{th} \in [81-100] Si mph \in [51-100]  &\text{ratio1}=\frac{2}{3} \text{ ratio2}=\frac{1}{3}\\
+	\end{cases}
+\end{align*}
+
+}
+
+Pour calculer le pourcentage théorique d'agressivité, on se base sur la formule suivante, en sachant que pour chaque palier, nous accordons des poids différents au total des mises et au nombre de mises.
+
+\begin{align*}
+	&0<y<mph2-ag2\\
+	&x=ratio1 * nbMises + ratio2 * totalMises\\
+	&y=\left(x*\frac{mph2-ag2}{100}\right)
+\end{align*}
+
+Pour le dernier palier, nous ne nous basons pas sur la formule précédente mais sur la formule suivante :\\
+
+\begin{align*}
+	y=\left(x*\frac{100-mph}{100}\right)
+\end{align*}
+
+\section{Mise en place de la formule de calcul du taux de bluff d'un joueur}
+
+Étant donné le fait que nous partons du principe que le bluff est l'inverse de la rationalité, nous calculons le taux de bluff en utilisant la formule suivante :
+
+\begin{align*}
+	bluff=100-rationalit\acute{e}
+\end{align*}
+
+\section{Mise en place de la formule de calcul du taux de passivité d'un joueur}
+
+Nous avons décidé que le taux de passivité d'un joueur se calcule en fonction du nombre de fois où il a suivi et du nombre de fois où il a checké. De ce fait, nous avons choisi d'établir la formule suivante pour calculer le taux de passivité d'un joueur : 
+\begin{align*}
+	passivit\acute{e}=tauxChecks+tauxSuivis
+\end{align*}
+
+\end{document}
