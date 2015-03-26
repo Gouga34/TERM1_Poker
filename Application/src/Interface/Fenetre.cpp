@@ -15,14 +15,17 @@ Specification: Fichier contenant les définitions de la classe Fenetre.
 #include<QString>
 #include <QVBoxLayout>
 #include <iostream>
+#include <QScrollBar>
 using namespace std;
 
 QPixmap *Fenetre::textureCartes = 0;
 
 Fenetre::Fenetre(Jeu *j) : QWidget()
 {
+
+    move(0,0);
     setWindowTitle(tr("Poker"));
-    resize(800,600);
+    resize(1280,400);
 
     // Couleur de fond
     QPalette pal(palette());
@@ -48,6 +51,7 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
 
     logs.setReadOnly(true);
     logs.setMaximumSize(300, 300);
+
 
     boutonLogs.setText("Afficher/Cacher");
     boutonLogs.setFixedWidth(300);
@@ -154,7 +158,7 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
 
     QVBoxLayout *layoutOptions = new QVBoxLayout;
 
-    layoutOptions->setSpacing(150);
+    layoutOptions->setSpacing(100);
     layoutOptions->setAlignment(Qt::AlignHCenter);
 
     layoutOptions->addLayout(layoutDemarrage);
@@ -197,6 +201,8 @@ void Fenetre::affichageLogs()
 void Fenetre::ajoutLogs(QString contenu)
 {
     logs.setText(logs.toPlainText() + contenu + "\n");
+    QScrollBar *sb=logs.verticalScrollBar();
+    sb->setValue(sb->maximum());
 }
 
 void Fenetre::demarragePartie()
