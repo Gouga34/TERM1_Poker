@@ -16,6 +16,8 @@ Specification: Classe contenant l'ensemble des propriétés de la fenêtre
 #include <QPushButton>
 #include <QCheckBox>
 #include <QTextEdit>
+#include <QLineEdit>
+
 #include "ListeCartes.h"
 #include "CompteurJetons.h"
 #include "../Jeu/Jeu.h"
@@ -25,6 +27,9 @@ class Fenetre : public QWidget
     Q_OBJECT
 
     private:
+
+        //Informations jeu
+        QLineEdit actionEffectueeIA;
 
         // Logs
         QTextEdit logs;

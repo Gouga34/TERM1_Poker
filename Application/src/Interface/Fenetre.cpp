@@ -76,10 +76,20 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
         textureCartes = new QPixmap("../Application/ressources/Interface/deck.png");
     }
 
+    QHBoxLayout *layoutAdversaire =new QHBoxLayout;
+
+    //Sous-layout IA
+    actionEffectueeIA.setReadOnly(true);
+    actionEffectueeIA.setFixedWidth(80);
+    actionEffectueeIA.setPlaceholderText("Action");
+
+    layoutAdversaire->addLayout(&layoutMainAdverse);
+    layoutAdversaire->addWidget(&actionEffectueeIA);
+
     layoutJeu->setSpacing(150);
     layoutJeu->setAlignment(Qt::AlignTop);
 
-    layoutJeu->addLayout(&layoutMainAdverse);
+    layoutJeu->addLayout(layoutAdversaire);
     layoutJeu->addLayout(&layoutCartesCommunes);
     layoutJeu->addLayout(&layoutMain);
 
@@ -106,7 +116,7 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
     boutonChoixCartes.setChecked(false);
     boutonChoixCartes.setText("Choix des cartes");
     boutonChoixCartes.setObjectName(QString("Checkbox"));
-    boutonChoixCartes.setStyleSheet("QWidget#Checkbox { background-color: rgb(200, 200, 200); border-style: solid; border-color: black; border-width: 1px }");
+    boutonChoixCartes.setStyleSheet("QWidget#Checkbox { background-color: rgb(255, 255, 255); border-style: solid; border-color: black; border-width: 1px; padding : 3px; }");
 
     layoutDemarrage->setAlignment(Qt::AlignLeft);
     layoutDemarrage->setSpacing(10);
@@ -312,9 +322,13 @@ void Fenetre::jeuIA()
 
     switch (jeu->getAction()) {
         case TYPES::ACTION_LIST::CHECKER:
+            actionEffectueeIA.setText("Check");
             Logger::getInstance()->ajoutLogs("IA check");
             break;
+
+
         case TYPES::ACTION_LIST::MISER:
+            actionEffectueeIA.setText("Mise : "+QString::number(jeu->getMise()));
             activationBoutons[MISER] = false;
             activationBoutons[CHECKER] = false;
 
@@ -325,13 +339,19 @@ void Fenetre::jeuIA()
 
             Logger::getInstance()->ajoutLogs("IA mise " + QString::number(jeu->getMise()));
             break;
+
+
         case TYPES::ACTION_LIST::SUIVRE:
+            actionEffectueeIA.setText("Suit");
             caveIA.display(jeu->getJoueur(1).getCave());
             pot.display(jeu->getPot());
 
             Logger::getInstance()->ajoutLogs("IA suit");
             break;
+
+
         case TYPES::ACTION_LIST::RELANCER:
+            actionEffectueeIA.setText("Relance : "+QString::number(jeu->getMise()));
             valeurMise.setMinimum(2 * jeu->getMise());
 
             caveIA.display(jeu->getJoueur(1).getCave());
@@ -340,6 +360,7 @@ void Fenetre::jeuIA()
             Logger::getInstance()->ajoutLogs("IA relance " + QString::number(jeu->getMise()));
             break;
         case TYPES::ACTION_LIST::SE_COUCHER:
+            actionEffectueeIA.setText("Se couche");
             Logger::getInstance()->ajoutLogs("IA se couche");
             partieTermine();
             return;
