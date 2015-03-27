@@ -196,6 +196,7 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
     Options options = fenetreOptions.getOptions();
 
     QString pseudoJoueur = options.pseudo;
+    jeu->setPseudo(pseudoJoueur.toStdString() );
     jeu->setAgressiviteIA(options.agressiviteIA);
     jeu->setRationaliteIA(options.rationaliteIA);
 }
@@ -234,7 +235,7 @@ void Fenetre::demarragePartie()
         std::vector<int> ids = fenetreCartes.choixCartes();
 
         if (!ids.empty()) {
-            jeu->affecteMainIA(ids);
+            jeu->affectationCarte(ids);
         }
     }
 
@@ -472,7 +473,8 @@ void Fenetre::partieTermine()
     layoutMainAdverse.vider();
     layoutMainAdverse.ajoutCartes(jeu->getJoueur(1).getMain());
 
-    jeu->nouvelleMain(0);
+    jeu->nouvelleMain();
+
 //     int gagne = jeu->nouvelleMain(0)
 //        if(gagne==GAGNE){
 //            resultatPartie.setStyleSheet("QLabel {color : #89DF57; font-size : 40px; text-align:center; padding-left:80px; font-weight:bold;}");
@@ -486,7 +488,6 @@ void Fenetre::partieTermine()
 //            resultatPartie.setStyleSheet("QLabel {color : #FE0000; font-size : 40px; text-align:center; padding-left:70px; font-weight:bold;}");
 //            resultatPartie.setText("Perdu !");
 //        }
-
 
 
     boutonDemarrage.setText("Rejouer");

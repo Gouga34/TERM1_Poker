@@ -12,7 +12,7 @@ Jeu::Jeu(int nbJoueur, int blindDepart, int cave, double agressivite, double rat
 	this->pot = 0;
 	this->nombreDeCoup = 0;
 	this->dealer = 0;
-    	this->agressiviteIA = agressivite;
+    this->agressiviteIA = agressivite;
    	this->rationaliteIA = rationalite;
 }
 
@@ -24,7 +24,7 @@ void Jeu::initialisationTable(int nbJoueur, int cave){
 	
 	for(int i=0; i<nbJoueur; i++){
 		if( i == 0){
-			Joueur joueur(true,cave,i);
+            Joueur joueur(true,cave,i);
 			joueur.setJeu(this);
 			this->positionnement.push_back(joueur);
 		}else{
@@ -37,6 +37,7 @@ void Jeu::initialisationTable(int nbJoueur, int cave){
 
 
 void Jeu::distributionMain(){
+
 
 	int position;
 	
@@ -55,20 +56,23 @@ void Jeu::distributionMain(){
 
 void Jeu::distributionFlop(){
 	
-	int position;
+
+    int position;
 	
 	this->mise = 0;
 	
 	for(int i=0; i< (int)this->positionnement.size(); i++){
-		this->getJoueur(i).setMiseJoueur(0);
+        this->getJoueur(i).setMisePlusHauteJoueur(0);
+        this->getJoueur(i).resetCompteurActions();
 	}
 	
 	this->resetActions();
 	for(int i=0; i<3; i++){
 		position = rand() % deck.size();
-		this->table.push_back(this->deck.at(position) );
+        this->table.push_back(this->deck.at(position) );
 		this->deck.erase(this->deck.begin() + position);
-	}	
+    }
+
 }
 
 
@@ -79,7 +83,8 @@ void Jeu::distributionTurn(){
 	this->mise = 0;
 	
 	for(int i=0; i< (int)this->positionnement.size(); i++){
-		this->getJoueur(i).setMiseJoueur(0);
+        this->getJoueur(i).setMisePlusHauteJoueur(0);
+        this->getJoueur(i).resetCompteurActions();
 	}
 	
 	this->resetActions();
@@ -97,7 +102,8 @@ void Jeu::distributionRiver(){
 	this->mise = 0;
 	
 	for(int i=0; i< (int)this->positionnement.size(); i++){
-		this->getJoueur(i).setMiseJoueur(0);
+        this->getJoueur(i).setMisePlusHauteJoueur(0);
+        this->getJoueur(i).resetCompteurActions();
 	}
 	
 	this->resetActions();
@@ -113,10 +119,14 @@ void Jeu::distributionBlind(){
 	this->miser((this->getDealer() + 1) % this->positionnement.size(), this->getBlind());
 	this->actions[(this->getDealer() + 1) % this->positionnement.size()] = TYPES::ACTION_LIST::PETITE_BLIND;
 	
-	this->relancer((this->getDealer() + 2) % this->positionnement.size(), 2 * this->getBlind() );
+    this->relancer((this->getDealer() + 2) % this->positionnement.size(),this->getBlind() );
 	this->actions[(this->getDealer() + 2) % this->positionnement.size()] = TYPES::ACTION_LIST::GROSSE_BLIND;
 	
 	this->joueurCourant = (this->getDealer() + 3)  % this->positionnement.size();
+
+    for(int i=0; i<this->positionnement.size(); i++){
+        this->getJoueur(i).resetCompteurActions();
+    }
 }
 
 
@@ -187,12 +197,15 @@ bool Jeu::miser(int posJoueur, int jetons){
 		this->setPot(this->getPot() + jetons);
 		this->getJoueur(posJoueur).retireJetons(jetons);
 		this->mise = jetons;
-		this->getJoueur(posJoueur).setMiseJoueur(jetons);
+        this->getJoueur(posJoueur).setMisePlusHauteJoueur(jetons);
+        this->getJoueur(posJoueur).setMiseTotaleJoueur(this->getJoueur(posJoueur).getMiseTotaleJoueur() + jetons);
 		this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::MISER;
 	
         for(int i=1; i <= (int) this->positionnement.size() - 1 ; i++){
-			this->getJoueur( (posJoueur + i) % this->positionnement.size()).setMiseJoueur(0);
+            this->getJoueur( (posJoueur + i) % this->positionnement.size()).setMisePlusHauteJoueur(0);
 		}
+
+        this->getJoueur(posJoueur).getCompteurActions()[0]++;
 		
 		return true;
 	}
@@ -209,10 +222,18 @@ bool Jeu::tapis(int posJoueur){
 		this->mise = this->getJoueur(posJoueur).getCave();
 	}
 	
-	this->getJoueur(posJoueur).retireJetons(this->getJoueur(posJoueur).getCave());
-	this->getJoueur(posJoueur).setMiseJoueur(this->getJoueur(posJoueur).getCave());
+    if(this->getJoueur(posJoueur).getCave() > this->getJoueur(posJoueur).getMisePlusHauteJoueur()){
+            this->getJoueur(posJoueur).setMisePlusHauteJoueur(this->getJoueur(posJoueur).getCave());
+    }
+
+    this->getJoueur(posJoueur).setMiseTotaleJoueur(this->getJoueur(posJoueur).getMiseTotaleJoueur() + this->getJoueur(posJoueur).getCave());
 	
+    this->getJoueur(posJoueur).retireJetons(this->getJoueur(posJoueur).getCave());
+
 	this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::TAPIS;
+
+    this->getJoueur(posJoueur).getCompteurActions()[0]++;
+
 	
 	return true;
 }
@@ -221,11 +242,21 @@ bool Jeu::tapis(int posJoueur){
 bool Jeu::relancer(int posJoueur, int jetons){
 	
 	if(this->getJoueur(posJoueur).getCave() >= jetons){
+
+        this->setPot(this->getPot() +  (this->getMise() - this->getJoueur(posJoueur).getMisePlusHauteJoueur()));
+        this->getJoueur(posJoueur).setMiseTotaleJoueur(this->getJoueur(posJoueur).getMiseTotaleJoueur() + (this->getMise() - this->getJoueur(posJoueur).getMisePlusHauteJoueur()));
+
+        this->getJoueur(posJoueur).retireJetons(this->getMise() - this->getJoueur(posJoueur).getMisePlusHauteJoueur());
+
 		this->setPot(this->getPot() + jetons);
 		this->getJoueur(posJoueur).retireJetons(jetons);
-        this->mise = this->getJoueur(posJoueur).getMiseJoueur() + jetons;
-		this->getJoueur(posJoueur).setMiseJoueur(jetons);
+
+        //this->mise = this->getJoueur(posJoueur).getMiseJoueur() + jetons;
+        this->mise = this->getMise() + jetons;
+        this->getJoueur(posJoueur).setMiseTotaleJoueur(this->getJoueur(posJoueur).getMiseTotaleJoueur() + jetons);
+        this->getJoueur(posJoueur).setMisePlusHauteJoueur(jetons);
 		this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::RELANCER;
+        this->getJoueur(posJoueur).getCompteurActions()[0]++;
 		return true;	
 	}
 	
@@ -237,11 +268,12 @@ bool Jeu::relancer(int posJoueur, int jetons){
 bool Jeu::suivre(int posJoueur){
 	
 	if(this->getJoueur(posJoueur).getCave() >= this->mise){
-		this->setPot(this->getPot() + (this->mise - this->getJoueur(posJoueur).getMiseJoueur()));
-        this->getJoueur(posJoueur).retireJetons(this->mise - this->getJoueur(posJoueur).getMiseJoueur());
-	  	this->getJoueur(posJoueur).setMiseJoueur(this->mise);
+        this->setPot(this->getPot() + (this->mise - this->getJoueur(posJoueur).getMisePlusHauteJoueur()));
+        this->getJoueur(posJoueur).setMiseTotaleJoueur(this->getJoueur(posJoueur).getMiseTotaleJoueur() + (this->mise - this->getJoueur(posJoueur).getMisePlusHauteJoueur()));
+        this->getJoueur(posJoueur).retireJetons(this->mise - this->getJoueur(posJoueur).getMisePlusHauteJoueur());
+        this->getJoueur(posJoueur).setMisePlusHauteJoueur(this->mise);
 		this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::SUIVRE;
-		
+        this->getJoueur(posJoueur).getCompteurActions()[1]++;
 		return true;
 	}
 	
@@ -253,6 +285,7 @@ bool Jeu::checker(int posJoueur){
 
     if(this->peutChecker(posJoueur)){
         this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::CHECKER;
+        this->getJoueur(posJoueur).getCompteurActions()[2]++;
         return true;
     }else{
         return false;
@@ -299,21 +332,118 @@ TYPES::ACTION_LIST Jeu::getAction() const{
 	return this->actions.at(this->getJoueurCourant());
 }
 
+
+//TODO :: faire une methode remplissant le tableau apres la river
+
+void Jeu::remplissageTableau(std::vector<Carte> mainJoueur, std::vector<Carte> table){
+
+
+}
+
 bool Jeu::prochainJoueur(){
 	
     this->joueurCourant = (this->joueurCourant + 1) % this->positionnement.size();
-    
+
+    int nbTotalActions = 0;
+
+    for(int i = 0; i<3; i++){
+        nbTotalActions += this->getJoueur(0).getCompteurActions()[i];
+    }
+
+    Profilage profilJoueur = *this->getJoueur(0).getProfil();
+
     if(this->finDuTour() && this->table.size() == 5){
+
+        profilJoueur.charger();
+
+        profilJoueur.profil[profilJoueur.RIVER].probaGainAdversaire = 100 * EstimationProba::estimation(this, &this->getJoueur(0));
+        profilJoueur.profil[profilJoueur.RIVER].tauxMises = CalculDonneesProfilage::taux(this->getJoueur(0).getCompteurActions()[0],nbTotalActions);
+        profilJoueur.profil[profilJoueur.RIVER].tauxSuivis = CalculDonneesProfilage::taux(this->getJoueur(0).getCompteurActions()[1],nbTotalActions);
+        profilJoueur.profil[profilJoueur.RIVER].tauxChecks = CalculDonneesProfilage::taux(this->getJoueur(0).getCompteurActions()[2],nbTotalActions);
+
+        profilJoueur.profil[profilJoueur.RIVER].misePlusHaute = CalculDonneesProfilage::taux(this->getJoueur(0).getMisePlusHauteJoueur(),this->getJoueur(0).getCave());
+        profilJoueur.profil[profilJoueur.RIVER].miseTotaleJoueur = CalculDonneesProfilage::taux(this->getJoueur(0).getMiseTotaleJoueur(),this->getJoueur(0).getCave());
+
+        profilJoueur.profil[profilJoueur.RIVER].tauxAgressivite = CalculDonneesProfilage::agressivite(profilJoueur.profil[profilJoueur.PREFLOP].misePlusHaute,profilJoueur.profil[profilJoueur.PREFLOP].tauxMises,profilJoueur.profil[profilJoueur.PREFLOP].miseTotaleJoueur);
+        profilJoueur.profil[profilJoueur.RIVER].tauxRationnalite = CalculDonneesProfilage::rationalite(profilJoueur.profil[profilJoueur.PREFLOP].probaGainAdversaire,profilJoueur.profil[profilJoueur.PREFLOP].miseTotaleJoueur);
+        profilJoueur.profil[profilJoueur.RIVER].tauxPassivite = CalculDonneesProfilage::passivite( profilJoueur.profil[profilJoueur.PREFLOP].tauxSuivis, profilJoueur.profil[profilJoueur.PREFLOP].tauxChecks);
+        profilJoueur.profil[profilJoueur.RIVER].tauxBluff = CalculDonneesProfilage::bluff(profilJoueur.profil[profilJoueur.PREFLOP].tauxRationnalite);
+
+        profilJoueur.profil[profilJoueur.RIVER].pot = this->getPot();
+        profilJoueur.sauvegarder();
+
         return false;
     }
 
     if(this->finDuTour() && this->table.size() != 5){
+
 		this->joueurCourant = this->dealer;
 		if(this->table.size() == 0 ){
+            profilJoueur.charger();
+
+            profilJoueur.profil[profilJoueur.PREFLOP].probaGainAdversaire = 100 * EstimationProba::estimation(this, &this->getJoueur(0));
+
+            profilJoueur.profil[profilJoueur.PREFLOP].tauxMises = CalculDonneesProfilage::taux(this->getJoueur(0).getCompteurActions()[0],nbTotalActions);
+            profilJoueur.profil[profilJoueur.PREFLOP].tauxSuivis = CalculDonneesProfilage::taux(this->getJoueur(0).getCompteurActions()[1],nbTotalActions);
+            profilJoueur.profil[profilJoueur.PREFLOP].tauxChecks = CalculDonneesProfilage::taux(this->getJoueur(0).getCompteurActions()[2],nbTotalActions);
+
+            profilJoueur.profil[profilJoueur.PREFLOP].misePlusHaute = CalculDonneesProfilage::taux(this->getJoueur(0).getMisePlusHauteJoueur(),this->getJoueur(0).getCave());
+            profilJoueur.profil[profilJoueur.PREFLOP].miseTotaleJoueur = CalculDonneesProfilage::taux(this->getJoueur(0).getMiseTotaleJoueur(),this->getJoueur(0).getCave());
+
+            profilJoueur.profil[profilJoueur.PREFLOP].tauxAgressivite = CalculDonneesProfilage::agressivite(profilJoueur.profil[profilJoueur.PREFLOP].misePlusHaute,profilJoueur.profil[profilJoueur.PREFLOP].tauxMises,profilJoueur.profil[profilJoueur.PREFLOP].miseTotaleJoueur);
+            profilJoueur.profil[profilJoueur.PREFLOP].tauxRationnalite = CalculDonneesProfilage::rationalite(profilJoueur.profil[profilJoueur.PREFLOP].probaGainAdversaire,profilJoueur.profil[profilJoueur.PREFLOP].miseTotaleJoueur);
+            profilJoueur.profil[profilJoueur.PREFLOP].tauxPassivite = CalculDonneesProfilage::passivite( profilJoueur.profil[profilJoueur.PREFLOP].tauxSuivis, profilJoueur.profil[profilJoueur.PREFLOP].tauxChecks);
+            profilJoueur.profil[profilJoueur.PREFLOP].tauxBluff = CalculDonneesProfilage::bluff(profilJoueur.profil[profilJoueur.PREFLOP].tauxRationnalite);
+
+            profilJoueur.profil[profilJoueur.PREFLOP].pot = this->getPot();
+            profilJoueur.sauvegarder();
+
 			this->distributionFlop();
 		}else if (this->table.size() == 3){
+            profilJoueur.charger();
+
+            profilJoueur.profil[profilJoueur.FLOP].probaGainAdversaire = 100 * EstimationProba::estimation(this, &this->getJoueur(0));
+            profilJoueur.profil[profilJoueur.FLOP].tauxMises = CalculDonneesProfilage::taux(this->getJoueur(0).getCompteurActions()[0],nbTotalActions);
+            profilJoueur.profil[profilJoueur.FLOP].tauxSuivis = CalculDonneesProfilage::taux(this->getJoueur(0).getCompteurActions()[1],nbTotalActions);
+            profilJoueur.profil[profilJoueur.FLOP].tauxChecks = CalculDonneesProfilage::taux(this->getJoueur(0).getCompteurActions()[2],nbTotalActions);
+
+            profilJoueur.profil[profilJoueur.FLOP].misePlusHaute = CalculDonneesProfilage::taux(this->getJoueur(0).getMisePlusHauteJoueur(),this->getJoueur(0).getCave());
+            profilJoueur.profil[profilJoueur.FLOP].miseTotaleJoueur = CalculDonneesProfilage::taux(this->getJoueur(0).getMiseTotaleJoueur(),this->getJoueur(0).getCave());
+
+            profilJoueur.profil[profilJoueur.FLOP].tauxAgressivite = CalculDonneesProfilage::agressivite(profilJoueur.profil[profilJoueur.PREFLOP].misePlusHaute,profilJoueur.profil[profilJoueur.PREFLOP].tauxMises,profilJoueur.profil[profilJoueur.PREFLOP].miseTotaleJoueur);
+            profilJoueur.profil[profilJoueur.FLOP].tauxRationnalite = CalculDonneesProfilage::rationalite(profilJoueur.profil[profilJoueur.PREFLOP].probaGainAdversaire,profilJoueur.profil[profilJoueur.PREFLOP].miseTotaleJoueur);
+            profilJoueur.profil[profilJoueur.FLOP].tauxPassivite = CalculDonneesProfilage::passivite( profilJoueur.profil[profilJoueur.PREFLOP].tauxSuivis, profilJoueur.profil[profilJoueur.PREFLOP].tauxChecks);
+            profilJoueur.profil[profilJoueur.FLOP].tauxBluff = CalculDonneesProfilage::bluff(profilJoueur.profil[profilJoueur.PREFLOP].tauxRationnalite);
+
+            profilJoueur.profil[profilJoueur.FLOP].pot = this->getPot();
+
+            profilJoueur.sauvegarder();
+
 			this->distributionTurn();
         }else if (this->table.size() == 4){
+
+            profilJoueur.charger();
+
+            profilJoueur.profil[profilJoueur.TURN].probaGainAdversaire = 100 * EstimationProba::estimation(this, &this->getJoueur(0));
+
+            profilJoueur.profil[profilJoueur.TURN].tauxMises = CalculDonneesProfilage::taux(this->getJoueur(0).getCompteurActions()[0],nbTotalActions);
+            profilJoueur.profil[profilJoueur.TURN].tauxSuivis = CalculDonneesProfilage::taux(this->getJoueur(0).getCompteurActions()[1],nbTotalActions);
+            profilJoueur.profil[profilJoueur.TURN].tauxChecks = CalculDonneesProfilage::taux(this->getJoueur(0).getCompteurActions()[2],nbTotalActions);
+
+            profilJoueur.profil[profilJoueur.TURN].misePlusHaute = CalculDonneesProfilage::taux(this->getJoueur(0).getMisePlusHauteJoueur(),this->getJoueur(0).getCave());
+            profilJoueur.profil[profilJoueur.TURN].miseTotaleJoueur = CalculDonneesProfilage::taux(this->getJoueur(0).getMiseTotaleJoueur(),this->getJoueur(0).getCave());
+
+            profilJoueur.profil[profilJoueur.TURN].probaGainAdversaire = 100 * EstimationProba::estimation(this, &this->getJoueur(0));
+
+            profilJoueur.profil[profilJoueur.TURN].tauxAgressivite = CalculDonneesProfilage::agressivite(profilJoueur.profil[profilJoueur.PREFLOP].misePlusHaute,profilJoueur.profil[profilJoueur.PREFLOP].tauxMises,profilJoueur.profil[profilJoueur.PREFLOP].miseTotaleJoueur);
+            profilJoueur.profil[profilJoueur.TURN].tauxRationnalite = CalculDonneesProfilage::rationalite(profilJoueur.profil[profilJoueur.PREFLOP].probaGainAdversaire,profilJoueur.profil[profilJoueur.PREFLOP].miseTotaleJoueur);
+            profilJoueur.profil[profilJoueur.TURN].tauxPassivite = CalculDonneesProfilage::passivite( profilJoueur.profil[profilJoueur.PREFLOP].tauxSuivis, profilJoueur.profil[profilJoueur.PREFLOP].tauxChecks);
+            profilJoueur.profil[profilJoueur.TURN].tauxBluff = CalculDonneesProfilage::bluff(profilJoueur.profil[profilJoueur.PREFLOP].tauxRationnalite);
+
+            profilJoueur.profil[profilJoueur.TURN].pot = this->getPot();
+
+            profilJoueur.sauvegarder();
+
 			this->distributionRiver();
         }
     }
@@ -324,7 +454,8 @@ bool Jeu::prochainJoueur(){
 void Jeu::resetActions(){
 	for(int i=0; i< (int) this->actions.size(); i++){
         	this->actions.at(i) = TYPES::ACTION_LIST::EN_ATTENTE;
-        	this->getJoueur(i).setMiseJoueur(0);
+            this->getJoueur(i).setMisePlusHauteJoueur(0);
+        this->getJoueur(i).setMiseTotaleJoueur(0);
 	}
 }
 
@@ -357,7 +488,7 @@ int Jeu::getMise(){
 	return this->mise;
 }
 
-void Jeu::nouvelleMain(int posJoueur){
+void Jeu::nouvelleMain(){
 
     std::vector<Joueur> joueurRestant;
 
@@ -423,6 +554,7 @@ bool Jeu::peutMiser(int posJoueur){
         if(this->actions[(posJoueur + i) % this->actions.size() ] == TYPES::ACTION_LIST::MISER ||
            this->actions[(posJoueur + i) % this->actions.size()] == TYPES::ACTION_LIST::RELANCER ||
            this->actions[(posJoueur + i) % this->actions.size()] == TYPES::ACTION_LIST::GROSSE_BLIND ||
+           this->actions[(posJoueur + i) % this->actions.size()] == TYPES::ACTION_LIST::SUIVRE||
            this->actions[(posJoueur + i) % this->actions.size()] == TYPES::ACTION_LIST::TAPIS){
             return false;
         }
@@ -459,22 +591,37 @@ bool Jeu::peutSuivre(int posJoueur){
 }
 
 
-void Jeu::affecteMainIA(std::vector<int> listeId){
+void Jeu::affectationCarte(std::vector<int> listeId){
 
     int pos = 0;
 
-    for(Carte carte : this->getDeck()){
-        if(carte.getId() == listeId.at(0) || carte.getId() == listeId.at(1)){
-            this->positionnement.at(1).ajouteCarte(this->deck.at(pos));
-            this->deck.erase(this->deck.begin() + pos);
-            pos--;
+    for(int i=0; i< (int) listeId.size(); i++){
+        pos = 0;
+        for(Carte carte : this->getDeck()){
+            if(carte.getId() == listeId.at(i)){
+                if(i<2){
+                    this->positionnement.at(1).ajouteCarte(this->deck.at(pos));
+                    this->deck.erase(this->deck.begin() + pos);
+                    pos--;
+                }else if (i<4){
+                    this->positionnement.at(0).ajouteCarte(this->deck.at(pos));
+                    this->deck.erase(this->deck.begin() + pos);
+                    pos--;
+                }else{
+                    this->table.push_back(this->deck.at(pos));
+                    this->deck.erase(this->deck.begin() + pos);
+                    pos--;
+                }
+            }
+
+            pos++;
         }
-
-        pos++;
-
     }
 }
 
+void Jeu::setPseudo(std::string pseudo){
+    this->getJoueur(0).setProfil(pseudo);
+}
 
 
 

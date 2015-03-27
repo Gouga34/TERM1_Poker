@@ -7,16 +7,7 @@
 
 int nombreDeTest = 70000;
 
-EstimationProba::EstimationProba(Jeu* jeu, Joueur* joueur){
-	srand((unsigned)time(0));
-	this->jeuCourant = jeu;
-	this->joueurCourant = joueur;
-}
-
-EstimationProba::~EstimationProba(){
-}
-
-double EstimationProba::estimation(){
+double EstimationProba::estimation(Jeu* jeuCourant, Joueur* joueurCourant){
 
     double nombreDeCoupGagner = 0;
 	int position;
@@ -31,8 +22,8 @@ double EstimationProba::estimation(){
 	for(int t=0; t <nombreDeTest; t++){
 		do{
             deck.clear();
-            deck= this->nouveauDeck();
-			this->melange(deck);
+            deck= nouveauDeck(joueurCourant);
+            EstimationProba::melange(deck);
 			table.clear();
 			mainAdverse.clear();
             ensembleCourant.clear();;
@@ -58,30 +49,11 @@ double EstimationProba::estimation(){
 		}while( iterateurEnsembleCarte != listeEnsembleCarte.end());
 		
 		
-        if(Evaluateur::comparerMains(table,this->joueurCourant->getMain(), mainAdverse) == GAGNE){
-
-            /*
-            std::cout << std::endl << "Table : " << std::endl;
-            for(int i=0; i<5; i++){
-                std::cout << table.at(i).getRang() << "," << table.at(i).getCouleur() << "; ";
-            }
-            std::cout << std::endl;
-
-
-            std::cout << "Main adverse : " << std::endl;
-            for(int i=0; i<2; i++){
-                std::cout << mainAdverse.at(i).getRang()  << "," << mainAdverse.at(i).getCouleur() << ";";
-            }
-
-            std::cout << std::endl;
-            std::cout << "Main du joueur : " << std::endl;
-            for(int i=0; i<2; i++){
-                std::cout << this->joueurCourant->getMain().at(i).getRang()  << "," << this->joueurCourant->getMain().at(i).getCouleur() << "; ";
-            }*/
+        if(Evaluateur::comparerMains(table,joueurCourant->getMain(), mainAdverse) == GAGNE){
 
 			nombreDeCoupGagner++;
-           // std::cout << std::endl;
-        }else if(Evaluateur::comparerMains(table,this->joueurCourant->getMain(), mainAdverse) == EGALITE){
+
+        }else if(Evaluateur::comparerMains(table,joueurCourant->getMain(), mainAdverse) == EGALITE){
             nombreDeCoupGagner = nombreDeCoupGagner + 0.1;
         }
 	}
@@ -91,7 +63,7 @@ double EstimationProba::estimation(){
 }
 
 
-std::vector<Carte> EstimationProba::nouveauDeck(){
+std::vector<Carte> EstimationProba::nouveauDeck(Joueur* joueurCourant){
 	std::vector<Carte> deck;
 	
     for(int i =COULEUR_CARTE::PIQUE; i<=COULEUR_CARTE::CARREAU; i++){
@@ -101,8 +73,8 @@ std::vector<Carte> EstimationProba::nouveauDeck(){
 		}
 	}
 
-    deck.erase(deck.begin() + this->joueurCourant->getMain().at(0).getId());
-    deck.erase(deck.begin() + this->joueurCourant->getMain().at(1).getId());
+    deck.erase(deck.begin() + joueurCourant->getMain().at(0).getId());
+    deck.erase(deck.begin() + joueurCourant->getMain().at(1).getId());
 
 	return deck;
 }
