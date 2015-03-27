@@ -15,14 +15,17 @@ Specification: Fichier contenant les définitions de la classe Fenetre.
 #include<QString>
 #include <QVBoxLayout>
 #include <iostream>
+#include <QScrollBar>
 using namespace std;
 
 QPixmap *Fenetre::textureCartes = 0;
 
 Fenetre::Fenetre(Jeu *j) : QWidget()
 {
+
+    move(0,0);
     setWindowTitle(tr("Poker"));
-    resize(800,600);
+    resize(1280,400);
 
     // Couleur de fond
     QPalette pal(palette());
@@ -49,14 +52,19 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
     logs.setReadOnly(true);
     logs.setMaximumSize(300, 300);
 
+
     boutonLogs.setText("Afficher/Cacher");
     boutonLogs.setFixedWidth(300);
 
     layoutLogs->setAlignment(Qt::AlignTop);
+    layoutLogs->setAlignment(Qt::AlignHCenter);
     layoutLogs->setSpacing(20);
 
     layoutLogs->addWidget(&logs);
     layoutLogs->addWidget(&boutonLogs);
+    layoutLogs->addWidget(&resultatPartie);
+
+
 
     connect(&boutonLogs, SIGNAL(clicked()), this, SLOT(affichageLogs()));
 
@@ -72,10 +80,20 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
         textureCartes = new QPixmap("../Application/ressources/Interface/deck.png");
     }
 
+    QHBoxLayout *layoutAdversaire =new QHBoxLayout;
+
+    //Sous-layout IA
+    actionEffectueeIA.setReadOnly(true);
+    actionEffectueeIA.setFixedWidth(80);
+    actionEffectueeIA.setPlaceholderText("Action");
+
+    layoutAdversaire->addLayout(&layoutMainAdverse);
+    layoutAdversaire->addWidget(&actionEffectueeIA);
+
     layoutJeu->setSpacing(150);
     layoutJeu->setAlignment(Qt::AlignTop);
 
-    layoutJeu->addLayout(&layoutMainAdverse);
+    layoutJeu->addLayout(layoutAdversaire);
     layoutJeu->addLayout(&layoutCartesCommunes);
     layoutJeu->addLayout(&layoutMain);
 
@@ -101,6 +119,8 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
 
     boutonChoixCartes.setChecked(false);
     boutonChoixCartes.setText("Choix des cartes");
+    boutonChoixCartes.setObjectName(QString("Checkbox"));
+    boutonChoixCartes.setStyleSheet("QWidget#Checkbox { background-color: rgb(255, 255, 255); border-style: solid; border-color: black; border-width: 1px; padding : 3px; }");
 
     layoutDemarrage->setAlignment(Qt::AlignLeft);
     layoutDemarrage->setSpacing(10);
@@ -152,7 +172,7 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
 
     QVBoxLayout *layoutOptions = new QVBoxLayout;
 
-    layoutOptions->setSpacing(150);
+    layoutOptions->setSpacing(100);
     layoutOptions->setAlignment(Qt::AlignHCenter);
 
     layoutOptions->addLayout(layoutDemarrage);
@@ -196,10 +216,13 @@ void Fenetre::affichageLogs()
 void Fenetre::ajoutLogs(QString contenu)
 {
     logs.setText(logs.toPlainText() + contenu + "\n");
+    QScrollBar *sb=logs.verticalScrollBar();
+    sb->setValue(sb->maximum());
 }
 
 void Fenetre::demarragePartie()
 {
+    resultatPartie.setText("");
     boutonDemarrage.hide();
     layoutCartesCommunes.vider();
 
@@ -305,9 +328,13 @@ void Fenetre::jeuIA()
 
     switch (jeu->getAction()) {
         case TYPES::ACTION_LIST::CHECKER:
+            actionEffectueeIA.setText("Check");
             Logger::getInstance()->ajoutLogs("IA check");
             break;
+
+
         case TYPES::ACTION_LIST::MISER:
+            actionEffectueeIA.setText("Mise : "+QString::number(jeu->getMise()));
             activationBoutons[MISER] = false;
             activationBoutons[CHECKER] = false;
 
@@ -318,13 +345,19 @@ void Fenetre::jeuIA()
 
             Logger::getInstance()->ajoutLogs("IA mise " + QString::number(jeu->getMise()));
             break;
+
+
         case TYPES::ACTION_LIST::SUIVRE:
+            actionEffectueeIA.setText("Suit");
             caveIA.display(jeu->getJoueur(1).getCave());
             pot.display(jeu->getPot());
 
             Logger::getInstance()->ajoutLogs("IA suit");
             break;
+
+
         case TYPES::ACTION_LIST::RELANCER:
+            actionEffectueeIA.setText("Relance : "+QString::number(jeu->getMise()));
             valeurMise.setMinimum(2 * jeu->getMise());
 
             caveIA.display(jeu->getJoueur(1).getCave());
@@ -333,6 +366,7 @@ void Fenetre::jeuIA()
             Logger::getInstance()->ajoutLogs("IA relance " + QString::number(jeu->getMise()));
             break;
         case TYPES::ACTION_LIST::SE_COUCHER:
+            actionEffectueeIA.setText("Se couche");
             Logger::getInstance()->ajoutLogs("IA se couche");
             partieTermine();
             return;
@@ -440,6 +474,21 @@ void Fenetre::partieTermine()
     layoutMainAdverse.ajoutCartes(jeu->getJoueur(1).getMain());
 
     jeu->nouvelleMain();
+
+//     int gagne = jeu->nouvelleMain(0)
+//        if(gagne==GAGNE){
+//            resultatPartie.setStyleSheet("QLabel {color : #89DF57; font-size : 40px; text-align:center; padding-left:80px; font-weight:bold;}");
+//            resultatPartie.setText("Gagné !");
+//        }
+//        else if(gagne==EGALITE){
+//            resultatPartie.setStyleSheet("QLabel {color : #23BDFE; font-size : 40px; text-align:center; padding-left:80px; font-weight:bold;}");
+//            resultatPartie.setText("Egalité");
+//        }
+//        else{
+//            resultatPartie.setStyleSheet("QLabel {color : #FE0000; font-size : 40px; text-align:center; padding-left:70px; font-weight:bold;}");
+//            resultatPartie.setText("Perdu !");
+//        }
+
 
     boutonDemarrage.setText("Rejouer");
     boutonDemarrage.setHidden(false);

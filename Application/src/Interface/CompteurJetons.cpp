@@ -11,7 +11,7 @@ Specification: Fichier contenant les définitions de la classe CompteurJetons.
 
 CompteurJetons::CompteurJetons() : QLCDNumber()
 {
-    setMaximumSize(100, 50);
+    setFixedSize(80, 50);
     setSegmentStyle(QLCDNumber::Flat);
     setStyleSheet("background-color: #89DF57");
 }
