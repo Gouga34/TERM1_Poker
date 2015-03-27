@@ -5,7 +5,7 @@ Joueur::Joueur(bool estDealer, int jetons, int position){
 	this->dealer = estDealer;
 	this->cave = jetons;
 	this->position = position;
-	this->miseJoueur = 0;
+	this->misePlusHauteJoueur = 0;
     this->compteurActions = new int[3];
     for(int i =0; i<3;i++){
         this->compteurActions[i] = 0;
@@ -91,12 +91,12 @@ void Joueur::changeDealer(){
 	}
 }
 
-int Joueur::getMiseJoueur(){
-	return this->miseJoueur;
+int Joueur::getMisePlusHauteJoueur(){
+	return this->misePlusHauteJoueur;
 }
 
-void Joueur::setMiseJoueur(int jetons){
-	this->miseJoueur = jetons;
+void Joueur::setMisePlusHauteJoueur(int jetons){
+	this->misePlusHauteJoueur = jetons;
 }
 
 void Joueur::videMain(){
@@ -111,4 +111,20 @@ void Joueur::resetCompteurActions(){
 
 int* Joueur::getCompteurActions(){
     return this->compteurActions;
+}
+
+int Joueur::getMiseTotaleJoueur(){
+    return this->miseTotaleJoueur;
+}
+
+void Joueur::setMiseTotaleJoueur(int mise){
+    this->miseTotaleJoueur = mise;
+}
+
+Profilage* Joueur::getProfil(){
+    return this->profilJoueur;
+}
+
+void Joueur::setProfil(std::string pseudo){
+    this->profilJoueur = new Profilage(pseudo);
 }

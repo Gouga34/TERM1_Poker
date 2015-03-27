@@ -2,6 +2,7 @@
 #define Jeu_h
 
 #include <vector>
+#include <string>
 #include <algorithm>
 #include <time.h>
 #include <stdlib.h>
@@ -12,6 +13,7 @@
 #include "../Evaluateur/Evaluateur.h"
 #include "../Profilage/CalculDonneesProfilage.h"
 #include "../Profilage/Profilage.h"
+#include "EstimationProba.h"
 
 class Joueur;
 class IntelligenceArtificielle;
@@ -144,6 +146,13 @@ class Jeu{
 		*@param : La rationnalite de l'IA
 		**/
 		void setRationaliteIA(double rationalite);
+
+        /**
+        *@action : Permet d'affecter le pseudo du joueur
+        *@param : Le pseudo choisi par le joueur
+        **/
+        void setPseudo(std::string pseudo);
+
 
 	
 	//Methodes	
@@ -302,6 +311,13 @@ class Jeu{
 		*@param   : Un vecteur d'entier correspondant a la liste des ids des cartes
 		**/
 		void affectationCarte(std::vector<int> listeId);
+
+        /**
+        *@action  : Fini de remplir le tableau de profilage en fonction des chance de gain du joueur
+        *@param   : Un vecteur d'entier correspondant a la liste des cartes du joueur
+        *@param   : Un vecteur d'entier correspondant a la liste des cartes communes
+        **/
+        void remplissageTableau(std::vector<Carte> mainJoueur, std::vector<Carte> table);
 };
 
 #endif

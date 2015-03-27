@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "Carte.h"
+#include "../Profilage/Profilage.h"
 
 class Jeu;
 
@@ -16,18 +17,21 @@ class Joueur{
         int                 cave;
         Jeu*                jeu;
         int                 position;
-        int                 miseJoueur;
+        int                 misePlusHauteJoueur;
+        int                 miseTotaleJoueur;
+        Profilage*           profilJoueur;
+
 		
 	//Constructeur et destructeur
 	public:
 	
 		/**
+        *@action : Cree un nouveau joueur
 		*@param  : Un boolean indiquant si le joueur est le dealer virtuel
-		*		ainsi que le nombre de jetons dont il dispose au
-		*		debut de la partie
-		*@action : Cree un nouveau joueur
+        *@param  : Le nombre de jetons dont il dispose au debut de la partie
+        *@param  : Sa position
 		**/
-		Joueur(bool estDealer, int jetons, int position);
+        Joueur(bool estDealer, int jetons, int position);
 		
 		/**
 		*@action : Destructeur de la classe Joueur
@@ -70,13 +74,13 @@ class Joueur{
 		*@action : Permet d'obtenir la mise du joueur
 		*@return : La mise du joueur
 		**/		
-		int			getMiseJoueur();
+        int			getMisePlusHauteJoueur();
 		
 		/**
 		*@action : Modifie la mise du joueur
 		*@param :  La nouvelle mise
 		**/		
-		void			setMiseJoueur(int jetons);
+        void			setMisePlusHauteJoueur(int jetons);
 
 
         /**
@@ -84,6 +88,31 @@ class Joueur{
         *@return : Les compteurs d'actions du joueur
         **/
         int*            getCompteurActions();
+
+        /**
+        *@action : Permet d'obtenir combien a miser au total le joueur pendant l'etape
+        *@return : La somme totale misee par le joueur
+        **/
+        int             getMiseTotaleJoueur();
+
+        /**
+        *@action : Permet d''affecter combien a miser au total le joueur pendant l'etape
+        *@param : La somme totale misee par le joueur
+        **/
+        void             setMiseTotaleJoueur(int miseTotale);
+
+        /**
+        *@action : Permet d'obtenir le profil du joueur
+        *@return : Le profil du joueur
+        **/
+        Profilage*             getProfil();
+
+        /**
+        *@action : Permet d''affecter le profil du joueur
+        *@param : Le pseudo du joueur
+        **/
+        void             setProfil(std::string pseudo);
+
 		
 	//Methodes
 	

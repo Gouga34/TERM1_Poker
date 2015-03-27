@@ -176,6 +176,7 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
     Options options = fenetreOptions.getOptions();
 
     QString pseudoJoueur = options.pseudo;
+    jeu->setPseudo(pseudoJoueur.toStdString() );
     jeu->setAgressiviteIA(options.agressiviteIA);
     jeu->setRationaliteIA(options.rationaliteIA);
 }
