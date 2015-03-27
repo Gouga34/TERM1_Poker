@@ -473,21 +473,21 @@ void Fenetre::partieTermine()
     layoutMainAdverse.vider();
     layoutMainAdverse.ajoutCartes(jeu->getJoueur(1).getMain());
 
-    jeu->nouvelleMain();
 
-//     int gagne = jeu->nouvelleMain(0)
-//        if(gagne==GAGNE){
-//            resultatPartie.setStyleSheet("QLabel {color : #89DF57; font-size : 40px; text-align:center; padding-left:80px; font-weight:bold;}");
-//            resultatPartie.setText("Gagné !");
-//        }
-//        else if(gagne==EGALITE){
-//            resultatPartie.setStyleSheet("QLabel {color : #23BDFE; font-size : 40px; text-align:center; padding-left:80px; font-weight:bold;}");
-//            resultatPartie.setText("Egalité");
-//        }
-//        else{
-//            resultatPartie.setStyleSheet("QLabel {color : #FE0000; font-size : 40px; text-align:center; padding-left:70px; font-weight:bold;}");
-//            resultatPartie.setText("Perdu !");
-//        }
+    int gagne = jeu->nouvelleMain();
+
+    if(gagne==GAGNE){
+        resultatPartie.setStyleSheet("QLabel {color : #89DF57; font-size : 40px; text-align:center; padding-left:80px; font-weight:bold;}");
+        resultatPartie.setText("Gagné !");
+    }
+    else if(gagne==EGALITE){
+        resultatPartie.setStyleSheet("QLabel {color : #23BDFE; font-size : 40px; text-align:center; padding-left:80px; font-weight:bold;}");
+        resultatPartie.setText("Egalité");
+    }
+    else{
+        resultatPartie.setStyleSheet("QLabel {color : #FE0000; font-size : 40px; text-align:center; padding-left:70px; font-weight:bold;}");
+        resultatPartie.setText("Perdu !");
+    }
 
 
     boutonDemarrage.setText("Rejouer");

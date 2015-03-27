@@ -302,9 +302,10 @@ class Jeu{
 		void resetActions();
 		
 		/**
-		*@action  : Relance une nouvelle main
+        *@action  : Relance une nouvelle main
+        *@return  : Gagnant de la partie (GAGNE, PERDU, EGALITE)
 		**/			
-        void nouvelleMain();
+        int nouvelleMain();
 
 		/**
 		*@action  : Affecte les cartes choisies via l'interface

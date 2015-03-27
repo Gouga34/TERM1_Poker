@@ -350,27 +350,25 @@ bool Jeu::prochainJoueur(){
         nbTotalActions += this->getJoueur(0).getCompteurActions()[i];
     }
 
-    Profilage profilJoueur = *this->getJoueur(0).getProfil();
+    Profilage *profilJoueur = this->getJoueur(0).getProfil();
 
     if(this->finDuTour() && this->table.size() == 5){
 
-        profilJoueur.charger();
+        profilJoueur->profil[profilJoueur->RIVER].probaGainAdversaire = 100 * EstimationProba::estimation(this, &this->getJoueur(0));
+        profilJoueur->profil[profilJoueur->RIVER].tauxMises = CalculDonneesProfilage::taux(this->getJoueur(0).getCompteurActions()[0],nbTotalActions);
+        profilJoueur->profil[profilJoueur->RIVER].tauxSuivis = CalculDonneesProfilage::taux(this->getJoueur(0).getCompteurActions()[1],nbTotalActions);
+        profilJoueur->profil[profilJoueur->RIVER].tauxChecks = CalculDonneesProfilage::taux(this->getJoueur(0).getCompteurActions()[2],nbTotalActions);
 
-        profilJoueur.profil[profilJoueur.RIVER].probaGainAdversaire = 100 * EstimationProba::estimation(this, &this->getJoueur(0));
-        profilJoueur.profil[profilJoueur.RIVER].tauxMises = CalculDonneesProfilage::taux(this->getJoueur(0).getCompteurActions()[0],nbTotalActions);
-        profilJoueur.profil[profilJoueur.RIVER].tauxSuivis = CalculDonneesProfilage::taux(this->getJoueur(0).getCompteurActions()[1],nbTotalActions);
-        profilJoueur.profil[profilJoueur.RIVER].tauxChecks = CalculDonneesProfilage::taux(this->getJoueur(0).getCompteurActions()[2],nbTotalActions);
+        profilJoueur->profil[profilJoueur->RIVER].misePlusHaute = CalculDonneesProfilage::taux(this->getJoueur(0).getMisePlusHauteJoueur(),this->getJoueur(0).getCave());
+        profilJoueur->profil[profilJoueur->RIVER].miseTotaleJoueur = CalculDonneesProfilage::taux(this->getJoueur(0).getMiseTotaleJoueur(),this->getJoueur(0).getCave());
 
-        profilJoueur.profil[profilJoueur.RIVER].misePlusHaute = CalculDonneesProfilage::taux(this->getJoueur(0).getMisePlusHauteJoueur(),this->getJoueur(0).getCave());
-        profilJoueur.profil[profilJoueur.RIVER].miseTotaleJoueur = CalculDonneesProfilage::taux(this->getJoueur(0).getMiseTotaleJoueur(),this->getJoueur(0).getCave());
+        profilJoueur->profil[profilJoueur->RIVER].tauxAgressivite = CalculDonneesProfilage::agressivite(profilJoueur->profil[profilJoueur->RIVER].misePlusHaute,profilJoueur->profil[profilJoueur->RIVER].tauxMises,profilJoueur->profil[profilJoueur->RIVER].miseTotaleJoueur);
+        profilJoueur->profil[profilJoueur->RIVER].tauxRationnalite = CalculDonneesProfilage::rationalite(profilJoueur->profil[profilJoueur->RIVER].probaGainAdversaire,profilJoueur->profil[profilJoueur->RIVER].miseTotaleJoueur);
+        profilJoueur->profil[profilJoueur->RIVER].tauxPassivite = CalculDonneesProfilage::passivite( profilJoueur->profil[profilJoueur->RIVER].tauxSuivis, profilJoueur->profil[profilJoueur->RIVER].tauxChecks);
+        profilJoueur->profil[profilJoueur->RIVER].tauxBluff = CalculDonneesProfilage::bluff(profilJoueur->profil[profilJoueur->RIVER].tauxRationnalite);
 
-        profilJoueur.profil[profilJoueur.RIVER].tauxAgressivite = CalculDonneesProfilage::agressivite(profilJoueur.profil[profilJoueur.PREFLOP].misePlusHaute,profilJoueur.profil[profilJoueur.PREFLOP].tauxMises,profilJoueur.profil[profilJoueur.PREFLOP].miseTotaleJoueur);
-        profilJoueur.profil[profilJoueur.RIVER].tauxRationnalite = CalculDonneesProfilage::rationalite(profilJoueur.profil[profilJoueur.PREFLOP].probaGainAdversaire,profilJoueur.profil[profilJoueur.PREFLOP].miseTotaleJoueur);
-        profilJoueur.profil[profilJoueur.RIVER].tauxPassivite = CalculDonneesProfilage::passivite( profilJoueur.profil[profilJoueur.PREFLOP].tauxSuivis, profilJoueur.profil[profilJoueur.PREFLOP].tauxChecks);
-        profilJoueur.profil[profilJoueur.RIVER].tauxBluff = CalculDonneesProfilage::bluff(profilJoueur.profil[profilJoueur.PREFLOP].tauxRationnalite);
-
-        profilJoueur.profil[profilJoueur.RIVER].pot = this->getPot();
-        profilJoueur.sauvegarder();
+        profilJoueur->profil[profilJoueur->RIVER].pot = this->getPot();
+        profilJoueur->sauvegarder();
 
         return false;
     }
@@ -379,70 +377,67 @@ bool Jeu::prochainJoueur(){
 
 		this->joueurCourant = this->dealer;
 		if(this->table.size() == 0 ){
-            profilJoueur.charger();
 
-            profilJoueur.profil[profilJoueur.PREFLOP].probaGainAdversaire = 100 * EstimationProba::estimation(this, &this->getJoueur(0));
+            profilJoueur->profil[profilJoueur->PREFLOP].probaGainAdversaire = 100 * EstimationProba::estimation(this, &this->getJoueur(0));
 
-            profilJoueur.profil[profilJoueur.PREFLOP].tauxMises = CalculDonneesProfilage::taux(this->getJoueur(0).getCompteurActions()[0],nbTotalActions);
-            profilJoueur.profil[profilJoueur.PREFLOP].tauxSuivis = CalculDonneesProfilage::taux(this->getJoueur(0).getCompteurActions()[1],nbTotalActions);
-            profilJoueur.profil[profilJoueur.PREFLOP].tauxChecks = CalculDonneesProfilage::taux(this->getJoueur(0).getCompteurActions()[2],nbTotalActions);
+            profilJoueur->profil[profilJoueur->PREFLOP].tauxMises = CalculDonneesProfilage::taux(this->getJoueur(0).getCompteurActions()[0],nbTotalActions);
+            profilJoueur->profil[profilJoueur->PREFLOP].tauxSuivis = CalculDonneesProfilage::taux(this->getJoueur(0).getCompteurActions()[1],nbTotalActions);
+            profilJoueur->profil[profilJoueur->PREFLOP].tauxChecks = CalculDonneesProfilage::taux(this->getJoueur(0).getCompteurActions()[2],nbTotalActions);
 
-            profilJoueur.profil[profilJoueur.PREFLOP].misePlusHaute = CalculDonneesProfilage::taux(this->getJoueur(0).getMisePlusHauteJoueur(),this->getJoueur(0).getCave());
-            profilJoueur.profil[profilJoueur.PREFLOP].miseTotaleJoueur = CalculDonneesProfilage::taux(this->getJoueur(0).getMiseTotaleJoueur(),this->getJoueur(0).getCave());
+            profilJoueur->profil[profilJoueur->PREFLOP].misePlusHaute = CalculDonneesProfilage::taux(this->getJoueur(0).getMisePlusHauteJoueur(),this->getJoueur(0).getCave());
+            profilJoueur->profil[profilJoueur->PREFLOP].miseTotaleJoueur = CalculDonneesProfilage::taux(this->getJoueur(0).getMiseTotaleJoueur(),this->getJoueur(0).getCave());
 
-            profilJoueur.profil[profilJoueur.PREFLOP].tauxAgressivite = CalculDonneesProfilage::agressivite(profilJoueur.profil[profilJoueur.PREFLOP].misePlusHaute,profilJoueur.profil[profilJoueur.PREFLOP].tauxMises,profilJoueur.profil[profilJoueur.PREFLOP].miseTotaleJoueur);
-            profilJoueur.profil[profilJoueur.PREFLOP].tauxRationnalite = CalculDonneesProfilage::rationalite(profilJoueur.profil[profilJoueur.PREFLOP].probaGainAdversaire,profilJoueur.profil[profilJoueur.PREFLOP].miseTotaleJoueur);
-            profilJoueur.profil[profilJoueur.PREFLOP].tauxPassivite = CalculDonneesProfilage::passivite( profilJoueur.profil[profilJoueur.PREFLOP].tauxSuivis, profilJoueur.profil[profilJoueur.PREFLOP].tauxChecks);
-            profilJoueur.profil[profilJoueur.PREFLOP].tauxBluff = CalculDonneesProfilage::bluff(profilJoueur.profil[profilJoueur.PREFLOP].tauxRationnalite);
+            profilJoueur->profil[profilJoueur->PREFLOP].tauxAgressivite = CalculDonneesProfilage::agressivite(profilJoueur->profil[profilJoueur->PREFLOP].misePlusHaute,profilJoueur->profil[profilJoueur->PREFLOP].tauxMises,profilJoueur->profil[profilJoueur->PREFLOP].miseTotaleJoueur);
+            profilJoueur->profil[profilJoueur->PREFLOP].tauxRationnalite = CalculDonneesProfilage::rationalite(profilJoueur->profil[profilJoueur->PREFLOP].probaGainAdversaire,profilJoueur->profil[profilJoueur->PREFLOP].miseTotaleJoueur);
+            profilJoueur->profil[profilJoueur->PREFLOP].tauxPassivite = CalculDonneesProfilage::passivite( profilJoueur->profil[profilJoueur->PREFLOP].tauxSuivis, profilJoueur->profil[profilJoueur->PREFLOP].tauxChecks);
+            profilJoueur->profil[profilJoueur->PREFLOP].tauxBluff = CalculDonneesProfilage::bluff(profilJoueur->profil[profilJoueur->PREFLOP].tauxRationnalite);
 
-            profilJoueur.profil[profilJoueur.PREFLOP].pot = this->getPot();
-            profilJoueur.sauvegarder();
+            profilJoueur->profil[profilJoueur->PREFLOP].pot = this->getPot();
 
 			this->distributionFlop();
 		}else if (this->table.size() == 3){
-            profilJoueur.charger();
 
-            profilJoueur.profil[profilJoueur.FLOP].probaGainAdversaire = 100 * EstimationProba::estimation(this, &this->getJoueur(0));
-            profilJoueur.profil[profilJoueur.FLOP].tauxMises = CalculDonneesProfilage::taux(this->getJoueur(0).getCompteurActions()[0],nbTotalActions);
-            profilJoueur.profil[profilJoueur.FLOP].tauxSuivis = CalculDonneesProfilage::taux(this->getJoueur(0).getCompteurActions()[1],nbTotalActions);
-            profilJoueur.profil[profilJoueur.FLOP].tauxChecks = CalculDonneesProfilage::taux(this->getJoueur(0).getCompteurActions()[2],nbTotalActions);
+            double d = EstimationProba::estimation(this, &this->getJoueur(0));
 
-            profilJoueur.profil[profilJoueur.FLOP].misePlusHaute = CalculDonneesProfilage::taux(this->getJoueur(0).getMisePlusHauteJoueur(),this->getJoueur(0).getCave());
-            profilJoueur.profil[profilJoueur.FLOP].miseTotaleJoueur = CalculDonneesProfilage::taux(this->getJoueur(0).getMiseTotaleJoueur(),this->getJoueur(0).getCave());
+            std::cout << "Estimation p : " << d << std::endl;
 
-            profilJoueur.profil[profilJoueur.FLOP].tauxAgressivite = CalculDonneesProfilage::agressivite(profilJoueur.profil[profilJoueur.PREFLOP].misePlusHaute,profilJoueur.profil[profilJoueur.PREFLOP].tauxMises,profilJoueur.profil[profilJoueur.PREFLOP].miseTotaleJoueur);
-            profilJoueur.profil[profilJoueur.FLOP].tauxRationnalite = CalculDonneesProfilage::rationalite(profilJoueur.profil[profilJoueur.PREFLOP].probaGainAdversaire,profilJoueur.profil[profilJoueur.PREFLOP].miseTotaleJoueur);
-            profilJoueur.profil[profilJoueur.FLOP].tauxPassivite = CalculDonneesProfilage::passivite( profilJoueur.profil[profilJoueur.PREFLOP].tauxSuivis, profilJoueur.profil[profilJoueur.PREFLOP].tauxChecks);
-            profilJoueur.profil[profilJoueur.FLOP].tauxBluff = CalculDonneesProfilage::bluff(profilJoueur.profil[profilJoueur.PREFLOP].tauxRationnalite);
+            profilJoueur->profil[profilJoueur->FLOP].probaGainAdversaire = 100 * d;
+            profilJoueur->profil[profilJoueur->FLOP].tauxMises = CalculDonneesProfilage::taux(this->getJoueur(0).getCompteurActions()[0],nbTotalActions);
+            profilJoueur->profil[profilJoueur->FLOP].tauxSuivis = CalculDonneesProfilage::taux(this->getJoueur(0).getCompteurActions()[1],nbTotalActions);
+            profilJoueur->profil[profilJoueur->FLOP].tauxChecks = CalculDonneesProfilage::taux(this->getJoueur(0).getCompteurActions()[2],nbTotalActions);
 
-            profilJoueur.profil[profilJoueur.FLOP].pot = this->getPot();
+            profilJoueur->profil[profilJoueur->FLOP].misePlusHaute = CalculDonneesProfilage::taux(this->getJoueur(0).getMisePlusHauteJoueur(),this->getJoueur(0).getCave());
+            profilJoueur->profil[profilJoueur->FLOP].miseTotaleJoueur = CalculDonneesProfilage::taux(this->getJoueur(0).getMiseTotaleJoueur(),this->getJoueur(0).getCave());
 
-            profilJoueur.sauvegarder();
+            std::cout << "proba gain : " << profilJoueur->profil[profilJoueur->FLOP].probaGainAdversaire << std::endl;
+
+            profilJoueur->profil[profilJoueur->FLOP].tauxAgressivite = CalculDonneesProfilage::agressivite(profilJoueur->profil[profilJoueur->FLOP].misePlusHaute,profilJoueur->profil[profilJoueur->FLOP].tauxMises,profilJoueur->profil[profilJoueur->FLOP].miseTotaleJoueur);
+            profilJoueur->profil[profilJoueur->FLOP].tauxRationnalite = CalculDonneesProfilage::rationalite(profilJoueur->profil[profilJoueur->FLOP].probaGainAdversaire,profilJoueur->profil[profilJoueur->FLOP].miseTotaleJoueur);
+            profilJoueur->profil[profilJoueur->FLOP].tauxPassivite = CalculDonneesProfilage::passivite( profilJoueur->profil[profilJoueur->FLOP].tauxSuivis, profilJoueur->profil[profilJoueur->FLOP].tauxChecks);
+            profilJoueur->profil[profilJoueur->FLOP].tauxBluff = CalculDonneesProfilage::bluff(profilJoueur->profil[profilJoueur->FLOP].tauxRationnalite);
+
+            profilJoueur->profil[profilJoueur->FLOP].pot = this->getPot();
 
 			this->distributionTurn();
         }else if (this->table.size() == 4){
 
-            profilJoueur.charger();
+            profilJoueur->profil[profilJoueur->TURN].probaGainAdversaire = 100 * EstimationProba::estimation(this, &this->getJoueur(0));
 
-            profilJoueur.profil[profilJoueur.TURN].probaGainAdversaire = 100 * EstimationProba::estimation(this, &this->getJoueur(0));
+            profilJoueur->profil[profilJoueur->TURN].tauxMises = CalculDonneesProfilage::taux(this->getJoueur(0).getCompteurActions()[0],nbTotalActions);
+            profilJoueur->profil[profilJoueur->TURN].tauxSuivis = CalculDonneesProfilage::taux(this->getJoueur(0).getCompteurActions()[1],nbTotalActions);
+            profilJoueur->profil[profilJoueur->TURN].tauxChecks = CalculDonneesProfilage::taux(this->getJoueur(0).getCompteurActions()[2],nbTotalActions);
 
-            profilJoueur.profil[profilJoueur.TURN].tauxMises = CalculDonneesProfilage::taux(this->getJoueur(0).getCompteurActions()[0],nbTotalActions);
-            profilJoueur.profil[profilJoueur.TURN].tauxSuivis = CalculDonneesProfilage::taux(this->getJoueur(0).getCompteurActions()[1],nbTotalActions);
-            profilJoueur.profil[profilJoueur.TURN].tauxChecks = CalculDonneesProfilage::taux(this->getJoueur(0).getCompteurActions()[2],nbTotalActions);
+            profilJoueur->profil[profilJoueur->TURN].misePlusHaute = CalculDonneesProfilage::taux(this->getJoueur(0).getMisePlusHauteJoueur(),this->getJoueur(0).getCave());
+            profilJoueur->profil[profilJoueur->TURN].miseTotaleJoueur = CalculDonneesProfilage::taux(this->getJoueur(0).getMiseTotaleJoueur(),this->getJoueur(0).getCave());
 
-            profilJoueur.profil[profilJoueur.TURN].misePlusHaute = CalculDonneesProfilage::taux(this->getJoueur(0).getMisePlusHauteJoueur(),this->getJoueur(0).getCave());
-            profilJoueur.profil[profilJoueur.TURN].miseTotaleJoueur = CalculDonneesProfilage::taux(this->getJoueur(0).getMiseTotaleJoueur(),this->getJoueur(0).getCave());
+            profilJoueur->profil[profilJoueur->TURN].probaGainAdversaire = 100 * EstimationProba::estimation(this, &this->getJoueur(0));
 
-            profilJoueur.profil[profilJoueur.TURN].probaGainAdversaire = 100 * EstimationProba::estimation(this, &this->getJoueur(0));
+            profilJoueur->profil[profilJoueur->TURN].tauxAgressivite = CalculDonneesProfilage::agressivite(profilJoueur->profil[profilJoueur->TURN].misePlusHaute,profilJoueur->profil[profilJoueur->TURN].tauxMises,profilJoueur->profil[profilJoueur->TURN].miseTotaleJoueur);
+            profilJoueur->profil[profilJoueur->TURN].tauxRationnalite = CalculDonneesProfilage::rationalite(profilJoueur->profil[profilJoueur->TURN].probaGainAdversaire,profilJoueur->profil[profilJoueur->TURN].miseTotaleJoueur);
+            profilJoueur->profil[profilJoueur->TURN].tauxPassivite = CalculDonneesProfilage::passivite( profilJoueur->profil[profilJoueur->TURN].tauxSuivis, profilJoueur->profil[profilJoueur->TURN].tauxChecks);
+            profilJoueur->profil[profilJoueur->TURN].tauxBluff = CalculDonneesProfilage::bluff(profilJoueur->profil[profilJoueur->TURN].tauxRationnalite);
 
-            profilJoueur.profil[profilJoueur.TURN].tauxAgressivite = CalculDonneesProfilage::agressivite(profilJoueur.profil[profilJoueur.PREFLOP].misePlusHaute,profilJoueur.profil[profilJoueur.PREFLOP].tauxMises,profilJoueur.profil[profilJoueur.PREFLOP].miseTotaleJoueur);
-            profilJoueur.profil[profilJoueur.TURN].tauxRationnalite = CalculDonneesProfilage::rationalite(profilJoueur.profil[profilJoueur.PREFLOP].probaGainAdversaire,profilJoueur.profil[profilJoueur.PREFLOP].miseTotaleJoueur);
-            profilJoueur.profil[profilJoueur.TURN].tauxPassivite = CalculDonneesProfilage::passivite( profilJoueur.profil[profilJoueur.PREFLOP].tauxSuivis, profilJoueur.profil[profilJoueur.PREFLOP].tauxChecks);
-            profilJoueur.profil[profilJoueur.TURN].tauxBluff = CalculDonneesProfilage::bluff(profilJoueur.profil[profilJoueur.PREFLOP].tauxRationnalite);
-
-            profilJoueur.profil[profilJoueur.TURN].pot = this->getPot();
-
-            profilJoueur.sauvegarder();
+            profilJoueur->profil[profilJoueur->TURN].pot = this->getPot();
 
 			this->distributionRiver();
         }
@@ -488,7 +483,7 @@ int Jeu::getMise(){
 	return this->mise;
 }
 
-void Jeu::nouvelleMain(){
+int Jeu::nouvelleMain(){
 
     std::vector<Joueur> joueurRestant;
 
@@ -498,16 +493,17 @@ void Jeu::nouvelleMain(){
         }
     }
 
+    int retour;
     if(joueurRestant.size() != 1){
 
         if(Evaluateur::comparerMains(this->getTable(), this->getJoueur(0).getMain(), this->getJoueur(1).getMain()) == GAGNE){
-            std::cout << "Humain gagne " << std::endl;
             this->getJoueur(0).ajouteJetons(this->getPot());
+            retour = GAGNE;
         }else if(Evaluateur::comparerMains(this->getTable(), this->getJoueur(0).getMain(), this->getJoueur(1).getMain()) == PERDU){
-            std::cout << "IA gagne " << std::endl;
             this->getJoueur(1).ajouteJetons(this->getPot());
+            retour = PERDU;
         }else{
-            std::cout << "Egalite " << std::endl;
+            retour = EGALITE;
             if(this->getPot() % 2 == 0){
                 this->getJoueur(0).ajouteJetons(this->getPot() / 2 );
                 this->getJoueur(1).ajouteJetons(this->getPot() / 2 );
@@ -533,7 +529,8 @@ void Jeu::nouvelleMain(){
 	this->getJoueur(this->dealer).changeDealer();
 	this->dealer = (this->dealer + 1) % this->positionnement.size();
 	this->getJoueur(this->dealer).changeDealer();
-	
+
+    return retour;
 }
 
 
