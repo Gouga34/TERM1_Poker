@@ -187,4 +187,20 @@ namespace AGRESSIVITE{
 }
 
 
+// Etapes de jeu
+enum ETAPE_JEU { PREFLOP, FLOP, TURN, RIVER, NB_ETAPES };
+
+const std::string nomEtapes[NB_ETAPES] = {"preflop", "flop", "turn", "river" };
+
+
+// Profils de l'adversaire
+/**
+ * Rationnel Agressif (RA)
+ * Rationnel Passif (RP)
+ * Bluffeur Agressif (BA)
+ * Bluffeur Passif (BP)
+ */
+enum PROFIL_JOUEUR { RA, RP, BA, BP, NB_PROFILS };
+
+
 #endif // CONSTANTES_H

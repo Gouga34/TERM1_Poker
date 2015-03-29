@@ -16,9 +16,6 @@ Specification: Fichier contenant les définitions de la classe Profilage.
 #include <QJsonArray>
 
 
-const QString Profilage::etapes[] = {"preflop", "flop", "turn", "river" };
-
-
 Profilage::Profilage(std::string joueur)
     : nomJoueur(joueur), typeJoueur{0}, partieGagnee(false),
       profil{{false, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}}
@@ -45,10 +42,10 @@ void Profilage::charger()
     QJsonObject json(doc.object());
 
     // Type du joueur
-    typeJoueur[RA] = json["RA"].toInt();
-    typeJoueur[RP] = json["RP"].toInt();
-    typeJoueur[BA] = json["BA"].toInt();
-    typeJoueur[BP] = json["BP"].toInt();
+    typeJoueur[PROFIL_JOUEUR::RA] = json["RA"].toInt();
+    typeJoueur[PROFIL_JOUEUR::RP] = json["RP"].toInt();
+    typeJoueur[PROFIL_JOUEUR::BA] = json["BA"].toInt();
+    typeJoueur[PROFIL_JOUEUR::BP] = json["BP"].toInt();
 
 
     QJsonArray parties = json["parties"].toArray();
@@ -58,8 +55,8 @@ void Profilage::charger()
 
         partieGagnee = partie["gainIA"].toBool();
 
-        for (int i = 0; i < NB_ETAPES; i++) {
-            QString nomEtape = etapes[i];
+        for (int i = 0; i < ETAPE_JEU::NB_ETAPES; i++) {
+            QString nomEtape = QString::fromStdString(nomEtapes[i]);
             QJsonObject etape = partie[nomEtape].toObject();
 
             profil[i].couche = etape["couche"].toBool();
@@ -125,7 +122,7 @@ void Profilage::sauvegarder() const
 
    partie["gainIA"] = partieGagnee;
 
-   for (int i = 0; i < NB_ETAPES; i++) {
+   for (int i = 0; i < ETAPE_JEU::NB_ETAPES; i++) {
         QJsonObject etape;
 
         etape["couche"] = profil[i].couche;
@@ -146,7 +143,7 @@ void Profilage::sauvegarder() const
         etape["miseTotaleJoueur"] = profil[i].miseTotaleJoueur;
         etape["miseTotaleIA"] = profil[i].miseTotaleIA;
 
-        QString nomEtape = etapes[i];
+        QString nomEtape = QString::fromStdString(nomEtapes[i]);
         partie[nomEtape] = etape;
    }
 
@@ -154,10 +151,10 @@ void Profilage::sauvegarder() const
    parties.append(partie);
 
    // Ecriture du type du joueur
-   json["RA"] = typeJoueur[RA];
-   json["RP"] = typeJoueur[RP];
-   json["BA"] = typeJoueur[BA];
-   json["BP"] = typeJoueur[BP];
+   json["RA"] = typeJoueur[PROFIL_JOUEUR::RA];
+   json["RP"] = typeJoueur[PROFIL_JOUEUR::RP];
+   json["BA"] = typeJoueur[PROFIL_JOUEUR::BA];
+   json["BP"] = typeJoueur[PROFIL_JOUEUR::BP];
 
    // On modifie le QJsonObject
    json["parties"] = parties;

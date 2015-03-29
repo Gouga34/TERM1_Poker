@@ -49,6 +49,10 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
 
     QVBoxLayout *layoutLogs = new QVBoxLayout;
 
+    QLabel *titreTableauDeBord = new QLabel("Tableau de bord :");
+    titreTableauDeBord->setFixedSize(300, 50);
+    titreTableauDeBord->setStyleSheet("QLabel {color : #89DF57; text-align:center; font-weight:bold;}");
+
     logs.setReadOnly(true);
     logs.setMaximumSize(300, 300);
 
@@ -60,6 +64,7 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
     layoutLogs->setAlignment(Qt::AlignHCenter);
     layoutLogs->setSpacing(20);
 
+    layoutLogs->addWidget(titreTableauDeBord);
     layoutLogs->addWidget(&logs);
     layoutLogs->addWidget(&boutonLogs);
     layoutLogs->addWidget(&resultatPartie);
@@ -222,6 +227,7 @@ void Fenetre::ajoutLogs(QString contenu)
 
 void Fenetre::demarragePartie()
 {
+    actionEffectueeIA.clear();
     resultatPartie.setText("");
     boutonDemarrage.hide();
     layoutCartesCommunes.vider();
