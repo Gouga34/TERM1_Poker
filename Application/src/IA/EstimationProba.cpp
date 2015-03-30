@@ -1,4 +1,4 @@
-#include "../../include/Jeu/EstimationProba.h"
+#include "../../include/IA/EstimationProba.h"
 #include "../../include/Jeu/Carte.h"
 
 #include <string>

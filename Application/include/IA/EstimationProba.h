@@ -1,8 +1,8 @@
 #ifndef EstimationProba_h
 #define EstimationProba_h
 
-#include "Jeu.h"
-#include "Joueur.h"
+#include "../Jeu/Jeu.h"
+#include "../Jeu/Joueur.h"
 #include "../Evaluateur/Evaluateur.h"
 
 class EstimationProba{
