@@ -34,6 +34,7 @@ class Jeu{
         int                                 dealer;
         double                              agressiviteIA;
         double                              rationaliteIA;
+        ETAPE_JEU                           etape;
 
 		
 	//Constructeur et destructeur
@@ -152,6 +153,12 @@ class Jeu{
         *@param : Le pseudo choisi par le joueur
         **/
         void setPseudo(std::string pseudo);
+
+        /**
+        *@action : Permet d'obtenir l'etape courante
+        *@return : L'etape courante
+        **/
+        ETAPE_JEU getEtape() const;
 
 
 	
@@ -314,11 +321,10 @@ class Jeu{
 		void affectationCarte(std::vector<int> listeId);
 
         /**
-        *@action  : Fini de remplir le tableau de profilage en fonction des chance de gain du joueur
-        *@param   : Un vecteur d'entier correspondant a la liste des cartes du joueur
-        *@param   : Un vecteur d'entier correspondant a la liste des cartes communes
+        *@action  : Rempli le tableau de profilage du joueur
+        *@param   : Le profil du joueur
         **/
-        void remplissageTableau(std::vector<Carte> mainJoueur, std::vector<Carte> table);
+        void remplissageTableau(Profilage &profil);
 };
 
 #endif
