@@ -1,5 +1,5 @@
-#include "../../include/Jeu/IntelligenceArtificielle.h"
-#include "../../include/Jeu/EstimationProba.h"
+#include "../../include/IA/IntelligenceArtificielle.h"
+#include "../../include/IA/EstimationProba.h"
 #include <sstream> 
 
 IntelligenceArtificielle::IntelligenceArtificielle(bool estDealer, int jetons, int position): Joueur(estDealer, jetons, position){
