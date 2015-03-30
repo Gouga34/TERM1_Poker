@@ -15,7 +15,6 @@ SOURCES += \
     src/Interface/ChoixOptionsDialog.cpp \
     src/Interface/CompteurJetons.cpp \
     src/Interface/Logger.cpp \
-    src/IA/Resolveur.cpp \
     src/IA/EstimationProba.cpp \
     src/IA/IntelligenceArtificielle.cpp
 
@@ -39,7 +38,6 @@ HEADERS += \
     include/Interface/ChoixOptionsDialog.h \
     include/Interface/CompteurJetons.h \
     include/Interface/Logger.h \
-    include/IA/Resolveur.h \
     include/IA/EstimationProba.h \
     include/IA/IntelligenceArtificielle.h
 

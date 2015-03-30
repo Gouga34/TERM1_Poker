@@ -34,7 +34,7 @@ class Profilage
 
             /* Type du joueur (somme des taux = 100%) */
             double tauxAgressivite;         // Agressivité du joueur (mise la plus haute, mise totale, nb checks)
-            double tauxRationnalite;        // Rationnalite du joueur (mise totale, s'est couché ?)
+            double tauxRationnalite;        // Rationalite du joueur (mise totale, s'est couché ?)
             double tauxBluff;               // Bluff du joueur (mise totale, s'est couché ?)
             double tauxPassivite;           // Passivite du joueur (suivis, checks)
 
@@ -52,6 +52,14 @@ class Profilage
         bool partieGagnee;              // vrai si l'IA a gagné la partie
 
         Profil profil[ETAPE_JEU::NB_ETAPES];
+
+        double agressiviteGlobale;
+        double bluffGlobal;
+        double rationaliteGlobale;
+        double passiviteGlobale;
+
+        double rationaliteIA;
+        double agressiviteIA;
 
 
 

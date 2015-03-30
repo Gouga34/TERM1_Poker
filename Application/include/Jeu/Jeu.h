@@ -9,11 +9,11 @@
 #include "Carte.h"
 #include "Joueur.h"
 #include "../Constantes.h"
-#include "IntelligenceArtificielle.h"
+#include "../IA/IntelligenceArtificielle.h"
 #include "../Evaluateur/Evaluateur.h"
 #include "../Profilage/CalculDonneesProfilage.h"
 #include "../Profilage/Profilage.h"
-#include "EstimationProba.h"
+#include "../IA/EstimationProba.h"
 
 class Joueur;
 class IntelligenceArtificielle;
