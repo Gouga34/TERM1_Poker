@@ -53,6 +53,11 @@ class Profilage
 
         Profil profil[ETAPE_JEU::NB_ETAPES];
 
+        double agressiviteGlobale;
+        double bluffGlobal;
+        double rationaliteGlobale;
+        double passiviteGlobale;
+
 
 
         Profilage(std::string joueur);

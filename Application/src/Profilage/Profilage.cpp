@@ -18,7 +18,8 @@ Specification: Fichier contenant les définitions de la classe Profilage.
 
 Profilage::Profilage(std::string joueur)
     : nomJoueur(joueur), typeJoueur{0}, partieGagnee(false),
-      profil{{false, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}}
+      profil{{false, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}},
+      agressiviteGlobale(0), bluffGlobal(0), rationaliteGlobale(0), passiviteGlobale(0)
 {
 
 }
@@ -77,6 +78,13 @@ void Profilage::charger()
             profil[i].miseTotaleJoueur = etape["miseTotaleJoueur"].toDouble();
             profil[i].miseTotaleIA = etape["miseTotaleIA"].toDouble();
         }
+
+        QJsonObject global = partie["global"].toObject();
+
+        agressiviteGlobale = global["agressivité"].toDouble();
+        bluffGlobal = global["bluff"].toDouble();
+        rationaliteGlobale = global["rationnalite"].toDouble();
+        passiviteGlobale = global["passivite"].toDouble();
     }
 
     fichier.close();
@@ -147,6 +155,15 @@ void Profilage::sauvegarder() const
         partie[nomEtape] = etape;
    }
 
+   QJsonObject global;
+
+   global["agressivité"] = agressiviteGlobale;
+   global["bluff"] = bluffGlobal;
+   global["rationaliteGlobale"] = rationaliteGlobale;
+   global["passivite"] = passiviteGlobale;
+
+   partie["global"] = global;
+
    // Ajout de la partie courante à la liste de parties enregistrées
    parties.append(partie);
 
@@ -174,7 +191,7 @@ void Profilage::sauvegarder() const
 
 void Profilage::clear(){
 
-    for(int etape=0; etape<4;etape++){
+    for(int etape=0; etape<ETAPE_JEU::NB_ETAPES;etape++){
 
         this->profil[etape].couche  = false;
         this->profil[etape].probaGainAdversaire = 0;
@@ -193,6 +210,13 @@ void Profilage::clear(){
         this->profil[etape].miseTotaleJoueur = 0;
         this->profil[etape].miseTotaleIA = 0;
     }
+
+    this->partieGagnee = false;
+
+    this->agressiviteGlobale = 0;
+    this->bluffGlobal = 0;
+    this->rationaliteGlobale = 0;
+    this->passiviteGlobale = 0;
 }
 
 void Profilage::correction(ETAPE_JEU etape){
