@@ -171,3 +171,46 @@ void Profilage::sauvegarder() const
 
    fichier.close();
 }
+
+void Profilage::clear(){
+
+    for(int etape=0; etape<4;etape++){
+
+        this->profil[etape].couche  = false;
+        this->profil[etape].probaGainAdversaire = 0;
+        this->profil[etape].pot = 0;
+
+        this->profil[etape].tauxAgressivite = 0;
+        this-> profil[etape].tauxRationnalite = 0;
+        this-> profil[etape].tauxBluff = 0;
+        this->profil[etape].tauxPassivite = 0;
+
+        this->profil[etape].tauxSuivis = 0;
+        this->profil[etape].tauxChecks = 0;
+        this->profil[etape].tauxMises = 0;
+
+        this->profil[etape].misePlusHaute = 0;
+        this->profil[etape].miseTotaleJoueur = 0;
+        this->profil[etape].miseTotaleIA = 0;
+    }
+}
+
+void Profilage::correction(ETAPE_JEU etape){
+
+    if(this->profil[etape].tauxPassivite < 0){
+        this->profil[etape].tauxPassivite = 0;
+    }
+
+    if(this->profil[etape].tauxSuivis < 0){
+        this->profil[etape].tauxSuivis = 0;
+    }
+
+    if(this->profil[etape].tauxChecks < 0){
+        this->profil[etape].tauxChecks = 0;
+    }
+
+    if(this->profil[etape].tauxMises < 0){
+        this->profil[etape].tauxMises = 0;
+    }
+
+}

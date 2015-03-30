@@ -68,6 +68,17 @@ class Profilage
          */
         void sauvegarder() const;
 
+        /**
+        * @action : Vide le tableau
+        */
+        void clear();
+
+        /**
+        * @action : Supprime les valeurs negatives du tableau
+        * @param  : L'etape a verifier
+        */
+        void correction(ETAPE_JEU etape);
+
 };
 
 #endif // PROFILAGE_H

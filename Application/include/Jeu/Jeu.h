@@ -35,7 +35,7 @@ class Jeu{
         double                              agressiviteIA;
         double                              rationaliteIA;
         ETAPE_JEU                           etape;
-
+        std::vector<Carte>                  tableTmp;
 		
 	//Constructeur et destructeur
 	public:

@@ -69,11 +69,17 @@ void Jeu::distributionFlop(){
 	}
 	
 	this->resetActions();
-	for(int i=0; i<3; i++){
-        if(this->table.size() < 3){
-            position = rand() % deck.size();
-            this->table.push_back(this->deck.at(position) );
-            this->deck.erase(this->deck.begin() + position);
+
+    if(this->tableTmp.empty()){
+        for(int i=0; i<3; i++){
+                position = rand() % deck.size();
+                this->table.push_back(this->deck.at(position) );
+                this->deck.erase(this->deck.begin() + position);
+        }
+    }else{
+        for(int i=0; i<3; i++){
+                this->table.push_back(this->tableTmp.at(0));
+                this->tableTmp.erase(this->tableTmp.begin());
         }
     }
 
@@ -95,10 +101,13 @@ void Jeu::distributionTurn(){
 	
 	this->resetActions();
 
-    if(this->table.size() < 4){
+    if(this->tableTmp.empty()){
         position = rand() % deck.size();
         this->table.push_back(this->deck.at(position) );
         this->deck.erase(this->deck.begin() + position);
+    }else{
+        this->table.push_back(this->tableTmp.at(0));
+        this->deck.erase(this->tableTmp.erase(this->tableTmp.begin()));
     }
 
     this->etape = ETAPE_JEU::TURN;
@@ -119,10 +128,13 @@ void Jeu::distributionRiver(){
 	
 	this->resetActions();
 
-    if(this->table.size() < 5){
+    if(this->tableTmp.empty()){
         position = rand() % deck.size();
         this->table.push_back(this->deck.at(position) );
         this->deck.erase(this->deck.begin() + position);
+    }else{
+        this->table.push_back(this->tableTmp.at(0));
+        this->deck.erase(this->tableTmp.erase(this->tableTmp.begin()));
     }
 
     this->etape = ETAPE_JEU::RIVER;
@@ -374,6 +386,8 @@ void Jeu::remplissageTableau(Profilage &profilJoueur){
 
     profilJoueur.profil[this->getEtape()].pot = this->getPot();
 
+    profilJoueur.correction(this->getEtape());
+
 }
 
 bool Jeu::prochainJoueur(){
@@ -387,6 +401,7 @@ bool Jeu::prochainJoueur(){
         this->remplissageTableau(*profilJoueur);
 
         profilJoueur->sauvegarder();
+        profilJoueur->clear();
         this->etape = ETAPE_JEU::PREFLOP;
 
         return false;
@@ -452,7 +467,6 @@ void Jeu::setRationaliteIA(double rationalite){
     this->rationaliteIA = rationalite;
 }
 
-
 int Jeu::getMise(){
 	return this->mise;
 }
@@ -489,6 +503,19 @@ int Jeu::nouvelleMain(){
         }
     }else{
         this->getJoueur(joueurRestant.at(0).getPosition()).ajouteJetons(this->getPot());
+
+        Profilage *profilJoueur = this->getJoueur(0).getProfil();
+
+        this->remplissageTableau(*profilJoueur);
+
+        if(joueurRestant.at(0).getPosition() == 1){
+            profilJoueur->profil[this->getEtape()].couche = true;
+        }
+
+         profilJoueur->correction(this->getEtape());
+         profilJoueur->sauvegarder();
+         profilJoueur->clear();
+
     }
 
 	this->setPot(0);
@@ -503,6 +530,8 @@ int Jeu::nouvelleMain(){
 	this->getJoueur(this->dealer).changeDealer();
 	this->dealer = (this->dealer + 1) % this->positionnement.size();
 	this->getJoueur(this->dealer).changeDealer();
+
+    this->etape = ETAPE_JEU::PREFLOP;
 
     return retour;
 }
@@ -566,22 +595,22 @@ void Jeu::affectationCarte(std::vector<int> listeId){
 
     int pos = 0;
 
-    for(int i=0; i< (int) listeId.size(); i++){
+    for(int i=0; i< 9; i++){
 
         if(listeId.at(i) != -1){
             pos = 0;
             for(Carte carte : this->getDeck()){
                 if(carte.getId() == listeId.at(i)){
                     if(i<2){
-                        this->positionnement.at(1).ajouteCarte(this->deck.at(pos));
-                        this->deck.erase(this->deck.begin() + pos);
-                        pos--;
-                    }else if (i<4){
                         this->positionnement.at(0).ajouteCarte(this->deck.at(pos));
                         this->deck.erase(this->deck.begin() + pos);
                         pos--;
+                    }else if (i<4){
+                        this->positionnement.at(1).ajouteCarte(this->deck.at(pos));
+                        this->deck.erase(this->deck.begin() + pos);
+                        pos--;
                     }else{
-                        this->table.push_back(this->deck.at(pos));
+                        this->tableTmp.push_back(this->deck.at(pos));
                         this->deck.erase(this->deck.begin() + pos);
                         pos--;
                     }
