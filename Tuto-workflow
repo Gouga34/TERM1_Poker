@@ -1,0 +1,41 @@
+-----------------------------------------
+Aide mémoire commandes
+----------------------
+
+git status              // Etat du dépot
+git log -[x]            // Voir les x derniers commits (ex : git log -3) pour savoir où en est la branche
+git branch              // Liste des branches
+
+git checkout -b new-branche branche-mere          // Créer une nouvelle branche
+git chechout branche                              // Se déplacer sur une branche 
+git branch -d ma-branche                          // Supprimer une branche (il ne faut pas être dessus)
+git branch -D ma-branche                          // Forcer la suppression
+
+-------------------------------------------
+
+==============
+    Tuto
+==============
+
+// On est sur develop
+
+git checkout -b new-branche develop
+
+(Commit(s) ... )
+
+git checkout develop
+Maj (pull ou fetch/merge de develop)
+
+// Maj nouvelle branche avec les "commits loupés"
+git checkout new-branche
+git rebase develop
+
+// On intègre les modifs à develop
+git checkout develop
+git merge new-branche
+git push origin develop
+
+// Supprimer branche si plus utile 
+git branch -d new-branch
+
+
