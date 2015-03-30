@@ -19,7 +19,7 @@ class Joueur{
         int                 position;
         int                 misePlusHauteJoueur;
         int                 miseTotaleJoueur;
-        Profilage*           profilJoueur;
+        Profilage*          profilJoueur;
 
 		
 	//Constructeur et destructeur
