@@ -1,8 +1,8 @@
 #ifndef IntelligenceArtificielle_h
 #define IntelligenceArtificielle_h
 
-#include "Joueur.h"
-#include "Jeu.h"
+#include "../Jeu/Joueur.h"
+#include "../Jeu/Jeu.h"
 #include <vector>
 #include <iostream>
 #include <fstream>
