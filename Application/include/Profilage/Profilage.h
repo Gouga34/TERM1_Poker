@@ -13,6 +13,7 @@ Specification: Classe contenant l'écriture et la lecture
 
 #include <string>
 #include <QString>
+#include "../Constantes.h"
 
 class Profilage
 {
@@ -22,21 +23,7 @@ class Profilage
 
     public:
 
-        // Etapes de jeu
-        enum { PREFLOP, FLOP, TURN, RIVER, NB_ETAPES };
-
-        // Profils de l'adversaire
-        /**
-         * Rationnel Agressif (RA)
-         * Rationnel Passif (RP)
-         * Bluffeur Agressif (BA)
-         * Bluffeur Passif (BP)
-         */
-        enum { RA, RP, BA, BP, NB_PROFILS };
-
-        static const QString etapes[NB_ETAPES];
-
-        int typeJoueur[NB_PROFILS];
+        int typeJoueur[PROFIL_JOUEUR::NB_PROFILS];
 
         struct Profil
         {
@@ -64,7 +51,7 @@ class Profilage
 
         bool partieGagnee;              // vrai si l'IA a gagné la partie
 
-        Profil profil[NB_ETAPES];
+        Profil profil[ETAPE_JEU::NB_ETAPES];
 
 
 
