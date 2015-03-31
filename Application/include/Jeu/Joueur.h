@@ -17,6 +17,7 @@ class Joueur{
         int                 cave;
         Jeu*                jeu;
         int                 position;
+        int                 miseCourante;
         int                 misePlusHaute;
         int                 miseTotale;
         double              chancesGain;
@@ -82,12 +83,24 @@ class Joueur{
 		*@return : La position du joueur
 		**/
 		int			getPosition() const;
+
+        /**
+         * @action Permet d'obtenir la mise courante du joueur
+         * @return Mise courante du joueur
+         */
+        int         getMiseCourante() const;
+
+        /**
+         * @action Modifie la mise du joueur
+         * @param jetons Mise du joueur
+         */
+        void        setMiseCourante(int jetons);
 		
 		/**
 		*@action : Permet d'obtenir la mise du joueur
 		*@return : La mise du joueur
 		**/		
-        int			getMisePlusHaute();
+        int			getMisePlusHaute() const;
 		
 		/**
 		*@action : Modifie la mise du joueur

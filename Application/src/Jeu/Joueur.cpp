@@ -5,6 +5,7 @@ Joueur::Joueur(bool estDealer, int jetons, int position){
 	this->dealer = estDealer;
 	this->cave = jetons;
 	this->position = position;
+    this->miseCourante = 0;
     this->misePlusHaute = 0;
     this->compteurActions = new int[3];
     for(int i =0; i<3;i++){
@@ -99,7 +100,15 @@ void Joueur::changeDealer(){
 	}
 }
 
-int Joueur::getMisePlusHaute(){
+int Joueur::getMiseCourante() const{
+    return this->miseCourante;
+}
+
+void Joueur::setMiseCourante(int jetons){
+    this->miseCourante = jetons;
+}
+
+int Joueur::getMisePlusHaute() const{
     return this->misePlusHaute;
 }
 
