@@ -156,24 +156,32 @@ pair<ACTION,int> Resolveur::calculerActionRationalite(){
             action=ACTION::SE_COUCHER;
         }
         else if(ia->getMiseTotale()<jetonsMiseTheorique){
-            int jetonsAMiserRationalite=jetonsMiseTheorique;
+            int jetonsAMiserRationalite=jetonsMiseTheorique-ia->getMiseTotale();
 
             if(ia->getJeu()->peutMiser(ia->getPosition(),jetonsAMiserRationalite)){ //Si on peut miser
                 action=ACTION::MISER;
                 jetonsAMiser=jetonsAMiserRationalite;
             }
 
+            //Si on peut Relancer, on relance
             else if(ia->getJeu()->peutRelancer(ia->getPosition(),2*ia->getJeu()->getMiseCourante()) ){
-                //Si on peut Relancer, on relance
                 action=ACTION::RELANCER;
                 jetonsAMiser=calculerMiseRationalite(action);
             }
-            else if(ia->getJeu()->peutChecker(ia->getPosition())){
-                action=ACTION::CHECKER;
-            }
+            //Si on peut suivre, on suit
             else if(ia->getJeu()->peutSuivre(ia->getPosition())){
                 action=ACTION::SUIVRE;
             }
+            //Si on peut checker on checke
+            else if(ia->getJeu()->peutChecker(ia->getPosition())){
+                action=ACTION::CHECKER;
+            }
+        }
+        else if(ia->getJeu()->peutChecker(ia->getPosition())){
+            action=ACTION::CHECKER;
+        }
+        else if(ia->getJeu()->peutSuivre(ia->getPosition())){
+            action=ACTION::SUIVRE;
         }
     }
     else{ //random E [rationalite- 100]
@@ -193,10 +201,12 @@ pair<ACTION,int> Resolveur::calculerActionRationalite(){
             listeActions.push_back(ACTION::SE_COUCHER);
         }
         else if(ia->getChancesGain()<50){ //Relancer et/ou Suivre
+
             if(ia->getJeu()->peutRelancer(ia->getPosition(),2*ia->getJeu()->getMiseCourante())){
                 listeActions.push_back(ACTION::RELANCER);
             }
-            if(ia->getJeu()->peutSuivre(ia->getPosition())){
+
+            else if(ia->getJeu()->peutSuivre(ia->getPosition())){
                 listeActions.push_back(ACTION::SUIVRE);
             }
         }
@@ -247,12 +257,13 @@ pair<ACTION,int> Resolveur::calculerActionRationalite(){
             if(action==ACTION::RELANCER){
                 jetonsAMiser=2*ia->getJeu()->getMiseCourante();
             }
-            if(action==ACTION::SUIVRE){
+            else if(action==ACTION::SUIVRE){
                 jetonsAMiser=ia->getJeu()->getMiseCourante();
             }
         }
 
     }
+
 
     return make_pair(action,jetonsAMiser);
 }
