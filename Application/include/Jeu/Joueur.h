@@ -87,13 +87,13 @@ class Joueur{
 		*@action : Permet d'obtenir la mise du joueur
 		*@return : La mise du joueur
 		**/		
-        int			getmisePlusHaute();
+        int			getMisePlusHaute();
 		
 		/**
 		*@action : Modifie la mise du joueur
 		*@param :  La nouvelle mise
 		**/		
-        void			setmisePlusHaute(int jetons);
+        void			setMisePlusHaute(int jetons);
 
 
         /**
@@ -106,13 +106,13 @@ class Joueur{
         *@action : Permet d'obtenir combien a miser au total le joueur pendant l'etape
         *@return : La somme totale misee par le joueur
         **/
-        int             getmiseTotale();
+        int             getMiseTotale();
 
         /**
         *@action : Permet d''affecter combien a miser au total le joueur pendant l'etape
         *@param : La somme totale misee par le joueur
         **/
-        void             setmiseTotale(int miseTotale);
+        void             setMiseTotale(int miseTotale);
 
         /**
         *@action : Permet d'obtenir le profil du joueur
