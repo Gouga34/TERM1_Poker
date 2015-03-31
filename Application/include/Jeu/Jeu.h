@@ -22,7 +22,7 @@ class Jeu{
 
 	//Liste des attributs
 	private :
-        std::vector<Joueur>                 positionnement;
+        std::vector<Joueur>                 listeJoueurs;
         std::vector<Carte>                  deck;
         std::vector<Carte>                  table;
         std::vector<TYPES::ACTION_LIST>	    actions;
@@ -30,7 +30,7 @@ class Jeu{
         int                                 joueurCourant;
         int                                 pot;
         int                                 nombreDeCoup;
-        int                                 mise;
+        int                                 miseCourante;
         int                                 dealer;
         double                              agressiviteIA;
         double                              rationaliteIA;
@@ -50,7 +50,7 @@ class Jeu{
 		**/
 		~Jeu();
 		
-	//Accesseur
+    //Accesseurs
 	
 		/**
 		*@action : Permet d'obtenir le montant de la petite blind
@@ -163,26 +163,17 @@ class Jeu{
 
 	
 	//Methodes	
-	//private:
+
 		/**
 		*@action : Distribue a chaque joueur ses cartes
 		**/
 		void distributionMain();
 		
-		/**
-		*@action : Distribue les trois premieres carte commune : le Flop, tirees aleatoirement dans le deck
-		**/
-		void distributionFlop();
-		
-		/**
-		*@action : Distribue la quatrieme carte : le Turn, tiree aleatoirement dans le deck
-		**/
-		void distributionTurn();
-		
-		/**
-		*@action : Distribue la cinquieme carte : la River, tiree aleatoirement dans le deck
-		**/
-		void distributionRiver();
+        /**
+         * @action Distribue les nouvelles cartes de l'étape passée en paramètre
+         * @param etape Nouvelle étape courante
+         */
+        void nouvelleEtape(ETAPE_JEU etape);
 		
 		/**
 		*@action : Distribue les blinds en debut de partie
@@ -221,17 +212,17 @@ class Jeu{
 
 		/**
 		*@action : Permet de savoir si le joueur a la possibilite de relancer
-		*@param  : la position du joueur dont on veut savoir s'il peut relancer
+        *@param  : la position du joueur dont on veut savoir s'il peut relancer et montant de la relance
 		*@return : vrai si le joueur peut relancer, faux sinon
 		**/
-		bool peutRelancer(int posJoueur);
+        bool peutRelancer(int posJoueur, int jetons);
 
 		/**
 		*@action : Permet de savoir si le joueur a la possibilite de miser
-		*@param  : la position du joueur dont on veut savoir s'il peut miser
+        *@param  : la position du joueur dont on veut savoir s'il peut miser et montant de la mise
 		*@return : vrai si le joueur peut miser, faux sinon
 		**/
-		bool peutMiser(int posJoueur);
+        bool peutMiser(int posJoueur, int jetons);
 
 
 		/**
@@ -245,46 +236,40 @@ class Jeu{
 		/**
 		*@action : Commande permettant a un joueur de miser
 		*@param  : La position du joueur effectuant l'action ainsi que le montant de la mise
-		*@return : Retourne vrai si l'action est possible, faux sinon
 		**/
-		bool miser(int posJoueur, int jetons);
+        void miser(int posJoueur, int jetons);
 		
 		/**
 		*@action : Commande permettant a un joueur de relancer
 		*@param  : La position du joueur effectuant l'action ainsi que le montant de la relance
-		*@return : Retourne vrai si l'action est possible, faux sinon
 		**/
-		bool relancer(int posJoueur, int jetons);
+        void relancer(int posJoueur, int jetons);
 		
 		/**
 		*@action : Commande permettant a un joueur de faire "tapis"
 		*@param  : La position du joueur effectuant l'action
-		*@return : Retourne vrai si l'action est possible, faux sinon
 		**/
-		bool tapis(int posJoueur);
+        void tapis(int posJoueur);
 		
 		/**
 		*@action : Commande permettant a un joueur de suivre
-		*@param  : La position du joueur effectuant l'action
-		*@return : Retourne vrai si l'action est possible, faux sinon
+        *@param  : La position du joueur effectuant l'action
 		**/
-		bool suivre(int posJoueur);
+        void suivre(int posJoueur);
 		
 		/**
 		*@action : Commande permettant a un joueur de checker
 		*@param  : La position du joueur effectuant l'action
-		*@return : Retourne vrai si l'action est possible, faux sinon
 		**/
-		bool checker(int posJoueur);
+        void checker(int posJoueur);
 		
 		/**
 		*@action : Commande permettant a un joueur de se coucher
 		*@param  : Le joueur effectuant l'action
-		*@return : Retourne vrai si l'action est possible, faux sinon
 		**/
-       		bool seCoucher(int posJoueur);
+        void seCoucher(int posJoueur);
        		
-       		/**
+        /**
 		*@action  : Affecte le joueur suivant en tant que joueur courant et renvoi vrai s'il existe
 		*@return : vrai s'il y a un joueur suivant, faux sinon
 		**/

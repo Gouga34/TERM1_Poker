@@ -407,7 +407,9 @@ void Fenetre::prochainJoueur()
 
 void Fenetre::checker()
 {
-    jeu->checker(0);
+    if (jeu->peutChecker(0)) {
+        jeu->checker(0);
+    }
 
     Logger::getInstance()->ajoutLogs("Joueur 1 check");
 
@@ -418,7 +420,9 @@ void Fenetre::miser()
 {
     int montant = valeurMise.value();
 
-    jeu->miser(0, montant);
+    if (jeu->peutMiser(0, montant)) {
+        jeu->miser(0, montant);
+    }
 
     caveJoueur.display(jeu->getJoueur(0).getCave());
     pot.display(jeu->getPot());
@@ -430,7 +434,9 @@ void Fenetre::miser()
 
 void Fenetre::suivre()
 {
-    jeu->suivre(0);
+    if (jeu->peutSuivre(0)) {
+        jeu->suivre(0);
+    }
 
     caveJoueur.display(jeu->getJoueur(0).getCave());
     pot.display(jeu->getPot());
@@ -448,7 +454,9 @@ void Fenetre::relancer()
 {
     int montant = valeurMise.value();
 
-    jeu->relancer(0, montant);
+    if (jeu->peutRelancer(0, montant)) {
+        jeu->relancer(0, montant);
+    }
 
     caveJoueur.display(jeu->getJoueur(0).getCave());
     pot.display(jeu->getPot());
