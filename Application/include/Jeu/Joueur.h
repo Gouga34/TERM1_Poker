@@ -17,9 +17,10 @@ class Joueur{
         int                 cave;
         Jeu*                jeu;
         int                 position;
-        int                 misePlusHauteJoueur;
-        int                 miseTotaleJoueur;
-        Profilage*          profilJoueur;
+        int                 misePlusHaute;
+        int                 miseTotale;
+        double              chancesGain;
+        Profilage*          profil;
 
 		
 	//Constructeur et destructeur
@@ -40,6 +41,18 @@ class Joueur{
 		
 	//Accesseur
 	
+        /**
+         * @brief getChancesGain
+         * @return les chances de gain du joueur
+         */
+        double getChancesGain()const;
+
+        /**
+         * @brief setChancesGain
+         * @param nvChancesGain les nouvelles chances de gain du joueur
+         */
+        void setChancesGain(double nvChancesGain);
+
 		/**
 		*@action : Permet d'obtenir le nombre de jeton dont dispose un joueur
 		*@return : La cave d'un joueur
@@ -74,13 +87,13 @@ class Joueur{
 		*@action : Permet d'obtenir la mise du joueur
 		*@return : La mise du joueur
 		**/		
-        int			getMisePlusHauteJoueur();
+        int			getmisePlusHaute();
 		
 		/**
 		*@action : Modifie la mise du joueur
 		*@param :  La nouvelle mise
 		**/		
-        void			setMisePlusHauteJoueur(int jetons);
+        void			setmisePlusHaute(int jetons);
 
 
         /**
@@ -93,13 +106,13 @@ class Joueur{
         *@action : Permet d'obtenir combien a miser au total le joueur pendant l'etape
         *@return : La somme totale misee par le joueur
         **/
-        int             getMiseTotaleJoueur();
+        int             getmiseTotale();
 
         /**
         *@action : Permet d''affecter combien a miser au total le joueur pendant l'etape
         *@param : La somme totale misee par le joueur
         **/
-        void             setMiseTotaleJoueur(int miseTotale);
+        void             setmiseTotale(int miseTotale);
 
         /**
         *@action : Permet d'obtenir le profil du joueur

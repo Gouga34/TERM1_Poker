@@ -17,6 +17,14 @@ Joueur::~Joueur(){
 
 }
 
+double Joueur::getChancesGain() const{
+    return chancesGain;
+}
+
+void Joueur::setChancesGain(double nvChancesGain){
+    chancesGain=nvChancesGain;
+}
+
 int Joueur::getCave() const{
 	return this->cave;
 }
@@ -113,12 +121,12 @@ int* Joueur::getCompteurActions(){
     return this->compteurActions;
 }
 
-int Joueur::getMiseTotaleJoueur(){
-    return this->miseTotaleJoueur;
+int Joueur::getmiseTotale(){
+    return this->miseTotale;
 }
 
-void Joueur::setMiseTotaleJoueur(int mise){
-    this->miseTotaleJoueur = mise;
+void Joueur::setmiseTotale(int mise){
+    this->miseTotale = mise;
 }
 
 Profilage* Joueur::getProfil(){
