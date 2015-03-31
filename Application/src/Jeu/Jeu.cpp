@@ -502,6 +502,12 @@ int Jeu::nouvelleMain(){
             }
         }
     }else{
+
+        if(joueurRestant.at(0).getPosition() == 0){
+            retour = GAGNE;
+        }else{
+            retour = PERDU;
+        }
         this->getJoueur(joueurRestant.at(0).getPosition()).ajouteJetons(this->getPot());
 
         Profilage *profilJoueur = this->getJoueur(0).getProfil();
