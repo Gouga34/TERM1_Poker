@@ -5,7 +5,7 @@
 #include <unordered_map>
 #include <vector>
 
-int nombreDeTest = 70000;
+
 
 double EstimationProba::estimation(Jeu* jeuCourant, Joueur* joueurCourant){
 
@@ -19,7 +19,7 @@ double EstimationProba::estimation(Jeu* jeuCourant, Joueur* joueurCourant){
 	std::unordered_map<std::string,int> listeEnsembleCarte;
 	std::unordered_map<std::string,int>::const_iterator iterateurEnsembleCarte;
 	
-	for(int t=0; t <nombreDeTest; t++){
+    for(int t=0; t <NOMBRE_DE_TESTS; t++){
 		do{
             deck.clear();
             deck= nouveauDeck(joueurCourant);
@@ -46,19 +46,20 @@ double EstimationProba::estimation(Jeu* jeuCourant, Joueur* joueurCourant){
             }
 			
 			iterateurEnsembleCarte  = listeEnsembleCarte.find (ensembleCourant);
+
 		}while( iterateurEnsembleCarte != listeEnsembleCarte.end());
 		
-		
-        if(Evaluateur::comparerMains(table,joueurCourant->getMain(), mainAdverse) == GAGNE){
+        bool comparaisonMains = Evaluateur::comparerMains(table,joueurCourant->getMain(), mainAdverse);
 
+        if(comparaisonMains==GAGNE){
 			nombreDeCoupGagner++;
 
-        }else if(Evaluateur::comparerMains(table,joueurCourant->getMain(), mainAdverse) == EGALITE){
-            nombreDeCoupGagner = nombreDeCoupGagner + 0.1;
+        }else if(comparaisonMains==EGALITE){
+            nombreDeCoupGagner = nombreDeCoupGagner;
         }
 	}
 	
-    return (double) nombreDeCoupGagner / nombreDeTest;
+    return (double) nombreDeCoupGagner / NOMBRE_DE_TESTS;
 
 }
 

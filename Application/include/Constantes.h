@@ -4,6 +4,10 @@
 #include <cstdint>
 #include <iostream>
 
+
+
+#define NOMBRE_DE_TESTS 120000
+
 /**
  * Type enum Cutilise pour definir la couleur des cartes
  */

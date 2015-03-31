@@ -116,13 +116,13 @@ int Resolveur::calculerMiseAgressivite(ACTION action){
         int maxPalierAgressivite;
 
         if(agressivite < AGRESSIVITE::PALIER1::FIN_AG_THEORIQUE){
-            maxPalierAgressivite=AGRESSIVITE::PALIER1::FIN_AG_THEORIQUE;
+            maxPalierAgressivite=AGRESSIVITE::PALIER1::FIN_MPH;
         }
         else if(agressivite<AGRESSIVITE::PALIER2::FIN_AG_THEORIQUE){
-            maxPalierAgressivite=AGRESSIVITE::PALIER2::FIN_AG_THEORIQUE;
+            maxPalierAgressivite=AGRESSIVITE::PALIER2::FIN_MPH;
         }
         else if(agressivite<AGRESSIVITE::PALIER3::FIN_AG_THEORIQUE){
-            maxPalierAgressivite=AGRESSIVITE::PALIER3::FIN_AG_THEORIQUE;
+            maxPalierAgressivite=AGRESSIVITE::PALIER3::FIN_MPH;
         }
         else{ //tapis
             maxPalierAgressivite=100;

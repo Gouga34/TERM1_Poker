@@ -1,16 +1,28 @@
 #include "../../include/IA/IntelligenceArtificielle.h"
 #include "../../include/IA/EstimationProba.h"
+#include "../../include/Interface/Logger.h"
 #include <sstream> 
+#include <string>
 
 using namespace std;
 
 IntelligenceArtificielle::IntelligenceArtificielle(bool estDealer, int jetons, int position)
     :Joueur(estDealer, jetons, position){
     resolveur = new Resolveur(this);
+    agressivite = this->getJeu()->getAgressiviteIA();
+    rationalite = this->getJeu()->getRationaliteIA();
+
 }
 
 IntelligenceArtificielle::IntelligenceArtificielle(Joueur joueur): Joueur(joueur){
     resolveur = new Resolveur(this);
+    agressivite = this->getJeu()->getAgressiviteIA();
+    rationalite = this->getJeu()->getRationaliteIA();
+    string ration="rationalite : "+to_string(rationalite);
+    string agress="agressivite : "+to_string(agressivite);
+    Logger::getInstance()->ajoutLogs(ration);
+    Logger::getInstance()->ajoutLogs(agress);
+    //cout<<ration<<endl<<agress<<endl;
 }
 
 IntelligenceArtificielle::~IntelligenceArtificielle(){
@@ -109,8 +121,8 @@ void IntelligenceArtificielle::jouer(){
     double estimation = 100 * EstimationProba::estimation(this->getJeu(), &this->getJeu()->getJoueur(this->getPosition()));
     setChancesGain(estimation);
 
-    agressivite = this->getJeu()->getAgressiviteIA();
-    rationalite = this->getJeu()->getRationaliteIA();
+    string chances="Chances Gain IA : "+to_string(estimation);
+    Logger::getInstance()->ajoutLogs(chances);
 
     resolveur->setAgressivite(agressivite);
     resolveur->setRationalite(rationalite);
