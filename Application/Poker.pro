@@ -16,7 +16,8 @@ SOURCES += \
     src/Interface/CompteurJetons.cpp \
     src/Interface/Logger.cpp \
     src/IA/EstimationProba.cpp \
-    src/IA/IntelligenceArtificielle.cpp
+    src/IA/IntelligenceArtificielle.cpp \
+    src/IA/Resolveur.cpp
 
 
 QT+=widgets
@@ -39,7 +40,8 @@ HEADERS += \
     include/Interface/CompteurJetons.h \
     include/Interface/Logger.h \
     include/IA/EstimationProba.h \
-    include/IA/IntelligenceArtificielle.h
+    include/IA/IntelligenceArtificielle.h \
+    include/IA/Resolveur.h
 
 CONFIG += c++11
 

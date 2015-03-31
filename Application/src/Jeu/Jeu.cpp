@@ -2,7 +2,7 @@
 
 #include <iterator>
 
-Jeu::Jeu(int nbJoueur, int blindDepart, int cave, double agressivite, double rationalite) : actions(nbJoueur,TYPES::ACTION_LIST::EN_ATTENTE){
+Jeu::Jeu(int nbJoueur, int blindDepart, int cave, double agressivite, double rationalite) : actions(nbJoueur,ACTION::EN_ATTENTE){
 	srand((unsigned)time(0));
 	this->initialisationTable(nbJoueur, cave);	
 	this->deck = nouveauDeck(); 
@@ -92,10 +92,10 @@ void Jeu::nouvelleEtape(ETAPE_JEU etape){
 void Jeu::distributionBlind(){
 
     this->miser((this->getDealer() + 1) % this->listeJoueurs.size(), this->getBlind());
-    this->actions[(this->getDealer() + 1) % this->listeJoueurs.size()] = TYPES::ACTION_LIST::PETITE_BLIND;
+    this->actions[(this->getDealer() + 1) % this->listeJoueurs.size()] = ACTION::PETITE_BLIND;
 	
     this->relancer((this->getDealer() + 2) % this->listeJoueurs.size(),this->getBlind() );
-    this->actions[(this->getDealer() + 2) % this->listeJoueurs.size()] = TYPES::ACTION_LIST::GROSSE_BLIND;
+    this->actions[(this->getDealer() + 2) % this->listeJoueurs.size()] = ACTION::GROSSE_BLIND;
 	
     this->joueurCourant = (this->getDealer() + 3)  % this->listeJoueurs.size();
 
@@ -177,7 +177,7 @@ void Jeu::miser(int posJoueur, int jetons){
     }
 
     this->getJoueur(posJoueur).setMiseTotale(this->getJoueur(posJoueur).getMiseTotale() + jetons);
-    this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::MISER;
+    this->actions[this->getJoueur(posJoueur).getPosition()] = ACTION::MISER;
 
     this->getJoueur(posJoueur).getCompteurActions()[0]++;
 }
@@ -198,7 +198,7 @@ void Jeu::tapis(int posJoueur){
 	
     this->getJoueur(posJoueur).retireJetons(this->getJoueur(posJoueur).getCave());
 
-	this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::TAPIS;
+    this->actions[this->getJoueur(posJoueur).getPosition()] = ACTION::TAPIS;
 
     this->getJoueur(posJoueur).getCompteurActions()[0]++;
 }
@@ -221,7 +221,7 @@ void Jeu::relancer(int posJoueur, int jetons){
         this->getJoueur(posJoueur).setMisePlusHaute(jetons);
     }
 
-    this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::RELANCER;
+    this->actions[this->getJoueur(posJoueur).getPosition()] = ACTION::RELANCER;
     this->getJoueur(posJoueur).getCompteurActions()[0]++;
 }
 
@@ -233,7 +233,7 @@ void Jeu::suivre(int posJoueur){
         this->setPot(this->getPot() + (this->miseCourante - this->getJoueur(posJoueur).getMisePlusHaute()));
         this->getJoueur(posJoueur).setMiseTotale(this->getJoueur(posJoueur).getMiseTotale() + (this->miseCourante - this->getJoueur(posJoueur).getMisePlusHaute()));
         this->getJoueur(posJoueur).retireJetons(this->miseCourante - this->getJoueur(posJoueur).getMisePlusHaute());
-		this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::SUIVRE;
+        this->actions[this->getJoueur(posJoueur).getPosition()] = ACTION::SUIVRE;
         this->getJoueur(posJoueur).getCompteurActions()[1]++;
 	}
     else{      // Sinon on fait tapis
@@ -243,18 +243,18 @@ void Jeu::suivre(int posJoueur){
 
 
 void Jeu::checker(int posJoueur){
-    this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::CHECKER;
+    this->actions[this->getJoueur(posJoueur).getPosition()] = ACTION::CHECKER;
     this->getJoueur(posJoueur).getCompteurActions()[2]++;
 }
 
 void Jeu::seCoucher(int posJoueur){
-	this->actions[this->getJoueur(posJoueur).getPosition()] = TYPES::ACTION_LIST::SE_COUCHER;
+    this->actions[this->getJoueur(posJoueur).getPosition()] = ACTION::SE_COUCHER;
 }    
 
 bool Jeu::debutTour(){
 
     for(int i=0; i< (int) this->actions.size(); i++){
-        if(this->actions.at(i) != TYPES::ACTION_LIST::EN_ATTENTE){
+        if(this->actions.at(i) != ACTION::EN_ATTENTE){
             return false;
         }
     }
@@ -268,20 +268,20 @@ bool Jeu::finDuTour(){
 	int i = 1;
 
     while(  i <= (int) this->listeJoueurs.size() - 1){
-        if( this->actions.at( (this->getJoueurCourant() + i) % this->listeJoueurs.size() ) != TYPES::ACTION_LIST::CHECKER
-        &&  this->actions.at( (this->getJoueurCourant() + i) % this->listeJoueurs.size() ) != TYPES::ACTION_LIST::SUIVRE
-        &&  this->actions.at( (this->getJoueurCourant() + i) % this->listeJoueurs.size() ) != TYPES::ACTION_LIST::SE_COUCHER){
+        if( this->actions.at( (this->getJoueurCourant() + i) % this->listeJoueurs.size() ) != ACTION::CHECKER
+        &&  this->actions.at( (this->getJoueurCourant() + i) % this->listeJoueurs.size() ) != ACTION::SUIVRE
+        &&  this->actions.at( (this->getJoueurCourant() + i) % this->listeJoueurs.size() ) != ACTION::SE_COUCHER){
 			return false;
 		}
 		
 		i++;
 	}
 	
-    return (this->actions.at(this->getJoueurCourant()) != TYPES::ACTION_LIST::EN_ATTENTE && this->actions.at(this->getJoueurCourant()) != TYPES::ACTION_LIST::GROSSE_BLIND);
+    return (this->actions.at(this->getJoueurCourant()) != ACTION::EN_ATTENTE && this->actions.at(this->getJoueurCourant()) != ACTION::GROSSE_BLIND);
 }
 
 
-TYPES::ACTION_LIST Jeu::getAction() const{
+ACTION Jeu::getAction() const{
 	return this->actions.at(this->getJoueurCourant());
 }
 
@@ -352,7 +352,7 @@ bool Jeu::prochainJoueur(){
 
 void Jeu::resetActions(){
 	for(int i=0; i< (int) this->actions.size(); i++){
-        this->actions.at(i) = TYPES::ACTION_LIST::EN_ATTENTE;
+        this->actions.at(i) = ACTION::EN_ATTENTE;
         this->getJoueur(i).setMisePlusHaute(0);
         this->getJoueur(i).setMiseTotale(0);
 	}
@@ -362,7 +362,7 @@ std::vector<Carte> Jeu::getTable() const{
     return this->table;
 }
 
-std::vector<TYPES::ACTION_LIST>  Jeu::getListeActions() const{
+std::vector<ACTION>  Jeu::getListeActions() const{
     return this->actions;
 }
 
@@ -391,7 +391,7 @@ int Jeu::nouvelleMain(){
     std::vector<Joueur> joueurRestant;
 
     for(Joueur joueur : this->listeJoueurs){
-        if(this->getListeActions().at(joueur.getPosition()) != TYPES::ACTION_LIST::SE_COUCHER){
+        if(this->getListeActions().at(joueur.getPosition()) != ACTION::SE_COUCHER){
             joueurRestant.push_back(joueur);
         }
     }
@@ -461,7 +461,7 @@ int Jeu::nouvelleMain(){
 bool Jeu::peutChecker(int posJoueur){
 
 	for(int i=1; i<= (int) this->actions.size() - 1; i++){
-		if(this->actions[(posJoueur + i) % this->actions.size() ] == TYPES::ACTION_LIST::MISER || this->actions[(posJoueur + i) % this->actions.size()] == TYPES::ACTION_LIST::RELANCER || this->actions[(posJoueur + i) % this->actions.size()] == TYPES::ACTION_LIST::GROSSE_BLIND){ 
+        if(this->actions[(posJoueur + i) % this->actions.size() ] == ACTION::MISER || this->actions[(posJoueur + i) % this->actions.size()] == ACTION::RELANCER || this->actions[(posJoueur + i) % this->actions.size()] == ACTION::GROSSE_BLIND){
             return false;
 		}
 	}
@@ -473,11 +473,11 @@ bool Jeu::peutMiser(int posJoueur, int jetons){
 
     // On regarde si l'action est possible
     for(int i=1; i<= (int) this->actions.size() - 1; i++){
-        if(this->actions[(posJoueur + i) % this->actions.size() ] == TYPES::ACTION_LIST::MISER ||
-           this->actions[(posJoueur + i) % this->actions.size()] == TYPES::ACTION_LIST::RELANCER ||
-           this->actions[(posJoueur + i) % this->actions.size()] == TYPES::ACTION_LIST::GROSSE_BLIND ||
-           this->actions[(posJoueur + i) % this->actions.size()] == TYPES::ACTION_LIST::SUIVRE||
-           this->actions[(posJoueur + i) % this->actions.size()] == TYPES::ACTION_LIST::TAPIS){
+        if(this->actions[(posJoueur + i) % this->actions.size() ] == ACTION::MISER ||
+           this->actions[(posJoueur + i) % this->actions.size()] == ACTION::RELANCER ||
+           this->actions[(posJoueur + i) % this->actions.size()] == ACTION::GROSSE_BLIND ||
+           this->actions[(posJoueur + i) % this->actions.size()] == ACTION::SUIVRE||
+           this->actions[(posJoueur + i) % this->actions.size()] == ACTION::TAPIS){
             return false;
         }
     }
@@ -495,9 +495,9 @@ bool Jeu::peutRelancer(int posJoueur, int jetons){
 
     // On regarde si l'action est possible
     for(int i=1; i<= (int) this->actions.size() - 1; i++){
-        if(this->actions[(posJoueur + i) % this->actions.size() ] != TYPES::ACTION_LIST::MISER ||
-            this->actions[(posJoueur + i) % this->actions.size()] != TYPES::ACTION_LIST::RELANCER ||
-            this->actions[(posJoueur + i) % this->actions.size()] != TYPES::ACTION_LIST::GROSSE_BLIND ){
+        if(this->actions[(posJoueur + i) % this->actions.size() ] != ACTION::MISER ||
+            this->actions[(posJoueur + i) % this->actions.size()] != ACTION::RELANCER ||
+            this->actions[(posJoueur + i) % this->actions.size()] != ACTION::GROSSE_BLIND ){
                 return false;
         }
     }
@@ -513,10 +513,10 @@ bool Jeu::peutRelancer(int posJoueur, int jetons){
 bool Jeu::peutSuivre(int posJoueur){
 
     for(int i=1; i<= (int) this->actions.size() - 1; i++){
-        if(this->actions[(posJoueur + i) % this->actions.size() ] != TYPES::ACTION_LIST::MISER ||
-            this->actions[(posJoueur + i) % this->actions.size()] != TYPES::ACTION_LIST::RELANCER ||
-            this->actions[(posJoueur + i) % this->actions.size()] != TYPES::ACTION_LIST::GROSSE_BLIND ||
-            this->actions[(posJoueur + i) % this->actions.size()] != TYPES::ACTION_LIST::SUIVRE  ){
+        if(this->actions[(posJoueur + i) % this->actions.size() ] != ACTION::MISER ||
+            this->actions[(posJoueur + i) % this->actions.size()] != ACTION::RELANCER ||
+            this->actions[(posJoueur + i) % this->actions.size()] != ACTION::GROSSE_BLIND ||
+            this->actions[(posJoueur + i) % this->actions.size()] != ACTION::SUIVRE  ){
                 return false;
         }
     }
@@ -525,7 +525,7 @@ bool Jeu::peutSuivre(int posJoueur){
 }
 
 void Jeu::executerAction(int posJoueur, ACTION action, int mise){
-
+    int relance;
     switch (action) {
         case ACTION::CHECKER:
             if (peutChecker(posJoueur)) {
@@ -546,7 +546,7 @@ void Jeu::executerAction(int posJoueur, ACTION action, int mise){
             break;
 
         case ACTION::RELANCER:
-            int relance = (mise < 2 * getMiseCourante()) ? 2 * getMiseCourante() : mise;
+            relance = (mise < 2 * getMiseCourante()) ? 2 * getMiseCourante() : mise;
             if (peutRelancer(posJoueur, relance)) {
                 relancer(posJoueur, relance);
             }

@@ -2,12 +2,15 @@
 #include "../../include/IA/EstimationProba.h"
 #include <sstream> 
 
-IntelligenceArtificielle::IntelligenceArtificielle(bool estDealer, int jetons, int position): Joueur(estDealer, jetons, position){
+using namespace std;
 
+IntelligenceArtificielle::IntelligenceArtificielle(bool estDealer, int jetons, int position)
+    :Joueur(estDealer, jetons, position){
+    resolveur = new Resolveur(this);
 }
 
 IntelligenceArtificielle::IntelligenceArtificielle(Joueur joueur): Joueur(joueur){
-
+    resolveur = new Resolveur(this);
 }
 
 IntelligenceArtificielle::~IntelligenceArtificielle(){
@@ -16,15 +19,14 @@ IntelligenceArtificielle::~IntelligenceArtificielle(){
 
 double IntelligenceArtificielle::calculProba(){
 
-
-    std::ifstream fichier("../Application/ressources/Probas/probas_preflops", std::ios::in);
+    ifstream fichier("../Application/ressources/Probas/probas_preflops", ios::in);
 	double probabilite = 0;
  
         if(fichier){
         	int rangCarte;       
         	    	
-        	std::string main = "";
-            std::string main2 = "";
+            string main = "";
+            string main2 = "";
         	
         	for(int i=0; i<2; i++){
         	
@@ -63,8 +65,8 @@ double IntelligenceArtificielle::calculProba(){
 				}
 
                 default:
-                    main += std::to_string(rangCarte);
-                    main2 = std::to_string(rangCarte) + main2;
+                    main += to_string(rangCarte);
+                    main2 = to_string(rangCarte) + main2;
                     break;
 			}
 			   	
@@ -75,9 +77,9 @@ double IntelligenceArtificielle::calculProba(){
             		main2 += "*";
 	}
 		
-		std::string ligne;
-		std::istringstream isstream;
-		std::string mot;
+        string ligne;
+        istringstream isstream;
+        string mot;
     
                 while(getline(fichier, ligne) ){
         		isstream.str(ligne);
@@ -92,53 +94,29 @@ double IntelligenceArtificielle::calculProba(){
 
                 fichier.close();
         }else{
-        	 std::cerr << "Impossible d'ouvrir le fichier !" << std::endl;
+             cerr << "Impossible d'ouvrir le fichier !" << endl;
         }
                
 	return probabilite;
 }
 
-void IntelligenceArtificielle::setTable(std::vector<Carte> tab){
+void IntelligenceArtificielle::setTable(vector<Carte> tab){
 	this->table = tab;
 }
 
 void IntelligenceArtificielle::jouer(){
 	
-    //double proba = this->calculProba();
-	
-//	EstimationProba estime( this->getJeu(), &this->getJeu()->getJoueur(this->getPosition()) );
     double estimation = 100 * EstimationProba::estimation(this->getJeu(), &this->getJeu()->getJoueur(this->getPosition()));
+    setChancesGain(estimation);
 
-   	double agressivite = this->getJeu()->getAgressiviteIA();
-   	double rationalite = this->getJeu()->getRationaliteIA();
-	
-	if(estimation > 75){
-		if(this->getCave() < this->getJeu()->getMise() * 2){
-			this->getJeu()->tapis(this->getPosition());
-		}else if(this->getJeu()->peutRelancer(this->getPosition())){
-			this->getJeu()->relancer(this->getPosition(), this->getJeu()->getMise() * 2);
-        }else if(this->getJeu()->peutMiser(this->getPosition()) && this->getCave() > this->getJeu()->getBlind()*2){
-			this->getJeu()->miser(this->getPosition(), 2*this->getJeu()->getBlind());
-		}else{
-			this->getJeu()->tapis(this->getPosition());
-		}	
-	}else if (estimation > 50 ){
-		if(this->getJeu()->getMise() == 0 && this->getCave() > this->getJeu()->getBlind()){
-			this->getJeu()->miser(this->getPosition(), this->getJeu()->getBlind());
-		}else if(this->getJeu()->getMise() == 0 && this->getCave() < this->getJeu()->getBlind()){
-			this->getJeu()->tapis(this->getPosition());
-		}else if (this->getCave() < this->getJeu()->getMise()) {
-			this->getJeu()->tapis(this->getPosition());
-		}else{
-			this->getJeu()->suivre(this->getPosition());
-		}	
-	}else{
-		if(this->getJeu()->getListeActions().at(this->getPosition()) == TYPES::ACTION_LIST::PETITE_BLIND){
-			this->getJeu()->suivre(this->getPosition());
-		}else if(this->getJeu()->peutChecker(this->getPosition())){
-			this->getJeu()->checker(this->getPosition());
-		}else{
-			this->getJeu()->seCoucher(this->getPosition());
-		}
-	}
+    agressivite = this->getJeu()->getAgressiviteIA();
+    rationalite = this->getJeu()->getRationaliteIA();
+
+    resolveur->setAgressivite(agressivite);
+    resolveur->setRationalite(rationalite);
+
+    pair<ACTION,int> action=resolveur->calculerAction();
+
+    jeu->executerAction(getPosition(),action.first,action.second);
+
 }

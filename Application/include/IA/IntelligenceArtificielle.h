@@ -3,16 +3,26 @@
 
 #include "../Jeu/Joueur.h"
 #include "../Jeu/Jeu.h"
+#include "Resolveur.h"
+
 #include <vector>
 #include <iostream>
 #include <fstream>
 #include <string>
 
+#include "Resolveur.h"
+
+
+class Resolveur;
 class IntelligenceArtificielle : public Joueur {
 
 	private:
 		//Attributs
 		std::vector<Carte> table;
+        Resolveur *resolveur; //Cerveau de l'intelligence artificielle
+        double agressivite;
+        double rationalite;
+
 		
 		//Méthodes
 		

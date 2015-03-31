@@ -54,21 +54,18 @@ enum {
 /**
  * Type enum pour definir les actions des joueurs
  */
-namespace TYPES
+enum ACTION
 {
-    enum ACTION_LIST
-    {
-        MISER,
-        RELANCER,
-        SUIVRE,
-        CHECKER,
-        SE_COUCHER,
-        EN_ATTENTE,
-        TAPIS,
-        PETITE_BLIND,
-        GROSSE_BLIND
-    };
-}
+    MISER,
+    RELANCER,
+    SUIVRE,
+    CHECKER,
+    SE_COUCHER,
+    EN_ATTENTE,
+    TAPIS,
+    PETITE_BLIND,
+    GROSSE_BLIND
+};
 
 //Constantes des formules de profilage
 
