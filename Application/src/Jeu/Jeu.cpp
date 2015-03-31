@@ -206,15 +206,15 @@ void Jeu::tapis(int posJoueur){
 
 void Jeu::relancer(int posJoueur, int jetons){
 	
-    this->setPot(this->getPot() +  (this->getMise() - this->getJoueur(posJoueur).getMisePlusHaute()));
-    this->getJoueur(posJoueur).setMiseTotale(this->getJoueur(posJoueur).getMiseTotale() + (this->getMise() - this->getJoueur(posJoueur).getMisePlusHaute()));
+    this->setPot(this->getPot() +  (this->getMiseCourante() - this->getJoueur(posJoueur).getMisePlusHaute()));
+    this->getJoueur(posJoueur).setMiseTotale(this->getJoueur(posJoueur).getMiseTotale() + (this->getMiseCourante() - this->getJoueur(posJoueur).getMisePlusHaute()));
 
-    this->getJoueur(posJoueur).retireJetons(this->getMise() - this->getJoueur(posJoueur).getMisePlusHaute());
+    this->getJoueur(posJoueur).retireJetons(this->getMiseCourante() - this->getJoueur(posJoueur).getMisePlusHaute());
 
     this->setPot(this->getPot() + jetons);
     this->getJoueur(posJoueur).retireJetons(jetons);
 
-    this->miseCourante = this->getMise() + jetons;
+    this->miseCourante = this->getMiseCourante() + jetons;
     this->getJoueur(posJoueur).setMiseTotale(this->getJoueur(posJoueur).getMiseTotale() + jetons);
 
     if (jetons > this->getJoueur(posJoueur).getMisePlusHaute()) {
@@ -382,7 +382,7 @@ void Jeu::setRationaliteIA(double rationalite){
     this->rationaliteIA = rationalite;
 }
 
-int Jeu::getMise(){
+int Jeu::getMiseCourante(){
     return this->miseCourante;
 }
 
@@ -524,6 +524,42 @@ bool Jeu::peutSuivre(int posJoueur){
     return true;
 }
 
+void Jeu::executerAction(int posJoueur, ACTION action, int mise){
+
+    switch (action) {
+        case ACTION::CHECKER:
+            if (peutChecker(posJoueur)) {
+                checker(posJoueur);
+            }
+            break;
+
+        case ACTION::MISER:
+            if (peutMiser(posJoueur, mise)) {
+                miser(posJoueur, mise);
+            }
+            break;
+
+        case ACTION::SUIVRE:
+            if (peutSuivre(posJoueur)) {
+                suivre(posJoueur);
+            }
+            break;
+
+        case ACTION::RELANCER:
+            int relance = (mise < 2 * getMiseCourante()) ? 2 * getMiseCourante() : mise;
+            if (peutRelancer(posJoueur, relance)) {
+                relancer(posJoueur, relance);
+            }
+            break;
+
+        case ACTION::SE_COUCHER:
+            seCoucher(posJoueur);
+            break;
+
+        default:
+            break;
+    }
+}
 
 void Jeu::affectationCarte(std::vector<int> listeId){
 
@@ -559,32 +595,4 @@ void Jeu::affectationCarte(std::vector<int> listeId){
 void Jeu::setPseudo(std::string pseudo){
     this->getJoueur(0).setProfil(pseudo);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

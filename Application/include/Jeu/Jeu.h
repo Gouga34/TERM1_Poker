@@ -25,7 +25,7 @@ class Jeu{
         std::vector<Joueur>                 listeJoueurs;
         std::vector<Carte>                  deck;
         std::vector<Carte>                  table;
-        std::vector<TYPES::ACTION_LIST>	    actions;
+        std::vector<ACTION>                 actions;
         int                                 blind;
         int                                 joueurCourant;
         int                                 pot;
@@ -36,6 +36,43 @@ class Jeu{
         double                              rationaliteIA;
         ETAPE_JEU                           etape;
         std::vector<Carte>                  tableTmp;
+
+
+        /**
+        *@action : Commande permettant a un joueur de miser
+        *@param  : La position du joueur effectuant l'action ainsi que le montant de la mise
+        **/
+        void miser(int posJoueur, int jetons);
+
+        /**
+        *@action : Commande permettant a un joueur de relancer
+        *@param  : La position du joueur effectuant l'action ainsi que le montant de la relance
+        **/
+        void relancer(int posJoueur, int jetons);
+
+        /**
+        *@action : Commande permettant a un joueur de faire "tapis"
+        *@param  : La position du joueur effectuant l'action
+        **/
+        void tapis(int posJoueur);
+
+        /**
+        *@action : Commande permettant a un joueur de suivre
+        *@param  : La position du joueur effectuant l'action
+        **/
+        void suivre(int posJoueur);
+
+        /**
+        *@action : Commande permettant a un joueur de checker
+        *@param  : La position du joueur effectuant l'action
+        **/
+        void checker(int posJoueur);
+
+        /**
+        *@action : Commande permettant a un joueur de se coucher
+        *@param  : Le joueur effectuant l'action
+        **/
+        void seCoucher(int posJoueur);
 		
 	//Constructeur et destructeur
 	public:
@@ -98,7 +135,7 @@ class Jeu{
 		*@action  : Permet de connaitre l'action effectué par le joueur courant
 		*@return  : L'action effectué par le joueur courant
 		**/
-		TYPES::ACTION_LIST	getAction() const;
+        ACTION          getAction() const;
 		
 		/**
 		*@action : Permet d'obtenir la position du dealer
@@ -110,7 +147,7 @@ class Jeu{
 		*@action : Permet d'obtenir la mise de la partie courante
 		*@return : Un entier représentant la mise courante
 		**/
-		int			getMise();
+        int			getMiseCourante();
 
 		/**
 		*@action : Permet d'obtenir le deck
@@ -122,7 +159,7 @@ class Jeu{
 		*@action : Permet d'obtenir l'ensemble des actions
 		*@return : L'ensemble des actions
 		**/
-		std::vector<TYPES::ACTION_LIST> getListeActions() const;
+        std::vector<ACTION> getListeActions() const;
 
 		/**
 		*@action : Permet d'obtenir l'agressivite de l'IA
@@ -232,42 +269,13 @@ class Jeu{
 		**/
 		bool peutSuivre(int posJoueur);
 
-		
-		/**
-		*@action : Commande permettant a un joueur de miser
-		*@param  : La position du joueur effectuant l'action ainsi que le montant de la mise
-		**/
-        void miser(int posJoueur, int jetons);
-		
-		/**
-		*@action : Commande permettant a un joueur de relancer
-		*@param  : La position du joueur effectuant l'action ainsi que le montant de la relance
-		**/
-        void relancer(int posJoueur, int jetons);
-		
-		/**
-		*@action : Commande permettant a un joueur de faire "tapis"
-		*@param  : La position du joueur effectuant l'action
-		**/
-        void tapis(int posJoueur);
-		
-		/**
-		*@action : Commande permettant a un joueur de suivre
-        *@param  : La position du joueur effectuant l'action
-		**/
-        void suivre(int posJoueur);
-		
-		/**
-		*@action : Commande permettant a un joueur de checker
-		*@param  : La position du joueur effectuant l'action
-		**/
-        void checker(int posJoueur);
-		
-		/**
-		*@action : Commande permettant a un joueur de se coucher
-		*@param  : Le joueur effectuant l'action
-		**/
-        void seCoucher(int posJoueur);
+        /**
+         * @action Exécute l'action du joueur (check, mise...)
+         * @param posJoueur Position du joueur qui exécute l'action
+         * @param action Action à exécuter
+         * @param mise Montant des jetons associés à l'action (-1 si check, se couche, suivre)
+         */
+        void executerAction(int posJoueur, ACTION action, int mise = -1);
        		
         /**
 		*@action  : Affecte le joueur suivant en tant que joueur courant et renvoi vrai s'il existe
