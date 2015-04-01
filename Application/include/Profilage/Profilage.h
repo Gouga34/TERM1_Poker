@@ -81,11 +81,6 @@ class Profilage
         */
         void clear();
 
-        /**
-        * @action : Supprime les valeurs negatives du tableau
-        * @param  : L'etape a verifier
-        */
-        void correction(ETAPE_JEU etape);
 
 };
 

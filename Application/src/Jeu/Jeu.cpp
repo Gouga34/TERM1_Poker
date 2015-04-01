@@ -302,22 +302,51 @@ void Jeu::remplissageTableau(Profilage &profilJoueur){
         nbTotalActions += this->getJoueur(0).getCompteurActions()[i];
     }
 
+    double resultat;
+
     profilJoueur.profil[this->getEtape()].probaGainAdversaire = 100 * EstimationProba::estimation(this, &this->getJoueur(0));
-    profilJoueur.profil[this->getEtape()].tauxMises = CalculDonneesProfilage::taux(this->getJoueur(0).getCompteurActions()[0],nbTotalActions);
-    profilJoueur.profil[this->getEtape()].tauxSuivis = CalculDonneesProfilage::taux(this->getJoueur(0).getCompteurActions()[1],nbTotalActions);
-    profilJoueur.profil[this->getEtape()].tauxChecks = CalculDonneesProfilage::taux(this->getJoueur(0).getCompteurActions()[2],nbTotalActions);
+
+    resultat = CalculDonneesProfilage::taux(this->getJoueur(0).getCompteurActions()[0],nbTotalActions);
+
+    if(resultat != -1){
+        profilJoueur.profil[this->getEtape()].tauxMises = resultat;
+    }else{
+        profilJoueur.profil[this->getEtape()].tauxMises = 0;
+    }
+
+    resultat = CalculDonneesProfilage::taux(this->getJoueur(0).getCompteurActions()[1],nbTotalActions);
+
+    if(resultat != -1){
+        profilJoueur.profil[this->getEtape()].tauxSuivis =  resultat;
+    }else{
+        profilJoueur.profil[this->getEtape()].tauxSuivis =  0;
+    }
+
+    resultat = CalculDonneesProfilage::taux(this->getJoueur(0).getCompteurActions()[2],nbTotalActions);
+
+    if(resultat != -1){
+        profilJoueur.profil[this->getEtape()].tauxChecks = resultat;
+    }else{
+        profilJoueur.profil[this->getEtape()].tauxChecks =  0;
+    }
 
     profilJoueur.profil[this->getEtape()].misePlusHaute = CalculDonneesProfilage::taux(this->getJoueur(0).getMisePlusHaute(),this->getJoueur(0).getCave());
     profilJoueur.profil[this->getEtape()].miseTotaleJoueur = CalculDonneesProfilage::taux(this->getJoueur(0).getMiseTotale(),this->getJoueur(0).getCave());
 
     profilJoueur.profil[this->getEtape()].tauxAgressivite = CalculDonneesProfilage::agressivite(profilJoueur.profil[this->getEtape()].misePlusHaute,profilJoueur.profil[this->getEtape()].tauxMises,profilJoueur.profil[this->getEtape()].miseTotaleJoueur);
     profilJoueur.profil[this->getEtape()].tauxRationnalite = CalculDonneesProfilage::rationalite(profilJoueur.profil[this->getEtape()].probaGainAdversaire,profilJoueur.profil[this->getEtape()].miseTotaleJoueur);
-    profilJoueur.profil[this->getEtape()].tauxPassivite = CalculDonneesProfilage::passivite( profilJoueur.profil[this->getEtape()].tauxSuivis, profilJoueur.profil[this->getEtape()].tauxChecks);
+
+    resultat = CalculDonneesProfilage::passivite( profilJoueur.profil[this->getEtape()].tauxSuivis, profilJoueur.profil[this->getEtape()].tauxChecks);
+
+    if(resultat != -1){
+        profilJoueur.profil[this->getEtape()].tauxPassivite = resultat;
+    }else{
+        profilJoueur.profil[this->getEtape()].tauxPassivite =  0;
+    }
+
     profilJoueur.profil[this->getEtape()].tauxBluff = CalculDonneesProfilage::bluff(profilJoueur.profil[this->getEtape()].tauxRationnalite);
 
     profilJoueur.profil[this->getEtape()].pot = this->getPot();
-
-    profilJoueur.correction(this->getEtape());
 
 }
 
@@ -441,7 +470,6 @@ int Jeu::nouvelleMain(){
             profilJoueur->profil[this->getEtape()].couche = true;
         }
 
-         profilJoueur->correction(this->getEtape());
          profilJoueur->sauvegarder();
          profilJoueur->clear();
 

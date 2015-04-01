@@ -105,101 +105,125 @@ void Profilage::sauvegarder() const
    QJsonObject json;
    QJsonArray parties;
 
-   if (!fichier.open(QIODevice::ReadOnly)) {
+   if(nomJoueur.compare("") != 0){
+       if (!fichier.open(QIODevice::ReadOnly)) {
 
-       // Ouverture de la liste des pseudos
-       QFile listePseudos("../Application/ressources/Profilage/ProfilageStatique/pseudos.txt");
-       if (!listePseudos.open(QIODevice::Append | QIODevice::Text)) {
-           std::cerr << "Erreur lors de l'ouverture du fichier des pseudos !" << std::endl;
+           bool dejaPresent = false;
+
+           QFile pseudo("../Application/ressources/Profilage/ProfilageStatique/pseudos.txt");
+           if (!pseudo.open(QIODevice::ReadOnly | QIODevice::Text)) {
+               std::cerr << "Erreur lors de l'ouverture du fichier des pseudos !" << std::endl;
+               return;
+           }
+
+           QTextStream flux(&pseudo);
+
+           QString ligne;
+           while(!flux.atEnd()){
+               ligne = flux.readLine();
+               if(ligne.compare(QString::fromStdString(nomJoueur)) == 0 || ligne.compare(QString::fromStdString("")) == 0){
+                   dejaPresent = true;
+               }
+           }
+
+            pseudo.close();
+
+           if(!dejaPresent){
+               // Ouverture de la liste des pseudos
+               QFile listePseudos("../Application/ressources/Profilage/ProfilageStatique/pseudos.txt");
+               if (!listePseudos.open(QIODevice::Append | QIODevice::Text)) {
+                   std::cerr << "Erreur lors de l'ouverture du fichier des pseudos !" << std::endl;
+                   return;
+               }
+
+               QTextStream out(&listePseudos);
+               out << QString::fromStdString(nomJoueur) << endl;
+
+               listePseudos.close();
+            }
+       }
+       else {
+           // Récupération du contenu existant
+           QByteArray donneesJson = fichier.readAll();
+           doc = QJsonDocument::fromJson(donneesJson);
+           json = doc.object();
+
+           parties = json["parties"].toArray();
+
+           fichier.close();
+       }
+
+       QJsonObject partie;
+
+       /* Ecriture de valeurs simples */
+
+       partie["gainIA"] = partieGagnee;
+
+       for (int i = 0; i < ETAPE_JEU::NB_ETAPES; i++) {
+            QJsonObject etape;
+
+            etape["couche"] = profil[i].couche;
+
+            etape["probaGainAdversaire"] = profil[i].probaGainAdversaire;
+            etape["pot"] = profil[i].pot;
+
+            etape["agressivité"] = profil[i].tauxAgressivite;
+            etape["rationalite"] = profil[i].tauxRationnalite;
+            etape["bluff"] = profil[i].tauxBluff;
+            etape["passivite"] = profil[i].tauxPassivite;
+
+            etape["suivis"] = profil[i].tauxSuivis;
+            etape["checks"] = profil[i].tauxChecks;
+            etape["mises"] = profil[i].tauxMises;
+
+            etape["misePlusHaute"] = profil[i].misePlusHaute;
+            etape["miseTotaleJoueur"] = profil[i].miseTotaleJoueur;
+            etape["miseTotaleIA"] = profil[i].miseTotaleIA;
+
+            QString nomEtape = QString::fromStdString(nomEtapes[i]);
+            partie[nomEtape] = etape;
+       }
+
+       QJsonObject global;
+
+       global["agressivité"] = agressiviteGlobale;
+       global["bluff"] = bluffGlobal;
+       global["rationalite"] = rationaliteGlobale;
+       global["passivite"] = passiviteGlobale;
+
+       partie["global"] = global;
+
+       QJsonObject calibrageIA;
+
+       calibrageIA["agressivité"] = agressiviteIA;
+       calibrageIA["rationalite"] = rationaliteIA;
+
+       partie["calibrageIA"] = calibrageIA;
+
+       // Ajout de la partie courante à la liste de parties enregistrées
+       parties.append(partie);
+
+       // Ecriture du type du joueur
+       json["RA"] = typeJoueur[PROFIL_JOUEUR::RA];
+       json["RP"] = typeJoueur[PROFIL_JOUEUR::RP];
+       json["BA"] = typeJoueur[PROFIL_JOUEUR::BA];
+       json["BP"] = typeJoueur[PROFIL_JOUEUR::BP];
+
+       // On modifie le QJsonObject
+       json["parties"] = parties;
+       // On modifie le QJsonDocument
+       doc.setObject(json);
+
+       // On écrit dans le fichier
+       if (!fichier.open(QIODevice::ReadWrite | QIODevice::Truncate)) {
+           std::cerr << "Erreur lors de l'ouverture du fichier " << nomFichier.toStdString() << std::endl;
            return;
        }
 
-       QTextStream out(&listePseudos);
-       out << QString::fromStdString(nomJoueur) << endl;
-
-       listePseudos.close();
-   }
-   else {
-       // Récupération du contenu existant
-       QByteArray donneesJson = fichier.readAll();
-       doc = QJsonDocument::fromJson(donneesJson);
-       json = doc.object();
-
-       parties = json["parties"].toArray();
+       fichier.write(doc.toJson());
 
        fichier.close();
-   }
-
-   QJsonObject partie;
-
-   /* Ecriture de valeurs simples */
-
-   partie["gainIA"] = partieGagnee;
-
-   for (int i = 0; i < ETAPE_JEU::NB_ETAPES; i++) {
-        QJsonObject etape;
-
-        etape["couche"] = profil[i].couche;
-
-        etape["probaGainAdversaire"] = profil[i].probaGainAdversaire;
-        etape["pot"] = profil[i].pot;
-
-        etape["agressivité"] = profil[i].tauxAgressivite;
-        etape["rationalite"] = profil[i].tauxRationnalite;
-        etape["bluff"] = profil[i].tauxBluff;
-        etape["passivite"] = profil[i].tauxPassivite;
-
-        etape["suivis"] = profil[i].tauxSuivis;
-        etape["checks"] = profil[i].tauxChecks;
-        etape["mises"] = profil[i].tauxMises;
-
-        etape["misePlusHaute"] = profil[i].misePlusHaute;
-        etape["miseTotaleJoueur"] = profil[i].miseTotaleJoueur;
-        etape["miseTotaleIA"] = profil[i].miseTotaleIA;
-
-        QString nomEtape = QString::fromStdString(nomEtapes[i]);
-        partie[nomEtape] = etape;
-   }
-
-   QJsonObject global;
-
-   global["agressivité"] = agressiviteGlobale;
-   global["bluff"] = bluffGlobal;
-   global["rationalite"] = rationaliteGlobale;
-   global["passivite"] = passiviteGlobale;
-
-   partie["global"] = global;
-
-   QJsonObject calibrageIA;
-
-   calibrageIA["agressivité"] = agressiviteIA;
-   calibrageIA["rationalite"] = rationaliteIA;
-
-   partie["calibrageIA"] = calibrageIA;
-
-   // Ajout de la partie courante à la liste de parties enregistrées
-   parties.append(partie);
-
-   // Ecriture du type du joueur
-   json["RA"] = typeJoueur[PROFIL_JOUEUR::RA];
-   json["RP"] = typeJoueur[PROFIL_JOUEUR::RP];
-   json["BA"] = typeJoueur[PROFIL_JOUEUR::BA];
-   json["BP"] = typeJoueur[PROFIL_JOUEUR::BP];
-
-   // On modifie le QJsonObject
-   json["parties"] = parties;
-   // On modifie le QJsonDocument
-   doc.setObject(json);
-
-   // On écrit dans le fichier
-   if (!fichier.open(QIODevice::ReadWrite | QIODevice::Truncate)) {
-       std::cerr << "Erreur lors de l'ouverture du fichier " << nomFichier.toStdString() << std::endl;
-       return;
-   }
-
-   fichier.write(doc.toJson());
-
-   fichier.close();
+    }
 }
 
 void Profilage::clear(){
@@ -233,24 +257,4 @@ void Profilage::clear(){
 
     this->agressiviteIA = 0;
     this->rationaliteIA = 0;
-}
-
-void Profilage::correction(ETAPE_JEU etape){
-
-    if(this->profil[etape].tauxPassivite < 0){
-        this->profil[etape].tauxPassivite = 0;
-    }
-
-    if(this->profil[etape].tauxSuivis < 0){
-        this->profil[etape].tauxSuivis = 0;
-    }
-
-    if(this->profil[etape].tauxChecks < 0){
-        this->profil[etape].tauxChecks = 0;
-    }
-
-    if(this->profil[etape].tauxMises < 0){
-        this->profil[etape].tauxMises = 0;
-    }
-
 }
