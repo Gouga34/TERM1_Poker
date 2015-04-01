@@ -50,18 +50,18 @@ void Profil::setPseudo(string nvPseudo) {
     pseudo = nvPseudo;
 }
 
-void Profil::setAgressivite(double nvAgr) const {
+void Profil::setAgressivite(double nvAgr) {
     agressivite = nvAgr;
 }
 
-void Profil::setRationalite(double nvRat) const {
+void Profil::setRationalite(double nvRat) {
     rationalite = nvRat;
 }
 
-void Profil::setBluff(double nvBluff) const {
+void Profil::setBluff(double nvBluff) {
     bluff = nvBluff;
 }
 
-void Profil::setPassivite(double nvPass) const {
+void Profil::setPassivite(double nvPass) {
     passivite = nvPass;
 }
