@@ -321,6 +321,24 @@ void Fenetre::activeBoutons(bool active)
         bool enable = active ? activationBoutons[i] : active;
         boutons[i].setEnabled(enable);
     }
+
+    if(jeu->peutChecker(0)){
+         activationBoutons[CHECKER] = true;
+    }else{
+        activationBoutons[CHECKER] = false;
+    }
+
+    if(jeu->peutMiser(0,0)){
+         activationBoutons[MISER] = true;
+    }else{
+        activationBoutons[MISER] = false;
+    }
+
+    if(jeu->peutSuivre(0)){
+         activationBoutons[SUIVRE] = true;
+    }else{
+        activationBoutons[SUIVRE] = false;
+    }
 }
 
 void Fenetre::joueurCourant()
@@ -330,6 +348,7 @@ void Fenetre::joueurCourant()
 
 void Fenetre::jeuIA()
 {
+
     static_cast<IntelligenceArtificielle>(jeu->getJoueur(jeu->getJoueurCourant())).jouer();
 
     switch (jeu->getAction()) {
