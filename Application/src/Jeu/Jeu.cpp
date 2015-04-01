@@ -213,7 +213,8 @@ void Jeu::relancer(int posJoueur, int jetons){
     this->getJoueur(posJoueur).retireJetons(jetons);
 
     this->miseCourante = this->getMiseCourante() + jetons;
-    this->getJoueur(posJoueur).setMiseCourante(this->getJoueur(posJoueur).getMiseCourante() + jetons);
+   // this->getJoueur(posJoueur).setMiseCourante(this->getJoueur(posJoueur).getMiseCourante() + jetons);
+    this->getJoueur(posJoueur).setMiseCourante(this->getMiseCourante());
     this->getJoueur(posJoueur).setMiseTotale(this->getJoueur(posJoueur).getMiseTotale() + jetons);
 
     if (jetons > this->getJoueur(posJoueur).getMisePlusHaute()) {
@@ -222,6 +223,7 @@ void Jeu::relancer(int posJoueur, int jetons){
 
     this->actions[this->getJoueur(posJoueur).getPosition()] = ACTION::RELANCER;
     this->getJoueur(posJoueur).getCompteurActions()[0]++;
+
 }
 
 
@@ -229,6 +231,7 @@ void Jeu::suivre(int posJoueur){
 	
     // Si on a assez d'argent on suit
     if(this->getJoueur(posJoueur).getCave() >= this->miseCourante){
+
         int jetonsAAjouter = this->miseCourante - this->getJoueur(posJoueur).getMiseCourante();
 
         this->setPot(this->getPot() + jetonsAAjouter);
@@ -467,9 +470,8 @@ bool Jeu::peutChecker(int posJoueur){
 
 	for(int i=1; i<= (int) this->actions.size() - 1; i++){
         if(this->actions[(posJoueur + i) % this->actions.size() ] == ACTION::MISER ||
-            this->actions[(posJoueur + i) % this->actions.size()] == ACTION::RELANCER)
-            //this->actions[(posJoueur + i) % this->actions.size()] == ACTION::GROSSE_BLIND)
-        {
+            this->actions[(posJoueur + i) % this->actions.size()] == ACTION::RELANCER ||
+            this->actions[(posJoueur + i) % this->actions.size()] == ACTION::GROSSE_BLIND){
             return false;
 		}
 	}
@@ -483,7 +485,7 @@ bool Jeu::peutMiser(int posJoueur, int jetons){
     for(int i=1; i<= (int) this->actions.size() - 1; i++){
         if(this->actions[(posJoueur + i) % this->actions.size() ] == ACTION::MISER ||
            this->actions[(posJoueur + i) % this->actions.size()] == ACTION::RELANCER ||
-           //this->actions[(posJoueur + i) % this->actions.size()] == ACTION::GROSSE_BLIND ||
+           this->actions[(posJoueur + i) % this->actions.size()] == ACTION::GROSSE_BLIND ||
            this->actions[(posJoueur + i) % this->actions.size()] == ACTION::SUIVRE||
            this->actions[(posJoueur + i) % this->actions.size()] == ACTION::TAPIS){
             return false;
@@ -503,9 +505,10 @@ bool Jeu::peutRelancer(int posJoueur, int jetons){
 
     // On regarde si l'action est possible
     for(int i=1; i<= (int) this->actions.size() - 1; i++){
-        if(this->actions[(posJoueur + i) % this->actions.size() ] != ACTION::MISER ||
-            this->actions[(posJoueur + i) % this->actions.size()] != ACTION::RELANCER ||
-            this->actions[(posJoueur + i) % this->actions.size()] != ACTION::GROSSE_BLIND ){
+        if(this->actions[(posJoueur + i) % this->actions.size() ] != ACTION::MISER &&
+            this->actions[(posJoueur + i) % this->actions.size()] != ACTION::RELANCER &&
+            this->actions[(posJoueur + i) % this->actions.size()] != ACTION::GROSSE_BLIND &&
+            this->actions[(posJoueur + i) % this->actions.size()] != ACTION::SUIVRE){
                 return false;
         }
     }
@@ -521,10 +524,9 @@ bool Jeu::peutRelancer(int posJoueur, int jetons){
 bool Jeu::peutSuivre(int posJoueur){
 
     for(int i=1; i<= (int) this->actions.size() - 1; i++){
-        if(this->actions[(posJoueur + i) % this->actions.size() ] != ACTION::MISER ||
-            this->actions[(posJoueur + i) % this->actions.size()] != ACTION::RELANCER ||
-            this->actions[(posJoueur + i) % this->actions.size()] != ACTION::GROSSE_BLIND ||
-            this->actions[(posJoueur + i) % this->actions.size()] != ACTION::SUIVRE  ){
+        if(this->actions[(posJoueur + i) % this->actions.size() ] != ACTION::MISER &&
+            this->actions[(posJoueur + i) % this->actions.size()] != ACTION::RELANCER &&
+            this->actions[(posJoueur + i) % this->actions.size()] != ACTION::GROSSE_BLIND){
                 return false;
         }
     }
