@@ -339,6 +339,12 @@ void Fenetre::activeBoutons(bool active)
     }else{
         activationBoutons[SUIVRE] = false;
     }
+
+    if(jeu->peutRelancer(0,0)){
+         activationBoutons[RELANCER] = true;
+    }else{
+        activationBoutons[RELANCER] = false;
+    }
 }
 
 void Fenetre::joueurCourant()

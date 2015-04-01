@@ -507,7 +507,8 @@ bool Jeu::peutRelancer(int posJoueur, int jetons){
     for(int i=1; i<= (int) this->actions.size() - 1; i++){
         if(this->actions[(posJoueur + i) % this->actions.size() ] != ACTION::MISER &&
             this->actions[(posJoueur + i) % this->actions.size()] != ACTION::RELANCER &&
-            this->actions[(posJoueur + i) % this->actions.size()] != ACTION::GROSSE_BLIND ){
+            this->actions[(posJoueur + i) % this->actions.size()] != ACTION::GROSSE_BLIND &&
+            this->actions[(posJoueur + i) % this->actions.size()] != ACTION::SUIVRE){
                 return false;
         }
     }
