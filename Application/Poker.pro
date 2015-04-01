@@ -17,7 +17,8 @@ SOURCES += \
     src/Interface/Logger.cpp \
     src/IA/EstimationProba.cpp \
     src/IA/IntelligenceArtificielle.cpp \
-    src/IA/Resolveur.cpp
+    src/IA/Resolveur.cpp \
+    src/Profilage/Profil.cpp
 
 
 QT+=widgets
@@ -41,7 +42,8 @@ HEADERS += \
     include/Interface/Logger.h \
     include/IA/EstimationProba.h \
     include/IA/IntelligenceArtificielle.h \
-    include/IA/Resolveur.h
+    include/IA/Resolveur.h \
+    include/Profilage/Profil.h
 
 CONFIG += c++11
 
