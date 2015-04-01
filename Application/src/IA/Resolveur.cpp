@@ -25,24 +25,14 @@ Resolveur::~Resolveur(){
 
 }
 
-
-double Resolveur::getAgressivite(){
-    return agressivite;
+void Resolveur::setCalibrage(Profil profil){
+    calibrage.setAgressivite(profil.getAgressivite());
+    calibrage.setRationalite(profil.getRationalite());
 }
 
 
-double Resolveur::getRationalite(){
-    return rationalite;
-}
-
-
-void Resolveur::setAgressivite(double nvAgressivite){
-    agressivite=nvAgressivite;
-}
-
-
-void Resolveur::setRationalite(double nvRationalite){
-    rationalite=nvRationalite;
+Profil& Resolveur::getCalibrage() {
+    return calibrage;
 }
 
 
@@ -55,7 +45,7 @@ pair<ACTION,int> Resolveur::calculerActionAgressivite(){
     int random = rand()%101;
 
     //Si random E [0-(agressivite-1)]
-    if(random<(agressivite-1)){ //On va effectuer une action agressive : miser
+    if(random<(calibrage.getAgressivite()-1)){ //On va effectuer une action agressive : miser
 
         int miseAgressivite=calculerMiseAgressivite(ACTION::MISER);
         //Si on peut miser, on fera l'action "MISER"
@@ -115,13 +105,13 @@ int Resolveur::calculerMiseAgressivite(ACTION action){
         //dans lequel se trouve le pourcentage d'agressivité.
         int maxPalierAgressivite;
 
-        if(agressivite < AGRESSIVITE::PALIER1::FIN_AG_THEORIQUE){
+        if(calibrage.getAgressivite() < AGRESSIVITE::PALIER1::FIN_AG_THEORIQUE){
             maxPalierAgressivite=AGRESSIVITE::PALIER1::FIN_MPH;
         }
-        else if(agressivite<AGRESSIVITE::PALIER2::FIN_AG_THEORIQUE){
+        else if(calibrage.getAgressivite()<AGRESSIVITE::PALIER2::FIN_AG_THEORIQUE){
             maxPalierAgressivite=AGRESSIVITE::PALIER2::FIN_MPH;
         }
-        else if(agressivite<AGRESSIVITE::PALIER3::FIN_AG_THEORIQUE){
+        else if(calibrage.getAgressivite()<AGRESSIVITE::PALIER3::FIN_AG_THEORIQUE){
             maxPalierAgressivite=AGRESSIVITE::PALIER3::FIN_MPH;
         }
         else{ //tapis
@@ -147,7 +137,7 @@ pair<ACTION,int> Resolveur::calculerActionRationalite(){
 
     //On prend un nombre aléatoire
     int random = rand()%101;
-    if(random<(rationalite-1)){ //Si random E [0 - (rationalite-1)]
+    if(random<(calibrage.getRationalite()-1)){ //Si random E [0 - (rationalite-1)]
 
         int jetonsMiseTheorique=calculerMiseRationalite(ACTION::MISER);
 
@@ -300,12 +290,13 @@ pair<ACTION,int> Resolveur::calculerAction(){
     //Si les actions ne sont pas les mêmes, on choisit une des deux actions:
     if(actionAgressivite.first!=actionRationalite.first){
 
-        int total = getRationalite()+getAgressivite();
+        int total = calibrage.getRationalite()+calibrage.getAgressivite();
+        cout<<total<<endl;
 
         int random=rand()%total+1;
 
         //Si random E [0-agressivité], on prend l'action et les jetons de l'agressivité
-        if(random<getAgressivite()){
+        if(random<calibrage.getAgressivite()){
             action=actionAgressivite.first;
             jetonsAMiser=actionAgressivite.second;
         }
@@ -331,19 +322,19 @@ pair<ACTION,int> Resolveur::calculerAction(){
             maxJetonsAMiser=actionRationalite.second;
             minJetonsAMiser=actionAgressivite.second;
         }
-        if(getAgressivite()>getRationalite()){
-            tauxMax=getAgressivite();
-            tauxMin=getRationalite();
+        if(calibrage.getAgressivite()>calibrage.getRationalite()){
+            tauxMax=calibrage.getAgressivite();
+            tauxMin=calibrage.getRationalite();
         }
         else{
-            tauxMin=getAgressivite();
-            tauxMax=getRationalite();
+            tauxMin=calibrage.getAgressivite();
+            tauxMax=calibrage.getRationalite();
         }
 
         //On va prendre une mise aléatoire comprise entre le min et le max.
         //Celle-ci aura plus de chances d'être plus proche du taux le plus fort.
 
-        int total=getAgressivite()+getRationalite();
+        int total=calibrage.getAgressivite()+calibrage.getRationalite();
         jetonsAMiser= minJetonsAMiser+((tauxMax/total)*abs(maxJetonsAMiser-minJetonsAMiser));
 
     }

@@ -13,14 +13,15 @@ Specification: Classe permettant de calculer les actions de
 #include <utility>
 #include "../Jeu/Jeu.h"
 #include "IntelligenceArtificielle.h"
+#include "../Profilage/Profil.h"
 #include <cstdlib>
 
 class IntelligenceArtificielle;
 
 class Resolveur{
 private:
-    double agressivite;
-    double rationalite;
+
+    Profil calibrage;
 
 
     IntelligenceArtificielle *ia;
@@ -69,30 +70,17 @@ public:
     Resolveur(IntelligenceArtificielle* ia2);
     virtual ~Resolveur();
 
-
     /**
-     * @brief setAgressivite
-     * @param nvAgressivite nouveau taux agressivité
-     */
-    void setAgressivite(double nvAgressivite);
-
-    /**
-     * @brief getAgressivite
-     * @return le taux d'agressivité
-     */
-    double getAgressivite();
-
-    /**
-     * @brief setRationalite
-     * @param nvRationalite le nouveau taux de rationalité
-     */
-    void setRationalite(double nvRationalite);
+    * @brief setCalibrage
+    * @param profil nouveau calibrage de l'IA
+    */
+   void setCalibrage(Profil profil);
 
     /**
      * @brief getRationalite
      * @return le taux de rationalité
      */
-    double getRationalite();
+    Profil& getCalibrage();
 
 
     /**

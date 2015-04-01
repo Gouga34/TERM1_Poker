@@ -118,14 +118,14 @@ void IntelligenceArtificielle::setTable(vector<Carte> tab){
 
 void IntelligenceArtificielle::jouer(){
 	
-    double estimation = 100 * EstimationProba::estimation(this->getJeu(), &this->getJeu()->getJoueur(this->getPosition()));
+    double estimation = 100*EstimationProba::estimation(this->getJeu(), &this->getJeu()->getJoueur(this->getPosition()));
     setChancesGain(estimation);
 
     string chances="Chances Gain IA : "+to_string(estimation);
     Logger::getInstance()->ajoutLogs(chances);
 
-    resolveur->setAgressivite(agressivite);
-    resolveur->setRationalite(rationalite);
+    resolveur->getCalibrage().setAgressivite(agressivite);
+    resolveur->getCalibrage().setRationalite(rationalite);
 
     pair<ACTION,int> action=resolveur->calculerAction();
 
