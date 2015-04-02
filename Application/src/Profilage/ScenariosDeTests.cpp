@@ -22,8 +22,11 @@ Specification: Fichier contenant l'implémentation de la classe
 
 #include <cstdlib>
 
-ScenariosDeTests::ScenariosDeTests(Profil *profilJoueur){
+using namespace std;
 
+ScenariosDeTests::ScenariosDeTests(Profil *profilJoueur, Profil *calibrageIA){
+
+    calibrageActuelIA=calibrageIA;
     actionReelleJoueur=profilJoueur;
 
 
@@ -35,8 +38,9 @@ ScenariosDeTests::ScenariosDeTests(Profil *profilJoueur){
     //le profilage n'a pas encore commencé
     if(!fichier.open(QIODevice::ReadOnly)){
         numeroDuTestActuel=1;
-        calibrageActuelIA.setAgressivite(100);
-        calibrageActuelIA.setRationalite(100);
+        calibrageActuelIA->setAgressivite(100);
+        calibrageActuelIA->setRationalite(100);
+        numeroCalibrage=0;
 
     }
     else{//On a déjà commencé à profiler le joueur.
@@ -44,20 +48,20 @@ ScenariosDeTests::ScenariosDeTests(Profil *profilJoueur){
         QByteArray donneesJson = fichier.readAll();
         QJsonDocument doc(QJsonDocument::fromJson(donneesJson));
         QJsonObject json(doc.object());
-        QJsonArray scenarioDeTests = json["scenarioDeTests"].toArray();
-        QJsonObject profilJoueur=json["profilJoueur"].toObject();
-        QJsonArray calibrages = json["calibrages"].toArray();
+        QJsonArray scenarioDeTests = json["ScenariosDeTests"].toArray();
+        QJsonObject profilJoueur=json["ProfilJoueur"].toObject();
+        //QJsonArray calibrages = scenarioDeTests["calibrages"].toArray();
 
         //On récupère le dernier calibrage
         int nombreParties=profilJoueur["nombreParties"].toInt();
-        numeroDuTestActuel= calibrages[nombreParties].toInt();
-        QJsonObject calibrageIA=calibrages.at(nombreParties-1).toObject();
-        calibrageActuelIA.setAgressivite(calibrageIA["agressivite"].toDouble());
-        calibrageActuelIA.setRationalite(calibrageIA["rationalite"].toDouble());
+        numeroCalibrage= scenarioDeTests[nombreParties].toInt();
+        QJsonObject calibrageIA=scenarioDeTests.at(nombreParties-1).toObject();
+        calibrageActuelIA->setAgressivite(calibrageIA["agressivite"].toDouble());
+        calibrageActuelIA->setRationalite(calibrageIA["rationalite"].toDouble());
 
         fichier.close();
         //On passe au calibrage suivant (donc au scenario de tests suivant)
-        scenarioSuivant(calibrages);
+        scenarioSuivant(scenarioDeTests);
     }
 
 }
@@ -65,6 +69,10 @@ ScenariosDeTests::ScenariosDeTests(Profil *profilJoueur){
 
 ScenariosDeTests::~ScenariosDeTests(){
 
+}
+
+void ScenariosDeTests::setCalibrageActuelIA(Profil *calibrage){
+    calibrageActuelIA=calibrage;
 }
 
 void ScenariosDeTests::setJoueurSeCouche(bool couche){
@@ -94,7 +102,7 @@ int ScenariosDeTests::getNumeroDuTestActuel() const{
 
 
 
-Profil ScenariosDeTests::getCalibrageActuelIA(){
+Profil* ScenariosDeTests::getCalibrageActuelIA(){
     return calibrageActuelIA;
 }
 
@@ -103,7 +111,7 @@ void ScenariosDeTests::setActionAttendueJoueur(Profil actionAttendue){
 }
 
 Profil ScenariosDeTests::getActionAttendueJoueur() const{
-
+    return actionAttendueJoueur;
 }
 
 void ScenariosDeTests::setActionReelleJoueur(Profil *action){
@@ -126,7 +134,7 @@ double ScenariosDeTests::getChancesDeGain(){
 void ScenariosDeTests::sauvegarderPartie(){
 
     //On ouvre le fichier dans lequel on sauvegardera les données.
-    QString nomFichier=QString::fromStdString(actionAttendueJoueur.getPseudo())+"_scenarios_tests.json";
+    QString nomFichier=QString::fromStdString(actionReelleJoueur->getPseudo())+"_scenarios_tests.json";
     QFile fichier(QString::fromStdString(DOSSIER_PROFILAGE_STATIQUE)+nomFichier);
 
 
@@ -139,7 +147,6 @@ void ScenariosDeTests::sauvegarderPartie(){
         QJsonDocument doc(QJsonDocument::fromJson(donneesJson));
         QJsonObject json(doc.object());
         QJsonArray calibrages = json["ScenariosDeTests"].toArray();
-
 
         //Données de la partie :
         QJsonObject partie;
@@ -166,6 +173,8 @@ void ScenariosDeTests::sauvegarderPartie(){
         actionReelle["bluff"]=actionReelleJoueur->getBluff();
         actionReelle["passivite"]=actionReelleJoueur->getPassivite();
 
+        partie["ProfilReel"]=actionReelle;
+
         //Distance entre l'action attendue et l'action réelle
         calculerDistance();
 
@@ -176,7 +185,8 @@ void ScenariosDeTests::sauvegarderPartie(){
         //Si le fichier json est vide, on crée le profil du joueur
 
         QJsonObject profilJoueur;
-        if(json.empty()){
+        cout<<json.size()<<endl;
+        if(json.size()==1){
             profilJoueur["agressivite"]=0;
             profilJoueur["rationalite"]=0;
             profilJoueur["passivite"]=0;
@@ -187,35 +197,32 @@ void ScenariosDeTests::sauvegarderPartie(){
             profilJoueur=json["ProfilJoueur"].toObject();
         }
 
-        PROFIL_JOUEUR::PROFIL_JOUEUR maxTaux, secondTaux;
+        PROFIL_JOUEUR::PROFIL_JOUEUR maxTaux = PROFIL_JOUEUR::AGRESSIVITE, secondTaux = PROFIL_JOUEUR::AGRESSIVITE;
         double max=0;
-        double second=0;
+
+        cout<<"rationalite : "<<actionReelleJoueur->getRationalite()<<endl;
 
         if(actionReelleJoueur->getAgressivite()>max){
             secondTaux=maxTaux;
             maxTaux=PROFIL_JOUEUR::AGRESSIVITE;
-            second=max;
             max=actionReelleJoueur->getAgressivite();
         }
-        else if(actionReelleJoueur->getRationalite()>max){
+        if(actionReelleJoueur->getRationalite()>max){
             secondTaux=maxTaux;
             maxTaux=PROFIL_JOUEUR::RATIONALITE;
-            second=max;
             max=actionReelleJoueur->getRationalite();
         }
-        else if(actionReelleJoueur->getBluff()>max){
+        if(actionReelleJoueur->getBluff()>max){
             secondTaux=maxTaux;
             maxTaux=PROFIL_JOUEUR::BLUFF;
-            second=max;
             max=actionReelleJoueur->getBluff();
         }
-        else if(actionReelleJoueur->getPassivite()>max){
+        if(actionReelleJoueur->getPassivite()>max){
             secondTaux=maxTaux;
             maxTaux=PROFIL_JOUEUR::PASSIVITE;
-            second=max;
             max=actionReelleJoueur->getPassivite();
         }
-
+        cout<<"max : "<<max<<endl;
         if(maxTaux==PROFIL_JOUEUR::AGRESSIVITE){
             profilJoueur["agressivite"] = profilJoueur["agressivite"].toInt()+1;
         }
@@ -243,42 +250,56 @@ void ScenariosDeTests::sauvegarderPartie(){
         }
 
 
+
         //ajout du calibrage de l'IA s'il n'existe pas encore
-        if(numeroCalibrage<=25){
+        if(calibrages.size()<25){
             QJsonObject calibrage;
-            calibrage["agressivite"]=calibrageActuelIA.getAgressivite();
-            calibrage["rationalite"]=calibrageActuelIA.getRationalite();
-
             QJsonArray iterations;
+
+            //Si le calibrage n'existe pas encore
+            if(calibrages.size() <= numeroCalibrage){
+                calibrage["agressivite"]=calibrageActuelIA->getAgressivite();
+                calibrage["rationalite"]=calibrageActuelIA->getRationalite();
+                calibrage["distanceMoyenne"]=100;
+            }
+            else{
+                calibrage=calibrages.at(numeroCalibrage).toObject();
+                iterations=calibrage["iterations"].toArray();
+            }
+
+            iterations.append(partie);
+
             calibrage["iterations"]=iterations;
-            calibrage["distanceMoyenne"]=100;
 
-            calibrages.append(calibrage);
+            //Modification de la distance moyenne du calibrage:
+            //On commence par calculer la moyenne du calibrage
+            double sommeDistances=0;
+            for(int i=0;i<iterations.size();i++){
+                sommeDistances+=iterations[i].toObject()["distance"].toDouble();
+            }
+
+            calibrage["distanceMoyenne"]=sommeDistances/static_cast<double>(iterations.size());
+
+            cout << "numCali : " << numeroCalibrage << endl;
+
+            //Si le calibrage n'existe pas encore
+            if(numeroCalibrage <= calibrages.size()
+                && calibrages.at(numeroCalibrage).toObject()["agressivite"]==calibrageActuelIA->getAgressivite()
+                && calibrages.at(numeroCalibrage).toObject()["rationalite"]==calibrageActuelIA->getRationalite()){
+
+                calibrages[numeroCalibrage]=calibrage;
+            }
+            else{
+                calibrages.append(calibrage);
+            }
         }
 
-
-        //ajout de la partie dans le bon calibrage:
-        QJsonObject calibrage=calibrages.at(numeroCalibrage).toObject();
-        QJsonArray iterations=calibrage["iterations"].toArray();
-
-        iterations.append(partie);
-
-
-        //Modification de la distance moyenne du calibrage:
-        //On commence par calculer la moyenne du calibrage
-        int nombreDistances=0;
-        int sommeDistances=0;
-        for(int i=0;i<iterations.size();i++){
-            nombreDistances++;
-            sommeDistances+=iterations[i].toInt();
-        }
-
-        calibrage["distanceMoyenne"]=sommeDistances/nombreDistances;
-
+        cout << "nb cali : " << calibrages.size()<< endl;
         json["ScenariosDeTests"]=calibrages;
         json["ProfilJoueur"]=profilJoueur;
 
         doc.setObject(json);
+        fichier.resize(0);
         fichier.write(doc.toJson());
 
         fichier.close();
@@ -295,7 +316,7 @@ void ScenariosDeTests::calculerActionAttendueJoueur(QJsonObject json){
 
 
     //Si on n'a pas de ligne ayant des chances de gains égales aux chances de gains du jeu actuel
-    if(numeroDuTestActuel==0 || numeroCalibrage==-1){
+    if(numeroDuTestActuel==0 || numeroLigneLaPlusProche==-1){
 
         if(calibrages.size()>=1){
             QJsonObject profilJoueur=json["ProfilJoueur"].toObject();
@@ -340,12 +361,12 @@ void ScenariosDeTests::scenarioSuivant(QJsonArray calibrages){
         }
         else{
             numeroDuTestActuel=0;
-            if(calibrageActuelIA.getRationalite()==0){
-                calibrageActuelIA.setRationalite(100);
-                calibrageActuelIA.setAgressivite(calibrageActuelIA.getAgressivite()-25);
+            if(calibrageActuelIA->getRationalite()==0){
+                calibrageActuelIA->setRationalite(100);
+                calibrageActuelIA->setAgressivite(calibrageActuelIA->getAgressivite()-25);
             }
             else{
-                calibrageActuelIA.setRationalite(calibrageActuelIA.getRationalite()-25);
+                calibrageActuelIA->setRationalite(calibrageActuelIA->getRationalite()-25);
             }
         }
     }
@@ -362,8 +383,8 @@ void ScenariosDeTests::scenarioSuivant(QJsonArray calibrages){
             }
         }
 
-        calibrageActuelIA.setAgressivite(calibrages[numeroLigneCalibrage].toObject()["agressivite"].toDouble());
-        calibrageActuelIA.setRationalite(calibrages[numeroLigneCalibrage].toObject()["rationalite"].toDouble());
+        calibrageActuelIA->setAgressivite(calibrages[numeroLigneCalibrage].toObject()["agressivite"].toDouble());
+        calibrageActuelIA->setRationalite(calibrages[numeroLigneCalibrage].toObject()["rationalite"].toDouble());
         numeroCalibrage=numeroLigneCalibrage;
 
     }

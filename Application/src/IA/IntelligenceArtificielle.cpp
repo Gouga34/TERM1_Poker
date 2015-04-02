@@ -23,6 +23,10 @@ IntelligenceArtificielle::~IntelligenceArtificielle(){
     if (profilage != 0) {
         delete profilage;
     }
+
+    if (scenario != 0) {
+        delete scenario;
+    }
 }
 
 double IntelligenceArtificielle::calculProba(){
@@ -127,6 +131,8 @@ void IntelligenceArtificielle::setPseudoJoueur(string pseudo) {
         delete profilage;
     }
     profilage = new Profilage(&profilJoueur);
+
+    scenario = new ScenariosDeTests(&profilJoueur, &resolveur->getCalibrage());
 }
 
 void IntelligenceArtificielle::remplissageDonneesProfilage() {
@@ -155,6 +161,34 @@ void IntelligenceArtificielle::remplissageDonneesProfilage() {
     profilage->etatPartie[jeu->getEtape()].couche = jeu->estCouche(0);
 
     profilage->correction(jeu->getEtape());
+}
+
+void IntelligenceArtificielle::calculProfilGlobalJoueur() {
+    //On récupère les 4 taux des 4 parties et on en fait la moyenne, pour chaque type de jeu
+
+    int sommeAgressivite=0;
+    int sommeRationalite=0;
+    int sommePassivite=0;
+    int sommeBluff=0;
+    for(int i=0;i<ETAPE_JEU::NB_ETAPES;i++){
+        sommeAgressivite+=profilage->etatPartie[i].tauxAgressivite;
+        sommeRationalite+=profilage->etatPartie[i].tauxRationnalite;
+        sommePassivite+=profilage->etatPartie[i].tauxPassivite;
+        sommeBluff+=profilage->etatPartie[i].tauxBluff;
+    }
+
+    profilage->profilJoueur->setAgressivite(sommeAgressivite/ETAPE_JEU::NB_ETAPES);
+    profilage->profilJoueur->setRationalite(sommeRationalite/ETAPE_JEU::NB_ETAPES);
+    profilage->profilJoueur->setPassivite(sommePassivite/ETAPE_JEU::NB_ETAPES);
+    profilage->profilJoueur->setBluff(sommeBluff/ETAPE_JEU::NB_ETAPES);
+
+    profilage->sauvegarder();
+}
+
+void IntelligenceArtificielle::ecritureScenariosDeTests() {
+    scenario->setCalibrageActuelIA(&resolveur->getCalibrage());
+    scenario->setChancesDeGain(profilage->etatPartie[ETAPE_JEU::RIVER].probaGainAdversaire);
+    scenario->sauvegarderPartie();
 }
 
 void IntelligenceArtificielle::jouer(){

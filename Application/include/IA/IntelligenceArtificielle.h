@@ -4,7 +4,8 @@
 #include "../Jeu/Joueur.h"
 #include "../Jeu/Jeu.h"
 #include "Resolveur.h"
-#include "../../include/Profilage/Profil.h"
+#include "../Profilage/Profil.h"
+#include "../Profilage/ScenariosDeTests.h"
 
 #include <vector>
 #include <iostream>
@@ -23,6 +24,8 @@ class IntelligenceArtificielle : public Joueur {
         Profil profilJoueur;
 
         Profilage *profilage;
+
+        ScenariosDeTests *scenario;
 
 		
 		//Méthodes
@@ -78,6 +81,16 @@ class IntelligenceArtificielle : public Joueur {
          * @action Remplit l'objet contenant les données de profilage du joueur
          */
         void remplissageDonneesProfilage();
+
+        /**
+         * @action Calcule les données globales de profilage et sauvegarde les données de la partie
+         */
+        void calculProfilGlobalJoueur();
+
+        /**
+         * @action Ecrit
+         */
+        void ecritureScenariosDeTests();
 	
 		/**
 		*@action : Pemet a l'IA de jouer

@@ -382,9 +382,10 @@ void Jeu::finPartie() {
 
     resultatPartie = retour;
 
-    IntelligenceArtificielle *ia = static_cast<IntelligenceArtificielle*>(this->getJoueur(1));
-    ia->getProfilage()->sauvegarder();
+    IntelligenceArtificielle *ia = static_cast<IntelligenceArtificielle*>(this->getJoueur(1));  
+    ia->calculProfilGlobalJoueur();
 
+    ia->ecritureScenariosDeTests();
 
     this->etape = ETAPE_JEU::PREFLOP;
 }

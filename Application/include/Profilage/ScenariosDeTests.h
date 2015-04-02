@@ -18,7 +18,7 @@ Specification: Classe permettant d'écrire et
 class ScenariosDeTests{
 private:
   //Attributs :
-    Profil calibrageActuelIA;
+    Profil *calibrageActuelIA;
     int numeroDuTestActuel; //correspond à l'itération du test où on en est. exemple : 3m itération du test avec pour calibrage 100 100.
     Profil actionAttendueJoueur;
     Profil *actionReelleJoueur;
@@ -34,9 +34,15 @@ private:
     void scenarioSuivant(QJsonArray calibrages);
 
 public:
-    ScenariosDeTests(Profil *profilJoueur);
+    ScenariosDeTests(Profil *profilJoueur, Profil *calibrageIA);
 
     ~ScenariosDeTests();
+
+    /**
+     * @brief setCalibrageActuelIA
+     * @param calibrage
+     */
+    void setCalibrageActuelIA(Profil *calibrage);
 
     /**
      * @brief setJoueurSeCouche
@@ -66,7 +72,7 @@ public:
      * @brief getCalibrageActuelIA
      * @return le calibrage actuel de l'IA
      */
-    Profil getCalibrageActuelIA();
+    Profil *getCalibrageActuelIA();
 
     /**
      * @brief setActionAttendueJoueur
