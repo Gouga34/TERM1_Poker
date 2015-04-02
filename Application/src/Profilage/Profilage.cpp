@@ -42,10 +42,10 @@ void Profilage::charger()
     QJsonObject json(doc.object());
 
     // Type du joueur
-    typeJoueur[PROFIL_JOUEUR::RA] = json["RA"].toInt();
-    typeJoueur[PROFIL_JOUEUR::RP] = json["RP"].toInt();
-    typeJoueur[PROFIL_JOUEUR::BA] = json["BA"].toInt();
-    typeJoueur[PROFIL_JOUEUR::BP] = json["BP"].toInt();
+    typeJoueur[PROFIL_JOUEUR::AGRESSIVITE] = json["agressivite"].toInt();
+    typeJoueur[PROFIL_JOUEUR::RATIONALITE] = json["rationalite"].toInt();
+    typeJoueur[PROFIL_JOUEUR::BLUFF] = json["bluff"].toInt();
+    typeJoueur[PROFIL_JOUEUR::PASSIVITE] = json["passivite"].toInt();
 
 
     QJsonArray parties = json["parties"].toArray();
@@ -179,10 +179,10 @@ void Profilage::sauvegarder()
    parties.append(partie);
 
    // Ecriture du type du joueur
-   json["RA"] = typeJoueur[PROFIL_JOUEUR::RA];
-   json["RP"] = typeJoueur[PROFIL_JOUEUR::RP];
-   json["BA"] = typeJoueur[PROFIL_JOUEUR::BA];
-   json["BP"] = typeJoueur[PROFIL_JOUEUR::BP];
+   json["rationalite"] = typeJoueur[PROFIL_JOUEUR::RATIONALITE];
+   json["agressivite"] = typeJoueur[PROFIL_JOUEUR::AGRESSIVITE];
+   json["bluff"] = typeJoueur[PROFIL_JOUEUR::BLUFF];
+   json["passivite"] = typeJoueur[PROFIL_JOUEUR::PASSIVITE];
 
    // On modifie le QJsonObject
    json["parties"] = parties;

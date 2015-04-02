@@ -291,7 +291,7 @@ pair<ACTION,int> Resolveur::calculerAction(){
     if(actionAgressivite.first!=actionRationalite.first){
 
         int total = calibrage.getRationalite()+calibrage.getAgressivite();
-        cout<<total<<endl;
+
 
         int random=rand()%total+1;
 
