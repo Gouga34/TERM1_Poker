@@ -16,11 +16,9 @@ Specification: Fichier contenant les définitions de la classe Profilage.
 #include <QJsonArray>
 
 
-Profilage::Profilage(std::string joueur)
-    : nomJoueur(joueur), typeJoueur{0}, partieGagnee(false),
-      profil{{false, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}},
-      agressiviteGlobale(0), bluffGlobal(0), rationaliteGlobale(0), passiviteGlobale(0),
-      rationaliteIA(0), agressiviteIA(0)
+Profilage::Profilage(Profil *profil)
+    : profilJoueur(profil), profilIA(), typeJoueur{0}, partieGagnee(false),
+      etatPartie{{false, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}}
 {
 
 }
@@ -32,10 +30,10 @@ Profilage::~Profilage()
 
 void Profilage::charger()
 {
-    QString nomFichier = QString::fromStdString(nomJoueur) + ".json";
+    QString nomFichier = QString::fromStdString(profilJoueur->getPseudo()) + ".json";
     QFile fichier("../Application/ressources/Profilage/ProfilageStatique/" + nomFichier);
     if (!fichier.open(QIODevice::ReadOnly)) {
-        std::cerr << "Le fichier du pseudo " << nomJoueur << " n'existe pas encore." << std::endl;
+        std::cerr << "Le fichier du pseudo " << profilJoueur->getPseudo() << " n'existe pas encore." << std::endl;
         return;
     }
 
@@ -61,44 +59,44 @@ void Profilage::charger()
             QString nomEtape = QString::fromStdString(nomEtapes[i]);
             QJsonObject etape = partie[nomEtape].toObject();
 
-            profil[i].couche = etape["couche"].toBool();
+            etatPartie[i].couche = etape["couche"].toBool();
 
-            profil[i].probaGainAdversaire = etape["probaGainAdversaire"].toDouble();
-            profil[i].pot = etape["pot"].toDouble();
+            etatPartie[i].probaGainAdversaire = etape["probaGainAdversaire"].toDouble();
+            etatPartie[i].pot = etape["pot"].toDouble();
 
-            profil[i].tauxAgressivite = etape["agressivité"].toDouble();
-            profil[i].tauxRationnalite = etape["rationalite"].toDouble();
-            profil[i].tauxBluff = etape["bluff"].toDouble();
-            profil[i].tauxPassivite = etape["passivite"].toDouble();
+            etatPartie[i].tauxAgressivite = etape["agressivité"].toDouble();
+            etatPartie[i].tauxRationnalite = etape["rationalite"].toDouble();
+            etatPartie[i].tauxBluff = etape["bluff"].toDouble();
+            etatPartie[i].tauxPassivite = etape["passivite"].toDouble();
 
-            profil[i].tauxSuivis = etape["suivis"].toDouble();
-            profil[i].tauxChecks = etape["checks"].toDouble();
-            profil[i].tauxMises = etape["mises"].toDouble();
+            etatPartie[i].tauxSuivis = etape["suivis"].toDouble();
+            etatPartie[i].tauxChecks = etape["checks"].toDouble();
+            etatPartie[i].tauxMises = etape["mises"].toDouble();
 
-            profil[i].misePlusHaute = etape["misePlusHaute"].toDouble();
-            profil[i].miseTotaleJoueur = etape["miseTotaleJoueur"].toDouble();
-            profil[i].miseTotaleIA = etape["miseTotaleIA"].toDouble();
+            etatPartie[i].misePlusHaute = etape["misePlusHaute"].toDouble();
+            etatPartie[i].miseTotaleJoueur = etape["miseTotaleJoueur"].toDouble();
+            etatPartie[i].miseTotaleIA = etape["miseTotaleIA"].toDouble();
         }
 
         QJsonObject global = partie["global"].toObject();
 
-        agressiviteGlobale = global["agressivité"].toDouble();
-        bluffGlobal = global["bluff"].toDouble();
-        rationaliteGlobale = global["rationalite"].toDouble();
-        passiviteGlobale = global["passivite"].toDouble();
+        profilJoueur->setAgressivite(global["agressivité"].toDouble());
+        profilJoueur->setBluff(global["bluff"].toDouble());
+        profilJoueur->setRationalite(global["rationalite"].toDouble());
+        profilJoueur->setPassivite(global["passivite"].toDouble());
 
         QJsonObject calibrageIA = partie["calibrageIA"].toObject();
 
-        agressiviteIA = calibrageIA["agressivité"].toDouble();
-        rationaliteIA = calibrageIA["rationalite"].toDouble();
+        profilIA.setAgressivite(calibrageIA["agressivité"].toDouble());
+        profilIA.setRationalite(calibrageIA["rationalite"].toDouble());
     }
 
     fichier.close();
 }
 
-void Profilage::sauvegarder() const
+void Profilage::sauvegarder()
 {
-   QString nomFichier = QString::fromStdString(nomJoueur) + ".json";
+   QString nomFichier = QString::fromStdString(profilJoueur->getPseudo()) + ".json";
    QFile fichier("../Application/ressources/Profilage/ProfilageStatique/" + nomFichier);
 
    QJsonDocument doc;
@@ -115,7 +113,7 @@ void Profilage::sauvegarder() const
        }
 
        QTextStream out(&listePseudos);
-       out << QString::fromStdString(nomJoueur) << endl;
+       out << QString::fromStdString(profilJoueur->getPseudo()) << endl;
 
        listePseudos.close();
    }
@@ -139,23 +137,23 @@ void Profilage::sauvegarder() const
    for (int i = 0; i < ETAPE_JEU::NB_ETAPES; i++) {
         QJsonObject etape;
 
-        etape["couche"] = profil[i].couche;
+        etape["couche"] = etatPartie[i].couche;
 
-        etape["probaGainAdversaire"] = profil[i].probaGainAdversaire;
-        etape["pot"] = profil[i].pot;
+        etape["probaGainAdversaire"] = etatPartie[i].probaGainAdversaire;
+        etape["pot"] = etatPartie[i].pot;
 
-        etape["agressivité"] = profil[i].tauxAgressivite;
-        etape["rationalite"] = profil[i].tauxRationnalite;
-        etape["bluff"] = profil[i].tauxBluff;
-        etape["passivite"] = profil[i].tauxPassivite;
+        etape["agressivité"] = etatPartie[i].tauxAgressivite;
+        etape["rationalite"] = etatPartie[i].tauxRationnalite;
+        etape["bluff"] = etatPartie[i].tauxBluff;
+        etape["passivite"] = etatPartie[i].tauxPassivite;
 
-        etape["suivis"] = profil[i].tauxSuivis;
-        etape["checks"] = profil[i].tauxChecks;
-        etape["mises"] = profil[i].tauxMises;
+        etape["suivis"] = etatPartie[i].tauxSuivis;
+        etape["checks"] = etatPartie[i].tauxChecks;
+        etape["mises"] = etatPartie[i].tauxMises;
 
-        etape["misePlusHaute"] = profil[i].misePlusHaute;
-        etape["miseTotaleJoueur"] = profil[i].miseTotaleJoueur;
-        etape["miseTotaleIA"] = profil[i].miseTotaleIA;
+        etape["misePlusHaute"] = etatPartie[i].misePlusHaute;
+        etape["miseTotaleJoueur"] = etatPartie[i].miseTotaleJoueur;
+        etape["miseTotaleIA"] = etatPartie[i].miseTotaleIA;
 
         QString nomEtape = QString::fromStdString(nomEtapes[i]);
         partie[nomEtape] = etape;
@@ -163,17 +161,17 @@ void Profilage::sauvegarder() const
 
    QJsonObject global;
 
-   global["agressivité"] = agressiviteGlobale;
-   global["bluff"] = bluffGlobal;
-   global["rationalite"] = rationaliteGlobale;
-   global["passivite"] = passiviteGlobale;
+   global["agressivité"] = profilJoueur->getAgressivite();
+   global["bluff"] = profilJoueur->getBluff();
+   global["rationalite"] = profilJoueur->getRationalite();
+   global["passivite"] = profilJoueur->getPassivite();
 
    partie["global"] = global;
 
    QJsonObject calibrageIA;
 
-   calibrageIA["agressivité"] = agressiviteIA;
-   calibrageIA["rationalite"] = rationaliteIA;
+   calibrageIA["agressivité"] = profilIA.getAgressivite();
+   calibrageIA["rationalite"] = profilIA.getRationalite();
 
    partie["calibrageIA"] = calibrageIA;
 
@@ -199,6 +197,8 @@ void Profilage::sauvegarder() const
 
    fichier.write(doc.toJson());
 
+   clear();
+
    fichier.close();
 }
 
@@ -206,51 +206,43 @@ void Profilage::clear(){
 
     for(int etape=0; etape<ETAPE_JEU::NB_ETAPES;etape++){
 
-        this->profil[etape].couche  = false;
-        this->profil[etape].probaGainAdversaire = 0;
-        this->profil[etape].pot = 0;
+        this->etatPartie[etape].couche = false;
+        this->etatPartie[etape].probaGainAdversaire = 0;
+        this->etatPartie[etape].pot = 0;
 
-        this->profil[etape].tauxAgressivite = 0;
-        this-> profil[etape].tauxRationnalite = 0;
-        this-> profil[etape].tauxBluff = 0;
-        this->profil[etape].tauxPassivite = 0;
+        this->etatPartie[etape].tauxAgressivite = 0;
+        this->etatPartie[etape].tauxRationnalite = 0;
+        this->etatPartie[etape].tauxBluff = 0;
+        this->etatPartie[etape].tauxPassivite = 0;
 
-        this->profil[etape].tauxSuivis = 0;
-        this->profil[etape].tauxChecks = 0;
-        this->profil[etape].tauxMises = 0;
+        this->etatPartie[etape].tauxSuivis = 0;
+        this->etatPartie[etape].tauxChecks = 0;
+        this->etatPartie[etape].tauxMises = 0;
 
-        this->profil[etape].misePlusHaute = 0;
-        this->profil[etape].miseTotaleJoueur = 0;
-        this->profil[etape].miseTotaleIA = 0;
+        this->etatPartie[etape].misePlusHaute = 0;
+        this->etatPartie[etape].miseTotaleJoueur = 0;
+        this->etatPartie[etape].miseTotaleIA = 0;
     }
 
     this->partieGagnee = false;
-
-    this->agressiviteGlobale = 0;
-    this->bluffGlobal = 0;
-    this->rationaliteGlobale = 0;
-    this->passiviteGlobale = 0;
-
-    this->agressiviteIA = 0;
-    this->rationaliteIA = 0;
 }
 
 void Profilage::correction(ETAPE_JEU etape){
 
-    if(this->profil[etape].tauxPassivite < 0){
-        this->profil[etape].tauxPassivite = 0;
+    if(this->etatPartie[etape].tauxPassivite < 0){
+        this->etatPartie[etape].tauxPassivite = 0;
     }
 
-    if(this->profil[etape].tauxSuivis < 0){
-        this->profil[etape].tauxSuivis = 0;
+    if(this->etatPartie[etape].tauxSuivis < 0){
+        this->etatPartie[etape].tauxSuivis = 0;
     }
 
-    if(this->profil[etape].tauxChecks < 0){
-        this->profil[etape].tauxChecks = 0;
+    if(this->etatPartie[etape].tauxChecks < 0){
+        this->etatPartie[etape].tauxChecks = 0;
     }
 
-    if(this->profil[etape].tauxMises < 0){
-        this->profil[etape].tauxMises = 0;
+    if(this->etatPartie[etape].tauxMises < 0){
+        this->etatPartie[etape].tauxMises = 0;
     }
 
 }

@@ -21,7 +21,6 @@ class Joueur{
         int                 misePlusHaute;
         int                 miseTotale;
         double              chancesGain;
-        Profilage*          profil;
 
 		
 	//Constructeur et destructeur
@@ -126,18 +125,6 @@ class Joueur{
         *@param : La somme totale misee par le joueur
         **/
         void             setMiseTotale(int miseTotale);
-
-        /**
-        *@action : Permet d'obtenir le profil du joueur
-        *@return : Le profil du joueur
-        **/
-        Profilage*             getProfil();
-
-        /**
-        *@action : Permet d''affecter le profil du joueur
-        *@param : Le pseudo du joueur
-        **/
-        void             setProfil(std::string pseudo);
 
 		
 	//Methodes
