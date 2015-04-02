@@ -22,7 +22,7 @@ class Jeu{
 
 	//Liste des attributs
 	private :
-        std::vector<Joueur>                 listeJoueurs;
+        std::vector<Joueur*>                listeJoueurs;
         std::vector<Carte>                  deck;
         std::vector<Carte>                  table;
         std::vector<ACTION>                 actions;
@@ -32,9 +32,8 @@ class Jeu{
         int                                 nombreDeCoup;
         int                                 miseCourante;
         int                                 dealer;
-        double                              agressiviteIA;
-        double                              rationaliteIA;
         ETAPE_JEU                           etape;
+        int                                 resultatPartie;
         std::vector<Carte>                  tableTmp;
 
 
@@ -80,7 +79,7 @@ class Jeu{
 		*@param  : Le nombre de joueur, le montant de la blind de depart, la cave de depart des joueurs et le type de proffiling de l'IA
 		*@action : Initialise un nouveau jeu
 		**/
-        Jeu(int nbJoueur, int blindDepart, int cave, double agressivite, double rationalite);
+        Jeu(int nbJoueur, int blindDepart, int cave);
 		
 		/**
 		*@action : Destructeur de la classe Jeu
@@ -89,7 +88,12 @@ class Jeu{
 		
     //Accesseurs
 	
-		/**
+        /**
+         * @return Gagnant de la partie (GAGNE, PERDU, EGALITE)
+         */
+        int             getResultatPartie() const;
+
+        /**
 		*@action : Permet d'obtenir le montant de la petite blind
 		*@return : Le montant de la petite blind
 		**/
@@ -105,13 +109,13 @@ class Jeu{
 		*@action : Permet d'obtenir le joueur en i-eme position
 		*@return : Le joueur en i-eme position
 		**/
-		Joueur& 		getJoueur(int i);
+        Joueur* 		getJoueur(int i);
         	
         	/**
 		*@action : Permet d'ajouter un joueur a la partie
 		*@param  : Le joueur a ajouter a la partie
 		**/
-		void 			setJoueur(Joueur joueur);
+        void 			setJoueur(Joueur *joueur);
 		
 		/**
 		*@action : Permet d'obtenir les carte communes
@@ -160,36 +164,6 @@ class Jeu{
 		*@return : L'ensemble des actions
 		**/
         std::vector<ACTION> getListeActions() const;
-
-		/**
-		*@action : Permet d'obtenir l'agressivite de l'IA
-		*@return : L'agressivite de l'IA
-		**/
-		double getAgressiviteIA() const;
-
-		/**
-		*@action : Permet d'obtenir la rationnalite de l'IA
-		*@return : La rationnalite de l'IA
-		**/
-		double getRationaliteIA() const;
-
-		/**
-		*@action : Permet d'affecter l'agressivite de l'IA
-		*@param : L'agressivite de l'IA
-		**/
-		void setAgressiviteIA(double agressivite);
-
-		/**
-		*@action : Permet d'affecter la rationnalite de l'IA
-		*@param : La rationnalite de l'IA
-		**/
-		void setRationaliteIA(double rationalite);
-
-        /**
-        *@action : Permet d'affecter le pseudo du joueur
-        *@param : Le pseudo choisi par le joueur
-        **/
-        void setPseudo(std::string pseudo);
 
         /**
         *@action : Permet d'obtenir l'etape courante
@@ -270,6 +244,12 @@ class Jeu{
 		bool peutSuivre(int posJoueur);
 
         /**
+         * @param posJoueur Position du joueur à tester
+         * @return Vrai si le joueur est couché
+         */
+        bool estCouche(int posJoueur) const;
+
+        /**
          * @action Exécute l'action du joueur (check, mise...)
          * @param posJoueur Position du joueur qui exécute l'action
          * @param action Action à exécuter
@@ -300,24 +280,22 @@ class Jeu{
 		*@action  : Permet de reinitialiser le tableau des actions
 		**/		
 		void resetActions();
+
+        /**
+         * @action Effectue l'ensemble des actions de fin de partie
+         */
+        void finPartie();
 		
 		/**
         *@action  : Relance une nouvelle main
-        *@return  : Gagnant de la partie (GAGNE, PERDU, EGALITE)
 		**/			
-        int nouvelleMain();
+        void nouvelleMain();
 
 		/**
 		*@action  : Affecte les cartes choisies via l'interface
 		*@param   : Un vecteur d'entier correspondant a la liste des ids des cartes
 		**/
 		void affectationCarte(std::vector<int> listeId);
-
-        /**
-        *@action  : Rempli le tableau de profilage du joueur
-        *@param   : Le profil du joueur
-        **/
-        void remplissageTableau(Profilage &profil);
 };
 
 #endif
