@@ -425,33 +425,43 @@ void Jeu::nouvelleMain(){
 
 
 bool Jeu::peutChecker(int posJoueur){
+    //On peut checker quand le joueur précédent a checké ou suivi.
+    if(posJoueur==0){
+        //Si l'action de l'autre joueur est miser, relancer ou grosse blinde, on retourne false
+        if(actions[1]==ACTION::MISER || actions[1]==ACTION::RELANCER || actions[1]==ACTION::GROSSE_BLIND){
 
-	for(int i=1; i<= (int) this->actions.size() - 1; i++){
-        if(this->actions[(posJoueur + i) % this->actions.size() ] == ACTION::MISER ||
-            this->actions[(posJoueur + i) % this->actions.size()] == ACTION::RELANCER ||
-            this->actions[(posJoueur + i) % this->actions.size()] == ACTION::GROSSE_BLIND){
             return false;
-		}
-	}
-
-	return true;
+        }
+    }
+    else{
+        if(actions[0]==ACTION::MISER || actions[0]==ACTION::RELANCER || actions[0]==ACTION::GROSSE_BLIND){
+            std::cout<<"ds le if"<<std::endl;
+            return false;
+        }
+    }
+    return true;
 }
 
 bool Jeu::peutMiser(int posJoueur, int jetons){
 
-    // On regarde si l'action est possible
-    for(int i=1; i<= (int) this->actions.size() - 1; i++){
-        if(this->actions[(posJoueur + i) % this->actions.size() ] == ACTION::MISER ||
-           this->actions[(posJoueur + i) % this->actions.size()] == ACTION::RELANCER ||
-           this->actions[(posJoueur + i) % this->actions.size()] == ACTION::GROSSE_BLIND ||
-           this->actions[(posJoueur + i) % this->actions.size()] == ACTION::SUIVRE||
-           this->actions[(posJoueur + i) % this->actions.size()] == ACTION::TAPIS){
+    //On peut miser quand le joueur précédent a checké
+    if(posJoueur==0){
+        if(actions[1]==ACTION::MISER || actions[1]==ACTION::RELANCER || actions[1]==ACTION::GROSSE_BLIND || actions[1]==ACTION::SUIVRE){
+
+            return false;
+        }
+    }
+    else{
+        if(actions[0]==ACTION::MISER || actions[0]==ACTION::RELANCER || actions[0]==ACTION::GROSSE_BLIND || actions[0]==ACTION::SUIVRE){
             return false;
         }
     }
 
     // On regarde si on a assez d'argent
-    if (this->getJoueur(posJoueur)->getCave() >= jetons) {
+    if(jetons==0){
+        return false;
+    }
+    else if (this->getJoueur(posJoueur)->getCave() >= jetons) {
         return true;
     }
 
@@ -461,19 +471,25 @@ bool Jeu::peutMiser(int posJoueur, int jetons){
 
 bool Jeu::peutRelancer(int posJoueur, int jetons){
 
-    // On regarde si l'action est possible
-    for(int i=1; i<= (int) this->actions.size() - 1; i++){
-        if(this->actions[(posJoueur + i) % this->actions.size() ] != ACTION::MISER &&
-            this->actions[(posJoueur + i) % this->actions.size()] != ACTION::RELANCER &&
-            this->actions[(posJoueur + i) % this->actions.size()] != ACTION::GROSSE_BLIND &&
-            this->actions[(posJoueur + i) % this->actions.size()] != ACTION::SUIVRE){
-                return false;
+    //On peut pas relancer quand le joueur précédent a misé, relancé ou grosse blind
+    if(posJoueur==0){
+        if(actions[1]==ACTION::MISER || actions[1]==ACTION::RELANCER || actions[1]==ACTION::GROSSE_BLIND){
+            return false;
         }
     }
 
+    if(getMiseCourante()<=getJoueur(posJoueur)->getCave()){
+
     // On regarde si on a assez d'argent
-    if (this->getJoueur(posJoueur)->getCave() >= jetons) {
-        return true;
+        if (this->getJoueur(posJoueur)->getCave() >= jetons) {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    else{
+        return false;
     }
 
     return false;
@@ -481,11 +497,11 @@ bool Jeu::peutRelancer(int posJoueur, int jetons){
 
 bool Jeu::peutSuivre(int posJoueur){
 
-    for(int i=1; i<= (int) this->actions.size() - 1; i++){
-        if(this->actions[(posJoueur + i) % this->actions.size() ] != ACTION::MISER &&
-            this->actions[(posJoueur + i) % this->actions.size()] != ACTION::RELANCER &&
-            this->actions[(posJoueur + i) % this->actions.size()] != ACTION::GROSSE_BLIND){
-                return false;
+    //On peut suivre quand le joueur précédent a misé, relancé ou grosse blind
+
+    if(posJoueur==0){
+        if(actions[1]==ACTION::CHECKER || actions[1]==ACTION::PETITE_BLIND){
+            return false;
         }
     }
 
