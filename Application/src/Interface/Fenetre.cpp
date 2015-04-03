@@ -213,7 +213,7 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
     calibrageIa.setAgressivite(options.agressiviteIA);
     calibrageIa.setRationalite(options.rationaliteIA);
 
-    ia->setCalibrage(calibrageIa);
+    //ia->setCalibrage(calibrageIa);
 }
 
 Fenetre::~Fenetre()
