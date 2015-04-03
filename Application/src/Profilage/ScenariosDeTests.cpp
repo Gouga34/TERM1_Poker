@@ -279,7 +279,7 @@ void ScenariosDeTests::sauvegarderPartie(){
             calibrage["distanceMoyenne"]=sommeDistances/static_cast<double>(iterations.size());
 
             //Si le calibrage n'existe pas encore
-            if(numeroCalibrage <= calibrages.size()
+            if(numeroCalibrage < calibrages.size()
                 && calibrages.at(numeroCalibrage).toObject()["agressivite"]==calibrageActuelIA->getAgressivite()
                 && calibrages.at(numeroCalibrage).toObject()["rationalite"]==calibrageActuelIA->getRationalite()){
 
