@@ -185,7 +185,7 @@ void ScenariosDeTests::sauvegarderPartie(){
         //Si le fichier json est vide, on crée le profil du joueur
 
         QJsonObject profilJoueur;
-        cout<<json.size()<<endl;
+
         if(json.size()==1){
             profilJoueur["agressivite"]=0;
             profilJoueur["rationalite"]=0;
@@ -199,8 +199,6 @@ void ScenariosDeTests::sauvegarderPartie(){
 
         PROFIL_JOUEUR::PROFIL_JOUEUR maxTaux = PROFIL_JOUEUR::AGRESSIVITE, secondTaux = PROFIL_JOUEUR::AGRESSIVITE;
         double max=0;
-
-        cout<<"rationalite : "<<actionReelleJoueur->getRationalite()<<endl;
 
         if(actionReelleJoueur->getAgressivite()>max){
             secondTaux=maxTaux;
@@ -222,7 +220,7 @@ void ScenariosDeTests::sauvegarderPartie(){
             maxTaux=PROFIL_JOUEUR::PASSIVITE;
             max=actionReelleJoueur->getPassivite();
         }
-        cout<<"max : "<<max<<endl;
+
         if(maxTaux==PROFIL_JOUEUR::AGRESSIVITE){
             profilJoueur["agressivite"] = profilJoueur["agressivite"].toInt()+1;
         }
@@ -280,8 +278,6 @@ void ScenariosDeTests::sauvegarderPartie(){
 
             calibrage["distanceMoyenne"]=sommeDistances/static_cast<double>(iterations.size());
 
-            cout << "numCali : " << numeroCalibrage << endl;
-
             //Si le calibrage n'existe pas encore
             if(numeroCalibrage <= calibrages.size()
                 && calibrages.at(numeroCalibrage).toObject()["agressivite"]==calibrageActuelIA->getAgressivite()
@@ -294,9 +290,10 @@ void ScenariosDeTests::sauvegarderPartie(){
             }
         }
 
-        cout << "nb cali : " << calibrages.size()<< endl;
         json["ScenariosDeTests"]=calibrages;
         json["ProfilJoueur"]=profilJoueur;
+
+        scenarioSuivant(calibrages);
 
         doc.setObject(json);
         fichier.resize(0);
@@ -360,6 +357,7 @@ void ScenariosDeTests::scenarioSuivant(QJsonArray calibrages){
             numeroDuTestActuel++;
         }
         else{
+            numeroCalibrage++;
             numeroDuTestActuel=0;
             if(calibrageActuelIA->getRationalite()==0){
                 calibrageActuelIA->setRationalite(100);

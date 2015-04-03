@@ -229,10 +229,6 @@ void Profilage::clear(){
 
 void Profilage::correction(ETAPE_JEU etape){
 
-    if(this->etatPartie[etape].tauxPassivite < 0){
-        this->etatPartie[etape].tauxPassivite = 0;
-    }
-
     if(this->etatPartie[etape].tauxSuivis < 0){
         this->etatPartie[etape].tauxSuivis = 0;
     }
