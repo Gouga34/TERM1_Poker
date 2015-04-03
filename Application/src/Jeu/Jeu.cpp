@@ -435,7 +435,6 @@ bool Jeu::peutChecker(int posJoueur){
     }
     else{
         if(actions[0]==ACTION::MISER || actions[0]==ACTION::RELANCER || actions[0]==ACTION::GROSSE_BLIND){
-            std::cout<<"ds le if"<<std::endl;
             return false;
         }
     }
@@ -471,14 +470,16 @@ bool Jeu::peutMiser(int posJoueur, int jetons){
 
 bool Jeu::peutRelancer(int posJoueur, int jetons){
 
-    //On peut pas relancer quand le joueur précédent a misé, relancé ou grosse blind
+    //On peut pas relancer quand le joueur précédent a checké
     if(posJoueur==0){
-        if(actions[1]==ACTION::MISER || actions[1]==ACTION::RELANCER || actions[1]==ACTION::GROSSE_BLIND){
+        if(actions[1]==ACTION::CHECKER){
+
             return false;
         }
     }
 
-    if(getMiseCourante()<=getJoueur(posJoueur)->getCave()){
+
+    if((getMiseCourante()*2)<=getJoueur(posJoueur)->getCave()){
 
     // On regarde si on a assez d'argent
         if (this->getJoueur(posJoueur)->getCave() >= jetons) {
