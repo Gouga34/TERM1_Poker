@@ -148,6 +148,8 @@ void IntelligenceArtificielle::remplissageDonneesProfilage() {
     profilage->etatPartie[jeu->getEtape()].tauxSuivis = CalculDonneesProfilage::taux(this->getCompteurActions()[1],nbTotalActions);
     profilage->etatPartie[jeu->getEtape()].tauxChecks = CalculDonneesProfilage::taux(this->getCompteurActions()[2],nbTotalActions);
 
+    profilage->correction(jeu->getEtape());
+
     profilage->etatPartie[jeu->getEtape()].misePlusHaute = CalculDonneesProfilage::taux(this->getMisePlusHaute(),this->getCave());
     profilage->etatPartie[jeu->getEtape()].miseTotaleJoueur = CalculDonneesProfilage::taux(this->getMiseTotale(),this->getCave());
 
@@ -159,8 +161,6 @@ void IntelligenceArtificielle::remplissageDonneesProfilage() {
     profilage->etatPartie[jeu->getEtape()].pot = jeu->getPot();
 
     profilage->etatPartie[jeu->getEtape()].couche = jeu->estCouche(0);
-
-    profilage->correction(jeu->getEtape());
 }
 
 void IntelligenceArtificielle::calculProfilGlobalJoueur() {
