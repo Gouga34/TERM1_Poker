@@ -83,36 +83,3 @@ std::vector<Carte> EstimationProba::nouveauDeck(Joueur* joueurCourant){
 void EstimationProba::melange(std::vector<Carte>& deck){
 	std::random_shuffle(deck.begin(),deck.end());
 }
-
-
-
-void EstimationProba::rangeTable(std::vector<Carte>& table){
-
-	std::vector<Carte> tableRange;
-	int ind;
-
-	while(table.size() != 0){
-		Carte c = table[0];
-		ind = 0;
-		if(c.getRang() != 1){
-            for(int j=0; j< (int) table.size();j++){
-				if(table[j].getRang() == 1){
-					ind = j;
-					c = table[j];
-				}else if ( c.getRang() != 1 && c.getRang() < table[j].getRang()) {
-					ind = j;
-					c = table[j];
-				}
-			
-			}
-			table.erase(table.begin() + ind);
-			tableRange.push_back(c);
-		}else{
-			tableRange.insert(tableRange.begin(),c);
-		}
-	}
-	
-	table = tableRange;	
-}
-
-
