@@ -88,9 +88,14 @@ class IntelligenceArtificielle : public Joueur {
         void calculProfilGlobalJoueur();
 
         /**
-         * @action Ecrit
+         * @action Ecrit les résultats des scénarios de tests pour la partie courante
          */
         void ecritureScenariosDeTests();
+
+        /**
+         * @action Calcule les chances de gain en fonction des cartes connues
+         */
+        void estimationChancesDeGain();
 	
 		/**
 		*@action : Pemet a l'IA de jouer

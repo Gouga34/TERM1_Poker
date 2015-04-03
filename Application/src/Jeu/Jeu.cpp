@@ -83,6 +83,9 @@ void Jeu::nouvelleEtape(ETAPE_JEU etape){
                 this->deck.erase(this->tableTmp.erase(this->tableTmp.begin()));
         }
     }
+
+    IntelligenceArtificielle *ia = static_cast<IntelligenceArtificielle*>(this->getJoueur(1));
+    ia->estimationChancesDeGain();
 }
 
 void Jeu::distributionBlind(){

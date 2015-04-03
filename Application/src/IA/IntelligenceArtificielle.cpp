@@ -191,10 +191,13 @@ void IntelligenceArtificielle::ecritureScenariosDeTests() {
     scenario->sauvegarderPartie();
 }
 
-void IntelligenceArtificielle::jouer(){
-	
+void IntelligenceArtificielle::estimationChancesDeGain()
+{
     double estimation = 100*EstimationProba::estimation(this->getJeu(), this->getJeu()->getJoueur(this->getPosition()));
     setChancesGain(estimation);
+}
+
+void IntelligenceArtificielle::jouer(){
 
     string chances="Chances Gain IA : "+to_string(estimation);
     Logger::getInstance()->ajoutLogs(chances);
