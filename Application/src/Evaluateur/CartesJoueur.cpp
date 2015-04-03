@@ -50,16 +50,18 @@ void CartesJoueur::setPoids(int p){
 
 void CartesJoueur::remplirTableau(vector<Carte> table, vector<Carte> mainJoueur){
 
+
+
 	//Enregistrement des occurrences des cartes du joueur
 	for (vector<Carte>::iterator it = mainJoueur.begin(); it != mainJoueur.end(); ++it){
 		
 		int carte = it->getRang();
-		int couleur = it->getCouleur();
-		
-		
-		if(carte==1){
+        int couleur = it->getCouleur();
+
+        if(carte==AS){
 			occurrences[0][couleur]++;
 			occurrences[13][couleur]++;
+
 			occurrences[0][4]++;
 			occurrences[13][4]++;
 		}
@@ -76,27 +78,35 @@ void CartesJoueur::remplirTableau(vector<Carte> table, vector<Carte> mainJoueur)
 	}
 
 
-	//Enregistrement des occurrences des cartes de la table
+    //Enregistrement des occurrences des cartes de la table
 	for (vector<Carte>::iterator it = table.begin(); it != table.end(); ++it){
 		int carte = it->getRang();
 		int couleur = it->getCouleur();
-		
-		if(carte==1){
+
+       if(carte==AS){
 			occurrences[0][couleur]++;
 			occurrences[13][couleur]++;
+
 			occurrences[0][4]++;
 			occurrences[13][4]++;
 		}
 		else{
 			
-			occurrences[carte-1][couleur]++;
-			occurrences[carte-1][4]++;
+            occurrences[carte-1][couleur]++;
+            occurrences[carte-1][4]++;
 
 		}
 
 		occurrences[14][couleur]++;
 	}
 
+//    for(int i=0;i<=14;i++){
+//        cout<<i<<" ";
+//        for(int j=0;j<=4;j++){
+//            cout<<occurrences[i][j]<<" ";
+//        }
+//        cout<<endl;
+//    }
 
 }
 
@@ -432,25 +442,25 @@ void CartesJoueur::calculerPoidsBasique(){
  			int p=0;
  			int i=13;
  			while(cpt<5 && i>0 && p==0){
+                main2.setPoids(0);
+                setPoids(0);
+
  				if(occurrences[i][4]==1 || main2.occurrences[i][4]==1){
  					cpt++;
  				}
- 				if(occurrences[i][4]==1){
- 					
- 					setPoids(i);
+                if(occurrences[i][4]==1){
+                    setPoids(i);
+
  				}
- 				if(main2.occurrences[i][4]==1){
- 					main2.setPoids(i);
+                if(main2.occurrences[i][4]==1){
+                    main2.setPoids(i);
  				}
 
  				if(getPoids()!=main2.getPoids()){
- 					p=1;
- 				}
+                    p=1;
+                }
  				i--;
  			}
-
-
-
  		}
  		else if(getCombinaison()==CARTE_HAUTE){
  			int cpt=1;

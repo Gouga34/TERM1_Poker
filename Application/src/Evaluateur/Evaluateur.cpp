@@ -16,12 +16,14 @@ int Evaluateur::comparerMains(vector<Carte> table, vector<Carte> mainJoueur1, ve
 
 	CartesJoueur main2(table, mainJoueur2);
 
+
 	if(main1.getCombinaison()>main2.getCombinaison()){
 			return 1;
 
 		
 		}
 		else if(main1.getCombinaison()<main2.getCombinaison()){
+
 			return 0;
 		
 		}
