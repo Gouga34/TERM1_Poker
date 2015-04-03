@@ -16,38 +16,38 @@ double EstimationProba::estimation(Jeu* jeuCourant, Joueur* joueurCourant){
 	std::vector<Carte> table;
 	std::vector<Carte> mainAdverse;
 	std::vector<Carte> deck;
-	std::unordered_map<std::string,int> listeEnsembleCarte;
-	std::unordered_map<std::string,int>::const_iterator iterateurEnsembleCarte;
+    std::unordered_map<std::string,int> listeEnsembleCarte;
+    std::unordered_map<std::string,int>::const_iterator iterateurEnsembleCarte;
 	
     for(int t=0; t <NOMBRE_DE_TESTS; t++){
-		do{
+        //do{
             deck.clear();
             deck= nouveauDeck(joueurCourant);
             EstimationProba::melange(deck);
 			table.clear();
 			mainAdverse.clear();
-            ensembleCourant.clear();;
+            //ensembleCourant.clear();;
 			table = jeuCourant->getTable();
             tailleTable =  5 - (int) table.size();
 
             for(int i=0; i< tailleTable; i++){
 				position = rand() % deck.size();
-                ensembleCourant += std::to_string(deck.at(position).getRang());
-                ensembleCourant += std::to_string(deck.at(position).getCouleur()) ;
+                //ensembleCourant += std::to_string(deck.at(position).getRang());
+                //ensembleCourant += std::to_string(deck.at(position).getCouleur()) ;
 				table.push_back(deck.at(position));
 				deck.erase(deck.begin() + position);
 			}
 
 			for(int i=0; i< 2; i++){
 				position = rand() % deck.size();
-				ensembleCourant += std::to_string(deck.at(position).getRang()) + std::to_string(deck.at(position).getCouleur()) ;
+                //ensembleCourant += std::to_string(deck.at(position).getRang()) + std::to_string(deck.at(position).getCouleur()) ;
 				mainAdverse.push_back(deck.at(position));
 				deck.erase(deck.begin() + position);
             }
 			
-			iterateurEnsembleCarte  = listeEnsembleCarte.find (ensembleCourant);
+            //iterateurEnsembleCarte  = listeEnsembleCarte.find (ensembleCourant);
 
-		}while( iterateurEnsembleCarte != listeEnsembleCarte.end());
+        //}while( iterateurEnsembleCarte != listeEnsembleCarte.end());
 		
         bool comparaisonMains = Evaluateur::comparerMains(table,joueurCourant->getMain(), mainAdverse);
 
