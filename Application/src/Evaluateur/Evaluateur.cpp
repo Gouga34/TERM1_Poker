@@ -18,17 +18,12 @@ int Evaluateur::comparerMains(vector<Carte> table, vector<Carte> mainJoueur1, ve
 
 
 	if(main1.getCombinaison()>main2.getCombinaison()){
-			return 1;
-
-		
-		}
-		else if(main1.getCombinaison()<main2.getCombinaison()){
-
-			return 0;
-		
-		}
-		else{
-				return(main1.comparerCombinaisonsEgales(main2));	
-			
-		}
+        return RESULTAT_PARTIE::GAGNE;
+    }
+    else if(main1.getCombinaison()<main2.getCombinaison()){
+        return RESULTAT_PARTIE::PERDU;
+    }
+    else{
+        return(main1.comparerCombinaisonsEgales(main2));
+    }
 }

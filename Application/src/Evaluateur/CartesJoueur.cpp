@@ -22,7 +22,6 @@ CartesJoueur::CartesJoueur(vector<Carte> table, vector<Carte> mainJoueur){
 
 	remplirTableau(table,mainJoueur);
 	calculCombinaison();
-
 }
 
 CartesJoueur::~CartesJoueur(){
@@ -94,7 +93,6 @@ void CartesJoueur::remplirTableau(vector<Carte> table, vector<Carte> mainJoueur)
 			
             occurrences[carte-1][couleur]++;
             occurrences[carte-1][4]++;
-
 		}
 
 		occurrences[14][couleur]++;
@@ -107,16 +105,13 @@ void CartesJoueur::remplirTableau(vector<Carte> table, vector<Carte> mainJoueur)
 //        }
 //        cout<<endl;
 //    }
-
 }
 
 
 bool CartesJoueur::estSuite(int depart, int ligne) const{
 	int i=depart;
 	while(i<14 && occurrences[i][ligne]>=1 && (depart+5)>i){
-
 		i++;
-
 	}
 
 	int fin=depart +5;
@@ -146,14 +141,17 @@ bool CartesJoueur::contientSuite(int ligne) {
 
 int CartesJoueur::cartesIdentiques(int nb, int nbfois) const{
 
+    int poids=0;
 	int cpt=0;
 	for(int i=13; i>0;i--){
 		if (occurrences[i][4]==nb){
 			cpt++;
+            if(poids==0){
+                poids=i;
+            }
 
 			if(cpt==nbfois){
-
-				return i;
+                return poids;
 			}
 		}
 	}
@@ -164,11 +162,11 @@ bool CartesJoueur::flush() {
 
 	for(int i=0; i<4;i++){
 		if(occurrences[14][i]>=5){
-			return true;
 			//On dit que le poids est égal à la ligne de la couleur 
 			//afin de pouvoir trouver plus tard si égalité la carte la plus haute de la couleur 
 			//sans avoir à chercher à nouveau quelle couleur c'est
-			setPoids(i); 
+            setPoids(i);
+            return true;
 		}
 	}
 	return false;
@@ -177,26 +175,23 @@ bool CartesJoueur::flush() {
 void CartesJoueur::calculCombinaison(){
 
 	//On commence par regarder si on a une quinte flush royale
-		for(int i=0;i<4;i++){
-	
+        int i=0;
+        while(i<4 && getCombinaison()==0){
 			if(occurrences[14][i]>=5){
 				
 				if(estSuite(9,i)){
 					setCombinaison(QUINTE_FLUSH_ROYALE);
 					setPoids(14);
 				}
-
-				
 			}
-			
+            i++;
 		}
 
 		if(getCombinaison()==0){
 			//On regarde si on a une quinte flush
-				for(int i=0;i<4;i++){
-
-					if (occurrences[14][i]>=5){
-							
+                i=0;
+                while(i<4 && getCombinaison()==0){
+                    if (occurrences[14][i]>=5){
 						if(contientSuite(i)){
 							setCombinaison(QUINTE_FLUSH);
 						}
@@ -214,17 +209,14 @@ void CartesJoueur::calculCombinaison(){
 				
 				//On regarde si on a un full
 					else if((carte=cartesIdentiques(3))>0 && cartesIdentiques(2)>0 ){
-								setCombinaison(FULL);
-								setPoids(carte);
-								carte = 0;
-							
+                        setCombinaison(FULL);
+                        setPoids(carte);
+                        carte = 0;
 					}
 
 				//On regarde si on a une couleur
 					else if(flush()){
-
 						setCombinaison(COULEUR);
-
 					}
 
 				//On regarde si on a une suite
@@ -243,7 +235,8 @@ void CartesJoueur::calculCombinaison(){
 					else if((carte=cartesIdentiques(2,2))>0){
 						setCombinaison(DOUBLE_PAIRE);
 						setPoids(carte);
-						carte=0;					}
+                        carte=0;
+                    }
 
 				//On regarde si on a une paire
 					else if((carte=cartesIdentiques(2,1))>0){
@@ -266,20 +259,8 @@ void CartesJoueur::calculerPoidsBasique(){
 		int p=0;
 		while(p==0 && i>0){
 			if(occurrences[i][getPoids()]>0){
-
 				setPoids(i);
 				p=i;
-			}
-			i--;
-		}
-	}
-	else if(getCombinaison()==DOUBLE_PAIRE){//on met le poids à la paire la plus haute (-1)
-		int i=13; 
-		bool paire=false;
-		while(i>0 && paire == false){
-			if (occurrences[i][4]>0){
-				setPoids(i);
-				paire=true;
 			}
 			i--;
 		}
@@ -295,8 +276,6 @@ void CartesJoueur::calculerPoidsBasique(){
 			i--;
 		}
 	}
-
-
 }
 
  int CartesJoueur::comparerCombinaisonsEgales(CartesJoueur main2){
@@ -309,47 +288,39 @@ void CartesJoueur::calculerPoidsBasique(){
  	}
 
 
-
  	if(getPoids()==main2.getPoids()){
  		if(getCombinaison()==CARRE){
- 			int p = 0;
+            int p = 0, p2 = 0;
  			int i = 13;
  			//On calcule la carte la plus haute autre que celles du carré pour this
- 			while(p==0 && i>0){
+            while(p==0 && p2==0 && i>0){
  				if(occurrences[i][4]<4 && occurrences[i][4]>0){
  					p=i;
- 					setPoids(p);
- 				}
+                }
+
+                if(main2.occurrences[i][4]<4 && main2.occurrences[i][4]>0){
+                    p2=i;
+                }
+
  				i--;
  			}
- 			p=0;i=13;
- 			//On calcule la carte la plus haute autre que celles du carré pour main2
- 			while(p==0 && i>0){
- 				if(main2.occurrences[i][4]<4 && main2.occurrences[i][4]>0){
- 					p=i;
- 					main2.setPoids(p);
- 				}
- 				i--;
- 			}
- 			if(getPoids()>main2.getPoids()){
+
+
+            if(p>p2){
  				return GAGNE;
  			}
- 			else if(getPoids()<main2.getPoids()){
+            else if(p<p2){
  				return PERDU;
  			}
  			else{
  				return EGALITE;
  			}
-
  		}
  		else if(getCombinaison()==FULL){
 
-
  			//On va donc comparer les cartes de la paire
  			setPoids(cartesIdentiques(2));
-
- 			main2.setPoids(main2.cartesIdentiques(2));
- 			 		
+            main2.setPoids(main2.cartesIdentiques(2));
  		}
  		else if(getCombinaison()==COULEUR){
 

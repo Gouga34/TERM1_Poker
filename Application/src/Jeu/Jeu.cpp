@@ -2,7 +2,7 @@
 
 #include <iterator>
 
-Jeu::Jeu(int nbJoueur, int blindDepart, int cave) : actions(nbJoueur,ACTION::EN_ATTENTE){
+Jeu::Jeu(int nbJoueur, int blindDepart, int cave) : actions(nbJoueur,ACTION::PAS_ENCORE_D_ACTION){
 	srand((unsigned)time(0));
     this->initialisationTable(nbJoueur, cave);
     this->deck = nouveauDeck();
@@ -49,6 +49,8 @@ void Jeu::distributionMain(){
             this->deck.erase(this->deck.begin() + position);
         }
     }
+
+    this->nouvelleEtape(ETAPE_JEU::PREFLOP);
 }
 
 void Jeu::nouvelleEtape(ETAPE_JEU etape){
@@ -270,7 +272,7 @@ void Jeu::seCoucher(int posJoueur){
 bool Jeu::debutTour(){
 
     for(int i=0; i< (int) this->actions.size(); i++){
-        if(this->actions.at(i) != ACTION::EN_ATTENTE){
+        if(this->actions.at(i) != ACTION::PAS_ENCORE_D_ACTION){
             return false;
         }
     }
@@ -293,7 +295,7 @@ bool Jeu::finDuTour(){
 		i++;
 	}
 	
-    return (this->actions.at(this->getJoueurCourant()) != ACTION::EN_ATTENTE && this->actions.at(this->getJoueurCourant()) != ACTION::GROSSE_BLIND);
+    return (this->actions.at(this->getJoueurCourant()) != ACTION::PAS_ENCORE_D_ACTION && this->actions.at(this->getJoueurCourant()) != ACTION::GROSSE_BLIND);
 }
 
 
@@ -334,7 +336,7 @@ bool Jeu::prochainJoueur(){
 
 void Jeu::resetActions(){
 	for(int i=0; i< (int) this->actions.size(); i++){
-        this->actions.at(i) = ACTION::EN_ATTENTE;
+        this->actions.at(i) = ACTION::PAS_ENCORE_D_ACTION;
         this->getJoueur(i)->setMiseCourante(0);
         this->getJoueur(i)->setMisePlusHaute(0);
         this->getJoueur(i)->setMiseTotale(0);
