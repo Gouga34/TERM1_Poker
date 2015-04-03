@@ -360,6 +360,8 @@ void CartesJoueur::calculerPoidsBasique(){
  			int couleurMain2=getPoids();
 
  			while(i>0 && p==0){
+                main2.setPoids(0);
+                setPoids(0);
  				if(occurrences[i][couleurThis]>0){
 
  					setPoids(i);
@@ -379,6 +381,8 @@ void CartesJoueur::calculerPoidsBasique(){
  		else if(getCombinaison()==BRELAN){
  			int p=0; int i=13; int cpt=3;
  			while(i>0 && p==0){
+                main2.setPoids(0);
+                setPoids(0);
  				if(occurrences[i][4]==1 || main2.occurrences[i][4]==1){
  					cpt++;
  				}
@@ -401,6 +405,8 @@ void CartesJoueur::calculerPoidsBasique(){
  			int poidsCarte = getPoids();
  			//On commence par comparer la seconde paire
 			while(i>0 && p==0){
+                main2.setPoids(0);
+                setPoids(0);
 				if (occurrences[i][4]==2 && i!=poidsCarte){
 					setPoids(i);
 				}
@@ -467,6 +473,9 @@ void CartesJoueur::calculerPoidsBasique(){
  			int p=0;
  			int i=getPoids();
  			while(cpt<5 && i>0 && p==0){
+                main2.setPoids(0);
+                setPoids(0);
+
  				if(occurrences[i][4]==1){
  					
  					setPoids(i);
