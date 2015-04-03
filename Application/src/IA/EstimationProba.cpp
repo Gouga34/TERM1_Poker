@@ -12,12 +12,12 @@ double EstimationProba::estimation(Jeu* jeuCourant, Joueur* joueurCourant){
     double nombreDeCoupGagner = 0;
 	int position;
     int tailleTable;
-	std::string ensembleCourant;
+    //std::string ensembleCourant;
 	std::vector<Carte> table;
 	std::vector<Carte> mainAdverse;
 	std::vector<Carte> deck;
-    std::unordered_map<std::string,int> listeEnsembleCarte;
-    std::unordered_map<std::string,int>::const_iterator iterateurEnsembleCarte;
+//    std::unordered_map<std::string,int> listeEnsembleCarte;
+//    std::unordered_map<std::string,int>::const_iterator iterateurEnsembleCarte;
 	
     for(int t=0; t <NOMBRE_DE_TESTS; t++){
         //do{
@@ -60,7 +60,6 @@ double EstimationProba::estimation(Jeu* jeuCourant, Joueur* joueurCourant){
 	}
 	
     return (double) nombreDeCoupGagner / NOMBRE_DE_TESTS;
-
 }
 
 

@@ -338,7 +338,7 @@ void Fenetre::activeBoutons(bool active)
         activationBoutons[CHECKER] = false;
     }
 
-    if(jeu->peutMiser(0,0)){
+    if(jeu->peutMiser(0,1)){
          activationBoutons[MISER] = true;
     }else{
         activationBoutons[MISER] = false;
@@ -350,7 +350,7 @@ void Fenetre::activeBoutons(bool active)
         activationBoutons[SUIVRE] = false;
     }
 
-    if(jeu->peutRelancer(0,0)){
+    if(jeu->peutRelancer(0,1)){
          activationBoutons[RELANCER] = true;
     }else{
         activationBoutons[RELANCER] = false;
