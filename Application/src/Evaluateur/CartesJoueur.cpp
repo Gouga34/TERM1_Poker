@@ -196,6 +196,7 @@ void CartesJoueur::calculCombinaison(){
 							setCombinaison(QUINTE_FLUSH);
 						}
 					}
+                    i++;
 				}
 
 				if(getCombinaison()==0){

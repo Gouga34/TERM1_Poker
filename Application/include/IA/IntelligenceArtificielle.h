@@ -18,7 +18,6 @@ class IntelligenceArtificielle : public Joueur {
 
 	private:
 		//Attributs
-		std::vector<Carte> table;
         Resolveur *resolveur; //Cerveau de l'intelligence artificielle
 
         Profil profilJoueur;
