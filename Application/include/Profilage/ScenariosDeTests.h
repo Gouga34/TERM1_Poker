@@ -14,24 +14,25 @@ Specification: Classe permettant d'écrire et
 
 #include "Profil.h"
 #include <QJsonObject>
+#include <QFile>
 
 class ScenariosDeTests{
 private:
   //Attributs :
     Profil *calibrageActuelIA;
-    int numeroDuTestActuel; //correspond à l'itération du test où on en est. exemple : 3m itération du test avec pour calibrage 100 100.
+   // int numeroDuTestActuel; //correspond à l'itération du test où on en est. exemple : 3m itération du test avec pour calibrage 100 100.
     Profil actionAttendueJoueur;
     Profil *actionReelleJoueur;
     double chancesDeGain;
     bool joueurSeCouche; //attribut pas encore traité dans les méthodes. A traiter plus tard
     double distance;
-    int numeroCalibrage;
+    //int numeroCalibrage;
 
     /**
      * @brief scenarioSuivant
      * @action passe calibrageActuelIA au calibrage du scénario suivant
      */
-    void scenarioSuivant(QJsonArray calibrages);
+    void scenarioSuivant();
 
 public:
     ScenariosDeTests(Profil *profilJoueur, Profil *calibrageIA);
@@ -133,7 +134,7 @@ public:
      * @action calcule l'action attendue du joueur,
      *         éventuellement en fonction des actions réelles précédentes
      */
-    void calculerActionAttendueJoueur(QJsonObject json);
+    void calculerActionAttendueJoueur();
 
     /**
      * @brief calculerDistance
@@ -141,12 +142,7 @@ public:
      */
     void calculerDistance();
 
-    /**
-     * @brief anciennesChancesDeGainDifferentes
-     * @param calibrage calibrage dans lequel on va chercher les anciennes chances de gain
-     * @return
-     */
-    int anciennesChancesDeGain(QJsonObject calibrage);
+
 
 };
 
