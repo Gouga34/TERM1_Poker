@@ -7,26 +7,26 @@
 using namespace std;
 
 IntelligenceArtificielle::IntelligenceArtificielle(bool estDealer, int jetons, int position)
-    :Joueur(estDealer, jetons, position){
+    :Joueur(estDealer, jetons, position), profilage(0){
     resolveur = new Resolveur(this);
-    agressivite = this->getJeu()->getAgressiviteIA();
-    rationalite = this->getJeu()->getRationaliteIA();
-
 }
 
 IntelligenceArtificielle::IntelligenceArtificielle(Joueur joueur): Joueur(joueur){
     resolveur = new Resolveur(this);
-    agressivite = this->getJeu()->getAgressiviteIA();
-    rationalite = this->getJeu()->getRationaliteIA();
-    string ration="rationalite : "+to_string(rationalite);
-    string agress="agressivite : "+to_string(agressivite);
-    Logger::getInstance()->ajoutLogs(ration);
-    Logger::getInstance()->ajoutLogs(agress);
-    //cout<<ration<<endl<<agress<<endl;
 }
 
 IntelligenceArtificielle::~IntelligenceArtificielle(){
+    if (resolveur != 0) {
+        delete resolveur;
+    }
 
+    if (profilage != 0) {
+        delete profilage;
+    }
+
+    if (scenario != 0) {
+        delete scenario;
+    }
 }
 
 double IntelligenceArtificielle::calculProba(){
@@ -112,20 +112,95 @@ double IntelligenceArtificielle::calculProba(){
 	return probabilite;
 }
 
-void IntelligenceArtificielle::setTable(vector<Carte> tab){
-	this->table = tab;
+Profilage* IntelligenceArtificielle::getProfilage() const {
+    return profilage;
 }
 
-void IntelligenceArtificielle::jouer(){
-	
-    double estimation = 100*EstimationProba::estimation(this->getJeu(), &this->getJeu()->getJoueur(this->getPosition()));
+void IntelligenceArtificielle::setCalibrage(Profil profil) {
+    string ration="Rationalite : "+to_string(profil.getRationalite());
+    string agress="Agressivite : "+to_string(profil.getAgressivite());
+    Logger::getInstance()->ajoutLogs(ration);
+    Logger::getInstance()->ajoutLogs(agress);
+    resolveur->setCalibrage(profil);
+}
+
+void IntelligenceArtificielle::setPseudoJoueur(string pseudo) {
+    profilJoueur.setPseudo(pseudo);
+
+    if (profilage) {
+        delete profilage;
+    }
+    profilage = new Profilage(&profilJoueur);
+
+    scenario = new ScenariosDeTests(&profilJoueur, &resolveur->getCalibrage());
+}
+
+void IntelligenceArtificielle::remplissageDonneesProfilage() {
+
+    int nbTotalActions = 0;
+
+    for(int i = 0; i<3; i++){
+        nbTotalActions += jeu->getJoueur(0)->getCompteurActions()[i];
+    }
+
+    profilage->etatPartie[jeu->getEtape()].probaGainAdversaire = 100 * EstimationProba::estimation(jeu, this);
+    profilage->etatPartie[jeu->getEtape()].tauxMises = CalculDonneesProfilage::taux(this->getCompteurActions()[0],nbTotalActions);
+    profilage->etatPartie[jeu->getEtape()].tauxSuivis = CalculDonneesProfilage::taux(this->getCompteurActions()[1],nbTotalActions);
+    profilage->etatPartie[jeu->getEtape()].tauxChecks = CalculDonneesProfilage::taux(this->getCompteurActions()[2],nbTotalActions);
+
+    profilage->correction(jeu->getEtape());
+
+    profilage->etatPartie[jeu->getEtape()].misePlusHaute = CalculDonneesProfilage::taux(this->getMisePlusHaute(),this->getCave());
+    profilage->etatPartie[jeu->getEtape()].miseTotaleJoueur = CalculDonneesProfilage::taux(this->getMiseTotale(),this->getCave());
+
+    profilage->etatPartie[jeu->getEtape()].tauxAgressivite = CalculDonneesProfilage::agressivite(profilage->etatPartie[jeu->getEtape()].misePlusHaute,profilage->etatPartie[jeu->getEtape()].tauxMises,profilage->etatPartie[jeu->getEtape()].miseTotaleJoueur);
+    profilage->etatPartie[jeu->getEtape()].tauxRationnalite = CalculDonneesProfilage::rationalite(profilage->etatPartie[jeu->getEtape()].probaGainAdversaire,profilage->etatPartie[jeu->getEtape()].miseTotaleJoueur);
+    profilage->etatPartie[jeu->getEtape()].tauxPassivite = CalculDonneesProfilage::passivite( profilage->etatPartie[jeu->getEtape()].tauxSuivis, profilage->etatPartie[jeu->getEtape()].tauxChecks);
+    profilage->etatPartie[jeu->getEtape()].tauxBluff = CalculDonneesProfilage::bluff(profilage->etatPartie[jeu->getEtape()].tauxRationnalite);
+
+    profilage->etatPartie[jeu->getEtape()].pot = jeu->getPot();
+
+    profilage->etatPartie[jeu->getEtape()].couche = jeu->estCouche(0);
+}
+
+void IntelligenceArtificielle::calculProfilGlobalJoueur() {
+    //On récupère les 4 taux des 4 parties et on en fait la moyenne, pour chaque type de jeu
+
+    int sommeAgressivite=0;
+    int sommeRationalite=0;
+    int sommePassivite=0;
+    int sommeBluff=0;
+    for(int i=0;i<ETAPE_JEU::NB_ETAPES;i++){
+        sommeAgressivite+=profilage->etatPartie[i].tauxAgressivite;
+        sommeRationalite+=profilage->etatPartie[i].tauxRationnalite;
+        sommePassivite+=profilage->etatPartie[i].tauxPassivite;
+        sommeBluff+=profilage->etatPartie[i].tauxBluff;
+    }
+
+    profilage->profilJoueur->setAgressivite(sommeAgressivite/ETAPE_JEU::NB_ETAPES);
+    profilage->profilJoueur->setRationalite(sommeRationalite/ETAPE_JEU::NB_ETAPES);
+    profilage->profilJoueur->setPassivite(sommePassivite/ETAPE_JEU::NB_ETAPES);
+    profilage->profilJoueur->setBluff(sommeBluff/ETAPE_JEU::NB_ETAPES);
+
+    profilage->sauvegarder();
+}
+
+void IntelligenceArtificielle::ecritureScenariosDeTests() {
+    scenario->setCalibrageActuelIA(&resolveur->getCalibrage());
+    scenario->setChancesDeGain(profilage->etatPartie[ETAPE_JEU::RIVER].probaGainAdversaire);
+    scenario->sauvegarderPartie();
+}
+
+void IntelligenceArtificielle::estimationChancesDeGain()
+{
+    double estimation = 100*EstimationProba::estimation(this->getJeu(), this->getJeu()->getJoueur(this->getPosition()));
     setChancesGain(estimation);
 
     string chances="Chances Gain IA : "+to_string(estimation);
     Logger::getInstance()->ajoutLogs(chances);
+}
 
-    resolveur->getCalibrage().setAgressivite(agressivite);
-    resolveur->getCalibrage().setRationalite(rationalite);
+void IntelligenceArtificielle::jouer(){
 
     pair<ACTION,int> action=resolveur->calculerAction();
 

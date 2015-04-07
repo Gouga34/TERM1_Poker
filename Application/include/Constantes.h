@@ -3,10 +3,17 @@
 
 #include <cstdint>
 #include <iostream>
+#include <string>
 
 
 
 #define NOMBRE_DE_TESTS 120000
+#define DOSSIER_PROFILAGE "../Application/ressources/Profilage/"
+#define DOSSIER_PROFILAGE_STATIQUE DOSSIER_PROFILAGE+std::string("ProfilageStatique/")
+#define DOSSIER_PROFILAGE_DYNAMIQUE DOSSIER_PROFILAGE+std::string("ProfilageDynamique/")
+#define NOMBRE_ITERRATIONS_TESTS 5
+#define VARIATION_AUTORISEE 10.0
+
 
 /**
  * Type enum Cutilise pour definir la couleur des cartes
@@ -49,7 +56,7 @@ enum FORCE_MAIN{
 /**
   * enum utilisé lors de la comparaison de deux mains. 
   */
-enum {
+enum RESULTAT_PARTIE{
     EGALITE = 2,
     GAGNE = 1,
     PERDU = 0
@@ -65,7 +72,7 @@ enum ACTION
     SUIVRE,
     CHECKER,
     SE_COUCHER,
-    EN_ATTENTE,
+    PAS_ENCORE_D_ACTION,
     TAPIS,
     PETITE_BLIND,
     GROSSE_BLIND
@@ -194,14 +201,15 @@ enum ETAPE_JEU { PREFLOP, FLOP, TURN, RIVER, NB_ETAPES };
 const std::string nomEtapes[NB_ETAPES] = {"preflop", "flop", "turn", "river" };
 
 
-// Profils de l'adversaire
-/**
- * Rationnel Agressif (RA)
- * Rationnel Passif (RP)
- * Bluffeur Agressif (BA)
- * Bluffeur Passif (BP)
- */
-enum PROFIL_JOUEUR { RA, RP, BA, BP, NB_PROFILS };
+namespace PROFIL_JOUEUR{
+    enum PROFIL_JOUEUR {
+        AGRESSIVITE,
+        RATIONALITE,
+        PASSIVITE,
+        BLUFF,
+        NB_PROFILS
+    };
+}
 
 
 #endif // CONSTANTES_H

@@ -12,42 +12,42 @@ double EstimationProba::estimation(Jeu* jeuCourant, Joueur* joueurCourant){
     double nombreDeCoupGagner = 0;
 	int position;
     int tailleTable;
-	std::string ensembleCourant;
+    //std::string ensembleCourant;
 	std::vector<Carte> table;
 	std::vector<Carte> mainAdverse;
 	std::vector<Carte> deck;
-	std::unordered_map<std::string,int> listeEnsembleCarte;
-	std::unordered_map<std::string,int>::const_iterator iterateurEnsembleCarte;
+//    std::unordered_map<std::string,int> listeEnsembleCarte;
+//    std::unordered_map<std::string,int>::const_iterator iterateurEnsembleCarte;
 	
     for(int t=0; t <NOMBRE_DE_TESTS; t++){
-		do{
+        //do{
             deck.clear();
             deck= nouveauDeck(joueurCourant);
             EstimationProba::melange(deck);
 			table.clear();
 			mainAdverse.clear();
-            ensembleCourant.clear();;
+            //ensembleCourant.clear();;
 			table = jeuCourant->getTable();
             tailleTable =  5 - (int) table.size();
 
             for(int i=0; i< tailleTable; i++){
 				position = rand() % deck.size();
-                ensembleCourant += std::to_string(deck.at(position).getRang());
-                ensembleCourant += std::to_string(deck.at(position).getCouleur()) ;
+                //ensembleCourant += std::to_string(deck.at(position).getRang());
+                //ensembleCourant += std::to_string(deck.at(position).getCouleur()) ;
 				table.push_back(deck.at(position));
 				deck.erase(deck.begin() + position);
 			}
 
 			for(int i=0; i< 2; i++){
 				position = rand() % deck.size();
-				ensembleCourant += std::to_string(deck.at(position).getRang()) + std::to_string(deck.at(position).getCouleur()) ;
+                //ensembleCourant += std::to_string(deck.at(position).getRang()) + std::to_string(deck.at(position).getCouleur()) ;
 				mainAdverse.push_back(deck.at(position));
 				deck.erase(deck.begin() + position);
             }
 			
-			iterateurEnsembleCarte  = listeEnsembleCarte.find (ensembleCourant);
+            //iterateurEnsembleCarte  = listeEnsembleCarte.find (ensembleCourant);
 
-		}while( iterateurEnsembleCarte != listeEnsembleCarte.end());
+        //}while( iterateurEnsembleCarte != listeEnsembleCarte.end());
 		
         bool comparaisonMains = Evaluateur::comparerMains(table,joueurCourant->getMain(), mainAdverse);
 
@@ -60,7 +60,6 @@ double EstimationProba::estimation(Jeu* jeuCourant, Joueur* joueurCourant){
 	}
 	
     return (double) nombreDeCoupGagner / NOMBRE_DE_TESTS;
-
 }
 
 
@@ -83,36 +82,3 @@ std::vector<Carte> EstimationProba::nouveauDeck(Joueur* joueurCourant){
 void EstimationProba::melange(std::vector<Carte>& deck){
 	std::random_shuffle(deck.begin(),deck.end());
 }
-
-
-
-void EstimationProba::rangeTable(std::vector<Carte>& table){
-
-	std::vector<Carte> tableRange;
-	int ind;
-
-	while(table.size() != 0){
-		Carte c = table[0];
-		ind = 0;
-		if(c.getRang() != 1){
-            for(int j=0; j< (int) table.size();j++){
-				if(table[j].getRang() == 1){
-					ind = j;
-					c = table[j];
-				}else if ( c.getRang() != 1 && c.getRang() < table[j].getRang()) {
-					ind = j;
-					c = table[j];
-				}
-			
-			}
-			table.erase(table.begin() + ind);
-			tableRange.push_back(c);
-		}else{
-			tableRange.insert(tableRange.begin(),c);
-		}
-	}
-	
-	table = tableRange;	
-}
-
-

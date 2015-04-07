@@ -107,9 +107,9 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
     // Compteurs
     // ////////////////////////////////////////////////////
 
-    caveIA.display(jeu->getJoueur(1).getCave());
+    caveIA.display(jeu->getJoueur(1)->getCave());
     pot.display(0);
-    caveJoueur.display(jeu->getJoueur(0).getCave());
+    caveJoueur.display(jeu->getJoueur(0)->getCave());
 
 
     // ////////////////////////////////////////////////////
@@ -196,14 +196,24 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
 
     connect(this, SIGNAL(tourFini()), this, SLOT(prochainJoueur()));
 
+
+    Logger::creerInstance(this);
+
     //Récupération des options du jeu
     ChoixOptionsDialog fenetreOptions;
     Options options = fenetreOptions.getOptions();
 
+    // Envoi du pseudo du joueur
     QString pseudoJoueur = options.pseudo;
-    jeu->setPseudo(pseudoJoueur.toStdString() );
-    jeu->setAgressiviteIA(options.agressiviteIA);
-    jeu->setRationaliteIA(options.rationaliteIA);
+    IntelligenceArtificielle *ia = static_cast<IntelligenceArtificielle*>(jeu->getJoueur(1));
+    ia->setPseudoJoueur(pseudoJoueur.toStdString());
+
+    // Envoi du calibrage de l'IA
+    Profil calibrageIa;
+    calibrageIa.setAgressivite(options.agressiviteIA);
+    calibrageIa.setRationalite(options.rationaliteIA);
+
+    //ia->setCalibrage(calibrageIa);
 }
 
 Fenetre::~Fenetre()
@@ -248,13 +258,13 @@ void Fenetre::demarragePartie()
     jeu->distributionMain();
     
     pot.display(jeu->getPot());
-    caveJoueur.display(jeu->getJoueur(0).getCave());
-    caveIA.display(jeu->getJoueur(1).getCave());
+    caveJoueur.display(jeu->getJoueur(0)->getCave());
+    caveIA.display(jeu->getJoueur(1)->getCave());
 
 
     // Affichage de la main adverse dans les logs
 
-    std::vector<Carte> jeuAdverse = jeu->getJoueur(1).getMain();
+    std::vector<Carte> jeuAdverse = jeu->getJoueur(1)->getMain();
 
     Logger::getInstance()->ajoutLogs("Jeu adverse : ");
     for (int i = 0; i < jeuAdverse.size(); i++) {
@@ -266,7 +276,7 @@ void Fenetre::demarragePartie()
     // Main du joueur
 
     layoutMain.vider();
-    layoutMain.ajoutCartes(jeu->getJoueur(0).getMain());
+    layoutMain.ajoutCartes(jeu->getJoueur(0)->getMain());
 
     // Cartes communes
 
@@ -328,7 +338,7 @@ void Fenetre::activeBoutons(bool active)
         activationBoutons[CHECKER] = false;
     }
 
-    if(jeu->peutMiser(0,0)){
+    if(jeu->peutMiser(0,1)){
          activationBoutons[MISER] = true;
     }else{
         activationBoutons[MISER] = false;
@@ -340,7 +350,7 @@ void Fenetre::activeBoutons(bool active)
         activationBoutons[SUIVRE] = false;
     }
 
-    if(jeu->peutRelancer(0,0)){
+    if(jeu->peutRelancer(0,1)){
          activationBoutons[RELANCER] = true;
     }else{
         activationBoutons[RELANCER] = false;
@@ -354,8 +364,8 @@ void Fenetre::joueurCourant()
 
 void Fenetre::jeuIA()
 {
-
-    static_cast<IntelligenceArtificielle>(jeu->getJoueur(jeu->getJoueurCourant())).jouer();
+    IntelligenceArtificielle *ia = static_cast<IntelligenceArtificielle*>(jeu->getJoueur(jeu->getJoueurCourant()));
+    ia->jouer();
 
     switch (jeu->getAction()) {
         case ACTION::CHECKER:
@@ -371,7 +381,7 @@ void Fenetre::jeuIA()
 
             valeurMise.setMinimum(2 * jeu->getMiseCourante());
 
-            caveIA.display(jeu->getJoueur(1).getCave());
+            caveIA.display(jeu->getJoueur(1)->getCave());
             pot.display(jeu->getPot());
 
             Logger::getInstance()->ajoutLogs("IA mise " + QString::number(jeu->getMiseCourante()));
@@ -380,7 +390,7 @@ void Fenetre::jeuIA()
 
         case ACTION::SUIVRE:
             actionEffectueeIA.setText("Suit");
-            caveIA.display(jeu->getJoueur(1).getCave());
+            caveIA.display(jeu->getJoueur(1)->getCave());
             pot.display(jeu->getPot());
 
             Logger::getInstance()->ajoutLogs("IA suit");
@@ -391,7 +401,7 @@ void Fenetre::jeuIA()
             actionEffectueeIA.setText("Relance : "+QString::number(jeu->getMiseCourante()));
             valeurMise.setMinimum(2 * jeu->getMiseCourante());
 
-            caveIA.display(jeu->getJoueur(1).getCave());
+            caveIA.display(jeu->getJoueur(1)->getCave());
             pot.display(jeu->getPot());
 
             Logger::getInstance()->ajoutLogs("IA relance " + QString::number(jeu->getMiseCourante()));
@@ -447,7 +457,7 @@ void Fenetre::miser()
 
     jeu->executerAction(0,ACTION::MISER,montant);
 
-    caveJoueur.display(jeu->getJoueur(0).getCave());
+    caveJoueur.display(jeu->getJoueur(0)->getCave());
     pot.display(jeu->getPot());
 
     Logger::getInstance()->ajoutLogs("Joueur 1 mise " + QString::number(montant));
@@ -459,7 +469,7 @@ void Fenetre::suivre()
 {
      jeu->executerAction(0,ACTION::SUIVRE);
 
-    caveJoueur.display(jeu->getJoueur(0).getCave());
+    caveJoueur.display(jeu->getJoueur(0)->getCave());
     pot.display(jeu->getPot());
 
     activationBoutons[CHECKER] = true;
@@ -477,7 +487,7 @@ void Fenetre::relancer()
 
     jeu->executerAction(0,ACTION::RELANCER,montant);
 
-    caveJoueur.display(jeu->getJoueur(0).getCave());
+    caveJoueur.display(jeu->getJoueur(0)->getCave());
     pot.display(jeu->getPot());
 
     activationBoutons[CHECKER] = true;
@@ -504,10 +514,10 @@ void Fenetre::partieTermine()
     activeBoutons(false);
 
     layoutMainAdverse.vider();
-    layoutMainAdverse.ajoutCartes(jeu->getJoueur(1).getMain());
+    layoutMainAdverse.ajoutCartes(jeu->getJoueur(1)->getMain());
 
 
-    int gagne = jeu->nouvelleMain();
+    int gagne = jeu->getResultatPartie();
 
     if(gagne==GAGNE){
         resultatPartie.setStyleSheet("QLabel {color : #89DF57; font-size : 40px; text-align:center; padding-left:80px; font-weight:bold;}");
@@ -522,6 +532,7 @@ void Fenetre::partieTermine()
         resultatPartie.setText("Perdu !");
     }
 
+    jeu->nouvelleMain();
 
     boutonDemarrage.setText("Rejouer");
     boutonDemarrage.setHidden(false);

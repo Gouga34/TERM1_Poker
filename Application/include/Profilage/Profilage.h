@@ -14,18 +14,27 @@ Specification: Classe contenant l'écriture et la lecture
 #include <string>
 #include <QString>
 #include "../Constantes.h"
+#include "Profil.h"
 
 class Profilage
 {
     private:
 
-        std::string nomJoueur;
+
+
+        Profil profilIA;
+
+        /**
+        * @action : Vide le tableau
+        */
+        void clear();
 
     public:
 
         int typeJoueur[PROFIL_JOUEUR::NB_PROFILS];
+         Profil *profilJoueur;
 
-        struct Profil
+        struct EtapePartie
         {
             bool couche;                    // vrai si le joueur s'est couché
 
@@ -51,19 +60,10 @@ class Profilage
 
         bool partieGagnee;              // vrai si l'IA a gagné la partie
 
-        Profil profil[ETAPE_JEU::NB_ETAPES];
-
-        double agressiviteGlobale;
-        double bluffGlobal;
-        double rationaliteGlobale;
-        double passiviteGlobale;
-
-        double rationaliteIA;
-        double agressiviteIA;
+        EtapePartie etatPartie[ETAPE_JEU::NB_ETAPES];
 
 
-
-        Profilage(std::string joueur);
+        Profilage(Profil *profil);
         ~Profilage();
 
         /**
@@ -74,12 +74,7 @@ class Profilage
         /**
          * @action Ajoute les données de profilage de la partie dans le fichier correspondant au joueur
          */
-        void sauvegarder() const;
-
-        /**
-        * @action : Vide le tableau
-        */
-        void clear();
+        void sauvegarder();
 
 
 };

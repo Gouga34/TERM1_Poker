@@ -137,11 +137,3 @@ int Joueur::getMiseTotale(){
 void Joueur::setMiseTotale(int mise){
     this->miseTotale = mise;
 }
-
-Profilage* Joueur::getProfil(){
-    return this->profil;
-}
-
-void Joueur::setProfil(std::string pseudo){
-    this->profil = new Profilage(pseudo);
-}

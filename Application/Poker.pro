@@ -18,7 +18,8 @@ SOURCES += \
     src/IA/EstimationProba.cpp \
     src/IA/IntelligenceArtificielle.cpp \
     src/IA/Resolveur.cpp \
-    src/Profilage/Profil.cpp
+    src/Profilage/Profil.cpp \
+    src/Profilage/ScenariosDeTests.cpp
 
 
 QT+=widgets
@@ -43,7 +44,8 @@ HEADERS += \
     include/IA/EstimationProba.h \
     include/IA/IntelligenceArtificielle.h \
     include/IA/Resolveur.h \
-    include/Profilage/Profil.h
+    include/Profilage/Profil.h \
+    include/Profilage/ScenariosDeTests.h
 
 CONFIG += c++11
 
