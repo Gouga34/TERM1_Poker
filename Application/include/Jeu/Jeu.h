@@ -300,6 +300,12 @@ class Jeu{
          * @action Démarre la boucle de jeu principale
          */
         void lancer();
+
+        /**
+        *@action  : Permet de savoir si un Joueur a fait Tapis
+        *@return  : Vrai si un joueur a fait tapis, faux sinon
+        **/
+        bool aFaitTapis();
 };
 
 #endif

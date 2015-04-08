@@ -56,15 +56,49 @@ void IntelligenceArtificielleProfilage::remplissageDonneesProfilage() {
         nbTotalActions += jeu->getJoueur(0)->getCompteurActions()[i];
     }
 
+    double resultat;
+
     profilage->etatPartie[jeu->getEtape()].probaGainAdversaire = chancesGain;
-    profilage->etatPartie[jeu->getEtape()].tauxMises = CalculDonneesProfilage::taux(this->getCompteurActions()[0],nbTotalActions);
-    profilage->etatPartie[jeu->getEtape()].tauxSuivis = CalculDonneesProfilage::taux(this->getCompteurActions()[1],nbTotalActions);
-    profilage->etatPartie[jeu->getEtape()].tauxChecks = CalculDonneesProfilage::taux(this->getCompteurActions()[2],nbTotalActions);
 
-    profilage->correction(jeu->getEtape());
+    resultat = CalculDonneesProfilage::taux(this->getCompteurActions()[0],nbTotalActions);
+    if (resultat == -1) {
+        profilage->etatPartie[jeu->getEtape()].tauxMises = 0;
+    }
+    else {
+        profilage->etatPartie[jeu->getEtape()].tauxMises = resultat;
+    }
 
-    profilage->etatPartie[jeu->getEtape()].misePlusHaute = CalculDonneesProfilage::taux(this->getMisePlusHaute(),this->getCave());
-    profilage->etatPartie[jeu->getEtape()].miseTotaleJoueur = CalculDonneesProfilage::taux(this->getMiseTotale(),this->getCave());
+    resultat = CalculDonneesProfilage::taux(this->getCompteurActions()[1],nbTotalActions);
+    if (resultat == -1) {
+        profilage->etatPartie[jeu->getEtape()].tauxSuivis = 0;
+    }
+    else {
+        profilage->etatPartie[jeu->getEtape()].tauxSuivis = resultat;
+    }
+
+    resultat = CalculDonneesProfilage::taux(this->getCompteurActions()[2],nbTotalActions);
+    if (resultat == -1) {
+        profilage->etatPartie[jeu->getEtape()].tauxChecks = 0;
+    }
+    else {
+        profilage->etatPartie[jeu->getEtape()].tauxChecks = resultat;
+    }
+
+    resultat = CalculDonneesProfilage::taux(this->getMisePlusHaute(),this->getCave());
+    if (resultat == -1) {
+        profilage->etatPartie[jeu->getEtape()].misePlusHaute = 0;
+    }
+    else {
+        profilage->etatPartie[jeu->getEtape()].misePlusHaute = resultat;
+    }
+
+    resultat = CalculDonneesProfilage::taux(this->getMiseTotale(),this->getCave());
+    if (resultat == -1) {
+        profilage->etatPartie[jeu->getEtape()].miseTotaleJoueur = 0;
+    }
+    else {
+        profilage->etatPartie[jeu->getEtape()].miseTotaleJoueur = resultat;
+    }
 
     profilage->etatPartie[jeu->getEtape()].tauxAgressivite = CalculDonneesProfilage::agressivite(profilage->etatPartie[jeu->getEtape()].misePlusHaute,profilage->etatPartie[jeu->getEtape()].tauxMises,profilage->etatPartie[jeu->getEtape()].miseTotaleJoueur);
     profilage->etatPartie[jeu->getEtape()].tauxRationnalite = CalculDonneesProfilage::rationalite(profilage->etatPartie[jeu->getEtape()].probaGainAdversaire,profilage->etatPartie[jeu->getEtape()].miseTotaleJoueur);
