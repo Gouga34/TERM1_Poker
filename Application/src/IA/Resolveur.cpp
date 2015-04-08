@@ -54,7 +54,9 @@ pair<ACTION,int> Resolveur::calculerActionAgressivite(){
             jetonsAMiser=miseAgressivite;
         }
         //Sinon, si on peut relancer, on fait l'action "RELANCER"
-        else if(ia->getJeu()->peutRelancer(ia->getPosition(),2*ia->getJeu()->getMiseCourante())){
+        //else if(ia->getJeu()->getMiseCourante() != 0 && ia->getJeu()->peutRelancer(ia->getPosition(),2*ia->getJeu()->getMiseCourante())){
+        else if(ia->getJeu()->getMiseCourante() != 0 && ia->getJeu()->peutRelancer(ia->getPosition(),calculerMiseAgressivite(action))){
+
                 action=ACTION::RELANCER;
                 jetonsAMiser =calculerMiseAgressivite(action);
         }
@@ -154,7 +156,7 @@ pair<ACTION,int> Resolveur::calculerActionRationalite(){
             }
 
             //Si on peut Relancer, on relance
-            else if(ia->getJeu()->peutRelancer(ia->getPosition(),2*ia->getJeu()->getMiseCourante()) ){
+            else if(ia->getJeu()->peutRelancer(ia->getPosition(),calculerMiseRationalite(ACTION::RELANCER)) ){
                 action=ACTION::RELANCER;
                 jetonsAMiser=calculerMiseRationalite(action);
             }
@@ -288,10 +290,9 @@ pair<ACTION,int> Resolveur::calculerAction(){
     //fusion des deux résultats :
 
     //Si les actions ne sont pas les mêmes, on choisit une des deux actions:
-    if(actionAgressivite.first!=actionRationalite.first){
+    if(actionAgressivite.first != actionRationalite.first){
 
         int total = calibrage.getRationalite()+calibrage.getAgressivite();
-
 
         int random=rand()%total+1;
 
@@ -337,8 +338,14 @@ pair<ACTION,int> Resolveur::calculerAction(){
         int total=calibrage.getAgressivite()+calibrage.getRationalite();
         jetonsAMiser= minJetonsAMiser+((tauxMax/total)*abs(maxJetonsAMiser-minJetonsAMiser));
 
+
+    }else{
+        action=actionAgressivite.first;
     }
 
+    if(jetonsAMiser > ia->getCave()){
+        jetonsAMiser = ia->getCave();
+    }
     return make_pair(action,jetonsAMiser);
 }
 

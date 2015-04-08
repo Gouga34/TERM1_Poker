@@ -53,7 +53,7 @@ class Fenetre : public QWidget
         QCheckBox boutonChoixCartes;
 
 
-        enum { CHECKER, MISER, SUIVRE, RELANCER, SE_COUCHER, NB_BOUTONS };
+        enum { CHECKER, MISER, SUIVRE, RELANCER, SE_COUCHER, TAPIS, NB_BOUTONS };
 
         // Boutons d'action de jeu
         QPushButton boutons[NB_BOUTONS];
@@ -139,6 +139,8 @@ class Fenetre : public QWidget
         void relancer();
 
         void seCoucher();
+
+        void tapis();
 };
 
 #endif // FENETRE_H

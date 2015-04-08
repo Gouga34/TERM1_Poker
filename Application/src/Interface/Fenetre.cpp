@@ -131,6 +131,7 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
     layoutDemarrage->setSpacing(10);
     layoutDemarrage->addWidget(&boutonDemarrage);
     layoutDemarrage->addWidget(&boutonChoixCartes);
+    layoutDemarrage->addWidget(&boutonChoixCartes);
 
 
     QVBoxLayout *layoutBoutons = new QVBoxLayout;
@@ -143,18 +144,21 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
     boutons[SUIVRE].setText("Suivre");
     boutons[RELANCER].setText("Relancer");
     boutons[SE_COUCHER].setText("Se coucher");
+    boutons[TAPIS].setText("Tapis");
 
     layoutBoutons->addWidget(&boutons[CHECKER]);
     layoutBoutons->addWidget(&boutons[MISER]);
     layoutBoutons->addWidget(&boutons[SUIVRE]);
     layoutBoutons->addWidget(&boutons[RELANCER]);
     layoutBoutons->addWidget(&boutons[SE_COUCHER]);
+    layoutBoutons->addWidget(&boutons[TAPIS]);
 
     connect(&boutons[CHECKER], SIGNAL(clicked()), this, SLOT(checker()));
     connect(&boutons[MISER], SIGNAL(clicked()), this, SLOT(miser()));
     connect(&boutons[SUIVRE], SIGNAL(clicked()), this, SLOT(suivre()));
     connect(&boutons[RELANCER], SIGNAL(clicked()), this, SLOT(relancer()));
     connect(&boutons[SE_COUCHER], SIGNAL(clicked()), this, SLOT(seCoucher()));
+    connect(&boutons[TAPIS], SIGNAL(clicked()), this, SLOT(tapis()));
 
     activeBoutons(false);
 
@@ -256,7 +260,7 @@ void Fenetre::demarragePartie()
     }
 
     jeu->distributionMain();
-    
+
     pot.display(jeu->getPot());
     caveJoueur.display(jeu->getJoueur(0)->getCave());
     caveIA.display(jeu->getJoueur(1)->getCave());
@@ -359,64 +363,75 @@ void Fenetre::activeBoutons(bool active)
 
 void Fenetre::joueurCourant()
 {
-    activeBoutons(true);
+        activeBoutons(true);
 }
 
 void Fenetre::jeuIA()
 {
-    IntelligenceArtificielle *ia = static_cast<IntelligenceArtificielle*>(jeu->getJoueur(jeu->getJoueurCourant()));
-    ia->jouer();
 
-    switch (jeu->getAction()) {
-        case ACTION::CHECKER:
-            actionEffectueeIA.setText("Check");
-            Logger::getInstance()->ajoutLogs("IA check");
-            break;
+        IntelligenceArtificielle *ia = static_cast<IntelligenceArtificielle*>(jeu->getJoueur(jeu->getJoueurCourant()));
+        ia->jouer();
 
-
-        case ACTION::MISER:
-            actionEffectueeIA.setText("Mise : "+QString::number(jeu->getMiseCourante()));
-            activationBoutons[MISER] = false;
-            activationBoutons[CHECKER] = false;
-
-            valeurMise.setMinimum(2 * jeu->getMiseCourante());
-
-            caveIA.display(jeu->getJoueur(1)->getCave());
-            pot.display(jeu->getPot());
-
-            Logger::getInstance()->ajoutLogs("IA mise " + QString::number(jeu->getMiseCourante()));
-            break;
+        switch (jeu->getAction()) {
+            case ACTION::CHECKER:
+                actionEffectueeIA.setText("Check");
+                Logger::getInstance()->ajoutLogs("IA check");
+                break;
 
 
-        case ACTION::SUIVRE:
-            actionEffectueeIA.setText("Suit");
-            caveIA.display(jeu->getJoueur(1)->getCave());
-            pot.display(jeu->getPot());
+            case ACTION::MISER:
+                actionEffectueeIA.setText("Mise : "+QString::number(jeu->getMiseCourante()));
+                activationBoutons[MISER] = false;
+                activationBoutons[CHECKER] = false;
 
-            Logger::getInstance()->ajoutLogs("IA suit");
-            break;
+                valeurMise.setMinimum(2 * jeu->getMiseCourante());
+
+                caveIA.display(jeu->getJoueur(1)->getCave());
+                pot.display(jeu->getPot());
+
+                Logger::getInstance()->ajoutLogs("IA mise " + QString::number(jeu->getMiseCourante()));
+                break;
 
 
-        case ACTION::RELANCER:
-            actionEffectueeIA.setText("Relance : "+QString::number(jeu->getMiseCourante()));
-            valeurMise.setMinimum(2 * jeu->getMiseCourante());
+            case ACTION::SUIVRE:
+                actionEffectueeIA.setText("Suit");
+                caveIA.display(jeu->getJoueur(1)->getCave());
+                pot.display(jeu->getPot());
 
-            caveIA.display(jeu->getJoueur(1)->getCave());
-            pot.display(jeu->getPot());
+                Logger::getInstance()->ajoutLogs("IA suit");
+                break;
 
-            Logger::getInstance()->ajoutLogs("IA relance " + QString::number(jeu->getMiseCourante()));
-            break;
 
-        case ACTION::SE_COUCHER:
-            actionEffectueeIA.setText("Se couche");
-            Logger::getInstance()->ajoutLogs("IA se couche");
-            partieTermine();
-            return;
-            break;
+            case ACTION::RELANCER:
+                actionEffectueeIA.setText("Relance : "+QString::number(jeu->getMiseCourante()));
+                valeurMise.setMinimum(2 * jeu->getMiseCourante());
 
-        default:
-            break;
-    }
+                caveIA.display(jeu->getJoueur(1)->getCave());
+                pot.display(jeu->getPot());
+
+                Logger::getInstance()->ajoutLogs("IA relance " + QString::number(jeu->getMiseCourante()));
+                break;
+
+            case ACTION::SE_COUCHER:
+                actionEffectueeIA.setText("Se couche");
+                Logger::getInstance()->ajoutLogs("IA se couche");
+                partieTermine();
+                return;
+                break;
+
+            case ACTION::TAPIS:
+                actionEffectueeIA.setText("IA fait tapis");
+
+                caveIA.display(jeu->getJoueur(1)->getCave());
+                pot.display(jeu->getPot());
+
+                Logger::getInstance()->ajoutLogs("IA fait tapis");
+
+                break;
+
+            default:
+                break;
+        }
 
     emit tourFini();
 }
@@ -432,15 +447,29 @@ void Fenetre::prochainJoueur()
 
     if (jeu->debutTour()) {
         afficheTable();
+        valeurMise.setMinimum(0);
     }
 
+
     if (jeu->getJoueurCourant() == 0) {     // Joueur humain
-        joueurCourant();
+        if(this->jeu->getListeActions().at(this->jeu->getJoueurCourant()) != ACTION::TAPIS){
+            joueurCourant();
+        }else{
+            emit tourFini();
+        }
+
     }
     else {                                  // Intelligence artificielle
-        jeuIA();
+
+        if(this->jeu->getListeActions().at(this->jeu->getJoueurCourant()) != ACTION::TAPIS){
+            jeuIA();
+        }else{
+            emit tourFini();
+        }
     }
-}
+
+ }
+
 
 void Fenetre::checker()
 {
@@ -506,6 +535,17 @@ void Fenetre::seCoucher()
     Logger::getInstance()->ajoutLogs("Joueur 1 se couche");
 
     partieTermine();
+}
+
+void Fenetre::tapis()
+{
+    jeu->executerAction(0,ACTION::TAPIS);
+    caveJoueur.display(jeu->getJoueur(0)->getCave());
+    pot.display(jeu->getPot());
+
+    Logger::getInstance()->ajoutLogs("Joueur 1 fait tapis");
+
+    emit tourFini();
 }
 
 void Fenetre::partieTermine()
