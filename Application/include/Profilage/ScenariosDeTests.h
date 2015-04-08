@@ -134,7 +134,7 @@ public:
      * @action calcule l'action attendue du joueur,
      *         éventuellement en fonction des actions réelles précédentes
      */
-    void calculerActionAttendueJoueur();
+    void calculerActionAttendueJoueur(QFile &fichierProfil);
 
     /**
      * @brief calculerDistance
