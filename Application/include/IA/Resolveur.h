@@ -31,7 +31,7 @@ private:
      * @return l'action à effectuer et le montant de sa mise s'il y en a un.
      *          Ce montant est égal à -1 si pas de mise.
     */
-    std::pair<ACTION,int> calculerActionAgressivite();
+    Action calculerActionAgressivite();
 
     /**
      * @brief calculerActionRationalite
@@ -39,7 +39,7 @@ private:
      * @return l'action à effectuer et le montant de sa mise s'il y en a un.
      *          Ce montant est égal à -1 si pas de mise.
      */
-    std::pair<ACTION,int> calculerActionRationalite();
+    Action calculerActionRationalite();
 
     /**
      * @brief calculerMiseAgressivite
@@ -87,7 +87,7 @@ public:
      * @brief calculerAction
      * @return l'action finale et sa possible mise en nombre de jetons
      */
-    std::pair<ACTION,int> calculerAction();
+    Action calculerAction();
 
 
 

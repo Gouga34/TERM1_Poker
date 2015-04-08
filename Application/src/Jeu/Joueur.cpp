@@ -145,4 +145,7 @@ int Joueur::getMisePartie(){
 
 void Joueur::setMisePartie(int mise){
     this->misePartie = mise;
+    
+Action Joueur::jouer() {
+    return Action();
 }

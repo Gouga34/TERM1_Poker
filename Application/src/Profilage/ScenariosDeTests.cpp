@@ -1,6 +1,6 @@
 /*========================================================================
 Nom: ScenariosDeTests.cpp       Auteur: Morgane VIDAL
-Maj: 01/04/2015          Creation: 01/04/2015
+Maj: 07/04/2015          Creation: 01/04/2015
 Projet: Profilage par essais et erreurs au poker
 --------------------------------------------------------------------------
 Specification: Fichier contenant l'implémentation de la classe
@@ -11,16 +11,15 @@ Specification: Fichier contenant l'implémentation de la classe
 #include "../../include/Profilage/ScenariosDeTests.h"
 #include "../../include/Profilage/CalculDonneesProfilage.h"
 
-#include <QFile>
+
 #include <QString>
 #include <QIODevice>
 #include <QJsonArray>
 #include <QByteArray>
-#include <QJsonDocument>
-#include <QJsonObject>
-#include <QJsonArray>
+#include <QStringList>
 
 #include <cstdlib>
+#include <QTextStream>
 
 using namespace std;
 
@@ -29,41 +28,9 @@ ScenariosDeTests::ScenariosDeTests(Profil *profilJoueur, Profil *calibrageIA){
     calibrageActuelIA=calibrageIA;
     actionReelleJoueur=profilJoueur;
 
-
-    QString nomFichier = QString::fromStdString(profilJoueur->getPseudo())+"_scenarios_tests.json";
-    //On vérifie si on a déjà commencé à profiler le joueur
-    QFile fichier(QString::fromStdString(DOSSIER_PROFILAGE_STATIQUE)+nomFichier);
-
-    //Si on a pas réussi à ouvrir le fichier,
-    //le profilage n'a pas encore commencé
-    if(!fichier.open(QIODevice::ReadOnly)){
-        numeroDuTestActuel=1;
-        calibrageActuelIA->setAgressivite(100);
-        calibrageActuelIA->setRationalite(100);
-        numeroCalibrage=0;
-
-    }
-    else{//On a déjà commencé à profiler le joueur.
-        //On récupère la taille du fichier pour avoir le nombre de parties déjà effectuées.
-        QByteArray donneesJson = fichier.readAll();
-        QJsonDocument doc(QJsonDocument::fromJson(donneesJson));
-        QJsonObject json(doc.object());
-        QJsonArray scenarioDeTests = json["ScenariosDeTests"].toArray();
-        QJsonObject profilJoueur=json["ProfilJoueur"].toObject();
-        //QJsonArray calibrages = scenarioDeTests["calibrages"].toArray();
-
-        //On récupère le dernier calibrage
-        int nombreParties=profilJoueur["nombreParties"].toInt();
-        numeroCalibrage= scenarioDeTests[nombreParties].toInt();
-        QJsonObject calibrageIA=scenarioDeTests.at(nombreParties-1).toObject();
-        calibrageActuelIA->setAgressivite(calibrageIA["agressivite"].toDouble());
-        calibrageActuelIA->setRationalite(calibrageIA["rationalite"].toDouble());
-
-        fichier.close();
-        //On passe au calibrage suivant (donc au scenario de tests suivant)
-        scenarioSuivant(scenarioDeTests);
-    }
-
+    int agressivite=rand()%100+1;
+    calibrageActuelIA->setAgressivite(agressivite);
+    calibrageActuelIA->setRationalite(RATIONALITE_IA_PROFILAGE);
 }
 
 
@@ -90,16 +57,6 @@ void ScenariosDeTests::setDistance(double dist){
 double ScenariosDeTests::getDistance(){
     return distance;
 }
-
-
-void ScenariosDeTests::setNumeroDuTestActuel(int numeroTest){
-    numeroDuTestActuel=numeroTest;
-}
-
-int ScenariosDeTests::getNumeroDuTestActuel() const{
-    return numeroDuTestActuel;
-}
-
 
 
 Profil* ScenariosDeTests::getCalibrageActuelIA(){
@@ -130,11 +87,142 @@ double ScenariosDeTests::getChancesDeGain(){
     return chancesDeGain;
 }
 
-//TODO : REPRENDRE LE CODE DE CETTE METHODE
+
 void ScenariosDeTests::sauvegarderPartie(){
 
     //On ouvre le fichier dans lequel on sauvegardera les données.
-    QString nomFichier=QString::fromStdString(actionReelleJoueur->getPseudo())+"_scenarios_tests.json";
+    QString nomFichier=QString::fromStdString(actionReelleJoueur->getPseudo())+"_scenarios_tests.csv";
+    QFile fichier(QString::fromStdString(DOSSIER_PROFILAGE_STATIQUE)+nomFichier);
+
+    QString nomFichierReference=QString::fromStdString("scenarios_tests_basiques.csv");
+    QFile fichierReference(QString::fromStdString(DOSSIER_PROFILAGE_STATIQUE)+nomFichierReference);
+
+    if(!fichier.open(QIODevice::ReadWrite) || !fichierReference.open(QIODevice::ReadOnly)){
+        std::cerr<<"Erreur lors de l'ouverture du fichier "<<std::endl;
+    }
+    else{
+
+
+        QTextStream out(&fichier);
+
+        //Si le fichiers est vide, on fait l'initialisation:
+
+
+
+        calculerActionAttendueJoueur(fichier);
+        calculerDistance();
+
+        //calcul de la rationalité déduite globale et l'agressivité déduite globale:
+        double agressiviteGlobale=0.0;
+        double rationaliteGlobale=0.0;
+
+
+        if(fichier.size()==0){
+            agressiviteGlobale=actionReelleJoueur->getAgressivite();
+            rationaliteGlobale=actionReelleJoueur->getRationalite();
+        }else{
+
+            QString ligne=fichierReference.readLine();
+            QTextStream fichRefe(&fichierReference);
+            QStringList liste;
+            double rationaliteGlobalePrec=0;
+            double agressiviteGlobalePrec=0;
+            int nbParties=0;
+
+            int donneesReferences=0;
+            while(fichRefe.atEnd()){
+                liste = ligne.split(",");
+
+
+                if(donneesReferences==1){
+
+                    rationaliteGlobalePrec=liste.at(RATIONALITE_DEDUITE_GLOBALE).toDouble();
+                    agressiviteGlobalePrec=liste.at(AGRESSIVITE_DEDUITE_GLOBALE).toDouble();
+                }
+
+                if(liste.at(0)=="agressivite IA"){
+                    donneesReferences=1;
+                }
+                ligne=fichierReference.readLine();
+            }
+
+            //On récupère le nombre de parties :
+            fichier.seek(0);
+            while(!ligne.isEmpty()){
+                nbParties++;
+                ligne=fichier.readLine();
+            }
+
+            agressiviteGlobale=(actionReelleJoueur->getAgressivite()+(agressiviteGlobalePrec*(nbParties-1)))/nbParties;
+            rationaliteGlobale=(actionReelleJoueur->getRationalite()+(rationaliteGlobalePrec*(nbParties-1)))/nbParties;
+
+        }
+
+        if(fichier.size()==0){
+          out<<"agressivite IA,Chances de gain IA,Agressivite attendue,Rationalite attendue,Agressivite reelle,Rationalite Reelle,distance moyenne,Agressivite deduite globale,Rationalite deduite globale"<<endl;
+        }
+
+
+         //On écrit déjà l'agressivité de l'IA qui profile et ses chances de gain.
+        out<<getCalibrageActuelIA()->getAgressivite()<<","<<getChancesDeGain()<<","<<actionAttendueJoueur.getAgressivite()<<","
+           <<actionAttendueJoueur.getRationalite()<<","<<actionReelleJoueur->getAgressivite()<<","<<actionReelleJoueur->getRationalite()<<","
+           <<getDistance()<<","<<agressiviteGlobale<<","<<rationaliteGlobale<<","<<endl;
+
+       fichier.close();
+    }
+}
+
+
+void ScenariosDeTests::calculerActionAttendueJoueur(QFile& fichierProfil){
+
+    //Si le fichier n'est pas vide, on regarde dedans si on a pas déjà une valeur pour les chances de gains et l'agressivité actuelle
+
+    QString ligneFichierProfil=fichierProfil.readLine();
+    QStringList listeLLecture;
+    QStringList listeProfilLePlusProche;
+    int diffAgressivite=1000;
+    int diffChancesGain=1000;
+
+    while(!ligneFichierProfil.isEmpty()){
+        listeLLecture = ligneFichierProfil.split(",");
+
+        if(listeLLecture.at(0)!="agressivite IA"){
+            int diffAgLigne=abs(calibrageActuelIA->getAgressivite()-listeLLecture.at(0).toDouble());
+            int diffCgLigne=abs(getChancesDeGain()-listeLLecture.at(1).toDouble());
+
+            //Si sur la ligne on a une ag et des chances de gains plus proches des valeurs actuelles
+            //On garde la nouvelle ligne
+            if(diffAgLigne<=diffAgressivite && diffCgLigne<=diffChancesGain){
+                diffAgressivite=diffAgLigne;
+                diffChancesGain=diffCgLigne;
+                listeProfilLePlusProche=listeLLecture;
+            }
+        }
+        ligneFichierProfil=fichierProfil.readLine();
+    }
+
+    //Si la différence est inférieure ou égale à 10%
+    if(diffAgressivite<=10 && diffChancesGain<=10){
+        actionAttendueJoueur.setAgressivite(listeProfilLePlusProche.at(4).toDouble());
+        actionAttendueJoueur.setRationalite(listeProfilLePlusProche.at(5).toDouble());
+
+    }
+
+    else{
+
+
+    double intervalleAgressiviteAttendueInferieur=0;
+    double intervalleAgressiviteAttendueSuperieur=0;
+
+    double intervalleCalibrageInferieur=0;
+    double intervalleCalibrageSuperieur=0;
+
+    double intervalleChancesGainIAInferieur=0;
+    double intervalleChancesGainIASuperieur=0;
+
+        //On regarde dans le fichier dans lequel se trouvent les données de base.
+
+    QString nomFichier=QString::fromStdString("scenarios_tests_basiques.csv");
     QFile fichier(QString::fromStdString(DOSSIER_PROFILAGE_STATIQUE)+nomFichier);
 
 
@@ -142,268 +230,113 @@ void ScenariosDeTests::sauvegarderPartie(){
         std::cerr<<"Erreur lors de l'ouverture du fichier "<<std::endl;
     }
     else{
-        //Récupération du contexte existant :
-        QByteArray donneesJson = fichier.readAll();
-        QJsonDocument doc(QJsonDocument::fromJson(donneesJson));
-        QJsonObject json(doc.object());
-        QJsonArray calibrages = json["ScenariosDeTests"].toArray();
-
-        //Données de la partie :
-        QJsonObject partie;
-
-        partie["ChancesGain"]=getChancesDeGain(); //Chances de gains
-
-        //Action attendue du joueur
-        calculerActionAttendueJoueur(json);
-
-        QJsonObject actionAttendue;
-
-        actionAttendue["agressivite"]=actionAttendueJoueur.getAgressivite();
-        actionAttendue["rationalite"]=actionAttendueJoueur.getRationalite();
-        actionAttendue["bluff"]=actionAttendueJoueur.getBluff();
-        actionAttendue["passivite"]=actionAttendueJoueur.getPassivite();
-
-        partie["ProfilAttendu"]=actionAttendue;
-
-        //Action réelle
-        QJsonObject actionReelle;
-
-        actionReelle["agressivite"]=actionReelleJoueur->getAgressivite();
-        actionReelle["rationalite"]=actionReelleJoueur->getRationalite();
-        actionReelle["bluff"]=actionReelleJoueur->getBluff();
-        actionReelle["passivite"]=actionReelleJoueur->getPassivite();
-
-        partie["ProfilReel"]=actionReelle;
-
-        //Distance entre l'action attendue et l'action réelle
-        calculerDistance();
-
-        partie["distance"]=getDistance();
 
 
-        //Incrémentation des competurs de profil:
-        //Si le fichier json est vide, on crée le profil du joueur
+            QString ligne=fichier.readLine();
+            QStringList liste;
+            int ligneCalibrage=0;
+            int ligneChancesGains=0;
+            int ligneAgressiviteAttendue=0;
+            int cpt=0;
 
-        QJsonObject profilJoueur;
+            int calibrage=1;
+            //int chancesGain=1;
 
-        if(json.size()==1){
-            profilJoueur["agressivite"]=0;
-            profilJoueur["rationalite"]=0;
-            profilJoueur["passivite"]=0;
-            profilJoueur["bluff"]=0;
-            profilJoueur["nombreParties"]=1;
-        }
-        else{
-            profilJoueur=json["ProfilJoueur"].toObject();
-        }
+            while(!ligne.isEmpty()){
 
-        PROFIL_JOUEUR::PROFIL_JOUEUR maxTaux = PROFIL_JOUEUR::AGRESSIVITE, secondTaux = PROFIL_JOUEUR::AGRESSIVITE;
-        double max=0;
+                 liste = ligne.split(",");
 
-        if(actionReelleJoueur->getAgressivite()>max){
-            secondTaux=maxTaux;
-            maxTaux=PROFIL_JOUEUR::AGRESSIVITE;
-            max=actionReelleJoueur->getAgressivite();
-        }
-        if(actionReelleJoueur->getRationalite()>max){
-            secondTaux=maxTaux;
-            maxTaux=PROFIL_JOUEUR::RATIONALITE;
-            max=actionReelleJoueur->getRationalite();
-        }
-        if(actionReelleJoueur->getBluff()>max){
-            secondTaux=maxTaux;
-            maxTaux=PROFIL_JOUEUR::BLUFF;
-            max=actionReelleJoueur->getBluff();
-        }
-        if(actionReelleJoueur->getPassivite()>max){
-            secondTaux=maxTaux;
-            maxTaux=PROFIL_JOUEUR::PASSIVITE;
-            max=actionReelleJoueur->getPassivite();
-        }
+                 //Si on a comme mot clef agressivité, ça veut dire qu'on a déjà traité les palliers de calibrage et qu'on en est aux palliers d'agressivité
+                if(liste.at(0)=="Agressivite"){
+                    calibrage=0;
+                }
+                else if(liste.at(0)=="agressivite IA"){
+                    calibrage=2;
+                }
+                 cpt++;
 
-        if(maxTaux==PROFIL_JOUEUR::AGRESSIVITE){
-            profilJoueur["agressivite"] = profilJoueur["agressivite"].toInt()+1;
-        }
-        else if(maxTaux==PROFIL_JOUEUR::RATIONALITE){
-            profilJoueur["rationalite"]=profilJoueur["rationalite"].toInt()+1;
-        }
-        else if(maxTaux==PROFIL_JOUEUR::PASSIVITE){
-            profilJoueur["passivite"]=profilJoueur["passivite"].toInt()+1;
-        }
-        else if(maxTaux==PROFIL_JOUEUR::BLUFF){
-            profilJoueur["bluff"]=profilJoueur["bluff"].toInt()+1;
-        }
+                //Si on cherche l'intervalle du calibrage
+                if(calibrage==1)
+                {
+                    //On regarde si on est dans l'intervalle de l'agressivité de l'IA
+                    if(liste.at(0).toDouble()<=calibrageActuelIA->getAgressivite()
+                            && calibrageActuelIA->getAgressivite()<=liste.at(1).toDouble()){
+                        intervalleCalibrageInferieur=liste.at(0).toDouble();
+                        intervalleCalibrageSuperieur=liste.at(1).toDouble();
+                        ligneCalibrage=cpt;
+                    }
 
-        if(secondTaux==PROFIL_JOUEUR::AGRESSIVITE){
-            profilJoueur["agressivite"]= profilJoueur["agressivite"].toInt()+1;
-        }
-        else if(secondTaux==PROFIL_JOUEUR::RATIONALITE){
-            profilJoueur["rationalite"]=profilJoueur["rationalite"].toInt()+1;
-        }
-        else if(secondTaux==PROFIL_JOUEUR::PASSIVITE){
-            profilJoueur["passivite"]=profilJoueur["passivite"].toInt()+1;
-        }
-        else if(secondTaux==PROFIL_JOUEUR::BLUFF){
-             profilJoueur["bluff"]=profilJoueur["bluff"].toInt()+1;
-        }
+                    //On regarde si on est dans l'intervalle des chances de gains de l'IA
+                    if(liste.at(0).toDouble()<=getChancesDeGain() && getChancesDeGain()<=liste.at(1).toDouble()){
+                        intervalleChancesGainIAInferieur=liste.at(0).toDouble();
+                        intervalleChancesGainIASuperieur=liste.at(1).toDouble();
+                        ligneChancesGains=cpt;
+                    }
 
 
 
-        //ajout du calibrage de l'IA s'il n'existe pas encore
-        if(calibrages.size()<25){
-            QJsonObject calibrage;
-            QJsonArray iterations;
+                }
 
-            //Si le calibrage n'existe pas encore
-            if(calibrages.size() <= numeroCalibrage){
-                calibrage["agressivite"]=calibrageActuelIA->getAgressivite();
-                calibrage["rationalite"]=calibrageActuelIA->getRationalite();
-                calibrage["distanceMoyenne"]=100;
-            }
-            else{
-                calibrage=calibrages.at(numeroCalibrage).toObject();
-                iterations=calibrage["iterations"].toArray();
+                //Si l'intervalle d'agressivité de l'IA correspond au cptCalibrage et que les chances de gain de l'IA sont dans le bon intervalle,
+                if(calibrage==2
+                   && liste.at(0).toInt()==ligneCalibrage
+                   && liste.at(1).toInt()==ligneChancesGains ){
+
+                    ligneAgressiviteAttendue=liste.at(2).toInt();
+                    break;
+                    break;
+                }
+
+                ligne=fichier.readLine();
             }
 
-            iterations.append(partie);
-
-            calibrage["iterations"]=iterations;
-
-            //Modification de la distance moyenne du calibrage:
-            //On commence par calculer la moyenne du calibrage
-            double sommeDistances=0;
-            for(int i=0;i<iterations.size();i++){
-                sommeDistances+=iterations[i].toObject()["distance"].toDouble();
+        //On récupère l'intervalle d'agressivité attendue du joueur :
+        cpt=0;
+        fichier.seek(0);
+        while(!ligne.isEmpty()){
+            liste = ligne.split(",");
+            cpt++;
+            if(cpt==ligneAgressiviteAttendue){
+                intervalleAgressiviteAttendueInferieur=liste.at(0).toDouble();
+                intervalleAgressiviteAttendueSuperieur=liste.at(1).toDouble();
+                break;
+                break;
             }
-
-            calibrage["distanceMoyenne"]=sommeDistances/static_cast<double>(iterations.size());
-
-            //Si le calibrage n'existe pas encore
-            if(numeroCalibrage < calibrages.size()
-                && calibrages.at(numeroCalibrage).toObject()["agressivite"]==calibrageActuelIA->getAgressivite()
-                && calibrages.at(numeroCalibrage).toObject()["rationalite"]==calibrageActuelIA->getRationalite()){
-
-                calibrages[numeroCalibrage]=calibrage;
-            }
-            else{
-                calibrages.append(calibrage);
-            }
+            ligne=fichier.readLine();
         }
 
-        json["ScenariosDeTests"]=calibrages;
-        json["ProfilJoueur"]=profilJoueur;
 
-        scenarioSuivant(calibrages);
+        //On calcule le taux d'agressivité attendu :
+       double agressiviteAttendue=((getChancesDeGain()-intervalleChancesGainIAInferieur)
+                                    *( (intervalleAgressiviteAttendueSuperieur-intervalleAgressiviteAttendueInferieur)/
+                                                    (intervalleChancesGainIASuperieur-intervalleChancesGainIAInferieur)))+intervalleAgressiviteAttendueInferieur;
 
-        doc.setObject(json);
-        fichier.resize(0);
-        fichier.write(doc.toJson());
 
-        fichier.close();
+        actionAttendueJoueur.setAgressivite(agressiviteAttendue);
+
+        //Le taux de rationalité attendu est à 80% par défaut :
+        actionAttendueJoueur.setRationalite(80.0);
+
+        fichier.seek(0);
     }
-
-
-}
-
-void ScenariosDeTests::calculerActionAttendueJoueur(QJsonObject json){
-
-    QJsonArray calibrages = json["calibrages"].toArray();
-    QJsonObject calibrage=calibrages.at(numeroCalibrage).toObject();
-    int numeroLigneLaPlusProche=anciennesChancesDeGain(calibrage);
-
-
-    //Si on n'a pas de ligne ayant des chances de gains égales aux chances de gains du jeu actuel
-    if(numeroDuTestActuel==0 || numeroLigneLaPlusProche==-1){
-
-        if(calibrages.size()>=1){
-            QJsonObject profilJoueur=json["ProfilJoueur"].toObject();
-            actionAttendueJoueur.setAgressivite(CalculDonneesProfilage::taux(profilJoueur["agressivite"].toDouble(),profilJoueur["nombreParties"].toDouble()));
-            actionAttendueJoueur.setRationalite(CalculDonneesProfilage::taux(profilJoueur["rationalite"].toDouble(),profilJoueur["nombreParties"].toDouble()));
-            actionAttendueJoueur.setBluff(CalculDonneesProfilage::taux(profilJoueur["bluff"].toDouble(),profilJoueur["nombreParties"].toDouble()));
-            actionAttendueJoueur.setPassivite(CalculDonneesProfilage::taux(profilJoueur["passivite"].toDouble(),profilJoueur["nombreParties"].toDouble()));
-        }
-        else{
-            actionAttendueJoueur.setAgressivite(20.0);
-            actionAttendueJoueur.setRationalite(100.0);
-            actionAttendueJoueur.setBluff(0.0);
-            actionAttendueJoueur.setPassivite(20.0);
-        }
-    }
-    else{
-        QJsonObject actionPrecedente=calibrage["actionReelle"].toObject();
-        actionAttendueJoueur.setAgressivite(actionPrecedente["agressivite"].toDouble());
-        actionAttendueJoueur.setBluff(actionPrecedente["bluff"].toDouble());
-        actionAttendueJoueur.setPassivite(actionPrecedente["rationalite"].toDouble());
-        actionAttendueJoueur.setRationalite(actionPrecedente["rationalite"].toDouble());
-    }
+   }
 }
 
 void ScenariosDeTests::calculerDistance(){
     //On récupère les distances entre chaque paramètre (agressivité, rationalité, bluff, passivité) :
     double distanceAgressivite=abs(actionAttendueJoueur.getAgressivite()-actionReelleJoueur->getAgressivite());
     double distanceRationalite=abs(actionAttendueJoueur.getRationalite()-actionReelleJoueur->getRationalite());
-    double distancePassivite=abs(actionAttendueJoueur.getPassivite()-actionReelleJoueur->getPassivite());
-    double distanceBluff=abs(actionAttendueJoueur.getBluff()-actionReelleJoueur->getBluff());
 
     //On calcule une distance moyenne:
-    distance=(distanceAgressivite+distanceBluff+distancePassivite+distanceRationalite)/4;
+    distance=(distanceAgressivite+distanceRationalite)/2;
 }
 
-void ScenariosDeTests::scenarioSuivant(QJsonArray calibrages){
-    //On commence par regarder si on est dans les 125 premiers tests.
-    QJsonObject dernierCalibrage=calibrages.at(calibrages.size()-1).toObject();
-    if(calibrages.size()<25 || dernierCalibrage.size()<NOMBRE_ITERRATIONS_TESTS){
-        if(numeroDuTestActuel<NOMBRE_ITERRATIONS_TESTS){
-            numeroDuTestActuel++;
-        }
-        else{
-            numeroCalibrage++;
-            numeroDuTestActuel=0;
-            if(calibrageActuelIA->getRationalite()==0){
-                calibrageActuelIA->setRationalite(100);
-                calibrageActuelIA->setAgressivite(calibrageActuelIA->getAgressivite()-25);
-            }
-            else{
-                calibrageActuelIA->setRationalite(calibrageActuelIA->getRationalite()-25);
-            }
-        }
-    }
-    //Les 125 tests ont déjà été faits du coup, on regarde le calibrage pour lequel la distance est la plus mauvaise
-    else{
-        double distanceLaPlusGrande=0;
-        int numeroLigneCalibrage=-1;
 
-        //On récupère la distance moyenne la plus grande
-        for(int i=0;i<calibrages.size();i++){
-            if(calibrages.at(i).toObject()["distanceMoyenne"].toDouble()>distanceLaPlusGrande){
-                distanceLaPlusGrande=calibrages[i].toObject()["distanceMoyenne"].toDouble();
-                numeroLigneCalibrage=i;
-            }
-        }
-
-        calibrageActuelIA->setAgressivite(calibrages[numeroLigneCalibrage].toObject()["agressivite"].toDouble());
-        calibrageActuelIA->setRationalite(calibrages[numeroLigneCalibrage].toObject()["rationalite"].toDouble());
-        numeroCalibrage=numeroLigneCalibrage;
-
-    }
+void ScenariosDeTests::scenarioSuivant(){
+    //On tire aléatoirement un nouveau taux d'agressivite:
+    int agressivite=rand()%100+1;
+    calibrageActuelIA->setAgressivite(agressivite);
 
 }
 
 
-int ScenariosDeTests::anciennesChancesDeGain(QJsonObject calibrage){
-    int numeroLigneLaPlusProche= -1;
-    double chancesGainLesPlusProches=-1000;
-
-    for(int i=0;i<calibrage.size();i++){
-        if(chancesDeGain+VARIATION_AUTORISEE>calibrage["ChancesGain"].toDouble()
-        && chancesDeGain-VARIATION_AUTORISEE<calibrage["ChancesGain"].toDouble()
-        && abs(chancesDeGain-calibrage["ChancesGain"].toDouble() )<abs(chancesDeGain-chancesGainLesPlusProches)){
-
-            numeroLigneLaPlusProche=i;
-            chancesGainLesPlusProches=calibrage["ChancesGain"].toDouble() ;
-
-        }
-    }
-
-    return numeroLigneLaPlusProche;
-}

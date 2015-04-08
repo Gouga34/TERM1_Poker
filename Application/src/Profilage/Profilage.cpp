@@ -220,7 +220,6 @@ void Profilage::sauvegarder()
 
         fichier.write(doc.toJson());
 
-        clear();
 
         fichier.close();
     }

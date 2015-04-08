@@ -3,7 +3,7 @@
 
 #include <vector>
 #include "Carte.h"
-#include "../Profilage/Profilage.h"
+#include "Action.h"
 
 class Jeu;
 
@@ -38,7 +38,7 @@ class Joueur{
 		/**
 		*@action : Destructeur de la classe Joueur
 		**/
-		~Joueur();
+        virtual ~Joueur();
 		
 	//Accesseur
 	
@@ -186,7 +186,11 @@ class Joueur{
         *@action : Remet a zero les compteurs comptabilisant les actions du joueur
         **/
         void resetCompteurActions();
-		
+
+        /**
+         * @action Fait jouer le joueur lorsque c'est son tour
+         */
+        virtual Action jouer();
 };
 
 #endif

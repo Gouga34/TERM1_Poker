@@ -19,7 +19,9 @@ SOURCES += \
     src/IA/IntelligenceArtificielle.cpp \
     src/IA/Resolveur.cpp \
     src/Profilage/Profil.cpp \
-    src/Profilage/ScenariosDeTests.cpp
+    src/Profilage/ScenariosDeTests.cpp \
+    src/IA/IntelligenceArtificielleProfilage.cpp \
+    src/Jeu/Action.cpp
 
 
 QT+=widgets
@@ -45,7 +47,9 @@ HEADERS += \
     include/IA/IntelligenceArtificielle.h \
     include/IA/Resolveur.h \
     include/Profilage/Profil.h \
-    include/Profilage/ScenariosDeTests.h
+    include/Profilage/ScenariosDeTests.h \
+    include/IA/IntelligenceArtificielleProfilage.h \
+    include/Jeu/Action.h
 
 CONFIG += c++11
 

@@ -11,6 +11,7 @@ Specification: Fichier contenant les définitions de la classe Fenetre.
 #include "../../include/Interface/CartesDialog.h"
 #include "../../include/Interface/ChoixOptionsDialog.h"
 #include "../../include/Interface/Logger.h"
+#include "../../include/IA/IntelligenceArtificielleProfilage.h"
 
 #include<QString>
 #include <QVBoxLayout>
@@ -209,15 +210,15 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
 
     // Envoi du pseudo du joueur
     QString pseudoJoueur = options.pseudo;
-    IntelligenceArtificielle *ia = static_cast<IntelligenceArtificielle*>(jeu->getJoueur(1));
-    ia->setPseudoJoueur(pseudoJoueur.toStdString());
+    IntelligenceArtificielleProfilage *ia = static_cast<IntelligenceArtificielleProfilage*>(jeu->getJoueur(1));
+    ia->setPseudoJoueurProfile(pseudoJoueur.toStdString());
 
     // Envoi du calibrage de l'IA
     Profil calibrageIa;
     calibrageIa.setAgressivite(options.agressiviteIA);
     calibrageIa.setRationalite(options.rationaliteIA);
 
-    //ia->setCalibrage(calibrageIa);
+    ia->setCalibrage(calibrageIa);
 }
 
 Fenetre::~Fenetre()
@@ -303,12 +304,16 @@ void Fenetre::demarragePartie()
 
     valeurMise.setMinimum(jeu->getBlind());
 
-    if (jeu->getJoueurCourant() == 0) {     // Joueur humain
-        joueurCourant();
-    }
-    else {                                  // Intelligence artificielle
-        jeuIA();
-    }
+    Profil calibrageIaBase;
+    calibrageIaBase.setAgressivite(50);
+    calibrageIaBase.setRationalite(50);
+
+    IntelligenceArtificielle *ia = static_cast<IntelligenceArtificielle*>(jeu->getJoueur(0));
+    ia->setCalibrage(calibrageIaBase);
+
+    jeu->lancer();
+    afficheTable();
+    partieTermine();
 }
 
 void Fenetre::afficheTable()
@@ -476,7 +481,7 @@ void Fenetre::prochainJoueur()
 
 void Fenetre::checker()
 {
-   jeu->executerAction(0,ACTION::CHECKER);
+   jeu->executerAction(0,Action(ACTION::CHECKER));
 
     Logger::getInstance()->ajoutLogs("Joueur 1 check");
 
@@ -487,7 +492,7 @@ void Fenetre::miser()
 {
     int montant = valeurMise.value();
 
-    jeu->executerAction(0,ACTION::MISER,montant);
+    jeu->executerAction(0,Action(ACTION::MISER, montant));
 
     caveJoueur.display(jeu->getJoueur(0)->getCave());
     pot.display(jeu->getPot());
@@ -499,7 +504,7 @@ void Fenetre::miser()
 
 void Fenetre::suivre()
 {
-     jeu->executerAction(0,ACTION::SUIVRE);
+    jeu->executerAction(0,Action(ACTION::SUIVRE));
 
     caveJoueur.display(jeu->getJoueur(0)->getCave());
     pot.display(jeu->getPot());
@@ -517,7 +522,7 @@ void Fenetre::relancer()
 {
     int montant = valeurMise.value();
 
-    jeu->executerAction(0,ACTION::RELANCER,montant);
+    jeu->executerAction(0,Action(ACTION::RELANCER, montant));
 
     caveJoueur.display(jeu->getJoueur(0)->getCave());
     pot.display(jeu->getPot());
@@ -533,7 +538,7 @@ void Fenetre::relancer()
 
 void Fenetre::seCoucher()
 {
-    jeu->executerAction(0,ACTION::SE_COUCHER);
+    jeu->executerAction(0,Action(ACTION::SE_COUCHER));
 
     Logger::getInstance()->ajoutLogs("Joueur 1 se couche");
 

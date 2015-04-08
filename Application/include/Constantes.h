@@ -13,6 +13,7 @@
 #define DOSSIER_PROFILAGE_DYNAMIQUE DOSSIER_PROFILAGE+std::string("ProfilageDynamique/")
 #define NOMBRE_ITERRATIONS_TESTS 5
 #define VARIATION_AUTORISEE 10.0
+#define RATIONALITE_IA_PROFILAGE 80.0
 
 
 /**
@@ -210,6 +211,19 @@ namespace PROFIL_JOUEUR{
         NB_PROFILS
     };
 }
+
+/**Enum pour l'accès aux données des fichiers contenant les scénarios de tests**/
+enum COLONNES_CSV{
+    AGRESSIVITE_IA,
+    CHANCES_GAIN_IA,
+    AGRESSIVITE_ATTENDUE,
+    RATIONALITE_ATTENDUE,
+    AGRESSIVITE_REELLE,
+    RATIONALITE_REELLE,
+    DISTANCE,
+    AGRESSIVITE_DEDUITE_GLOBALE,
+    RATIONALITE_DEDUITE_GLOBALE
+};
 
 
 #endif // CONSTANTES_H
