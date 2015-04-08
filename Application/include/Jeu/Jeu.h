@@ -296,6 +296,12 @@ class Jeu{
 		*@param   : Un vecteur d'entier correspondant a la liste des ids des cartes
 		**/
 		void affectationCarte(std::vector<int> listeId);
+
+        /**
+        *@action  : Permet de savoir si un Joueur a fait Tapis
+        *@return  : Vrai si un joueur a fait tapis, faux sinon
+        **/
+        bool aFaitTapis();
 };
 
 #endif

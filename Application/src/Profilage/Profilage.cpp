@@ -103,30 +103,53 @@ void Profilage::sauvegarder()
    QJsonObject json;
    QJsonArray parties;
 
-   if (!fichier.open(QIODevice::ReadOnly)) {
+   if(profilJoueur->getPseudo().compare("") != 0){
+       if (!fichier.open(QIODevice::ReadOnly)) {
 
-       // Ouverture de la liste des pseudos
-       QFile listePseudos("../Application/ressources/Profilage/ProfilageStatique/pseudos.txt");
-       if (!listePseudos.open(QIODevice::Append | QIODevice::Text)) {
-           std::cerr << "Erreur lors de l'ouverture du fichier des pseudos !" << std::endl;
-           return;
+           bool dejaPresent = false;
+
+           QFile pseudo("../Application/ressources/Profilage/ProfilageStatique/pseudos.txt");
+           if (!pseudo.open(QIODevice::ReadOnly | QIODevice::Text)) {
+               std::cerr << "Erreur lors de l'ouverture du fichier des pseudos !" << std::endl;
+               return;
+           }
+
+           QTextStream flux(&pseudo);
+
+           QString ligne;
+           while(!flux.atEnd()){
+               ligne = flux.readLine();
+               if(ligne.compare(QString::fromStdString(profilJoueur->getPseudo())) == 0 || ligne.compare(QString::fromStdString("")) == 0){
+                   dejaPresent = true;
+               }
+           }
+
+            pseudo.close();
+
+           if(!dejaPresent){
+               // Ouverture de la liste des pseudos
+               QFile listePseudos("../Application/ressources/Profilage/ProfilageStatique/pseudos.txt");
+               if (!listePseudos.open(QIODevice::Append | QIODevice::Text)) {
+                   std::cerr << "Erreur lors de l'ouverture du fichier des pseudos !" << std::endl;
+                   return;
+               }
+
+               QTextStream out(&listePseudos);
+               out << QString::fromStdString(profilJoueur->getPseudo()) << endl;
+
+               listePseudos.close();
+            }
        }
+       else {
+           // Récupération du contenu existant
+           QByteArray donneesJson = fichier.readAll();
+           doc = QJsonDocument::fromJson(donneesJson);
+           json = doc.object();
 
-       QTextStream out(&listePseudos);
-       out << QString::fromStdString(profilJoueur->getPseudo()) << endl;
+           parties = json["parties"].toArray();
 
-       listePseudos.close();
-   }
-   else {
-       // Récupération du contenu existant
-       QByteArray donneesJson = fichier.readAll();
-       doc = QJsonDocument::fromJson(donneesJson);
-       json = doc.object();
-
-       parties = json["parties"].toArray();
-
-       fichier.close();
-   }
+           fichier.close();
+       }
 
    QJsonObject partie;
 
@@ -190,16 +213,17 @@ void Profilage::sauvegarder()
    doc.setObject(json);
 
    // On écrit dans le fichier
-   if (!fichier.open(QIODevice::ReadWrite | QIODevice::Truncate)) {
-       std::cerr << "Erreur lors de l'ouverture du fichier " << nomFichier.toStdString() << std::endl;
-       return;
-   }
+        if (!fichier.open(QIODevice::ReadWrite | QIODevice::Truncate)) {
+            std::cerr << "Erreur lors de l'ouverture du fichier " << nomFichier.toStdString() << std::endl;
+            return;
+        }
 
-   fichier.write(doc.toJson());
+        fichier.write(doc.toJson());
 
-   clear();
+        clear();
 
-   fichier.close();
+        fichier.close();
+    }
 }
 
 void Profilage::clear(){
@@ -227,18 +251,3 @@ void Profilage::clear(){
     this->partieGagnee = false;
 }
 
-void Profilage::correction(ETAPE_JEU etape){
-
-    if(this->etatPartie[etape].tauxSuivis < 0){
-        this->etatPartie[etape].tauxSuivis = 0;
-    }
-
-    if(this->etatPartie[etape].tauxChecks < 0){
-        this->etatPartie[etape].tauxChecks = 0;
-    }
-
-    if(this->etatPartie[etape].tauxMises < 0){
-        this->etatPartie[etape].tauxMises = 0;
-    }
-
-}
