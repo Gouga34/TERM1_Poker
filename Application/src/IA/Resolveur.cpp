@@ -36,7 +36,7 @@ Profil& Resolveur::getCalibrage() {
 }
 
 
-pair<ACTION,int> Resolveur::calculerActionAgressivite(){
+Action Resolveur::calculerActionAgressivite(){
 
     ACTION action;
     int jetonsAMiser = -1; //mise à effectuer s'il y en a une. Correspond au nombre de jetons
@@ -92,7 +92,7 @@ pair<ACTION,int> Resolveur::calculerActionAgressivite(){
 
     }
 
-    return make_pair(action,jetonsAMiser);
+    return Action(action,jetonsAMiser);
 }
 
 
@@ -131,7 +131,7 @@ int Resolveur::calculerMiseAgressivite(ACTION action){
 }
 
 
-pair<ACTION,int> Resolveur::calculerActionRationalite(){
+Action Resolveur::calculerActionRationalite(){
     ACTION action;
     int jetonsAMiser =-1; //-1 si pas une action avec une mise
 
@@ -199,6 +199,9 @@ pair<ACTION,int> Resolveur::calculerActionRationalite(){
             else if(ia->getJeu()->peutSuivre(ia->getPosition())){
                 listeActions.push_back(ACTION::SUIVRE);
             }
+            else if(ia->getJeu()->peutChecker(ia->getPosition())){
+                listeActions.push_back(ACTION::CHECKER);
+            }
         }
         else{ //Checker
             if(ia->getJeu()->peutChecker(ia->getPosition())){
@@ -206,7 +209,8 @@ pair<ACTION,int> Resolveur::calculerActionRationalite(){
             }
         }
 
-      //Choix aléatoire d'une des actions de la liste :
+
+        //Choix aléatoire d'une des actions de la liste :
         int random=rand()%listeActions.size();
 
         double miseTheorique=CalculDonneesProfilage::miseTheorique(ia->getChancesGain());
@@ -255,7 +259,7 @@ pair<ACTION,int> Resolveur::calculerActionRationalite(){
     }
 
 
-    return make_pair(action,jetonsAMiser);
+    return Action(action,jetonsAMiser);
 }
 
 
@@ -277,10 +281,10 @@ int Resolveur::calculerMiseRationalite(ACTION action){
 }
 
 
-pair<ACTION,int> Resolveur::calculerAction(){
+Action Resolveur::calculerAction(){
 
-    pair<ACTION,int> actionAgressivite=calculerActionAgressivite();
-    pair<ACTION,int> actionRationalite=calculerActionRationalite();
+    Action actionAgressivite=calculerActionAgressivite();
+    Action actionRationalite=calculerActionRationalite();
 
     ACTION action;
     int jetonsAMiser;
@@ -288,7 +292,8 @@ pair<ACTION,int> Resolveur::calculerAction(){
     //fusion des deux résultats :
 
     //Si les actions ne sont pas les mêmes, on choisit une des deux actions:
-    if(actionAgressivite.first!=actionRationalite.first){
+    if(actionAgressivite.getAction()!=actionRationalite.getAction()){
+
 
         int total = calibrage.getRationalite()+calibrage.getAgressivite();
 
@@ -297,30 +302,30 @@ pair<ACTION,int> Resolveur::calculerAction(){
 
         //Si random E [0-agressivité], on prend l'action et les jetons de l'agressivité
         if(random<calibrage.getAgressivite()){
-            action=actionAgressivite.first;
-            jetonsAMiser=actionAgressivite.second;
+            action=actionAgressivite.getAction();
+            jetonsAMiser=actionAgressivite.getMontant();
         }
         //Sinon, random E[agressivite+1 - total], on prend l'action et les jetons de la rationalité
         else{
-            action=actionRationalite.first;
-            jetonsAMiser=actionRationalite.second;
+            action=actionRationalite.getAction();
+            jetonsAMiser=actionRationalite.getMontant();
         }
 
    }
     //Sinon, si l'action est relancer ou miser
-   else if(actionAgressivite.first==ACTION::RELANCER || actionAgressivite.first==ACTION::MISER){
+   else if(actionAgressivite.getAction()==ACTION::RELANCER || actionAgressivite.getAction()==ACTION::MISER){
 
-        action=actionAgressivite.first;
+        action=actionAgressivite.getAction();
 
         int maxJetonsAMiser, minJetonsAMiser, tauxMax, tauxMin;
 
-        if(actionAgressivite.second>actionRationalite.second){
-            maxJetonsAMiser=actionAgressivite.second;
-            minJetonsAMiser=actionRationalite.second;
+        if(actionAgressivite.getMontant()>actionRationalite.getMontant()){
+            maxJetonsAMiser=actionAgressivite.getMontant();
+            minJetonsAMiser=actionRationalite.getMontant();
         }
         else{
-            maxJetonsAMiser=actionRationalite.second;
-            minJetonsAMiser=actionAgressivite.second;
+            maxJetonsAMiser=actionRationalite.getMontant();
+            minJetonsAMiser=actionAgressivite.getMontant();
         }
         if(calibrage.getAgressivite()>calibrage.getRationalite()){
             tauxMax=calibrage.getAgressivite();
@@ -339,6 +344,6 @@ pair<ACTION,int> Resolveur::calculerAction(){
 
     }
 
-    return make_pair(action,jetonsAMiser);
+    return Action(action,jetonsAMiser);
 }
 

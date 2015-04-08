@@ -1,4 +1,5 @@
 #include "../../include/Jeu/Jeu.h"
+#include "../../include/IA/IntelligenceArtificielleProfilage.h"
 
 #include <iterator>
 
@@ -25,11 +26,11 @@ void Jeu::initialisationTable(int nbJoueur, int cave){
 
 	for(int i=0; i<nbJoueur; i++){
 		if( i == 0){
-            Joueur *joueur = new Joueur(true,cave,i);
+            Joueur *joueur = new IntelligenceArtificielle(true,cave,i);
             joueur->setJeu(this);
             this->listeJoueurs.push_back(joueur);
 		}else{
-            Joueur *ia = new IntelligenceArtificielle(false,cave,i);
+            Joueur *ia = new IntelligenceArtificielleProfilage(false,cave,i);
             ia->setJeu(this);
             this->listeJoueurs.push_back(ia);
 		}
@@ -75,9 +76,11 @@ void Jeu::nouvelleEtape(ETAPE_JEU etape){
 
     if(this->tableTmp.empty()){
         for(int i=0; i<nbCartes; i++){
+            if(deck.size() > 0){
                 int position = rand() % deck.size();
                 this->table.push_back(this->deck.at(position) );
                 this->deck.erase(this->deck.begin() + position);
+            }
         }
     }else{
         for(int i=0; i<nbCartes; i++){
@@ -86,8 +89,11 @@ void Jeu::nouvelleEtape(ETAPE_JEU etape){
         }
     }
 
-    IntelligenceArtificielle *ia = static_cast<IntelligenceArtificielle*>(this->getJoueur(1));
+    IntelligenceArtificielle *ia = static_cast<IntelligenceArtificielle*>(this->getJoueur(0));
     ia->estimationChancesDeGain();
+
+    IntelligenceArtificielle *ia2 = static_cast<IntelligenceArtificielle*>(this->getJoueur(1));
+    ia2->estimationChancesDeGain();
 }
 
 void Jeu::distributionBlind(){
@@ -263,7 +269,7 @@ void Jeu::checker(int posJoueur){
 void Jeu::seCoucher(int posJoueur){
     this->actions[this->getJoueur(posJoueur)->getPosition()] = ACTION::SE_COUCHER;
 
-    IntelligenceArtificielle *ia = static_cast<IntelligenceArtificielle*>(this->getJoueur(1));
+    IntelligenceArtificielleProfilage *ia = static_cast<IntelligenceArtificielleProfilage*>(this->getJoueur(1));
     ia->remplissageDonneesProfilage();
 
     finPartie();
@@ -312,7 +318,7 @@ bool Jeu::prochainJoueur(){
     this->joueurCourant = (this->joueurCourant + 1) % this->listeJoueurs.size();
 
     if (this->finDuTour()) {
-        IntelligenceArtificielle *ia = static_cast<IntelligenceArtificielle*>(this->getJoueur(1));
+        IntelligenceArtificielleProfilage *ia = static_cast<IntelligenceArtificielleProfilage*>(this->getJoueur(1));
 
         ia->remplissageDonneesProfilage();
 
@@ -387,12 +393,10 @@ void Jeu::finPartie() {
 
     resultatPartie = retour;
 
-    IntelligenceArtificielle *ia = static_cast<IntelligenceArtificielle*>(this->getJoueur(1));  
+    IntelligenceArtificielleProfilage *ia = static_cast<IntelligenceArtificielleProfilage*>(this->getJoueur(1));
     ia->calculProfilGlobalJoueur();
 
     ia->ecritureScenariosDeTests();
-
-    this->etape = ETAPE_JEU::PREFLOP;
 }
 
 std::vector<Carte> Jeu::getTable() const{
@@ -515,9 +519,9 @@ bool Jeu::estCouche(int posJoueur) const {
     return (this->getListeActions().at(posJoueur) != ACTION::SE_COUCHER);
 }
 
-void Jeu::executerAction(int posJoueur, ACTION action, int mise){
+void Jeu::executerAction(int posJoueur, Action a){
     int relance;
-    switch (action) {
+    switch (a.getAction()) {
         case ACTION::CHECKER:
             if (peutChecker(posJoueur)) {
                 checker(posJoueur);
@@ -525,8 +529,8 @@ void Jeu::executerAction(int posJoueur, ACTION action, int mise){
             break;
 
         case ACTION::MISER:
-            if (peutMiser(posJoueur, mise)) {
-                miser(posJoueur, mise);
+            if (peutMiser(posJoueur, a.getMontant())) {
+                miser(posJoueur, a.getMontant());
             }
             break;
 
@@ -537,7 +541,7 @@ void Jeu::executerAction(int posJoueur, ACTION action, int mise){
             break;
 
         case ACTION::RELANCER:
-            relance = (mise < 2 * getMiseCourante()) ? 2 * getMiseCourante() : mise;
+            relance = (a.getMontant() < 2 * getMiseCourante()) ? 2 * getMiseCourante() : a.getMontant();
             if (peutRelancer(posJoueur, relance)) {
                 relancer(posJoueur, relance);
             }
@@ -580,6 +584,14 @@ void Jeu::affectationCarte(std::vector<int> listeId){
                 pos++;
             }
         }
+    }
+}
+
+void Jeu::lancer()
+{
+    while (prochainJoueur()) {
+        Action a = listeJoueurs.at(joueurCourant)->jouer();
+        executerAction(joueurCourant, a);
     }
 }
 

@@ -7,13 +7,12 @@
 #include <time.h>
 #include <stdlib.h>
 #include "Carte.h"
-#include "Joueur.h"
 #include "../Constantes.h"
-#include "../IA/IntelligenceArtificielle.h"
 #include "../Evaluateur/Evaluateur.h"
 #include "../Profilage/CalculDonneesProfilage.h"
 #include "../Profilage/Profilage.h"
 #include "../IA/EstimationProba.h"
+#include "../IA/IntelligenceArtificielle.h"
 
 class Joueur;
 class IntelligenceArtificielle;
@@ -255,7 +254,7 @@ class Jeu{
          * @param action Action à exécuter
          * @param mise Montant des jetons associés à l'action (-1 si check, se couche, suivre)
          */
-        void executerAction(int posJoueur, ACTION action, int mise = -1);
+        void executerAction(int posJoueur, Action a);
        		
         /**
 		*@action  : Affecte le joueur suivant en tant que joueur courant et renvoi vrai s'il existe
@@ -296,6 +295,11 @@ class Jeu{
 		*@param   : Un vecteur d'entier correspondant a la liste des ids des cartes
 		**/
 		void affectationCarte(std::vector<int> listeId);
+
+        /**
+         * @action Démarre la boucle de jeu principale
+         */
+        void lancer();
 };
 
 #endif
