@@ -403,13 +403,16 @@ void Fenetre::jeuIA()
 
 
             case ACTION::RELANCER:
-                actionEffectueeIA.setText("Relance : "+QString::number(jeu->getMiseCourante()));
+              //  actionEffectueeIA.setText("Relance : "+QString::number(jeu->getMiseCourante()));
+                 actionEffectueeIA.setText("Relance : "+QString::number(jeu->getJoueur(1)->getMisePlusHaute()));
                 valeurMise.setMinimum(2 * jeu->getMiseCourante());
 
                 caveIA.display(jeu->getJoueur(1)->getCave());
                 pot.display(jeu->getPot());
 
-                Logger::getInstance()->ajoutLogs("IA relance " + QString::number(jeu->getMiseCourante()));
+           //     Logger::getInstance()->ajoutLogs("IA relance " + QString::number(jeu->getMiseCourante()));
+                Logger::getInstance()->ajoutLogs("IA relance " + QString::number(jeu->getJoueur(1)->getMisePlusHaute()));
+
                 break;
 
             case ACTION::SE_COUCHER:
@@ -452,7 +455,7 @@ void Fenetre::prochainJoueur()
 
 
     if (jeu->getJoueurCourant() == 0) {     // Joueur humain
-        if(this->jeu->getListeActions().at(this->jeu->getJoueurCourant()) != ACTION::TAPIS){
+        if(this->jeu->getListeActions().at(this->jeu->getJoueurCourant()) != ACTION::TAPIS && this->jeu->peutJouer(this->jeu->getJoueurCourant())){
             joueurCourant();
         }else{
             emit tourFini();
@@ -461,7 +464,7 @@ void Fenetre::prochainJoueur()
     }
     else {                                  // Intelligence artificielle
 
-        if(this->jeu->getListeActions().at(this->jeu->getJoueurCourant()) != ACTION::TAPIS){
+        if(this->jeu->getListeActions().at(this->jeu->getJoueurCourant()) != ACTION::TAPIS && this->jeu->peutJouer(this->jeu->getJoueurCourant())){
             jeuIA();
         }else{
             emit tourFini();

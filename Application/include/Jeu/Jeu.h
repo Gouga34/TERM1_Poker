@@ -302,6 +302,8 @@ class Jeu{
         *@return  : Vrai si un joueur a fait tapis, faux sinon
         **/
         bool aFaitTapis();
+
+        bool peutJouer(int posJoueur);
 };
 
 #endif

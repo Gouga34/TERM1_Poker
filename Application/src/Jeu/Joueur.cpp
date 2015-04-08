@@ -7,6 +7,7 @@ Joueur::Joueur(bool estDealer, int jetons, int position){
 	this->position = position;
     this->miseCourante = 0;
     this->misePlusHaute = 0;
+    this->misePartie = 0;
     this->compteurActions = new int[3];
     for(int i =0; i<3;i++){
         this->compteurActions[i] = 0;
@@ -136,4 +137,12 @@ int Joueur::getMiseTotale(){
 
 void Joueur::setMiseTotale(int mise){
     this->miseTotale = mise;
+}
+
+int Joueur::getMisePartie(){
+    return this->misePartie;
+}
+
+void Joueur::setMisePartie(int mise){
+    this->misePartie = mise;
 }

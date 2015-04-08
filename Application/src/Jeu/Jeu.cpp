@@ -214,35 +214,56 @@ void Jeu::tapis(int posJoueur){
 
 
 void Jeu::relancer(int posJoueur, int jetons){
-	
-    this->setPot(this->getPot() +  (this->getMiseCourante() - this->getJoueur(posJoueur)->getMisePlusHaute()));
 
-    this->getJoueur(posJoueur)->setMiseTotale(this->getJoueur(posJoueur)->getMiseTotale() + (this->getMiseCourante() - this->getJoueur(posJoueur)->getMisePlusHaute()));
+    if(jetons <= ( this->getJoueur(posJoueur)->getCave() - (this->getMiseCourante()  -this->getJoueur(posJoueur)->getMiseTotale() ) )){
 
-    this->getJoueur(posJoueur)->setMiseTotale(this->getMiseCourante());
+        //On complete le pot entre la difference misee par le joueur et son adversaire
+        this->setPot(this->getPot() +  (this->getMiseCourante() - this->getJoueur(posJoueur)->getMisePlusHaute()));
 
-    this->getJoueur(posJoueur)->retireJetons(this->getMiseCourante() - this->getJoueur(posJoueur)->getMisePlusHaute());
+        //La mise totale du joueur est affectee
+        this->getJoueur(posJoueur)->setMiseTotale(this->getJoueur(posJoueur)->getMiseTotale() + (this->getMiseCourante() - this->getJoueur(posJoueur)->getMisePlusHaute()));
 
-    this->setPot(this->getPot() + jetons);
-    this->getJoueur(posJoueur)->retireJetons(jetons);
+        //On retire la mise au joueur
+        this->getJoueur(posJoueur)->retireJetons(this->getMiseCourante() - this->getJoueur(posJoueur)->getMisePlusHaute());
 
-    this->miseCourante = this->getMiseCourante() + jetons;
-    this->getJoueur(posJoueur)->setMiseCourante(this->getJoueur(posJoueur)->getMiseCourante() + jetons);
-    this->getJoueur(posJoueur)->setMiseTotale(this->getJoueur(posJoueur)->getMiseTotale() + jetons);
+        //On ajoute la relance au pot
+        this->setPot(this->getPot() + jetons);
 
-    if (jetons > this->getJoueur(posJoueur)->getMisePlusHaute()) {
-        this->getJoueur(posJoueur)->setMisePlusHaute(jetons);
+        //On retire la relance au joueur
+        this->getJoueur(posJoueur)->retireJetons(jetons);
+
+        //La mise courante est egale a la mise totale + les jetons
+        this->miseCourante = this->getJoueur(posJoueur)->getMiseTotale() + jetons;
+
+        //On affecte la mise courante au joueur
+        this->getJoueur(posJoueur)->setMiseCourante(this->miseCourante);
+
+        //On affecte la mise totale du joueur
+        this->getJoueur(posJoueur)->setMiseTotale(this->miseCourante);
+
+        if ( this->getJoueur(posJoueur)->getMiseTotale() > this->getJoueur(posJoueur)->getMisePlusHaute()) {
+            this->getJoueur(posJoueur)->setMisePlusHaute(this->getJoueur(posJoueur)->getMiseTotale());
+        }
+        /*
+        if ( jetons > this->getJoueur(posJoueur)->getMisePlusHaute()) {
+            this->getJoueur(posJoueur)->setMisePlusHaute(jetons);
+        }*/
+
+        this->actions[this->getJoueur(posJoueur)->getPosition()] = ACTION::RELANCER;
+        this->getJoueur(posJoueur)->getCompteurActions()[0]++;
+    }else{
+        tapis(posJoueur);
     }
-
-    this->actions[this->getJoueur(posJoueur)->getPosition()] = ACTION::RELANCER;
-    this->getJoueur(posJoueur)->getCompteurActions()[0]++;
-
 }
 
 
 void Jeu::suivre(int posJoueur){
 	
     // Si on a assez d'argent on suit
+
+    std::cout << this->miseCourante  << std::endl;
+    std::cout << this->getJoueur(posJoueur)->getMiseTotale() << std::endl;
+
 
     if(this->getJoueur(posJoueur)->getCave() > ( this->miseCourante - this->getJoueur(posJoueur)->getMiseTotale())){
 
@@ -256,8 +277,10 @@ void Jeu::suivre(int posJoueur){
         this->getJoueur(posJoueur)->getCompteurActions()[1]++;
 	}
     else{      // Sinon on fait tapis
+        std::cout << "Fait tapis" << std::endl;
         this->tapis(posJoueur);
     }
+     std::cout << std::endl;
 }
 
 
@@ -325,6 +348,9 @@ bool Jeu::prochainJoueur(){
 
     if (this->finDuTour()) {
 
+        this->getJoueur(0)->setMisePartie(this->getJoueur(0)->getMisePartie() + this->getJoueur(0)->getMiseTotale());
+        this->getJoueur(1)->setMisePartie(this->getJoueur(1)->getMisePartie() + this->getJoueur(1)->getMiseTotale());
+
         IntelligenceArtificielle *ia = static_cast<IntelligenceArtificielle*>(this->getJoueur(1));
 
         ia->remplissageDonneesProfilage();
@@ -358,7 +384,6 @@ void Jeu::resetActions(){
         this->getJoueur(i)->setMisePlusHaute(0);
         this->getJoueur(i)->setMiseTotale(0);
 
-
 	}
 
 }
@@ -366,6 +391,9 @@ void Jeu::resetActions(){
 void Jeu::finPartie() {
 
     std::vector<Joueur*> joueursRestants;
+
+    this->getJoueur(0)->setMisePartie(this->getJoueur(0)->getMisePartie() + this->getJoueur(0)->getMiseTotale());
+    this->getJoueur(1)->setMisePartie(this->getJoueur(1)->getMisePartie() + this->getJoueur(1)->getMiseTotale());
 
     for(Joueur *joueur : this->listeJoueurs){
         if(this->estCouche(joueur->getPosition())){
@@ -379,21 +407,29 @@ void Jeu::finPartie() {
         int comparaisonMains = Evaluateur::comparerMains(this->getTable(), this->getJoueur(0)->getMain(), this->getJoueur(1)->getMain());
 
         if(comparaisonMains == GAGNE){
-            this->getJoueur(0)->ajouteJetons(this->getPot());
+
+            if(this->getJoueur(0)->getMisePartie() >= this->getJoueur(1)->getMisePartie()){
+                 this->getJoueur(0)->ajouteJetons(this->getPot());
+            }else{
+                this->getJoueur(0)->ajouteJetons(this->getJoueur(0)->getMisePartie() *2);
+                this->getJoueur(1)->ajouteJetons(this->getPot() - (this->getJoueur(0)->getMisePartie() *2) );
+            }
+
             retour = GAGNE;
         }else if(comparaisonMains == PERDU){
-            this->getJoueur(1)->ajouteJetons(this->getPot());
+
+            if(this->getJoueur(0)->getMisePartie() <= this->getJoueur(1)->getMisePartie() ){
+                 this->getJoueur(1)->ajouteJetons(this->getPot());
+            }else{
+                this->getJoueur(1)->ajouteJetons(this->getJoueur(1)->getMisePartie() *2);
+                this->getJoueur(0)->ajouteJetons(this->getPot() - (this->getJoueur(1)->getMisePartie() *2) );
+            }
             retour = PERDU;
         }else{
             retour = EGALITE;
-            if(this->getPot() % 2 == 0){
-                this->getJoueur(0)->ajouteJetons(this->getPot() / 2 );
-                this->getJoueur(1)->ajouteJetons(this->getPot() / 2 );
-            }else{
-                this->setPot(this->getPot() -1);
-                this->getJoueur(0)->ajouteJetons(this->getPot() / 2 );
-                this->getJoueur(1)->ajouteJetons(this->getPot() / 2 );
-            }
+
+            this->getJoueur(0)->ajouteJetons(this->getJoueur(0)->getMisePartie());
+            this->getJoueur(1)->ajouteJetons(this->getJoueur(1)->getMisePartie());
         }
     }else{
 
@@ -435,6 +471,7 @@ void Jeu::nouvelleMain(){
 	
     for(int i =0; i< (int) this->listeJoueurs.size(); i++){
         this->getJoueur(i)->videMain();
+        this->getJoueur(i)->setMisePartie(0);
 	}
 	
 	this->deck = nouveauDeck();
@@ -493,12 +530,15 @@ bool Jeu::peutMiser(int posJoueur, int jetons){
 
 bool Jeu::peutRelancer(int posJoueur, int jetons){
 
-    //On peut pas relancer quand le joueur précédent a checké
+    //On peut pas relancer quand le joueur précédent a checké, n'as pas agit ou a fait tapis
     if(posJoueur==0){
         if(actions[1]==ACTION::CHECKER || actions[1]==ACTION::PAS_ENCORE_D_ACTION || actions[1]==ACTION::TAPIS){
             return false;
         }
-
+    }else{
+        if(actions[0]==ACTION::CHECKER || actions[0]==ACTION::PAS_ENCORE_D_ACTION || actions[0]==ACTION::TAPIS){
+            return false;
+        }
     }
 
     if(getMiseCourante() < getJoueur(posJoueur)->getCave()){
@@ -516,14 +556,15 @@ bool Jeu::peutRelancer(int posJoueur, int jetons){
     }
 
     return false;
+
 }
 
 bool Jeu::peutSuivre(int posJoueur){
 
-    //On peut suivre quand le joueur précédent a misé, relancé ou grosse blind
+    //On peut suivre quand le joueur précédent a misé, relancé, grosse blind ou fait tapis
 
     if(posJoueur==0){
-        if(actions[1]==ACTION::CHECKER || actions[1]==ACTION::PETITE_BLIND || actions[1]==ACTION::TAPIS){
+        if(actions[1]==ACTION::CHECKER || actions[1]==ACTION::PETITE_BLIND){
             return false;
         }
     }
@@ -558,6 +599,10 @@ void Jeu::executerAction(int posJoueur, ACTION action, int mise){
 
         case ACTION::RELANCER:
             relance = (mise < 2 * getMiseCourante()) ? 2 * getMiseCourante() : mise;
+
+            /*
+            std::cout << "Cave : " << this->getJoueur(posJoueur)->getCave()  << std::endl;
+            std::cout << "IA Relance : " << relance << std::endl;*/
             if (peutRelancer(posJoueur, relance)) {
                 relancer(posJoueur, relance);
             }
@@ -609,4 +654,24 @@ void Jeu::affectationCarte(std::vector<int> listeId){
 
 bool Jeu::aFaitTapis(){
     return actions[0] == ACTION::TAPIS || actions[1] == ACTION::TAPIS;
+}
+
+bool Jeu::peutJouer(int posJoueur){
+
+    if(posJoueur == 0){
+        if(this->actions[1] == ACTION::TAPIS && ( this->getJoueur(posJoueur)->getMiseTotale() > this->getJoueur(1)->getMiseTotale()) && this->actions[1] == ACTION::SUIVRE){
+            return false;
+        }else{
+            return true;
+        }
+    }else{
+
+        if(this->actions[0] == ACTION::TAPIS && ( this->getJoueur(posJoueur)->getMiseTotale() > this->getJoueur(0)->getMiseTotale()) && this->actions[0] == ACTION::SUIVRE){
+            return false;
+        }else{
+            return true;
+        }
+
+    }
+
 }
