@@ -90,19 +90,6 @@ double ScenariosDeTests::getChancesDeGain(){
 
 void ScenariosDeTests::sauvegarderPartie(){
 
-    ////////////////////////////////////////////////////////////////
-    //////////                   TODO                     //////////
-    ////////////////////////////////////////////////////////////////
-    /*
-     * vérifier si on peut écrire plusieurs fois d'affilée dans un fichier
-        Effectuer le calcul des résultats en fonction des résultats précédents.
-    */
-
-
-
-
-    std::cout<<"chances gain IA : "<<getChancesDeGain()<<std::endl;
-
     //On ouvre le fichier dans lequel on sauvegardera les données.
     QString nomFichier=QString::fromStdString(actionReelleJoueur->getPseudo())+"_scenarios_tests.csv";
     QFile fichier(QString::fromStdString(DOSSIER_PROFILAGE_STATIQUE)+nomFichier);
@@ -122,7 +109,7 @@ void ScenariosDeTests::sauvegarderPartie(){
 
 
 
-        calculerActionAttendueJoueur();
+        calculerActionAttendueJoueur(fichier);
         calculerDistance();
 
         //calcul de la rationalité déduite globale et l'agressivité déduite globale:
@@ -143,12 +130,10 @@ void ScenariosDeTests::sauvegarderPartie(){
             int nbParties=0;
 
             int donneesReferences=0;
-            std::cout<<"SAV Partie"<<std::endl;
             while(fichRefe.atEnd()){
                 liste = ligne.split(",");
 
 
-               // std:cout<<"ligne: "<<ligne.toStdString()<<std::endl;
                 if(donneesReferences==1){
 
                     rationaliteGlobalePrec=liste.at(RATIONALITE_DEDUITE_GLOBALE).toDouble();
@@ -162,39 +147,69 @@ void ScenariosDeTests::sauvegarderPartie(){
             }
 
             //On récupère le nombre de parties :
-            while(!out.atEnd()){
+            fichier.seek(0);
+            while(!ligne.isEmpty()){
                 nbParties++;
                 ligne=fichier.readLine();
             }
 
-
-          //  std::cout<<"nb parties : "<<nbParties<<std::endl;
             agressiviteGlobale=(actionReelleJoueur->getAgressivite()+(agressiviteGlobalePrec*(nbParties-1)))/nbParties;
             rationaliteGlobale=(actionReelleJoueur->getRationalite()+(rationaliteGlobalePrec*(nbParties-1)))/nbParties;
 
         }
 
         if(fichier.size()==0){
-          out<<"agressivite IA;Chances de gain IA;Agressivite attendue;Rationalite attendue;Agressivite reelle;Rationalite Reelle;distance moyenne;Agressivite deduite globale;Rationalite deduite globale"<<endl;
+          out<<"agressivite IA,Chances de gain IA,Agressivite attendue,Rationalite attendue,Agressivite reelle,Rationalite Reelle,distance moyenne,Agressivite deduite globale,Rationalite deduite globale"<<endl;
         }
 
 
-        std::cout<<"écriture de : "<<getCalibrageActuelIA()->getAgressivite()<<";"<<getChancesDeGain()<<";"<<actionAttendueJoueur.getAgressivite()<<";"
-                <<actionAttendueJoueur.getRationalite()<<";"<<actionReelleJoueur->getAgressivite()<<";"<<actionReelleJoueur->getRationalite()<<";"
-                <<getDistance()<<";"<<agressiviteGlobale<<";"<<rationaliteGlobale<<";"<<std::endl;
-        //On écrit déjà l'agressivité de l'IA qui profile et ses chances de gain.
-        out<<getCalibrageActuelIA()->getAgressivite()<<";"<<getChancesDeGain()<<";"<<actionAttendueJoueur.getAgressivite()<<";"
-           <<actionAttendueJoueur.getRationalite()<<";"<<actionReelleJoueur->getAgressivite()<<";"<<actionReelleJoueur->getRationalite()<<";"
-           <<getDistance()<<";"<<agressiviteGlobale<<";"<<rationaliteGlobale<<";"<<endl;
+         //On écrit déjà l'agressivité de l'IA qui profile et ses chances de gain.
+        out<<getCalibrageActuelIA()->getAgressivite()<<","<<getChancesDeGain()<<","<<actionAttendueJoueur.getAgressivite()<<","
+           <<actionAttendueJoueur.getRationalite()<<","<<actionReelleJoueur->getAgressivite()<<","<<actionReelleJoueur->getRationalite()<<","
+           <<getDistance()<<","<<agressiviteGlobale<<","<<rationaliteGlobale<<","<<endl;
 
        fichier.close();
     }
 }
 
 
-void ScenariosDeTests::calculerActionAttendueJoueur(){
+void ScenariosDeTests::calculerActionAttendueJoueur(QFile& fichierProfil){
 
-    //TODO: Calculer actions en fonction des tests précédents.
+    //Si le fichier n'est pas vide, on regarde dedans si on a pas déjà une valeur pour les chances de gains et l'agressivité actuelle
+
+    QString ligneFichierProfil=fichierProfil.readLine();
+    QStringList listeLLecture;
+    QStringList listeProfilLePlusProche;
+    int diffAgressivite=1000;
+    int diffChancesGain=1000;
+
+    while(!ligneFichierProfil.isEmpty()){
+        listeLLecture = ligneFichierProfil.split(",");
+
+        if(listeLLecture.at(0)!="agressivite IA"){
+            int diffAgLigne=abs(calibrageActuelIA->getAgressivite()-listeLLecture.at(0).toDouble());
+            int diffCgLigne=abs(getChancesDeGain()-listeLLecture.at(1).toDouble());
+
+            //Si sur la ligne on a une ag et des chances de gains plus proches des valeurs actuelles
+            //On garde la nouvelle ligne
+            if(diffAgLigne<=diffAgressivite && diffCgLigne<=diffChancesGain){
+                diffAgressivite=diffAgLigne;
+                diffChancesGain=diffCgLigne;
+                listeProfilLePlusProche=listeLLecture;
+            }
+        }
+        ligneFichierProfil=fichierProfil.readLine();
+    }
+
+    //Si la différence est inférieure ou égale à 10%
+    if(diffAgressivite<=10 && diffChancesGain<=10){
+        actionAttendueJoueur.setAgressivite(listeProfilLePlusProche.at(4).toDouble());
+        actionAttendueJoueur.setRationalite(listeProfilLePlusProche.at(5).toDouble());
+
+    }
+
+    else{
+
 
     double intervalleAgressiviteAttendueInferieur=0;
     double intervalleAgressiviteAttendueSuperieur=0;
@@ -205,8 +220,6 @@ void ScenariosDeTests::calculerActionAttendueJoueur(){
     double intervalleChancesGainIAInferieur=0;
     double intervalleChancesGainIASuperieur=0;
 
-    //si le fichier envoyé en param est vide, on prend pr action attendue ce qu'on avait mis en place.
-    //if(fichier.size()==0){
         //On regarde dans le fichier dans lequel se trouvent les données de base.
 
     QString nomFichier=QString::fromStdString("scenarios_tests_basiques.csv");
@@ -232,7 +245,7 @@ void ScenariosDeTests::calculerActionAttendueJoueur(){
             while(!ligne.isEmpty()){
 
                  liste = ligne.split(",");
-               // std::cout<<"ligne: "<<ligne.toStdString()<<std::endl;
+
                  //Si on a comme mot clef agressivité, ça veut dire qu'on a déjà traité les palliers de calibrage et qu'on en est aux palliers d'agressivité
                 if(liste.at(0)=="Agressivite"){
                     calibrage=0;
@@ -262,16 +275,8 @@ void ScenariosDeTests::calculerActionAttendueJoueur(){
 
 
 
-                    std::cout<<"calibrage : ["<<intervalleCalibrageInferieur<<"-"<<intervalleCalibrageSuperieur<<"]"<<std::endl;
-                    std::cout<<"chances gain: ["<<intervalleChancesGainIAInferieur<<"-"<<intervalleChancesGainIASuperieur<<"]"<<std::endl;
-
                 }
 
-                //Si on cherche l'intervale de l'agressivite attendue
-                //
-//                if(calibrage==0
-//                        && liste.at(0).toDouble() <= getChancesDeGain()
-//                        && getChancesDeGain()<=liste.at(1).toDouble()){
                 //Si l'intervalle d'agressivité de l'IA correspond au cptCalibrage et que les chances de gain de l'IA sont dans le bon intervalle,
                 if(calibrage==2
                    && liste.at(0).toInt()==ligneCalibrage
@@ -285,15 +290,12 @@ void ScenariosDeTests::calculerActionAttendueJoueur(){
                 ligne=fichier.readLine();
             }
 
-        std::cout<<"ligne agress att:"<<ligneAgressiviteAttendue<<std::endl;
         //On récupère l'intervalle d'agressivité attendue du joueur :
         cpt=0;
         fichier.seek(0);
         while(!ligne.isEmpty()){
-           // std::cout<<"ligne: "<<ligne.toStdString()<<std::endl;
             liste = ligne.split(",");
             cpt++;
-            std::cout<<"compteur : "<<cpt<<std::endl;
             if(cpt==ligneAgressiviteAttendue){
                 intervalleAgressiviteAttendueInferieur=liste.at(0).toDouble();
                 intervalleAgressiviteAttendueSuperieur=liste.at(1).toDouble();
@@ -305,12 +307,11 @@ void ScenariosDeTests::calculerActionAttendueJoueur(){
 
 
         //On calcule le taux d'agressivité attendu :
-        double agressiviteAttendue=((getChancesDeGain()-intervalleCalibrageInferieur)
+       double agressiviteAttendue=((getChancesDeGain()-intervalleChancesGainIAInferieur)
                                     *( (intervalleAgressiviteAttendueSuperieur-intervalleAgressiviteAttendueInferieur)/
-                                                    (intervalleCalibrageSuperieur-intervalleCalibrageInferieur)))+intervalleAgressiviteAttendueInferieur;
+                                                    (intervalleChancesGainIASuperieur-intervalleChancesGainIAInferieur)))+intervalleAgressiviteAttendueInferieur;
 
 
-        std::cout<<"intervalleCalibrInf: "<<intervalleCalibrageInferieur<<" intervalleCalibrageSuperieur: "<<intervalleCalibrageSuperieur<<" intervalleAgressAttSup: "<<intervalleAgressiviteAttendueSuperieur<<" intervalleAgressAttInf: "<<intervalleAgressiviteAttendueInferieur<<std::endl;
         actionAttendueJoueur.setAgressivite(agressiviteAttendue);
 
         //Le taux de rationalité attendu est à 80% par défaut :
@@ -318,7 +319,7 @@ void ScenariosDeTests::calculerActionAttendueJoueur(){
 
         fichier.seek(0);
     }
-   //}
+   }
 }
 
 void ScenariosDeTests::calculerDistance(){
