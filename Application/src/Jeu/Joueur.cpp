@@ -137,3 +137,7 @@ int Joueur::getMiseTotale(){
 void Joueur::setMiseTotale(int mise){
     this->miseTotale = mise;
 }
+
+Action Joueur::jouer() {
+    return Action();
+}

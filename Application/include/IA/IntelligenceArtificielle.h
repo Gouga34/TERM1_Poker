@@ -5,7 +5,6 @@
 #include "../Jeu/Jeu.h"
 #include "Resolveur.h"
 #include "../Profilage/Profil.h"
-#include "../Profilage/ScenariosDeTests.h"
 
 #include <vector>
 #include <iostream>
@@ -16,17 +15,10 @@
 class Resolveur;
 class IntelligenceArtificielle : public Joueur {
 
-	private:
-		//Attributs
+    protected:
         Resolveur *resolveur; //Cerveau de l'intelligence artificielle
 
-        Profil profilJoueur;
-
-        Profilage *profilage;
-
-        ScenariosDeTests *scenario;
-
-		
+    private:
 		//Méthodes
 		
 		/**
@@ -53,43 +45,17 @@ class IntelligenceArtificielle : public Joueur {
 		/**
 		*@action : Destructeur de la classe Intelligence Artificielle
 		**/
-		~IntelligenceArtificielle();
+        virtual ~IntelligenceArtificielle();
 		
 		//Mutateur
-
-        /**
-         * @return Profilage du joueur par l'IA
-         */
-        Profilage* getProfilage() const;
 
         /**
          * @action Modifie les valeurs de calibrage de l'IA
          * @param profil Profil de l'IA
          */
         void setCalibrage(Profil profil);
-
-        /**
-         * @action Modifie le pseudo du joueur profilé
-         * @param pseudo Pseudo du joueur
-         */
-        void setPseudoJoueur(std::string pseudo);
 		
-		//Methodes
-
-        /**
-         * @action Remplit l'objet contenant les données de profilage du joueur
-         */
-        void remplissageDonneesProfilage();
-
-        /**
-         * @action Calcule les données globales de profilage et sauvegarde les données de la partie
-         */
-        void calculProfilGlobalJoueur();
-
-        /**
-         * @action Ecrit les résultats des scénarios de tests pour la partie courante
-         */
-        void ecritureScenariosDeTests();
+        //Methodes
 
         /**
          * @action Calcule les chances de gain en fonction des cartes connues
@@ -99,7 +65,7 @@ class IntelligenceArtificielle : public Joueur {
 		/**
 		*@action : Pemet a l'IA de jouer
 		**/
-        void jouer();
+        virtual Action jouer();
 	
 };
 
