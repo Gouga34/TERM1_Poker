@@ -127,6 +127,13 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
     boutonChoixCartes.setObjectName(QString("Checkbox"));
     boutonChoixCartes.setStyleSheet("QWidget#Checkbox { background-color: rgb(255, 255, 255); border-style: solid; border-color: black; border-width: 1px; padding : 3px; }");
 
+    layoutDemarrage->setAlignment(Qt::AlignLeft);
+    layoutDemarrage->setSpacing(10);
+    layoutDemarrage->addWidget(&boutonDemarrage);
+    layoutDemarrage->addWidget(&boutonChoixCartes);
+    layoutDemarrage->addWidget(&boutonChoixCartes);
+
+
     QVBoxLayout *layoutBoutons = new QVBoxLayout;
 
     layoutBoutons->setSpacing(10);
