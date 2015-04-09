@@ -227,43 +227,36 @@ void Jeu::tapis(int posJoueur){
 
 void Jeu::relancer(int posJoueur, int jetons){
 
-    if(jetons <= ( this->getJoueur(posJoueur)->getCave() - (this->getMiseCourante()  -this->getJoueur(posJoueur)->getMiseTotale() ) )){
+    //Si on fait pas tapis:
+    if(jetons <=this->getJoueur(posJoueur)->getCave()){
 
-        //On complete le pot entre la difference misee par le joueur et son adversaire
-        this->setPot(this->getPot() +  (this->getMiseCourante() - this->getJoueur(posJoueur)->getMisePlusHaute()));
 
-        //La mise totale du joueur est affectee
-        this->getJoueur(posJoueur)->setMiseTotale(this->getJoueur(posJoueur)->getMiseTotale() + (this->getMiseCourante() - this->getJoueur(posJoueur)->getMisePlusHaute()));
+        //this->setPot(this->getPot() +  (this->getMiseCourante() - this->getJoueur(posJoueur)->getMisePlusHaute()));
+        //On ajoute au pot les jetons
+        setPot(getPot()+jetons);
 
-        //On retire la mise au joueur
-        this->getJoueur(posJoueur)->retireJetons(this->getMiseCourante() - this->getJoueur(posJoueur)->getMisePlusHaute());
+        //On incrémente la mise totale du joueur:
+        getJoueur(posJoueur)->setMiseTotale(getJoueur(posJoueur)->getMiseTotale()+jetons);
 
-        //On ajoute la relance au pot
-        this->setPot(this->getPot() + jetons);
+        //On décrémente les jetons du joueur:
+        getJoueur(posJoueur)->retireJetons(jetons);
 
-        //On retire la relance au joueur
-        this->getJoueur(posJoueur)->retireJetons(jetons);
 
-        //La mise courante est egale a la mise totale + les jetons
-        this->miseCourante = this->getJoueur(posJoueur)->getMiseTotale() + jetons;
+        //La mise courante est maintenant égale au nombre de jetons misés
+        this->miseCourante = jetons;
 
         //On affecte la mise courante au joueur
         this->getJoueur(posJoueur)->setMiseCourante(this->miseCourante);
 
-        //On affecte la mise totale du joueur
-        this->getJoueur(posJoueur)->setMiseTotale(this->miseCourante);
-
-        if ( this->getJoueur(posJoueur)->getMiseTotale() > this->getJoueur(posJoueur)->getMisePlusHaute()) {
-            this->getJoueur(posJoueur)->setMisePlusHaute(this->getJoueur(posJoueur)->getMiseTotale());
-        }
-        /*
+        //On set la mise la plus haute
         if ( jetons > this->getJoueur(posJoueur)->getMisePlusHaute()) {
             this->getJoueur(posJoueur)->setMisePlusHaute(jetons);
-        }*/
+        }
 
         this->actions[this->getJoueur(posJoueur)->getPosition()] = ACTION::RELANCER;
         this->getJoueur(posJoueur)->getCompteurActions()[0]++;
-    }else{
+
+    }else{ //Sinon: tapis
         tapis(posJoueur);
     }
 }
