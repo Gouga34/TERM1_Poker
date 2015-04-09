@@ -137,6 +137,16 @@ void IntelligenceArtificielle::estimationChancesDeGain()
 
 Action IntelligenceArtificielle::jouer(){
 
-  return resolveur->calculerAction();
+    QString actions[] = {"mise", "relance", "suit", "check", "se couche", "rien", "fait tapis"};
 
+    Action a = resolveur->calculerAction();
+
+    QString log = "IA " + QString::number(position) + " " + actions[a.getAction()];
+    if (a.getAction() == MISER || a.getAction() == RELANCER) {
+        log += " " + QString::number(a.getMontant());
+    }
+
+    Logger::getInstance()->ajoutLogs(log);
+
+    return a;
 }
