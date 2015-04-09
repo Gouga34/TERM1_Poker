@@ -214,11 +214,11 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
     ia->setPseudoJoueurProfile(pseudoJoueur.toStdString());
 
     // Envoi du calibrage de l'IA
-    Profil calibrageIa;
-    calibrageIa.setAgressivite(options.agressiviteIA);
-    calibrageIa.setRationalite(options.rationaliteIA);
+//    Profil calibrageIa;
+//    calibrageIa.setAgressivite(options.agressiviteIA);
+//    calibrageIa.setRationalite(options.rationaliteIA);
 
-    ia->setCalibrage(calibrageIa);
+    //ia->setCalibrage(calibrageIa);
 }
 
 Fenetre::~Fenetre()
@@ -242,85 +242,83 @@ void Fenetre::ajoutLogs(QString contenu)
 
 void Fenetre::demarragePartie()
 {
-    actionEffectueeIA.clear();
-    resultatPartie.setText("");
-    boutonDemarrage.hide();
-    layoutCartesCommunes.vider();
+    for(int i=0;i<NOMBRE_PARTIES;i++){
+        actionEffectueeIA.clear();
+        resultatPartie.setText("");
+        boutonDemarrage.hide();
+        layoutCartesCommunes.vider();
 
-    Logger::getInstance()->ajoutLogs("Distribution des cartes");
 
-    // Sélection des cartes par l'utilisateur
+        Logger::getInstance()->ajoutLogs("Distribution des cartes");
 
-    if (boutonChoixCartes.isChecked()) {
-        CartesDialog fenetreCartes(this);
-        std::vector<int> ids = fenetreCartes.choixCartes();
+        // Sélection des cartes par l'utilisateur
 
-        if (!ids.empty()) {
-            jeu->affectationCarte(ids);
+        if (boutonChoixCartes.isChecked()) {
+            CartesDialog fenetreCartes(this);
+            std::vector<int> ids = fenetreCartes.choixCartes();
+
+            if (!ids.empty()) {
+                jeu->affectationCarte(ids);
+            }
         }
-    }
-
-    jeu->distributionMain();
-
-    pot.display(jeu->getPot());
-    caveJoueur.display(jeu->getJoueur(0)->getCave());
-    caveIA.display(jeu->getJoueur(1)->getCave());
 
 
-    // Affichage de la main adverse dans les logs
-
-    std::vector<Carte> jeuAdverse = jeu->getJoueur(1)->getMain();
-
-    Logger::getInstance()->ajoutLogs("Jeu adverse : ");
-    for (int i = 0; i < jeuAdverse.size(); i++) {
-        Logger::getInstance()->ajoutLogs("-> " + QString::number(jeuAdverse.at(i).getRang())
-                  + " " + CarteGraphique::couleurs[jeuAdverse.at(i).getCouleur()]);
-    }
+        jeu->distributionMain();
+        jeu->setPot(0);
+        jeu->getJoueur(0)->setCave(1000);
+        jeu->getJoueur(1)->setCave(1000);
 
 
-    // Main du joueur
+        pot.display(jeu->getPot());
+        caveJoueur.display(jeu->getJoueur(0)->getCave());
+        caveIA.display(jeu->getJoueur(1)->getCave());
 
-    layoutMain.vider();
-    layoutMain.ajoutCartes(jeu->getJoueur(0)->getMain());
 
-    // Cartes communes
+        // Affichage de la main adverse dans les logs
 
-    layoutCartesCommunes.vider();
+        std::vector<Carte> jeuAdverse = jeu->getJoueur(1)->getMain();
 
-    for (int i = 0; i < 5; i++) {
+        Logger::getInstance()->ajoutLogs("Jeu adverse : ");
+        for (int i = 0; i < jeuAdverse.size(); i++) {
+            Logger::getInstance()->ajoutLogs("-> " + QString::number(jeuAdverse.at(i).getRang())
+                      + " " + CarteGraphique::couleurs[jeuAdverse.at(i).getCouleur()]);
+        }
+
+
+        // Main du joueur
+
+        layoutMain.vider();
+        layoutMain.ajoutCartes(jeu->getJoueur(0)->getMain());
+
+        // Cartes communes
+        layoutCartesCommunes.vider();
+
+        for (int i = 0; i < 5; i++) {
+            CarteGraphique *dos = new CarteGraphique(0, 0);
+            layoutCartesCommunes.addWidget(dos);
+        }
+
+        // Main adverse
+
         CarteGraphique *dos = new CarteGraphique(0, 0);
-        layoutCartesCommunes.addWidget(dos);
-    }
+        CarteGraphique *dos2 = new CarteGraphique(0, 0);
 
-    // Main adverse
-
-    CarteGraphique *dos = new CarteGraphique(0, 0);
-    CarteGraphique *dos2 = new CarteGraphique(0, 0);
-
-    layoutMainAdverse.vider();
-    layoutMainAdverse.addWidget(dos);
-    layoutMainAdverse.addWidget(dos2);
+        layoutMainAdverse.vider();
+        layoutMainAdverse.addWidget(dos);
+        layoutMainAdverse.addWidget(dos2);
 
 
-    valeurMise.setMinimum(jeu->getBlind());
+        valeurMise.setMinimum(jeu->getBlind());
 
-    Profil calibrageIaBase;
-    calibrageIaBase.setAgressivite(50);
-    calibrageIaBase.setRationalite(50);
+        pot.display(jeu->getPot());
+        caveJoueur.display(jeu->getJoueur(1)->getCave());
+        caveIA.display(jeu->getJoueur(1)->getCave());
 
-    IntelligenceArtificielle *ia = static_cast<IntelligenceArtificielle*>(jeu->getJoueur(0));
-    ia->setCalibrage(calibrageIaBase);
-
-    if(this->jeu->getJoueur(0)->getCave() > 0 && this->jeu->getJoueur(1)->getCave()){
         jeu->lancer();
-    }
-
-
-    pot.display(jeu->getPot());
-    caveJoueur.display(jeu->getJoueur(1)->getCave());
-    caveIA.display(jeu->getJoueur(1)->getCave());
-    afficheTable();
-    partieTermine();
+        afficheTable();
+        partieTermine();
+        //sleep(1);
+        }
 }
 
 void Fenetre::afficheTable()

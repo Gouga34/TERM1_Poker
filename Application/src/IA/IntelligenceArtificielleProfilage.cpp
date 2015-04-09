@@ -133,6 +133,7 @@ void IntelligenceArtificielleProfilage::calculProfilGlobalJoueur() {
 }
 
 void IntelligenceArtificielleProfilage::ecritureScenariosDeTests() {
+    std::cout<<"écriture scénarios de tests"<<std::endl;
     scenario->setCalibrageActuelIA(&resolveur->getCalibrage());
     scenario->setChancesDeGain(profilage->etatPartie[ETAPE_JEU::RIVER].probaGainAdversaire);
     scenario->sauvegarderPartie();

@@ -378,6 +378,7 @@ bool Jeu::prochainJoueur(){
             if (this->etape < ETAPE_JEU::NB_ETAPES) {
                 this->etape = static_cast<ETAPE_JEU>(static_cast<int>(this->etape) + 1);
             }
+            std::cout<<"etape: "<<getEtape()<<std::endl;
 
             this->nouvelleEtape(this->getEtape());
         }

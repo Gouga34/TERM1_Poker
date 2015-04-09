@@ -9,6 +9,14 @@ using namespace std;
 IntelligenceArtificielle::IntelligenceArtificielle(bool estDealer, int jetons, int position)
     :Joueur(estDealer, jetons, position) {
     resolveur = new Resolveur(this);
+    int agressivite=rand()%100+1;
+    int rationalite=rand()%100+1;
+    resolveur->getCalibrage().setAgressivite(agressivite);
+    resolveur->getCalibrage().setRationalite(rationalite);
+    if(position==0){
+        std::cout<<"Calibrage IA profilée : agressivité: "<<agressivite<<" rationalité: "<<rationalite<<std::endl;
+    }
+
 }
 
 IntelligenceArtificielle::IntelligenceArtificielle(Joueur joueur): Joueur(joueur){
@@ -116,13 +124,19 @@ void IntelligenceArtificielle::estimationChancesDeGain()
 {
     double estimation = 100*EstimationProba::estimation(this->getJeu(), this->getJeu()->getJoueur(this->getPosition()));
     setChancesGain(estimation);
-
-    string chances="Chances Gain IA : "+to_string(estimation);
+    string chances;
+    if(getPosition()==1){
+       chances ="Chances Gain IA qui profile: "+to_string(estimation);
+    }
+    else{
+        chances ="Chances Gain IA profilée: "+to_string(estimation);
+    }
     Logger::getInstance()->ajoutLogs(chances);
 }
 
 
 Action IntelligenceArtificielle::jouer(){
-
-    return resolveur->calculerAction();
+    Action action=resolveur->calculerAction();
+    cout<<"action joueur "<<getPosition()<<" : "<<action.getAction()<<endl;
+    return action;
 }
