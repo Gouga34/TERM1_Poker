@@ -587,11 +587,11 @@ bool Jeu::peutSuivre(int posJoueur){
     //On peut suivre quand le joueur précédent a misé, relancé, grosse blind ou fait tapis
 
     if(posJoueur==0){
-        if(actions[1]==ACTION::CHECKER || actions[1]==ACTION::PETITE_BLIND || actions[1]==ACTION::SUIVRE){
+        if(actions[1]==ACTION::CHECKER || actions[1]==ACTION::PETITE_BLIND || actions[1]==ACTION::SUIVRE || actions[1]==ACTION::PAS_ENCORE_D_ACTION){
             return false;
         }
     }else{
-        if(actions[0]==ACTION::CHECKER || actions[0]==ACTION::PETITE_BLIND || actions[0]==ACTION::SUIVRE){
+        if(actions[0]==ACTION::CHECKER || actions[0]==ACTION::PETITE_BLIND || actions[0]==ACTION::SUIVRE || actions[0]==ACTION::PAS_ENCORE_D_ACTION){
             return false;
         }
     }
