@@ -418,7 +418,8 @@ void Jeu::finPartie() {
     }
 
     int retour;
-    if(joueursRestants.size() != 1){
+    //Si aucun des deux joueurs ne s'est couché:
+    if(actions[0]!=ACTION::SE_COUCHER && actions[1]!=ACTION::SE_COUCHER){
 
         int comparaisonMains = Evaluateur::comparerMains(this->getTable(), this->getJoueur(0)->getMain(), this->getJoueur(1)->getMain());
 
@@ -447,11 +448,11 @@ void Jeu::finPartie() {
             this->getJoueur(0)->ajouteJetons(this->getJoueur(0)->getMisePartie());
             this->getJoueur(1)->ajouteJetons(this->getJoueur(1)->getMisePartie());
         }
-    }else{
-        if(joueursRestants.at(0)->getPosition() == 0){
-            retour = GAGNE;
-        }else{
+    }else{ //Un joueur s'est couché
+        if(actions[0]==ACTION::SE_COUCHER){
             retour = PERDU;
+        }else{
+            retour = GAGNE;
         }
         this->getJoueur(joueursRestants.at(0)->getPosition())->ajouteJetons(this->getPot());
     }
