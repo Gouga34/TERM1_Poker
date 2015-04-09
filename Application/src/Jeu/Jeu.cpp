@@ -556,11 +556,11 @@ bool Jeu::peutRelancer(int posJoueur, int jetons){
 
     //On peut pas relancer quand le joueur précédent a checké, n'as pas agit ou a fait tapis
     if(posJoueur==0){
-        if(actions[1]==ACTION::CHECKER || actions[1]==ACTION::PAS_ENCORE_D_ACTION || actions[1]==ACTION::TAPIS){
+        if(actions[1]==ACTION::CHECKER || actions[1]==ACTION::PAS_ENCORE_D_ACTION || actions[1]==ACTION::TAPIS || actions[1]==ACTION::SUIVRE){
             return false;
         }
     }else{
-        if(actions[0]==ACTION::CHECKER || actions[0]==ACTION::PAS_ENCORE_D_ACTION || actions[0]==ACTION::TAPIS){
+        if(actions[0]==ACTION::CHECKER || actions[0]==ACTION::PAS_ENCORE_D_ACTION || actions[0]==ACTION::TAPIS || actions[0]==ACTION::SUIVRE){
             return false;
         }
     }
@@ -589,6 +589,10 @@ bool Jeu::peutSuivre(int posJoueur){
 
     if(posJoueur==0){
         if(actions[1]==ACTION::CHECKER || actions[1]==ACTION::PETITE_BLIND || actions[1]==ACTION::SUIVRE){
+            return false;
+        }
+    }else{
+        if(actions[0]==ACTION::CHECKER || actions[0]==ACTION::PETITE_BLIND || actions[0]==ACTION::SUIVRE){
             return false;
         }
     }
