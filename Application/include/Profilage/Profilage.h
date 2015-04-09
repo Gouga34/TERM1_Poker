@@ -56,11 +56,14 @@ class Profilage
             double misePlusHaute;           // Mise plus haute du joueur
             double miseTotaleJoueur;        // Mise totale du joueur
             double miseTotaleIA;            // Mise totale de l'IA
+
+            int nbTotalActions;
         };
 
         bool partieGagnee;              // vrai si l'IA a gagné la partie
 
-        EtapePartie etatPartie[ETAPE_JEU::NB_ETAPES];
+        // Une ligne par étape + 1 ligne pour le global
+        EtapePartie etatPartie[ETAPE_JEU::NB_ETAPES + 1];
 
 
         Profilage(Profil *profil);

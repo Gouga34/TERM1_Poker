@@ -58,9 +58,24 @@ void IntelligenceArtificielleProfilage::remplissageDonneesProfilage() {
 
     double resultat;
 
-    profilage->etatPartie[jeu->getEtape()].probaGainAdversaire = chancesGain;
+    profilage->etatPartie[ETAPE_JEU::NB_ETAPES].probaGainAdversaire = chancesGain;
 
-    resultat = CalculDonneesProfilage::taux(this->getCompteurActions()[0],nbTotalActions);
+    profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxMises += this->getCompteurActions()[0];
+    profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxSuivis += this->getCompteurActions()[1];
+    profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxChecks += this->getCompteurActions()[2];
+
+    if (this->getMisePlusHaute() > profilage->etatPartie[ETAPE_JEU::NB_ETAPES].misePlusHaute) {
+        profilage->etatPartie[ETAPE_JEU::NB_ETAPES].misePlusHaute = this->getMisePlusHaute();
+    }
+
+    profilage->etatPartie[ETAPE_JEU::NB_ETAPES].miseTotaleJoueur += this->getMiseTotale();
+
+    profilage->etatPartie[ETAPE_JEU::NB_ETAPES].couche = jeu->estCouche(0);
+
+    profilage->etatPartie[ETAPE_JEU::NB_ETAPES].nbTotalActions += nbTotalActions;
+
+
+    /*resultat = CalculDonneesProfilage::taux(this->getCompteurActions()[0],nbTotalActions);
     if (resultat == -1) {
         profilage->etatPartie[jeu->getEtape()].tauxMises = 0;
     }
@@ -108,12 +123,64 @@ void IntelligenceArtificielleProfilage::remplissageDonneesProfilage() {
     profilage->etatPartie[jeu->getEtape()].pot = jeu->getPot();
 
     profilage->etatPartie[jeu->getEtape()].couche = jeu->estCouche(0);
+    */
 }
 
 void IntelligenceArtificielleProfilage::calculProfilGlobalJoueur() {
+
+    double resultat;
+
+    resultat = CalculDonneesProfilage::taux(profilage->etatPartie[jeu->getEtape()].tauxMises,profilage->etatPartie[jeu->getEtape()].nbTotalActions);
+    if (resultat == -1) {
+        profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxMises = 0;
+    }
+    else {
+        profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxMises = resultat;
+    }
+
+    resultat = CalculDonneesProfilage::taux(profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxSuivis,profilage->etatPartie[ETAPE_JEU::NB_ETAPES].nbTotalActions);
+    if (resultat == -1) {
+        profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxSuivis = 0;
+    }
+    else {
+        profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxSuivis = resultat;
+    }
+
+    resultat = CalculDonneesProfilage::taux(profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxChecks,profilage->etatPartie[ETAPE_JEU::NB_ETAPES].nbTotalActions);
+    if (resultat == -1) {
+        profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxChecks = 0;
+    }
+    else {
+        profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxChecks = resultat;
+    }
+
+    /** TODO Changer le 1000 par la cave en début de partie **/
+    resultat = CalculDonneesProfilage::taux(profilage->etatPartie[ETAPE_JEU::NB_ETAPES].misePlusHaute,1000);
+    if (resultat == -1) {
+        profilage->etatPartie[ETAPE_JEU::NB_ETAPES].misePlusHaute = 0;
+    }
+    else {
+        profilage->etatPartie[ETAPE_JEU::NB_ETAPES].misePlusHaute = resultat;
+    }
+
+    /** TODO Changer le 1000 par la cave en début de partie **/
+    resultat = CalculDonneesProfilage::taux(profilage->etatPartie[ETAPE_JEU::NB_ETAPES].miseTotaleJoueur,1000);
+    if (resultat == -1) {
+        profilage->etatPartie[ETAPE_JEU::NB_ETAPES].miseTotaleJoueur = 0;
+    }
+    else {
+        profilage->etatPartie[ETAPE_JEU::NB_ETAPES].miseTotaleJoueur = resultat;
+    }
+
+    profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxAgressivite = CalculDonneesProfilage::agressivite(profilage->etatPartie[ETAPE_JEU::NB_ETAPES].misePlusHaute,profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxMises,profilage->etatPartie[ETAPE_JEU::NB_ETAPES].miseTotaleJoueur);
+    profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxRationnalite = CalculDonneesProfilage::rationalite(profilage->etatPartie[ETAPE_JEU::NB_ETAPES].probaGainAdversaire,profilage->etatPartie[ETAPE_JEU::NB_ETAPES].miseTotaleJoueur);
+    profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxPassivite = CalculDonneesProfilage::passivite( profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxSuivis, profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxChecks);
+    profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxBluff = CalculDonneesProfilage::bluff(profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxRationnalite);
+
+
     //On récupère les 4 taux des 4 parties et on en fait la moyenne, pour chaque type de jeu
 
-    double sommeAgressivite=0;
+    /*double sommeAgressivite=0;
     double sommeRationalite=0;
     double sommePassivite=0;
     double sommeBluff=0;
@@ -128,13 +195,13 @@ void IntelligenceArtificielleProfilage::calculProfilGlobalJoueur() {
     profilage->profilJoueur->setRationalite(sommeRationalite/ETAPE_JEU::NB_ETAPES);
     profilage->profilJoueur->setPassivite(sommePassivite/ETAPE_JEU::NB_ETAPES);
     profilage->profilJoueur->setBluff(sommeBluff/ETAPE_JEU::NB_ETAPES);
-
+*/
     profilage->sauvegarder();
 }
 
 void IntelligenceArtificielleProfilage::ecritureScenariosDeTests() {
     std::cout<<"écriture scénarios de tests"<<std::endl;
     scenario->setCalibrageActuelIA(&resolveur->getCalibrage());
-    scenario->setChancesDeGain(profilage->etatPartie[ETAPE_JEU::RIVER].probaGainAdversaire);
+    scenario->setChancesDeGain(profilage->etatPartie[ETAPE_JEU::NB_ETAPES].probaGainAdversaire);
     scenario->sauvegarderPartie();
 }
