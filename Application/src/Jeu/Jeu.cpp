@@ -379,7 +379,7 @@ bool Jeu::prochainJoueur(){
             if (this->etape < ETAPE_JEU::NB_ETAPES) {
                 this->etape = static_cast<ETAPE_JEU>(static_cast<int>(this->etape) + 1);
             }
-            std::cout<<"etape: "<<getEtape()<<std::endl;
+
 
 
             this->nouvelleEtape(this->getEtape());
@@ -501,12 +501,13 @@ bool Jeu::peutChecker(int posJoueur){
     //On peut checker quand le joueur précédent a checké ou suivi.
 
     if(posJoueur==0){
-        //Si l'action de l'autre joueur est miser, relancer ou grosse blinde, on retourne false
+
 
         if(actions[1]==ACTION::TAPIS && this->debutTour()){
             return true;
         }
 
+        //Si l'action de l'autre joueur est miser, relancer ou grosse blinde, on retourne false
         if(actions[1]==ACTION::MISER || actions[1]==ACTION::RELANCER || actions[1]==ACTION::GROSSE_BLIND){
 
             return false;
@@ -587,7 +588,7 @@ bool Jeu::peutSuivre(int posJoueur){
     //On peut suivre quand le joueur précédent a misé, relancé, grosse blind ou fait tapis
 
     if(posJoueur==0){
-        if(actions[1]==ACTION::CHECKER || actions[1]==ACTION::PETITE_BLIND){
+        if(actions[1]==ACTION::CHECKER || actions[1]==ACTION::PETITE_BLIND || actions[1]==ACTION::SUIVRE){
             return false;
         }
     }

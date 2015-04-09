@@ -7,7 +7,7 @@
 
 
 
-#define NOMBRE_DE_TESTS 120000
+#define NOMBRE_DE_TESTS 100000
 #define DOSSIER_PROFILAGE "../Application/ressources/Profilage/"
 #define DOSSIER_PROFILAGE_STATIQUE DOSSIER_PROFILAGE+std::string("ProfilageStatique/")
 #define DOSSIER_PROFILAGE_DYNAMIQUE DOSSIER_PROFILAGE+std::string("ProfilageDynamique/")
