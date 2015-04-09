@@ -1,5 +1,6 @@
 #include "../../include/Jeu/Jeu.h"
 #include "../../include/IA/IntelligenceArtificielleProfilage.h"
+#include "../../include/Interface/Logger.h"
 
 #include <iterator>
 
@@ -676,6 +677,10 @@ void Jeu::affectationCarte(std::vector<int> listeId){
 void Jeu::lancer()
 {
     while (prochainJoueur()) {
+        if (debutTour()) {
+            Logger::getInstance()->ajoutLogs("--- Nouvelle Etape ---");
+        }
+
         Action a = listeJoueurs.at(joueurCourant)->jouer();
         executerAction(joueurCourant, a);
     }

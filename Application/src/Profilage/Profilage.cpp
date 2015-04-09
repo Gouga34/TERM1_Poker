@@ -18,7 +18,7 @@ Specification: Fichier contenant les définitions de la classe Profilage.
 
 Profilage::Profilage(Profil *profil)
     : profilJoueur(profil), profilIA(), typeJoueur{0}, partieGagnee(false),
-      etatPartie{{false, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}}
+      etatPartie{{false, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}}
 {
 
 }
@@ -157,7 +157,8 @@ void Profilage::sauvegarder()
 
    partie["gainIA"] = partieGagnee;
 
-   for (int i = 0; i < ETAPE_JEU::NB_ETAPES; i++) {
+   int i = ETAPE_JEU::NB_ETAPES;
+   //for (int i = 0; i < ETAPE_JEU::NB_ETAPES + 1; i++) {
         QJsonObject etape;
 
         etape["couche"] = etatPartie[i].couche;
@@ -178,18 +179,19 @@ void Profilage::sauvegarder()
         etape["miseTotaleJoueur"] = etatPartie[i].miseTotaleJoueur;
         etape["miseTotaleIA"] = etatPartie[i].miseTotaleIA;
 
-        QString nomEtape = QString::fromStdString(nomEtapes[i]);
+        QString nomEtape = "global";
+        //QString nomEtape = QString::fromStdString(nomEtapes[i]);
         partie[nomEtape] = etape;
-   }
+   //}
 
-   QJsonObject global;
+   /*QJsonObject global;
 
    global["agressivité"] = profilJoueur->getAgressivite();
    global["bluff"] = profilJoueur->getBluff();
    global["rationalite"] = profilJoueur->getRationalite();
    global["passivite"] = profilJoueur->getPassivite();
 
-   partie["global"] = global;
+   partie["global"] = global;*/
 
    QJsonObject calibrageIA;
 
