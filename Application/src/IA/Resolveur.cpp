@@ -180,7 +180,6 @@ Action Resolveur::calculerActionRationalite(){
         vector<ACTION> listeActions;
 
      //Construction de la liste des actions possibles :
-
         if(ia->getJeu()->peutMiser(ia->getPosition(), 1)){
             //Miser plus que la mise théroque:
             listeActions.push_back(GROSSE_BLIND); //En fait c'est miserplus que théorique mais
@@ -189,10 +188,10 @@ Action Resolveur::calculerActionRationalite(){
             listeActions.push_back(PETITE_BLIND);
         }
         //se coucher
-        if(ia->getChancesGain()>30){
+        if(ia->getChancesGain()>70){
             listeActions.push_back(ACTION::SE_COUCHER);
         }
-        else if(ia->getChancesGain()<50){ //Relancer et/ou Suivre
+        else if(ia->getChancesGain()<=70){ //Relancer et/ou Suivre
 
             if(ia->getJeu()->peutRelancer(ia->getPosition(),2*ia->getJeu()->getMiseCourante())){
                 listeActions.push_back(ACTION::RELANCER);

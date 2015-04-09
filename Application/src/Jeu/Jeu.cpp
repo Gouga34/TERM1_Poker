@@ -554,7 +554,7 @@ bool Jeu::peutMiser(int posJoueur, int jetons){
 
 bool Jeu::peutRelancer(int posJoueur, int jetons){
 
-    //On peut pas relancer quand le joueur précédent a checké, n'as pas agit ou a fait tapis
+    //On peut pas relancer quand le joueur précédent a checké, n'as pas agit, a fait tapis ou a suivi.
     if(posJoueur==0){
         if(actions[1]==ACTION::CHECKER || actions[1]==ACTION::PAS_ENCORE_D_ACTION || actions[1]==ACTION::TAPIS || actions[1]==ACTION::SUIVRE){
             return false;
