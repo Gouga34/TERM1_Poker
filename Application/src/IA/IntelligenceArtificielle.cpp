@@ -136,7 +136,7 @@ void IntelligenceArtificielle::estimationChancesDeGain()
 
 
 Action IntelligenceArtificielle::jouer(){
-    Action action=resolveur->calculerAction();
-    cout<<"action joueur "<<getPosition()<<" : "<<action.getAction()<<endl;
-    return action;
+
+  return resolveur->calculerAction();
+
 }

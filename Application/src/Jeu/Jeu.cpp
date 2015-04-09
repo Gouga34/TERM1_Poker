@@ -380,6 +380,7 @@ bool Jeu::prochainJoueur(){
             }
             std::cout<<"etape: "<<getEtape()<<std::endl;
 
+
             this->nouvelleEtape(this->getEtape());
         }
     }
