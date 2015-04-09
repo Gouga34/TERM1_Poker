@@ -14,6 +14,7 @@ Jeu::Jeu(int nbJoueur, int blindDepart, int cave) : actions(nbJoueur,ACTION::PAS
 	this->nombreDeCoup = 0;
 	this->dealer = 0;
     this->etape = ETAPE_JEU::PREFLOP;
+    this->partieFinie = false;
 }
 
 Jeu::~Jeu(){
@@ -40,6 +41,8 @@ void Jeu::initialisationTable(int nbJoueur, int cave){
 
 void Jeu::distributionMain(){
 
+    this->partieFinie = false;
+
     this->resetActions();
 	this->distributionBlind();
 
@@ -57,7 +60,9 @@ void Jeu::distributionMain(){
 void Jeu::nouvelleEtape(ETAPE_JEU etape){
 
     if(etape != ETAPE_JEU::PREFLOP){
-        this->miseCourante = 0;
+
+    this->joueurCourant = (this->dealer + 1) % this->listeJoueurs.size();
+    this->miseCourante = 0;
 
 
     for(int i=0; i< (int)this->listeJoueurs.size(); i++){
@@ -107,7 +112,7 @@ void Jeu::distributionBlind(){
     this->relancer((this->getDealer() + 2) % this->listeJoueurs.size(),this->getBlind() );
     this->actions[(this->getDealer() + 2) % this->listeJoueurs.size()] = ACTION::GROSSE_BLIND;
 	
-    this->joueurCourant = (this->getDealer() + 3)  % this->listeJoueurs.size();
+    this->joueurCourant = (this->getDealer() + 2)  % this->listeJoueurs.size();
 
     for(int i=0; i<this->listeJoueurs.size(); i++){
         this->getJoueur(i)->resetCompteurActions();
@@ -220,34 +225,51 @@ void Jeu::tapis(int posJoueur){
 
 
 void Jeu::relancer(int posJoueur, int jetons){
-	
-    this->setPot(this->getPot() +  (this->getMiseCourante() - this->getJoueur(posJoueur)->getMisePlusHaute()));
 
-    this->getJoueur(posJoueur)->setMiseTotale(this->getJoueur(posJoueur)->getMiseTotale() + (this->getMiseCourante() - this->getJoueur(posJoueur)->getMisePlusHaute()));
+    if(jetons <= ( this->getJoueur(posJoueur)->getCave() - (this->getMiseCourante()  -this->getJoueur(posJoueur)->getMiseTotale() ) )){
 
-    this->getJoueur(posJoueur)->setMiseTotale(this->getMiseCourante());
+        //On complete le pot entre la difference misee par le joueur et son adversaire
+        this->setPot(this->getPot() +  (this->getMiseCourante() - this->getJoueur(posJoueur)->getMisePlusHaute()));
 
-    this->getJoueur(posJoueur)->retireJetons(this->getMiseCourante() - this->getJoueur(posJoueur)->getMisePlusHaute());
+        //La mise totale du joueur est affectee
+        this->getJoueur(posJoueur)->setMiseTotale(this->getJoueur(posJoueur)->getMiseTotale() + (this->getMiseCourante() - this->getJoueur(posJoueur)->getMisePlusHaute()));
 
-    this->setPot(this->getPot() + jetons);
-    this->getJoueur(posJoueur)->retireJetons(jetons);
+        //On retire la mise au joueur
+        this->getJoueur(posJoueur)->retireJetons(this->getMiseCourante() - this->getJoueur(posJoueur)->getMisePlusHaute());
 
-    this->miseCourante = this->getMiseCourante() + jetons;
-    this->getJoueur(posJoueur)->setMiseCourante(this->getJoueur(posJoueur)->getMiseCourante() + jetons);
-    this->getJoueur(posJoueur)->setMiseTotale(this->getJoueur(posJoueur)->getMiseTotale() + jetons);
+        //On ajoute la relance au pot
+        this->setPot(this->getPot() + jetons);
 
-    if (jetons > this->getJoueur(posJoueur)->getMisePlusHaute()) {
-        this->getJoueur(posJoueur)->setMisePlusHaute(jetons);
+        //On retire la relance au joueur
+        this->getJoueur(posJoueur)->retireJetons(jetons);
+
+        //La mise courante est egale a la mise totale + les jetons
+        this->miseCourante = this->getJoueur(posJoueur)->getMiseTotale() + jetons;
+
+        //On affecte la mise courante au joueur
+        this->getJoueur(posJoueur)->setMiseCourante(this->miseCourante);
+
+        //On affecte la mise totale du joueur
+        this->getJoueur(posJoueur)->setMiseTotale(this->miseCourante);
+
+        if ( this->getJoueur(posJoueur)->getMiseTotale() > this->getJoueur(posJoueur)->getMisePlusHaute()) {
+            this->getJoueur(posJoueur)->setMisePlusHaute(this->getJoueur(posJoueur)->getMiseTotale());
+        }
+        /*
+        if ( jetons > this->getJoueur(posJoueur)->getMisePlusHaute()) {
+            this->getJoueur(posJoueur)->setMisePlusHaute(jetons);
+        }*/
+
+        this->actions[this->getJoueur(posJoueur)->getPosition()] = ACTION::RELANCER;
+        this->getJoueur(posJoueur)->getCompteurActions()[0]++;
+    }else{
+        tapis(posJoueur);
     }
-
-    this->actions[this->getJoueur(posJoueur)->getPosition()] = ACTION::RELANCER;
-    this->getJoueur(posJoueur)->getCompteurActions()[0]++;
-
 }
 
 
 void Jeu::suivre(int posJoueur){
-	
+
     // Si on a assez d'argent on suit
 
     if(this->getJoueur(posJoueur)->getCave() > ( this->miseCourante - this->getJoueur(posJoueur)->getMiseTotale())){
@@ -268,16 +290,19 @@ void Jeu::suivre(int posJoueur){
 
 
 void Jeu::checker(int posJoueur){
+
     this->actions[this->getJoueur(posJoueur)->getPosition()] = ACTION::CHECKER;
     this->getJoueur(posJoueur)->getCompteurActions()[2]++;
 }
 
 void Jeu::seCoucher(int posJoueur){
+
     this->actions[this->getJoueur(posJoueur)->getPosition()] = ACTION::SE_COUCHER;
 
     IntelligenceArtificielleProfilage *ia = static_cast<IntelligenceArtificielleProfilage*>(this->getJoueur(1));
     ia->remplissageDonneesProfilage();
 
+    this->partieFinie = true;
     finPartie();
 }    
 
@@ -326,20 +351,29 @@ ETAPE_JEU Jeu::getEtape() const{
 }
 
 bool Jeu::prochainJoueur(){
-	
+
+    if(this->partieFinie){
+        return false;
+    }
+
     this->joueurCourant = (this->joueurCourant + 1) % this->listeJoueurs.size();
 
     if (this->finDuTour()) {
 
+        this->getJoueur(0)->setMisePartie(this->getJoueur(0)->getMisePartie() + this->getJoueur(0)->getMiseTotale());
+        this->getJoueur(1)->setMisePartie(this->getJoueur(1)->getMisePartie() + this->getJoueur(1)->getMiseTotale());
+
         IntelligenceArtificielleProfilage *ia = static_cast<IntelligenceArtificielleProfilage*>(this->getJoueur(1));
+
         ia->remplissageDonneesProfilage();
 
+
         // Fin de la partie
-        if (this->getEtape() == ETAPE_JEU::RIVER) {
+        if (this->getEtape() == ETAPE_JEU::RIVER || this->partieFinie) {
+            this->partieFinie = true;
             finPartie();
             return false;
-        }
-        else {
+        } else {
             // On incrémente l'étape courante en passant par des entiers
             if (this->etape < ETAPE_JEU::NB_ETAPES) {
                 this->etape = static_cast<ETAPE_JEU>(static_cast<int>(this->etape) + 1);
@@ -363,7 +397,6 @@ void Jeu::resetActions(){
         this->getJoueur(i)->setMisePlusHaute(0);
         this->getJoueur(i)->setMiseTotale(0);
 
-
 	}
 
 }
@@ -371,6 +404,9 @@ void Jeu::resetActions(){
 void Jeu::finPartie() {
 
     std::vector<Joueur*> joueursRestants;
+
+    this->getJoueur(0)->setMisePartie(this->getJoueur(0)->getMisePartie() + this->getJoueur(0)->getMiseTotale());
+    this->getJoueur(1)->setMisePartie(this->getJoueur(1)->getMisePartie() + this->getJoueur(1)->getMiseTotale());
 
     for(Joueur *joueur : this->listeJoueurs){
         if(this->estCouche(joueur->getPosition())){
@@ -384,24 +420,31 @@ void Jeu::finPartie() {
         int comparaisonMains = Evaluateur::comparerMains(this->getTable(), this->getJoueur(0)->getMain(), this->getJoueur(1)->getMain());
 
         if(comparaisonMains == GAGNE){
-            this->getJoueur(0)->ajouteJetons(this->getPot());
+
+            if(this->getJoueur(0)->getMisePartie() >= this->getJoueur(1)->getMisePartie()){
+                 this->getJoueur(0)->ajouteJetons(this->getPot());
+            }else{
+                this->getJoueur(0)->ajouteJetons(this->getJoueur(0)->getMisePartie() *2);
+                this->getJoueur(1)->ajouteJetons(this->getPot() - (this->getJoueur(0)->getMisePartie() *2) );
+            }
+
             retour = GAGNE;
         }else if(comparaisonMains == PERDU){
-            this->getJoueur(1)->ajouteJetons(this->getPot());
+
+            if(this->getJoueur(0)->getMisePartie() <= this->getJoueur(1)->getMisePartie() ){
+                 this->getJoueur(1)->ajouteJetons(this->getPot());
+            }else{
+                this->getJoueur(1)->ajouteJetons(this->getJoueur(1)->getMisePartie() *2);
+                this->getJoueur(0)->ajouteJetons(this->getPot() - (this->getJoueur(1)->getMisePartie() *2) );
+            }
             retour = PERDU;
         }else{
             retour = EGALITE;
-            if(this->getPot() % 2 == 0){
-                this->getJoueur(0)->ajouteJetons(this->getPot() / 2 );
-                this->getJoueur(1)->ajouteJetons(this->getPot() / 2 );
-            }else{
-                this->setPot(this->getPot() -1);
-                this->getJoueur(0)->ajouteJetons(this->getPot() / 2 );
-                this->getJoueur(1)->ajouteJetons(this->getPot() / 2 );
-            }
+
+            this->getJoueur(0)->ajouteJetons(this->getJoueur(0)->getMisePartie());
+            this->getJoueur(1)->ajouteJetons(this->getJoueur(1)->getMisePartie());
         }
     }else{
-
         if(joueursRestants.at(0)->getPosition() == 0){
             retour = GAGNE;
         }else{
@@ -438,6 +481,7 @@ void Jeu::nouvelleMain(){
 	
     for(int i =0; i< (int) this->listeJoueurs.size(); i++){
         this->getJoueur(i)->videMain();
+        this->getJoueur(i)->setMisePartie(0);
 	}
 	
 	this->deck = nouveauDeck();
@@ -455,13 +499,23 @@ bool Jeu::peutChecker(int posJoueur){
 
     if(posJoueur==0){
         //Si l'action de l'autre joueur est miser, relancer ou grosse blinde, on retourne false
-        if(actions[1]==ACTION::MISER || actions[1]==ACTION::RELANCER || actions[1]==ACTION::GROSSE_BLIND || actions[1]==ACTION::TAPIS){
+
+        if(actions[1]==ACTION::TAPIS && this->debutTour()){
+            return true;
+        }
+
+        if(actions[1]==ACTION::MISER || actions[1]==ACTION::RELANCER || actions[1]==ACTION::GROSSE_BLIND){
 
             return false;
         }
     }
     else{
-        if(actions[0]==ACTION::MISER || actions[0]==ACTION::RELANCER || actions[0]==ACTION::GROSSE_BLIND || actions[0]==ACTION::TAPIS){
+
+        if(actions[0]==ACTION::TAPIS && this->debutTour()){
+            return true;
+        }
+
+        if(actions[0]==ACTION::MISER || actions[0]==ACTION::RELANCER || actions[0]==ACTION::GROSSE_BLIND){
             return false;
         }
     }
@@ -496,12 +550,15 @@ bool Jeu::peutMiser(int posJoueur, int jetons){
 
 bool Jeu::peutRelancer(int posJoueur, int jetons){
 
-    //On peut pas relancer quand le joueur précédent a checké
+    //On peut pas relancer quand le joueur précédent a checké, n'as pas agit ou a fait tapis
     if(posJoueur==0){
         if(actions[1]==ACTION::CHECKER || actions[1]==ACTION::PAS_ENCORE_D_ACTION || actions[1]==ACTION::TAPIS){
             return false;
         }
-
+    }else{
+        if(actions[0]==ACTION::CHECKER || actions[0]==ACTION::PAS_ENCORE_D_ACTION || actions[0]==ACTION::TAPIS){
+            return false;
+        }
     }
 
     if(getMiseCourante() < getJoueur(posJoueur)->getCave()){
@@ -519,14 +576,15 @@ bool Jeu::peutRelancer(int posJoueur, int jetons){
     }
 
     return false;
+
 }
 
 bool Jeu::peutSuivre(int posJoueur){
 
-    //On peut suivre quand le joueur précédent a misé, relancé ou grosse blind
+    //On peut suivre quand le joueur précédent a misé, relancé, grosse blind ou fait tapis
 
     if(posJoueur==0){
-        if(actions[1]==ACTION::CHECKER || actions[1]==ACTION::PETITE_BLIND || actions[1]==ACTION::TAPIS){
+        if(actions[1]==ACTION::CHECKER || actions[1]==ACTION::PETITE_BLIND){
             return false;
         }
     }
@@ -540,6 +598,7 @@ bool Jeu::estCouche(int posJoueur) const {
 
 void Jeu::executerAction(int posJoueur, Action a){
     int relance;
+
     switch (a.getAction()) {
         case ACTION::CHECKER:
             if (peutChecker(posJoueur)) {
@@ -560,7 +619,9 @@ void Jeu::executerAction(int posJoueur, Action a){
             break;
 
         case ACTION::RELANCER:
+        
             relance = (a.getMontant() < 2 * getMiseCourante()) ? 2 * getMiseCourante() : a.getMontant();
+
             if (peutRelancer(posJoueur, relance)) {
                 relancer(posJoueur, relance);
             }
@@ -620,5 +681,25 @@ void Jeu::lancer()
 
 bool Jeu::aFaitTapis(){
     return actions[0] == ACTION::TAPIS || actions[1] == ACTION::TAPIS;
+}
+
+bool Jeu::peutJouer(int posJoueur){
+
+    if(posJoueur == 0){
+        if(this->actions[1] == ACTION::TAPIS && ( this->getJoueur(posJoueur)->getMiseTotale() > this->getJoueur(1)->getMiseTotale()) && this->actions[1] == ACTION::SUIVRE){
+            return false;
+        }else{
+            return true;
+        }
+    }else{
+
+        if(this->actions[0] == ACTION::TAPIS && ( this->getJoueur(posJoueur)->getMiseTotale() > this->getJoueur(0)->getMiseTotale()) && this->actions[0] == ACTION::SUIVRE){
+            return false;
+        }else{
+            return true;
+        }
+
+    }
+
 }
 

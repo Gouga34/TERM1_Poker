@@ -31,6 +31,7 @@ class Jeu{
         int                                 nombreDeCoup;
         int                                 miseCourante;
         int                                 dealer;
+        bool                                partieFinie;
         ETAPE_JEU                           etape;
         int                                 resultatPartie;
         std::vector<Carte>                  tableTmp;
@@ -306,6 +307,9 @@ class Jeu{
         *@return  : Vrai si un joueur a fait tapis, faux sinon
         **/
         bool aFaitTapis();
+
+        bool peutJouer(int posJoueur);
+
 };
 
 #endif

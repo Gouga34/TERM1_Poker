@@ -21,6 +21,7 @@ class Joueur{
         int                 misePlusHaute;
         int                 miseTotale;
         double              chancesGain;
+        int                 misePartie;
 
 		
 	//Constructeur et destructeur
@@ -125,6 +126,18 @@ class Joueur{
         *@param : La somme totale misee par le joueur
         **/
         void             setMiseTotale(int miseTotale);
+
+        /**
+        *@action : Permet d'obtenir la mise totale de la partie
+        *@return : La somme totale misee par le joueur au cours de la partie
+        **/
+        int             getMisePartie();
+
+        /**
+        *@action : Permet d'affecter le total mise par le joueur
+        *@param : La somme totale misee par le joueur au cours de la partie
+        **/
+        void            setMisePartie (int mise);
 
 		
 	//Methodes
