@@ -97,14 +97,15 @@ void CartesJoueur::remplirTableau(vector<Carte> table, vector<Carte> mainJoueur)
 
 		occurrences[14][couleur]++;
 	}
+   // for(int i=0;i<=14;i++){
+   //     cout<<i<<" ";
+   //     for(int j=0;j<=4;j++){
+   //         cout<<occurrences[i][j]<<" ";
+   //     }
+   //     cout<<endl;
+   // }
 
-//    for(int i=0;i<=14;i++){
-//        cout<<i<<" ";
-//        for(int j=0;j<=4;j++){
-//            cout<<occurrences[i][j]<<" ";
-//        }
-//        cout<<endl;
-//    }
+
 }
 
 
@@ -372,9 +373,12 @@ void CartesJoueur::calculerPoidsBasique(){
  		}
  		else if(getCombinaison()==DOUBLE_PAIRE){
 
+
  			int p=0;
  			int i=13;
  			int poidsCarte = getPoids();
+ 			main2.setPoids(0);
+            setPoids(0);
  			//On commence par comparer la seconde paire
 			while(i>0 && p==0){
                 main2.setPoids(0);
@@ -392,27 +396,29 @@ void CartesJoueur::calculerPoidsBasique(){
 				i--;
 			}
 
-			//Si la seconde paire est la même, on compare la carte la plus haute
+			//Si la seconde paire est la même, on compare la carte la plus haute, mais si on a une autre paire, faut quand même que ça soit la carte haute!
 			if(getPoids()==main2.getPoids()){
 				int p=0;
  				int i=13;
+ 				int poidsCartePaireMain1=getPoids();
+ 				int poidsCartePaireMain2=main2.getPoids();
 
  				//On remet les poids à 0 pour compter juste une seule carte.
  				setPoids(0);
  				main2.setPoids(0);
  				while(i>0 && p==0){
-					if (occurrences[i][4]==1 && getPoids()==0 ){
+					if ((occurrences[i][4]==1 || (i<poidsCartePaireMain1 && occurrences[i][4]>=1)) && getPoids()==0){
 						setPoids(i);
 					}
-					if (main2.occurrences[i][4]==1 && main2.getPoids()==0){
+					if ((main2.occurrences[i][4]==1 || (i<poidsCartePaireMain2 && occurrences[i][4]>=1)) && main2.getPoids()==0){
 						main2.setPoids(i);
 					}
-					if(getPoids()>0 && main2.getPoids()>0){//si on a les deux nouveaux poids, on arrête
+					if(getPoids()>0 || main2.getPoids()>0){//si au moins un nouveau poids, on arrête
 						p=1;
 					}
-
 					i--;
 				}
+
 			}
  		}
  		else if(getCombinaison()==PAIRE){
@@ -464,14 +470,16 @@ void CartesJoueur::calculerPoidsBasique(){
 		}
 
 
+
  		if(getPoids()>main2.getPoids()){
+
 			return GAGNE;
 		}
 		else if(getPoids()<main2.getPoids()){
 			return PERDU;
 		}
 		else{
-		
+
 			return EGALITE;
 		}
 
