@@ -601,7 +601,7 @@ bool Jeu::peutSuivre(int posJoueur){
 }
 
 bool Jeu::estCouche(int posJoueur) const {
-    return (this->getListeActions().at(posJoueur) != ACTION::SE_COUCHER);
+    return (this->getListeActions().at(posJoueur) == ACTION::SE_COUCHER);
 }
 
 void Jeu::executerAction(int posJoueur, Action a){
