@@ -540,13 +540,18 @@ bool Jeu::peutMiser(int posJoueur, int jetons){
         }
     }
 
+    if(getJoueur(posJoueur)->getCave()==0){
+        return false;
+    }
     // On regarde si on a assez d'argent
     if(jetons==0){
         return false;
     }
-    else if (this->getJoueur(posJoueur)->getCave() >= jetons) {
+
+    if (this->getJoueur(posJoueur)->getCave() >= jetons) {
         return true;
     }
+
 
     return false;
 }
