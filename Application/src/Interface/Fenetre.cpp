@@ -311,7 +311,14 @@ void Fenetre::demarragePartie()
     IntelligenceArtificielle *ia = static_cast<IntelligenceArtificielle*>(jeu->getJoueur(0));
     ia->setCalibrage(calibrageIaBase);
 
-    jeu->lancer();
+    if(this->jeu->getJoueur(0)->getCave() > 0 && this->jeu->getJoueur(1)->getCave()){
+        jeu->lancer();
+    }
+
+
+    pot.display(jeu->getPot());
+    caveJoueur.display(jeu->getJoueur(1)->getCave());
+    caveIA.display(jeu->getJoueur(1)->getCave());
     afficheTable();
     partieTermine();
 }

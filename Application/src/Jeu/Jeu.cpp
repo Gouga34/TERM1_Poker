@@ -14,6 +14,7 @@ Jeu::Jeu(int nbJoueur, int blindDepart, int cave) : actions(nbJoueur,ACTION::PAS
 	this->nombreDeCoup = 0;
 	this->dealer = 0;
     this->etape = ETAPE_JEU::PREFLOP;
+    this->partieFinie = false;
 }
 
 Jeu::~Jeu(){
@@ -40,6 +41,8 @@ void Jeu::initialisationTable(int nbJoueur, int cave){
 
 void Jeu::distributionMain(){
 
+    this->partieFinie = false;
+
     this->resetActions();
 	this->distributionBlind();
 
@@ -57,7 +60,9 @@ void Jeu::distributionMain(){
 void Jeu::nouvelleEtape(ETAPE_JEU etape){
 
     if(etape != ETAPE_JEU::PREFLOP){
-        this->miseCourante = 0;
+
+    this->joueurCourant = (this->dealer + 1) % this->listeJoueurs.size();
+    this->miseCourante = 0;
 
 
     for(int i=0; i< (int)this->listeJoueurs.size(); i++){
@@ -107,7 +112,7 @@ void Jeu::distributionBlind(){
     this->relancer((this->getDealer() + 2) % this->listeJoueurs.size(),this->getBlind() );
     this->actions[(this->getDealer() + 2) % this->listeJoueurs.size()] = ACTION::GROSSE_BLIND;
 	
-    this->joueurCourant = (this->getDealer() + 3)  % this->listeJoueurs.size();
+    this->joueurCourant = (this->getDealer() + 2)  % this->listeJoueurs.size();
 
     for(int i=0; i<this->listeJoueurs.size(); i++){
         this->getJoueur(i)->resetCompteurActions();
@@ -264,12 +269,8 @@ void Jeu::relancer(int posJoueur, int jetons){
 
 
 void Jeu::suivre(int posJoueur){
-	
+
     // Si on a assez d'argent on suit
-
-    std::cout << this->miseCourante  << std::endl;
-    std::cout << this->getJoueur(posJoueur)->getMiseTotale() << std::endl;
-
 
     if(this->getJoueur(posJoueur)->getCave() > ( this->miseCourante - this->getJoueur(posJoueur)->getMiseTotale())){
 
@@ -283,24 +284,25 @@ void Jeu::suivre(int posJoueur){
         this->getJoueur(posJoueur)->getCompteurActions()[1]++;
 	}
     else{      // Sinon on fait tapis
-        std::cout << "Fait tapis" << std::endl;
         this->tapis(posJoueur);
     }
-     std::cout << std::endl;
 }
 
 
 void Jeu::checker(int posJoueur){
+
     this->actions[this->getJoueur(posJoueur)->getPosition()] = ACTION::CHECKER;
     this->getJoueur(posJoueur)->getCompteurActions()[2]++;
 }
 
 void Jeu::seCoucher(int posJoueur){
+
     this->actions[this->getJoueur(posJoueur)->getPosition()] = ACTION::SE_COUCHER;
 
     IntelligenceArtificielleProfilage *ia = static_cast<IntelligenceArtificielleProfilage*>(this->getJoueur(1));
     ia->remplissageDonneesProfilage();
 
+    this->partieFinie = true;
     finPartie();
 }    
 
@@ -349,28 +351,29 @@ ETAPE_JEU Jeu::getEtape() const{
 }
 
 bool Jeu::prochainJoueur(){
-	
+
+    if(this->partieFinie){
+        return false;
+    }
+
     this->joueurCourant = (this->joueurCourant + 1) % this->listeJoueurs.size();
 
     if (this->finDuTour()) {
 
-<<<<<<< HEAD
         this->getJoueur(0)->setMisePartie(this->getJoueur(0)->getMisePartie() + this->getJoueur(0)->getMiseTotale());
         this->getJoueur(1)->setMisePartie(this->getJoueur(1)->getMisePartie() + this->getJoueur(1)->getMiseTotale());
 
-        IntelligenceArtificielle *ia = static_cast<IntelligenceArtificielle*>(this->getJoueur(1));
-
-=======
         IntelligenceArtificielleProfilage *ia = static_cast<IntelligenceArtificielleProfilage*>(this->getJoueur(1));
->>>>>>> 2c4d39a75772b0af71f112c50845bb1fe06741b9
+
         ia->remplissageDonneesProfilage();
 
+
         // Fin de la partie
-        if (this->getEtape() == ETAPE_JEU::RIVER) {
+        if (this->getEtape() == ETAPE_JEU::RIVER || this->partieFinie) {
+            this->partieFinie = true;
             finPartie();
             return false;
-        }
-        else {
+        } else {
             // On incrémente l'étape courante en passant par des entiers
             if (this->etape < ETAPE_JEU::NB_ETAPES) {
                 this->etape = static_cast<ETAPE_JEU>(static_cast<int>(this->etape) + 1);
@@ -442,7 +445,6 @@ void Jeu::finPartie() {
             this->getJoueur(1)->ajouteJetons(this->getJoueur(1)->getMisePartie());
         }
     }else{
-
         if(joueursRestants.at(0)->getPosition() == 0){
             retour = GAGNE;
         }else{
@@ -497,13 +499,23 @@ bool Jeu::peutChecker(int posJoueur){
 
     if(posJoueur==0){
         //Si l'action de l'autre joueur est miser, relancer ou grosse blinde, on retourne false
-        if(actions[1]==ACTION::MISER || actions[1]==ACTION::RELANCER || actions[1]==ACTION::GROSSE_BLIND || actions[1]==ACTION::TAPIS){
+
+        if(actions[1]==ACTION::TAPIS && this->debutTour()){
+            return true;
+        }
+
+        if(actions[1]==ACTION::MISER || actions[1]==ACTION::RELANCER || actions[1]==ACTION::GROSSE_BLIND){
 
             return false;
         }
     }
     else{
-        if(actions[0]==ACTION::MISER || actions[0]==ACTION::RELANCER || actions[0]==ACTION::GROSSE_BLIND || actions[0]==ACTION::TAPIS){
+
+        if(actions[0]==ACTION::TAPIS && this->debutTour()){
+            return true;
+        }
+
+        if(actions[0]==ACTION::MISER || actions[0]==ACTION::RELANCER || actions[0]==ACTION::GROSSE_BLIND){
             return false;
         }
     }
@@ -586,6 +598,7 @@ bool Jeu::estCouche(int posJoueur) const {
 
 void Jeu::executerAction(int posJoueur, Action a){
     int relance;
+
     switch (a.getAction()) {
         case ACTION::CHECKER:
             if (peutChecker(posJoueur)) {
@@ -607,8 +620,6 @@ void Jeu::executerAction(int posJoueur, Action a){
 
         case ACTION::RELANCER:
         
-            relance = (mise < 2 * getMiseCourante()) ? 2 * getMiseCourante() : mise;
-
             relance = (a.getMontant() < 2 * getMiseCourante()) ? 2 * getMiseCourante() : a.getMontant();
 
             if (peutRelancer(posJoueur, relance)) {
