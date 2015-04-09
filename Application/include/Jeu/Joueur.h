@@ -59,6 +59,12 @@ class Joueur{
 		*@return : La cave d'un joueur
 		**/
 		int  			getCave() const;	
+
+        /**
+         * @brief setCave
+         * @param jetons
+         */
+        void setCave(int jetons);
 		
 		/**
 		*@action : Permet d'obtenir la main du joueur

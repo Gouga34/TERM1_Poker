@@ -10,6 +10,7 @@ Specification: Fichier contenant l'implémentation de la classe
 #include "../../include/Constantes.h"
 #include "../../include/Profilage/ScenariosDeTests.h"
 #include "../../include/Profilage/CalculDonneesProfilage.h"
+#include "../../include/Interface/Logger.h"
 
 
 #include <QString>
@@ -30,7 +31,9 @@ ScenariosDeTests::ScenariosDeTests(Profil *profilJoueur, Profil *calibrageIA){
 
     int agressivite=rand()%100+1;
     calibrageActuelIA->setAgressivite(agressivite);
+
     calibrageActuelIA->setRationalite(RATIONALITE_IA_PROFILAGE);
+    Logger::getInstance()->ajoutLogs("Calibrage IA profilage: agressivité: "+QString::number(agressivite)+" rationalité: "+QString::number(RATIONALITE_IA_PROFILAGE));
 }
 
 
@@ -170,6 +173,8 @@ void ScenariosDeTests::sauvegarderPartie(){
 
        fichier.close();
     }
+
+    scenarioSuivant();
 }
 
 
@@ -336,6 +341,8 @@ void ScenariosDeTests::scenarioSuivant(){
     //On tire aléatoirement un nouveau taux d'agressivite:
     int agressivite=rand()%100+1;
     calibrageActuelIA->setAgressivite(agressivite);
+    Logger::getInstance()->ajoutLogs("Calibrage IA profilage: agressivité: "+QString::number(agressivite)+" rationalité: "+QString::number(RATIONALITE_IA_PROFILAGE));
+
 
 }
 

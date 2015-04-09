@@ -50,18 +50,18 @@ ChoixOptionsDialog::ChoixOptionsDialog() : QDialog(){
 
 
     // Agressivité
-    QHBoxLayout *layoutAgressivite = new QHBoxLayout;
+//    QHBoxLayout *layoutAgressivite = new QHBoxLayout;
 
-    agressivite.setRange(0, 100);
-    agressivite.setValue(agressiviteDefaut);
-    agressivite.setOrientation(Qt::Horizontal);
+//    agressivite.setRange(0, 100);
+//    agressivite.setValue(agressiviteDefaut);
+//    agressivite.setOrientation(Qt::Horizontal);
 
-    QLabel *valAgressivite = new QLabel(QString::number(agressiviteDefaut));
+//    QLabel *valAgressivite = new QLabel(QString::number(agressiviteDefaut));
 
-    connect(&agressivite, SIGNAL(valueChanged(int)), valAgressivite, SLOT(setNum(int)));
+//    connect(&agressivite, SIGNAL(valueChanged(int)), valAgressivite, SLOT(setNum(int)));
 
-    layoutAgressivite->addWidget(&agressivite);
-    layoutAgressivite->addWidget(valAgressivite);
+//    layoutAgressivite->addWidget(&agressivite);
+//    layoutAgressivite->addWidget(valAgressivite);
 
 
     //bouton valider
@@ -71,9 +71,9 @@ ChoixOptionsDialog::ChoixOptionsDialog() : QDialog(){
     QFormLayout *formulaire = new QFormLayout;
     formulaire->addRow("Nouveau pseudo ",&nouveau);
     formulaire->addRow("Pseudo déjà existant",&pseudos);
-    formulaire->addRow("Calibrage par défaut", calibrageDefaut);
-    formulaire->addRow("Rationalité", layoutRationalite);
-    formulaire->addRow("Agressivité", layoutAgressivite);
+    //formulaire->addRow("Calibrage par défaut", calibrageDefaut);
+    //formulaire->addRow("Rationalité", layoutRationalite);
+    //formulaire->addRow("Agressivité", layoutAgressivite);
 
     //Ajout du formulaire et du bouton valider dans la fenetre
     boite->addLayout(formulaire);

@@ -379,6 +379,7 @@ bool Jeu::prochainJoueur(){
                 this->etape = static_cast<ETAPE_JEU>(static_cast<int>(this->etape) + 1);
             }
 
+
             this->nouvelleEtape(this->getEtape());
         }
     }

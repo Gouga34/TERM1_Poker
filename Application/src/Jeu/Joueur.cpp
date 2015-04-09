@@ -31,6 +31,10 @@ int Joueur::getCave() const{
 	return this->cave;
 }
 
+void Joueur::setCave(int jetons){
+    cave=jetons;
+}
+
 
 int Joueur::getPosition() const{
 	return this->position;
