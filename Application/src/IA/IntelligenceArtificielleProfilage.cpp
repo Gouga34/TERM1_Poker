@@ -56,9 +56,9 @@ void IntelligenceArtificielleProfilage::remplissageDonneesProfilage() {
         nbTotalActions += jeu->getJoueur(0)->getCompteurActions()[i];
     }
 
-    double resultat;
+    //double resultat;
 
-    profilage->etatPartie[ETAPE_JEU::NB_ETAPES].probaGainAdversaire = chancesGain;
+    profilage->etatPartie[ETAPE_JEU::NB_ETAPES].probaGainAdversaire = jeu->getJoueur(0)->getChancesGain();
 
     profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxMises += this->getCompteurActions()[0];
     profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxSuivis += this->getCompteurActions()[1];
@@ -130,7 +130,7 @@ void IntelligenceArtificielleProfilage::calculProfilGlobalJoueur() {
 
     double resultat;
 
-    resultat = CalculDonneesProfilage::taux(profilage->etatPartie[jeu->getEtape()].tauxMises,profilage->etatPartie[jeu->getEtape()].nbTotalActions);
+    resultat = CalculDonneesProfilage::taux(profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxMises,profilage->etatPartie[ETAPE_JEU::NB_ETAPES].nbTotalActions);
     if (resultat == -1) {
         profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxMises = 0;
     }
