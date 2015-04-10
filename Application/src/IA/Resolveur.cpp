@@ -55,7 +55,7 @@ Action Resolveur::calculerActionAgressivite(){
         }
         //Sinon, si on peut relancer, on fait l'action "RELANCER"
         //else if(ia->getJeu()->getMiseCourante() != 0 && ia->getJeu()->peutRelancer(ia->getPosition(),2*ia->getJeu()->getMiseCourante())){
-        else if(ia->getJeu()->getMiseCourante() != 0 && ia->getJeu()->peutRelancer(ia->getPosition(),calculerMiseAgressivite(action))){
+        else if(ia->getJeu()->peutRelancer(ia->getPosition(),calculerMiseAgressivite(action))){
 
                 action=ACTION::RELANCER;
                 jetonsAMiser =calculerMiseAgressivite(action);
