@@ -29,13 +29,30 @@ class Jeu{
         int                                 joueurCourant;
         int                                 pot;
         int                                 nombreDeCoup;
+
+        /** Correspond aux jetons mis en jeu à un instant t de la partie par le joueur
+         *  précédent celui qui doit jouer **/
         int                                 miseCourante;
+
+        /** Correspond à la somme des mises et relances d'une étape. C'est la somme des
+         *  jetons qu'un joueur doit mettre pour rester en jeu **/
+        int                                 cumulMisesEtRelances;
         int                                 dealer;
         bool                                partieFinie;
         ETAPE_JEU                           etape;
         int                                 resultatPartie;
         std::vector<Carte>                  tableTmp;
 
+
+
+        /**
+         * @brief Méthode qui permet à un joueur de jouer de l'argent (mise, relancer, suivi...)
+         *        setMiseCourante, setMiseTotale, setMisePlusHaute (avec vérif),
+         *        Incrémentation pot, Décrémentation cave
+         * @param posJoueur Position du joueur
+         * @param jetons Nombre de jetons à jouer
+         */
+        void jouerArgent(int posJoueur, int jetons);
 
         /**
         *@action : Commande permettant a un joueur de miser
@@ -52,8 +69,9 @@ class Jeu{
         /**
         *@action : Commande permettant a un joueur de faire "tapis"
         *@param  : La position du joueur effectuant l'action
+        * @param action effetuée (mise, relance, suivi)
         **/
-        void tapis(int posJoueur);
+        void tapis(int posJoueur, ACTION action);
 
         /**
         *@action : Commande permettant a un joueur de suivre
@@ -152,6 +170,12 @@ class Jeu{
 		*@return : Un entier représentant la mise courante
 		**/
         int			getMiseCourante();
+
+        /**
+         * @brief getCumulMisesEtRelances
+         * @return cumulMisesEtRelances
+         */
+        int         getCumulMisesEtRelances();
 
 		/**
 		*@action : Permet d'obtenir le deck

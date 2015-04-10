@@ -243,6 +243,8 @@ void Fenetre::ajoutLogs(QString contenu)
 void Fenetre::demarragePartie()
 {
     for(int i=0;i<NOMBRE_PARTIES;i++){
+        std::cout << "Partie " << i+1 << std::endl;
+
         actionEffectueeIA.clear();
         resultatPartie.setText("");
         boutonDemarrage.hide();
@@ -380,7 +382,8 @@ void Fenetre::jeuIA()
 {
 
         IntelligenceArtificielle *ia = static_cast<IntelligenceArtificielle*>(jeu->getJoueur(jeu->getJoueurCourant()));
-        ia->jouer();
+        Action a = ia->jouer();
+        jeu->executerAction(1, a);
 
         switch (jeu->getAction()) {
             case ACTION::CHECKER:
@@ -413,16 +416,13 @@ void Fenetre::jeuIA()
 
 
             case ACTION::RELANCER:
-              //  actionEffectueeIA.setText("Relance : "+QString::number(jeu->getMiseCourante()));
-                 actionEffectueeIA.setText("Relance : "+QString::number(jeu->getJoueur(1)->getMisePlusHaute()));
+                actionEffectueeIA.setText("Relance : "+QString::number(jeu->getMiseCourante()));
                 valeurMise.setMinimum(2 * jeu->getMiseCourante());
 
                 caveIA.display(jeu->getJoueur(1)->getCave());
                 pot.display(jeu->getPot());
 
-           //     Logger::getInstance()->ajoutLogs("IA relance " + QString::number(jeu->getMiseCourante()));
-                Logger::getInstance()->ajoutLogs("IA relance " + QString::number(jeu->getJoueur(1)->getMisePlusHaute()));
-
+                Logger::getInstance()->ajoutLogs("IA relance " + QString::number(jeu->getMiseCourante()));
                 break;
 
             case ACTION::SE_COUCHER:
