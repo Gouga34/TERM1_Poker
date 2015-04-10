@@ -264,11 +264,11 @@ void Jeu::relancer(int posJoueur, int jetons){
 
 void Jeu::suivre(int posJoueur){
 
+    int jetonsAAjouter = this->miseCourante - this->getJoueur(posJoueur)->getMiseCourante() ;
+
     // Si on a assez d'argent on suit
 
-    if(this->getJoueur(posJoueur)->getCave() > ( this->miseCourante - this->getJoueur(posJoueur)->getMiseTotale())){
-
-        int jetonsAAjouter = this->miseCourante - this->getJoueur(posJoueur)->getMiseTotale() ;
+    if(this->getJoueur(posJoueur)->getCave() > jetonsAAjouter){
 
         this->setPot(this->getPot() + jetonsAAjouter);
         this->getJoueur(posJoueur)->setMiseCourante(this->miseCourante);
