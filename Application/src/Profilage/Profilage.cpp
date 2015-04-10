@@ -53,7 +53,7 @@ void Profilage::charger()
     for (int i = 0; i < parties.size(); i++) {
         QJsonObject partie = parties[i].toObject();
 
-        partieGagnee = partie["gainIA"].toBool();
+        //partieGagnee = partie["gainIA"].toBool();
 
         for (int i = 0; i < ETAPE_JEU::NB_ETAPES; i++) {
             QString nomEtape = QString::fromStdString(nomEtapes[i]);
@@ -164,7 +164,6 @@ void Profilage::sauvegarder()
         etape["couche"] = etatPartie[i].couche;
 
         etape["probaGainAdversaire"] = etatPartie[i].probaGainAdversaire;
-        etape["pot"] = etatPartie[i].pot;
 
         etape["agressivité"] = etatPartie[i].tauxAgressivite;
         etape["rationalite"] = etatPartie[i].tauxRationnalite;
@@ -177,7 +176,6 @@ void Profilage::sauvegarder()
 
         etape["misePlusHaute"] = etatPartie[i].misePlusHaute;
         etape["miseTotaleJoueur"] = etatPartie[i].miseTotaleJoueur;
-        etape["miseTotaleIA"] = etatPartie[i].miseTotaleIA;
 
         QString nomEtape = "global";
         //QString nomEtape = QString::fromStdString(nomEtapes[i]);

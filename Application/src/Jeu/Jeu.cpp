@@ -208,7 +208,7 @@ void Jeu::tapis(int posJoueur){
 
     this->miseCourante = this->getJoueur(posJoueur)->getCave() + this->getJoueur(posJoueur)->getMiseTotale();
 
-    this->getJoueur(posJoueur)->setMiseCourante(this->miseCourante);
+    this->getJoueur(posJoueur)->setMiseCourante(this->getJoueur(posJoueur)->getCave());
 	
     if(this->getJoueur(posJoueur)->getCave() > this->getJoueur(posJoueur)->getMisePlusHaute()){
             this->getJoueur(posJoueur)->setMisePlusHaute(this->getJoueur(posJoueur)->getCave());
@@ -383,7 +383,7 @@ bool Jeu::prochainJoueur(){
 }
 
 void Jeu::resetActions(){
-	for(int i=0; i< (int) this->actions.size(); i++){
+    for(int i=0; i< (int) this->actions.size(); i++){
 
         if(this->actions.at(i) != ACTION::TAPIS){
                 this->actions.at(i) = ACTION::PAS_ENCORE_D_ACTION;
@@ -393,7 +393,7 @@ void Jeu::resetActions(){
         this->getJoueur(i)->setMisePlusHaute(0);
         this->getJoueur(i)->setMiseTotale(0);
 
-	}
+    }
 
 }
 

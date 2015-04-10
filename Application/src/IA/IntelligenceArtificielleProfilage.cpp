@@ -56,6 +56,14 @@ void IntelligenceArtificielleProfilage::remplissageDonneesProfilage() {
         nbTotalActions += jeu->getJoueur(0)->getCompteurActions()[i];
     }
 
+    //////////////////////////TODO/////////////////////////////////
+    ////Corriger le fait que la mise la plus haute ajoutée est  ///
+    /// celle de l'IA qui profile et pas celle de l'IA profilée ///
+    /// IDEM pour: tauxMises, tauxSuivis, tauxChecks, miseTotale //
+    ///AJOUTER LES TAUX DANS PROFIL JOUEUR DONT ON A PAS LES    ///
+    /// DONNEES DS PROFILJ?                                     ///
+    ///////////////////////////////////////////////////////////////
+
     //double resultat;
 
     profilage->etatPartie[ETAPE_JEU::NB_ETAPES].probaGainAdversaire = jeu->getJoueur(0)->getChancesGain();
@@ -65,7 +73,7 @@ void IntelligenceArtificielleProfilage::remplissageDonneesProfilage() {
     profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxChecks += this->getCompteurActions()[2];
 
     if (this->getMisePlusHaute() > profilage->etatPartie[ETAPE_JEU::NB_ETAPES].misePlusHaute) {
-        profilage->etatPartie[ETAPE_JEU::NB_ETAPES].misePlusHaute = this->getMisePlusHaute();
+        profilage->etatPartie[ETAPE_JEU::NB_ETAPES].misePlusHaute = profilJoueur->getMisePlusHaute();
     }
 
     profilage->etatPartie[ETAPE_JEU::NB_ETAPES].miseTotaleJoueur += this->getMiseTotale();

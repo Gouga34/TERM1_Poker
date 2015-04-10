@@ -148,7 +148,7 @@ class Jeu{
 		int 			getDealer();
 		
 		/**
-		*@action : Permet d'obtenir la mise de la partie courante
+        *@action : Permet d'obtenir la mise courante du tour de table
 		*@return : Un entier représentant la mise courante
 		**/
         int			getMiseCourante();
@@ -276,10 +276,10 @@ class Jeu{
 		**/
 		bool finDuTour();
 		
-		/**
-		*@action  : Permet de reinitialiser le tableau des actions
-		**/		
-		void resetActions();
+        /**
+        *@action  : Permet de reinitialiser le tableau des actions
+        **/
+        void resetActions();
 
         /**
          * @action Effectue l'ensemble des actions de fin de partie
