@@ -20,14 +20,7 @@ class Profilage
 {
     private:
 
-
-
         Profil profilIA;
-
-        /**
-        * @action : Vide le tableau
-        */
-        void clear();
 
     public:
 
@@ -39,7 +32,6 @@ class Profilage
             bool couche;                    // vrai si le joueur s'est couché
 
             double probaGainAdversaire;     // % de chance de gagner du joueur (-1 si cartes inconnues)
-            double pot;                     // % du pot par rapport à la cave du joueur
 
             /* Type du joueur (somme des taux = 100%) */
             double tauxAgressivite;         // Agressivité du joueur (mise la plus haute, mise totale, nb checks)
@@ -55,12 +47,9 @@ class Profilage
             /* Taux en % des mises en fonction des jetons du joueur */
             double misePlusHaute;           // Mise plus haute du joueur
             double miseTotaleJoueur;        // Mise totale du joueur
-            double miseTotaleIA;            // Mise totale de l'IA
 
             int nbTotalActions;
         };
-
-        bool partieGagnee;              // vrai si l'IA a gagné la partie
 
         // Une ligne par étape + 1 ligne pour le global
         EtapePartie etatPartie[ETAPE_JEU::NB_ETAPES + 1];
@@ -79,7 +68,10 @@ class Profilage
          */
         void sauvegarder();
 
-
+        /**
+         * @action : Vide le tableau
+         */
+        void clear();
 };
 
 #endif // PROFILAGE_H

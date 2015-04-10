@@ -56,34 +56,26 @@ void IntelligenceArtificielleProfilage::remplissageDonneesProfilage() {
         nbTotalActions += jeu->getJoueur(0)->getCompteurActions()[i];
     }
 
-    //////////////////////////TODO/////////////////////////////////
-    ////Corriger le fait que la mise la plus haute ajoutée est  ///
-    /// celle de l'IA qui profile et pas celle de l'IA profilée ///
-    /// IDEM pour: tauxMises, tauxSuivis, tauxChecks, miseTotale //
-    ///AJOUTER LES TAUX DANS PROFIL JOUEUR DONT ON A PAS LES    ///
-    /// DONNEES DS PROFILJ?                                     ///
-    ///////////////////////////////////////////////////////////////
-
     //double resultat;
 
     profilage->etatPartie[ETAPE_JEU::NB_ETAPES].probaGainAdversaire = jeu->getJoueur(0)->getChancesGain();
 
-    profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxMises += this->getCompteurActions()[0];
-    profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxSuivis += this->getCompteurActions()[1];
-    profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxChecks += this->getCompteurActions()[2];
+    profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxMises += jeu->getJoueur(0)->getCompteurActions()[0];
+    profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxSuivis += jeu->getJoueur(0)->getCompteurActions()[1];
+    profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxChecks += jeu->getJoueur(0)->getCompteurActions()[2];
 
-    if (this->getMisePlusHaute() > profilage->etatPartie[ETAPE_JEU::NB_ETAPES].misePlusHaute) {
-        profilage->etatPartie[ETAPE_JEU::NB_ETAPES].misePlusHaute = profilJoueur->getMisePlusHaute();
+    if (jeu->getJoueur(0)->getMisePlusHaute() > profilage->etatPartie[ETAPE_JEU::NB_ETAPES].misePlusHaute) {
+        profilage->etatPartie[ETAPE_JEU::NB_ETAPES].misePlusHaute = jeu->getJoueur(0)->getMisePlusHaute();
     }
 
-    profilage->etatPartie[ETAPE_JEU::NB_ETAPES].miseTotaleJoueur += this->getMiseTotale();
+    profilage->etatPartie[ETAPE_JEU::NB_ETAPES].miseTotaleJoueur += jeu->getJoueur(0)->getMiseTotale();
 
     profilage->etatPartie[ETAPE_JEU::NB_ETAPES].couche = jeu->estCouche(0);
 
     profilage->etatPartie[ETAPE_JEU::NB_ETAPES].nbTotalActions += nbTotalActions;
 
 
-    /*resultat = CalculDonneesProfilage::taux(this->getCompteurActions()[0],nbTotalActions);
+    /*resultat = CalculDonneesProfilage::taux(jeu->getJoueur(0)->getCompteurActions()[0],nbTotalActions);
     if (resultat == -1) {
         profilage->etatPartie[jeu->getEtape()].tauxMises = 0;
     }
@@ -91,7 +83,7 @@ void IntelligenceArtificielleProfilage::remplissageDonneesProfilage() {
         profilage->etatPartie[jeu->getEtape()].tauxMises = resultat;
     }
 
-    resultat = CalculDonneesProfilage::taux(this->getCompteurActions()[1],nbTotalActions);
+    resultat = CalculDonneesProfilage::taux(jeu->getJoueur(0)->getCompteurActions()[1],nbTotalActions);
     if (resultat == -1) {
         profilage->etatPartie[jeu->getEtape()].tauxSuivis = 0;
     }
@@ -99,7 +91,7 @@ void IntelligenceArtificielleProfilage::remplissageDonneesProfilage() {
         profilage->etatPartie[jeu->getEtape()].tauxSuivis = resultat;
     }
 
-    resultat = CalculDonneesProfilage::taux(this->getCompteurActions()[2],nbTotalActions);
+    resultat = CalculDonneesProfilage::taux(jeu->getJoueur(0)->getCompteurActions()[2],nbTotalActions);
     if (resultat == -1) {
         profilage->etatPartie[jeu->getEtape()].tauxChecks = 0;
     }
@@ -107,7 +99,7 @@ void IntelligenceArtificielleProfilage::remplissageDonneesProfilage() {
         profilage->etatPartie[jeu->getEtape()].tauxChecks = resultat;
     }
 
-    resultat = CalculDonneesProfilage::taux(this->getMisePlusHaute(),this->getCave());
+    resultat = CalculDonneesProfilage::taux(jeu->getJoueur(0)->getMisePlusHaute(),jeu->getJoueur(0)->getCave());
     if (resultat == -1) {
         profilage->etatPartie[jeu->getEtape()].misePlusHaute = 0;
     }
@@ -115,7 +107,7 @@ void IntelligenceArtificielleProfilage::remplissageDonneesProfilage() {
         profilage->etatPartie[jeu->getEtape()].misePlusHaute = resultat;
     }
 
-    resultat = CalculDonneesProfilage::taux(this->getMiseTotale(),this->getCave());
+    resultat = CalculDonneesProfilage::taux(jeu->getJoueur(0)->getMiseTotale(),jeu->getJoueur(0)->getCave());
     if (resultat == -1) {
         profilage->etatPartie[jeu->getEtape()].miseTotaleJoueur = 0;
     }
@@ -163,7 +155,7 @@ void IntelligenceArtificielleProfilage::calculProfilGlobalJoueur() {
     }
 
     /** TODO Changer le 1000 par la cave en début de partie **/
-    resultat = CalculDonneesProfilage::taux(profilage->etatPartie[ETAPE_JEU::NB_ETAPES].misePlusHaute,1000);
+    resultat = CalculDonneesProfilage::taux(profilage->etatPartie[ETAPE_JEU::NB_ETAPES].misePlusHaute,CAVE_JOUEURS);
     if (resultat == -1) {
         profilage->etatPartie[ETAPE_JEU::NB_ETAPES].misePlusHaute = 0;
     }
@@ -172,7 +164,7 @@ void IntelligenceArtificielleProfilage::calculProfilGlobalJoueur() {
     }
 
     /** TODO Changer le 1000 par la cave en début de partie **/
-    resultat = CalculDonneesProfilage::taux(profilage->etatPartie[ETAPE_JEU::NB_ETAPES].miseTotaleJoueur,1000);
+    resultat = CalculDonneesProfilage::taux(profilage->etatPartie[ETAPE_JEU::NB_ETAPES].miseTotaleJoueur,CAVE_JOUEURS);
     if (resultat == -1) {
         profilage->etatPartie[ETAPE_JEU::NB_ETAPES].miseTotaleJoueur = 0;
     }
@@ -198,12 +190,12 @@ void IntelligenceArtificielleProfilage::calculProfilGlobalJoueur() {
         sommePassivite+=profilage->etatPartie[i].tauxPassivite;
         sommeBluff+=profilage->etatPartie[i].tauxBluff;
     }
-
-    profilage->profilJoueur->setAgressivite(sommeAgressivite/ETAPE_JEU::NB_ETAPES);
-    profilage->profilJoueur->setRationalite(sommeRationalite/ETAPE_JEU::NB_ETAPES);
-    profilage->profilJoueur->setPassivite(sommePassivite/ETAPE_JEU::NB_ETAPES);
-    profilage->profilJoueur->setBluff(sommeBluff/ETAPE_JEU::NB_ETAPES);
 */
+    profilage->profilJoueur->setAgressivite(profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxAgressivite);
+    profilage->profilJoueur->setRationalite(profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxRationnalite);
+    profilage->profilJoueur->setPassivite(profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxPassivite);
+    profilage->profilJoueur->setBluff(profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxBluff);
+
     profilage->sauvegarder();
 }
 

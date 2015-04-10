@@ -17,8 +17,8 @@ Specification: Fichier contenant les définitions de la classe Profilage.
 
 
 Profilage::Profilage(Profil *profil)
-    : profilJoueur(profil), profilIA(), typeJoueur{0}, partieGagnee(false),
-      etatPartie{{false, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}}
+    : profilJoueur(profil), profilIA(), typeJoueur{0},
+      etatPartie{{false, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}}
 {
 
 }
@@ -62,7 +62,6 @@ void Profilage::charger()
             etatPartie[i].couche = etape["couche"].toBool();
 
             etatPartie[i].probaGainAdversaire = etape["probaGainAdversaire"].toDouble();
-            etatPartie[i].pot = etape["pot"].toDouble();
 
             etatPartie[i].tauxAgressivite = etape["agressivité"].toDouble();
             etatPartie[i].tauxRationnalite = etape["rationalite"].toDouble();
@@ -75,7 +74,6 @@ void Profilage::charger()
 
             etatPartie[i].misePlusHaute = etape["misePlusHaute"].toDouble();
             etatPartie[i].miseTotaleJoueur = etape["miseTotaleJoueur"].toDouble();
-            etatPartie[i].miseTotaleIA = etape["miseTotaleIA"].toDouble();
         }
 
         QJsonObject global = partie["global"].toObject();
@@ -155,8 +153,6 @@ void Profilage::sauvegarder()
 
    /* Ecriture de valeurs simples */
 
-   partie["gainIA"] = partieGagnee;
-
    int i = ETAPE_JEU::NB_ETAPES;
    //for (int i = 0; i < ETAPE_JEU::NB_ETAPES + 1; i++) {
         QJsonObject etape;
@@ -227,11 +223,11 @@ void Profilage::sauvegarder()
 
 void Profilage::clear(){
 
-    for(int etape=0; etape<ETAPE_JEU::NB_ETAPES;etape++){
+    //for(int etape=0; etape<ETAPE_JEU::NB_ETAPES;etape++){
+    int etape = ETAPE_JEU::NB_ETAPES;
 
         this->etatPartie[etape].couche = false;
         this->etatPartie[etape].probaGainAdversaire = 0;
-        this->etatPartie[etape].pot = 0;
 
         this->etatPartie[etape].tauxAgressivite = 0;
         this->etatPartie[etape].tauxRationnalite = 0;
@@ -244,9 +240,8 @@ void Profilage::clear(){
 
         this->etatPartie[etape].misePlusHaute = 0;
         this->etatPartie[etape].miseTotaleJoueur = 0;
-        this->etatPartie[etape].miseTotaleIA = 0;
-    }
 
-    this->partieGagnee = false;
+        this->etatPartie[etape].nbTotalActions = 0;
+    //}
 }
 
