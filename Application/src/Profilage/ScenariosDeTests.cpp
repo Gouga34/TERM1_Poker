@@ -124,16 +124,16 @@ void ScenariosDeTests::sauvegarderPartie(){
             agressiviteGlobale=actionReelleJoueur->getAgressivite();
             rationaliteGlobale=actionReelleJoueur->getRationalite();
         }else{
+            fichier.seek(0);
+            QString ligne=fichier.readLine();
 
-            QString ligne=fichierReference.readLine();
-            QTextStream fichRefe(&fichierReference);
             QStringList liste;
             double rationaliteGlobalePrec=0;
             double agressiviteGlobalePrec=0;
             int nbParties=0;
 
             int donneesReferences=0;
-            while(fichRefe.atEnd()){
+            while(!ligne.isEmpty()){
                 liste = ligne.split(",");
 
 
@@ -146,11 +146,13 @@ void ScenariosDeTests::sauvegarderPartie(){
                 if(liste.at(0)=="agressivite IA"){
                     donneesReferences=1;
                 }
-                ligne=fichierReference.readLine();
+                ligne=fichier.readLine();
             }
 
-            //On récupère le nombre de parties :
             fichier.seek(0);
+            ligne=fichier.readLine();
+            //On récupère le nombre de parties :
+
             while(!ligne.isEmpty()){
                 nbParties++;
                 ligne=fichier.readLine();
@@ -158,7 +160,6 @@ void ScenariosDeTests::sauvegarderPartie(){
 
             agressiviteGlobale=(actionReelleJoueur->getAgressivite()+(agressiviteGlobalePrec*(nbParties-1)))/nbParties;
             rationaliteGlobale=(actionReelleJoueur->getRationalite()+(rationaliteGlobalePrec*(nbParties-1)))/nbParties;
-
         }
 
         if(fichier.size()==0){
