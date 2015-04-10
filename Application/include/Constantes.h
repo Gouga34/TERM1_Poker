@@ -7,18 +7,27 @@
 
 
 
-#define NOMBRE_DE_TESTS 100000
-#define DOSSIER_PROFILAGE "../Application/ressources/Profilage/"
-#define DOSSIER_PROFILAGE_STATIQUE DOSSIER_PROFILAGE+std::string("ProfilageStatique/")
-#define DOSSIER_PROFILAGE_DYNAMIQUE DOSSIER_PROFILAGE+std::string("ProfilageDynamique/")
-#define NOMBRE_ITERRATIONS_TESTS 5
-#define VARIATION_AUTORISEE 10.0
-#define RATIONALITE_IA_PROFILAGE 80.0
-#define NOMBRE_PARTIES 1
+#define NOMBRE_DE_TESTS                         100000
+#define CAVE_JOUEURS                            1000
+
+
+//Constantes correspondant à l'accés aux fichiers de profilages
+#define DOSSIER_PROFILAGE                       "../Application/ressources/Profilage/"
+#define DOSSIER_PROFILAGE_STATIQUE              DOSSIER_PROFILAGE+std::string("ProfilageStatique/")
+#define DOSSIER_PROFILAGE_DYNAMIQUE             DOSSIER_PROFILAGE+std::string("ProfilageDynamique/")
+
+
+/*
+ * Constantes utilisées pour les scénarios de tests:
+ * RATIONALITE_IA_PROFILAGE : rationalité de base de l'IA qui profile
+ * NOMBRE_PARTIES : nombre de parties lancées d'affilée
+ */
+#define RATIONALITE_IA_PROFILAGE                80.0
+#define NOMBRE_PARTIES                          1
 
 
 /**
- * Type enum Cutilise pour definir la couleur des cartes
+ * Couleur des cartes
  */
 enum COULEUR_CARTE{
     PIQUE   = 0,
@@ -28,7 +37,7 @@ enum COULEUR_CARTE{
 };
 
 /**
- * Type enum utilise pour definir le rang des cartes
+ * Rang des cartes
  */
 enum RANG_CARTE{
     T   = 10,
@@ -39,7 +48,7 @@ enum RANG_CARTE{
 };
 
 /**
- * Type enum utilise pour definir la force des mains
+ * Combinaisons des mains
  */
 enum FORCE_MAIN{
 
@@ -56,7 +65,7 @@ enum FORCE_MAIN{
 };
 
 /**
-  * enum utilisé lors de la comparaison de deux mains. 
+  * Résultat d'une partie
   */
 enum RESULTAT_PARTIE{
     EGALITE = 2,
@@ -65,7 +74,7 @@ enum RESULTAT_PARTIE{
 };
 
 /**
- * Type enum pour definir les actions des joueurs
+ * Actions des joueurs
  */
 enum ACTION
 {
@@ -213,7 +222,7 @@ namespace PROFIL_JOUEUR{
     };
 }
 
-/**Enum pour l'accès aux données des fichiers contenant les scénarios de tests**/
+/**accès aux données des fichiers contenant les scénarios de tests**/
 enum COLONNES_CSV{
     AGRESSIVITE_IA,
     CHANCES_GAIN_IA,

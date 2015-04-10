@@ -265,8 +265,8 @@ void Fenetre::demarragePartie()
 
         jeu->distributionMain();
         jeu->setPot(0);
-        jeu->getJoueur(0)->setCave(1000);
-        jeu->getJoueur(1)->setCave(1000);
+        jeu->getJoueur(0)->setCave(CAVE_JOUEURS);
+        jeu->getJoueur(1)->setCave(CAVE_JOUEURS);
 
 
         pot.display(jeu->getPot());
