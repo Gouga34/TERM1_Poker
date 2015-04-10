@@ -565,7 +565,7 @@ bool Jeu::peutRelancer(int posJoueur, int jetons){
     }
 
     if(jetons>0 && getJoueur(posJoueur)->getCave()>0){
-        if(2*getMiseCourante() < getJoueur(posJoueur)->getCave()){
+        if(2*getMiseCourante() <= getJoueur(posJoueur)->getCave()){
         // On regarde si on a assez d'argent
             if (this->getJoueur(posJoueur)->getCave() >= jetons) {
                 return true;
