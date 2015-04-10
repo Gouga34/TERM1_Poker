@@ -564,22 +564,22 @@ bool Jeu::peutRelancer(int posJoueur, int jetons){
         }
     }
 
-    if(2*getMiseCourante() < getJoueur(posJoueur)->getCave()){
-
-    // On regarde si on a assez d'argent
-        if (this->getJoueur(posJoueur)->getCave() >= jetons) {
-            return true;
+    if(jetons>0 && getJoueur(posJoueur)->getCave()>0){
+        if(2*getMiseCourante() < getJoueur(posJoueur)->getCave()){
+        // On regarde si on a assez d'argent
+            if (this->getJoueur(posJoueur)->getCave() >= jetons) {
+                return true;
+            }
+            else{
+                return false;
+            }
         }
         else{
             return false;
         }
     }
-    else{
-        return false;
-    }
 
     return false;
-
 }
 
 bool Jeu::peutSuivre(int posJoueur){
