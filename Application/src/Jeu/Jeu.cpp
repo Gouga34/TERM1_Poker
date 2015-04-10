@@ -454,8 +454,8 @@ void Jeu::finPartie() {
 
     IntelligenceArtificielleProfilage *ia = static_cast<IntelligenceArtificielleProfilage*>(this->getJoueur(1));
     ia->calculProfilGlobalJoueur();
-
     ia->ecritureScenariosDeTests();
+    ia->getProfilage()->clear();
 }
 
 std::vector<Carte> Jeu::getTable() const{
