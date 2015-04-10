@@ -276,6 +276,15 @@ int Resolveur::calculerMiseRationalite(ACTION action){
     else if(action==ACTION::SUIVRE){
         jetonsAMiser=ia->getJeu()->getMiseCourante();
     }
+    else if(action==ACTION::RELANCER){
+        //Si on peut relancer
+        if(jetonsAMiser>=2*ia->getJeu()->getMiseCourante()){
+            jetonsAMiser=2*ia->getJeu()->getMiseCourante();
+        }
+        else{
+            jetonsAMiser=0;
+        }
+    }
 
     return jetonsAMiser;
 
