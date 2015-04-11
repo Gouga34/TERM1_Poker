@@ -6,7 +6,7 @@
 
 Jeu::Jeu(int nbJoueur, int blindDepart, int cave) : actions(nbJoueur,ACTION::PAS_ENCORE_D_ACTION){
 	srand((unsigned)time(0));
-    this->initialisationTable(nbJoueur, cave);
+
     this->deck = nouveauDeck();
 	this->melange();
 	this->blind = blindDepart;
@@ -39,6 +39,10 @@ void Jeu::initialisationTable(int nbJoueur, int cave){
 	}
 }
 
+void Jeu::addJoueur(Joueur *joueur) {
+    joueur->setJeu(this);
+    listeJoueurs.push_back(joueur);
+}
 
 void Jeu::distributionMain(){
 
@@ -101,10 +105,12 @@ void Jeu::nouvelleEtape(ETAPE_JEU etape){
 
 void Jeu::distributionBlind(){
 
-    this->miser((this->getDealer() + 1) % this->listeJoueurs.size(), this->getBlind());
+    executerAction((this->getDealer() + 2) % this->listeJoueurs.size(), Action(MISER, getBlind()));
+    //this->miser((this->getDealer() + 1) % this->listeJoueurs.size(), this->getBlind());
     this->actions[(this->getDealer() + 1) % this->listeJoueurs.size()] = ACTION::PETITE_BLIND;
 	
-    this->relancer((this->getDealer() + 2) % this->listeJoueurs.size(),this->getBlind() );
+    executerAction((this->getDealer() + 2) % this->listeJoueurs.size(), Action(RELANCER, getBlind()));
+    //this->relancer((this->getDealer() + 2) % this->listeJoueurs.size(),this->getBlind() );
     this->actions[(this->getDealer() + 2) % this->listeJoueurs.size()] = ACTION::GROSSE_BLIND;
 	
     this->joueurCourant = (this->getDealer() + 2)  % this->listeJoueurs.size();
@@ -130,7 +136,7 @@ void Jeu::miseAJourBlind(){
 
 std::vector<Carte> Jeu::nouveauDeck(){
 
-	std::vector<Carte> deck;
+    std::vector<Carte> deck;
 
     for(int i = COULEUR_CARTE::PIQUE; i <= COULEUR_CARTE::CARREAU; i++ ){
         for(int j = RANG_CARTE::AS; j<=RANG_CARTE::K; j++){
@@ -144,7 +150,7 @@ std::vector<Carte> Jeu::nouveauDeck(){
 	
 	
 void Jeu::melange(){
-	std::random_shuffle(this->deck.begin(), this->deck.end());
+    std::random_shuffle(this->deck.begin(), this->deck.end());
 }
 
 
@@ -187,6 +193,7 @@ void Jeu::jouerArgent(int posJoueur, int jetons) {
     miseCourante = getJoueur(posJoueur)->getMiseCourante();
 
     getJoueur(posJoueur)->setMiseTotale(getJoueur(posJoueur)->getMiseTotale() + jetons);
+
     cumulMisesEtRelances = getJoueur(posJoueur)->getMiseTotale();
 
     if (jetons > getJoueur(posJoueur)->getMisePlusHaute()) {
@@ -504,20 +511,11 @@ bool Jeu::peutMiser(int posJoueur, int jetons){
         }
     }
 
-    if(getJoueur(posJoueur)->getCave()==0){
-        return false;
-    }
-    // On regarde si on a assez d'argent
-    if(jetons==0){
+    if (jetons <= 0 || getJoueur(posJoueur)->getCave() < jetons) {
         return false;
     }
 
-    if (this->getJoueur(posJoueur)->getCave() >= jetons) {
-        return true;
-    }
-
-
-    return false;
+    return true;
 }
 
 
@@ -534,19 +532,8 @@ bool Jeu::peutRelancer(int posJoueur, int jetons){
         }
     }
 
-    if(jetons>0 && getJoueur(posJoueur)->getCave()>0){
-        if(2*getMiseCourante() <= getJoueur(posJoueur)->getCave()){
-        // On regarde si on a assez d'argent
-            if (this->getJoueur(posJoueur)->getCave() >= jetons) {
-                return true;
-            }
-            else{
-                return false;
-            }
-        }
-        else{
-            return false;
-        }
+    if(jetons>0 && getJoueur(posJoueur)->getCave()>=jetons){
+        return true;
     }
 
     return false;

@@ -199,7 +199,9 @@ class Jeu{
 	
 	//Methodes	
 
-		/**
+        void addJoueur(Joueur *joueur);
+
+        /**
 		*@action : Distribue a chaque joueur ses cartes
 		**/
 		void distributionMain();

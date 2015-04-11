@@ -54,8 +54,7 @@ Action Resolveur::calculerActionAgressivite(){
             jetonsAMiser=miseAgressivite;
         }
         //Sinon, si on peut relancer, on fait l'action "RELANCER"
-        //else if(ia->getJeu()->getMiseCourante() != 0 && ia->getJeu()->peutRelancer(ia->getPosition(),2*ia->getJeu()->getMiseCourante())){
-        else if(ia->getJeu()->peutRelancer(ia->getPosition(),calculerMiseAgressivite(action))){
+        else if(ia->getJeu()->peutRelancer(ia->getPosition(),calculerMiseAgressivite(RELANCER))){
 
                 action=ACTION::RELANCER;
                 jetonsAMiser =calculerMiseAgressivite(action);
@@ -196,7 +195,6 @@ Action Resolveur::calculerActionRationalite(){
             if(ia->getJeu()->peutRelancer(ia->getPosition(),2*ia->getJeu()->getMiseCourante())){
                 listeActions.push_back(ACTION::RELANCER);
             }
-
             else if(ia->getJeu()->peutSuivre(ia->getPosition())){
                 listeActions.push_back(ACTION::SUIVRE);
             }
@@ -239,12 +237,11 @@ Action Resolveur::calculerActionRationalite(){
             int borneSuperieure=jetonsAMiserTheorique-((ia->getCave()*10)/100);
 
             if(borneSuperieure>0){
-                jetonsAMiser=rand()% (borneSuperieure+1);
+                jetonsAMiser=(rand()% borneSuperieure) + 1;
             }
             else{
                 jetonsAMiser=ia->getCave();
             }
-
         }
         else{
             action=listeActions.at(random);
@@ -256,9 +253,7 @@ Action Resolveur::calculerActionRationalite(){
                 jetonsAMiser=ia->getJeu()->getMiseCourante();
             }
         }
-
     }
-
 
     return Action(action,jetonsAMiser);
 }
@@ -349,7 +344,6 @@ Action Resolveur::calculerAction(){
 
         int total=calibrage.getAgressivite()+calibrage.getRationalite();
         jetonsAMiser= minJetonsAMiser+((tauxMax/total)*abs(maxJetonsAMiser-minJetonsAMiser));
-
 
     }else{
         action=actionAgressivite.getAction();

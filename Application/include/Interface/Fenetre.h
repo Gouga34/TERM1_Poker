@@ -90,7 +90,7 @@ class Fenetre : public QWidget
         // Image contenant l'ensemble des cartes graphiques du jeu de carte
         static QPixmap *textureCartes;
 
-        Fenetre(Jeu *j);
+        Fenetre();
         ~Fenetre();
 
         /**

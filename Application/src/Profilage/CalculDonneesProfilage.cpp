@@ -30,7 +30,7 @@ double CalculDonneesProfilage::miseTheorique(const double chancesGain){
         miseTheoriqueMax=RATIONALITE::PALIER1::FIN_MISE_THEORIQUE;
     }
     //chancesGains dans le palier 2
-    else if(chancesGain>=RATIONALITE::PALIER2::DEBUT_GAIN && chancesGain<=RATIONALITE::PALIER2::FIN_GAIN){
+    else if(chancesGain>RATIONALITE::PALIER1::FIN_GAIN && chancesGain<=RATIONALITE::PALIER2::FIN_GAIN){
 
         gainMin=RATIONALITE::PALIER2::DEBUT_GAIN;
         gainMax=RATIONALITE::PALIER2::FIN_GAIN;
@@ -38,7 +38,7 @@ double CalculDonneesProfilage::miseTheorique(const double chancesGain){
         miseTheoriqueMax=RATIONALITE::PALIER2::FIN_MISE_THEORIQUE;
     }
     //chancesGains dans le palier 3
-    else if(chancesGain>=RATIONALITE::PALIER3::DEBUT_GAIN && chancesGain<=RATIONALITE::PALIER3::FIN_GAIN){
+    else if(chancesGain>RATIONALITE::PALIER2::FIN_GAIN && chancesGain<=RATIONALITE::PALIER3::FIN_GAIN){
 
         gainMin=RATIONALITE::PALIER3::DEBUT_GAIN;
         gainMax=RATIONALITE::PALIER3::FIN_GAIN;
@@ -46,7 +46,7 @@ double CalculDonneesProfilage::miseTheorique(const double chancesGain){
         miseTheoriqueMax=RATIONALITE::PALIER3::FIN_MISE_THEORIQUE;
     }
     //chancesGains dans le palier 4
-    else if(chancesGain>=RATIONALITE::PALIER4::DEBUT_GAIN && chancesGain<=RATIONALITE::PALIER4::FIN_GAIN){
+    else if(chancesGain>RATIONALITE::PALIER3::FIN_GAIN && chancesGain<=RATIONALITE::PALIER4::FIN_GAIN){
 
         gainMin=RATIONALITE::PALIER4::DEBUT_GAIN;
         gainMax=RATIONALITE::PALIER4::FIN_GAIN;
@@ -97,7 +97,7 @@ double CalculDonneesProfilage::agressivite(const double miseLaPlusHaute, const d
         ratioTotalMises=static_cast<double>(AGRESSIVITE::PALIER1::RATIO_TOTAL_MISES_DIVISE)/AGRESSIVITE::PALIER1::RATIO_TOTAL_MISES_DIVISEUR;
     }
     //miseLaPlusHaute dans PALIER2 ?
-    else if(miseLaPlusHaute>=AGRESSIVITE::PALIER2::DEBUT_MPH && miseLaPlusHaute<=AGRESSIVITE::PALIER2::FIN_MPH){
+    else if(miseLaPlusHaute>AGRESSIVITE::PALIER1::FIN_MPH && miseLaPlusHaute<=AGRESSIVITE::PALIER2::FIN_MPH){
         
         miseLaPlusHauteMin=AGRESSIVITE::PALIER2::DEBUT_MPH;
         miseLaPlusHauteMax=AGRESSIVITE::PALIER2::FIN_MPH;
@@ -109,7 +109,7 @@ double CalculDonneesProfilage::agressivite(const double miseLaPlusHaute, const d
         ratioTotalMises=static_cast<double>(AGRESSIVITE::PALIER2::RATIO_TOTAL_MISES_DIVISE)/AGRESSIVITE::PALIER2::RATIO_TOTAL_MISES_DIVISEUR;
     }
     //miseLaPlusHaute dans PALIER3 ?
-    else if(miseLaPlusHaute>=AGRESSIVITE::PALIER3::DEBUT_MPH && miseLaPlusHaute<AGRESSIVITE::PALIER3::FIN_MPH){
+    else if(miseLaPlusHaute>AGRESSIVITE::PALIER2::FIN_MPH && miseLaPlusHaute<AGRESSIVITE::PALIER3::FIN_MPH){
         
         miseLaPlusHauteMin=AGRESSIVITE::PALIER3::DEBUT_MPH;
         miseLaPlusHauteMax=AGRESSIVITE::PALIER3::FIN_MPH;
