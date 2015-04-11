@@ -14,9 +14,7 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-    Jeu *jeu = new Jeu(2, 20, CAVE_JOUEURS);
-
-    Fenetre fenetre(jeu);
+    Fenetre fenetre;
     fenetre.show();
 
     return app.exec();

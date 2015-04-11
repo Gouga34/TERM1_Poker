@@ -21,9 +21,8 @@ using namespace std;
 
 QPixmap *Fenetre::textureCartes = 0;
 
-Fenetre::Fenetre(Jeu *j) : QWidget()
+Fenetre::Fenetre() : QWidget()
 {
-
     move(0,0);
     setWindowTitle(tr("Poker"));
     resize(1280,400);
@@ -33,11 +32,34 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
     pal.setColor(QPalette::Background, QColor(20, 127, 20));
     setPalette(pal);
 
-    this->jeu = j;
 
     for (int i = 0; i < NB_BOUTONS; i++) {
         activationBoutons[i] = true;
     }
+
+
+    //Récupération des options du jeu
+    ChoixOptionsDialog fenetreOptions;
+    Options options = fenetreOptions.getOptions();
+
+    // Envoi du pseudo du joueur
+    QString pseudoJoueur = options.pseudo;
+
+    // Envoi du calibrage de l'IA
+//    Profil calibrageIa;
+//    calibrageIa.setAgressivite(options.agressiviteIA);
+//    calibrageIa.setRationalite(options.rationaliteIA);
+
+
+    jeu = new Jeu(2, 20, CAVE_JOUEURS);
+
+    Joueur *j1 = new IntelligenceArtificielle(true, CAVE_JOUEURS, 0);
+    IntelligenceArtificielleProfilage *ia = new IntelligenceArtificielleProfilage(false, CAVE_JOUEURS, 1);
+    ia->setPseudoJoueurProfile(pseudoJoueur.toStdString());
+    //ia->setCalibrage(calibrageIa);
+
+    jeu->addJoueur(j1);
+    jeu->addJoueur(ia);
 
 
     // Layout principal
@@ -203,22 +225,6 @@ Fenetre::Fenetre(Jeu *j) : QWidget()
 
 
     Logger::creerInstance(this);
-
-    //Récupération des options du jeu
-    ChoixOptionsDialog fenetreOptions;
-    Options options = fenetreOptions.getOptions();
-
-    // Envoi du pseudo du joueur
-    QString pseudoJoueur = options.pseudo;
-    IntelligenceArtificielleProfilage *ia = static_cast<IntelligenceArtificielleProfilage*>(jeu->getJoueur(1));
-    ia->setPseudoJoueurProfile(pseudoJoueur.toStdString());
-
-    // Envoi du calibrage de l'IA
-//    Profil calibrageIa;
-//    calibrageIa.setAgressivite(options.agressiviteIA);
-//    calibrageIa.setRationalite(options.rationaliteIA);
-
-    //ia->setCalibrage(calibrageIa);
 }
 
 Fenetre::~Fenetre()

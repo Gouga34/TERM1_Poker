@@ -6,7 +6,7 @@
 
 Jeu::Jeu(int nbJoueur, int blindDepart, int cave) : actions(nbJoueur,ACTION::PAS_ENCORE_D_ACTION){
 	srand((unsigned)time(0));
-    this->initialisationTable(nbJoueur, cave);
+
     this->deck = nouveauDeck();
 	this->melange();
 	this->blind = blindDepart;
@@ -39,6 +39,10 @@ void Jeu::initialisationTable(int nbJoueur, int cave){
 	}
 }
 
+void Jeu::addJoueur(Joueur *joueur) {
+    joueur->setJeu(this);
+    listeJoueurs.push_back(joueur);
+}
 
 void Jeu::distributionMain(){
 
