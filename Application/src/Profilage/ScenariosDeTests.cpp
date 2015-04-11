@@ -31,9 +31,11 @@ ScenariosDeTests::ScenariosDeTests(Profil *profilJoueur, Profil *calibrageIA){
 
     int agressivite=rand()%100+1;
     calibrageActuelIA->setAgressivite(agressivite);
+    actionAttendueJoueur.setAgressivite(-1);
+    actionAttendueJoueur.setRationalite(-1);
 
     calibrageActuelIA->setRationalite(RATIONALITE_IA_PROFILAGE);
-    Logger::getInstance()->ajoutLogs("Calibrage IA profilage: agressivité: "+QString::number(agressivite)+" rationalité: "+QString::number(RATIONALITE_IA_PROFILAGE));
+    //Logger::getInstance()->ajoutLogs("Calibrage IA profilage: agressivité: "+QString::number(agressivite)+" rationalité: "+QString::number(RATIONALITE_IA_PROFILAGE));
 }
 
 
@@ -163,7 +165,7 @@ void ScenariosDeTests::sauvegarderPartie(){
         }
 
         if(fichier.size()==0){
-          out<<"agressivite IA,Chances de gain IA,Agressivite attendue,Rationalite attendue,Agressivite reelle,Rationalite Reelle,distance moyenne,Agressivite deduite globale,Rationalite deduite globale"<<endl;
+          out<<"agressivite IA,Chances de gain IA qui profile,Agressivite attendue,Rationalite attendue,Agressivite reelle,Rationalite Reelle,distance moyenne,Agressivite deduite globale,Rationalite deduite globale"<<endl;
         }
 
 
@@ -175,47 +177,12 @@ void ScenariosDeTests::sauvegarderPartie(){
        fichier.close();
     }
 
+
     scenarioSuivant();
 }
 
 
 void ScenariosDeTests::calculerActionAttendueJoueur(QFile& fichierProfil){
-
-    //Si le fichier n'est pas vide, on regarde dedans si on a pas déjà une valeur pour les chances de gains et l'agressivité actuelle
-
-    QString ligneFichierProfil=fichierProfil.readLine();
-    QStringList listeLLecture;
-    QStringList listeProfilLePlusProche;
-    int diffAgressivite=1000;
-    int diffChancesGain=1000;
-
-    while(!ligneFichierProfil.isEmpty()){
-        listeLLecture = ligneFichierProfil.split(",");
-
-        if(listeLLecture.at(0)!="agressivite IA"){
-            int diffAgLigne=abs(calibrageActuelIA->getAgressivite()-listeLLecture.at(0).toDouble());
-            int diffCgLigne=abs(getChancesDeGain()-listeLLecture.at(1).toDouble());
-
-            //Si sur la ligne on a une ag et des chances de gains plus proches des valeurs actuelles
-            //On garde la nouvelle ligne
-            if(diffAgLigne<=diffAgressivite && diffCgLigne<=diffChancesGain){
-                diffAgressivite=diffAgLigne;
-                diffChancesGain=diffCgLigne;
-                listeProfilLePlusProche=listeLLecture;
-            }
-        }
-        ligneFichierProfil=fichierProfil.readLine();
-    }
-
-    //Si la différence est inférieure ou égale à 10%
-    if(diffAgressivite<=10 && diffChancesGain<=10){
-        actionAttendueJoueur.setAgressivite(listeProfilLePlusProche.at(4).toDouble());
-        actionAttendueJoueur.setRationalite(listeProfilLePlusProche.at(5).toDouble());
-
-    }
-
-    else{
-
 
     double intervalleAgressiviteAttendueInferieur=0;
     double intervalleAgressiviteAttendueSuperieur=0;
@@ -225,6 +192,14 @@ void ScenariosDeTests::calculerActionAttendueJoueur(QFile& fichierProfil){
 
     double intervalleChancesGainIAInferieur=0;
     double intervalleChancesGainIASuperieur=0;
+
+    //Si le fichier n'est pas vide, on regarde dedans si on a pas déjà une valeur pour les chances de gains et l'agressivité actuelle
+
+    ancienneSituationLAPlusProche(fichierProfil);
+
+
+    if(actionAttendueJoueur.getAgressivite()==-1 || actionAttendueJoueur.getRationalite()==-1){
+
 
         //On regarde dans le fichier dans lequel se trouvent les données de base.
 
@@ -236,8 +211,6 @@ void ScenariosDeTests::calculerActionAttendueJoueur(QFile& fichierProfil){
         std::cerr<<"Erreur lors de l'ouverture du fichier "<<std::endl;
     }
     else{
-
-
             QString ligne=fichier.readLine();
             QStringList liste;
             int ligneCalibrage=0;
@@ -246,13 +219,13 @@ void ScenariosDeTests::calculerActionAttendueJoueur(QFile& fichierProfil){
             int cpt=0;
 
             int calibrage=1;
-            //int chancesGain=1;
 
             while(!ligne.isEmpty()){
 
                  liste = ligne.split(",");
 
-                 //Si on a comme mot clef agressivité, ça veut dire qu'on a déjà traité les palliers de calibrage et qu'on en est aux palliers d'agressivité
+                 //Si on a comme mot clef agressivité, ça veut dire qu'on a déjà traité les palliers de calibrage
+                 //et qu'on en est aux palliers d'agressivité
                 if(liste.at(0)=="Agressivite"){
                     calibrage=0;
                 }
@@ -278,12 +251,10 @@ void ScenariosDeTests::calculerActionAttendueJoueur(QFile& fichierProfil){
                         intervalleChancesGainIASuperieur=liste.at(1).toDouble();
                         ligneChancesGains=cpt;
                     }
-
-
-
                 }
 
-                //Si l'intervalle d'agressivité de l'IA correspond au cptCalibrage et que les chances de gain de l'IA sont dans le bon intervalle,
+                //Si l'intervalle d'agressivité de l'IA correspond au cptCalibrage
+                //et que les chances de gain de l'IA sont dans le bon intervalle,
                 if(calibrage==2
                    && liste.at(0).toInt()==ligneCalibrage
                    && liste.at(1).toInt()==ligneChancesGains ){
@@ -296,21 +267,26 @@ void ScenariosDeTests::calculerActionAttendueJoueur(QFile& fichierProfil){
                 ligne=fichier.readLine();
             }
 
-        //On récupère l'intervalle d'agressivité attendue du joueur :
-        cpt=0;
-        fichier.seek(0);
-        while(!ligne.isEmpty()){
-            liste = ligne.split(",");
-            cpt++;
-            if(cpt==ligneAgressiviteAttendue){
-                intervalleAgressiviteAttendueInferieur=liste.at(0).toDouble();
-                intervalleAgressiviteAttendueSuperieur=liste.at(1).toDouble();
-                break;
-                break;
+            //On récupère l'intervalle d'agressivité attendue du joueur :
+            cpt=0;
+            fichier.seek(0);
+            while(!ligne.isEmpty()){
+                liste = ligne.split(",");
+                cpt++;
+                if(cpt==ligneAgressiviteAttendue){
+                    intervalleAgressiviteAttendueInferieur=liste.at(0).toDouble();
+                    intervalleAgressiviteAttendueSuperieur=liste.at(1).toDouble();
+                    break;
+                    break;
+                }
+                ligne=fichier.readLine();
             }
-            ligne=fichier.readLine();
         }
+     fichier.seek(0);
+    }
 
+    //Si on n'a pas d'agressivité attendue et de rationalité attendue:
+    if(actionAttendueJoueur.getAgressivite()==-1 || actionAttendueJoueur.getRationalite()==-1){
 
         //On calcule le taux d'agressivité attendu :
        double agressiviteAttendue=((getChancesDeGain()-intervalleChancesGainIAInferieur)
@@ -323,9 +299,11 @@ void ScenariosDeTests::calculerActionAttendueJoueur(QFile& fichierProfil){
         //Le taux de rationalité attendu est à 80% par défaut :
         actionAttendueJoueur.setRationalite(80.0);
 
-        fichier.seek(0);
+
     }
-   }
+
+
+
 }
 
 void ScenariosDeTests::calculerDistance(){
@@ -339,11 +317,55 @@ void ScenariosDeTests::calculerDistance(){
 
 
 void ScenariosDeTests::scenarioSuivant(){
+
+    actionAttendueJoueur.setAgressivite(-1);
+    actionAttendueJoueur.setRationalite(-1);
+
     //On tire aléatoirement un nouveau taux d'agressivite:
     int agressivite=rand()%100+1;
+
     calibrageActuelIA->setAgressivite(agressivite);
     Logger::getInstance()->ajoutLogs("Calibrage IA profilage: agressivité: "+QString::number(agressivite)+" rationalité: "+QString::number(RATIONALITE_IA_PROFILAGE));
+}
 
+void ScenariosDeTests::ancienneSituationLAPlusProche(QFile& fichierProfil){
+    ///////////////////////////TODO///////////////////////////////
+    ///Faire le même test pour les chances de gain du joueur   ///
+    ///quand elles seront implémentées.                        ///
+    //////////////////////////////////////////////////////////////
+    if(fichierProfil.size()!=0){
+        fichierProfil.seek(0);
+        QString ligne=fichierProfil.readLine();
+        ligne=fichierProfil.readLine(); //on lit une deuxième fois pour sauter la première ligne
+        QStringList liste;
+        int differenceAgressivite=0;
+        int differenceChancesGainIA=0;
+        int distancePrecedence=1000;
+
+        //On va parcourir tout le fichier pour récupérer le profil le plus proche possible s'il y en a un
+        while(!ligne.isEmpty()){
+            liste=ligne.split(",");
+
+            differenceAgressivite=abs(liste.at(AGRESSIVITE_IA).toDouble()-calibrageActuelIA->getAgressivite());
+
+            //Si l'agressivité varie de + ou - la variation autorisée, On fait la même chose pour les chances de gain de l'IA
+            if(differenceAgressivite<=VARIATION_AUTORISEE && differenceAgressivite>=0){
+
+                //On regarde la différence de chances de gains de l'IA:
+                differenceChancesGainIA=abs(liste.at(CHANCES_GAIN_IA).toDouble()-getChancesDeGain());
+                if(differenceChancesGainIA<=VARIATION_AUTORISEE && differenceChancesGainIA>=0){
+
+                    //Si la distance est plus petite que la distance du cas précédemment trouvé
+                    if(liste.at(DISTANCE).toDouble()<distancePrecedence){
+                        actionAttendueJoueur.setAgressivite(liste.at(AGRESSIVITE_REELLE).toDouble());
+                        actionAttendueJoueur.setRationalite(liste.at(RATIONALITE_REELLE).toDouble());
+                    }
+                }
+            }
+
+            ligne=fichierProfil.readLine();
+        }
+    }
 
 }
 

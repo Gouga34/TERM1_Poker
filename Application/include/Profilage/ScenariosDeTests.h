@@ -142,6 +142,14 @@ public:
      */
     void calculerDistance();
 
+    /**
+     * @brief ancienneSituationLAPlusProche
+     * @action cherche et trouve s'il y en a une, la situation déjà rencontrée la plus proche de la situation actuelle
+     * (chances de gain et agressivité et chances de gain joueur)
+     * @param fichierProfil
+     */
+    void ancienneSituationLAPlusProche(QFile &fichierProfil);
+
 
 
 };
