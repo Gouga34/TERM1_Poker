@@ -58,13 +58,13 @@ class Fenetre : public QWidget
         // Boutons d'action de jeu
         QPushButton boutons[NB_BOUTONS];
 
-        bool activationBoutons[NB_BOUTONS];
-
         Jeu *jeu;
+        ACTION actionUtilisateur;
 
 
         /**
          * @action Active ou désactive l'ensemble des boutons d'action du joueur
+         *         Lors de l'activation, vérifie les actions possibles
          * @param active Vrai s'il faut activer les boutons, faux pour les désactiver
          */
         void activeBoutons(bool active);
@@ -74,16 +74,6 @@ class Fenetre : public QWidget
          *                      à partir du jeu et les affiche
          */
         void afficheTable();
-
-        /**
-         * @action joueurCourant Active les boutons permettant au joueur d'effectuer une action
-         */
-        void joueurCourant();
-
-        /**
-         * @action jeuIA Lance la méthode de jeu de l'IA et actulaise l'interface en conséquence
-         */
-        void jeuIA();
 
     public:
 
@@ -99,12 +89,18 @@ class Fenetre : public QWidget
          */
         void ajoutLogs(QString contenu);
 
+        /**
+         * @brief getAction
+         * @return Retourne l'action du joueur lorsque c'est à lui de jouer
+         */
+        Action getAction();
+
     signals:
 
         /**
-         * @action Signal émis lorsque le tour d'un joueur (humain/IA) est terminé
+         * @action Signal émis lorsque le joueur a choisi une action
          */
-        void tourFini();
+        void actionChoisie();
 
     public slots:
 
@@ -117,11 +113,6 @@ class Fenetre : public QWidget
          * @action Distribue les cartes de pre-flop à tous les joueurs et lance le jeu
          */
         void demarragePartie();
-
-        /**
-         * @action Lance le tour du prochain joueur à partir du jeu et met à jour la table si besoin
-         */
-        void prochainJoueur();
 
         /**
          * @action Effectue les actions de fin de partie

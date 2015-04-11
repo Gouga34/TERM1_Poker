@@ -19,7 +19,7 @@ IntelligenceArtificielle::IntelligenceArtificielle(bool estDealer, int jetons, i
 
 }
 
-IntelligenceArtificielle::IntelligenceArtificielle(Joueur joueur): Joueur(joueur){
+IntelligenceArtificielle::IntelligenceArtificielle(const IntelligenceArtificielle& joueur): Joueur(joueur){
     resolveur = new Resolveur(this);
 }
 

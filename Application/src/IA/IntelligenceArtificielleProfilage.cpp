@@ -16,7 +16,7 @@ IntelligenceArtificielleProfilage::IntelligenceArtificielleProfilage(bool estDea
 
 }
 
-IntelligenceArtificielleProfilage::IntelligenceArtificielleProfilage(Joueur joueur)
+IntelligenceArtificielleProfilage::IntelligenceArtificielleProfilage(const IntelligenceArtificielle& joueur)
     : IntelligenceArtificielle(joueur), profilage(0), scenario(0)
 {
 

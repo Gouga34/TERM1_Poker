@@ -11,12 +11,15 @@ Specification: Fichier contenant les définitions de la classe Fenetre.
 #include "../../include/Interface/CartesDialog.h"
 #include "../../include/Interface/ChoixOptionsDialog.h"
 #include "../../include/Interface/Logger.h"
+#include "../../include/Jeu/JoueurHumain.h"
 #include "../../include/IA/IntelligenceArtificielleProfilage.h"
 
-#include<QString>
+#include <QString>
 #include <QVBoxLayout>
 #include <iostream>
 #include <QScrollBar>
+#include <QEventLoop>
+
 using namespace std;
 
 QPixmap *Fenetre::textureCartes = 0;
@@ -31,11 +34,6 @@ Fenetre::Fenetre() : QWidget()
     QPalette pal(palette());
     pal.setColor(QPalette::Background, QColor(20, 127, 20));
     setPalette(pal);
-
-
-    for (int i = 0; i < NB_BOUTONS; i++) {
-        activationBoutons[i] = true;
-    }
 
 
     //Récupération des options du jeu
@@ -54,6 +52,7 @@ Fenetre::Fenetre() : QWidget()
     jeu = new Jeu(2, 20, CAVE_JOUEURS);
 
     Joueur *j1 = new IntelligenceArtificielle(true, CAVE_JOUEURS, 0);
+    //Joueur *j1 = new JoueurHumain(true, CAVE_JOUEURS, 0, this);
     IntelligenceArtificielleProfilage *ia = new IntelligenceArtificielleProfilage(false, CAVE_JOUEURS, 1);
     ia->setPseudoJoueurProfile(pseudoJoueur.toStdString());
     //ia->setCalibrage(calibrageIa);
@@ -192,7 +191,7 @@ Fenetre::Fenetre() : QWidget()
 
     QHBoxLayout *layoutJoueur = new QHBoxLayout;
 
-    valeurMise.setMaximum(10000);
+    valeurMise.setRange(1, 10000);
 
     layoutJoueur->setAlignment(Qt::AlignRight);
     layoutJoueur->setSpacing(50);
@@ -221,9 +220,6 @@ Fenetre::Fenetre() : QWidget()
 
     setLayout(layout);
 
-    connect(this, SIGNAL(tourFini()), this, SLOT(prochainJoueur()));
-
-
     Logger::creerInstance(this);
 }
 
@@ -242,6 +238,8 @@ void Fenetre::affichageLogs()
 void Fenetre::ajoutLogs(QString contenu)
 {
     logs.setText(logs.toPlainText() + contenu + "\n");
+
+    // Scroll automatique vers la fin
     QScrollBar *sb=logs.verticalScrollBar();
     sb->setValue(sb->maximum());
 }
@@ -272,6 +270,8 @@ void Fenetre::demarragePartie()
 
 
         jeu->distributionMain();
+
+        // Réinitialisation jeu
         jeu->setPot(0);
         jeu->getJoueur(0)->setCave(CAVE_JOUEURS);
         jeu->getJoueur(1)->setCave(CAVE_JOUEURS);
@@ -325,8 +325,7 @@ void Fenetre::demarragePartie()
         jeu->lancer();
         afficheTable();
         partieTermine();
-        //sleep(1);
-        }
+    }
 }
 
 void Fenetre::afficheTable()
@@ -341,230 +340,121 @@ void Fenetre::afficheTable()
         CarteGraphique *dos = new CarteGraphique(0, 0);
         layoutCartesCommunes.addWidget(dos);
     }
-
-    Logger::getInstance()->ajoutLogs("Ajout de cartes sur la table");
 }
 
 void Fenetre::activeBoutons(bool active)
 {
-    // Pour chaque bouton, soit on le désactive ou on regarde son état si activation
-
-    for (int i = 0; i < NB_BOUTONS; i++) {
-        bool enable = active ? activationBoutons[i] : active;
-        boutons[i].setEnabled(enable);
-    }
-
-    if(jeu->peutChecker(0)){
-         activationBoutons[CHECKER] = true;
-    }else{
-        activationBoutons[CHECKER] = false;
-    }
-
-    if(jeu->peutMiser(0,1)){
-         activationBoutons[MISER] = true;
-    }else{
-        activationBoutons[MISER] = false;
-    }
-
-    if(jeu->peutSuivre(0)){
-         activationBoutons[SUIVRE] = true;
-    }else{
-        activationBoutons[SUIVRE] = false;
-    }
-
-    if(jeu->peutRelancer(0,1)){
-         activationBoutons[RELANCER] = true;
-    }else{
-        activationBoutons[RELANCER] = false;
-    }
-}
-
-void Fenetre::joueurCourant()
-{
-        activeBoutons(true);
-}
-
-void Fenetre::jeuIA()
-{
-
-        IntelligenceArtificielle *ia = static_cast<IntelligenceArtificielle*>(jeu->getJoueur(jeu->getJoueurCourant()));
-        Action a = ia->jouer();
-        jeu->executerAction(1, a);
-
-        switch (jeu->getAction()) {
-            case ACTION::CHECKER:
-                actionEffectueeIA.setText("Check");
-                Logger::getInstance()->ajoutLogs("IA check");
-                break;
-
-
-            case ACTION::MISER:
-                actionEffectueeIA.setText("Mise : "+QString::number(jeu->getMiseCourante()));
-                activationBoutons[MISER] = false;
-                activationBoutons[CHECKER] = false;
-
-                valeurMise.setMinimum(2 * jeu->getMiseCourante());
-
-                caveIA.display(jeu->getJoueur(1)->getCave());
-                pot.display(jeu->getPot());
-
-                Logger::getInstance()->ajoutLogs("IA mise " + QString::number(jeu->getMiseCourante()));
-                break;
-
-
-            case ACTION::SUIVRE:
-                actionEffectueeIA.setText("Suit");
-                caveIA.display(jeu->getJoueur(1)->getCave());
-                pot.display(jeu->getPot());
-
-                Logger::getInstance()->ajoutLogs("IA suit");
-                break;
-
-
-            case ACTION::RELANCER:
-                actionEffectueeIA.setText("Relance : "+QString::number(jeu->getMiseCourante()));
-                valeurMise.setMinimum(2 * jeu->getMiseCourante());
-
-                caveIA.display(jeu->getJoueur(1)->getCave());
-                pot.display(jeu->getPot());
-
-                Logger::getInstance()->ajoutLogs("IA relance " + QString::number(jeu->getMiseCourante()));
-                break;
-
-            case ACTION::SE_COUCHER:
-                actionEffectueeIA.setText("Se couche");
-                Logger::getInstance()->ajoutLogs("IA se couche");
-                partieTermine();
-                return;
-                break;
-
-            case ACTION::TAPIS:
-                actionEffectueeIA.setText("IA fait tapis");
-
-                caveIA.display(jeu->getJoueur(1)->getCave());
-                pot.display(jeu->getPot());
-
-                Logger::getInstance()->ajoutLogs("IA fait tapis");
-
-                break;
-
-            default:
-                break;
+    // On désactive tous les boutons en fin de tour
+    if (!active) {
+        for (int i = 0; i < NB_BOUTONS; i++) {
+            boutons[i].setEnabled(false);
         }
+    }
+    else {      // Sinon on vérifie les actions possibles pour les activer
 
-    emit tourFini();
+        for (int i = 0; i < NB_BOUTONS; i++) {
+            switch (i) {
+
+                case CHECKER:
+                    boutons[i].setEnabled(jeu->peutChecker(0));
+                    break;
+
+                case MISER:
+                    boutons[i].setEnabled(jeu->peutMiser(0, 1));
+                    break;
+
+                case SUIVRE:
+                    boutons[i].setEnabled(jeu->peutSuivre(0));
+                    break;
+
+                case RELANCER:
+                    boutons[i].setEnabled(jeu->peutRelancer(0, 2 * jeu->getMiseCourante()));
+                    break;
+
+                default:
+                    boutons[i].setEnabled(true);
+                    break;
+            }
+        }
+    }
+
+    valeurMise.setMinimum(2 * jeu->getMiseCourante());
+    valeurMise.setMaximum(jeu->getJoueur(0)->getCave());
 }
 
-void Fenetre::prochainJoueur()
+Action Fenetre::getAction()
 {
+    // Mise à jour des informations
+    afficheTable();
+    pot.display(jeu->getPot());
+    caveJoueur.display(jeu->getJoueur(0)->getCave());
+    caveIA.display(jeu->getJoueur(1)->getCave());
+
+
+    activeBoutons(true);
+
+    // Attente d'une action de l'utilisateur
+    QEventLoop loop;
+    connect(this, SIGNAL(actionChoisie()), &loop, SLOT(quit()));
+    loop.exec();
+
     activeBoutons(false);
 
-    if (!jeu->prochainJoueur()){
-        partieTermine();
-        return;
-    }
-
-    if (jeu->debutTour()) {
-        afficheTable();
-        valeurMise.setMinimum(0);
-    }
-
-
-    if (jeu->getJoueurCourant() == 0) {     // Joueur humain
-        if(this->jeu->getListeActions().at(this->jeu->getJoueurCourant()) != ACTION::TAPIS && this->jeu->peutJouer(this->jeu->getJoueurCourant())){
-            joueurCourant();
-        }else{
-            emit tourFini();
-        }
-
-    }
-    else {                                  // Intelligence artificielle
-
-        if(this->jeu->getListeActions().at(this->jeu->getJoueurCourant()) != ACTION::TAPIS && this->jeu->peutJouer(this->jeu->getJoueurCourant())){
-            jeuIA();
-        }else{
-            emit tourFini();
-        }
-    }
-
- }
-
+    return Action(actionUtilisateur, valeurMise.value());
+}
 
 void Fenetre::checker()
 {
-   jeu->executerAction(0,Action(ACTION::CHECKER));
+    actionUtilisateur = ACTION::CHECKER;
 
     Logger::getInstance()->ajoutLogs("Joueur 1 check");
 
-    emit tourFini();
+    emit actionChoisie();
 }
 
 void Fenetre::miser()
 {
-    int montant = valeurMise.value();
+    actionUtilisateur = ACTION::MISER;
 
-    jeu->executerAction(0,Action(ACTION::MISER, montant));
+    Logger::getInstance()->ajoutLogs("Joueur 1 mise " + QString::number(valeurMise.value()));
 
-    caveJoueur.display(jeu->getJoueur(0)->getCave());
-    pot.display(jeu->getPot());
-
-    Logger::getInstance()->ajoutLogs("Joueur 1 mise " + QString::number(montant));
-
-    emit tourFini();
+    emit actionChoisie();
 }
 
 void Fenetre::suivre()
 {
-    jeu->executerAction(0,Action(ACTION::SUIVRE));
-
-    caveJoueur.display(jeu->getJoueur(0)->getCave());
-    pot.display(jeu->getPot());
-
-    activationBoutons[CHECKER] = true;
-    activationBoutons[MISER] = true;
-    valeurMise.setMinimum(jeu->getBlind());
+    actionUtilisateur = ACTION::SUIVRE;
 
     Logger::getInstance()->ajoutLogs("Joueur 1 suit");
 
-    emit tourFini();
+    emit actionChoisie();
 }
 
 void Fenetre::relancer()
 {
-    int montant = valeurMise.value();
+    actionUtilisateur = ACTION::RELANCER;
 
-    jeu->executerAction(0,Action(ACTION::RELANCER, montant));
+    Logger::getInstance()->ajoutLogs("Joueur 1 relance " + QString::number(valeurMise.value()));
 
-    caveJoueur.display(jeu->getJoueur(0)->getCave());
-    pot.display(jeu->getPot());
-
-    activationBoutons[CHECKER] = true;
-    activationBoutons[MISER] = true;
-    valeurMise.setMinimum(jeu->getBlind());
-
-    Logger::getInstance()->ajoutLogs("Joueur 1 relance " + QString::number(montant));
-
-    emit tourFini();
+    emit actionChoisie();
 }
 
 void Fenetre::seCoucher()
 {
-    jeu->executerAction(0,Action(ACTION::SE_COUCHER));
+    actionUtilisateur = ACTION::SE_COUCHER;
 
     Logger::getInstance()->ajoutLogs("Joueur 1 se couche");
 
-    partieTermine();
+    emit actionChoisie();
 }
 
 void Fenetre::tapis()
 {
-    jeu->executerAction(0,ACTION::TAPIS);
-    caveJoueur.display(jeu->getJoueur(0)->getCave());
-    pot.display(jeu->getPot());
+    actionUtilisateur = ACTION::TAPIS;
 
     Logger::getInstance()->ajoutLogs("Joueur 1 fait tapis");
 
-    emit tourFini();
+    emit actionChoisie();
 }
 
 void Fenetre::partieTermine()

@@ -40,7 +40,7 @@ class IntelligenceArtificielle : public Joueur {
 		*@action : Constructeur de la classe Intelligence Artificielle par copie de la classe Joueur
 		*@param  : L'instance de la classe Joueur utilisee pour la copie
 		**/		
-		IntelligenceArtificielle(Joueur joueur);
+        IntelligenceArtificielle(const IntelligenceArtificielle& joueur);
 		
 		/**
 		*@action : Destructeur de la classe Intelligence Artificielle

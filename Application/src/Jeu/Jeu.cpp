@@ -66,35 +66,37 @@ void Jeu::nouvelleEtape(ETAPE_JEU etape){
 
     if(etape != ETAPE_JEU::PREFLOP){
 
-    this->joueurCourant = (this->dealer + 1) % this->listeJoueurs.size();
-    this->miseCourante = 0;
-    cumulMisesEtRelances = 0;
+        this->joueurCourant = (this->dealer + 1) % this->listeJoueurs.size();
+        this->miseCourante = 0;
+        cumulMisesEtRelances = 0;
 
-    this->resetActions();
+        this->resetActions();
 
-    int nbCartes = 0;
-    if (etape == ETAPE_JEU::FLOP) {
-        nbCartes = 3;
-    }
-    else if (etape == ETAPE_JEU::TURN || etape == ETAPE_JEU::RIVER) {
-        nbCartes = 1;
-    }
+        int nbCartes = 0;
+        if (etape == ETAPE_JEU::FLOP) {
+            nbCartes = 3;
+        }
+        else if (etape == ETAPE_JEU::TURN || etape == ETAPE_JEU::RIVER) {
+            nbCartes = 1;
+        }
 
-    if(this->tableTmp.empty()){
-        for(int i=0; i<nbCartes; i++){
-            if(deck.size() > 0){
-                int position = rand() % deck.size();
-                this->table.push_back(this->deck.at(position) );
-                this->deck.erase(this->deck.begin() + position);
+        Logger::getInstance()->ajoutLogs("Ajout de cartes sur la table");
+
+        if(this->tableTmp.empty()){
+            for(int i=0; i<nbCartes; i++){
+                if(deck.size() > 0){
+                    int position = rand() % deck.size();
+                    this->table.push_back(this->deck.at(position) );
+                    this->deck.erase(this->deck.begin() + position);
+                }
+            }
+        }else{
+            for(int i=0; i<nbCartes; i++){
+                    this->table.push_back(this->tableTmp.at(0));
+                    this->deck.erase(this->tableTmp.erase(this->tableTmp.begin()));
             }
         }
-    }else{
-        for(int i=0; i<nbCartes; i++){
-                this->table.push_back(this->tableTmp.at(0));
-                this->deck.erase(this->tableTmp.erase(this->tableTmp.begin()));
-        }
     }
-      }
 
     IntelligenceArtificielle *ia = static_cast<IntelligenceArtificielle*>(this->getJoueur(0));
     ia->estimationChancesDeGain();

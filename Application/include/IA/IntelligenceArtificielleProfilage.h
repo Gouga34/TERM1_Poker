@@ -26,7 +26,7 @@ class IntelligenceArtificielleProfilage : public IntelligenceArtificielle
     public:
 
         IntelligenceArtificielleProfilage(bool estDealer, int jetons, int position);
-        IntelligenceArtificielleProfilage(Joueur joueur);
+        IntelligenceArtificielleProfilage(const IntelligenceArtificielle& joueur);
         virtual ~IntelligenceArtificielleProfilage();
 
 
