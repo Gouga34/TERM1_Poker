@@ -17,7 +17,7 @@ Specification: Fichier contenant les définitions de la classe Profilage.
 
 
 Profilage::Profilage(Profil *profil)
-    : profilJoueur(profil), profilIA(), typeJoueur{0},
+    : profilIA(), typeJoueur{0}, profilJoueur(profil),
       etatPartie{{false, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}}
 {
 

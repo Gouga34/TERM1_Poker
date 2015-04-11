@@ -192,11 +192,7 @@ void Jeu::jouerArgent(int posJoueur, int jetons) {
     setPot(getPot() + jetons);
 
     getJoueur(posJoueur)->setMiseCourante(jetons);
-    miseCourante = getJoueur(posJoueur)->getMiseCourante();
-
     getJoueur(posJoueur)->setMiseTotale(getJoueur(posJoueur)->getMiseTotale() + jetons);
-
-    cumulMisesEtRelances = getJoueur(posJoueur)->getMiseTotale();
 
     if (jetons > getJoueur(posJoueur)->getMisePlusHaute()) {
         getJoueur(posJoueur)->setMisePlusHaute(jetons);
@@ -208,6 +204,9 @@ void Jeu::jouerArgent(int posJoueur, int jetons) {
 void Jeu::miser(int posJoueur, int jetons){
 
     jouerArgent(posJoueur, jetons);
+    miseCourante = jetons;
+    cumulMisesEtRelances = jetons;
+
     this->actions[this->getJoueur(posJoueur)->getPosition()] = ACTION::MISER;
     this->getJoueur(posJoueur)->getCompteurActions()[0]++;
 }
@@ -219,6 +218,8 @@ void Jeu::tapis(int posJoueur, ACTION action){
 
     if (action == MISER || action == RELANCER) {
         this->getJoueur(posJoueur)->getCompteurActions()[0]++;
+        miseCourante = getJoueur(posJoueur)->getCave();
+        cumulMisesEtRelances = getJoueur(posJoueur)->getMiseTotale();
     }
     else {
         this->getJoueur(posJoueur)->getCompteurActions()[1]++;
@@ -232,6 +233,9 @@ void Jeu::relancer(int posJoueur, int jetons){
     if(jetons <= this->getJoueur(posJoueur)->getCave()){
 
         jouerArgent(posJoueur, jetons);
+        miseCourante = jetons;
+        cumulMisesEtRelances = getJoueur(posJoueur)->getMiseTotale();
+
         this->actions[this->getJoueur(posJoueur)->getPosition()] = ACTION::RELANCER;
         this->getJoueur(posJoueur)->getCompteurActions()[0]++;
 

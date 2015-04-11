@@ -25,7 +25,7 @@ class Profilage
     public:
 
         int typeJoueur[PROFIL_JOUEUR::NB_PROFILS];
-         Profil *profilJoueur;
+        Profil *profilJoueur;
 
         struct EtapePartie
         {
