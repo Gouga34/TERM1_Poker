@@ -24,6 +24,7 @@
  */
 #define RATIONALITE_IA_PROFILAGE                80.0
 #define NOMBRE_PARTIES                          1
+#define VARIATION_AUTORISEE                     10
 
 
 /**
