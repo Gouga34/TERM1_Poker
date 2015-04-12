@@ -196,7 +196,7 @@ class Joueur{
         /**
          * @action Fait jouer le joueur lorsque c'est son tour
          */
-        virtual Action jouer();
+        virtual Action jouer() = 0;
 };
 
 #endif

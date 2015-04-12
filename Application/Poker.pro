@@ -21,7 +21,8 @@ SOURCES += \
     src/Profilage/Profil.cpp \
     src/Profilage/ScenariosDeTests.cpp \
     src/IA/IntelligenceArtificielleProfilage.cpp \
-    src/Jeu/Action.cpp
+    src/Jeu/Action.cpp \
+    src/Jeu/JoueurHumain.cpp
 
 
 QT+=widgets
@@ -49,7 +50,8 @@ HEADERS += \
     include/Profilage/Profil.h \
     include/Profilage/ScenariosDeTests.h \
     include/IA/IntelligenceArtificielleProfilage.h \
-    include/Jeu/Action.h
+    include/Jeu/Action.h \
+    include/Jeu/JoueurHumain.h
 
 CONFIG += c++11
 

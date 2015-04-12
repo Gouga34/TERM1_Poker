@@ -19,7 +19,7 @@ IntelligenceArtificielle::IntelligenceArtificielle(bool estDealer, int jetons, i
 
 }
 
-IntelligenceArtificielle::IntelligenceArtificielle(Joueur joueur): Joueur(joueur){
+IntelligenceArtificielle::IntelligenceArtificielle(const IntelligenceArtificielle& joueur): Joueur(joueur){
     resolveur = new Resolveur(this);
 }
 
@@ -31,7 +31,7 @@ IntelligenceArtificielle::~IntelligenceArtificielle(){
 
 double IntelligenceArtificielle::calculProba(){
 
-    ifstream fichier("../Application/ressources/Probas/probas_preflops", ios::in);
+    ifstream fichier(FICHIER_PROBAS_PREFLOP, ios::in);
 	double probabilite = 0;
  
         if(fichier){
