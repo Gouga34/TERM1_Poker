@@ -16,6 +16,7 @@ Specification: Fichier contenant les définitions de la classe
 #include<QFile>
 #include<QTextStream>
 #include "../../include/Interface/ChoixOptionsDialog.h"
+#include "../../include/Constantes.h"
 
 
 using namespace std;
@@ -92,7 +93,7 @@ void ChoixOptionsDialog::ajouterPseudosConnus(){
     //Ajout d'un pseudo vide :
     pseudos.addItem("");
     //Ouverture du fichier
-    QFile fichierPseudos("../Application/ressources/Profilage/ProfilageStatique/pseudos.txt");
+    QFile fichierPseudos(QString::fromStdString(FICHIER_PSEUDOS_PROFILAGE));
 
     if(!fichierPseudos.open(QIODevice::ReadOnly | QIODevice::Text)){
         cerr<<"Erreur lors de l'ouverture du fichier contenant la liste des pseudos"<<endl;

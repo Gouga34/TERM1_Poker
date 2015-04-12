@@ -31,7 +31,7 @@ IntelligenceArtificielle::~IntelligenceArtificielle(){
 
 double IntelligenceArtificielle::calculProba(){
 
-    ifstream fichier("../Application/ressources/Probas/probas_preflops", ios::in);
+    ifstream fichier(FICHIER_PROBAS_PREFLOP, ios::in);
 	double probabilite = 0;
  
         if(fichier){

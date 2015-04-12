@@ -104,7 +104,7 @@ Fenetre::Fenetre() : QWidget()
 
     // Chargement de l'image
     if (!textureCartes){
-        textureCartes = new QPixmap("../Application/ressources/Interface/deck.png");
+        textureCartes = new QPixmap(QString::fromStdString(TEXTURE_CARTES));
     }
 
     QHBoxLayout *layoutAdversaire =new QHBoxLayout;

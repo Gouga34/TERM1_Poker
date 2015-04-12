@@ -11,10 +11,16 @@
 #define CAVE_JOUEURS                            1000
 
 
+#define DOSSIER_RESSOURCES                      "../Application/ressources/"
+#define FICHIER_PROBAS_PREFLOP                  DOSSIER_RESSOURCES+std::string("Probas/probas_preflops")
+#define TEXTURE_CARTES                          DOSSIER_RESSOURCES+std::string("Interface/deck.png")
+
 //Constantes correspondant à l'accés aux fichiers de profilages
-#define DOSSIER_PROFILAGE                       "../Application/ressources/Profilage/"
+#define DOSSIER_PROFILAGE                       DOSSIER_RESSOURCES+std::string("Profilage/")
 #define DOSSIER_PROFILAGE_STATIQUE              DOSSIER_PROFILAGE+std::string("ProfilageStatique/")
 #define DOSSIER_PROFILAGE_DYNAMIQUE             DOSSIER_PROFILAGE+std::string("ProfilageDynamique/")
+
+#define FICHIER_PSEUDOS_PROFILAGE               DOSSIER_PROFILAGE_STATIQUE+std::string("pseudos.txt")
 
 
 /*
