@@ -17,7 +17,7 @@ Specification: Fichier contenant les définitions de la classe Profilage.
 
 
 Profilage::Profilage(Profil *profil)
-    : profilJoueur(profil), profilIA(), typeJoueur{0},
+    : profilIA(), typeJoueur{0}, profilJoueur(profil),
       etatPartie{{false, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}}
 {
 
@@ -31,7 +31,7 @@ Profilage::~Profilage()
 void Profilage::charger()
 {
     QString nomFichier = QString::fromStdString(profilJoueur->getPseudo()) + ".json";
-    QFile fichier("../Application/ressources/Profilage/ProfilageStatique/" + nomFichier);
+    QFile fichier(QString::fromStdString(DOSSIER_PROFILAGE_STATIQUE) + nomFichier);
     if (!fichier.open(QIODevice::ReadOnly)) {
         std::cerr << "Le fichier du pseudo " << profilJoueur->getPseudo() << " n'existe pas encore." << std::endl;
         return;
@@ -95,7 +95,7 @@ void Profilage::charger()
 void Profilage::sauvegarder()
 {
    QString nomFichier = QString::fromStdString(profilJoueur->getPseudo()) + ".json";
-   QFile fichier("../Application/ressources/Profilage/ProfilageStatique/" + nomFichier);
+   QFile fichier(QString::fromStdString(DOSSIER_PROFILAGE_STATIQUE) + nomFichier);
 
    QJsonDocument doc;
    QJsonObject json;
@@ -106,7 +106,7 @@ void Profilage::sauvegarder()
 
            bool dejaPresent = false;
 
-           QFile pseudo("../Application/ressources/Profilage/ProfilageStatique/pseudos.txt");
+           QFile pseudo(QString::fromStdString(FICHIER_PSEUDOS_PROFILAGE));
            if (!pseudo.open(QIODevice::ReadOnly | QIODevice::Text)) {
                std::cerr << "Erreur lors de l'ouverture du fichier des pseudos !" << std::endl;
                return;
@@ -126,7 +126,7 @@ void Profilage::sauvegarder()
 
            if(!dejaPresent){
                // Ouverture de la liste des pseudos
-               QFile listePseudos("../Application/ressources/Profilage/ProfilageStatique/pseudos.txt");
+               QFile listePseudos(QString::fromStdString(FICHIER_PSEUDOS_PROFILAGE));
                if (!listePseudos.open(QIODevice::Append | QIODevice::Text)) {
                    std::cerr << "Erreur lors de l'ouverture du fichier des pseudos !" << std::endl;
                    return;

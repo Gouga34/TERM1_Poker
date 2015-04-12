@@ -66,35 +66,37 @@ void Jeu::nouvelleEtape(ETAPE_JEU etape){
 
     if(etape != ETAPE_JEU::PREFLOP){
 
-    this->joueurCourant = (this->dealer + 1) % this->listeJoueurs.size();
-    this->miseCourante = 0;
-    cumulMisesEtRelances = 0;
+        this->joueurCourant = (this->dealer + 1) % this->listeJoueurs.size();
+        this->miseCourante = 0;
+        cumulMisesEtRelances = 0;
 
-    this->resetActions();
+        this->resetActions();
 
-    int nbCartes = 0;
-    if (etape == ETAPE_JEU::FLOP) {
-        nbCartes = 3;
-    }
-    else if (etape == ETAPE_JEU::TURN || etape == ETAPE_JEU::RIVER) {
-        nbCartes = 1;
-    }
+        int nbCartes = 0;
+        if (etape == ETAPE_JEU::FLOP) {
+            nbCartes = 3;
+        }
+        else if (etape == ETAPE_JEU::TURN || etape == ETAPE_JEU::RIVER) {
+            nbCartes = 1;
+        }
 
-    if(this->tableTmp.empty()){
-        for(int i=0; i<nbCartes; i++){
-            if(deck.size() > 0){
-                int position = rand() % deck.size();
-                this->table.push_back(this->deck.at(position) );
-                this->deck.erase(this->deck.begin() + position);
+        Logger::getInstance()->ajoutLogs("Ajout de cartes sur la table");
+
+        if(this->tableTmp.empty()){
+            for(int i=0; i<nbCartes; i++){
+                if(deck.size() > 0){
+                    int position = rand() % deck.size();
+                    this->table.push_back(this->deck.at(position) );
+                    this->deck.erase(this->deck.begin() + position);
+                }
+            }
+        }else{
+            for(int i=0; i<nbCartes; i++){
+                    this->table.push_back(this->tableTmp.at(0));
+                    this->deck.erase(this->tableTmp.erase(this->tableTmp.begin()));
             }
         }
-    }else{
-        for(int i=0; i<nbCartes; i++){
-                this->table.push_back(this->tableTmp.at(0));
-                this->deck.erase(this->tableTmp.erase(this->tableTmp.begin()));
-        }
     }
-      }
 
     IntelligenceArtificielle *ia = static_cast<IntelligenceArtificielle*>(this->getJoueur(0));
     ia->estimationChancesDeGain();
@@ -190,11 +192,7 @@ void Jeu::jouerArgent(int posJoueur, int jetons) {
     setPot(getPot() + jetons);
 
     getJoueur(posJoueur)->setMiseCourante(jetons);
-    miseCourante = getJoueur(posJoueur)->getMiseCourante();
-
     getJoueur(posJoueur)->setMiseTotale(getJoueur(posJoueur)->getMiseTotale() + jetons);
-
-    cumulMisesEtRelances = getJoueur(posJoueur)->getMiseTotale();
 
     if (jetons > getJoueur(posJoueur)->getMisePlusHaute()) {
         getJoueur(posJoueur)->setMisePlusHaute(jetons);
@@ -206,6 +204,9 @@ void Jeu::jouerArgent(int posJoueur, int jetons) {
 void Jeu::miser(int posJoueur, int jetons){
 
     jouerArgent(posJoueur, jetons);
+    miseCourante = jetons;
+    cumulMisesEtRelances = jetons;
+
     this->actions[this->getJoueur(posJoueur)->getPosition()] = ACTION::MISER;
     this->getJoueur(posJoueur)->getCompteurActions()[0]++;
 }
@@ -217,6 +218,8 @@ void Jeu::tapis(int posJoueur, ACTION action){
 
     if (action == MISER || action == RELANCER) {
         this->getJoueur(posJoueur)->getCompteurActions()[0]++;
+        miseCourante = getJoueur(posJoueur)->getCave();
+        cumulMisesEtRelances = getJoueur(posJoueur)->getMiseTotale();
     }
     else {
         this->getJoueur(posJoueur)->getCompteurActions()[1]++;
@@ -230,6 +233,9 @@ void Jeu::relancer(int posJoueur, int jetons){
     if(jetons <= this->getJoueur(posJoueur)->getCave()){
 
         jouerArgent(posJoueur, jetons);
+        miseCourante = jetons;
+        cumulMisesEtRelances = getJoueur(posJoueur)->getMiseTotale();
+
         this->actions[this->getJoueur(posJoueur)->getPosition()] = ACTION::RELANCER;
         this->getJoueur(posJoueur)->getCompteurActions()[0]++;
 
