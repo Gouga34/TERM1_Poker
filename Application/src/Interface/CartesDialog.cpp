@@ -72,8 +72,8 @@ CartesDialog::~CartesDialog()
 
 std::vector<int> CartesDialog::choixCartes()
 {
-    if (exec() == QDialog::Accepted
-        && std::find(cartesSelectionnees.begin(), cartesSelectionnees.end(), -1) == cartesSelectionnees.end()) {
+    if (exec() == QDialog::Accepted) {
+        //&& std::find(cartesSelectionnees.begin(), cartesSelectionnees.end(), -1) == cartesSelectionnees.end()) {
         return cartesSelectionnees;
     }
     else {
@@ -83,26 +83,24 @@ std::vector<int> CartesDialog::choixCartes()
 
 bool CartesDialog::ajoutCarte(int id, ListeCartes liste)
 {
-    if (std::find(cartesSelectionnees.begin(), cartesSelectionnees.end(), id) == cartesSelectionnees.end()) {
+    int pos = 0, nbCartes = 2;
+    if (liste == IA) {
+        pos = 2;
+    }
+    else if (liste == MILIEU) {
+        pos = 4;
+        nbCartes = 5;
+    }
 
-        int pos = 0, nbCartes = 2;
-        if (liste == IA) {
-            pos = 2;
-        }
-        else if (liste == MILIEU) {
-            pos = 4;
-            nbCartes = 5;
-        }
+    int i = pos;
+    while (i < cartesSelectionnees.size() && i < (pos + nbCartes)
+                && cartesSelectionnees.at(i) != -1) {
+        i++;
+    }
 
-        int i = pos;
-        while (i < (pos + nbCartes) && cartesSelectionnees.at(i) != -1) {
-            i++;
-        }
-
-        if (i < (pos + nbCartes)) {
-            cartesSelectionnees.at(i) = id;
-            return true;
-        }
+    if (i < cartesSelectionnees.size() && i < (pos + nbCartes)) {
+        cartesSelectionnees.at(i) = id;
+        return true;
     }
 
     return false;
@@ -126,11 +124,24 @@ void CartesDialog::carteSelectionnee(int id)
         liste = MILIEU;
     }
 
-    if (ajoutCarte(id, liste)) {
-        int rang = id % 13 + 1;
-        int couleur = id / 13;
 
-        QWidget *item = layoutCartes.itemAtPosition(couleur, rang)->widget();
-        item->setStyleSheet(style);
+    int rang = id % 13 + 1;
+    int couleur = id / 13;
+
+    QWidget *item = layoutCartes.itemAtPosition(couleur, rang)->widget();
+
+    std::vector<int>::iterator it = std::find(cartesSelectionnees.begin(), cartesSelectionnees.end(), id);
+
+    // Si on ne trouve pas la carte dans les cartes sélectionnées
+    if (it == cartesSelectionnees.end()) {
+
+        // On essaie de l'ajouter
+        if (ajoutCarte(id, liste)) {
+            item->setStyleSheet(style);
+        }
+    }
+    else {  // On supprime la carte de la liste
+        *it = -1;
+        item->setStyleSheet("");
     }
 }
