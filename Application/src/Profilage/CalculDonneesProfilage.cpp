@@ -80,45 +80,45 @@ double CalculDonneesProfilage::rationalite(const double chancesGain, const doubl
 }
 
 double CalculDonneesProfilage::agressivite(const double miseLaPlusHaute, const double tauxMises, const double totalMises){
-    double miseLaPlusHauteMin, miseLaPlusHauteMax, agressiviteMin, agressiviteMax, 
-                                                                ratioMises, ratioTotalMises; 
+    double totalMisesMin, totalMisesMax, agressiviteMin, agressiviteMax;
+    double ratioMises, ratioMisePlusHaute;
     double agressivite;
 
     //miseLaPlusHaute dans PALIER1 ?
-    if(miseLaPlusHaute>=AGRESSIVITE::PALIER1::DEBUT_MPH && miseLaPlusHaute<=AGRESSIVITE::PALIER1::FIN_MPH){
+    if(totalMises>=AGRESSIVITE::PALIER1::DEBUT_MISE_TOTALE && totalMises<=AGRESSIVITE::PALIER1::FIN_MISE_TOTALE){
         
-        miseLaPlusHauteMin=AGRESSIVITE::PALIER1::DEBUT_MPH;
-        miseLaPlusHauteMax=AGRESSIVITE::PALIER1::FIN_MPH;
+        totalMisesMin=AGRESSIVITE::PALIER1::DEBUT_MISE_TOTALE;
+        totalMisesMax=AGRESSIVITE::PALIER1::FIN_MISE_TOTALE;
         
         agressiviteMin=AGRESSIVITE::PALIER1::DEBUT_AG_THEORIQUE;
         agressiviteMax=AGRESSIVITE::PALIER1::FIN_AG_THEORIQUE;
 
         ratioMises=static_cast<double>(AGRESSIVITE::PALIER1::RATIO_NB_MISES_DIVISE)/AGRESSIVITE::PALIER1::RATIO_NB_MISES_DIVISEUR;
-        ratioTotalMises=static_cast<double>(AGRESSIVITE::PALIER1::RATIO_TOTAL_MISES_DIVISE)/AGRESSIVITE::PALIER1::RATIO_TOTAL_MISES_DIVISEUR;
+        ratioMisePlusHaute=static_cast<double>(AGRESSIVITE::PALIER1::RATIO_MPH_DIVISE)/AGRESSIVITE::PALIER1::RATIO_MPH_DIVISEUR;
     }
     //miseLaPlusHaute dans PALIER2 ?
-    else if(miseLaPlusHaute>AGRESSIVITE::PALIER1::FIN_MPH && miseLaPlusHaute<=AGRESSIVITE::PALIER2::FIN_MPH){
+    else if(totalMises>AGRESSIVITE::PALIER1::FIN_MISE_TOTALE && totalMises<=AGRESSIVITE::PALIER2::FIN_MISE_TOTALE){
         
-        miseLaPlusHauteMin=AGRESSIVITE::PALIER2::DEBUT_MPH;
-        miseLaPlusHauteMax=AGRESSIVITE::PALIER2::FIN_MPH;
+        totalMisesMin=AGRESSIVITE::PALIER2::DEBUT_MISE_TOTALE;
+        totalMisesMax=AGRESSIVITE::PALIER2::FIN_MISE_TOTALE;
         
         agressiviteMin=AGRESSIVITE::PALIER2::DEBUT_AG_THEORIQUE;
         agressiviteMax=AGRESSIVITE::PALIER2::FIN_AG_THEORIQUE;
 
         ratioMises=static_cast<double>(AGRESSIVITE::PALIER2::RATIO_NB_MISES_DIVISE)/AGRESSIVITE::PALIER2::RATIO_NB_MISES_DIVISEUR;
-        ratioTotalMises=static_cast<double>(AGRESSIVITE::PALIER2::RATIO_TOTAL_MISES_DIVISE)/AGRESSIVITE::PALIER2::RATIO_TOTAL_MISES_DIVISEUR;
+        ratioMisePlusHaute=static_cast<double>(AGRESSIVITE::PALIER2::RATIO_MPH_DIVISE)/AGRESSIVITE::PALIER2::RATIO_MPH_DIVISEUR;
     }
     //miseLaPlusHaute dans PALIER3 ?
-    else if(miseLaPlusHaute>AGRESSIVITE::PALIER2::FIN_MPH && miseLaPlusHaute<AGRESSIVITE::PALIER3::FIN_MPH){
+    else if(totalMises>AGRESSIVITE::PALIER2::FIN_MISE_TOTALE && totalMises<AGRESSIVITE::PALIER3::FIN_MISE_TOTALE){
         
-        miseLaPlusHauteMin=AGRESSIVITE::PALIER3::DEBUT_MPH;
-        miseLaPlusHauteMax=AGRESSIVITE::PALIER3::FIN_MPH;
+        totalMisesMin=AGRESSIVITE::PALIER3::DEBUT_MISE_TOTALE;
+        totalMisesMax=AGRESSIVITE::PALIER3::FIN_MISE_TOTALE;
         
         agressiviteMin=AGRESSIVITE::PALIER3::DEBUT_AG_THEORIQUE;
         agressiviteMax=AGRESSIVITE::PALIER3::FIN_AG_THEORIQUE;
 
         ratioMises=static_cast<double>(AGRESSIVITE::PALIER3::RATIO_NB_MISES_DIVISE)/AGRESSIVITE::PALIER3::RATIO_NB_MISES_DIVISEUR;
-        ratioTotalMises=static_cast<double>(AGRESSIVITE::PALIER3::RATIO_TOTAL_MISES_DIVISE)/AGRESSIVITE::PALIER3::RATIO_TOTAL_MISES_DIVISEUR;
+        ratioMisePlusHaute=static_cast<double>(AGRESSIVITE::PALIER3::RATIO_MPH_DIVISE)/AGRESSIVITE::PALIER3::RATIO_MPH_DIVISEUR;
     }
     //tapis ?
     else{
@@ -127,12 +127,11 @@ double CalculDonneesProfilage::agressivite(const double miseLaPlusHaute, const d
     }
 
     //Calcul de l'agressivité : x et y sont utilisés dans le calcul de l'agressivité
-    double x=ratioMises*tauxMises+ratioTotalMises*totalMises;
-    double y=x*((agressiviteMax-miseLaPlusHauteMax)/100.0);
-    agressivite=miseLaPlusHaute+y;
+    double x=ratioMises*tauxMises+ratioMisePlusHaute*miseLaPlusHaute;
+    double y=x*((agressiviteMax-totalMises)/100.0);
+    agressivite=totalMises+y;
 
     return agressivite;
-
 }
 
 double CalculDonneesProfilage::bluff(const double rationalite){
