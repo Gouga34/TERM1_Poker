@@ -49,6 +49,10 @@ void Jeu::distributionMain(){
     this->partieFinie = false;
 
     this->resetActions();
+
+    getJoueur(0)->setMiseTotale(0);
+    getJoueur(1)->setMiseTotale(0);
+
 	this->distributionBlind();
 
     for(int i =0; i< (int) (2*this->listeJoueurs.size()); i++){
@@ -380,7 +384,6 @@ void Jeu::resetActions(){
 
         this->getJoueur(i)->setMiseCourante(0);
         this->getJoueur(i)->setMisePlusHaute(0);
-        this->getJoueur(i)->setMiseTotale(0);
         this->getJoueur(i)->resetCompteurActions();
     }
 }
