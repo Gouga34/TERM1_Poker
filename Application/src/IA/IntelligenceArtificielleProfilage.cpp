@@ -68,7 +68,7 @@ void IntelligenceArtificielleProfilage::remplissageDonneesProfilage() {
         profilage->etatPartie[ETAPE_JEU::NB_ETAPES].misePlusHaute = jeu->getJoueur(0)->getMisePlusHaute();
     }
 
-    profilage->etatPartie[ETAPE_JEU::NB_ETAPES].miseTotaleJoueur += jeu->getJoueur(0)->getMiseTotale();
+    profilage->etatPartie[ETAPE_JEU::NB_ETAPES].miseTotaleJoueur = jeu->getJoueur(0)->getMiseTotale();
 
     profilage->etatPartie[ETAPE_JEU::NB_ETAPES].couche = jeu->estCouche(0);
 
