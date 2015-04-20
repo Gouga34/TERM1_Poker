@@ -166,8 +166,8 @@ namespace AGRESSIVITE{
     		RATIO_NB_MISES_DIVISE=1,
             RATIO_NB_MISES_DIVISEUR=2,
 
-    		RATIO_TOTAL_MISES_DIVISE=1,
-            RATIO_TOTAL_MISES_DIVISEUR=2
+            RATIO_MPH_DIVISE=1,
+            RATIO_MPH_DIVISEUR=2
         };
 	}
 
@@ -182,8 +182,8 @@ namespace AGRESSIVITE{
     		RATIO_NB_MISES_DIVISE=2,
             RATIO_NB_MISES_DIVISEUR=3,
 
-    		RATIO_TOTAL_MISES_DIVISE=1,
-            RATIO_TOTAL_MISES_DIVISEUR=3
+            RATIO_MPH_DIVISE=1,
+            RATIO_MPH_DIVISEUR=3
         };
 	}
 
@@ -198,8 +198,8 @@ namespace AGRESSIVITE{
     		RATIO_NB_MISES_DIVISE=2,
             RATIO_NB_MISES_DIVISEUR=3,
             
-    		RATIO_TOTAL_MISES_DIVISE=1,
-            RATIO_TOTAL_MISES_DIVISEUR=3
+            RATIO_MPH_DIVISE=1,
+            RATIO_MPH_DIVISEUR=3
         };
 	}	
 
