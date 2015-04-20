@@ -206,7 +206,7 @@ namespace AGRESSIVITE{
     namespace PALIER4{ //PALIER tapis
 
         enum{
-            MPH=100,
+            MISE_TOTALE=100,
 
             AG_THEORIQUE=100,
         };
