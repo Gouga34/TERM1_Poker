@@ -22,6 +22,8 @@
 
 #define FICHIER_PSEUDOS_PROFILAGE               DOSSIER_PROFILAGE_STATIQUE+std::string("pseudos.txt")
 
+//Facteur multiplicateur de la hausse des mises pour l'agressivité
+#define HAUSSE_MISES_AGRESSIVITE                2
 
 /*
  * Constantes utilisées pour les scénarios de tests:
@@ -29,7 +31,7 @@
  * NOMBRE_PARTIES : nombre de parties lancées d'affilée
  */
 #define RATIONALITE_IA_PROFILAGE                80.0
-#define NOMBRE_PARTIES                          1
+#define NOMBRE_PARTIES                          100
 #define VARIATION_AUTORISEE                     10
 
 
@@ -155,8 +157,8 @@ namespace AGRESSIVITE{
     //MPH = mise la plus haute
 	namespace PALIER1 {
 	   enum{	
-    		DEBUT_MPH=0,
-    		FIN_MPH=25,
+            DEBUT_MISE_TOTALE=0,
+            FIN_MISE_TOTALE=25,
 
     		DEBUT_AG_THEORIQUE=0,
     		FIN_AG_THEORIQUE=50,
@@ -171,8 +173,8 @@ namespace AGRESSIVITE{
 
 	namespace PALIER2 {
         enum{
-    		DEBUT_MPH=26,
-    		FIN_MPH=50,
+            DEBUT_MISE_TOTALE=25,
+            FIN_MISE_TOTALE=60,
 
     		DEBUT_AG_THEORIQUE=51,
     		FIN_AG_THEORIQUE=80,
@@ -187,8 +189,8 @@ namespace AGRESSIVITE{
 
 	namespace PALIER3 {
         enum{
-    		DEBUT_MPH=51,
-    		FIN_MPH=100, //jusqu'à 100 exclu
+            DEBUT_MISE_TOTALE=60,
+            FIN_MISE_TOTALE=100, //jusqu'à 100 exclu
 
     		DEBUT_AG_THEORIQUE=81,
     		FIN_AG_THEORIQUE=100,
@@ -241,6 +243,8 @@ enum COLONNES_CSV{
     AGRESSIVITE_DEDUITE_GLOBALE,
     RATIONALITE_DEDUITE_GLOBALE
 };
+
+
 
 
 #endif // CONSTANTES_H
