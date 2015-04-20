@@ -107,15 +107,24 @@ void Jeu::nouvelleEtape(ETAPE_JEU etape){
 
 void Jeu::distributionBlind(){
 
-    executerAction((this->getDealer() + 2) % this->listeJoueurs.size(), Action(MISER, getBlind()));
-    //this->miser((this->getDealer() + 1) % this->listeJoueurs.size(), this->getBlind());
-    this->actions[(this->getDealer() + 1) % this->listeJoueurs.size()] = ACTION::PETITE_BLIND;
-	
-    executerAction((this->getDealer() + 2) % this->listeJoueurs.size(), Action(RELANCER, getBlind()));
-    //this->relancer((this->getDealer() + 2) % this->listeJoueurs.size(),this->getBlind() );
-    this->actions[(this->getDealer() + 2) % this->listeJoueurs.size()] = ACTION::GROSSE_BLIND;
-	
-    this->joueurCourant = (this->getDealer() + 2)  % this->listeJoueurs.size();
+    if (getDealer() == 0) {
+        executerAction(1, Action(MISER, getBlind()));
+        this->actions[1] = ACTION::PETITE_BLIND;
+
+        executerAction(0, Action(RELANCER, getBlind()));
+        this->actions[0] = ACTION::GROSSE_BLIND;
+
+        this->joueurCourant = 0;
+    }
+    else {
+        executerAction(0, Action(MISER, getBlind()));
+        this->actions[0] = ACTION::PETITE_BLIND;
+
+        executerAction(1, Action(RELANCER, getBlind()));
+        this->actions[1] = ACTION::GROSSE_BLIND;
+
+        this->joueurCourant = 1;
+    }
 
     for(int i=0; i<this->listeJoueurs.size(); i++){
         this->getJoueur(i)->resetCompteurActions();
