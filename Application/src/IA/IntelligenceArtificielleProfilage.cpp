@@ -154,7 +154,6 @@ void IntelligenceArtificielleProfilage::calculProfilGlobalJoueur() {
         profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxChecks = resultat;
     }
 
-    /** TODO Changer le 1000 par la cave en début de partie **/
     resultat = CalculDonneesProfilage::taux(profilage->etatPartie[ETAPE_JEU::NB_ETAPES].misePlusHaute,CAVE_JOUEURS);
     if (resultat == -1) {
         profilage->etatPartie[ETAPE_JEU::NB_ETAPES].misePlusHaute = 0;
@@ -163,7 +162,6 @@ void IntelligenceArtificielleProfilage::calculProfilGlobalJoueur() {
         profilage->etatPartie[ETAPE_JEU::NB_ETAPES].misePlusHaute = resultat;
     }
 
-    /** TODO Changer le 1000 par la cave en début de partie **/
     resultat = CalculDonneesProfilage::taux(profilage->etatPartie[ETAPE_JEU::NB_ETAPES].miseTotaleJoueur,CAVE_JOUEURS);
     if (resultat == -1) {
         profilage->etatPartie[ETAPE_JEU::NB_ETAPES].miseTotaleJoueur = 0;

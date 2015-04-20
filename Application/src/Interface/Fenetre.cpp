@@ -268,14 +268,12 @@ void Fenetre::demarragePartie()
             }
         }
 
-
-        jeu->distributionMain();
-
         // Réinitialisation jeu
         jeu->setPot(0);
         jeu->getJoueur(0)->setCave(CAVE_JOUEURS);
         jeu->getJoueur(1)->setCave(CAVE_JOUEURS);
 
+        jeu->distributionMain();
 
         pot.display(jeu->getPot());
         caveJoueur.display(jeu->getJoueur(0)->getCave());
