@@ -122,6 +122,13 @@ class Jeu{
 		*@return : Le joueur courant
 		**/
 		int 			getJoueurCourant() const;
+
+        /**
+         * @brief Détermine la position du joueur adverse au joueur passé en paramètre
+         * @param joueur Position du joueur dont on veut l'adversaire
+         * @return Position du joueur adverse
+         */
+        int             getPositionJoueurAdverse(int joueur) const;
 		
 		/**
 		*@action : Permet d'obtenir le joueur en i-eme position

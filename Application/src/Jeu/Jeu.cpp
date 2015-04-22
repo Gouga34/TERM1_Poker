@@ -111,24 +111,13 @@ void Jeu::nouvelleEtape(ETAPE_JEU etape){
 
 void Jeu::distributionBlind(){
 
-    if (getDealer() == 0) {
-        executerAction(1, Action(MISER, getBlind()));
-        this->actions[1] = ACTION::PETITE_BLIND;
+    executerAction(getPositionJoueurAdverse(getDealer()), Action(MISER, getBlind()));
+    this->actions[getPositionJoueurAdverse(getDealer())] = ACTION::PETITE_BLIND;
 
-        executerAction(0, Action(RELANCER, getBlind()));
-        this->actions[0] = ACTION::GROSSE_BLIND;
+    executerAction(getDealer(), Action(RELANCER, getBlind()));
+    this->actions[getDealer()] = ACTION::GROSSE_BLIND;
 
-        this->joueurCourant = 0;
-    }
-    else {
-        executerAction(0, Action(MISER, getBlind()));
-        this->actions[0] = ACTION::PETITE_BLIND;
-
-        executerAction(1, Action(RELANCER, getBlind()));
-        this->actions[1] = ACTION::GROSSE_BLIND;
-
-        this->joueurCourant = 1;
-    }
+    this->joueurCourant = getDealer();
 
     for(int i=0; i<this->listeJoueurs.size(); i++){
         this->getJoueur(i)->resetCompteurActions();
@@ -179,6 +168,10 @@ std::vector<Carte> Jeu::getDeck(){
 
 int Jeu::getJoueurCourant() const{
 	return this->joueurCourant;
+}
+
+int Jeu::getPositionJoueurAdverse(int joueur) const{
+    return (joueur == 0) ? 1 : 0;
 }
 
 Joueur* Jeu::getJoueur(int i){
@@ -306,26 +299,36 @@ bool Jeu::debutTour(){
 
 bool Jeu::finDuTour(){
 
-	int i = 1;
+    // Si un joueur n'a pas encore joué
+    if (actions[0] == PAS_ENCORE_D_ACTION || actions[1] == PAS_ENCORE_D_ACTION) {
+        return false;
+    }
 
-    while(  i <= (int) this->listeJoueurs.size() - 1){
+    // Si un joueur s'est couché
+    if (actions[0] == SE_COUCHER || actions[1] == SE_COUCHER) {
+        return true;
+    }
 
-        if(this->actions.at( (this->getJoueurCourant() + i) % this->listeJoueurs.size() ) == ACTION::TAPIS
-                && ( this->actions.at(this->getJoueurCourant() ) == ACTION::SUIVRE || this->actions.at(this->getJoueurCourant() ) == ACTION::TAPIS  ) ){
+    // Si tout le monde a checké
+    if (actions[0] == CHECKER && actions[1] == CHECKER) {
+        return true;
+    }
+
+    // Si un joueur a fait tapis et que l'adversaire a joué
+    for (int i = 0; i < listeJoueurs.size(); i++) {
+        if (actions[i] == TAPIS && (actions[getPositionJoueurAdverse(i)] == SUIVRE || actions[getPositionJoueurAdverse(i)] == TAPIS)) {
             return true;
         }
+    }
 
-        if( this->actions.at( (this->getJoueurCourant() + i) % this->listeJoueurs.size() ) != ACTION::CHECKER
-        &&  this->actions.at( (this->getJoueurCourant() + i) % this->listeJoueurs.size() ) != ACTION::SUIVRE
-        &&  this->actions.at( (this->getJoueurCourant() + i) % this->listeJoueurs.size() ) != ACTION::SE_COUCHER){
+    // Si la suite de mises/relances est terminée (suivi)
+    for (int i = 0; i < listeJoueurs.size(); i++) {
+        if (actions[i] == SUIVRE && actions[getPositionJoueurAdverse(i)] != GROSSE_BLIND) {
+            return true;
+        }
+    }
 
-			return false;
-		}
-		
-		i++;
-	}
-	
-    return (this->actions.at(this->getJoueurCourant()) != ACTION::PAS_ENCORE_D_ACTION && this->actions.at(this->getJoueurCourant()) != ACTION::GROSSE_BLIND);
+    return false;
 }
 
 
@@ -677,21 +680,13 @@ bool Jeu::aFaitTapis(){
 
 bool Jeu::peutJouer(int posJoueur){
 
-    if(posJoueur == 0){
-        if(this->actions[1] == ACTION::TAPIS && ( this->getJoueur(posJoueur)->getMiseTotale() > this->getJoueur(1)->getMiseTotale()) && this->actions[1] == ACTION::SUIVRE){
-            return false;
-        }else{
-            return true;
-        }
-    }else{
-
-        if(this->actions[0] == ACTION::TAPIS && ( this->getJoueur(posJoueur)->getMiseTotale() > this->getJoueur(0)->getMiseTotale()) && this->actions[0] == ACTION::SUIVRE){
-            return false;
-        }else{
-            return true;
-        }
-
+    if (this->actions[getPositionJoueurAdverse(posJoueur)] == ACTION::TAPIS
+            && (this->getJoueur(posJoueur)->getMiseTotale() > this->getJoueur(getPositionJoueurAdverse(posJoueur))->getMiseTotale())
+            && this->actions[getPositionJoueurAdverse(posJoueur)] == ACTION::SUIVRE) {
+        return false;
     }
-
+    else {
+        return true;
+    }
 }
 
