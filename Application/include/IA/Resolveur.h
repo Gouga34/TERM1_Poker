@@ -21,7 +21,8 @@ class IntelligenceArtificielle;
 class Resolveur{
 private:
 
-    Profil calibrage;
+    Profil *calibrage;
+    double miseTotaleTheoriqueAgressivite;
 
 
     IntelligenceArtificielle *ia;
@@ -42,12 +43,10 @@ private:
     Action calculerActionRationalite();
 
     /**
-     * @brief calculerMiseAgressivite
-     * @param action action à effectuer
-     * @return les jetons à jouer en fonction de l'action qui sera effectuée
-     *          et en fonction du taux d'agressivité
+     * @brief calculerTotalMiseTheoriqueAgressivite
+     * @action calcule la mise totale théorique de la partie en fonction de l'agressivité
      */
-    int calculerMiseAgressivite(ACTION action);
+    void calculerTotalMiseTheoriqueAgressivite();
 
     /**
      * @brief calculerMiseRationalite
@@ -80,7 +79,7 @@ public:
      * @brief getRationalite
      * @return le taux de rationalité
      */
-    Profil& getCalibrage();
+    Profil* getCalibrage();
 
 
     /**

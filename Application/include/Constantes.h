@@ -31,7 +31,7 @@
  * NOMBRE_PARTIES : nombre de parties lancées d'affilée
  */
 #define RATIONALITE_IA_PROFILAGE                80.0
-#define NOMBRE_PARTIES                          100
+#define NOMBRE_PARTIES                          10
 #define VARIATION_AUTORISEE                     10
 
 

@@ -8,6 +8,10 @@ Specification: Fichier contenant les corps des méthodes
 =========================================================================*/
 
 
+////////////////::TODO//////////////////////////////////////////////
+/// action tapis et autre action diff : à gérer dans la fusion /////
+/// ////////////////////////////////////////////////////////////////
+
 #include "../../include/IA/Resolveur.h"
 #include "../../include/Constantes.h"
 #include "../../include/Profilage/CalculDonneesProfilage.h"
@@ -17,118 +21,153 @@ Specification: Fichier contenant les corps des méthodes
 using namespace std;
 
 Resolveur::Resolveur(IntelligenceArtificielle *ia2):ia(ia2){
-
+    calibrage=new Profil;
 }
 
 
 Resolveur::~Resolveur(){
-
+    delete calibrage;
 }
 
 void Resolveur::setCalibrage(Profil profil){
-    calibrage.setAgressivite(profil.getAgressivite());
-    calibrage.setRationalite(profil.getRationalite());
+
+    calibrage->setAgressivite(profil.getAgressivite());
+    calibrage->setRationalite(profil.getRationalite());
+
 }
 
 
-Profil& Resolveur::getCalibrage() {
+Profil* Resolveur::getCalibrage() {
     return calibrage;
 }
 
 
 Action Resolveur::calculerActionAgressivite(){
+    calculerTotalMiseTheoriqueAgressivite();
 
-    ACTION action;
+    ACTION action=PAS_ENCORE_D_ACTION;
     int jetonsAMiser = -1; //mise à effectuer s'il y en a une. Correspond au nombre de jetons
 
-    //On calcule un nombre aléatoire entre 0 et 100
-    int random = rand()%101;
-
-    //Si random E [0-(agressivite-1)]
-    if(random<(calibrage.getAgressivite()-1)){ //On va effectuer une action agressive : miser
-
-        int miseAgressivite=calculerMiseAgressivite(ACTION::MISER);
-        //Si on peut miser, on fera l'action "MISER"
-        if(ia->getJeu()->peutMiser(ia->getPosition(), miseAgressivite)){
-            action=ACTION::MISER;
-            jetonsAMiser=miseAgressivite;
-        }
-        //Sinon, si on peut relancer, on fait l'action "RELANCER"
-        else if(ia->getJeu()->peutRelancer(ia->getPosition(),calculerMiseAgressivite(RELANCER))){
-
-                action=ACTION::RELANCER;
-                jetonsAMiser =calculerMiseAgressivite(action);
-        }
-        //Si on peut suivre on suit
-        else if(ia->getJeu()->peutSuivre(ia->getPosition())){
-                action=ACTION::SUIVRE;
-            }
-
-        else if(ia->getJeu()->peutChecker(ia->getPosition())){
-                    action=ACTION::CHECKER;
-            }
-        else{
-               action=ACTION::TAPIS;
-           }
+    double miseTheoriqueTour=ia->getMiseTotale()*HAUSSE_MISES_AGRESSIVITE - ia->getMiseTotale();
+    //Si le total des mises de l'IA est supérieur à mth, on checke ou on se couche.
+    //Sinon, on mise/relance/suit
+    if(miseTheoriqueTour>miseTotaleTheoriqueAgressivite-ia->getMiseTotale() || ia->getJeu()->getEtape()!=RIVER){
+        miseTheoriqueTour=miseTotaleTheoriqueAgressivite-ia->getMiseTotale();
     }
-    //random E [agressivite - 100]
-    else{ //on va effectuer une action pas agressive (suivre ou checker)
-        int randx = rand()%100;
-        if(randx%2){
-            if(ia->getJeu()->peutSuivre(ia->getPosition())){
-                action= ACTION::SUIVRE;
+
+    int posJoueurAdverse = (ia->getPosition() == 0) ? 1 : 0;
+
+    //Si on peut miser
+    if(ia->getJeu()->peutMiser(ia->getPosition(),1)){
+        std::cout<<"peutMiser"<<std::endl;
+        // Si on a l'argent
+        if(ia->getJeu()->peutMiser(ia->getPosition(),miseTheoriqueTour)){
+            action=MISER;
+            jetonsAMiser=miseTheoriqueTour;
+        }
+        else{   // On fait tapis
+            action=TAPIS;
+        }
+    }
+    //Si le joueur adverse a misé ou relancé
+    else if(ia->getJeu()->getListeActions().at(posJoueurAdverse) == MISER
+                || ia->getJeu()->getListeActions().at(posJoueurAdverse) == RELANCER
+                || ia->getJeu()->getListeActions().at(posJoueurAdverse) == GROSSE_BLIND
+                || ia->getJeu()->getListeActions().at(posJoueurAdverse) == TAPIS){
+
+        double variationAutoriseeMiseAdversaire=(VARIATION_AUTORISEE/100) * ia->getJeu()->getMiseCourante();
+
+        //Si la mise courante est inférieure à ce qu'il reste à miser +10% de la mise
+        if(ia->getJeu()->getMiseCourante()<=miseTotaleTheoriqueAgressivite-ia->getMiseTotale()+variationAutoriseeMiseAdversaire){
+
+            //On continue à jouer
+
+            //Si la mise théorique est inférieure à la relance minimum (-10%), on suit
+            if(miseTheoriqueTour<2*ia->getJeu()->getMiseCourante()-variationAutoriseeMiseAdversaire){
+                action=SUIVRE;
             }
-            else{
-                action= ACTION::CHECKER;
+            else{   // On relance
+                //Si on peut relancer
+                if(ia->getJeu()->peutRelancer(ia->getPosition(), 2*ia->getJeu()->getMiseCourante())){
+                    if(miseTheoriqueTour<2*ia->getJeu()->getMiseCourante()){
+                        jetonsAMiser=2*ia->getJeu()->getMiseCourante();
+                    }
+                    else{
+                        if(ia->getJeu()->peutRelancer(ia->getPosition(), miseTheoriqueTour)){
+                            jetonsAMiser=miseTheoriqueTour;
+                        }
+                        else{
+                            jetonsAMiser=ia->getCave();
+                        }
+                    }
+                    action=RELANCER;
+                }
+                else{
+
+                    //AJOUTE
+                    if(ia->getJeu()->peutSuivre(ia->getPosition())){
+                        action=SUIVRE;
+                    }
+
+                }
             }
         }
         else{
             if(ia->getJeu()->peutChecker(ia->getPosition())){
-                action= ACTION::CHECKER;
+                action=CHECKER;
             }
             else{
-                action =ACTION::SUIVRE;
+
+                action=SE_COUCHER;
             }
         }
+    }
+    else if(ia->getJeu()->peutChecker(ia->getPosition())){
+        action=CHECKER;
+    }
 
+    if(action==PAS_ENCORE_D_ACTION){
+        std::cout<<"pas encore d'action"<<std::endl;
     }
 
     return Action(action,jetonsAMiser);
 }
 
 
-int Resolveur::calculerMiseAgressivite(ACTION action){
-    int jetonsAJouer = -1;
 
-    if(action==ACTION::MISER){
-        //Si l'action est miser,
-        //on calcule la miseTheorique à effectuer en fonction du palier
-        //dans lequel se trouve le pourcentage d'agressivité.
-        int maxPalierAgressivite;
+void Resolveur::calculerTotalMiseTheoriqueAgressivite(){
+    double tauxMiseTotale=0.0;
 
-        if(calibrage.getAgressivite() < AGRESSIVITE::PALIER1::FIN_AG_THEORIQUE){
-            maxPalierAgressivite=AGRESSIVITE::PALIER1::FIN_MPH;
-        }
-        else if(calibrage.getAgressivite()<AGRESSIVITE::PALIER2::FIN_AG_THEORIQUE){
-            maxPalierAgressivite=AGRESSIVITE::PALIER2::FIN_MPH;
-        }
-        else if(calibrage.getAgressivite()<AGRESSIVITE::PALIER3::FIN_AG_THEORIQUE){
-            maxPalierAgressivite=AGRESSIVITE::PALIER3::FIN_MPH;
-        }
-        else{ //tapis
-            maxPalierAgressivite=100;
-        }
-
-        int randx = rand()%maxPalierAgressivite;
-        jetonsAJouer=(randx*ia->getCave())/100;
-
+    double palierSuperieur;
+    double palierInferieur;
+    double miseTheoriqueInferieure;
+    double miseTheoriqueSuperieure;
+    if(calibrage->getAgressivite()<AGRESSIVITE::PALIER1::FIN_AG_THEORIQUE){
+        palierInferieur=AGRESSIVITE::PALIER1::DEBUT_AG_THEORIQUE;
+        palierSuperieur=AGRESSIVITE::PALIER1::FIN_AG_THEORIQUE;
+        miseTheoriqueInferieure=AGRESSIVITE::PALIER1::DEBUT_MISE_TOTALE;
+        miseTheoriqueSuperieure=AGRESSIVITE::PALIER1::FIN_MISE_TOTALE;
     }
-    else if(action==ACTION::RELANCER){
-        //Pour l'instant on relance tj de 2, à voir plus tard si des fois on relancera de plus
-        jetonsAJouer=2*ia->getJeu()->getMiseCourante();
+    else if(calibrage->getAgressivite()<AGRESSIVITE::PALIER2::FIN_AG_THEORIQUE){
+        palierInferieur=AGRESSIVITE::PALIER2::DEBUT_AG_THEORIQUE;
+        palierSuperieur=AGRESSIVITE::PALIER2::FIN_AG_THEORIQUE;
+        miseTheoriqueInferieure=AGRESSIVITE::PALIER2::DEBUT_MISE_TOTALE;
+        miseTheoriqueSuperieure=AGRESSIVITE::PALIER2::FIN_MISE_TOTALE;
+    }
+    else if(calibrage->getAgressivite()<AGRESSIVITE::PALIER3::FIN_AG_THEORIQUE){
+        palierInferieur=AGRESSIVITE::PALIER3::DEBUT_AG_THEORIQUE;
+        palierSuperieur=AGRESSIVITE::PALIER3::FIN_AG_THEORIQUE;
+        miseTheoriqueInferieure=AGRESSIVITE::PALIER3::DEBUT_MISE_TOTALE;
+        miseTheoriqueSuperieure=AGRESSIVITE::PALIER3::FIN_MISE_TOTALE;
+    }
+    else{
+        tauxMiseTotale = AGRESSIVITE::PALIER4::MISE_TOTALE;
     }
 
-    return jetonsAJouer;
+    if(tauxMiseTotale==0.0){
+        tauxMiseTotale=((calibrage->getAgressivite()-palierInferieur)*((miseTheoriqueSuperieure-miseTheoriqueInferieure)/(palierSuperieur-palierInferieur)))+miseTheoriqueInferieure;
+    }
+
 }
 
 
@@ -138,7 +177,7 @@ Action Resolveur::calculerActionRationalite(){
 
     //On prend un nombre aléatoire
     int random = rand()%101;
-    if(random<(calibrage.getRationalite()-1)){ //Si random E [0 - (rationalite-1)]
+    if(random<(calibrage->getRationalite()-1)){ //Si random E [0 - (rationalite-1)]
 
         int jetonsMiseTheorique=calculerMiseRationalite(ACTION::MISER);
 
@@ -291,6 +330,7 @@ Action Resolveur::calculerAction(){
     Action actionAgressivite=calculerActionAgressivite();
     Action actionRationalite=calculerActionRationalite();
 
+    bool tirageAleatoire=false;
     ACTION action;
     int jetonsAMiser;
 
@@ -298,25 +338,99 @@ Action Resolveur::calculerAction(){
 
     //Si les actions ne sont pas les mêmes, on choisit une des deux actions:
     if(actionAgressivite.getAction()!=actionRationalite.getAction()){
-
-        int total = calibrage.getRationalite()+calibrage.getAgressivite();
-
-        int random=rand()%total+1;
-
-        //Si random E [0-agressivité], on prend l'action et les jetons de l'agressivité
-        if(random<calibrage.getAgressivite()){
-            action=actionAgressivite.getAction();
-            jetonsAMiser=actionAgressivite.getMontant();
+        //CHECKER et SE_COUCHER
+        if((actionAgressivite.getAction()==CHECKER && actionRationalite.getAction()==SE_COUCHER)
+                ||(actionAgressivite.getAction()==SE_COUCHER && actionRationalite.getAction()==SE_COUCHER) ){
+            action=CHECKER;
         }
-        //Sinon, random E[agressivite+1 - total], on prend l'action et les jetons de la rationalité
-        else{
-            action=actionRationalite.getAction();
-            jetonsAMiser=actionRationalite.getMontant();
+        //CHECKER et SUIVRE
+        if((actionAgressivite.getAction()==CHECKER && actionRationalite.getAction()==SUIVRE)
+                ||(actionAgressivite.getAction()==SUIVRE && actionRationalite.getAction()==SE_COUCHER) ){
+            tirageAleatoire=true;
+        }
+        //CHECKER et MISER
+        if((actionAgressivite.getAction()==CHECKER && actionRationalite.getAction()==MISER)
+                ||(actionAgressivite.getAction()==MISER && actionRationalite.getAction()==SE_COUCHER)){
+            if(actionAgressivite.getAction()==CHECKER){
+                actionAgressivite.setAction(MISER);
+                actionAgressivite.setMontant(0);
+            }
+            else{
+                actionRationalite.setAction(MISER);
+                actionRationalite.setMontant(0);
+            }
+        }
+        //SUIVRE et RELANCER
+        if((actionAgressivite.getAction()==SUIVRE && actionRationalite.getAction()==RELANCER)
+                ||(actionAgressivite.getAction()==RELANCER && actionRationalite.getAction()==SUIVRE)){
+            if(actionAgressivite.getAction()==RELANCER){
+                if(actionAgressivite.getMontant()>ia->getJeu()->getMiseCourante()){
+                    jetonsAMiser=ia->getJeu()->getMiseCourante();
+                    action=RELANCER;
+                }
+                else{
+                    action=SUIVRE;
+                }
+
+            }
+            else{
+                if(actionRationalite.getMontant()>ia->getJeu()->getMiseCourante()){
+                    jetonsAMiser=ia->getJeu()->getMiseCourante();
+                    action=RELANCER;
+                }
+                else{
+                    action=SUIVRE;
+                }
+            }
+        }
+        //SUIVRE et SE_COUCHER
+        if((actionAgressivite.getAction()==SUIVRE && actionRationalite.getAction()==SE_COUCHER)
+                ||(actionAgressivite.getAction()==SE_COUCHER && actionRationalite.getAction()==SUIVRE)){
+            tirageAleatoire=true;
+        }
+        //RELANCER et SE_COUCHER
+        if((actionAgressivite.getAction()==SE_COUCHER && actionRationalite.getAction()==RELANCER)
+                ||(actionAgressivite.getAction()==RELANCER && actionRationalite.getAction()==SE_COUCHER)){
+            action=SUIVRE;
+        }
+        //MISER et SE_COUCHER
+        if((actionAgressivite.getAction()==MISER && actionRationalite.getAction()==SE_COUCHER)
+                ||(actionAgressivite.getAction()==SE_COUCHER && actionRationalite.getAction()==MISER)){
+            if(actionAgressivite.getAction()==SE_COUCHER){
+                actionAgressivite.setAction(MISER);
+                actionAgressivite.setMontant(0);
+
+                actionRationalite.setMontant(actionRationalite.getMontant()/2);
+            }
+            else{
+                actionRationalite.setAction(MISER);
+                actionRationalite.setMontant(0);
+
+                actionAgressivite.setMontant(actionAgressivite.getMontant()/2);
+            }
         }
 
+
+        if(tirageAleatoire){
+            int total = calibrage->getRationalite()+calibrage->getAgressivite();
+
+            int random=rand()%total+1;
+
+            //Si random E [0-agressivité], on prend l'action et les jetons de l'agressivité
+            if(random<calibrage->getAgressivite()){
+                action=actionAgressivite.getAction();
+                jetonsAMiser=actionAgressivite.getMontant();
+            }
+            //Sinon, random E[agressivite+1 - total], on prend l'action et les jetons de la rationalité
+            else{
+                action=actionRationalite.getAction();
+                jetonsAMiser=actionRationalite.getMontant();
+            }
+
+        }
    }
     //Sinon, si l'action est relancer ou miser
-   else if(actionAgressivite.getAction()==ACTION::RELANCER || actionAgressivite.getAction()==ACTION::MISER){
+   if(actionAgressivite.getAction()==actionRationalite.getAction() && (actionAgressivite.getAction()==ACTION::RELANCER || actionAgressivite.getAction()==ACTION::MISER)){
 
         action=actionAgressivite.getAction();
 
@@ -330,19 +444,19 @@ Action Resolveur::calculerAction(){
             maxJetonsAMiser=actionRationalite.getMontant();
             minJetonsAMiser=actionAgressivite.getMontant();
         }
-        if(calibrage.getAgressivite()>calibrage.getRationalite()){
-            tauxMax=calibrage.getAgressivite();
-            tauxMin=calibrage.getRationalite();
+        if(calibrage->getAgressivite()>calibrage->getRationalite()){
+            tauxMax=calibrage->getAgressivite();
+            tauxMin=calibrage->getRationalite();
         }
         else{
-            tauxMin=calibrage.getAgressivite();
-            tauxMax=calibrage.getRationalite();
+            tauxMin=calibrage->getAgressivite();
+            tauxMax=calibrage->getRationalite();
         }
 
         //On va prendre une mise aléatoire comprise entre le min et le max.
         //Celle-ci aura plus de chances d'être plus proche du taux le plus fort.
 
-        int total=calibrage.getAgressivite()+calibrage.getRationalite();
+        int total=calibrage->getAgressivite()+calibrage->getRationalite();
         jetonsAMiser= minJetonsAMiser+((tauxMax/total)*abs(maxJetonsAMiser-minJetonsAMiser));
 
     }else{
