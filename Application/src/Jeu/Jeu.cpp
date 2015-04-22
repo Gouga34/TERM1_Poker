@@ -499,52 +499,36 @@ void Jeu::nouvelleMain(){
 
 
 bool Jeu::peutChecker(int posJoueur){
+
+    int posAdversaire = getPositionJoueurAdverse(posJoueur);
+
     //On peut checker quand le joueur précédent a checké ou suivi.
 
-    if(posJoueur==0){
-
-
-        if(actions[1].back()==ACTION::TAPIS && this->debutTour()){
-            return true;
-        }
-
-        //Si l'action de l'autre joueur est miser, relancer ou grosse blinde, on retourne false
-        if(actions[1].back()==ACTION::MISER || actions[1].back()==ACTION::RELANCER || actions[1].back()==ACTION::GROSSE_BLIND){
-
-            return false;
-        }
+    if(actions[posAdversaire].back()==ACTION::TAPIS && this->debutTour()){
+        return true;
     }
-    else{
 
-        if(actions[0].back()==ACTION::TAPIS && this->debutTour()){
-            return true;
-        }
-
-        if(actions[0].back()==ACTION::MISER || actions[0].back()==ACTION::RELANCER || actions[0].back()==ACTION::GROSSE_BLIND){
-            return false;
-        }
+    //Si l'action de l'autre joueur est miser, relancer ou grosse blinde, on retourne false
+    if(actions[posAdversaire].back()==ACTION::MISER || actions[posAdversaire].back()==ACTION::RELANCER
+            || actions[posAdversaire].back()==ACTION::GROSSE_BLIND || actions[posAdversaire].back()==ACTION::TAPIS){
+        return false;
     }
+
     return true;
 }
 
 bool Jeu::peutMiser(int posJoueur, int jetons){
 
+    int posAdversaire = getPositionJoueurAdverse(posJoueur);
+
     //On peut miser quand le joueur précédent a checké
-    if(posJoueur==0){
-        if(actions[1].back()==ACTION::MISER || actions[1].back()==ACTION::RELANCER || actions[1].back()==ACTION::GROSSE_BLIND || actions[1].back()==ACTION::TAPIS){
-            if(actions[1].back()==ACTION::SUIVRE && actions[0].back()==ACTION::GROSSE_BLIND){
-                return true;
-            }
-            return false;
+    if(actions[posAdversaire].back()==ACTION::MISER || actions[posAdversaire].back()==ACTION::RELANCER
+            || actions[posAdversaire].back()==ACTION::GROSSE_BLIND || actions[posAdversaire].back()==ACTION::TAPIS){
+
+        if(actions[posAdversaire].back()==ACTION::SUIVRE && actions[posJoueur].back()==ACTION::GROSSE_BLIND){
+            return true;
         }
-    }
-    else{
-        if(actions[0].back()==ACTION::MISER || actions[0].back()==ACTION::RELANCER || actions[0].back()==ACTION::GROSSE_BLIND || actions[0].back()==ACTION::TAPIS ){
-            if(actions[0].back()==ACTION::SUIVRE && actions[1].back()==ACTION::GROSSE_BLIND){
-                return true;
-            }
-            return false;
-        }
+        return false;
     }
 
     if (jetons <= 0 || getJoueur(posJoueur)->getCave() < jetons) {
@@ -557,15 +541,12 @@ bool Jeu::peutMiser(int posJoueur, int jetons){
 
 bool Jeu::peutRelancer(int posJoueur, int jetons){
 
+    int posAdversaire = getPositionJoueurAdverse(posJoueur);
+
     //On peut pas relancer quand le joueur précédent a checké, n'as pas agit, a fait tapis ou a suivi.
-    if(posJoueur==0){
-        if(actions[1].back()==ACTION::CHECKER || actions[1].back()==ACTION::PAS_ENCORE_D_ACTION || actions[1].back()==ACTION::TAPIS || actions[1].back()==ACTION::SUIVRE){
-            return false;
-        }
-    }else{
-        if(actions[0].back()==ACTION::CHECKER || actions[0].back()==ACTION::PAS_ENCORE_D_ACTION || actions[0].back()==ACTION::TAPIS || actions[0].back()==ACTION::SUIVRE){
-            return false;
-        }
+    if(actions[posAdversaire].back()==ACTION::CHECKER || actions[posAdversaire].back()==ACTION::PAS_ENCORE_D_ACTION
+            || actions[posAdversaire].back()==ACTION::TAPIS || actions[posAdversaire].back()==ACTION::SUIVRE){
+        return false;
     }
 
     if(jetons>0 && getJoueur(posJoueur)->getCave()>=jetons){
@@ -577,16 +558,12 @@ bool Jeu::peutRelancer(int posJoueur, int jetons){
 
 bool Jeu::peutSuivre(int posJoueur){
 
-    //On peut suivre quand le joueur précédent a misé, relancé, grosse blind ou fait tapis
+    int posAdversaire = getPositionJoueurAdverse(posJoueur);
 
-    if(posJoueur==0){
-        if(actions[1].back()==ACTION::CHECKER || actions[1].back()==ACTION::PETITE_BLIND || actions[1].back()==ACTION::SUIVRE || actions[1].back()==ACTION::PAS_ENCORE_D_ACTION){
-            return false;
-        }
-    }else{
-        if(actions[0].back()==ACTION::CHECKER || actions[0].back()==ACTION::PETITE_BLIND || actions[0].back()==ACTION::SUIVRE || actions[0].back()==ACTION::PAS_ENCORE_D_ACTION){
-            return false;
-        }
+    //On peut suivre quand le joueur précédent a misé, relancé, grosse blind ou fait tapis
+    if(actions[posAdversaire].back()==ACTION::CHECKER || actions[posAdversaire].back()==ACTION::PETITE_BLIND
+            || actions[posAdversaire].back()==ACTION::SUIVRE || actions[posAdversaire].back()==ACTION::PAS_ENCORE_D_ACTION){
+        return false;
     }
 
     return true;
