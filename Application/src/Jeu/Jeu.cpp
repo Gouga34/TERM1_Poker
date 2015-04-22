@@ -209,12 +209,18 @@ void Jeu::jouerArgent(int posJoueur, int jetons) {
 
 void Jeu::miser(int posJoueur, int jetons){
 
-    jouerArgent(posJoueur, jetons);
-    miseCourante = jetons;
-    cumulMisesEtRelances = jetons;
+    //Si on fait pas tapis:
+    if(jetons < this->getJoueur(posJoueur)->getCave()){
+        jouerArgent(posJoueur, jetons);
+        miseCourante = jetons;
+        cumulMisesEtRelances = jetons;
 
-    this->actions[this->getJoueur(posJoueur)->getPosition()].push_back(ACTION::MISER);
-    this->getJoueur(posJoueur)->getCompteurActions()[0]++;
+        this->actions[this->getJoueur(posJoueur)->getPosition()].push_back(ACTION::MISER);
+        this->getJoueur(posJoueur)->getCompteurActions()[0]++;
+    }
+    else{ //Sinon: tapis
+        tapis(posJoueur, MISER);
+    }
 }
 
 void Jeu::tapis(int posJoueur, ACTION action){
@@ -236,7 +242,7 @@ void Jeu::tapis(int posJoueur, ACTION action){
 void Jeu::relancer(int posJoueur, int jetons){
 
     //Si on fait pas tapis:
-    if(jetons <= this->getJoueur(posJoueur)->getCave()){
+    if(jetons < this->getJoueur(posJoueur)->getCave()){
 
         jouerArgent(posJoueur, jetons);
         miseCourante = jetons;
@@ -244,8 +250,8 @@ void Jeu::relancer(int posJoueur, int jetons){
 
         this->actions[this->getJoueur(posJoueur)->getPosition()].push_back(ACTION::RELANCER);
         this->getJoueur(posJoueur)->getCompteurActions()[0]++;
-
-    }else{ //Sinon: tapis
+    }
+    else{ //Sinon: tapis
         tapis(posJoueur, RELANCER);
     }
 }
