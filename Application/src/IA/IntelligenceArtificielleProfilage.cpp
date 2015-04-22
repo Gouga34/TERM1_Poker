@@ -45,7 +45,7 @@ void IntelligenceArtificielleProfilage::setPseudoJoueurProfile(std::string pseud
     }
     profilage = new Profilage(&profilJoueur);
 
-    scenario = new ScenariosDeTests(&profilJoueur, &resolveur->getCalibrage());
+    scenario = new ScenariosDeTests(&profilJoueur, resolveur->getCalibrage());
 }
 
 void IntelligenceArtificielleProfilage::remplissageDonneesProfilage() {
@@ -198,7 +198,7 @@ void IntelligenceArtificielleProfilage::calculProfilGlobalJoueur() {
 }
 
 void IntelligenceArtificielleProfilage::ecritureScenariosDeTests() {
-    scenario->setCalibrageActuelIA(&resolveur->getCalibrage());
+    scenario->setCalibrageActuelIA(resolveur->getCalibrage());
     scenario->setChancesDeGain(profilage->etatPartie[ETAPE_JEU::NB_ETAPES].probaGainAdversaire);
     scenario->sauvegarderPartie();
 }

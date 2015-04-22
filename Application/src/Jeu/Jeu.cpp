@@ -519,12 +519,18 @@ bool Jeu::peutMiser(int posJoueur, int jetons){
 
     //On peut miser quand le joueur précédent a checké
     if(posJoueur==0){
-        if(actions[1]==ACTION::MISER || actions[1]==ACTION::RELANCER || actions[1]==ACTION::GROSSE_BLIND || actions[1]==ACTION::SUIVRE || actions[1]==ACTION::TAPIS){
+        if(actions[1]==ACTION::MISER || actions[1]==ACTION::RELANCER || actions[1]==ACTION::GROSSE_BLIND || actions[1]==ACTION::TAPIS){
+            if(actions[1]==ACTION::SUIVRE && actions[0]==ACTION::GROSSE_BLIND){
+                return true;
+            }
             return false;
         }
     }
     else{
-        if(actions[0]==ACTION::MISER || actions[0]==ACTION::RELANCER || actions[0]==ACTION::GROSSE_BLIND || actions[0]==ACTION::SUIVRE || actions[0]==ACTION::TAPIS ){
+        if(actions[0]==ACTION::MISER || actions[0]==ACTION::RELANCER || actions[0]==ACTION::GROSSE_BLIND || actions[0]==ACTION::TAPIS ){
+            if(actions[0]==ACTION::SUIVRE && actions[1]==ACTION::GROSSE_BLIND){
+                return true;
+            }
             return false;
         }
     }
