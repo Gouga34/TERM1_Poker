@@ -24,7 +24,7 @@ class Jeu{
         std::vector<Joueur*>                listeJoueurs;
         std::vector<Carte>                  deck;
         std::vector<Carte>                  table;
-        std::vector<ACTION>                 actions;
+        std::vector<std::vector<ACTION>>    actions;        // Liste d'actions par joueur
         int                                 blind;
         int                                 joueurCourant;
         int                                 pot;
@@ -161,10 +161,11 @@ class Jeu{
 		void			setPot(int jetons);
 		
 		/**
-		*@action  : Permet de connaitre l'action effectué par le joueur courant
-		*@return  : L'action effectué par le joueur courant
+            * @action Permet de connaitre la dernière action effectué par le joueur passé en paramètre
+            * @param posJoueur Joueur dont on veut connaitre l'action
+            * @return L'action effectué par le joueur courant
 		**/
-        ACTION          getAction() const;
+        ACTION          getLastAction(int posJoueur) const;
 		
 		/**
 		*@action : Permet d'obtenir la position du dealer
@@ -192,9 +193,10 @@ class Jeu{
 		
 		/**
 		*@action : Permet d'obtenir l'ensemble des actions
+        *@param posJoueur Position du joueur dont on veut la liste
 		*@return : L'ensemble des actions
 		**/
-        std::vector<ACTION> getListeActions() const;
+        std::vector<ACTION> getListeActions(int posJoueur) const;
 
         /**
         *@action : Permet d'obtenir l'etape courante
