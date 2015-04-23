@@ -353,11 +353,11 @@ Action Resolveur::calculerAction(){
                 ||(actionAgressivite.getAction()==MISER && actionRationalite.getAction()==CHECKER)){
             if(actionAgressivite.getAction()==CHECKER){
                 actionAgressivite.setAction(MISER);
-                actionAgressivite.setMontant(0);
+                actionAgressivite.setMontant(1);
             }
             else{
                 actionRationalite.setAction(MISER);
-                actionRationalite.setMontant(0);
+                actionRationalite.setMontant(1);
             }
         }
         //SUIVRE et RELANCER
