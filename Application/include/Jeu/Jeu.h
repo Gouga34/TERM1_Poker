@@ -20,7 +20,7 @@ class IntelligenceArtificielle;
 class Jeu{
 
 	//Liste des attributs
-	private :
+	private :    
         std::vector<Joueur*>                listeJoueurs;
         std::vector<Carte>                  deck;
         std::vector<Carte>                  table;

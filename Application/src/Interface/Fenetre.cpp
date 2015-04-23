@@ -49,10 +49,17 @@ Fenetre::Fenetre() : QWidget()
 //    calibrageIa.setRationalite(options.rationaliteIA);
 
 
+
     jeu = new Jeu(2, 20, CAVE_JOUEURS);
 
-    Joueur *j1 = new IntelligenceArtificielle(true, CAVE_JOUEURS, 0);
-    //Joueur *j1 = new JoueurHumain(true, CAVE_JOUEURS, 0, this);
+    Joueur *j1;
+    if (options.joueurIA) {
+        j1 = new IntelligenceArtificielle(true, CAVE_JOUEURS, 0);
+    }
+    else {
+        j1 = new JoueurHumain(true, CAVE_JOUEURS, 0, this);
+    }
+
     IntelligenceArtificielleProfilage *ia = new IntelligenceArtificielleProfilage(false, CAVE_JOUEURS, 1);
     ia->setPseudoJoueurProfile(pseudoJoueur.toStdString());
     //ia->setCalibrage(calibrageIa);

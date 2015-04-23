@@ -29,6 +29,10 @@ IntelligenceArtificielle::~IntelligenceArtificielle(){
     }
 }
 
+bool IntelligenceArtificielle::estHumain() const {
+    return false;
+}
+
 double IntelligenceArtificielle::calculProba(){
 
     ifstream fichier(FICHIER_PROBAS_PREFLOP, ios::in);

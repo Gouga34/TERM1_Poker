@@ -14,10 +14,13 @@ Specification: Classe définissant la fenêtre de choix du pseudo.
 #include <QLineEdit>
 #include <QString>
 #include <QSlider>
+#include <QCheckBox>
 
 struct Options
 {
     QString pseudo;
+
+    bool joueurIA;
 
     double rationaliteIA;
     double agressiviteIA;
@@ -32,6 +35,8 @@ private :
 
    QLineEdit nouveau;
    QComboBox pseudos; //liste déroulante contenant les pseudos déjà connus.
+
+   QCheckBox choixAdversaire;
 
    QSlider rationalite;
    QSlider agressivite;

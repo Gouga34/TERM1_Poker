@@ -32,6 +32,8 @@ ChoixOptionsDialog::ChoixOptionsDialog() : QDialog(){
 
     ajouterPseudosConnus();
 
+    choixAdversaire.setText("IA contre IA");
+
     QLabel *calibrageDefaut = new QLabel("Rationalité : " + QString::number(rationaliteDefaut)
                                            + "%\nAgressivité : " + QString::number(agressiviteDefaut) + "%");
 
@@ -72,6 +74,7 @@ ChoixOptionsDialog::ChoixOptionsDialog() : QDialog(){
     QFormLayout *formulaire = new QFormLayout;
     formulaire->addRow("Nouveau pseudo ",&nouveau);
     formulaire->addRow("Pseudo déjà existant",&pseudos);
+    formulaire->addRow("Jeu",&choixAdversaire);
     //formulaire->addRow("Calibrage par défaut", calibrageDefaut);
     //formulaire->addRow("Rationalité", layoutRationalite);
     //formulaire->addRow("Agressivité", layoutAgressivite);
@@ -114,6 +117,8 @@ Options ChoixOptionsDialog::getOptions(){
     if (exec() == QDialog::Accepted) {
         QString nouveauPseudo = nouveau.text();
         QString ancienPseudo = pseudos.currentText();
+
+        options.joueurIA = choixAdversaire.isChecked();
 
         if(ancienPseudo.isEmpty() && !nouveauPseudo.isEmpty()){
             options.pseudo = nouveauPseudo;
