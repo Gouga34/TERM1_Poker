@@ -35,7 +35,6 @@ ScenariosDeTests::ScenariosDeTests(Profil *profilJoueur, Profil *calibrageIA){
     actionAttendueJoueur.setRationalite(-1);
 
     calibrageActuelIA->setRationalite(RATIONALITE_IA_PROFILAGE);
-    //Logger::getInstance()->ajoutLogs("Calibrage IA profilage: agressivité: "+QString::number(agressivite)+" rationalité: "+QString::number(RATIONALITE_IA_PROFILAGE));
 }
 
 
@@ -107,13 +106,9 @@ void ScenariosDeTests::sauvegarderPartie(){
     }
     else{
 
-
         QTextStream out(&fichier);
 
         //Si le fichiers est vide, on fait l'initialisation:
-
-
-
         calculerActionAttendueJoueur(fichier);
         calculerDistance();
 
@@ -123,8 +118,8 @@ void ScenariosDeTests::sauvegarderPartie(){
 
 
         if(fichier.size()==0){
-            agressiviteGlobale=actionReelleJoueur->getAgressivite();
-            rationaliteGlobale=actionReelleJoueur->getRationalite();
+            agressiviteGlobale=actionAttendueJoueur.getAgressivite();
+            rationaliteGlobale=actionAttendueJoueur.getRationalite();
         }else{
             fichier.seek(0);
             QString ligne=fichier.readLine();
@@ -137,10 +132,7 @@ void ScenariosDeTests::sauvegarderPartie(){
             int donneesReferences=0;
             while(!ligne.isEmpty()){
                 liste = ligne.split(",");
-
-
                 if(donneesReferences==1){
-
                     rationaliteGlobalePrec=liste.at(RATIONALITE_DEDUITE_GLOBALE).toDouble();
                     agressiviteGlobalePrec=liste.at(AGRESSIVITE_DEDUITE_GLOBALE).toDouble();
                 }
@@ -160,14 +152,13 @@ void ScenariosDeTests::sauvegarderPartie(){
                 ligne=fichier.readLine();
             }
 
-            agressiviteGlobale=(actionReelleJoueur->getAgressivite()+(agressiviteGlobalePrec*(nbParties-1)))/nbParties;
-            rationaliteGlobale=(actionReelleJoueur->getRationalite()+(rationaliteGlobalePrec*(nbParties-1)))/nbParties;
+            agressiviteGlobale=(actionAttendueJoueur.getAgressivite()+(agressiviteGlobalePrec*(nbParties-1)))/nbParties;
+            rationaliteGlobale=(actionAttendueJoueur.getRationalite()+(rationaliteGlobalePrec*(nbParties-1)))/nbParties;
         }
 
         if(fichier.size()==0){
           out<<"agressivite IA,Chances de gain IA qui profile,Agressivite attendue,Rationalite attendue,Agressivite reelle,Rationalite Reelle,distance moyenne,Agressivite deduite globale,Rationalite deduite globale"<<endl;
         }
-
 
          //On écrit déjà l'agressivité de l'IA qui profile et ses chances de gain.
         out<<getCalibrageActuelIA()->getAgressivite()<<","<<getChancesDeGain()<<","<<actionAttendueJoueur.getAgressivite()<<","
@@ -176,7 +167,6 @@ void ScenariosDeTests::sauvegarderPartie(){
 
        fichier.close();
     }
-
 
     scenarioSuivant();
 }
@@ -200,9 +190,7 @@ void ScenariosDeTests::calculerActionAttendueJoueur(QFile& fichierProfil){
 
     if(actionAttendueJoueur.getAgressivite()==-1 || actionAttendueJoueur.getRationalite()==-1){
 
-
         //On regarde dans le fichier dans lequel se trouvent les données de base.
-
     QString nomFichier=QString::fromStdString("scenarios_tests_basiques.csv");
     QFile fichier(QString::fromStdString(DOSSIER_PROFILAGE_STATIQUE)+nomFichier);
 
@@ -293,17 +281,11 @@ void ScenariosDeTests::calculerActionAttendueJoueur(QFile& fichierProfil){
                                     *( (intervalleAgressiviteAttendueSuperieur-intervalleAgressiviteAttendueInferieur)/
                                                     (intervalleChancesGainIASuperieur-intervalleChancesGainIAInferieur)))+intervalleAgressiviteAttendueInferieur;
 
-
         actionAttendueJoueur.setAgressivite(agressiviteAttendue);
 
         //Le taux de rationalité attendu est à 80% par défaut :
         actionAttendueJoueur.setRationalite(80.0);
-
-
     }
-
-
-
 }
 
 void ScenariosDeTests::calculerDistance(){
@@ -349,11 +331,11 @@ void ScenariosDeTests::ancienneSituationLAPlusProche(QFile& fichierProfil){
             differenceAgressivite=abs(liste.at(AGRESSIVITE_IA).toDouble()-calibrageActuelIA->getAgressivite());
 
             //Si l'agressivité varie de + ou - la variation autorisée, On fait la même chose pour les chances de gain de l'IA
-            if(differenceAgressivite<=VARIATION_AUTORISEE && differenceAgressivite>=0){
+            if(differenceAgressivite>=0){
 
                 //On regarde la différence de chances de gains de l'IA:
                 differenceChancesGainIA=abs(liste.at(CHANCES_GAIN_IA).toDouble()-getChancesDeGain());
-                if(differenceChancesGainIA<=VARIATION_AUTORISEE && differenceChancesGainIA>=0){
+                if(differenceChancesGainIA>=0){
 
                     //Si la distance est plus petite que la distance du cas précédemment trouvé
                     if(liste.at(DISTANCE).toDouble()<distancePrecedence){
