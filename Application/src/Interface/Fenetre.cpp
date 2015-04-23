@@ -35,12 +35,12 @@ Fenetre::Fenetre() : QWidget()
     pal.setColor(QPalette::Background, QColor(20, 127, 20));
     setPalette(pal);
 
+    Logger::creerInstance(this);
 
     //Récupération des options du jeu
     ChoixOptionsDialog fenetreOptions;
     Options options = fenetreOptions.getOptions();
 
-    // Envoi du pseudo du joueur
     QString pseudoJoueur = options.pseudo;
 
     // Envoi du calibrage de l'IA
@@ -49,17 +49,29 @@ Fenetre::Fenetre() : QWidget()
 //    calibrageIa.setRationalite(options.rationaliteIA);
 
 
-
     jeu = new Jeu(2, 20, CAVE_JOUEURS);
 
     Joueur *j1;
     if (options.joueurIA) {
         j1 = new IntelligenceArtificielle(true, CAVE_JOUEURS, 0);
+        IntelligenceArtificielle *ia = static_cast<IntelligenceArtificielle*>(j1);
+
+        if (options.pseudo.isEmpty()) {
+            Profil calibrage = ia->getCalibrage();
+            pseudoJoueur = QString::number(calibrage.getAgressivite()) + "_" + QString::number(calibrage.getRationalite());
+        }
+        else {
+            Profil calibrage;
+            calibrage.setAgressivite(options.pseudo.split("_")[0].toDouble());
+            calibrage.setRationalite(options.pseudo.split("_")[1].toDouble());
+            ia->setCalibrage(calibrage);
+        }
     }
     else {
         j1 = new JoueurHumain(true, CAVE_JOUEURS, 0, this);
     }
 
+    // Envoi du pseudo du joueur
     IntelligenceArtificielleProfilage *ia = new IntelligenceArtificielleProfilage(false, CAVE_JOUEURS, 1);
     ia->setPseudoJoueurProfile(pseudoJoueur.toStdString());
     //ia->setCalibrage(calibrageIa);
@@ -226,8 +238,6 @@ Fenetre::Fenetre() : QWidget()
     layout->addLayout(layoutOptions);
 
     setLayout(layout);
-
-    Logger::creerInstance(this);
 }
 
 Fenetre::~Fenetre()

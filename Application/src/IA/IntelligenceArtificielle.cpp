@@ -16,7 +16,6 @@ IntelligenceArtificielle::IntelligenceArtificielle(bool estDealer, int jetons, i
     if(position==0){
         std::cout<<"Calibrage IA profilée : agressivité: "<<agressivite<<" rationalité: "<<rationalite<<std::endl;
     }
-
 }
 
 IntelligenceArtificielle::IntelligenceArtificielle(const IntelligenceArtificielle& joueur): Joueur(joueur){
@@ -114,6 +113,10 @@ double IntelligenceArtificielle::calculProba(){
         }
                
 	return probabilite;
+}
+
+Profil IntelligenceArtificielle::getCalibrage() const {
+    return *(resolveur->getCalibrage());
 }
 
 void IntelligenceArtificielle::setCalibrage(Profil profil) {

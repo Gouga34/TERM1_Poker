@@ -55,7 +55,10 @@ class IntelligenceArtificielle : public Joueur {
 		
         virtual bool estHumain() const;
 
-        //Mutateur
+        /**
+         * @return Calibrage de l'IA
+         */
+        Profil getCalibrage() const;
 
         /**
          * @action Modifie les valeurs de calibrage de l'IA
