@@ -84,22 +84,11 @@ void Jeu::nouvelleEtape(ETAPE_JEU etape){
             nbCartes = 1;
         }
 
+        distributionCartesTable(nbCartes);
+
         Logger::getInstance()->ajoutLogs("Ajout de cartes sur la table");
 
-        if(this->tableTmp.empty()){
-            for(int i=0; i<nbCartes; i++){
-                if(deck.size() > 0){
-                    int position = rand() % deck.size();
-                    this->table.push_back(this->deck.at(position) );
-                    this->deck.erase(this->deck.begin() + position);
-                }
-            }
-        }else{
-            for(int i=0; i<nbCartes; i++){
-                    this->table.push_back(this->tableTmp.at(0));
-                    this->deck.erase(this->tableTmp.erase(this->tableTmp.begin()));
-            }
-        }
+
     }
 
     IntelligenceArtificielle *ia = static_cast<IntelligenceArtificielle*>(this->getJoueur(0));
@@ -107,6 +96,24 @@ void Jeu::nouvelleEtape(ETAPE_JEU etape){
 
     IntelligenceArtificielle *ia2 = static_cast<IntelligenceArtificielle*>(this->getJoueur(1));
     ia2->estimationChancesDeGain();
+}
+
+void Jeu::distributionCartesTable(int nbCartesADistribuer){
+
+    if(this->tableTmp.empty()){
+        for(int i=0; i<nbCartesADistribuer; i++){
+            if(deck.size() > 0){
+                int position = rand() % deck.size();
+                this->table.push_back(this->deck.at(position) );
+                this->deck.erase(this->deck.begin() + position);
+            }
+        }
+    }else{
+        for(int i=0; i<nbCartesADistribuer; i++){
+                this->table.push_back(this->tableTmp.at(0));
+                this->deck.erase(this->tableTmp.erase(this->tableTmp.begin()));
+        }
+    }
 }
 
 void Jeu::distributionBlind(){
@@ -233,6 +240,13 @@ void Jeu::tapis(int posJoueur, ACTION action){
         miseCourante = getJoueur(posJoueur)->getCave();
         cumulMisesEtRelances = getJoueur(posJoueur)->getMiseTotale();
     }
+    else if(getLastAction(getPositionJoueurAdverse(posJoueur))==TAPIS){
+        std::cout<<"tapis prec"<<std::endl;
+        this->getJoueur(posJoueur)->getCompteurActions()[0]++;
+        miseCourante = getJoueur(posJoueur)->getCave();
+        cumulMisesEtRelances = getJoueur(posJoueur)->getMiseTotale();
+        finPartie();
+    }
     else {
         this->getJoueur(posJoueur)->getCompteurActions()[1]++;
     }
@@ -264,11 +278,19 @@ void Jeu::suivre(int posJoueur){
 
     // Si on a assez d'argent on suit
     if(this->getJoueur(posJoueur)->getCave() > jetonsAAjouter){
-
-        jouerArgent(posJoueur, jetonsAAjouter);
-        this->actions[this->getJoueur(posJoueur)->getPosition()].push_back(ACTION::SUIVRE);
-        this->getJoueur(posJoueur)->getCompteurActions()[1]++;
-	}
+        if(getLastAction(getPositionJoueurAdverse(posJoueur))==TAPIS){ //Si l'autre avait fais tapis, fin partie
+            std::cout<<"TAPIS prec"<<std::endl;
+                jouerArgent(posJoueur,jetonsAAjouter);
+                this->actions[this->getJoueur(posJoueur)->getPosition()].push_back(ACTION::SUIVRE);
+                this->getJoueur(posJoueur)->getCompteurActions()[1]++;
+                finPartie();
+        }
+        else {
+            jouerArgent(posJoueur, jetonsAAjouter);
+            this->actions[this->getJoueur(posJoueur)->getPosition()].push_back(ACTION::SUIVRE);
+            this->getJoueur(posJoueur)->getCompteurActions()[1]++;
+        }
+    }
     else{      // Sinon on fait tapis
         tapis(posJoueur, SUIVRE);
     }
@@ -288,7 +310,6 @@ void Jeu::seCoucher(int posJoueur){
     IntelligenceArtificielleProfilage *ia = static_cast<IntelligenceArtificielleProfilage*>(this->getJoueur(1));
     ia->remplissageDonneesProfilage();
 
-    this->partieFinie = true;
     finPartie();
 }    
 
@@ -407,6 +428,7 @@ void Jeu::resetActions(){
 }
 
 void Jeu::finPartie() {
+    partieFinie=true;
 
     std::vector<Joueur*> joueursRestants;
 
@@ -422,6 +444,12 @@ void Jeu::finPartie() {
     int retour;
     //Si aucun des deux joueurs ne s'est couché:
     if(!estCouche(0) && !estCouche(1)){
+
+        if(getTable().size()<5){ //Dans le cas où il y a eu un tapis et que toutes les cartes ont pas été dévoilées
+            std::cout<<"taille table: "<<getTable().size()<<std::endl;
+            distributionCartesTable(5-(getTable().size()));
+        }
+
 
         int comparaisonMains = Evaluateur::comparerMains(this->getTable(), this->getJoueur(0)->getMain(), this->getJoueur(1)->getMain());
 

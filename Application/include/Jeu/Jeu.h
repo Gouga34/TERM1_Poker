@@ -220,6 +220,12 @@ class Jeu{
          * @param etape Nouvelle étape courante
          */
         void nouvelleEtape(ETAPE_JEU etape);
+
+        /**
+         * @brief distributionCartes distribue nbCartesADistribuer sur la table
+         * @param nbCartesADistribuer
+         */
+        void distributionCartesTable(int nbCartesADistribuer);
 		
 		/**
 		*@action : Distribue les blinds en debut de partie
