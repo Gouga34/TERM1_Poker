@@ -24,7 +24,9 @@ Specification: Fichier contenant l'implémentation de la classe
 
 using namespace std;
 
-ScenariosDeTests::ScenariosDeTests(Profil *profilJoueur, Profil *calibrageIA){
+ScenariosDeTests::ScenariosDeTests(Profil *profilJoueur, Profil *calibrageIA, Profil calibrageAdversaire){
+
+    calibrageRecherche = calibrageAdversaire;
 
     calibrageActuelIA=calibrageIA;
     actionReelleJoueur=profilJoueur;
@@ -36,7 +38,6 @@ ScenariosDeTests::ScenariosDeTests(Profil *profilJoueur, Profil *calibrageIA){
 
     calibrageActuelIA->setRationalite(RATIONALITE_IA_PROFILAGE);
 }
-
 
 ScenariosDeTests::~ScenariosDeTests(){
 
@@ -115,6 +116,7 @@ void ScenariosDeTests::sauvegarderPartie(){
         //calcul de la rationalité déduite globale et l'agressivité déduite globale:
         double agressiviteGlobale=0.0;
         double rationaliteGlobale=0.0;
+        double tauxSimilarite = 0.0;
 
 
         if(fichier.size()==0){
@@ -154,16 +156,21 @@ void ScenariosDeTests::sauvegarderPartie(){
 
             agressiviteGlobale=(actionAttendueJoueur.getAgressivite()+(agressiviteGlobalePrec*(nbParties-1)))/nbParties;
             rationaliteGlobale=(actionAttendueJoueur.getRationalite()+(rationaliteGlobalePrec*(nbParties-1)))/nbParties;
+
+            double similariteAgressivite = 100 - abs(agressiviteGlobale - calibrageRecherche.getAgressivite());
+            double similariteRationalite = 100 - abs(rationaliteGlobale - calibrageRecherche.getRationalite());
+
+            tauxSimilarite = (similariteAgressivite + similariteRationalite) / 2;
         }
 
         if(fichier.size()==0){
-          out<<"agressivite IA,Chances de gain IA qui profile,Agressivite attendue,Rationalite attendue,Agressivite reelle,Rationalite Reelle,distance moyenne,Agressivite deduite globale,Rationalite deduite globale"<<endl;
+          out<<"agressivite IA,Chances de gain IA qui profile,Agressivite attendue,Rationalite attendue,Agressivite reelle,Rationalite Reelle,distance moyenne,Agressivite deduite globale,Rationalite deduite globale,taux similarite"<<endl;
         }
 
          //On écrit déjà l'agressivité de l'IA qui profile et ses chances de gain.
         out<<getCalibrageActuelIA()->getAgressivite()<<","<<getChancesDeGain()<<","<<actionAttendueJoueur.getAgressivite()<<","
            <<actionAttendueJoueur.getRationalite()<<","<<actionReelleJoueur->getAgressivite()<<","<<actionReelleJoueur->getRationalite()<<","
-           <<getDistance()<<","<<agressiviteGlobale<<","<<rationaliteGlobale<<","<<endl;
+           <<getDistance()<<","<<agressiviteGlobale<<","<<rationaliteGlobale<<","<<tauxSimilarite<<endl;
 
        fichier.close();
     }
