@@ -123,10 +123,10 @@ void Jeu::distributionCartesTable(int nbCartesADistribuer){
 void Jeu::distributionBlind(){
 
     executerAction(getPositionJoueurAdverse(getDealer()), Action(MISER, getBlind()));
-    actions[getPositionJoueurAdverse(getDealer())].back() = ACTION::PETITE_BLIND;
+    getLastAction(getPositionJoueurAdverse(getDealer())) = ACTION::PETITE_BLIND;
 
     executerAction(getDealer(), Action(RELANCER, getBlind()));
-    actions[getDealer()].back() = ACTION::GROSSE_BLIND;
+    getLastAction(getDealer()) = ACTION::GROSSE_BLIND;
 
     this->joueurCourant = getDealer();
 
@@ -245,7 +245,6 @@ void Jeu::tapis(int posJoueur, ACTION action){
         cumulMisesEtRelances = getJoueur(posJoueur)->getMiseTotale();
     }
     else if(getLastAction(getPositionJoueurAdverse(posJoueur))==TAPIS){
-        std::cout<<"tapis prec"<<std::endl;
         this->getJoueur(posJoueur)->getCompteurActions()[0]++;
         miseCourante = getJoueur(posJoueur)->getCave();
         cumulMisesEtRelances = getJoueur(posJoueur)->getMiseTotale();
@@ -283,7 +282,6 @@ void Jeu::suivre(int posJoueur){
     // Si on a assez d'argent on suit
     if(this->getJoueur(posJoueur)->getCave() > jetonsAAjouter){
         if(getLastAction(getPositionJoueurAdverse(posJoueur))==TAPIS){ //Si l'autre avait fais tapis, fin partie
-            std::cout<<"TAPIS prec"<<std::endl;
                 jouerArgent(posJoueur,jetonsAAjouter);
                 this->actions[this->getJoueur(posJoueur)->getPosition()].push_back(ACTION::SUIVRE);
                 this->getJoueur(posJoueur)->getCompteurActions()[1]++;
@@ -320,7 +318,7 @@ void Jeu::seCoucher(int posJoueur){
 bool Jeu::debutTour(){
 
     for(int i=0; i< (int) this->actions.size(); i++){
-        if(this->actions.at(i).back() != ACTION::PAS_ENCORE_D_ACTION && this->actions.at(i).back() != ACTION::TAPIS){
+        if(getLastAction(i) != ACTION::PAS_ENCORE_D_ACTION && getLastAction(i) != ACTION::TAPIS){
             return false;
         }
     }
@@ -332,27 +330,27 @@ bool Jeu::debutTour(){
 bool Jeu::finDuTour(){
 
     // Si un joueur n'a pas encore joué
-    if (actions[0].back() == PAS_ENCORE_D_ACTION || actions[1].back() == PAS_ENCORE_D_ACTION) {
+    if (getLastAction(0)== PAS_ENCORE_D_ACTION || getLastAction(1) == PAS_ENCORE_D_ACTION) {
         return false;
     }
 
     // Si un joueur s'est couché
-    if (actions[0].back() == SE_COUCHER || actions[1].back() == SE_COUCHER) {
+    if (getLastAction(0) == SE_COUCHER || getLastAction(1) == SE_COUCHER) {
         return true;
     }
 
     // Si tout le monde a checké
-    if (actions[0].back() == CHECKER && actions[1].back() == CHECKER) {
+    if (getLastAction(0) == CHECKER && getLastAction(1) == CHECKER) {
         return true;
     }
 
     // Si un joueur a fait tapis et que l'adversaire a joué
     for (int i = 0; i < listeJoueurs.size(); i++) {
-        if (actions[i].back() == TAPIS) {
+        if (getLastAction(i) == TAPIS) {
 
             // Si l'autre a suivi, on cherche si c'est avant ou après le tapis (suivi de grosse blind)
-            if (actions[getPositionJoueurAdverse(i)].back() == TAPIS
-                    || (actions[getPositionJoueurAdverse(i)].back() == SUIVRE && actions[i].at(actions[i].size()-2) != GROSSE_BLIND)) {
+            if (getLastAction(getPositionJoueurAdverse(i)) == TAPIS
+                    || (getLastAction(getPositionJoueurAdverse(i)) == SUIVRE && actions[i].at(actions[i].size()-2) != GROSSE_BLIND)) {
                 return true;
             }
         }
@@ -360,7 +358,7 @@ bool Jeu::finDuTour(){
 
     // Si la suite de mises/relances est terminée (suivi)
     for (int i = 0; i < listeJoueurs.size(); i++) {
-        if (actions[i].back() == SUIVRE && actions[getPositionJoueurAdverse(i)].back() != GROSSE_BLIND
+        if (getLastAction(i) == SUIVRE && (getLastAction(getPositionJoueurAdverse(i)) != GROSSE_BLIND)
                 && actions[getPositionJoueurAdverse(i)].at(actions[getPositionJoueurAdverse(i)].size()-2) != GROSSE_BLIND) {
             return true;
         }
@@ -450,10 +448,8 @@ void Jeu::finPartie() {
     if(!estCouche(0) && !estCouche(1)){
 
         if(getTable().size()<5){ //Dans le cas où il y a eu un tapis et que toutes les cartes ont pas été dévoilées
-            std::cout<<"taille table: "<<getTable().size()<<std::endl;
             distributionCartesTable(5-(getTable().size()));
         }
-
 
         int comparaisonMains = Evaluateur::comparerMains(this->getTable(), this->getJoueur(0)->getMain(), this->getJoueur(1)->getMain());
 
@@ -542,13 +538,13 @@ bool Jeu::peutChecker(int posJoueur){
 
     //On peut checker quand le joueur précédent a checké ou suivi.
 
-    if(actions[posAdversaire].back()==ACTION::TAPIS && this->debutTour()){
+    if(getLastAction(posAdversaire)==ACTION::TAPIS && this->debutTour()){
         return true;
     }
 
     //Si l'action de l'autre joueur est miser, relancer ou grosse blinde, on retourne false
-    if(actions[posAdversaire].back()==ACTION::MISER || actions[posAdversaire].back()==ACTION::RELANCER
-            || actions[posAdversaire].back()==ACTION::GROSSE_BLIND || actions[posAdversaire].back()==ACTION::TAPIS){
+    if(getLastAction(posAdversaire)==ACTION::MISER || getLastAction(posAdversaire)==ACTION::RELANCER
+            || getLastAction(posAdversaire)==ACTION::GROSSE_BLIND || getLastAction(posAdversaire)==ACTION::TAPIS){
         return false;
     }
 
@@ -560,10 +556,10 @@ bool Jeu::peutMiser(int posJoueur, int jetons){
     int posAdversaire = getPositionJoueurAdverse(posJoueur);
 
     //On peut miser quand le joueur précédent a checké
-    if(actions[posAdversaire].back()==ACTION::MISER || actions[posAdversaire].back()==ACTION::RELANCER
-            || actions[posAdversaire].back()==ACTION::GROSSE_BLIND || actions[posAdversaire].back()==ACTION::TAPIS){
+    if(getLastAction(posAdversaire)==ACTION::MISER || getLastAction(posAdversaire)==ACTION::RELANCER
+            || getLastAction(posAdversaire)==ACTION::GROSSE_BLIND || getLastAction(posAdversaire)==ACTION::TAPIS){
 
-        if(actions[posAdversaire].back()==ACTION::SUIVRE && actions[posJoueur].back()==ACTION::GROSSE_BLIND){
+        if(getLastAction(posAdversaire)==ACTION::SUIVRE && getLastAction(posJoueur)==ACTION::GROSSE_BLIND){
             return true;
         }
         return false;
@@ -582,8 +578,8 @@ bool Jeu::peutRelancer(int posJoueur, int jetons){
     int posAdversaire = getPositionJoueurAdverse(posJoueur);
 
     //On peut pas relancer quand le joueur précédent a checké, n'as pas agit, a fait tapis ou a suivi.
-    if(actions[posAdversaire].back()==ACTION::CHECKER || actions[posAdversaire].back()==ACTION::PAS_ENCORE_D_ACTION
-            || actions[posAdversaire].back()==ACTION::TAPIS || actions[posAdversaire].back()==ACTION::SUIVRE){
+    if(getLastAction(posAdversaire)==ACTION::CHECKER || getLastAction(posAdversaire)==ACTION::PAS_ENCORE_D_ACTION
+            || getLastAction(posAdversaire)==ACTION::TAPIS || getLastAction(posAdversaire)==ACTION::SUIVRE){
         return false;
     }
 
@@ -599,8 +595,8 @@ bool Jeu::peutSuivre(int posJoueur){
     int posAdversaire = getPositionJoueurAdverse(posJoueur);
 
     //On peut suivre quand le joueur précédent a misé, relancé, grosse blind ou fait tapis
-    if(actions[posAdversaire].back()==ACTION::CHECKER || actions[posAdversaire].back()==ACTION::PETITE_BLIND
-            || actions[posAdversaire].back()==ACTION::SUIVRE || actions[posAdversaire].back()==ACTION::PAS_ENCORE_D_ACTION){
+    if(getLastAction(posAdversaire)==ACTION::CHECKER || getLastAction(posAdversaire)==ACTION::PETITE_BLIND
+            || getLastAction(posAdversaire)==ACTION::SUIVRE || getLastAction(posAdversaire)==ACTION::PAS_ENCORE_D_ACTION){
         return false;
     }
 
@@ -608,7 +604,7 @@ bool Jeu::peutSuivre(int posJoueur){
 }
 
 bool Jeu::estCouche(int posJoueur) const {
-    return (this->getListeActions(posJoueur).back() == ACTION::SE_COUCHER);
+    return (getLastAction(posJoueur) == ACTION::SE_COUCHER);
 }
 
 void Jeu::executerAction(int posJoueur, Action a){
@@ -699,14 +695,14 @@ void Jeu::lancer()
 }
 
 bool Jeu::aFaitTapis(){
-    return actions[0].back() == ACTION::TAPIS || actions[1].back() == ACTION::TAPIS;
+    return getLastAction(0)== ACTION::TAPIS || getLastAction(1) == ACTION::TAPIS;
 }
 
 bool Jeu::peutJouer(int posJoueur){
 
-    if (this->actions[getPositionJoueurAdverse(posJoueur)].back() == ACTION::TAPIS
+    if (this->getLastAction(getPositionJoueurAdverse(posJoueur)) == ACTION::TAPIS
             && (this->getJoueur(posJoueur)->getMiseTotale() > this->getJoueur(getPositionJoueurAdverse(posJoueur))->getMiseTotale())
-            && this->actions[getPositionJoueurAdverse(posJoueur)].back() == ACTION::SUIVRE) {
+            && getLastAction(getPositionJoueurAdverse(posJoueur)) == ACTION::SUIVRE) {
         return false;
     }
     else {

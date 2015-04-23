@@ -55,8 +55,6 @@ Action Resolveur::calculerActionAgressivite(){
         miseTheoriqueTour=miseTotaleTheoriqueAgressivite-ia->getMiseTotale();
     }
 
-    int posJoueurAdverse = (ia->getPosition() == 0) ? 1 : 0;
-
     //Si on peut miser
     if(ia->getJeu()->peutMiser(ia->getPosition(),1)){
         // Si on a l'argent
@@ -69,10 +67,10 @@ Action Resolveur::calculerActionAgressivite(){
         }
     }
     //Si le joueur adverse a misé ou relancé
-    else if(ia->getJeu()->getListeActions(posJoueurAdverse).back() == MISER
-                || ia->getJeu()->getListeActions(posJoueurAdverse).back() == RELANCER
-                || ia->getJeu()->getListeActions(posJoueurAdverse).back() == GROSSE_BLIND
-                || ia->getJeu()->getListeActions(posJoueurAdverse).back() == TAPIS){
+    else if(ia->getJeu()->getLastAction(ia->getJeu()->getPositionJoueurAdverse(ia->getPosition())) == MISER
+                || ia->getJeu()->getLastAction(ia->getJeu()->getPositionJoueurAdverse(ia->getPosition())) == RELANCER
+                || ia->getJeu()->getLastAction(ia->getJeu()->getPositionJoueurAdverse(ia->getPosition())) == GROSSE_BLIND
+                || ia->getJeu()->getLastAction(ia->getJeu()->getPositionJoueurAdverse(ia->getPosition())) == TAPIS){
 
         double variationAutoriseeMiseAdversaire=(VARIATION_AUTORISEE/100) * ia->getJeu()->getMiseCourante();
 
