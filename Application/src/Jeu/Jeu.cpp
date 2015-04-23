@@ -123,10 +123,10 @@ void Jeu::distributionCartesTable(int nbCartesADistribuer){
 void Jeu::distributionBlind(){
 
     executerAction(getPositionJoueurAdverse(getDealer()), Action(MISER, getBlind()));
-    getLastAction(getPositionJoueurAdverse(getDealer())) = ACTION::PETITE_BLIND;
+    actions[getPositionJoueurAdverse(getDealer())].back() = ACTION::PETITE_BLIND;
 
     executerAction(getDealer(), Action(RELANCER, getBlind()));
-    getLastAction(getDealer()) = ACTION::GROSSE_BLIND;
+    actions[getDealer()].back() = ACTION::GROSSE_BLIND;
 
     this->joueurCourant = getDealer();
 
