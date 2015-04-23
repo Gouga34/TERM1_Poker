@@ -94,7 +94,7 @@ ChoixOptionsDialog::ChoixOptionsDialog() : QDialog(){
 void ChoixOptionsDialog::ajouterPseudosConnus(){
 
     //Ajout d'un pseudo vide :
-    pseudos.addItem("");
+    pseudos.addItem("Calibrage aléatoire");
     //Ouverture du fichier
     QFile fichierPseudos(QString::fromStdString(FICHIER_PSEUDOS_PROFILAGE));
 
@@ -120,15 +120,14 @@ Options ChoixOptionsDialog::getOptions(){
 
         options.joueurIA = choixAdversaire.isChecked();
 
-        if(ancienPseudo.isEmpty() && !nouveauPseudo.isEmpty()){
+        if(!nouveauPseudo.isEmpty()){
             options.pseudo = nouveauPseudo;
         }
-        else if(!ancienPseudo.isEmpty()){
-            options.pseudo = ancienPseudo;
+        else if(pseudos.currentIndex() == 0){
+            options.pseudo = "";
         }
         else{
-            cerr<<"Pas de pseudo"<<endl;
-            options.pseudo = "";
+            options.pseudo = ancienPseudo;
         }
 
         options.rationaliteIA = rationalite.value();
