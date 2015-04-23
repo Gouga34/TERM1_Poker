@@ -71,13 +71,14 @@ Fenetre::Fenetre() : QWidget()
         j1 = new JoueurHumain(true, CAVE_JOUEURS, 0, this);
     }
 
-    // Envoi du pseudo du joueur
+    jeu->addJoueur(j1);
+
     IntelligenceArtificielleProfilage *ia = new IntelligenceArtificielleProfilage(false, CAVE_JOUEURS, 1);
+    jeu->addJoueur(ia);
+
+    // Envoi du pseudo du joueur
     ia->setPseudoJoueurProfile(pseudoJoueur.toStdString());
     //ia->setCalibrage(calibrageIa);
-
-    jeu->addJoueur(j1);
-    jeu->addJoueur(ia);
 
 
     // Layout principal

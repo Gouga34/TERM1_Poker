@@ -19,6 +19,7 @@ Specification: Classe permettant d'écrire et
 class ScenariosDeTests{
 private:
   //Attributs :
+    Profil calibrageRecherche;
     Profil *calibrageActuelIA;
    // int numeroDuTestActuel; //correspond à l'itération du test où on en est. exemple : 3m itération du test avec pour calibrage 100 100.
     Profil actionAttendueJoueur;
@@ -35,7 +36,7 @@ private:
     void scenarioSuivant();
 
 public:
-    ScenariosDeTests(Profil *profilJoueur, Profil *calibrageIA);
+    ScenariosDeTests(Profil *profilJoueur, Profil *calibrageIA, Profil calibrageAdversaire);
 
     ~ScenariosDeTests();
 

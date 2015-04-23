@@ -45,7 +45,13 @@ void IntelligenceArtificielleProfilage::setPseudoJoueurProfile(std::string pseud
     }
     profilage = new Profilage(&profilJoueur);
 
-    scenario = new ScenariosDeTests(&profilJoueur, resolveur->getCalibrage());
+    Profil calibrageRecherche;
+    if (!jeu->getJoueur(0)->estHumain()) {
+        IntelligenceArtificielle *iaProfilee = static_cast<IntelligenceArtificielle*>(jeu->getJoueur(0));
+        calibrageRecherche = iaProfilee->getCalibrage();
+    }
+
+    scenario = new ScenariosDeTests(&profilJoueur, resolveur->getCalibrage(), calibrageRecherche);
 }
 
 void IntelligenceArtificielleProfilage::remplissageDonneesProfilage() {
