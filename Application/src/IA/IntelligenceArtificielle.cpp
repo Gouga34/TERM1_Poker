@@ -120,6 +120,33 @@ void IntelligenceArtificielle::setCalibrage(Profil profil) {
     resolveur->setCalibrage(profil);
 }
 
+void IntelligenceArtificielle::lancerEstimationChancesDeGain(int nbTests, int nbThreads)
+{
+    estimateurs.clear();
+    double nbTestsParThread = static_cast<double>(nbTests) / nbThreads;
+
+    for (int i = 0; i < nbThreads; i++) {
+        EstimationProba *estimateur = new EstimationProba(getJeu(), getJeu()->getJoueur(getPosition()), nbTestsParThread);
+        estimateurs.push_back(estimateur);
+        estimateur->start();
+    }
+}
+
+void IntelligenceArtificielle::attendreResultatEstimation()
+{
+    double sommeEstimations = 0;
+
+    for (int i = 0; i < estimateurs.size(); i++) {
+        estimateurs[i]->wait();
+        sommeEstimations += estimateurs[i]->getResultat();
+
+        delete estimateurs[i];
+    }
+
+    setChancesGain(100 * (sommeEstimations / estimateurs.size()));
+    estimateurs.clear();
+}
+
 void IntelligenceArtificielle::estimationChancesDeGain()
 {
     double estimation = 100*EstimationProba::estimation(this->getJeu(), this->getJeu()->getJoueur(this->getPosition()));

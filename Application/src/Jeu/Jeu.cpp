@@ -92,10 +92,12 @@ void Jeu::nouvelleEtape(ETAPE_JEU etape){
     }
 
     IntelligenceArtificielle *ia = static_cast<IntelligenceArtificielle*>(this->getJoueur(0));
-    ia->estimationChancesDeGain();
+    ia->lancerEstimationChancesDeGain(NOMBRE_DE_TESTS, 2);
+    ia->attendreResultatEstimation();
 
     IntelligenceArtificielle *ia2 = static_cast<IntelligenceArtificielle*>(this->getJoueur(1));
-    ia2->estimationChancesDeGain();
+    ia2->lancerEstimationChancesDeGain(NOMBRE_DE_TESTS, 2);
+    ia2->attendreResultatEstimation();
 }
 
 void Jeu::distributionCartesTable(int nbCartesADistribuer){

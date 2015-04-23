@@ -4,6 +4,7 @@
 #include "../Jeu/Joueur.h"
 #include "../Jeu/Jeu.h"
 #include "Resolveur.h"
+#include "EstimationProba.h"
 #include "../Profilage/Profil.h"
 
 #include <vector>
@@ -13,12 +14,17 @@
 
 
 class Resolveur;
+class EstimationProba;
+
 class IntelligenceArtificielle : public Joueur {
 
     protected:
         Resolveur *resolveur; //Cerveau de l'intelligence artificielle
 
     private:
+
+        std::vector<EstimationProba*> estimateurs;
+
 		//Méthodes
 		
 		/**
@@ -56,6 +62,18 @@ class IntelligenceArtificielle : public Joueur {
         void setCalibrage(Profil profil);
 		
         //Methodes
+
+        /**
+         * @action Lance une estimation des chances de gain dans plusieurs threads simultanément
+         * @param nbTests Nombre de tests à lancer au total
+         * @param nbThreads Nombre de threads à lancer
+         */
+        void lancerEstimationChancesDeGain(int nbTests, int nbThreads = 1);
+
+        /**
+         * @action Attend que l'ensemble des threads soit terminé
+         */
+        void attendreResultatEstimation();
 
         /**
          * @action Calcule les chances de gain en fonction des cartes connues
