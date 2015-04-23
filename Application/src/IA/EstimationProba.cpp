@@ -6,8 +6,37 @@
 #include <vector>
 
 
+EstimationProba::EstimationProba(int nombreTests)
+    : nbTests(nombreTests), jeu(0), joueur(0), resultatRestimation(0) {
 
-double EstimationProba::estimation(Jeu* jeuCourant, Joueur* joueurCourant){
+}
+
+EstimationProba::EstimationProba(Jeu *j, Joueur *jo, int nombreTests)
+    : nbTests(nombreTests), jeu(j), joueur(jo), resultatRestimation(0) {
+
+}
+
+double EstimationProba::getResultat() const {
+    return resultatRestimation;
+}
+
+void EstimationProba::setNbTests(int tests) {
+    nbTests = tests;
+}
+
+void EstimationProba::setJeu(Jeu *j) {
+    jeu= j;
+}
+
+void EstimationProba::setJoueur(Joueur *jo) {
+    joueur = jo;
+}
+
+void EstimationProba::run() {
+    resultatRestimation = estimation(jeu, joueur, nbTests);
+}
+
+double EstimationProba::estimation(Jeu* jeuCourant, Joueur* joueurCourant, int nombreTests){
 
     double nombreDeCoupGagner = 0;
 	int position;
@@ -19,7 +48,7 @@ double EstimationProba::estimation(Jeu* jeuCourant, Joueur* joueurCourant){
 //    std::unordered_map<std::string,int> listeEnsembleCarte;
 //    std::unordered_map<std::string,int>::const_iterator iterateurEnsembleCarte;
 	
-    for(int t=0; t <NOMBRE_DE_TESTS; t++){
+    for(int t=0; t <nombreTests; t++){
         //do{
             deck.clear();
             deck= nouveauDeck(joueurCourant);
@@ -59,7 +88,7 @@ double EstimationProba::estimation(Jeu* jeuCourant, Joueur* joueurCourant){
         }
 	}
 	
-    return (double) nombreDeCoupGagner / NOMBRE_DE_TESTS;
+    return (double) nombreDeCoupGagner / nombreTests;
 }
 
 
