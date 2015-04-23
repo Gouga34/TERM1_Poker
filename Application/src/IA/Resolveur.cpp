@@ -59,7 +59,6 @@ Action Resolveur::calculerActionAgressivite(){
 
     //Si on peut miser
     if(ia->getJeu()->peutMiser(ia->getPosition(),1)){
-        std::cout<<"peutMiser"<<std::endl;
         // Si on a l'argent
         if(ia->getJeu()->peutMiser(ia->getPosition(),miseTheoriqueTour)){
             action=MISER;
@@ -70,10 +69,10 @@ Action Resolveur::calculerActionAgressivite(){
         }
     }
     //Si le joueur adverse a misé ou relancé
-    else if(ia->getJeu()->getListeActions().at(posJoueurAdverse) == MISER
-                || ia->getJeu()->getListeActions().at(posJoueurAdverse) == RELANCER
-                || ia->getJeu()->getListeActions().at(posJoueurAdverse) == GROSSE_BLIND
-                || ia->getJeu()->getListeActions().at(posJoueurAdverse) == TAPIS){
+    else if(ia->getJeu()->getListeActions(posJoueurAdverse).back() == MISER
+                || ia->getJeu()->getListeActions(posJoueurAdverse).back() == RELANCER
+                || ia->getJeu()->getListeActions(posJoueurAdverse).back() == GROSSE_BLIND
+                || ia->getJeu()->getListeActions(posJoueurAdverse).back() == TAPIS){
 
         double variationAutoriseeMiseAdversaire=(VARIATION_AUTORISEE/100) * ia->getJeu()->getMiseCourante();
 
@@ -108,7 +107,6 @@ Action Resolveur::calculerActionAgressivite(){
                     if(ia->getJeu()->peutSuivre(ia->getPosition())){
                         action=SUIVRE;
                     }
-
                 }
             }
         }
@@ -117,7 +115,6 @@ Action Resolveur::calculerActionAgressivite(){
                 action=CHECKER;
             }
             else{
-
                 action=SE_COUCHER;
             }
         }
@@ -129,6 +126,8 @@ Action Resolveur::calculerActionAgressivite(){
     if(action==PAS_ENCORE_D_ACTION){
         std::cout<<"pas encore d'action"<<std::endl;
     }
+
+   // std::cout<<"action: "<<action<<" jetons a miser: "<<jetonsAMiser<<std::endl;
 
     return Action(action,jetonsAMiser);
 }
@@ -167,7 +166,7 @@ void Resolveur::calculerTotalMiseTheoriqueAgressivite(){
     if(tauxMiseTotale==0.0){
         tauxMiseTotale=((calibrage->getAgressivite()-palierInferieur)*((miseTheoriqueSuperieure-miseTheoriqueInferieure)/(palierSuperieur-palierInferieur)))+miseTheoriqueInferieure;
     }
-
+    miseTotaleTheoriqueAgressivite=(tauxMiseTotale/100) * CAVE_JOUEURS;
 }
 
 
@@ -329,10 +328,11 @@ Action Resolveur::calculerAction(){
 
     Action actionAgressivite=calculerActionAgressivite();
     Action actionRationalite=calculerActionRationalite();
+    //std::cout<<"actionAgressivite: "<<actionAgressivite.getAction()<<" actionRationalite: "<<actionRationalite.getAction()<<std::endl;
 
     bool tirageAleatoire=false;
-    ACTION action;
-    int jetonsAMiser;
+    ACTION action=PAS_ENCORE_D_ACTION;
+    int jetonsAMiser = -1;
 
     //fusion des deux résultats :
 
@@ -340,17 +340,17 @@ Action Resolveur::calculerAction(){
     if(actionAgressivite.getAction()!=actionRationalite.getAction()){
         //CHECKER et SE_COUCHER
         if((actionAgressivite.getAction()==CHECKER && actionRationalite.getAction()==SE_COUCHER)
-                ||(actionAgressivite.getAction()==SE_COUCHER && actionRationalite.getAction()==SE_COUCHER) ){
+                ||(actionAgressivite.getAction()==SE_COUCHER && actionRationalite.getAction()==CHECKER) ){
             action=CHECKER;
         }
         //CHECKER et SUIVRE
         if((actionAgressivite.getAction()==CHECKER && actionRationalite.getAction()==SUIVRE)
-                ||(actionAgressivite.getAction()==SUIVRE && actionRationalite.getAction()==SE_COUCHER) ){
+                ||(actionAgressivite.getAction()==SUIVRE && actionRationalite.getAction()==CHECKER) ){
             tirageAleatoire=true;
         }
         //CHECKER et MISER
         if((actionAgressivite.getAction()==CHECKER && actionRationalite.getAction()==MISER)
-                ||(actionAgressivite.getAction()==MISER && actionRationalite.getAction()==SE_COUCHER)){
+                ||(actionAgressivite.getAction()==MISER && actionRationalite.getAction()==CHECKER)){
             if(actionAgressivite.getAction()==CHECKER){
                 actionAgressivite.setAction(MISER);
                 actionAgressivite.setMontant(0);
@@ -398,15 +398,60 @@ Action Resolveur::calculerAction(){
                 ||(actionAgressivite.getAction()==SE_COUCHER && actionRationalite.getAction()==MISER)){
             if(actionAgressivite.getAction()==SE_COUCHER){
                 actionAgressivite.setAction(MISER);
-                actionAgressivite.setMontant(0);
 
                 actionRationalite.setMontant(actionRationalite.getMontant()/2);
             }
             else{
                 actionRationalite.setAction(MISER);
-                actionRationalite.setMontant(0);
 
                 actionAgressivite.setMontant(actionAgressivite.getMontant()/2);
+            }
+        }
+        //TAPIS et MISER
+        if((actionAgressivite.getAction()==TAPIS && actionRationalite.getAction()==MISER)
+                || (actionAgressivite.getAction()==MISER && actionRationalite.getAction()==TAPIS)){
+            if(actionAgressivite.getAction()==TAPIS){
+                actionAgressivite.setAction(MISER);
+                actionAgressivite.setMontant(ia->getCave());
+            }else{
+                actionRationalite.setAction(MISER);
+                actionRationalite.setMontant(ia->getCave());
+            }
+        }
+        //TAPIS et RELANCER
+        if((actionAgressivite.getAction()==TAPIS && actionRationalite.getAction()==RELANCER)
+                || (actionAgressivite.getAction()==RELANCER && actionRationalite.getAction()==TAPIS)){
+            if(actionAgressivite.getAction()==TAPIS){
+                actionAgressivite.setAction(RELANCER);
+                actionAgressivite.setMontant(ia->getCave());
+            }
+            else{
+                actionRationalite.setAction(RELANCER);
+                actionRationalite.setMontant(ia->getCave());
+            }
+        }
+        //TAPIS et SE_COUCHER
+        if((actionAgressivite.getAction()==TAPIS && actionRationalite.getAction()==SE_COUCHER)
+            || (actionAgressivite.getAction()==SE_COUCHER && actionRationalite.getAction()==TAPIS) ){
+            if(ia->getJeu()->peutSuivre(ia->getPosition())){
+                action=SUIVRE;
+            }
+            else if(ia->getJeu()->peutMiser(ia->getPosition(),ia->getCave()/2)){
+                action=MISER;
+                jetonsAMiser=ia->getCave()/2;
+            }
+        }
+        //TAPIS et CHECKER
+        if((actionAgressivite.getAction()==TAPIS && actionRationalite.getAction()==CHECKER)
+                || (actionAgressivite.getAction()==CHECKER && actionRationalite.getAction()==TAPIS)){
+            if(ia->getJeu()->peutSuivre(ia->getPosition())){
+                action=SUIVRE;
+            }
+            else{
+                if(ia->getJeu()->peutMiser(ia->getPosition(),ia->getCave()/2)){
+                    action=MISER;
+                    jetonsAMiser=ia->getCave()/2;
+                }
             }
         }
 
@@ -460,13 +505,16 @@ Action Resolveur::calculerAction(){
         jetonsAMiser= minJetonsAMiser+((tauxMax/total)*abs(maxJetonsAMiser-minJetonsAMiser));
 
     }else{
-        action=actionAgressivite.getAction();
+       if(action==PAS_ENCORE_D_ACTION){
+            action=actionAgressivite.getAction();
+       }
     }
 
     if(jetonsAMiser > ia->getCave()){
         jetonsAMiser = ia->getCave();
     }
 
+    //std::cout<<"Joueur: "<<ia->getPosition()<<" action: "<<action<<" jetonsAMiser: "<<jetonsAMiser<<"mthTot: "<<miseTotaleTheoriqueAgressivite<<" totMises"<<ia->getMiseTotale()<<std::endl;
     return Action(action,jetonsAMiser);
 }
 
