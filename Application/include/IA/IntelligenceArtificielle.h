@@ -53,7 +53,9 @@ class IntelligenceArtificielle : public Joueur {
 		**/
         virtual ~IntelligenceArtificielle();
 		
-		//Mutateur
+        virtual bool estHumain() const;
+
+        //Mutateur
 
         /**
          * @action Modifie les valeurs de calibrage de l'IA

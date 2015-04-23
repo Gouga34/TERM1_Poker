@@ -43,6 +43,11 @@ class Joueur{
 	//Accesseur
 	
         /**
+         * @return true si c'est un joueur humain, false si c'est une IA
+         */
+        virtual bool estHumain() const = 0;
+
+        /**
          * @brief getChancesGain
          * @return les chances de gain du joueur
          */

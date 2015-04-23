@@ -91,9 +91,11 @@ void Jeu::nouvelleEtape(ETAPE_JEU etape){
 
     }
 
-    IntelligenceArtificielle *ia = static_cast<IntelligenceArtificielle*>(this->getJoueur(0));
-    ia->lancerEstimationChancesDeGain(NOMBRE_DE_TESTS, 2);
-    ia->attendreResultatEstimation();
+    if (!getJoueur(0)->estHumain()) {
+        IntelligenceArtificielle *ia = static_cast<IntelligenceArtificielle*>(this->getJoueur(0));
+        ia->lancerEstimationChancesDeGain(NOMBRE_DE_TESTS, 2);
+        ia->attendreResultatEstimation();
+    }
 
     IntelligenceArtificielle *ia2 = static_cast<IntelligenceArtificielle*>(this->getJoueur(1));
     ia2->lancerEstimationChancesDeGain(NOMBRE_DE_TESTS, 2);

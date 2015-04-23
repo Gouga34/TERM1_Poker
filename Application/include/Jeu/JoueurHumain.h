@@ -24,6 +24,8 @@ class JoueurHumain : public Joueur
         JoueurHumain(const JoueurHumain& joueur, Fenetre *f);
         virtual ~JoueurHumain();
 
+        virtual bool estHumain() const;
+
         virtual Action jouer();
 };
 
