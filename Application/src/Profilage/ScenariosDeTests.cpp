@@ -348,6 +348,7 @@ void ScenariosDeTests::ancienneSituationLAPlusProche(QFile& fichierProfil){
                     if(liste.at(DISTANCE).toDouble()<distancePrecedence){
                         actionAttendueJoueur.setAgressivite(liste.at(AGRESSIVITE_REELLE).toDouble());
                         actionAttendueJoueur.setRationalite(liste.at(RATIONALITE_REELLE).toDouble());
+                        distancePrecedence=liste.at(DISTANCE).toDouble();
                     }
                 }
             }
