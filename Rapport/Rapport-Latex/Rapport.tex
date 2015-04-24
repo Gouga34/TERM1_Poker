@@ -1,0 +1,178 @@
+\documentclass{report}
+\usepackage[utf8]{inputenc}
+\usepackage{xcolor}
+\usepackage{sectsty} %%Pour changer la couleur de la police 
+
+\title{Rapport}
+\author{}
+\date{}
+
+
+\definecolor{bleurapport}{HTML}{00AAD4}
+
+\chapterfont{\color{bleurapport}}
+\sectionfont{\color{bleurapport}}
+\subsectionfont{\color{bleurapport}}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+
+
+\newpage
+
+\section*{Remerciements}
+	Nous tenons tout d'abord à remercier Jimmy Lopez et Sébastien Beugnon pour nous avoir conseillés tout au long de notre projet, notamment lors de la phase de conception du projet.
+	
+	
+	Nous remercions aussi nos tuteurs Guillaume Tisserant et Pierre Pompidor pour nous avoir accompagnés tout au long de la réalisation du projet, en particulier pour les choix des méthodes de profilage.
+
+\newpage
+
+\chapter*{Glossaire}
+
+	\textit{Les termes définis dans ce glossaire sont identifiables dans le corps du texte au moyen d'un astérisque (*).}
+	\bigbreak
+	\begin{itemize}
+	
+	
+		
+		\item[\textbf{Bluff : }]Le bluff est une technique de jeu qui constiste à jouer comme si l'on possédait un jeu différent de celui détenu en réalité.\medskip
+		
+		\item[\textbf{Rationalité : }]La rationalité  appliquée au poker stipule que toutes les actions d'un joueur ont une logique.\medskip
+
+		\item[\textbf{Agressité : }]	Un joueur agressif va jouer de façon à prendre l'initiative et continuer à miser dans le but d'intimider son adversaire et ainsi prendre l'avantage.	\medskip
+		
+		\item[\textbf{Profilage statique : }]Méthode consistant à profiler un joueur lors de chaque partie. Le profil établi n'est pas modifié à chaque fois que le joueur profilé effectue une action.\medskip
+		
+		\item[\textbf{Profilage dynamique : }]Méthode consistant à profiler un joueur tout au long d'une partie, en mettant à jour le profil établi en fonction des actions effectuées.\medskip
+		
+		\item[\textbf{Cave : }]La cave correspond à la somme possédée par chaque joueur au début de la partie.\medskip
+		
+		\item[\textbf{Pré-flop : }]Instant du jeu où le joueur possède deux cartes en main avant que les cartes communes n'aient été révélées.\medskip
+		
+		\item[\textbf{Flop : }]Correspond aux trois premières cartes communes posées sur la table.\medskip
+		
+		\item[\textbf{Checker : }]Correspond au moment où un joueur reste dans le jeu mais ne place pas d'enchères. Un joueur ne peut checker que si aucun joueur n'a misé avant lui.\medskip
+		
+		\item[\textbf{Dealer : }]Joueur se trouvant sur le siège d'où les cartes vont être distribuées.\medskip
+		
+		\item[\textbf{Blind : }]Terme correspondat aux mises obligatoires pour les deux joueurs situés à gauche du dealer.\medskip
+		
+		\item[\textbf{Bouton : }]Le bouton représente le dealer qui distribue les cartes.\medskip
+		
+		\item[\textbf{Relancer : }]Une relance correspond au moment où un joueur va miser plus que ce que ses adversaires viennent de miser.\medskip
+		
+		\item[\textbf{Coup : }]Correspond à la distribution courante d'un jeu.\medskip
+		
+		\item[\textbf{Mise : }]Montant placé sur la table par un joueur à un instant donné.\medskip
+		
+		\item[\textbf{Se coucher : }]Correspond au moment où le joueur abandonne le coup. Ses mises sont alors perdues.\medskip
+		
+		\item[\textbf{Turn : }]Quatrième carte commune.\medskip
+		
+		\item[\textbf{River : }]Cinquième carte commune.\medskip
+		
+		
+\end{itemize}
+
+
+
+\chapter{Introduction}
+
+\section{Généralités}
+
+\section{Sujet}
+
+\section{Rapide description des règles du Texas Hold'Em Poker}
+
+\section{Cahier des charges}
+\subsection{Problématique}
+\subsection{Fonctionnalités obligatoires}
+
+\hspace{0.5cm}Le projet qui nous a été attribué a pour but de développer une intelligence artificielle de poker permettant d'établir les différents profils des joueurs.\par
+L'intelligence artificielle devra donc profiler ses adversaires en se basant sur différents critères comme la rationalité ou l'agressivité. Elle catégorisera les différents types de joueurs et leur attribuera des comportements.\par
+Il nous est demandé d'établir dans un premier temps un profilage statique basé sur un automate à états finis, qui a pour but d'attribuer un unique comportement à chacun des joueurs pour toute la partie. Ce comportement sera attribué après plusieurs parties jouées contre un même joueur.\par
+Par la suite, nous devrons améliorer l'intelligence artificielle afin qu'elle soit en mesure de profiler dynamiquement chacun des joueurs. Dans cette seconde version, elle devra donc pouvoir adapter son comportement aux réactions des joueurs au fil de la partie. Le profilage dynamique se basera ici sur les réseaux bayésiens.\par
+Tout au long du développement, des scénarios de tests seront mis en place afin de vérifier le bon fonctionnement de la catégorisation des joueurs.
+
+\subsection{Fonctionnalités optionnelles}
+
+\hspace{0.5cm}Une fois les fonctionalités obligatoires mises en place, il sera possible d'ajouter la possibilité d'avoir plus de deux joueurs dans une même partie, avec plusieurs intelligences artificielles ou plusieurs joueurs humains mais comprenant toujours au moins une intelligence artificielle.\par
+On pourra également intégrer un système de dialogue entre les différents joueurs basé sur des phrases prédéfinies. Ainsi, chaque joueur, humain ou non, pourra envoyer des messages aux autres participants, et notre intelligence artificielle pourra utiliser ces messages pour mieux profiler ses opposants.\par 
+
+\subsection{Spécifications techniques}
+
+\hspace{0.5cm}Afin de faciliter les conditions de travail en groupe, il faudra utiliser un gestionnaire de version.\par
+L'application devra être réalisée en utilisant le langage C++.\par
+Le développement devra s'appuyer sur les méthodes agiles. Celles-ci sont basées sur une approche itérative dans un esprit collaboratif en prenant compte des besoins des utilisateurs et de leurs évolutions.\par
+
+\subsection{Organisation prévisionnelle}
+
+\hspace{0.5cm}Comme nous pouvons le voir dans l'annexe A représentant le diagramme de Gantt prévisionnel que nous avons mis en place. Dans un premier temps, nous avons donc prévu une étude préalable du sujet consistant à nous familiariser avec le vocabulaire du poker. De ce fait, Nous avons donc rapidement mis en place un glossaire contenant des définitions des différents termes. Pendant cette période, nous avons également défini les besoins des utilisateurs avec entre-autres un diagramme de cas d'utilisations. Durant cette prériode, nous avons aussi défini comment nous allions nous organiser durant le déroulement du projet, en définissant la fréquence des rendez-vous ainsi que les modalités de partage des données.\par
+Par la suite, nous avons prévu de continuer par une étude détaillée durant laquelle nous allons élaborer un diagramme de classe, rédiger le cahier des charges ainsi que commencer à lire des articles sur le sujet.\par
+Ensuite, nous passerons à une première étude technique durant laquelle nous commencerons par établir les normes de programmation. Puis, nous établirons une intelligence artificielle simple permettant à un joueur de jouer. Nous établierons par la suite les différents algorithmes et méthodes permettant d'établir un profilage statique du joueur adverse. Et nous établierons des jeux de tests. En même temps que cette étude technique, nous commencerons la phase de réalisation, en implémentant en parallèle l'interface graphique et l'intelligence artificielle simple puis, nous ajouterons la méthode de profilage statique et effectuerons les tests définis auparavent.\par
+Nous effectuerons ensuite une seconde étude technique pendant laquelle nous définirons les méthodes et algorithmes qui seront utilisés afin d'implémenter la méthode de profilage dynamique. Dans ce même temps, nous implémenterons cette méthode de profilage dynamique, en effectuant les tests définis pendant la phase d'étude technique.\par
+Enfin, la dernière partie sera réservée à la mise en place de la démonstration qui sera effectuée lors de la soutenance, ainsi qu'à la finalisation du rapport qui sera rédigé tout au long de la période du projet et à la préparation de la soutenance.
+
+\chapter{Organisation du projet}
+
+
+
+\section{Organisation du travail}
+
+\section{Choix des outils de travail}
+\subsection{Gestionnaire de versions}
+\subsection{Création de l'interface graphique}
+\subsection{Rédaction et mise en page du rapport}
+\subsection{Langage}
+
+
+\chapter{Analyse du projet}
+
+\section{Système de jeu}
+
+\section{Profilage statique}
+
+\section{Réutilisation des résultats du profilage}
+
+\section{Profilage dynamique}
+
+\section{Réutilisation des résultats du profilage}
+
+
+\chapter{Mise en place des méthodes de profilage}
+
+\section{Calibrage des intelligences artificielles}
+
+\section{Profilage statique}
+\subsection{Scénarios de tests}
+\subsection{Établissement des profils attendus}
+\subsection{Réutilisation des résultats du profilage}
+
+\section{Profilage dynamique}
+\subsection{Scénarios de tests}
+\subsection{Établissement des profils attendus}
+\subsection{Réutilisation des résultats du profilage}
+
+
+\chapter{Analyse des résultats obtenus}
+
+\section{Profilage statique}
+\subsection{Scénarios de tests}
+\subsection{Analyse des gains de parties}
+
+\chapter{Profilage dynamique}
+\section{Analyse des gains de parties}
+
+
+\chapter{Perspectives et conclusion}
+\section{Perspectives d'amélioration du profilage}
+\section{Profilage obtenu}
+
+
+
+\end{document}
