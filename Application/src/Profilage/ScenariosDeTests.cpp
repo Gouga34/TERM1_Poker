@@ -327,25 +327,33 @@ void ScenariosDeTests::ancienneSituationLAPlusProche(QFile& fichierProfil){
         QString ligne=fichierProfil.readLine();
         ligne=fichierProfil.readLine(); //on lit une deuxième fois pour sauter la première ligne
         QStringList liste;
-        int differenceAgressivite=0;
-        int differenceChancesGainIA=0;
+        int differenceAgressivitePrecedente=100;
+        int differenceChancesGainIAPrecedente=100;
         int distancePrecedence=1000;
 
         //On va parcourir tout le fichier pour récupérer le profil le plus proche possible s'il y en a un
         while(!ligne.isEmpty()){
             liste=ligne.split(",");
 
-            differenceAgressivite=abs(liste.at(AGRESSIVITE_IA).toDouble()-calibrageActuelIA->getAgressivite());
+            int differenceAgressivite=abs(liste.at(AGRESSIVITE_IA).toDouble()-calibrageActuelIA->getAgressivite());
 
             //Si l'agressivité varie de + ou - la variation autorisée, On fait la même chose pour les chances de gain de l'IA
             if(differenceAgressivite>=0){
 
                 //On regarde la différence de chances de gains de l'IA:
-                differenceChancesGainIA=abs(liste.at(CHANCES_GAIN_IA).toDouble()-getChancesDeGain());
+                int differenceChancesGainIA=abs(liste.at(CHANCES_GAIN_IA).toDouble()-getChancesDeGain());
                 if(differenceChancesGainIA>=0){
 
-                    //Si la distance est plus petite que la distance du cas précédemment trouvé
-                    if(liste.at(DISTANCE).toDouble()<distancePrecedence){
+                    // On regarde si on est dans le même palier
+
+                    double moyenneDiffPrecedente = static_cast<double>(differenceAgressivitePrecedente + differenceChancesGainIAPrecedente) / 2;
+                    double moyenneActuelle = static_cast<double>(differenceAgressivite + differenceChancesGainIA) / 2;
+
+                    if(moyenneActuelle<moyenneDiffPrecedente){
+
+                        differenceAgressivitePrecedente = differenceAgressivite;
+                        differenceChancesGainIAPrecedente = differenceChancesGainIA;
+
                         actionAttendueJoueur.setAgressivite(liste.at(AGRESSIVITE_REELLE).toDouble());
                         actionAttendueJoueur.setRationalite(liste.at(RATIONALITE_REELLE).toDouble());
                         distancePrecedence=liste.at(DISTANCE).toDouble();
