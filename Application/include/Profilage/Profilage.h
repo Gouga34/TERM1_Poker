@@ -24,8 +24,11 @@ class Profilage
 
     public:
 
-        int typeJoueur[PROFIL_JOUEUR::NB_PROFILS];
         Profil *profilJoueur;
+        RESULTAT_PARTIE partieGagneeIAQuiProfile;
+
+        int nombreParties;
+        int partiesGagneesParIAQuiProfile;
 
         struct EtapePartie
         {
@@ -72,6 +75,18 @@ class Profilage
          * @action : Vide le tableau
          */
         void clear();
+
+        /**
+         * @brief getNombreParties
+         * @return le nombre de parties efectuées
+         */
+        int getNombreParties();
+
+        /**
+         * @brief getPartiesGagneesParIAQuiProfile
+         * @return le nombre de parties gagnées depuis le début
+         */
+        int getPartiesGagneesParIAQuiProfile();
 };
 
 #endif // PROFILAGE_H

@@ -112,7 +112,7 @@ class CartesJoueur{
 		  * @action prend en compte que this et main2 ont la même combinaison 
 		  * et calcule laquelle a les cartes les plus fortes
 		  */
-         int comparerCombinaisonsEgales(CartesJoueur main2);
+         RESULTAT_PARTIE comparerCombinaisonsEgales(CartesJoueur main2);
 
 };
 

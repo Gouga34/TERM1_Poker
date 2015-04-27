@@ -135,7 +135,7 @@ void Jeu::distributionBlind(){
     }
 }
 
-int Jeu::getResultatPartie() const {
+RESULTAT_PARTIE Jeu::getResultatPartie() const {
     return this->resultatPartie;
 }
 
@@ -443,7 +443,7 @@ void Jeu::finPartie() {
         }
     }
 
-    int retour;
+    RESULTAT_PARTIE retour;
     //Si aucun des deux joueurs ne s'est couché:
     if(!estCouche(0) && !estCouche(1)){
 
@@ -451,7 +451,7 @@ void Jeu::finPartie() {
             distributionCartesTable(5-(getTable().size()));
         }
 
-        int comparaisonMains = Evaluateur::comparerMains(this->getTable(), this->getJoueur(0)->getMain(), this->getJoueur(1)->getMain());
+        RESULTAT_PARTIE comparaisonMains = Evaluateur::comparerMains(this->getTable(), this->getJoueur(0)->getMain(), this->getJoueur(1)->getMain());
 
         if(comparaisonMains == GAGNE){
 

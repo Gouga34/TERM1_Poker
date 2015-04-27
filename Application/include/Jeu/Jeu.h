@@ -40,7 +40,7 @@ class Jeu{
         int                                 dealer;
         bool                                partieFinie;
         ETAPE_JEU                           etape;
-        int                                 resultatPartie;
+        RESULTAT_PARTIE                                 resultatPartie;
         std::vector<Carte>                  tableTmp;
 
 
@@ -109,7 +109,7 @@ class Jeu{
         /**
          * @return Gagnant de la partie (GAGNE, PERDU, EGALITE)
          */
-        int             getResultatPartie() const;
+        RESULTAT_PARTIE getResultatPartie() const;
 
         /**
 		*@action : Permet d'obtenir le montant de la petite blind

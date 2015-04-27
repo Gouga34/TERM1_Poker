@@ -10,7 +10,7 @@ Specification: Fichier contenant les définitions de la classe Evaluateur.
 
 using namespace std;
 
-int Evaluateur::comparerMains(vector<Carte> table, vector<Carte> mainJoueur1, vector<Carte> mainJoueur2){
+RESULTAT_PARTIE Evaluateur::comparerMains(vector<Carte> table, vector<Carte> mainJoueur1, vector<Carte> mainJoueur2){
 
 	CartesJoueur main1(table, mainJoueur1);
 

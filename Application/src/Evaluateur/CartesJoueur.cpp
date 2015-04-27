@@ -280,7 +280,7 @@ void CartesJoueur::calculerPoidsBasique(){
 	}
 }
 
- int CartesJoueur::comparerCombinaisonsEgales(CartesJoueur main2){
+ RESULTAT_PARTIE CartesJoueur::comparerCombinaisonsEgales(CartesJoueur main2){
  	
  	if(getPoids()==0){
  		calculerPoidsBasique();
