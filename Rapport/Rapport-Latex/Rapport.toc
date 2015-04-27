@@ -42,8 +42,8 @@
 \contentsline {section}{\numberline {5.1}Profilage statique}{16}
 \contentsline {subsection}{\numberline {5.1.1}Sc\IeC {\'e}narios de tests}{16}
 \contentsline {subsection}{\numberline {5.1.2}Analyse des gains de parties}{16}
-\contentsline {chapter}{\numberline {6}Profilage dynamique}{17}
-\contentsline {section}{\numberline {6.1}Analyse des gains de parties}{17}
-\contentsline {chapter}{\numberline {7}Perspectives et conclusion}{18}
-\contentsline {section}{\numberline {7.1}Perspectives d'am\IeC {\'e}lioration du profilage}{18}
-\contentsline {section}{\numberline {7.2}Profilage obtenu}{18}
+\contentsline {section}{\numberline {5.2}Profilage dynamique}{16}
+\contentsline {subsection}{\numberline {5.2.1}Analyse des gains de parties}{16}
+\contentsline {chapter}{\numberline {6}Perspectives et conclusion}{17}
+\contentsline {section}{\numberline {6.1}Perspectives d'am\IeC {\'e}lioration du profilage}{17}
+\contentsline {section}{\numberline {6.2}Profilage obtenu}{17}
