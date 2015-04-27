@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.2.9)  27 APR 2015 18:53
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.2.9)  27 APR 2015 19:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -404,86 +404,86 @@ LaTeX Font Info:    ... okay on input line 22.
 
 ] [5]
 Chapitre 1.
-
-Overfull \hbox (25.54301pt too wide) in paragraph at lines 95--95
-[]\OT1/cmr/bx/n/14.4 Rapide de-scrip-tion des r^^Regles du Texas Hold'Em
- []
-
 [6
 
 ]
-Overfull \hbox (6.42136pt too wide) in paragraph at lines 109--109
+Overfull \hbox (25.54301pt too wide) in paragraph at lines 99--99
+[]\OT1/cmr/bx/n/14.4 Rapide de-scrip-tion des r^^Regles du Texas Hold'Em
+ []
+
+[7]
+Overfull \hbox (6.42136pt too wide) in paragraph at lines 140--140
  \OT1/cmr/m/n/10 Une fois les fonc-tion-nalit^^Ses obli-ga-toires mises en plac
 e, il sera pos-si-ble d'ajouter
  []
 
-[7] [8]
+[8] [9]
 Chapitre 2.
 
-Overfull \hbox (2.3061pt too wide) in paragraph at lines 142--142
+Overfull \hbox (2.3061pt too wide) in paragraph at lines 173--173
 []\OT1/cmr/m/n/10 Les noms des m^^Sethodes, des vari-ables et des at-tributs de
 -vront imp^^Serativement
  []
 
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 150.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 181.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 150.
- [9
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 181.
+ [10
 
 ]
-Overfull \hbox (99.00452pt too wide) in paragraph at lines 159--160
+Overfull \hbox (99.00452pt too wide) in paragraph at lines 190--191
 [][][] 
  []
 
 
-Overfull \hbox (99.00452pt too wide) in paragraph at lines 163--164
+Overfull \hbox (99.00452pt too wide) in paragraph at lines 194--195
 [][][] 
  []
 
 
-Overfull \hbox (105.00458pt too wide) in paragraph at lines 165--166
+Overfull \hbox (105.00458pt too wide) in paragraph at lines 196--197
 [][][] 
  []
 
-[10]
+[11]
 Chapitre 3.
 
-Overfull \hbox (1.83286pt too wide) in paragraph at lines 183--183
+Overfull \hbox (1.83286pt too wide) in paragraph at lines 214--214
 []\OT1/cmr/bx/n/14.4 Formule de cal-cul du taux de ra-tio-nalit^^Se d'un
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 186--190
+Underfull \hbox (badness 10000) in paragraph at lines 217--221
 
  []
 
-[11
+[12
 
 ]
-Overfull \hbox (89.94403pt too wide) in paragraph at lines 200--200
+Overfull \hbox (89.94403pt too wide) in paragraph at lines 231--231
 [] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 235--236
+Underfull \hbox (badness 10000) in paragraph at lines 266--267
 
  []
 
-[12] [13]
+[13] [14]
 Chapitre 4.
-[14
+[15
 
-] [15]
+] [16]
 Chapitre 5.
-[16
+[17
 
 ]
 Chapitre 6.
-[17
+[18
 
 ] (./Rapport.aux) ) 
 Here is how much of TeX's memory you used:
@@ -508,10 +508,10 @@ ublic/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
 sfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
 /cm/cmsy9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmt
 i10.pfb>
-Output written on Rapport.pdf (18 pages, 190816 bytes).
+Output written on Rapport.pdf (19 pages, 196010 bytes).
 PDF statistics:
- 118 PDF objects out of 1000 (max. 8388607)
- 83 compressed objects within 1 object stream
+ 122 PDF objects out of 1000 (max. 8388607)
+ 86 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

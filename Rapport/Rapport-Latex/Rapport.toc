@@ -1,49 +1,55 @@
 \contentsline {chapter}{\numberline {1}Introduction}{6}
 \contentsline {section}{\numberline {1.1}G\IeC {\'e}n\IeC {\'e}ralit\IeC {\'e}s}{6}
 \contentsline {section}{\numberline {1.2}Sujet}{6}
-\contentsline {section}{\numberline {1.3}Rapide description des r\IeC {\`e}gles du Texas Hold'Em Poker}{6}
-\contentsline {section}{\numberline {1.4}Cahier des charges}{6}
-\contentsline {subsection}{\numberline {1.4.1}Probl\IeC {\'e}matique}{6}
-\contentsline {subsection}{\numberline {1.4.2}Fonctionnalit\IeC {\'e}s obligatoires}{6}
-\contentsline {subsection}{\numberline {1.4.3}Fonctionnalit\IeC {\'e}s optionnelles}{7}
-\contentsline {subsection}{\numberline {1.4.4}Sp\IeC {\'e}cifications techniques}{7}
-\contentsline {subsection}{\numberline {1.4.5}Organisation pr\IeC {\'e}visionnelle}{7}
-\contentsline {chapter}{\numberline {2}Organisation du projet}{9}
-\contentsline {section}{\numberline {2.1}Organisation du travail}{9}
-\contentsline {section}{\numberline {2.2}Choix des outils de travail}{9}
-\contentsline {subsection}{\numberline {2.2.1}Gestionnaire de versions}{9}
-\contentsline {subsection}{\numberline {2.2.2}Cr\IeC {\'e}ation de l'interface graphique}{9}
-\contentsline {subsection}{\numberline {2.2.3}R\IeC {\'e}daction et mise en page du rapport}{9}
-\contentsline {subsection}{\numberline {2.2.4}Normes de programmation}{9}
-\contentsline {subsection}{\numberline {2.2.5}Langage}{10}
-\contentsline {chapter}{\numberline {3}Analyse du projet}{11}
-\contentsline {section}{\numberline {3.1}Syst\IeC {\`e}me de jeu}{11}
-\contentsline {section}{\numberline {3.2}Profilage}{11}
-\contentsline {subsection}{\numberline {3.2.1}Choix d'enregistrement des donn\IeC {\'e}es}{11}
-\contentsline {section}{\numberline {3.3}Formule de calcul du taux de rationalit\IeC {\'e} d'un joueur}{11}
-\contentsline {subsection}{\numberline {3.3.1}Formule de calcul du taux d'agressivit\IeC {\'e} d'un joueur}{12}
-\contentsline {subsection}{\numberline {3.3.2}Formule de calcul du taux de bluff d'un joueur}{13}
-\contentsline {subsection}{\numberline {3.3.3}Formule de calcul du taux de passivit\IeC {\'e} d'un joueur}{13}
-\contentsline {section}{\numberline {3.4}Profilage statique}{13}
-\contentsline {section}{\numberline {3.5}R\IeC {\'e}utilisation des r\IeC {\'e}sultats du profilage}{13}
-\contentsline {section}{\numberline {3.6}Profilage dynamique}{13}
-\contentsline {section}{\numberline {3.7}R\IeC {\'e}utilisation des r\IeC {\'e}sultats du profilage}{13}
-\contentsline {chapter}{\numberline {4}Mise en place des m\IeC {\'e}thodes de profilage}{14}
-\contentsline {section}{\numberline {4.1}Calibrage des intelligences artificielles}{14}
-\contentsline {section}{\numberline {4.2}Profilage statique}{15}
-\contentsline {subsection}{\numberline {4.2.1}Sc\IeC {\'e}narios de tests}{15}
-\contentsline {subsection}{\numberline {4.2.2}\IeC {\'E}tablissement des profils attendus}{15}
-\contentsline {subsection}{\numberline {4.2.3}R\IeC {\'e}utilisation des r\IeC {\'e}sultats du profilage}{15}
-\contentsline {section}{\numberline {4.3}Profilage dynamique}{15}
-\contentsline {subsection}{\numberline {4.3.1}Sc\IeC {\'e}narios de tests}{15}
-\contentsline {subsection}{\numberline {4.3.2}\IeC {\'E}tablissement des profils attendus}{15}
-\contentsline {subsection}{\numberline {4.3.3}R\IeC {\'e}utilisation des r\IeC {\'e}sultats du profilage}{15}
-\contentsline {chapter}{\numberline {5}Analyse des r\IeC {\'e}sultats obtenus}{16}
-\contentsline {section}{\numberline {5.1}Profilage statique}{16}
-\contentsline {subsection}{\numberline {5.1.1}Sc\IeC {\'e}narios de tests}{16}
-\contentsline {subsection}{\numberline {5.1.2}Analyse des gains de parties}{16}
-\contentsline {section}{\numberline {5.2}Profilage dynamique}{16}
-\contentsline {subsection}{\numberline {5.2.1}Analyse des gains de parties}{16}
-\contentsline {chapter}{\numberline {6}Perspectives et conclusion}{17}
-\contentsline {section}{\numberline {6.1}Perspectives d'am\IeC {\'e}lioration du profilage}{17}
-\contentsline {section}{\numberline {6.2}Profilage obtenu}{17}
+\contentsline {section}{\numberline {1.3}Rapide description des r\IeC {\`e}gles du Texas Hold'Em Poker}{7}
+\contentsline {subsection}{\numberline {1.3.1}Mise en place du jeu}{7}
+\contentsline {subsection}{\numberline {1.3.2}Pr\IeC {\'e}flop}{7}
+\contentsline {subsection}{\numberline {1.3.3}Flop}{7}
+\contentsline {subsection}{\numberline {1.3.4}Turn}{7}
+\contentsline {subsection}{\numberline {1.3.5}River}{7}
+\contentsline {subsection}{\numberline {1.3.6}Les combinaisons}{8}
+\contentsline {section}{\numberline {1.4}Cahier des charges}{8}
+\contentsline {subsection}{\numberline {1.4.1}Probl\IeC {\'e}matique}{8}
+\contentsline {subsection}{\numberline {1.4.2}Fonctionnalit\IeC {\'e}s obligatoires}{8}
+\contentsline {subsection}{\numberline {1.4.3}Fonctionnalit\IeC {\'e}s optionnelles}{8}
+\contentsline {subsection}{\numberline {1.4.4}Sp\IeC {\'e}cifications techniques}{8}
+\contentsline {subsection}{\numberline {1.4.5}Organisation pr\IeC {\'e}visionnelle}{9}
+\contentsline {chapter}{\numberline {2}Organisation du projet}{10}
+\contentsline {section}{\numberline {2.1}Organisation du travail}{10}
+\contentsline {section}{\numberline {2.2}Choix des outils de travail}{10}
+\contentsline {subsection}{\numberline {2.2.1}Gestionnaire de versions}{10}
+\contentsline {subsection}{\numberline {2.2.2}Cr\IeC {\'e}ation de l'interface graphique}{10}
+\contentsline {subsection}{\numberline {2.2.3}R\IeC {\'e}daction et mise en page du rapport}{10}
+\contentsline {subsection}{\numberline {2.2.4}Normes de programmation}{10}
+\contentsline {subsection}{\numberline {2.2.5}Langage}{11}
+\contentsline {chapter}{\numberline {3}Analyse du projet}{12}
+\contentsline {section}{\numberline {3.1}Syst\IeC {\`e}me de jeu}{12}
+\contentsline {section}{\numberline {3.2}Profilage}{12}
+\contentsline {subsection}{\numberline {3.2.1}Choix d'enregistrement des donn\IeC {\'e}es}{12}
+\contentsline {section}{\numberline {3.3}Formule de calcul du taux de rationalit\IeC {\'e} d'un joueur}{12}
+\contentsline {subsection}{\numberline {3.3.1}Formule de calcul du taux d'agressivit\IeC {\'e} d'un joueur}{13}
+\contentsline {subsection}{\numberline {3.3.2}Formule de calcul du taux de bluff d'un joueur}{14}
+\contentsline {subsection}{\numberline {3.3.3}Formule de calcul du taux de passivit\IeC {\'e} d'un joueur}{14}
+\contentsline {section}{\numberline {3.4}Profilage statique}{14}
+\contentsline {section}{\numberline {3.5}R\IeC {\'e}utilisation des r\IeC {\'e}sultats du profilage}{14}
+\contentsline {section}{\numberline {3.6}Profilage dynamique}{14}
+\contentsline {section}{\numberline {3.7}R\IeC {\'e}utilisation des r\IeC {\'e}sultats du profilage}{14}
+\contentsline {chapter}{\numberline {4}Mise en place des m\IeC {\'e}thodes de profilage}{15}
+\contentsline {section}{\numberline {4.1}Calibrage des intelligences artificielles}{15}
+\contentsline {section}{\numberline {4.2}Profilage statique}{16}
+\contentsline {subsection}{\numberline {4.2.1}Sc\IeC {\'e}narios de tests}{16}
+\contentsline {subsection}{\numberline {4.2.2}\IeC {\'E}tablissement des profils attendus}{16}
+\contentsline {subsection}{\numberline {4.2.3}R\IeC {\'e}utilisation des r\IeC {\'e}sultats du profilage}{16}
+\contentsline {section}{\numberline {4.3}Profilage dynamique}{16}
+\contentsline {subsection}{\numberline {4.3.1}Sc\IeC {\'e}narios de tests}{16}
+\contentsline {subsection}{\numberline {4.3.2}\IeC {\'E}tablissement des profils attendus}{16}
+\contentsline {subsection}{\numberline {4.3.3}R\IeC {\'e}utilisation des r\IeC {\'e}sultats du profilage}{16}
+\contentsline {chapter}{\numberline {5}Analyse des r\IeC {\'e}sultats obtenus}{17}
+\contentsline {section}{\numberline {5.1}Profilage statique}{17}
+\contentsline {subsection}{\numberline {5.1.1}Sc\IeC {\'e}narios de tests}{17}
+\contentsline {subsection}{\numberline {5.1.2}Analyse des gains de parties}{17}
+\contentsline {section}{\numberline {5.2}Profilage dynamique}{17}
+\contentsline {subsection}{\numberline {5.2.1}Analyse des gains de parties}{17}
+\contentsline {chapter}{\numberline {6}Perspectives et conclusion}{18}
+\contentsline {section}{\numberline {6.1}Perspectives d'am\IeC {\'e}lioration du profilage}{18}
+\contentsline {section}{\numberline {6.2}Profilage obtenu}{18}
