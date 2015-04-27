@@ -2,11 +2,15 @@
 \usepackage[utf8]{inputenc}
 \usepackage{xcolor}
 \usepackage{sectsty} %%Pour changer la couleur de la police 
+\usepackage{listings}
+\usepackage{amsmath}%%Pour les formules mathématique
 
 \title{Rapport}
 \author{}
 \date{}
 
+
+\renewcommand{\contentsname}{Table des matières}
 
 \definecolor{bleurapport}{HTML}{00AAD4}
 
@@ -101,7 +105,7 @@ Tout au long du développement, des scénarios de tests seront mis en place afin
 
 \subsection{Fonctionnalités optionnelles}
 
-\hspace{0.5cm}Une fois les fonctionalités obligatoires mises en place, il sera possible d'ajouter la possibilité d'avoir plus de deux joueurs dans une même partie, avec plusieurs intelligences artificielles ou plusieurs joueurs humains mais comprenant toujours au moins une intelligence artificielle.\par
+\hspace{0.5cm}Une fois les fonctionnalités obligatoires mises en place, il sera possible d'ajouter la possibilité d'avoir plus de deux joueurs dans une même partie, avec plusieurs intelligences artificielles ou plusieurs joueurs humains mais comprenant toujours au moins une intelligence artificielle.\par
 On pourra également intégrer un système de dialogue entre les différents joueurs basé sur des phrases prédéfinies. Ainsi, chaque joueur, humain ou non, pourra envoyer des messages aux autres participants, et notre intelligence artificielle pourra utiliser ces messages pour mieux profiler ses opposants.\par 
 
 \subsection{Spécifications techniques}
@@ -112,9 +116,9 @@ Le développement devra s'appuyer sur les méthodes agiles. Celles-ci sont basé
 
 \subsection{Organisation prévisionnelle}
 
-\hspace{0.5cm}Comme nous pouvons le voir dans l'annexe A représentant le diagramme de Gantt prévisionnel que nous avons mis en place. Dans un premier temps, nous avons donc prévu une étude préalable du sujet consistant à nous familiariser avec le vocabulaire du poker. De ce fait, Nous avons donc rapidement mis en place un glossaire contenant des définitions des différents termes. Pendant cette période, nous avons également défini les besoins des utilisateurs avec entre-autres un diagramme de cas d'utilisations. Durant cette prériode, nous avons aussi défini comment nous allions nous organiser durant le déroulement du projet, en définissant la fréquence des rendez-vous ainsi que les modalités de partage des données.\par
+\hspace{0.5cm}Comme nous pouvons le voir dans l'annexe A représentant le diagramme de Gantt prévisionnel que nous avons mis en place. Dans un premier temps, nous avons donc prévu une étude préalable du sujet consistant à nous familiariser avec le vocabulaire du poker. De ce fait, Nous avons donc rapidement mis en place un glossaire contenant des définitions des différents termes. Pendant cette période, nous avons également défini les besoins des utilisateurs avec entre-autres un diagramme de cas d'utilisations. Durant cette période, nous avons aussi défini comment nous allions nous organiser durant le déroulement du projet, en définissant la fréquence des rendez-vous ainsi que les modalités de partage des données.\par
 Par la suite, nous avons prévu de continuer par une étude détaillée durant laquelle nous allons élaborer un diagramme de classe, rédiger le cahier des charges ainsi que commencer à lire des articles sur le sujet.\par
-Ensuite, nous passerons à une première étude technique durant laquelle nous commencerons par établir les normes de programmation. Puis, nous établirons une intelligence artificielle simple permettant à un joueur de jouer. Nous établierons par la suite les différents algorithmes et méthodes permettant d'établir un profilage statique du joueur adverse. Et nous établierons des jeux de tests. En même temps que cette étude technique, nous commencerons la phase de réalisation, en implémentant en parallèle l'interface graphique et l'intelligence artificielle simple puis, nous ajouterons la méthode de profilage statique et effectuerons les tests définis auparavent.\par
+Ensuite, nous passerons à une première étude technique durant laquelle nous commencerons par établir les normes de programmation. Puis, nous établirons une intelligence artificielle simple permettant à un joueur de jouer. Nous établirons par la suite les différents algorithmes et méthodes permettant d'établir un profilage statique du joueur adverse. Et nous établirons des jeux de tests. En même temps que cette étude technique, nous commencerons la phase de réalisation, en implémentant en parallèle l'interface graphique et l'intelligence artificielle simple puis, nous ajouterons la méthode de profilage statique et effectuerons les tests définis auparavant.\par
 Nous effectuerons ensuite une seconde étude technique pendant laquelle nous définirons les méthodes et algorithmes qui seront utilisés afin d'implémenter la méthode de profilage dynamique. Dans ce même temps, nous implémenterons cette méthode de profilage dynamique, en effectuant les tests définis pendant la phase d'étude technique.\par
 Enfin, la dernière partie sera réservée à la mise en place de la démonstration qui sera effectuée lors de la soutenance, ainsi qu'à la finalisation du rapport qui sera rédigé tout au long de la période du projet et à la préparation de la soutenance.
 
@@ -128,12 +132,127 @@ Enfin, la dernière partie sera réservée à la mise en place de la démonstrat
 \subsection{Gestionnaire de versions}
 \subsection{Création de l'interface graphique}
 \subsection{Rédaction et mise en page du rapport}
-\subsection{Langage}
+\subsection{Normes de programmation}
+Nous coderons en français. Par conséquent, les différents identifiants des attributs, noms de classes et fonctions/méthodes que nous implémenterons auront des noms français, les méthodes toString ainsi que pour les accesseurs et mutateurs que nous nommerons getNomAttribut et setNomAttribut,
+selon les conventions de codage établies.\par
 
+Les noms des classes commenceront toujours par une majuscule suivie de minuscules. Si le nom de la classe est comp osé de plusieurs mots, alors on ajoutera une majuscule à chaque début de mot.\par
+
+Les noms des méthodes, des variables et des attributs devront impérativement commencer par une minuscule avec une majuscule à chaque nouveau mot.\par
+
+Pour l'indentation, il faudra mettre un maximum d'accolades, facilitant la reprise et l'ajout de code, même lorsque celles-ci ne sont pas obligatoires.\par
+
+Des commentaires seront ajoutés pour chaque fonction et méthode, au dessus de la déclaration correspondante, dans les fichiers d'en-tête. Les commentaires des accesseurs et mutateurs ne sont pas obligatoires car explicites.
+Dans ces commentaires seront précisés l'action de la fonction/méthode, l'ensemble des paramètres, l'élément retourné s'il existe. Ces commentaires seront de la forme suivante : \par
+
+\begin{lstlisting}
+/**
+ *  @param
+ *  @action
+ *  @return
+**/
+\end{lstlisting}
+
+Au début de chaque nouveau fichier créé, il faudra ajouter l'entête suivante: 
+\begin{lstlisting}
+/*========================================================================
+Nom: fichier.cpp         Auteur: 
+Maj:  27/03/2014         Creation: 01/02/2015
+Projet: Profilage par essais et erreurs au poker
+--------------------------------------------------------------------------
+Specification: Specifications du fichier
+=========================================================================*/
+\end{lstlisting}
+
+De plus, chaque commit effectué sur le projet Git devra avoir une description explicite permettant de savoir, sans avoir à parcourir le code, les modifications qui ont été apportées.\par
+
+\subsection{Langage}
 
 \chapter{Analyse du projet}
 
 \section{Système de jeu}
+
+\section{Profilage}
+%%On mettra ici les données communes aux profilages statiques et dynamiques
+\subsection{Choix d'enregistrement des données}
+
+Afin de profiler nos joueurs, nous avons choisi d'enregistrer un certain nombre de données dans des fichiers de sortie. Nous avons décidé de mettre en place un fichier par joueur. De ce fait, chaque fichier est représenté par le pseudo du joueur. Soit joueur ayant pour pseudo "Alain". Le fichier contenant les données de profilage de ce joueur sera donc "Alain.json". De ce fait, s'il se déconnecte et souhaite rejouer un autre jour, nous auront toujours le précédent profilage effectué.
+Comme on peut le constater, nous avons choisi d'enregistrer nos données en JSON. en effet, ce format de données a l'avantage d'être facilement exploitable. De plus, nous pouvons utiliser la librairie QJson pour exploiter les données du fichier.
+
+\section{Formule de calcul du taux de rationalité d'un joueur}
+
+Afin de calculer à combien de pourcentages un joueur a été rationnel pendant une partie, nous avons choisi de nous baser sur une courbe [ajouter un schéma de la courbe et l'expliquer] correspondant aux pourcentages théoriques de rationalité en fonction des chances de gagner. A partir de cette courbe, nous avons décidé de calculer la mise théorique que le joueur aurait dû miser en nous basant sur quatre paliers, comme on peut le voir dans la formule suivante. \par
+Pour chaque palier, on regarde si les chances de gain du joueur sont comprises entre g1 et g2. Une fois le palier trouvé, on calcule la mise théorique, en sachant que celle-ci sera comprise entre les m1 et m2 correspondant au palier. 
+	Gain = chances de gain du joueur,\\
+	Ra = rationalité\\
+	$M_{th}$ = Mise théorique.\\
+
+\small{
+\begin{align*}
+	M_{th} = \left((Gain - g1) * \left(\frac{m2-m1}{g2-g1}\right)\right)+m1
+	\begin{cases}
+		Ra \in [m1=0 - m2=10] &\text{Si Gain} \in [g1=0 - g2=30]\\
+		Ra \in [m1=11 - m2=25] &\text{Si Gain} \in [g1=31 - g2=50]\\
+		Ra \in [m1=26 - m2=65] &\text{Si Gain} \in [g1=51 - g2=69]\\
+		Ra \in [m1=66 - m2=100] &\text{Si Gain} \in [g1=70 - g2=100]\\
+	\end{cases}
+\end{align*}
+}
+
+Après avoir calculé la mise théorique que le joueur aurait dû faire, nous la comparons avec la mise réelle du joueur. On obtient alors la formule suivante pour calculer la rationalité : 
+
+\begin{align*}
+Rationalit\acute{e} = 100-abs(M_{th}-M_{r\acute{e}elle})
+\end{align*}
+
+\subsection{Formule de calcul du taux d'agressivité d'un joueur}
+
+Afin de calculer le pourcentage d'agressivité d'un joueur pendant une partie, de même que pour la rationalité, nous avons choisi de nous baser sur un système de paliers, en prenant en compte trois paramètres : le pourcentage de mises, le total des mises qui est exprimé en pourcentage de jetons par rapport aux jetons de départ du joueur et, la mise la plus haute du joueur, elle aussi exprimée en pourcentage de jetons par rapport aux jetons de base.\par
+De même que précédemment, pour chaque palier, on va regarder si la mise la plus haute (mph) est comprise entre mph1 (mise la plus haute 1) et mph2. Une fois le palier trouvé, on calcule le pourcentage d'agressivité théorique qui sera compris entre ag1 et ag2. 
+
+
+\small{
+\begin{align*}
+	Ag_{th}=
+	\begin{cases}
+		Ag_{th} \in [0-50] Si mph \in [0-25] &\text{ratio1}=\frac{1}{2} \text{ ratio2}=\frac{1}{2} \\
+		Ag_{th} \in [51-80] Si mph \in [26-50] &\text{ratio1}=\frac{2}{3} \text{ ratio2}=\frac{1}{3} \\
+		Ag_{th} \in [81-100] Si mph \in [51-100]  &\text{ratio1}=\frac{2}{3} \text{ ratio2}=\frac{1}{3}\\
+	\end{cases}
+\end{align*}
+
+}
+
+Pour calculer le pourcentage théorique d'agressivité, on se base sur la formule suivante, en sachant que pour chaque palier, nous accordons des poids différents au total des mises et au nombre de mises.
+
+\begin{align*}
+	&0<y<mph2-ag2\\
+	&x=ratio1 * nbMises + ratio2 * totalMises\\
+	&y=\left(x*\frac{mph2-ag2}{100}\right)
+\end{align*}
+
+Pour le dernier palier, nous ne nous basons pas sur la formule précédente mais sur la formule suivante :\\
+
+\begin{align*}
+	y=\left(x*\frac{100-mph}{100}\right)
+\end{align*}
+
+\subsection{Formule de calcul du taux de bluff d'un joueur}
+
+Étant donné le fait que nous partons du principe que le bluff est l'inverse de la rationalité, nous calculons le taux de bluff en utilisant la formule suivante :
+
+\begin{align*}
+	bluff=100-rationalit\acute{e}
+\end{align*}
+
+
+\subsection{Formule de calcul du taux de passivité d'un joueur}
+
+Nous avons décidé que le taux de passivité d'un joueur se calcule en fonction du nombre de fois où il a suivi et du nombre de fois où il a checké. De ce fait, nous avons choisi d'établir la formule suivante pour calculer le taux de passivité d'un joueur : 
+\begin{align*}
+	passivit\acute{e}=tauxChecks+tauxSuivis
+\end{align*}
+
 
 \section{Profilage statique}
 
@@ -147,6 +266,38 @@ Enfin, la dernière partie sera réservée à la mise en place de la démonstrat
 \chapter{Mise en place des méthodes de profilage}
 
 \section{Calibrage des intelligences artificielles}
+
+\hspace{0.5cm}Par la suite nous avons revu le calibrage de l'agressivité qui n'était pas assez précis. En effet, tout comme pour calibrer la rationalité, nous laissions une part de hasard dans le calcul de l'action de l'intelligence artificielle. Ceci avait pour effet de produire des résultats trop imprévisibles, et parfois trop éloignés du calibrage de départ.\par
+Pour pallier ce problème, nous avons calculé une action de mise correspondante au taux d'agressivité en fonction de la mise totale effectuée par l'intelligence artificielle au cours de la partie. Nous avons également adapté le calcul côté profilage afin que la mise totale devienne le critère principal, et plus la mise la plus haute.\par
+A chaque tour, le résolveur calcule donc la mise théorique à effectuer selon les nouveaux paliers.
+
+	Ag.		Mise totale
+
+	0 – 50		0 – 25	exclu
+	50 – 80		25 – 60 exclu
+	80 – 100	60 – 100 exclu
+	100			100
+
+Selon le calibrage, le but est donc que l'intelligence artificielle effectue la mise prévue. Seulement, il n'est pas possible de déterminer la durée de la partie. Il faut donc que celle-ci effectue progressivement sa mise, sans terminer trop tôt où elle devra effectuer des actions check ou suivi pour terminer, ce qui diminuera le taux d'agressivité; et ni trop tard pour qu'elle puisse être considérée suffisamment agressive.\par
+Pour ce faire, nous misons de façon croissante, depuis un départ minimum, jusqu'à atteindre la mise théorique totale calculée à partir du calibrage.\par
+En prenant un rapport $\times2$, on obtient donc les mises totales suivantes à chaque tour de jeu.
+Ex : 	5 – 10 – 20 – 40 – 80 		avec 80 mise totale théorique.
+
+Dans ce cas, cela revient donc à miser 5; 5; 10; 20 puis 40.
+
+Afin d'obtenir ce résultat, nous différencions deux cas : celui où l'intelligence artificielle peut miser et celui où elle doit suivre/relancer ou se coucher.\par
+Si elle peut miser, alors elle joue la mise théorique courante en faisant attention de ne pas dépasser la mise théorique totale. Dans le cas où on est au river (dernier tour), alors elle mise directement ce qu'il lui manque pour arriver à cette mise théorique totale.\par
+
+Dans le cas où l'adversaire a misé/relancé, alors l'intelligence artificielle va comparer la mise théorique courante avec la mise adverse et la valeur de relance minimum. Dans le cas où le mise théorique est inférieure à la valeur de suivi -10\% alors on se couche, pour ne  pas miser trop haut en suivant. Si celle-ci est comprise entre le taux de suivi $\pm$ 10\%, on suit.
+Dans le cas ou la relance est $\leq$ à la valeur à miser +10\% , on relance de la valeur la plus proche de la mise théorique. Sinon on suit.\par
+
+
+A la suite de ces changements nous avons également revu le choix entre les actions d'agressivité et de rationalité, une fois ces deux dernières calculées.\par
+
+Une fois que le calibrage nous a donné l'action agressive et l'action rationnelle, on effectue une fusion entre les deux. Dans les cas où les deux actions sont identiques, l'action est prise. Si ce sont toutes les deux des mises/relances, on prend la moitié des du nombre de jetons, proportionnellement aux pourcentages de calibrage.
+Enfin, il reste la possibilité que les actions soient différentes. Ici on distingue deux cas :
+- on arrive à déterminer une action représentant un juste milieu, par exemple si les deux actions sont se coucher et relancer, on fait suivre l'intelligence artificielle. Dans le cas où on a checker / miser, on considère l'action checker comme miser 0 et on effectue le calcul de la mise moyenne expliqué ci-dessus.
+- sinon on tire aléatoirement l'action parmi les deux, toujours en prenant en compte les pourcentages du calibrage.
 
 \section{Profilage statique}
 \subsection{Scénarios de tests}
