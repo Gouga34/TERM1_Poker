@@ -38,19 +38,20 @@
 \contentsline {section}{\numberline {4.1}Calibrage des intelligences artificielles}{23}
 \contentsline {section}{\numberline {4.2}Profilage statique}{24}
 \contentsline {subsection}{\numberline {4.2.1}Sc\IeC {\'e}narios de tests}{24}
-\contentsline {subsection}{\numberline {4.2.2}\IeC {\'E}tablissement des profils attendus}{24}
-\contentsline {subsection}{\numberline {4.2.3}R\IeC {\'e}utilisation des r\IeC {\'e}sultats du profilage}{24}
-\contentsline {section}{\numberline {4.3}Profilage dynamique}{24}
-\contentsline {subsection}{\numberline {4.3.1}Sc\IeC {\'e}narios de tests}{24}
-\contentsline {subsection}{\numberline {4.3.2}\IeC {\'E}tablissement des profils attendus}{24}
-\contentsline {subsection}{\numberline {4.3.3}R\IeC {\'e}utilisation des r\IeC {\'e}sultats du profilage}{24}
-\contentsline {chapter}{\numberline {5}Analyse des r\IeC {\'e}sultats obtenus}{25}
-\contentsline {section}{\numberline {5.1}Profilage statique}{25}
-\contentsline {subsection}{\numberline {5.1.1}Sc\IeC {\'e}narios de tests}{25}
-\contentsline {subsection}{\numberline {5.1.2}Analyse des gains de parties}{25}
-\contentsline {section}{\numberline {5.2}Profilage dynamique}{25}
-\contentsline {subsection}{\numberline {5.2.1}Analyse des gains de parties}{25}
-\contentsline {chapter}{\numberline {6}Perspectives et conclusion}{26}
-\contentsline {section}{\numberline {6.1}Perspectives d'am\IeC {\'e}lioration du profilage}{26}
-\contentsline {section}{\numberline {6.2}Profilage obtenu}{26}
-\contentsline {chapter}{\numberline {A}Test annexe}{28}
+\contentsline {subsection}{\numberline {4.2.2}Test du profilage}{24}
+\contentsline {subsection}{\numberline {4.2.3}\IeC {\'E}tablissement des profils attendus}{25}
+\contentsline {subsection}{\numberline {4.2.4}R\IeC {\'e}utilisation des r\IeC {\'e}sultats du profilage}{25}
+\contentsline {section}{\numberline {4.3}Profilage dynamique}{25}
+\contentsline {subsection}{\numberline {4.3.1}Sc\IeC {\'e}narios de tests}{25}
+\contentsline {subsection}{\numberline {4.3.2}\IeC {\'E}tablissement des profils attendus}{25}
+\contentsline {subsection}{\numberline {4.3.3}R\IeC {\'e}utilisation des r\IeC {\'e}sultats du profilage}{25}
+\contentsline {chapter}{\numberline {5}Analyse des r\IeC {\'e}sultats obtenus}{26}
+\contentsline {section}{\numberline {5.1}Profilage statique}{26}
+\contentsline {subsection}{\numberline {5.1.1}Sc\IeC {\'e}narios de tests}{26}
+\contentsline {subsection}{\numberline {5.1.2}Analyse des gains de parties}{26}
+\contentsline {section}{\numberline {5.2}Profilage dynamique}{26}
+\contentsline {subsection}{\numberline {5.2.1}Analyse des gains de parties}{26}
+\contentsline {chapter}{\numberline {6}Perspectives et conclusion}{27}
+\contentsline {section}{\numberline {6.1}Perspectives d'am\IeC {\'e}lioration du profilage}{27}
+\contentsline {section}{\numberline {6.2}Profilage obtenu}{27}
+\contentsline {chapter}{\numberline {A}Test annexe}{29}
