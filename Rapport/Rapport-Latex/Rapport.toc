@@ -6,7 +6,7 @@
 \contentsline {subsection}{\numberline {1.3.2}Pr\IeC {\'e}flop}{10}
 \contentsline {subsection}{\numberline {1.3.3}Flop}{10}
 \contentsline {subsection}{\numberline {1.3.4}Turn}{10}
-\contentsline {subsection}{\numberline {1.3.5}River}{10}
+\contentsline {subsection}{\numberline {1.3.5}River}{11}
 \contentsline {subsection}{\numberline {1.3.6}Les combinaisons}{11}
 \contentsline {section}{\numberline {1.4}Cahier des charges}{14}
 \contentsline {subsection}{\numberline {1.4.1}Probl\IeC {\'e}matique}{14}

@@ -34,7 +34,7 @@
 
 
 \section*{Remerciements}
-	Nous tenons tout d'abord à remercier Jimmy Lopez et Sébastien Beugnon pour nous avoir conseillés tout au long de notre projet, notamment lors de la phase de conception du projet.
+\hspace{0.5cm}Nous tenons tout d'abord à remercier Jimmy Lopez et Sébastien Beugnon pour nous avoir conseillés tout au long de notre projet.
 	
 	
 	Nous remercions aussi nos tuteurs Guillaume Tisserant et Pierre Pompidor pour nous avoir accompagnés tout au long de la réalisation du projet, en particulier pour les choix des méthodes de profilage.
@@ -76,7 +76,7 @@
 		
 		\item[\textbf{Dealer : }]Joueur se trouvant sur le siège d'où les cartes vont être distribuées.\medskip
 		
-		\item[\textbf{Blind : }]Terme correspondat aux mises obligatoires pour les deux joueurs situés à gauche du dealer.\medskip
+		\item[\textbf{Blinde : }]Terme correspondant aux mises obligatoires pour les deux joueurs situés à gauche du dealer.\medskip
 		
 		\item[\textbf{Bouton : }]Le bouton représente le dealer qui distribue les cartes.\medskip
 		
@@ -101,40 +101,40 @@
 \chapter{Introduction}
 
 \section{Généralités}
-Alors qu'actuellement, de plus en plus de méthodes de profilage sont établies dans le monde des jeux afin d'établir le profil d'un joueur adverse, le poker est un jeu qui pose problème dans ce domaine. En effet, ce jeu est basé sur la chance et sur le bluff. De ce fait, un joueur ne peut jamais être sûr à 100\% qu'il va gagner et donc, son adversaire ne peut pas deviner le jeu qu'il a de manière certaine. C'est pourquoi, il est dur de profiler un joueur de manière certaine. Il y a donc des recherches dans le développement de méthodes permettant de profiler un joueur de manière efficace. \par
+\hspace{0.5cm}Alors qu'actuellement, de plus en plus de méthodes de profilage sont établies dans le monde des jeux afin de trouver le profil d'un joueur adverse, le poker est un jeu qui pose problème dans ce domaine. En effet, ce jeu est basé sur la chance et sur le bluff. De ce fait, un joueur ne peut jamais être sûr à 100\% de pouvoir gagner et donc, son adversaire ne peut pas deviner le jeu qu'il a de manière certaine. C'est pourquoi, il est dur de profiler un joueur de manière certaine. Il y a donc des recherches dans le développement de méthodes permettant de profiler un joueur de manière efficace. \par
 
 \section{Sujet}
-Le but de notre projet est de mettre en place une méthode afin de profiler de façon efficace un joueur. Nous devrons tout d'abord établir une méthode de profilage statique. C'est à dire, une méthode pour profiler un joueur en fonction des actions qu'il a effectuées pendant toute une partie, de manière globale. Après avoir implémenté cette première méthode de profilage, nous devrons mettre en place une intelligence artificielle pouvant jouer en fonction des résultats obtenus. Ainsi, nous pourrons voir si notre intelligence artificielle est capable de gagner plus de parties une fois le profil du joueur adverse établi.\par
-Si nous avons encore du temps, nous devrons mettre en place une méthode de profilage dynamique, avec en effet, un profil qui s’établit tout au long de la partie et qui est modifié à chaque nouvelle action du joueur adverse. Nous devrons alors, de même que précédemment, mettre en place une intelligence artificielle capable de jouer en exploitant les données de profilage. Ainsi, nous pourrons observer la différence du nombre de parties gagnées en fonction des deux types de profilage, à savoir, statique ou dynamique, mais aussi en fonction des profils établit. En effet, un joueur considéré comme agressif et rationnel est-il plus facile à profil et à battre qu'un joueur considéré comme non agressif et irrationnel ?\par
+\hspace{0.5cm}Le but de notre projet est de mettre en place une façon de profiler de façon efficace un joueur. Nous devrons tout d'abord établir une méthode de profilage statique. C'est à dire, une technique pour profiler un joueur en fonction des actions qu'il a effectuées pendant toute une partie, de manière globale. Après avoir implémenté cette première méthode de profilage, nous devrons mettre en place une intelligence artificielle pouvant jouer en fonction des résultats obtenus. Ainsi, nous pourrons voir si notre intelligence artificielle est capable de gagner plus de parties une fois le profil du joueur adverse établi.\par
+S'il nous reste du temps, nous devrons mettre en place une méthode de profilage dynamique, avec par conséquent, un profil qui s’établit tout au long de la partie et qui est modifié à chaque nouvelle action du joueur adverse. Nous devrons alors, de même que précédemment, mettre en place une intelligence artificielle capable de jouer en exploitant les données de profilage. Ainsi, nous pourrons observer la différence du nombre de parties gagnées en fonction des deux types de profilage, à savoir, statique ou dynamique, mais aussi en fonction des profils établit. En effet, un joueur considéré comme agressif et rationnel est-il plus facile à profil et à battre qu'un joueur considéré comme non agressif et irrationnel ?\par
 
 \section{Rapide description des règles du Texas Hold'Em Poker}
 \subsection{Mise en place du jeu}
-Le Texas Hold'Em Poker est un jeu de cartes dans lequel le but d'un joueur est de gagner le plus d'argent. \par
-Afin de commencer une partie, on désigne tout d'abord le bouton* qui sert à désigner le donneur ou dealer. Le joueur choisi sera donneur pour une main, puis cela sera au tour du joueur à sa gauche une fois cette main terminée et ainsi de suite.  \par
+\hspace{0.5cm}Le Texas Hold'Em Poker est un jeu de cartes dans lequel le but d'un joueur est de gagner le plus d'argent. \par
+Afin de commencer une partie, on désigne tout d'abord le bouton* qui sert à désigner le donneur ou dealer*. Le joueur choisi sera donneur pour une main, puis cela sera au tour du joueur à sa gauche une fois cette main terminée et ainsi de suite.  \par
 
-Une fois le donneur sélectionné, il faut poser les blindes. Le joueur directement à gauche du dealer pose la petite blinde alors que celui situé à sa gauche pose la grosse blinde qui correspond souvent à exactement le double de la petite.\par
+Une fois le donneur sélectionné, il faut poser les blindes*. Le joueur directement à gauche du dealer* pose la petite blinde* alors que celui situé à sa gauche pose la grosse blinde* qui correspond souvent à exactement le double de la petite.\par
 
 Le dealer* doit alors distribuer les cartes aux joueurs, à savoir, deux cartes par joueur. \par
 \subsection{Préflop}
-Lorsque les cartes ont été distribuées, l'étape préflop* commence. Le tour de mises préflop démarre donc par le joueur à la gauche de celui ayant mise la grosse blinde. Celui-ci peut se coucher*, suivre* la grosse blinde afin de pouvoir rentrer dans le coup ou encore relancer* d'un montant au moins égal à deux fois la grosse blinde. Une fois le tour de mises préflop terminé, on passe à l'étape suivante : le flop.\par
+\hspace{0.5cm}Lorsque les cartes ont été distribuées, l'étape préflop* commence. Le tour de mises préflop* démarre donc par le joueur à la gauche de celui ayant mis la grosse blinde*. Celui-ci peut se coucher*, suivre* la grosse blinde* afin de pouvoir rentrer dans le coup ou encore relancer* d'un montant au moins égal à deux fois la grosse blinde*. Une fois le tour de mises préflop* terminé, on passe à l'étape suivante : le flop.\par
 
 \subsection{Flop}
-Lors du flop, le dealer pose trois cartes faces apparentes au milieu de la table. Le premier tour de mises post-flop commence alors. Les règles sont les mêmes que lors du préflop* mis à part le fait que le premier joueur à parler* peut soit checker soit miser.\par
+\hspace{0.5cm}Lors du flop*, le dealer* pose trois cartes faces apparentes au milieu de la table. Le premier tour de mises post-flop commence alors. Les règles sont les mêmes que lors du préflop* mis à part le fait que le premier joueur à parler* peut soit checker* soit miser*.\par
 
 Une fois le tour de mises fini, on passe à l'étape du turn*.\par
 \subsection{Turn}
-Lors du turn, le dealer pose une carte découverte, à la suite des cartes du flop. \par
+Lors du turn*, le dealer* pose une carte découverte, à la suite des cartes du flop*. \par
 
-Le troisième tour de mises commence alors. Celui-ci est identique au flop.\par
+Le troisième tour de mises commence alors. Celui-ci est identique au flop*.\par
 
-Une fois celui-ci fini, on passe à la dernière étape, à savoir la river.\par
+Une fois celui-ci fini, on passe à la dernière étape, à savoir la river*.\par
 \subsection{River}
-La dernière carte est alors posée par le dealer au milieu, à la suite des autres cartes découvertes pendant les autres étapes. \par
+\hspace{0.5cm}La dernière carte est alors posée par le dealer* au milieu, à la suite des autres cartes découvertes pendant les autres étapes. \par
 De même que pour l'étape précédente, un tour de mises est effectué, avec les mêmes règles.\par
-Une fois ce tour de mises terminé, les joueurs restant abattent leurs cartes et la meilleure main l'emporte.\par
+Une fois ce tour de mises terminé, les joueurs restants abattent leurs cartes et la meilleure main l'emporte.\par
 
 \subsection{Les combinaisons}
-Lorsque l'on compare les mains au poker, la main gagnante est celle ayant la combinaison la plus forte. Au poker, il y a 9 combinaisons, de la Quinte flush royale, correspondant à la combinaison la plus forte à la carte haute, correspondant à la combinaison la plus faible. Ainsi, une quinte flush royale gagne face à une quinte flush qui elle-même gagne contre un carré et caetera jusqu'à la combinaison la plus faible qui est la simple carte haute. \par
+\hspace{0.5cm}Lorsque l'on compare les mains au poker, la main gagnante est celle ayant la combinaison la plus forte. Au poker, il y a 9 combinaisons, de la quinte flush royale, correspondant à la combinaison la plus forte à la carte haute, correspondant à la combinaison la plus faible. Ainsi, une quinte flush royale gagne face à une quinte flush qui elle-même gagne contre un carré et caetera jusqu'à la combinaison la plus faible. \par
 
 
 La combinaison la plus forte, la quinte flush royale est une suite d'une seule couleur, allant de l'as au dix. Par exemple, la main suivante correspond à une quinte flush royale. \par
