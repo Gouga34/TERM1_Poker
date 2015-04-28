@@ -245,9 +245,9 @@ Enfin, lorsqu'un joueur n'a pas d'autre combinaison, on va regarder sa carte la 
 \subsection{Fonctionnalités obligatoires}
 
 \hspace{0.5cm}Le projet qui nous a été attribué a pour but de développer une intelligence artificielle de poker permettant d'établir les différents profils des joueurs.\par
-L'intelligence artificielle devra donc profiler ses adversaires en se basant sur différents critères comme la rationalité ou l'agressivité. Elle catégorisera les différents types de joueurs et leur attribuera des comportements.\par
-Il nous est demandé d'établir dans un premier temps un profilage statique basé sur un automate à états finis, qui a pour but d'attribuer un unique comportement à chacun des joueurs pour toute la partie. Ce comportement sera attribué après plusieurs parties jouées contre un même joueur.\par
-Par la suite, nous devrons améliorer l'intelligence artificielle afin qu'elle soit en mesure de profiler dynamiquement chacun des joueurs. Dans cette seconde version, elle devra donc pouvoir adapter son comportement aux réactions des joueurs au fil de la partie. Le profilage dynamique se basera ici sur les réseaux bayésiens.\par
+L'intelligence artificielle devra donc profiler ses adversaires en se basant sur différents critères comme la rationalité ou l'agressivité. Elle catégorisera alors les différents types de joueurs et leur attribuera des comportements.\par
+Il nous est demandé d'établir dans un premier temps un profilage statique basé sur un automate à états finis, qui a pour but d'attribuer un unique comportement à chacun des joueurs pour toute la partie. Ce comportement sera attribué puis modifié après chaque nouvelle partie jouée contre un même joueur.\par
+Par la suite, nous devrons mettre en place une nouvelle méthode de profilage afin de profiler de façon dynamique les joueurs. Dans cette seconde version, le profil d'un joueur sera mis à jour tout au long du déroulement d'une partie et l'intelligence artificielle devra pouvoir adapter son comportement aux réactions du joueur adverse.\par
 Tout au long du développement, des scénarios de tests seront mis en place afin de vérifier le bon fonctionnement de la catégorisation des joueurs.\par
 
 \subsection{Fonctionnalités optionnelles}
@@ -280,7 +280,7 @@ Enfin, la dernière partie sera réservée à la mise en place de la démonstrat
 \subsection{Création de l'interface graphique}
 \subsection{Rédaction et mise en page du rapport}
 \subsection{Normes de programmation}
-Nous coderons en français. Par conséquent, les différents identifiants des attributs, noms de classes et fonctions/méthodes que nous implémenterons auront des noms français, les méthodes toString ainsi que pour les accesseurs et mutateurs que nous nommerons getNomAttribut et setNomAttribut,
+\hspace{0.5cm}Nous coderons en français. Par conséquent, les différents identifiants des attributs, noms de classes et fonctions/méthodes que nous implémenterons auront des noms français, les méthodes toString ainsi que pour les accesseurs et mutateurs que nous nommerons getNomAttribut et setNomAttribut,
 selon les conventions de codage établies.\par
 
 Les noms des classes commenceront toujours par une majuscule suivie de minuscules. Si le nom de la classe est comp osé de plusieurs mots, alors on ajoutera une majuscule à chaque début de mot.\par
@@ -323,13 +323,13 @@ De plus, chaque commit effectué sur le projet Git devra avoir une description e
 %%On mettra ici les données communes aux profilages statiques et dynamiques
 \subsection{Choix d'enregistrement des données}
 
-Afin de profiler nos joueurs, nous avons choisi d'enregistrer un certain nombre de données dans des fichiers de sortie. Nous avons décidé de mettre en place un fichier par joueur. De ce fait, chaque fichier est représenté par le pseudo du joueur. Soit joueur ayant pour pseudo "Alain". Le fichier contenant les données de profilage de ce joueur sera donc "Alain.json". De ce fait, s'il se déconnecte et souhaite rejouer un autre jour, nous auront toujours le précédent profilage effectué.
-Comme on peut le constater, nous avons choisi d'enregistrer nos données en JSON. en effet, ce format de données a l'avantage d'être facilement exploitable. De plus, nous pouvons utiliser la librairie QJson pour exploiter les données du fichier.
+\hspace{0.5cm}Afin de profiler nos joueurs, nous avons choisi d'enregistrer un certain nombre de données dans des fichiers de sortie. Nous avons décidé de mettre en place un fichier par joueur. De ce fait, chaque fichier est représenté par le pseudo du joueur. Soit joueur ayant pour pseudo "Alain". Le fichier contenant les données de profilage de ce joueur sera donc "Alain.json". De ce fait, s'il se déconnecte et souhaite rejouer un autre jour, nous auront toujours le précédent profilage effectué.\par
+Comme on peut le constater, nous avons choisi d'enregistrer nos données en JSON. en effet, ce format de données a l'avantage d'être facilement exploitable. De plus, nous pouvons utiliser la librairie QJson pour exploiter les données du fichier.\par
 
 \section{Formule de calcul du taux de rationalité d'un joueur}
 
-Afin de calculer à combien de pourcentages un joueur a été rationnel pendant une partie, nous avons choisi de nous baser sur une courbe [ajouter un schéma de la courbe et l'expliquer] correspondant aux pourcentages théoriques de rationalité en fonction des chances de gagner. A partir de cette courbe, nous avons décidé de calculer la mise théorique que le joueur aurait dû miser en nous basant sur quatre paliers, comme on peut le voir dans la formule suivante. \par
-Pour chaque palier, on regarde si les chances de gain du joueur sont comprises entre g1 et g2. Une fois le palier trouvé, on calcule la mise théorique, en sachant que celle-ci sera comprise entre les m1 et m2 correspondant au palier. 
+\hspace{0.5cm}Afin de calculer à combien de pourcentages un joueur a été rationnel pendant une partie, nous avons choisi de nous baser sur une courbe [ajouter un schéma de la courbe et l'expliquer] correspondant aux pourcentages théoriques de rationalité en fonction des chances de gagner. A partir de cette courbe, nous avons décidé de calculer la mise théorique que le joueur aurait dû miser en nous basant sur quatre paliers, comme on peut le voir dans la formule suivante. \par
+Pour chaque palier, on regarde si les chances de gain du joueur sont comprises entre g1 et g2. Une fois le palier trouvé, on calcule la mise théorique, en sachant que celle-ci sera comprise entre les m1 et m2 correspondant au palier. \par
 	Gain = chances de gain du joueur,\\
 	Ra = rationalité\\
 	$M_{th}$ = Mise théorique.\\
@@ -346,7 +346,7 @@ Pour chaque palier, on regarde si les chances de gain du joueur sont comprises e
 \end{align*}
 }
 
-Après avoir calculé la mise théorique que le joueur aurait dû faire, nous la comparons avec la mise réelle du joueur. On obtient alors la formule suivante pour calculer la rationalité : 
+Après avoir calculé la mise théorique que le joueur aurait dû faire, nous la comparons avec la mise réelle du joueur. On obtient alors la formule suivante pour calculer la rationalité : \par
 
 \begin{align*}
 Rationalit\acute{e} = 100-abs(M_{th}-M_{r\acute{e}elle})
@@ -354,8 +354,8 @@ Rationalit\acute{e} = 100-abs(M_{th}-M_{r\acute{e}elle})
 
 \subsection{Formule de calcul du taux d'agressivité d'un joueur}
 
-Afin de calculer le pourcentage d'agressivité d'un joueur pendant une partie, de même que pour la rationalité, nous avons choisi de nous baser sur un système de paliers, en prenant en compte trois paramètres : le pourcentage de mises, le total des mises qui est exprimé en pourcentage de jetons par rapport aux jetons de départ du joueur et, la mise la plus haute du joueur, elle aussi exprimée en pourcentage de jetons par rapport aux jetons de base.\par
-De même que précédemment, pour chaque palier, on va regarder si la mise la plus haute (mph) est comprise entre mph1 (mise la plus haute 1) et mph2. Une fois le palier trouvé, on calcule le pourcentage d'agressivité théorique qui sera compris entre ag1 et ag2. 
+\hspace{0.5cm}Afin de calculer le pourcentage d'agressivité d'un joueur pendant une partie, de même que pour la rationalité, nous avons choisi de nous baser sur un système de paliers, en prenant en compte trois paramètres : le pourcentage de mises, le total des mises qui est exprimé en pourcentage de jetons par rapport aux jetons de départ du joueur et, la mise la plus haute du joueur, elle aussi exprimée en pourcentage de jetons par rapport aux jetons de base.\par
+De même que précédemment, pour chaque palier, on va regarder si la mise la plus haute (mph) est comprise entre mph1 (mise la plus haute 1) et mph2. Une fois le palier trouvé, on calcule le pourcentage d'agressivité théorique qui sera compris entre ag1 et ag2. \par
 
 
 \small{
@@ -370,7 +370,7 @@ De même que précédemment, pour chaque palier, on va regarder si la mise la pl
 
 }
 
-Pour calculer le pourcentage théorique d'agressivité, on se base sur la formule suivante, en sachant que pour chaque palier, nous accordons des poids différents au total des mises et au nombre de mises.
+Pour calculer le pourcentage théorique d'agressivité, on se base sur la formule suivante, en sachant que pour chaque palier, nous accordons des poids différents au total des mises et au nombre de mises.\par
 
 \begin{align*}
 	&0<y<mph2-ag2\\
@@ -378,7 +378,7 @@ Pour calculer le pourcentage théorique d'agressivité, on se base sur la formul
 	&y=\left(x*\frac{mph2-ag2}{100}\right)
 \end{align*}
 
-Pour le dernier palier, nous ne nous basons pas sur la formule précédente mais sur la formule suivante :\\
+Pour le dernier palier, nous ne nous basons pas sur la formule précédente mais sur la formule suivante :\\ 
 
 \begin{align*}
 	y=\left(x*\frac{100-mph}{100}\right)
@@ -386,7 +386,7 @@ Pour le dernier palier, nous ne nous basons pas sur la formule précédente mais
 
 \subsection{Formule de calcul du taux de bluff d'un joueur}
 
-Étant donné le fait que nous partons du principe que le bluff est l'inverse de la rationalité, nous calculons le taux de bluff en utilisant la formule suivante :
+\hspace{0.5cm}Étant donné le fait que nous partons du principe que le bluff est l'inverse de la rationalité, nous calculons le taux de bluff en utilisant la formule suivante : \par
 
 \begin{align*}
 	bluff=100-rationalit\acute{e}
@@ -395,7 +395,7 @@ Pour le dernier palier, nous ne nous basons pas sur la formule précédente mais
 
 \subsection{Formule de calcul du taux de passivité d'un joueur}
 
-Nous avons décidé que le taux de passivité d'un joueur se calcule en fonction du nombre de fois où il a suivi et du nombre de fois où il a checké. De ce fait, nous avons choisi d'établir la formule suivante pour calculer le taux de passivité d'un joueur : 
+\hspace{0.5cm}Nous avons décidé que le taux de passivité d'un joueur se calcule en fonction du nombre de fois où il a suivi et du nombre de fois où il a checké. De ce fait, nous avons choisi d'établir la formule suivante pour calculer le taux de passivité d'un joueur : \par
 \begin{align*}
 	passivit\acute{e}=tauxChecks+tauxSuivis
 \end{align*}
@@ -416,7 +416,7 @@ Nous avons décidé que le taux de passivité d'un joueur se calcule en fonction
 
 \hspace{0.5cm}Par la suite nous avons revu le calibrage de l'agressivité qui n'était pas assez précis. En effet, tout comme pour calibrer la rationalité, nous laissions une part de hasard dans le calcul de l'action de l'intelligence artificielle. Ceci avait pour effet de produire des résultats trop imprévisibles, et parfois trop éloignés du calibrage de départ.\par
 Pour pallier ce problème, nous avons calculé une action de mise correspondante au taux d'agressivité en fonction de la mise totale effectuée par l'intelligence artificielle au cours de la partie. Nous avons également adapté le calcul côté profilage afin que la mise totale devienne le critère principal, et plus la mise la plus haute.\par
-A chaque tour, le résolveur calcule donc la mise théorique à effectuer selon les nouveaux paliers.
+A chaque tour, le résolveur calcule donc la mise théorique à effectuer selon les nouveaux paliers.\par
 
 	Ag.		Mise totale
 
@@ -427,7 +427,7 @@ A chaque tour, le résolveur calcule donc la mise théorique à effectuer selon 
 
 Selon le calibrage, le but est donc que l'intelligence artificielle effectue la mise prévue. Seulement, il n'est pas possible de déterminer la durée de la partie. Il faut donc que celle-ci effectue progressivement sa mise, sans terminer trop tôt où elle devra effectuer des actions check ou suivi pour terminer, ce qui diminuera le taux d'agressivité; et ni trop tard pour qu'elle puisse être considérée suffisamment agressive.\par
 Pour ce faire, nous misons de façon croissante, depuis un départ minimum, jusqu'à atteindre la mise théorique totale calculée à partir du calibrage.\par
-En prenant un rapport $\times2$, on obtient donc les mises totales suivantes à chaque tour de jeu.
+En prenant un rapport $\times2$, on obtient donc les mises totales suivantes à chaque tour de jeu.\par
 Ex : 	5 – 10 – 20 – 40 – 80 		avec 80 mise totale théorique.
 
 Dans ce cas, cela revient donc à miser 5; 5; 10; 20 puis 40.
@@ -443,8 +443,12 @@ A la suite de ces changements nous avons également revu le choix entre les acti
 
 Une fois que le calibrage nous a donné l'action agressive et l'action rationnelle, on effectue une fusion entre les deux. Dans les cas où les deux actions sont identiques, l'action est prise. Si ce sont toutes les deux des mises/relances, on prend la moitié des du nombre de jetons, proportionnellement aux pourcentages de calibrage.
 Enfin, il reste la possibilité que les actions soient différentes. Ici on distingue deux cas :
-- on arrive à déterminer une action représentant un juste milieu, par exemple si les deux actions sont se coucher et relancer, on fait suivre l'intelligence artificielle. Dans le cas où on a checker / miser, on considère l'action checker comme miser 0 et on effectue le calcul de la mise moyenne expliqué ci-dessus.
-- sinon on tire aléatoirement l'action parmi les deux, toujours en prenant en compte les pourcentages du calibrage.
+\begin{itemize}
+\renewcommand{\labelitemi}{-}
+\item on arrive à déterminer une action représentant un juste milieu, par exemple si les deux actions sont se coucher et relancer, on fait suivre l'intelligence artificielle. Dans le cas où on a checker / miser, on considère l'action checker comme miser 0 et on effectue le calcul de la mise moyenne expliqué ci-dessus.
+\item sinon on tire aléatoirement l'action parmi les deux, toujours en prenant en compte les pourcentages du calibrage.
+
+\end{itemize}
 
 \section{Profilage statique}
 \subsection{Scénarios de tests}
