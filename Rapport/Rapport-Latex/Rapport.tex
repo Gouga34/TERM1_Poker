@@ -4,6 +4,7 @@
 \usepackage{sectsty} %%Pour changer la couleur de la police 
 \usepackage{listings}
 \usepackage{amsmath}%%Pour les formules mathématique
+\usepackage[final]{pdfpages}%%Pour l'inclusion de PDF
 
 \title{Rapport}
 \author{}
@@ -12,6 +13,7 @@
 
 \renewcommand{\contentsname}{Table des matières}
 \renewcommand{\chaptername}{Chapitre}
+\renewcommand{\listfigurename}{Liste des figures}
 
 \definecolor{bleurapport}{HTML}{00AAD4}
 
@@ -21,13 +23,13 @@
 
 \begin{document}
 
-\maketitle
-
-\tableofcontents
-
+\includepdf{./PageGardeRapportTERM1.pdf}
 
 
 \newpage
+\null %%Pour faire une page vide
+\newpage
+
 
 \section*{Remerciements}
 	Nous tenons tout d'abord à remercier Jimmy Lopez et Sébastien Beugnon pour nous avoir conseillés tout au long de notre projet, notamment lors de la phase de conception du projet.
@@ -37,6 +39,13 @@
 
 \newpage
 
+\tableofcontents %%Table des matières
+
+\newpage
+
+\listoffigures %%Liste des figures
+
+\newpage
 \chapter*{Glossaire}
 
 	\textit{Les termes définis dans ce glossaire sont identifiables dans le corps du texte au moyen d'un astérisque (*).}
@@ -395,6 +404,10 @@ Enfin, il reste la possibilité que les actions soient différentes. Ici on dist
 \section{Perspectives d'amélioration du profilage}
 \section{Profilage obtenu}
 
+%%bibliographie
 
+\bibliographystyle{plain}
+\nocite{*}
+\bibliography{biblio}
 
 \end{document}
