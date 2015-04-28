@@ -25,32 +25,32 @@
 \contentsline {chapter}{\numberline {3}Analyse du projet}{19}
 \contentsline {section}{\numberline {3.1}Syst\IeC {\`e}me de jeu}{19}
 \contentsline {section}{\numberline {3.2}Profilage}{19}
-\contentsline {subsection}{\numberline {3.2.1}Choix d'enregistrement des donn\IeC {\'e}es}{19}
-\contentsline {section}{\numberline {3.3}Formule de calcul du taux de rationalit\IeC {\'e} d'un joueur}{19}
-\contentsline {subsection}{\numberline {3.3.1}Formule de calcul du taux d'agressivit\IeC {\'e} d'un joueur}{20}
+\contentsline {subsection}{\numberline {3.2.1}Choix d'enregistrement des donn\IeC {\'e}es}{20}
+\contentsline {section}{\numberline {3.3}Formule de calcul du taux de rationalit\IeC {\'e} d'un joueur}{20}
+\contentsline {subsection}{\numberline {3.3.1}Formule de calcul du taux d'agressivit\IeC {\'e} d'un joueur}{21}
 \contentsline {subsection}{\numberline {3.3.2}Formule de calcul du taux de bluff d'un joueur}{21}
 \contentsline {subsection}{\numberline {3.3.3}Formule de calcul du taux de passivit\IeC {\'e} d'un joueur}{21}
-\contentsline {section}{\numberline {3.4}Profilage statique}{21}
-\contentsline {section}{\numberline {3.5}R\IeC {\'e}utilisation des r\IeC {\'e}sultats du profilage}{21}
-\contentsline {section}{\numberline {3.6}Profilage dynamique}{21}
-\contentsline {section}{\numberline {3.7}R\IeC {\'e}utilisation des r\IeC {\'e}sultats du profilage}{21}
-\contentsline {chapter}{\numberline {4}Mise en place des m\IeC {\'e}thodes de profilage}{22}
-\contentsline {section}{\numberline {4.1}Calibrage des intelligences artificielles}{22}
-\contentsline {section}{\numberline {4.2}Profilage statique}{23}
-\contentsline {subsection}{\numberline {4.2.1}Sc\IeC {\'e}narios de tests}{23}
-\contentsline {subsection}{\numberline {4.2.2}\IeC {\'E}tablissement des profils attendus}{23}
-\contentsline {subsection}{\numberline {4.2.3}R\IeC {\'e}utilisation des r\IeC {\'e}sultats du profilage}{23}
-\contentsline {section}{\numberline {4.3}Profilage dynamique}{23}
-\contentsline {subsection}{\numberline {4.3.1}Sc\IeC {\'e}narios de tests}{23}
-\contentsline {subsection}{\numberline {4.3.2}\IeC {\'E}tablissement des profils attendus}{23}
-\contentsline {subsection}{\numberline {4.3.3}R\IeC {\'e}utilisation des r\IeC {\'e}sultats du profilage}{23}
-\contentsline {chapter}{\numberline {5}Analyse des r\IeC {\'e}sultats obtenus}{24}
-\contentsline {section}{\numberline {5.1}Profilage statique}{24}
-\contentsline {subsection}{\numberline {5.1.1}Sc\IeC {\'e}narios de tests}{24}
-\contentsline {subsection}{\numberline {5.1.2}Analyse des gains de parties}{24}
-\contentsline {section}{\numberline {5.2}Profilage dynamique}{24}
-\contentsline {subsection}{\numberline {5.2.1}Analyse des gains de parties}{24}
-\contentsline {chapter}{\numberline {6}Perspectives et conclusion}{25}
-\contentsline {section}{\numberline {6.1}Perspectives d'am\IeC {\'e}lioration du profilage}{25}
-\contentsline {section}{\numberline {6.2}Profilage obtenu}{25}
-\contentsline {chapter}{\numberline {A}Test annexe}{27}
+\contentsline {section}{\numberline {3.4}Profilage statique}{22}
+\contentsline {section}{\numberline {3.5}R\IeC {\'e}utilisation des r\IeC {\'e}sultats du profilage}{22}
+\contentsline {section}{\numberline {3.6}Profilage dynamique}{22}
+\contentsline {section}{\numberline {3.7}R\IeC {\'e}utilisation des r\IeC {\'e}sultats du profilage}{22}
+\contentsline {chapter}{\numberline {4}Mise en place des m\IeC {\'e}thodes de profilage}{23}
+\contentsline {section}{\numberline {4.1}Calibrage des intelligences artificielles}{23}
+\contentsline {section}{\numberline {4.2}Profilage statique}{24}
+\contentsline {subsection}{\numberline {4.2.1}Sc\IeC {\'e}narios de tests}{24}
+\contentsline {subsection}{\numberline {4.2.2}\IeC {\'E}tablissement des profils attendus}{24}
+\contentsline {subsection}{\numberline {4.2.3}R\IeC {\'e}utilisation des r\IeC {\'e}sultats du profilage}{24}
+\contentsline {section}{\numberline {4.3}Profilage dynamique}{24}
+\contentsline {subsection}{\numberline {4.3.1}Sc\IeC {\'e}narios de tests}{24}
+\contentsline {subsection}{\numberline {4.3.2}\IeC {\'E}tablissement des profils attendus}{24}
+\contentsline {subsection}{\numberline {4.3.3}R\IeC {\'e}utilisation des r\IeC {\'e}sultats du profilage}{24}
+\contentsline {chapter}{\numberline {5}Analyse des r\IeC {\'e}sultats obtenus}{25}
+\contentsline {section}{\numberline {5.1}Profilage statique}{25}
+\contentsline {subsection}{\numberline {5.1.1}Sc\IeC {\'e}narios de tests}{25}
+\contentsline {subsection}{\numberline {5.1.2}Analyse des gains de parties}{25}
+\contentsline {section}{\numberline {5.2}Profilage dynamique}{25}
+\contentsline {subsection}{\numberline {5.2.1}Analyse des gains de parties}{25}
+\contentsline {chapter}{\numberline {6}Perspectives et conclusion}{26}
+\contentsline {section}{\numberline {6.1}Perspectives d'am\IeC {\'e}lioration du profilage}{26}
+\contentsline {section}{\numberline {6.2}Profilage obtenu}{26}
+\contentsline {chapter}{\numberline {A}Test annexe}{28}

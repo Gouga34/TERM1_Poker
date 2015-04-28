@@ -321,6 +321,13 @@ De plus, chaque commit effectué sur le projet Git devra avoir une description e
 
 \section{Système de jeu}
 
+\hspace{0.5cm}Afin de pouvoir effectuer le profilage d'un joueur, nous avons mis en place un jeu de poker à deux joueurs. Dans un premier temps, il s'agissait d'un joueur humain contre une intelligence artificielle ayant pour but de le profiler. Pour pouvoir jouer, une interface graphique a été mise en place pour permettre à la fois le suivi de la partie et le choix des actions.\par
+Au départ, l'intelligence artificielle reposait sur un algorithme basique lui permettant de jouer une partie. Puis nous avons rapidement mis en place un calibrage de l'IA, afin de pouvoir lui attribuer un style de jeu (agressif, bluffeur...). Lors l'ajout de ce calibrage, nous avons complexifié le jeu de l'IA en prenant en compte le calibrage donné mais aussi en y ajoutant un choix d'action plus varié.\par
+Afin de différencier les joueurs que l'IA profile, nous avons mis en place un système de pseudos. Avant le démarrage du jeu, il est alors possible de renseigner un pseudo, nouveau ou déjà existant, qui permet à l'IA de collecter et rassembler les données de profilage d'un même joueur.\\
+
+Par la suite, afin de permettre l'automatisation du profilage, et le lancements d'une série de parties, il nous a été demandé de revoir le système de jeu afin que l'IA existante puisse jouer contre une deuxième IA ne profilant pas. Dans cette version, l'interface n'est plus prise en compte et les deux intelligences jouent simultanément jusqu'à fin de la partie. Dans ce cas, un calibrage est donné pour cette deuxième IA, et celui-ci reste fixe pour la suite de parties. C'est l'IA qui profile qui va tenter de retrouver les valeurs de ce calibrage.\par
+Pour permettre ces séries de tests, nous avons donc ajouté la possibilité de choisir le nombre de parties à lancer, afin de tester de façon efficace le profilage mis en place.
+
 \section{Profilage}
 %%On mettra ici les données communes aux profilages statiques et dynamiques
 \subsection{Choix d'enregistrement des données}
