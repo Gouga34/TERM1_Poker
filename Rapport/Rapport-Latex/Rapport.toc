@@ -24,16 +24,16 @@
 \contentsline {subsection}{\numberline {2.2.5}Langage}{18}
 \contentsline {chapter}{\numberline {3}Analyse du projet}{19}
 \contentsline {section}{\numberline {3.1}Syst\IeC {\`e}me de jeu}{19}
-\contentsline {section}{\numberline {3.2}Profilage}{19}
+\contentsline {section}{\numberline {3.2}Profilage}{20}
 \contentsline {subsection}{\numberline {3.2.1}Choix d'enregistrement des donn\IeC {\'e}es}{20}
-\contentsline {section}{\numberline {3.3}Formule de calcul du taux de rationalit\IeC {\'e} d'un joueur}{20}
-\contentsline {subsection}{\numberline {3.3.1}Formule de calcul du taux d'agressivit\IeC {\'e} d'un joueur}{21}
-\contentsline {subsection}{\numberline {3.3.2}Formule de calcul du taux de bluff d'un joueur}{21}
-\contentsline {subsection}{\numberline {3.3.3}Formule de calcul du taux de passivit\IeC {\'e} d'un joueur}{21}
-\contentsline {section}{\numberline {3.4}Profilage statique}{22}
-\contentsline {section}{\numberline {3.5}R\IeC {\'e}utilisation des r\IeC {\'e}sultats du profilage}{22}
-\contentsline {section}{\numberline {3.6}Profilage dynamique}{22}
-\contentsline {section}{\numberline {3.7}R\IeC {\'e}utilisation des r\IeC {\'e}sultats du profilage}{22}
+\contentsline {subsection}{\numberline {3.2.2}Formule de calcul du taux de rationalit\IeC {\'e} d'un joueur}{21}
+\contentsline {subsection}{\numberline {3.2.3}Formule de calcul du taux d'agressivit\IeC {\'e} d'un joueur}{21}
+\contentsline {subsection}{\numberline {3.2.4}Formule de calcul du taux de bluff d'un joueur}{22}
+\contentsline {subsection}{\numberline {3.2.5}Formule de calcul du taux de passivit\IeC {\'e} d'un joueur}{22}
+\contentsline {section}{\numberline {3.3}Profilage statique}{22}
+\contentsline {section}{\numberline {3.4}R\IeC {\'e}utilisation des r\IeC {\'e}sultats du profilage}{22}
+\contentsline {section}{\numberline {3.5}Profilage dynamique}{22}
+\contentsline {section}{\numberline {3.6}R\IeC {\'e}utilisation des r\IeC {\'e}sultats du profilage}{22}
 \contentsline {chapter}{\numberline {4}Mise en place des m\IeC {\'e}thodes de profilage}{23}
 \contentsline {section}{\numberline {4.1}Calibrage des intelligences artificielles}{23}
 \contentsline {section}{\numberline {4.2}Profilage statique}{24}
