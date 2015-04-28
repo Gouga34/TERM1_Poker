@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.2.9)  28 APR 2015 18:21
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.2.9)  28 APR 2015 18:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -536,83 +536,10 @@ Package pdftex.def Info: ./PageGardeRapportTERM1.pdf, page1 used on input line
  <./PageGardeRapportTERM1.pdf{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map
 }>] [2] [3] (./Rapport.toc [4
 
-]
-! Missing number, treated as zero.
-<to be read again> 
-                   \begingroup 
-l.56 ...up \aftergroup \calc@B \calc@A \begingroup
-                                                   \aftergroup \calc@B \calc...
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Missing number, treated as zero.
-<to be read again> 
-                   \afterassignment 
-l.56 ...ftergroup \calc@B \calc@A \afterassignment
-                                                   \def {\GenericError {(cal...
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-
-! Undefined control sequence.
-\GenericError  ...                                
-                                                  \let \@err@               ...
-l.56 ...ion.}{I expected to see one of: + - * / )}
-                                                  }\calc@A 0!\global \calc@A...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Missing { inserted.
-<to be read again> 
-                   \let 
-l.56 ...ion.}{I expected to see one of: + - * / )}
-                                                  }\calc@A 0!\global \calc@A...
-A left brace was mandatory here, so I've put one in.
-You might want to delete and/or insert some corrections
-so that I will find a matching right brace soon.
-(If you're confused by all this, try typing `I}' now.)
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.57 ... {chapter}{\numberline {A}Test annexe}{24}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-)
+])
 \tf@toc=\write3
 \openout3 = `Rapport.toc'.
 
-
-! Missing } inserted.
-<inserted text> 
-                }
-l.44 \tableofcontents
-                      %%Table des matières
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-! Missing number, treated as zero.
-<to be read again> 
-                   \par 
-l.45 
-     
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
 
 [5] (./Rapport.lof)
 \tf@lof=\write4
@@ -631,118 +558,189 @@ Overfull \hbox (25.54301pt too wide) in paragraph at lines 110--110
 []\OT1/cmr/bx/n/14.4 Rapide de-scrip-tion des r^^Regles du Texas Hold'Em
  []
 
-[10] [11]
-Overfull \hbox (6.42136pt too wide) in paragraph at lines 190--190
+[10] <./imagesRapport/quinteFlushRoyale.jpg, id=70, 491.8375pt x 135.50626pt>
+File: ./imagesRapport/quinteFlushRoyale.jpg Graphic file (type jpg)
+
+<use ./imagesRapport/quinteFlushRoyale.jpg>
+Package pdftex.def Info: ./imagesRapport/quinteFlushRoyale.jpg used on input li
+ne 144.
+(pdftex.def)             Requested size: 147.55238pt x 40.65218pt.
+
+<./imagesRapport/quinteFlush.jpg, id=71, 401.5pt x 120.45pt>
+File: ./imagesRapport/quinteFlush.jpg Graphic file (type jpg)
+
+<use ./imagesRapport/quinteFlush.jpg>
+Package pdftex.def Info: ./imagesRapport/quinteFlush.jpg used on input line 155
+.
+(pdftex.def)             Requested size: 160.59715pt x 48.17914pt.
+ [11 <./imagesRapport/quinteFlushRoyale.jpg> <./imagesRapport/quinteFlush.jpg>]
+
+<./imagesRapport/carre.jpg, id=75, 546.04pt x 151.56625pt>
+File: ./imagesRapport/carre.jpg Graphic file (type jpg)
+
+<use ./imagesRapport/carre.jpg>
+Package pdftex.def Info: ./imagesRapport/carre.jpg used on input line 165.
+(pdftex.def)             Requested size: 163.81326pt x 45.47021pt.
+
+<./imagesRapport/full.jpg, id=76, 401.5pt x 120.45pt>
+File: ./imagesRapport/full.jpg Graphic file (type jpg)
+
+<use ./imagesRapport/full.jpg>
+Package pdftex.def Info: ./imagesRapport/full.jpg used on input line 178.
+(pdftex.def)             Requested size: 160.59715pt x 48.17914pt.
+
+<./imagesRapport/couleur.jpg, id=77, 530.98375pt x 150.5625pt>
+File: ./imagesRapport/couleur.jpg Graphic file (type jpg)
+
+<use ./imagesRapport/couleur.jpg>
+Package pdftex.def Info: ./imagesRapport/couleur.jpg used on input line 188.
+(pdftex.def)             Requested size: 159.29634pt x 45.16908pt.
+ [12 <./imagesRapport/carre.jpg> <./imagesRapport/full.jpg> <./imagesRapport/co
+uleur.jpg>]
+<./imagesRapport/suite.jpg, id=81, 530.98375pt x 150.5625pt>
+File: ./imagesRapport/suite.jpg Graphic file (type jpg)
+
+<use ./imagesRapport/suite.jpg>
+Package pdftex.def Info: ./imagesRapport/suite.jpg used on input line 199.
+(pdftex.def)             Requested size: 159.29634pt x 45.16908pt.
+
+<./imagesRapport/brelan.jpg, id=82, 441.76309pt x 106.87817pt>
+File: ./imagesRapport/brelan.jpg Graphic file (type jpg)
+
+<use ./imagesRapport/brelan.jpg>
+Package pdftex.def Info: ./imagesRapport/brelan.jpg used on input line 209.
+(pdftex.def)             Requested size: 176.7021pt x 42.7505pt.
+
+<./imagesRapport/doublePaire.jpg, id=83, 441.76309pt x 105.86028pt>
+File: ./imagesRapport/doublePaire.jpg Graphic file (type jpg)
+
+<use ./imagesRapport/doublePaire.jpg>
+Package pdftex.def Info: ./imagesRapport/doublePaire.jpg used on input line 217
+.
+(pdftex.def)             Requested size: 132.52994pt x 31.75832pt.
+ [13 <./imagesRapport/suite.jpg> <./imagesRapport/brelan.jpg> <./imagesRapport/
+doublePaire.jpg>]
+<./imagesRapport/paire.jpg, id=88, 522.95375pt x 150.5625pt>
+File: ./imagesRapport/paire.jpg Graphic file (type jpg)
+
+<use ./imagesRapport/paire.jpg>
+Package pdftex.def Info: ./imagesRapport/paire.jpg used on input line 227.
+(pdftex.def)             Requested size: 156.88733pt x 45.16908pt.
+
+<./imagesRapport/carteHaute.jpg, id=89, 441.76309pt x 105.86028pt>
+File: ./imagesRapport/carteHaute.jpg Graphic file (type jpg)
+
+<use ./imagesRapport/carteHaute.jpg>
+Package pdftex.def Info: ./imagesRapport/carteHaute.jpg used on input line 237.
+
+(pdftex.def)             Requested size: 220.881pt x 52.93pt.
+ [14 <./imagesRapport/paire.jpg> <./imagesRapport/carteHaute.jpg>]
+Overfull \hbox (6.42136pt too wide) in paragraph at lines 255--255
  \OT1/cmr/m/n/10 Une fois les fonc-tion-nalit^^Ses obli-ga-toires mises en plac
 e, il sera pos-si-ble d'ajouter
  []
 
-[12] [13]
+[15] [16]
 Chapitre 2.
 
-Overfull \hbox (2.3061pt too wide) in paragraph at lines 223--223
+Overfull \hbox (2.3061pt too wide) in paragraph at lines 288--288
 []\OT1/cmr/m/n/10 Les noms des m^^Sethodes, des vari-ables et des at-tributs de
 -vront imp^^Serativement
  []
 
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 231.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 296.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 231.
- [14
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 296.
+ [17
 
 ]
-Overfull \hbox (99.00452pt too wide) in paragraph at lines 240--241
+Overfull \hbox (99.00452pt too wide) in paragraph at lines 305--306
 [][][] 
  []
 
 
-Overfull \hbox (99.00452pt too wide) in paragraph at lines 244--245
+Overfull \hbox (99.00452pt too wide) in paragraph at lines 309--310
 [][][] 
  []
 
 
-Overfull \hbox (105.00458pt too wide) in paragraph at lines 246--247
+Overfull \hbox (105.00458pt too wide) in paragraph at lines 311--312
 [][][] 
  []
 
-[15]
+[18]
 Chapitre 3.
 
-Overfull \hbox (1.83286pt too wide) in paragraph at lines 264--264
+Overfull \hbox (1.83286pt too wide) in paragraph at lines 329--329
 []\OT1/cmr/bx/n/14.4 Formule de cal-cul du taux de ra-tio-nalit^^Se d'un
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 267--271
+Underfull \hbox (badness 10000) in paragraph at lines 332--336
 
  []
 
-[16
+[19
 
 ]
-Overfull \hbox (89.94403pt too wide) in paragraph at lines 281--281
+Overfull \hbox (89.94403pt too wide) in paragraph at lines 346--346
 [] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 316--317
+Underfull \hbox (badness 10000) in paragraph at lines 381--382
 
  []
 
-[17] [18]
+[20] [21]
 Chapitre 4.
-[19
+[22
 
-] [20]
+] [23]
 Chapitre 5.
-[21
+[24
 
 ]
 Chapitre 6.
-(./Rapport.bbl [22
+(./Rapport.bbl [25
 
-]) [23
+]) [26
 
 ]
 Annexe A.
-[24
+[27
 
-] (./Rapport.aux) )
-(\end occurred inside a group at level 2)
-
-### semi simple group (level 2) entered at line 56 (\begingroup)
-### semi simple group (level 1) entered at line 44 (\begingroup)
-### bottom level 
+] (./Rapport.aux) ) 
 Here is how much of TeX's memory you used:
- 5287 strings out of 494985
- 70687 string characters out of 6180357
+ 5339 strings out of 494985
+ 72142 string characters out of 6180357
  145208 words of memory out of 5000000
- 8423 multiletter control sequences out of 15000+600000
+ 8463 multiletter control sequences out of 15000+600000
  9790 words of font info for 35 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 39i,18n,45p,779b,1586s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
-mbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.
-pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex9.pf
-b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share
-/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texliv
-e/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/share/texlive/texmf
--dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/typ
-e1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmsy9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9
-.pfb>
-Output written on Rapport.pdf (24 pages, 294764 bytes).
+ 39i,18n,45p,768b,1530s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx
+12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex9
+.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><
+/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/sh
+are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/tex
+live/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmsy9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+ti9.pfb>
+Output written on Rapport.pdf (27 pages, 549236 bytes).
 PDF statistics:
- 170 PDF objects out of 1000 (max. 8388607)
- 114 compressed objects within 2 object streams
+ 190 PDF objects out of 1000 (max. 8388607)
+ 121 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 21 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 71 words of extra memory for PDF output out of 10000 (max. 10000000)
 
