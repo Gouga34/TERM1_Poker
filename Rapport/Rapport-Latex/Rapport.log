@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.2.9)  28 APR 2015 19:20
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.2.9)  28 APR 2015 19:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -633,9 +633,9 @@ File: ./imagesRapport/carteHaute.jpg Graphic file (type jpg)
 <use ./imagesRapport/carteHaute.jpg>
 Package pdftex.def Info: ./imagesRapport/carteHaute.jpg used on input line 237.
 
-(pdftex.def)             Requested size: 220.881pt x 52.93pt.
+(pdftex.def)             Requested size: 176.7021pt x 42.34335pt.
  [14 <./imagesRapport/paire.jpg> <./imagesRapport/carteHaute.jpg>]
-Overfull \hbox (6.42136pt too wide) in paragraph at lines 255--255
+Overfull \hbox (6.42136pt too wide) in paragraph at lines 256--256
  \OT1/cmr/m/n/10 Une fois les fonc-tion-nalit^^Ses obli-ga-toires mises en plac
 e, il sera pos-si-ble d'ajouter
  []
@@ -643,56 +643,56 @@ e, il sera pos-si-ble d'ajouter
 [15] [16]
 Chapitre 2.
 
-Overfull \hbox (2.3061pt too wide) in paragraph at lines 288--288
+Overfull \hbox (2.3061pt too wide) in paragraph at lines 289--289
 []\OT1/cmr/m/n/10 Les noms des m^^Sethodes, des vari-ables et des at-tributs de
 -vront imp^^Serativement
  []
 
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 296.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 297.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 296.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 297.
  [17
 
 ]
-Overfull \hbox (99.00452pt too wide) in paragraph at lines 305--306
+Overfull \hbox (99.00452pt too wide) in paragraph at lines 306--307
 [][][] 
  []
 
 
-Overfull \hbox (99.00452pt too wide) in paragraph at lines 309--310
+Overfull \hbox (99.00452pt too wide) in paragraph at lines 310--311
 [][][] 
  []
 
 
-Overfull \hbox (105.00458pt too wide) in paragraph at lines 311--312
+Overfull \hbox (105.00458pt too wide) in paragraph at lines 312--313
 [][][] 
  []
 
 [18]
 Chapitre 3.
 
-Overfull \hbox (1.83286pt too wide) in paragraph at lines 329--329
+Overfull \hbox (1.83286pt too wide) in paragraph at lines 331--331
 []\OT1/cmr/bx/n/14.4 Formule de cal-cul du taux de ra-tio-nalit^^Se d'un
  []
 
 [19
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 333--336
+Underfull \hbox (badness 10000) in paragraph at lines 335--338
 
  []
 
 
-Overfull \hbox (89.94403pt too wide) in paragraph at lines 346--346
+Overfull \hbox (89.94403pt too wide) in paragraph at lines 348--348
 [] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 381--382
+Underfull \hbox (badness 10000) in paragraph at lines 383--384
 
  []
 
@@ -737,7 +737,7 @@ blic/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
 msfonts/cm/cmsy9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
 /cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
 ti9.pfb>
-Output written on Rapport.pdf (27 pages, 549386 bytes).
+Output written on Rapport.pdf (27 pages, 549698 bytes).
 PDF statistics:
  190 PDF objects out of 1000 (max. 8388607)
  121 compressed objects within 2 object streams
