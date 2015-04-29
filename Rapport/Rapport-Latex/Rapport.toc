@@ -40,10 +40,10 @@
 \contentsline {subsection}{\numberline {4.2.1}Sc\IeC {\'e}narios de tests}{25}
 \contentsline {subsection}{\numberline {4.2.2}Test du profilage}{25}
 \contentsline {subsection}{\numberline {4.2.3}\IeC {\'E}tablissement des profils attendus}{25}
-\contentsline {subsection}{\numberline {4.2.4}R\IeC {\'e}utilisation des r\IeC {\'e}sultats du profilage}{25}
-\contentsline {section}{\numberline {4.3}Profilage dynamique}{25}
-\contentsline {subsection}{\numberline {4.3.1}Sc\IeC {\'e}narios de tests}{25}
-\contentsline {subsection}{\numberline {4.3.2}\IeC {\'E}tablissement des profils attendus}{25}
+\contentsline {subsection}{\numberline {4.2.4}R\IeC {\'e}utilisation des r\IeC {\'e}sultats du profilage}{26}
+\contentsline {section}{\numberline {4.3}Profilage dynamique}{26}
+\contentsline {subsection}{\numberline {4.3.1}Sc\IeC {\'e}narios de tests}{26}
+\contentsline {subsection}{\numberline {4.3.2}\IeC {\'E}tablissement des profils attendus}{26}
 \contentsline {subsection}{\numberline {4.3.3}R\IeC {\'e}utilisation des r\IeC {\'e}sultats du profilage}{26}
 \contentsline {chapter}{\numberline {5}Analyse des r\IeC {\'e}sultats obtenus}{27}
 \contentsline {section}{\numberline {5.1}Profilage statique}{27}
