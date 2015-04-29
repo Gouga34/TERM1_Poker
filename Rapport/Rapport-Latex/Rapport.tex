@@ -321,14 +321,31 @@ De plus, chaque commit effectué sur le projet Git devra avoir une description e
 
 \section{Système de jeu}
 
+\hspace{0.5cm}Afin de pouvoir effectuer le profilage d'un joueur, nous avons mis en place un jeu de poker à deux joueurs. Dans un premier temps, il s'agissait d'un joueur humain contre une intelligence artificielle ayant pour but de le profiler. Pour pouvoir jouer, une interface graphique a été mise en place pour permettre à la fois le suivi de la partie et le choix des actions.\par
+Au départ, l'intelligence artificielle reposait sur un algorithme basique lui permettant de jouer une partie. Puis nous avons rapidement mis en place un calibrage de l'IA, afin de pouvoir lui attribuer un style de jeu (agressif, bluffeur...). Lors l'ajout de ce calibrage, nous avons complexifié le jeu de l'IA en prenant en compte le calibrage donné mais aussi en y ajoutant un choix d'action plus varié.\par
+Afin de différencier les joueurs que l'IA profile, nous avons mis en place un système de pseudos. Avant le démarrage du jeu, il est alors possible de renseigner un pseudo, nouveau ou déjà existant, qui permet à l'IA de collecter et rassembler les données de profilage d'un même joueur. De ce fait, s'il se déconnecte et souhaite rejouer un autre jour, l'IA disposera toujours du précédent profilage effectué.\\
+
+Par la suite, afin de permettre l'automatisation du profilage, et le lancements d'une série de parties, il nous a été demandé de revoir le système de jeu afin que l'IA existante puisse jouer contre une deuxième IA ne profilant pas. Dans cette version, l'interface n'est plus prise en compte et les deux intelligences jouent simultanément jusqu'à fin de la partie. Dans ce cas, un calibrage est donné pour cette deuxième IA, et celui-ci reste fixe pour la suite de parties. C'est l'IA qui profile qui va tenter de retrouver les valeurs de ce calibrage.\par
+Pour permettre ces séries de tests, nous avons donc ajouté la possibilité de choisir le nombre de parties à lancer, afin de tester de façon efficace le profilage mis en place.
+
 \section{Profilage}
 %%On mettra ici les données communes aux profilages statiques et dynamiques
 \subsection{Choix d'enregistrement des données}
 
-\hspace{0.5cm}Afin de profiler nos joueurs, nous avons choisi d'enregistrer un certain nombre de données dans des fichiers de sortie. Nous avons décidé de mettre en place un fichier par joueur. De ce fait, chaque fichier est représenté par le pseudo du joueur. Soit joueur ayant pour pseudo "Alain". Le fichier contenant les données de profilage de ce joueur sera donc "Alain.json". De ce fait, s'il se déconnecte et souhaite rejouer un autre jour, nous auront toujours le précédent profilage effectué.\par
-Comme on peut le constater, nous avons choisi d'enregistrer nos données en JSON. en effet, ce format de données a l'avantage d'être facilement exploitable. De plus, nous pouvons utiliser la librairie QJson pour exploiter les données du fichier.\par
+\hspace{0.5cm}Afin de profiler nos joueurs, nous avons choisi d'enregistrer un certain nombre de données dans des fichiers de sortie. Selon le système de pseudos développé, nous avons décidé de mettre en place un fichier par joueur, représenté par le pseudo du joueur. Dans le but d'une réustilisation des données enregistrées par l'application, nous avons choisi le format de données Json car il a l'avantage d'être facilement exploitable. De plus, nous avons pu utiliser la librairie QJson pour traiter les données des fichiers.\\
 
-\section{Formule de calcul du taux de rationalité d'un joueur}
+Nous avons ensuite déterminé les données à prendre en compte au cours d'une partie, qui vont permettre le profilage du joueur adverse, et qui seront donc enregistrées dans les fichiers json.\par
+Dans ce fichier, chaque valeur est représentée sous forme de taux, en pourcentage.\par
+Au cours d'une partie, l'IA va donc enregister les chances de gain du joueur, au départ déduites de ses propres chances de gain, puis calculées si les cartes du joueur adverse sont dévoilées en fin de partie.\par
+Elle va également calculer les différentes actions effectuées. Ici, nous avons choisi de classer les différentes actions en trois catégories, les suivis, les checks, et les mises qui comprennent aussi les relances. Chacune de ces valeurs représente donc le pourcentage de réalisation de cette action par le joueur en fonction du nombre de tours de jeu (par exemple si le joueur a suivi une fois sur deux, on aura 50\% de suivis). Si le joueur ne se couche pas, le total de ces trois valeurs est donc 100\%. Enfin un booléen indique si le joueur s'est couché ou non au cours de la partie.\par
+Concernant les mises, afin d'être plus précis sur l'agressivité du joueur, nous mémorisons également la mise la plus haute effectuée en une fois par le joueur, ainsi que le total du montant misé sur l'ensemble des tours.\par
+Finalement, le fichier contient tous les types de comportements possibles que l'on peut attribuer au joueur profilé. Nous avons choisi de catégoriser le joueur selon quatre critères : l'agressivité, c'est à dire sa capacité à miser, la rationalité, le bluff et la passivité. Ces quatre valeurs sont exprimées en pourcentage. Pour chacune d'elle nous avons déterminé une formule qui, à partir des données enregistrées dans le fichier et présentées plus haut, va calculer les taux associés. Pour l'agressivité, nous prenons en compte les mises effecutées, c'est à dire le nombre de mises, la mise la plus haute et le total des mises. La rationalité se base sur la cohérence entre les chances de gain du joueur et les mises effectuées. Puis nous avons dans un premier temps, calculé la passivité comme étant la somme du taux de checks et de suivis, soit l'inverse de l'agressivité, et le bluff comme l'inverse de la rationalité. Ces quatres valeurs prises deux à deux font donc 100\%.\par
+Enfin, dans le but d'effectuer un profilage plus précis des joueurs, nous avons distingué chaque étape de jeu, et donc enregistré l'ensemble de ces valeurs pour les quatre étapes d'une partie : préflop, flop, turn et river. Un profil global de la partie est ensuite écrit avec les quatre valeurs de comportement. Puis un booléen contient le résultat de la partie.\\
+
+Pour un joueur donné, le fichier contient donc l'ensemble des parties effectuées. Nous avons aussi au départ pensé à valoriser chacun des comportements de façon globale, après chaque partie enregistrée.
+
+
+\subsection{Formule de calcul du taux de rationalité d'un joueur}
 
 \hspace{0.5cm}Afin de calculer à combien de pourcentages un joueur a été rationnel pendant une partie, nous avons choisi de nous baser sur une courbe [ajouter un schéma de la courbe et l'expliquer] correspondant aux pourcentages théoriques de rationalité en fonction des chances de gagner. A partir de cette courbe, nous avons décidé de calculer la mise théorique que le joueur aurait dû miser en nous basant sur quatre paliers, comme on peut le voir dans la formule suivante. \par
 Pour chaque palier, on regarde si les chances de gain du joueur sont comprises entre g1 et g2. Une fois le palier trouvé, on calcule la mise théorique, en sachant que celle-ci sera comprise entre les m1 et m2 correspondant au palier. \par
@@ -454,6 +471,16 @@ Enfin, il reste la possibilité que les actions soient différentes. Ici on dist
 
 \section{Profilage statique}
 \subsection{Scénarios de tests}
+
+\hspace{0.5cm}Afin de pouvoir évaluer le profilage effectué par l'IA, il nous a été conseillé de se baser sur la différence entre l'action attendue du joueur adverse, puis son action réelle. De ce fait, il est possible de déterminer facilement l'efficacité du profilage, en analysant cette différence entre l'attendu et le réel.\par
+Pour que l'IA puisse connaître le comportement attendu d'un joueur à partir d'une situation donnée, nous avons établi l'ensemble des scénarios possibles. Chaque scénario se base sur le calibrage de l'IA qui profile (son agressivité), ainsi que ses chances de gain. Pour chacune de ces situations, on établit le comportement attendu rationellement par le joueur adverse, exprimé sous forme de taux d'agressivité. Ce sont ces données que l'IA va utiliser pour calculer la différence des actions attendues et réelles.\\
+
+\subsection{Test du profilage}
+
+\hspace{0.5cm}Afin d'obtenir un résultat des données de profilage au bout de plusieurs parties, nous enregistrons à la fin de chaque partie une ligne de résultats dans un fichier csv à partir des données du json. Cette ligne contient la situation du jeu (calibrage IA et chances de gain), les taux d'agressivité et rationalité attendus, les taux réels et la distance entre ces deux. Enfin une moyenne des taux attendus est mise à jour à chaque ajout, c'est elle qui va donner le profilage obtenu au bout de x parties.\par
+Cela va donc permettre le lancement de plusieurs parties, IA contre IA, pour obtenir un profilage rapidement. Suite à ces résultats, il est alors possible de réaliser des courbes permettant d'observer la convergeance entre le profil établi, et le calibrage de l'IA profilée.
+
+
 \subsection{Établissement des profils attendus}
 \subsection{Réutilisation des résultats du profilage}
 
