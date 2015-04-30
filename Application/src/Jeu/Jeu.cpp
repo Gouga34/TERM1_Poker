@@ -50,6 +50,9 @@ void Jeu::distributionMain(){
 
     this->resetActions();
 
+    IntelligenceArtificielleProfilage *iaProfilage = static_cast<IntelligenceArtificielleProfilage*>(listeJoueurs.at(1));
+    iaProfilage->setCalibragePourJouer();
+
     getJoueur(0)->setMiseTotale(0);
     getJoueur(1)->setMiseTotale(0);
 

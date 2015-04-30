@@ -20,7 +20,7 @@ class Profilage
 {
     private:
 
-        Profil profilIA;
+        Profil *profilIA;
 
     public:
 
@@ -60,7 +60,7 @@ class Profilage
         EtapePartie etatPartie[ETAPE_JEU::NB_ETAPES + 1];
 
 
-        Profilage(Profil *profil);
+        Profilage(Profil *calibrageIA, Profil *profil);
         ~Profilage();
 
         /**

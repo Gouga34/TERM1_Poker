@@ -178,7 +178,7 @@ bool ScenariosDeTests::sauvegarderPartie(){
 
     scenarioSuivant();
 
-    return (nbParties < NOMBRE_PARTIES_PROFILAGE);
+    return (nbParties < NOMBRE_PARTIES_PROFILAGE - 1);
 }
 
 
