@@ -93,7 +93,7 @@ double ScenariosDeTests::getChancesDeGain(){
 }
 
 
-void ScenariosDeTests::sauvegarderPartie(){
+bool ScenariosDeTests::sauvegarderPartie(){
 
     //On ouvre le fichier dans lequel on sauvegardera les données.
     QString nomFichier=QString::fromStdString(actionReelleJoueur->getPseudo())+"_scenarios_tests.csv";
@@ -101,6 +101,8 @@ void ScenariosDeTests::sauvegarderPartie(){
 
     QString nomFichierReference=QString::fromStdString("scenarios_tests_basiques.csv");
     QFile fichierReference(QString::fromStdString(DOSSIER_PROFILAGE_STATIQUE)+nomFichierReference);
+
+    int nbParties=0;
 
     if(!fichier.open(QIODevice::ReadWrite) || !fichierReference.open(QIODevice::ReadOnly)){
         std::cerr<<"Erreur lors de l'ouverture du fichier "<<std::endl;
@@ -129,7 +131,6 @@ void ScenariosDeTests::sauvegarderPartie(){
             QStringList liste;
             double rationaliteGlobalePrec=0;
             double agressiviteGlobalePrec=0;
-            int nbParties=0;
 
             int donneesReferences=0;
             while(!ligne.isEmpty()){
@@ -176,6 +177,8 @@ void ScenariosDeTests::sauvegarderPartie(){
     }
 
     scenarioSuivant();
+
+    return (nbParties < NOMBRE_PARTIES_PROFILAGE);
 }
 
 

@@ -35,6 +35,27 @@ private:
      */
     void scenarioSuivant();
 
+    /**
+     * @brief calculerActionAttendueJoueur
+     * @action calcule l'action attendue du joueur,
+     *         éventuellement en fonction des actions réelles précédentes
+     */
+    void calculerActionAttendueJoueur(QFile &fichierProfil);
+
+    /**
+     * @brief calculerDistance
+     * @action calcule la distance entre l'action réelle et l'action attendue
+     */
+    void calculerDistance();
+
+    /**
+     * @brief ancienneSituationLAPlusProche
+     * @action cherche et trouve s'il y en a une, la situation déjà rencontrée la plus proche de la situation actuelle
+     * (chances de gain et agressivité et chances de gain joueur)
+     * @param fichierProfil
+     */
+    void ancienneSituationLAPlusProche(QFile &fichierProfil);
+
 public:
     ScenariosDeTests(Profil *profilJoueur, Profil *calibrageIA, Profil calibrageAdversaire);
 
@@ -127,32 +148,9 @@ public:
     /**
      * @brief sauvegarderLigne
      * @action écrit le scénario dans le fichier de sortie "pseudo_scenarios_tests.json"
+     * @return true si le profilage continue
      */
-    void sauvegarderPartie();
-
-    /**
-     * @brief calculerActionAttendueJoueur
-     * @action calcule l'action attendue du joueur,
-     *         éventuellement en fonction des actions réelles précédentes
-     */
-    void calculerActionAttendueJoueur(QFile &fichierProfil);
-
-    /**
-     * @brief calculerDistance
-     * @action calcule la distance entre l'action réelle et l'action attendue
-     */
-    void calculerDistance();
-
-    /**
-     * @brief ancienneSituationLAPlusProche
-     * @action cherche et trouve s'il y en a une, la situation déjà rencontrée la plus proche de la situation actuelle
-     * (chances de gain et agressivité et chances de gain joueur)
-     * @param fichierProfil
-     */
-    void ancienneSituationLAPlusProche(QFile &fichierProfil);
-
-
-
+    bool sauvegarderPartie();
 };
 
 #endif // SCENARIOSDETESTS_H

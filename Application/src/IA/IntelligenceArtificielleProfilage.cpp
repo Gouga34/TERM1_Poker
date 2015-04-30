@@ -11,7 +11,7 @@ Specification: Fichier contenant les définitions de la classe IntelligenceArtif
 
 
 IntelligenceArtificielleProfilage::IntelligenceArtificielleProfilage(bool estDealer, int jetons, int position)
-    : IntelligenceArtificielle(estDealer, jetons, position), profilage(0), scenario(0)
+    : IntelligenceArtificielle(estDealer, jetons, position), continuerProfilage(true), profilage(0), scenario(0)
 {
 
 }
@@ -149,7 +149,10 @@ void IntelligenceArtificielleProfilage::calculProfilGlobalJoueur() {
 }
 
 void IntelligenceArtificielleProfilage::ecritureScenariosDeTests() {
-    scenario->setCalibrageActuelIA(resolveur->getCalibrage());
-    scenario->setChancesDeGain(profilage->etatPartie[ETAPE_JEU::NB_ETAPES].probaGainAdversaire);
-    scenario->sauvegarderPartie();
+    // Si on profile le joueur
+    if (continuerProfilage) {
+        scenario->setCalibrageActuelIA(resolveur->getCalibrage());
+        scenario->setChancesDeGain(profilage->etatPartie[ETAPE_JEU::NB_ETAPES].probaGainAdversaire);
+        continuerProfilage = scenario->sauvegarderPartie();
+    }
 }
