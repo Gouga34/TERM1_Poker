@@ -29,10 +29,12 @@
  * Constantes utilisées pour les scénarios de tests:
  * RATIONALITE_IA_PROFILAGE : rationalité de base de l'IA qui profile
  * NOMBRE_PARTIES : nombre de parties lancées d'affilée
+ * NOMBRE_PARTIES_PROFILAGE : nombre de parties à effectuer avant de pouvoir jouer
  */
 #define RATIONALITE_IA_PROFILAGE                80.0
-#define NOMBRE_PARTIES                          10
+#define NOMBRE_PARTIES                          15
 #define VARIATION_AUTORISEE                     10
+#define NOMBRE_PARTIES_PROFILAGE                10
 
 
 /**

@@ -17,6 +17,8 @@ class IntelligenceArtificielleProfilage : public IntelligenceArtificielle
 {
     private:
 
+        bool continuerProfilage;         // Vrai si l'IA profile, faux si elle utilise les résultats pour gagner
+
         Profil profilJoueur;
 
         Profilage *profilage;
