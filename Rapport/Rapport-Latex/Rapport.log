@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.2.9)  29 APR 2015 08:28
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.4.20)  29 APR 2015 22:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -708,36 +708,52 @@ Underfull \hbox (badness 10000) in paragraph at lines 401--402
 
 [22]
 Chapitre 4.
-[23
 
-]
-Underfull \hbox (badness 10000) in paragraph at lines 477--478
+Underfull \hbox (badness 10000) in paragraph at lines 437--438
 
  []
 
-[24] [25]
+
+Overfull \hbox (10.82889pt too wide) in paragraph at lines 440--440
+[]\OT1/cmr/m/n/9 Pour le choix de l'action agres-sive, le cal-cul se base sur u
+ne mise th^^Seorique d'agressivit^^Se
+ []
+
+[23
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 442--443
+
+ []
+
+[24]
+Underfull \hbox (badness 10000) in paragraph at lines 484--485
+
+ []
+
+[25] [26]
 Chapitre 5.
-[26
+[27
 
 ]
 Chapitre 6.
-(./Rapport.bbl [27
+(./Rapport.bbl [28
 
-]) [28
+]) [29
 
 ]
 Annexe A.
-[29
+[30
 
 ] (./Rapport.aux) ) 
 Here is how much of TeX's memory you used:
  5340 strings out of 494985
- 72151 string characters out of 6180357
+ 72151 string characters out of 6180356
  145209 words of memory out of 5000000
  8464 multiletter control sequences out of 15000+600000
  9790 words of font info for 35 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 39i,18n,45p,1038b,1532s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 39i,18n,45p,1048b,1532s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
 m/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx
 12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex9
@@ -752,10 +768,10 @@ blic/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
 msfonts/cm/cmsy9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
 /cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
 ti9.pfb>
-Output written on Rapport.pdf (29 pages, 555768 bytes).
+Output written on Rapport.pdf (30 pages, 560890 bytes).
 PDF statistics:
- 196 PDF objects out of 1000 (max. 8388607)
- 125 compressed objects within 2 object streams
+ 199 PDF objects out of 1000 (max. 8388607)
+ 127 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  71 words of extra memory for PDF output out of 10000 (max. 10000000)
 
