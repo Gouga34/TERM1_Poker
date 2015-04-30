@@ -125,8 +125,12 @@ void Jeu::distributionCartesTable(int nbCartesADistribuer){
 
 void Jeu::distributionBlind(){
 
+    Logger::getInstance()->ajoutLogs("Joueur " + QString::number(getPositionJoueurAdverse(getDealer())) + " : petite blind");
+
     executerAction(getPositionJoueurAdverse(getDealer()), Action(MISER, getBlind()));
     actions[getPositionJoueurAdverse(getDealer())].back() = ACTION::PETITE_BLIND;
+
+    Logger::getInstance()->ajoutLogs("Joueur " + QString::number(getDealer()) + " : grosse blind");
 
     executerAction(getDealer(), Action(RELANCER, getBlind()));
     actions[getDealer()].back() = ACTION::GROSSE_BLIND;
