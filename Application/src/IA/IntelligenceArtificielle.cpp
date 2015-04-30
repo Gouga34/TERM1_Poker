@@ -9,10 +9,16 @@ using namespace std;
 IntelligenceArtificielle::IntelligenceArtificielle(bool estDealer, int jetons, int position)
     :Joueur(estDealer, jetons, position) {
     resolveur = new Resolveur(this);
+
     double agressivite=rand()%100+1;
     double rationalite=rand()%100+1;
-    resolveur->getCalibrage()->setAgressivite(agressivite);
-    resolveur->getCalibrage()->setRationalite(rationalite);
+
+    Profil p;
+    p.setAgressivite(agressivite);
+    p.setRationalite(rationalite);
+
+    setCalibrage(p);
+
     if(position==0){
         std::cout<<"Calibrage IA profilée : agressivité: "<<agressivite<<" rationalité: "<<rationalite<<std::endl;
     }

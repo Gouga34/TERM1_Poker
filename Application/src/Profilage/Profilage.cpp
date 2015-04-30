@@ -16,8 +16,8 @@ Specification: Fichier contenant les définitions de la classe Profilage.
 #include <QJsonArray>
 
 
-Profilage::Profilage(Profil *profil)
-    : profilIA(), profilJoueur(profil),
+Profilage::Profilage(Profil *calibrageIA, Profil *profil)
+    : profilIA(calibrageIA), profilJoueur(profil),
       etatPartie{{false, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}}
 {
 
@@ -76,8 +76,8 @@ void Profilage::charger()
 
         QJsonObject calibrageIA = partie["calibrageIA"].toObject();
 
-        profilIA.setAgressivite(calibrageIA["agressivité"].toDouble());
-        profilIA.setRationalite(calibrageIA["rationalite"].toDouble());
+        profilIA->setAgressivite(calibrageIA["agressivité"].toDouble());
+        profilIA->setRationalite(calibrageIA["rationalite"].toDouble());
     }
 
     fichier.close();
@@ -180,8 +180,8 @@ void Profilage::sauvegarder()
 
    QJsonObject calibrageIA;
 
-   calibrageIA["agressivité"] = profilIA.getAgressivite();
-   calibrageIA["rationalite"] = profilIA.getRationalite();
+   calibrageIA["agressivité"] = profilIA->getAgressivite();
+   calibrageIA["rationalite"] = profilIA->getRationalite();
 
    partie["calibrageIA"] = calibrageIA;
 

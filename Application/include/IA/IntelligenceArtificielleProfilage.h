@@ -25,6 +25,8 @@ class IntelligenceArtificielleProfilage : public IntelligenceArtificielle
 
         ScenariosDeTests *scenario;
 
+        double calculValeurProportionnelle(double minVal1, double val1, double maxVal1, double minVal2, double maxVal2) const;
+
     public:
 
         IntelligenceArtificielleProfilage(bool estDealer, int jetons, int position);
@@ -57,6 +59,11 @@ class IntelligenceArtificielleProfilage : public IntelligenceArtificielle
          * @action Ecrit les résultats des scénarios de tests pour la partie courante
          */
         void ecritureScenariosDeTests();
+
+        /**
+         * @action Modifie la calibrage de l'ia si elle n'est pas en train de profiler pour gagner
+         */
+        void setCalibragePourJouer();
 };
 
 #endif // INTELLIGENCEARTIFICIELLEPROFILAGE_H

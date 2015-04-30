@@ -8,6 +8,7 @@ Specification: Fichier contenant les définitions de la classe IntelligenceArtif
 
 
 #include "../../include/IA/IntelligenceArtificielleProfilage.h"
+#include <QStringList>
 
 
 IntelligenceArtificielleProfilage::IntelligenceArtificielleProfilage(bool estDealer, int jetons, int position)
@@ -43,7 +44,7 @@ void IntelligenceArtificielleProfilage::setPseudoJoueurProfile(std::string pseud
     if (profilage) {
         delete profilage;
     }
-    profilage = new Profilage(&profilJoueur);
+    profilage = new Profilage(resolveur->getCalibrage(), &profilJoueur);
 
     Profil calibrageRecherche;
     if (!jeu->getJoueur(0)->estHumain()) {
@@ -156,5 +157,94 @@ void IntelligenceArtificielleProfilage::ecritureScenariosDeTests() {
         scenario->setCalibrageActuelIA(resolveur->getCalibrage());
         scenario->setChancesDeGain(profilage->etatPartie[ETAPE_JEU::NB_ETAPES].probaGainAdversaire);
         continuerProfilage = scenario->sauvegarderPartie();
+    }
+}
+
+double IntelligenceArtificielleProfilage::calculValeurProportionnelle(double minVal1, double val1, double maxVal1, double minVal2, double maxVal2) const {
+    return ((val1 - minVal1) * ((maxVal2 - minVal2) / (maxVal1 - minVal1)) + minVal2);
+}
+
+void IntelligenceArtificielleProfilage::setCalibragePourJouer() {
+
+    if (!continuerProfilage) {
+
+        /////// Lecture du profilage déduit global du joueur  //////////
+
+        QString nomFichier=QString::fromStdString(profilJoueur.getPseudo())+"_scenarios_tests.csv";
+        QFile fichierJoueur(QString::fromStdString(DOSSIER_PROFILAGE_STATIQUE)+nomFichier);
+        if (!fichierJoueur.open(QIODevice::ReadOnly)) {
+            std::cerr<<"Erreur lors de l'ouverture du fichier "<<nomFichier.toStdString()<<std::endl;
+            return;
+        }
+
+        double agressiviteDeduiteGlobale = 0.0;
+        double rationaliteDeduiteGlobale = 0.0;
+
+        QString ligne = fichierJoueur.readLine();
+        ligne = fichierJoueur.readLine();
+
+        while (!ligne.isEmpty()) {
+            QStringList liste = ligne.split(",");
+
+            agressiviteDeduiteGlobale = liste.at(AGRESSIVITE_DEDUITE_GLOBALE).toDouble();
+            rationaliteDeduiteGlobale = liste.at(RATIONALITE_DEDUITE_GLOBALE).toDouble();
+
+            ligne = fichierJoueur.readLine();
+        }
+
+        fichierJoueur.close();
+
+        /////// Lecture du calibrage pour gagner //////////
+
+        QFile fichier(QString::fromStdString(DOSSIER_PROFILAGE_STATIQUE)+"jeu_IA.csv");
+        if(!fichier.open(QIODevice::ReadOnly)){
+            std::cerr<<"Erreur lors de l'ouverture du fichier jeu_IA.csv"<<std::endl;
+            return;
+        }
+
+        ligne = fichier.readLine();
+        ligne = fichier.readLine();
+
+        while (!ligne.isEmpty()) {
+            QStringList liste = ligne.split(",");
+
+            double agressiviteMin = liste.at(0).split("-").at(0).toDouble();
+            double agressiviteMax = liste.at(0).split("-").at(1).toDouble();
+
+            if (agressiviteDeduiteGlobale >= agressiviteMin && agressiviteDeduiteGlobale <= agressiviteMax) {
+                double rationaliteMin = liste.at(1).split("-").at(0).toDouble();
+                double rationaliteMax = liste.at(1).split("-").at(1).toDouble();
+
+                if (rationaliteDeduiteGlobale >= rationaliteMin && rationaliteDeduiteGlobale <= rationaliteMax) {
+
+                    Profil nouveauProfil;
+
+                    if (liste.at(2).split("-").size() == 1) {
+                        nouveauProfil.setAgressivite(liste.at(2).toDouble());
+                    }
+                    else {
+                        nouveauProfil.setAgressivite(calculValeurProportionnelle(agressiviteMin, agressiviteDeduiteGlobale, agressiviteMax,
+                                                                                 liste.at(2).split("-").at(0).toDouble(), liste.at(2).split("-").at(1).toDouble()));
+                    }
+
+                    if (liste.at(3).split("-").size() == 1) {
+                        nouveauProfil.setRationalite(liste.at(3).toDouble());
+                    }
+                    else {
+                        nouveauProfil.setRationalite(calculValeurProportionnelle(rationaliteMin, rationaliteDeduiteGlobale, rationaliteMax,
+                                                                                 liste.at(3).split("-").at(0).toDouble(), liste.at(3).split("-").at(1).toDouble()));
+                    }
+
+                    setCalibrage(nouveauProfil);
+
+                    fichier.close();
+                    return;
+                }
+            }
+
+            ligne = fichier.readLine();
+        }
+
+        fichier.close();
     }
 }
