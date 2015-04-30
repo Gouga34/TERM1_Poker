@@ -499,6 +499,10 @@ Enfin, il est aussi possible de prendre une situation dans laquelle la distance 
 
 \subsection{Réutilisation des résultats du profilage}
 
+\hspace{0.5cm}Une fois un profil établi, nous pouvons alors faire jouer l'IA en fonction dans le but de lui faire gagner le plus de parties possibles. Lors de cette étape le profilage est interrompu, et on utilise le comportement déduit pour calibrer l'IA de façon à ce qu'elle puisse gagner face à ce type de joueur.\par
+Pour une première version, nous avons choisi de seulement prendre en compte le profil final établi et d'attribuer un calibrage selon divers paliers. Ici on prend en compte trois paliers pour l'agressivité ainsi que pour la rationalité. De 0 à 40\% pour le premier palier, 40 à 60\% pour une valeur moyenne puis de 60 à 100\% pour la palier haut. Nous avons déduit les calibrage correspondants à chaque palier du joueur profilé, les résultats sont présentés dans le tableau suivant.\\
+
+
 \section{Profilage dynamique}
 \subsection{Scénarios de tests}
 \subsection{Établissement des profils attendus}
