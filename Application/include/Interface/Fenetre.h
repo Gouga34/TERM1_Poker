@@ -28,6 +28,8 @@ class Fenetre : public QWidget
 
     private:
 
+        int nombreDeParties;
+
         //Informations jeu
         QLineEdit actionEffectueeIA;
         QLabel resultatPartie;

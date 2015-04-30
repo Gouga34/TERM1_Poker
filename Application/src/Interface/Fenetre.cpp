@@ -49,6 +49,8 @@ Fenetre::Fenetre() : QWidget()
 //    calibrageIa.setRationalite(options.rationaliteIA);
 
 
+    nombreDeParties = options.nombreParties;
+
     jeu = new Jeu(2, 20, CAVE_JOUEURS);
 
     Joueur *j1;
@@ -264,7 +266,7 @@ void Fenetre::ajoutLogs(QString contenu)
 
 void Fenetre::demarragePartie()
 {
-    for(int i=0;i<NOMBRE_PARTIES;i++){
+    for(int i=0;i<nombreDeParties;i++){
         std::cout << "Partie " << i+1 << std::endl;
 
         actionEffectueeIA.clear();
