@@ -176,6 +176,7 @@ void Profilage::sauvegarder()
 
     //Ajout du resultat de la partie
     partie["GainIAQuiProfile"]=partieGagneeIAQuiProfile;
+    partie["ScenariosDeTestsEnCours"]=scenarioDeTest;
 
    QJsonObject calibrageIA;
 

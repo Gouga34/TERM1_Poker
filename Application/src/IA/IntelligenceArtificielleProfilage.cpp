@@ -143,6 +143,8 @@ void IntelligenceArtificielleProfilage::calculProfilGlobalJoueur() {
         resultatPartie=GAGNE;
     }
 
+    profilage->scenarioDeTest=continuerProfilage;
+
     profilage->partieGagneeIAQuiProfile=resultatPartie;
 
     profilage->sauvegarder();
