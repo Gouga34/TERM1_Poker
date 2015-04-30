@@ -290,8 +290,8 @@ void ScenariosDeTests::calculerActionAttendueJoueur(QFile& fichierProfil){
 
         actionAttendueJoueur.setAgressivite(agressiviteAttendue);
 
-        //Le taux de rationalité attendu est à 80% par défaut :
-        actionAttendueJoueur.setRationalite(80.0);
+        //Le taux de rationalité attendu est à 50% par défaut :
+        actionAttendueJoueur.setRationalite(50.0);
     }
 }
 
