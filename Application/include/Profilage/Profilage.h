@@ -66,7 +66,7 @@ class Profilage
         /**
          * @action Remplit les données de profilage avec le contenu du fichier correspondant au joueur
          */
-        void charger();
+        //void charger();
 
         /**
          * @action Ajoute les données de profilage de la partie dans le fichier correspondant au joueur
@@ -78,17 +78,7 @@ class Profilage
          */
         void clear();
 
-        /**
-         * @brief getNombreParties
-         * @return le nombre de parties efectuées
-         */
-        int getNombreParties();
 
-        /**
-         * @brief getPartiesGagneesParIAQuiProfile
-         * @return le nombre de parties gagnées depuis le début
-         */
-        int getPartiesGagneesParIAQuiProfile();
 };
 
 #endif // PROFILAGE_H

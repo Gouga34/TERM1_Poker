@@ -11,10 +11,8 @@ Specification: Fichier contenant les définitions de la classe Profilage.
 #include <QTextStream>
 #include <QIODevice>
 #include <iostream>
-#include <QJsonObject>
-#include <QJsonDocument>
-#include <QJsonArray>
-
+#include <QStringList>
+#include <string>
 
 Profilage::Profilage(Profil *calibrageIA, Profil *profil)
     : profilIA(calibrageIA), profilJoueur(profil),
@@ -28,78 +26,74 @@ Profilage::~Profilage()
 
 }
 
-void Profilage::charger()
-{
-    QString nomFichier = QString::fromStdString(profilJoueur->getPseudo()) + ".json";
-    QFile fichier(QString::fromStdString(DOSSIER_PROFILAGE_STATIQUE) + nomFichier);
-    if (!fichier.open(QIODevice::ReadOnly)) {
-        std::cerr << "Le fichier du pseudo " << profilJoueur->getPseudo() << " n'existe pas encore." << std::endl;
-        return;
-    }
+//void Profilage::charger()
+//{
+//    QString nomFichier = QString::fromStdString(profilJoueur->getPseudo()) + ".json";
+//    QFile fichier(QString::fromStdString(DOSSIER_PROFILAGE_STATIQUE) + nomFichier);
+//    if (!fichier.open(QIODevice::ReadOnly)) {
+//        std::cerr << "Le fichier du pseudo " << profilJoueur->getPseudo() << " n'existe pas encore." << std::endl;
+//        return;
+//    }
 
-    QByteArray donneesJson = fichier.readAll();
-    QJsonDocument doc(QJsonDocument::fromJson(donneesJson));
-    QJsonObject json(doc.object());
+//    QByteArray donneesJson = fichier.readAll();
+//    QJsonDocument doc(QJsonDocument::fromJson(donneesJson));
+//    QJsonObject json(doc.object());
 
-    QJsonArray parties = json["parties"].toArray();
+//    QJsonArray parties = json["parties"].toArray();
 
-    for (int i = 0; i < parties.size(); i++) {
-        QJsonObject partie = parties[i].toObject();
+//    for (int i = 0; i < parties.size(); i++) {
+//        QJsonObject partie = parties[i].toObject();
 
-        for (int i = 0; i < ETAPE_JEU::NB_ETAPES; i++) {
-            QString nomEtape = QString::fromStdString(nomEtapes[i]);
-            QJsonObject etape = partie[nomEtape].toObject();
+//        for (int i = 0; i < ETAPE_JEU::NB_ETAPES; i++) {
+//            QString nomEtape = QString::fromStdString(nomEtapes[i]);
+//            QJsonObject etape = partie[nomEtape].toObject();
 
-            etatPartie[i].couche = etape["couche"].toBool();
+//            etatPartie[i].couche = etape["couche"].toBool();
 
-            etatPartie[i].probaGainAdversaire = etape["probaGainAdversaire"].toDouble();
+//            etatPartie[i].probaGainAdversaire = etape["probaGainAdversaire"].toDouble();
 
-            etatPartie[i].tauxAgressivite = etape["agressivité"].toDouble();
-            etatPartie[i].tauxRationnalite = etape["rationalite"].toDouble();
-            etatPartie[i].tauxBluff = etape["bluff"].toDouble();
-            etatPartie[i].tauxPassivite = etape["passivite"].toDouble();
+//            etatPartie[i].tauxAgressivite = etape["agressivité"].toDouble();
+//            etatPartie[i].tauxRationnalite = etape["rationalite"].toDouble();
+//            etatPartie[i].tauxBluff = etape["bluff"].toDouble();
+//            etatPartie[i].tauxPassivite = etape["passivite"].toDouble();
 
-            etatPartie[i].tauxSuivis = etape["suivis"].toDouble();
-            etatPartie[i].tauxChecks = etape["checks"].toDouble();
-            etatPartie[i].tauxMises = etape["mises"].toDouble();
+//            etatPartie[i].tauxSuivis = etape["suivis"].toDouble();
+//            etatPartie[i].tauxChecks = etape["checks"].toDouble();
+//            etatPartie[i].tauxMises = etape["mises"].toDouble();
 
-            etatPartie[i].misePlusHaute = etape["misePlusHaute"].toDouble();
-            etatPartie[i].miseTotaleJoueur = etape["miseTotaleJoueur"].toDouble();
-        }
+//            etatPartie[i].misePlusHaute = etape["misePlusHaute"].toDouble();
+//            etatPartie[i].miseTotaleJoueur = etape["miseTotaleJoueur"].toDouble();
+//        }
 
-        QJsonObject global = partie["global"].toObject();
+//        QJsonObject global = partie["global"].toObject();
 
-        profilJoueur->setAgressivite(global["agressivité"].toDouble());
-        profilJoueur->setBluff(global["bluff"].toDouble());
-        profilJoueur->setRationalite(global["rationalite"].toDouble());
-        profilJoueur->setPassivite(global["passivite"].toDouble());
+//        profilJoueur->setAgressivite(global["agressivité"].toDouble());
+//        profilJoueur->setBluff(global["bluff"].toDouble());
+//        profilJoueur->setRationalite(global["rationalite"].toDouble());
+//        profilJoueur->setPassivite(global["passivite"].toDouble());
 
-        QJsonObject calibrageIA = partie["calibrageIA"].toObject();
+//        QJsonObject calibrageIA = partie["calibrageIA"].toObject();
 
-        profilIA->setAgressivite(calibrageIA["agressivité"].toDouble());
-        profilIA->setRationalite(calibrageIA["rationalite"].toDouble());
-    }
 
-    fichier.close();
-}
+//        profilIA->setAgressivite(calibrageIA["agressivité"].toDouble());
+//        profilIA->setRationalite(calibrageIA["rationalite"].toDouble());
+//    }
+
+
+//    fichier.close();
+//}
 
 void Profilage::sauvegarder()
 {
-   QString nomFichier = QString::fromStdString(profilJoueur->getPseudo()) + ".json";
+   QString nomFichier = QString::fromStdString(profilJoueur->getPseudo()) + ".csv";
    QFile fichier(QString::fromStdString(DOSSIER_PROFILAGE_STATIQUE) + nomFichier);
 
-   QJsonDocument doc;
-   QJsonObject json;
-   QJsonArray parties;
-
-   int nbPartiesGagnees=0;
-   int nbParties=0;
-
    if(profilJoueur->getPseudo().compare("") != 0){
-       if (!fichier.open(QIODevice::ReadOnly)) {
+       if (!fichier.open(QIODevice::ReadWrite)) {
 
            bool dejaPresent = false;
 
+   //Vérif si le pseudo est déjà présent ds le fichier "pseudos.txt".
            QFile pseudo(QString::fromStdString(FICHIER_PSEUDOS_PROFILAGE));
            if (!pseudo.open(QIODevice::ReadOnly | QIODevice::Text)) {
                std::cerr << "Erreur lors de l'ouverture du fichier des pseudos !" << std::endl;
@@ -118,6 +112,7 @@ void Profilage::sauvegarder()
 
             pseudo.close();
 
+     //Si pas présent, ajout du pseudo dans le fichier
            if(!dejaPresent){
                // Ouverture de la liste des pseudos
                QFile listePseudos(QString::fromStdString(FICHIER_PSEUDOS_PROFILAGE));
@@ -132,84 +127,79 @@ void Profilage::sauvegarder()
                listePseudos.close();
             }
        }
-       else {
-           // Récupération du contenu existant
-           QByteArray donneesJson = fichier.readAll();
-           doc = QJsonDocument::fromJson(donneesJson);
-           json = doc.object();
 
-           nbParties=json["nombreParties"].toInt();
-           nbPartiesGagnees=json["partiesGagneesIAQuiProfile"].toInt();
+       QTextStream out(&fichier);
+       QString ligne;
+       QStringList liste;
+       //Si fichier vide, ajout du nombre de parties et du nombre de parties gagnées par l'IA qui profile.
+        if(fichier.size()==0){
+            out<<"Nombre de parties:,"<<1<<"\n";
+            if(partieGagneeIAQuiProfile==GAGNE){
+                out<<" Nombre de parties gagnees par l'IA qui profile :,"<<1<<"\n";
+            }
+            else{
+                out<<" Nombre de parties gagnees par l'IA qui profile:,"<<0<<"\n";
+            }
 
-           parties = json["parties"].toArray();
+            out<<"\n\n Gain IA profilee,Scenarios de tests en cours,Agressivite IA qui profile, Rationalite IA qui profile,Chances de gain de l'IA profilee,"<<
+                 "Agressivite IA profilee,Rationalite IA profilee,Bluff IA profilee,Passivite IA profilee,Nombre de checks,"<<
+                 "Nombre de mises,Nombre de suivis,Total des mises de l'IA profilee,Mise la plus haute IA profilee,Joueur profile se couche"<<endl;
+        }
+       //Si pas vide, incrémentation.
+        else{
+            ligne=fichier.readLine();
+            liste=ligne.split(",");
+            int nombreParties=liste.at(1).toInt();
+            nombreParties++;
+            std::string nombrePartiesAEcrire="Nombre de parties :,"+QString::number(nombreParties).toStdString()+"\n";
+            ligne=fichier.readLine();
 
-           fichier.close();
-       }
+            std::string nombrePartiesGagneesAEcrire;
 
-   QJsonObject partie;
+            if(partieGagneeIAQuiProfile==GAGNE){
+                liste=ligne.split(",");
+                int nombrePartiesGagneesIAQuiProfile=liste.at(1).toInt();
+                nombrePartiesGagneesIAQuiProfile++;
 
-   /* Ecriture de valeurs simples */
-
-   int i = ETAPE_JEU::NB_ETAPES;
-
-    QJsonObject etape;
-
-    etape["couche"] = etatPartie[i].couche;
-
-    etape["probaGainAdversaire"] = etatPartie[i].probaGainAdversaire;
-
-    etape["agressivité"] = etatPartie[i].tauxAgressivite;
-    etape["rationalite"] = etatPartie[i].tauxRationnalite;
-    etape["bluff"] = etatPartie[i].tauxBluff;
-    etape["passivite"] = etatPartie[i].tauxPassivite;
-
-    etape["suivis"] = etatPartie[i].tauxSuivis;
-    etape["checks"] = etatPartie[i].tauxChecks;
-    etape["mises"] = etatPartie[i].tauxMises;
-
-    etape["misePlusHaute"] = etatPartie[i].misePlusHaute;
-    etape["miseTotaleJoueur"] = etatPartie[i].miseTotaleJoueur;
-
-    QString nomEtape = "global";
-    //QString nomEtape = QString::fromStdString(nomEtapes[i]);
-    partie[nomEtape] = etape;
-
-    //Ajout du resultat de la partie
-    partie["GainIAQuiProfile"]=partieGagneeIAQuiProfile;
-    partie["ScenariosDeTestsEnCours"]=scenarioDeTest;
-
-   QJsonObject calibrageIA;
-
-   calibrageIA["agressivité"] = profilIA->getAgressivite();
-   calibrageIA["rationalite"] = profilIA->getRationalite();
-
-   partie["calibrageIA"] = calibrageIA;
-
-   // Ajout de la partie courante à la liste de parties enregistrées
-   parties.append(partie);
+                nombrePartiesGagneesAEcrire="Nombre de parties gagnees par l'IA qui profile:,"+QString::number(nombrePartiesGagneesIAQuiProfile).toStdString()+"\n";
+            }
+            fichier.seek(0);
 
 
-    json["nombreParties"]=nbParties+1;
+            fichier.write(nombrePartiesAEcrire.c_str());
+            if(partieGagneeIAQuiProfile==GAGNE){
 
-    if(partieGagneeIAQuiProfile==GAGNE){
-        json["partiesGagneesIAQuiProfile"]=nbPartiesGagnees+1;
-    }
+                fichier.write(nombrePartiesGagneesAEcrire.c_str());
+            }
+        }
+            //positionnement à la fin du fichier
+            ligne=fichier.readLine();
+            while(!ligne.isEmpty()){
+                ligne=fichier.readLine();
+            }
 
-   // On modifie le QJsonObject
-   json["parties"] = parties;
-   // On modifie le QJsonDocument
-   doc.setObject(json);
+            //Écriture des données
+            int i = ETAPE_JEU::NB_ETAPES;
+            if(partieGagneeIAQuiProfile==GAGNE){
+                out<<1<<",";
+            }
+            else if(partieGagneeIAQuiProfile==EGALITE){
+            out<<2<<",";
+            }
+            else{
+                out<<0<<",";
+            }
+              out<<scenarioDeTest<<","<<profilIA->getAgressivite()<<","<<profilIA->getRationalite()<<","<<
+                    etatPartie[i].probaGainAdversaire<<","<<etatPartie[i].tauxAgressivite<<","<<etatPartie[i].tauxRationnalite<<","<<
+                    etatPartie[i].tauxBluff<<","<<etatPartie[i].tauxPassivite<<","<<etatPartie[i].tauxChecks<<","<<
+                    etatPartie[i].tauxMises<<","<<etatPartie[i].tauxSuivis<<","<<etatPartie[i].miseTotaleJoueur<<","<<
+                    etatPartie[i].misePlusHaute<<","<<etatPartie[i].couche<<endl;
 
-   // On écrit dans le fichier
-    if (!fichier.open(QIODevice::ReadWrite | QIODevice::Truncate)) {
-        std::cerr << "Erreur lors de l'ouverture du fichier " << nomFichier.toStdString() << std::endl;
-        return;
-    }
 
-    fichier.write(doc.toJson());
 
-    fichier.close();
-    }
+
+   }
+   fichier.close();
 }
 
 void Profilage::clear(){
@@ -232,34 +222,4 @@ void Profilage::clear(){
     this->etatPartie[etape].miseTotaleJoueur = 0;
 
     this->etatPartie[etape].nbTotalActions = 0;
-}
-
-int Profilage::getNombreParties(){
-    QString nomFichier = QString::fromStdString(profilJoueur->getPseudo()) + ".json";
-    QFile fichier(QString::fromStdString(DOSSIER_PROFILAGE_STATIQUE) + nomFichier);
-    if (!fichier.open(QIODevice::ReadOnly)) {
-        std::cerr << "Le fichier du pseudo " << profilJoueur->getPseudo() << " n'existe pas encore." << std::endl;
-        return -1;
-    }
-
-    QByteArray donneesJson = fichier.readAll();
-    QJsonDocument doc(QJsonDocument::fromJson(donneesJson));
-    QJsonObject json(doc.object());
-
-    return json["nombreParties"].toInt();
-}
-
-int Profilage::getPartiesGagneesParIAQuiProfile(){
-    QString nomFichier = QString::fromStdString(profilJoueur->getPseudo()) + ".json";
-    QFile fichier(QString::fromStdString(DOSSIER_PROFILAGE_STATIQUE) + nomFichier);
-    if (!fichier.open(QIODevice::ReadOnly)) {
-        std::cerr << "Le fichier du pseudo " << profilJoueur->getPseudo() << " n'existe pas encore." << std::endl;
-        return -1;
-    }
-
-    QByteArray donneesJson = fichier.readAll();
-    QJsonDocument doc(QJsonDocument::fromJson(donneesJson));
-    QJsonObject json(doc.object());
-
-    return json["partiesGagneesIAQuiProfile"].toInt();
 }
