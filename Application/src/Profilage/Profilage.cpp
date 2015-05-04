@@ -189,7 +189,7 @@ void Profilage::sauvegarder()
             else{
                 out<<0<<",";
             }
-              out<<nbJetonsGagnesIAQuiProfile<<scenarioDeTest<<","<<profilIA->getAgressivite()<<","<<profilIA->getRationalite()<<","<<
+              out<<nbJetonsGagnesIAQuiProfile<<","<<scenarioDeTest<<","<<profilIA->getAgressivite()<<","<<profilIA->getRationalite()<<","<<
                     etatPartie[i].probaGainAdversaire<<","<<etatPartie[i].tauxAgressivite<<","<<etatPartie[i].tauxRationnalite<<","<<
                     etatPartie[i].tauxBluff<<","<<etatPartie[i].tauxPassivite<<","<<etatPartie[i].tauxChecks<<","<<
                     etatPartie[i].tauxMises<<","<<etatPartie[i].tauxSuivis<<","<<etatPartie[i].miseTotaleJoueur<<","<<
