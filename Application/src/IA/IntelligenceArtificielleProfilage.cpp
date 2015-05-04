@@ -143,7 +143,7 @@ void IntelligenceArtificielleProfilage::calculProfilGlobalJoueur() {
     }
     else if(resultatPartie==PERDU){
         resultatPartie=GAGNE;
-        profilage->nbJetonsGagnesIAQuiProfile=getJeu()->getJoueur(getJeu()->getPositionJoueurAdverse(getPosition()))->getCave()-CAVE_JOUEURS;
+        profilage->nbJetonsGagnesIAQuiProfile=getCave()-CAVE_JOUEURS;
     }
     else{
         profilage->nbJetonsGagnesIAQuiProfile=0;
