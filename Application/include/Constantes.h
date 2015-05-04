@@ -32,9 +32,9 @@
  * NOMBRE_PARTIES_PROFILAGE : nombre de parties à effectuer avant de pouvoir jouer
  */
 #define RATIONALITE_IA_PROFILAGE                50.0
-#define NOMBRE_PARTIES                          10
+#define NOMBRE_PARTIES                          30
 #define VARIATION_AUTORISEE                     10
-#define NOMBRE_PARTIES_PROFILAGE                10
+#define NOMBRE_PARTIES_PROFILAGE                11
 
 
 /**

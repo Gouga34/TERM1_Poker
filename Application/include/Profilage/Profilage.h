@@ -26,6 +26,7 @@ class Profilage
 
         Profil *profilJoueur;
         RESULTAT_PARTIE partieGagneeIAQuiProfile;
+        int nbJetonsGagnesIAQuiProfile;
         bool scenarioDeTest;
 
 
