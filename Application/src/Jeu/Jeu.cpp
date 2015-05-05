@@ -209,7 +209,11 @@ void Jeu::setPot(int jetons){
 
 void Jeu::jouerArgent(int posJoueur, int jetons) {
 
+
+
     setPot(getPot() + jetons);
+
+
 
     getJoueur(posJoueur)->setMiseCourante(jetons);
     getJoueur(posJoueur)->setMiseTotale(getJoueur(posJoueur)->getMiseTotale() + jetons);
@@ -484,10 +488,12 @@ void Jeu::finPartie() {
     }else{ //Un joueur s'est couché
         if(estCouche(0)){
             retour = PERDU;
+            this->getJoueur(1)->ajouteJetons(this->getPot());
         }else{
             retour = GAGNE;
+            this->getJoueur(0)->ajouteJetons(this->getPot());
         }
-        this->getJoueur(joueursRestants.at(0)->getPosition())->ajouteJetons(this->getPot());
+       // this->getJoueur(joueursRestants.at(0)->getPosition())->ajouteJetons(this->getPot());
     }
 
     resultatPartie = retour;
