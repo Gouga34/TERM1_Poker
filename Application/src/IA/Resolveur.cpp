@@ -362,8 +362,8 @@ Action Resolveur::calculerAction(){
         if((actionAgressivite.getAction()==SUIVRE && actionRationalite.getAction()==RELANCER)
                 ||(actionAgressivite.getAction()==RELANCER && actionRationalite.getAction()==SUIVRE)){
             if(actionAgressivite.getAction()==RELANCER){
-                if(actionAgressivite.getMontant()>ia->getJeu()->getMiseCourante()){
-                    jetonsAMiser=ia->getJeu()->getMiseCourante();
+                if(actionAgressivite.getMontant()>ia->getJeu()->getMiseCourante()*2){
+                    jetonsAMiser=ia->getJeu()->getMiseCourante()*2;
                     action=RELANCER;
                 }
                 else{
@@ -372,8 +372,8 @@ Action Resolveur::calculerAction(){
 
             }
             else{
-                if(actionRationalite.getMontant()>ia->getJeu()->getMiseCourante()){
-                    jetonsAMiser=ia->getJeu()->getMiseCourante();
+                if(actionRationalite.getMontant()>ia->getJeu()->getMiseCourante()*2){
+                    jetonsAMiser=ia->getJeu()->getMiseCourante()*2;
                     action=RELANCER;
                 }
                 else{
