@@ -48,11 +48,11 @@ Action Resolveur::calculerActionAgressivite(){
     ACTION action=PAS_ENCORE_D_ACTION;
     int jetonsAMiser = -1; //mise à effectuer s'il y en a une. Correspond au nombre de jetons
 
-    double miseTheoriqueTour=ia->getMiseTotale()*HAUSSE_MISES_AGRESSIVITE - ia->getMiseTotale();
+    double miseTheoriqueTour=ia->getCumulMisesEtRelances()*HAUSSE_MISES_AGRESSIVITE - ia->getCumulMisesEtRelances();
     //Si le total des mises de l'IA est supérieur à mth, on checke ou on se couche.
     //Sinon, on mise/relance/suit
-    if(miseTheoriqueTour>miseTotaleTheoriqueAgressivite-ia->getMiseTotale() || ia->getJeu()->getEtape()!=RIVER){
-        miseTheoriqueTour=miseTotaleTheoriqueAgressivite-ia->getMiseTotale();
+    if(miseTheoriqueTour>miseTotaleTheoriqueAgressivite-ia->getCumulMisesEtRelances() || ia->getJeu()->getEtape()!=RIVER){
+        miseTheoriqueTour=miseTotaleTheoriqueAgressivite-ia->getCumulMisesEtRelances();
     }
 
     //Si on peut miser
@@ -75,7 +75,7 @@ Action Resolveur::calculerActionAgressivite(){
         double variationAutoriseeMiseAdversaire=(VARIATION_AUTORISEE/100) * ia->getJeu()->getMiseCourante();
 
         //Si la mise courante est inférieure à ce qu'il reste à miser +10% de la mise
-        if(ia->getJeu()->getMiseCourante()<=miseTotaleTheoriqueAgressivite-ia->getMiseTotale()+variationAutoriseeMiseAdversaire){
+        if(ia->getJeu()->getMiseCourante()<=miseTotaleTheoriqueAgressivite-ia->getCumulMisesEtRelances()+variationAutoriseeMiseAdversaire){
 
             //On continue à jouer
 
@@ -182,8 +182,8 @@ Action Resolveur::calculerActionRationalite(){
         if(ia->getChancesGain()<30.0 && !(ia->getJeu()->peutChecker(ia->getPosition()))){
             action=ACTION::SE_COUCHER;
         }
-        else if(ia->getMiseTotale()<jetonsMiseTheorique){
-            int jetonsAMiserRationalite=jetonsMiseTheorique-ia->getMiseTotale();
+        else if(ia->getCumulMisesEtRelances()<jetonsMiseTheorique){
+            int jetonsAMiserRationalite=jetonsMiseTheorique-ia->getCumulMisesEtRelances();
 
             if(ia->getJeu()->peutMiser(ia->getPosition(),jetonsAMiserRationalite)){ //Si on peut miser
                 action=ACTION::MISER;

@@ -53,8 +53,8 @@ void Jeu::distributionMain(){
     IntelligenceArtificielleProfilage *iaProfilage = static_cast<IntelligenceArtificielleProfilage*>(listeJoueurs.at(1));
     iaProfilage->setCalibragePourJouer();
 
-    getJoueur(0)->setMiseTotale(0);
-    getJoueur(1)->setMiseTotale(0);
+    getJoueur(0)->setCumulMisesEtRelances(0);
+    getJoueur(1)->setCumulMisesEtRelances(0);
 
 
 
@@ -214,12 +214,12 @@ void Jeu::jouerArgent(int posJoueur, int jetons) {
     setPot(getPot() + jetons);
 
     getJoueur(posJoueur)->setMiseCourante(jetons);
-    getJoueur(posJoueur)->setMiseTotale(getJoueur(posJoueur)->getMiseTotale() + jetons);
+    getJoueur(posJoueur)->setCumulMisesEtRelances(getJoueur(posJoueur)->getCumulMisesEtRelances() + jetons);
 
     if (jetons > getJoueur(posJoueur)->getMisePlusHaute()) {
         getJoueur(posJoueur)->setMisePlusHaute(jetons);
     }
-    std::cout<<"Joueur "<<posJoueur<<" - retrait de "<<jetons<<" jetons"<<std::endl;
+    //std::cout<<"Joueur "<<posJoueur<<" - retrait de "<<jetons<<" jetons"<<std::endl;
     getJoueur(posJoueur)->retireJetons(jetons);
 }
 
@@ -247,12 +247,12 @@ void Jeu::tapis(int posJoueur, ACTION action){
     if (action == MISER || action == RELANCER) {
         this->getJoueur(posJoueur)->getCompteurActions()[0]++;
         miseCourante = getJoueur(posJoueur)->getCave();
-        cumulMisesEtRelances = getJoueur(posJoueur)->getMiseTotale();
+        cumulMisesEtRelances = getJoueur(posJoueur)->getCumulMisesEtRelances();
     }
     else if(getLastAction(getPositionJoueurAdverse(posJoueur))==TAPIS){
         this->getJoueur(posJoueur)->getCompteurActions()[0]++;
         miseCourante = getJoueur(posJoueur)->getCave();
-        cumulMisesEtRelances = getJoueur(posJoueur)->getMiseTotale();
+        cumulMisesEtRelances = getJoueur(posJoueur)->getCumulMisesEtRelances();
         finPartie();
     }
     else {
@@ -268,7 +268,7 @@ void Jeu::relancer(int posJoueur, int jetons){
 
         jouerArgent(posJoueur, jetons);
         miseCourante = jetons;
-        cumulMisesEtRelances = getJoueur(posJoueur)->getMiseTotale();
+        cumulMisesEtRelances = getJoueur(posJoueur)->getCumulMisesEtRelances();
 
         this->actions[this->getJoueur(posJoueur)->getPosition()].push_back(ACTION::RELANCER);
         this->getJoueur(posJoueur)->getCompteurActions()[0]++;
@@ -282,8 +282,8 @@ void Jeu::relancer(int posJoueur, int jetons){
 void Jeu::suivre(int posJoueur){
 
     // Le nombre de jetons à ajouter est le cumul moins le nombre de jetons déjà mis par le joueur
-    int jetonsAAjouter = this->cumulMisesEtRelances - this->getJoueur(posJoueur)->getMiseTotale();
-    std::cout<<"suivi - cumulMisesEtRelances : "<<cumulMisesEtRelances<<", miseTotJoueur: "<<getJoueur(posJoueur)->getMiseTotale()<<"jetons : "<<jetonsAAjouter<<std::endl;
+    int jetonsAAjouter = this->cumulMisesEtRelances - this->getJoueur(posJoueur)->getCumulMisesEtRelances();
+   // std::cout<<"suivi - cumulMisesEtRelances : "<<cumulMisesEtRelances<<", miseTotJoueur: "<<getJoueur(posJoueur)->getCumulMisesEtRelances()<<"jetons : "<<jetonsAAjouter<<std::endl;
 
     // Si on a assez d'argent on suit
     if(this->getJoueur(posJoueur)->getCave() > jetonsAAjouter){
@@ -394,8 +394,8 @@ bool Jeu::prochainJoueur(){
 
     if (this->finDuTour()) {
 
-        this->getJoueur(0)->setMisePartie(this->getJoueur(0)->getMisePartie() + this->getJoueur(0)->getMiseTotale());
-        this->getJoueur(1)->setMisePartie(this->getJoueur(1)->getMisePartie() + this->getJoueur(1)->getMiseTotale());
+        this->getJoueur(0)->setMiseTotale(this->getJoueur(0)->getMiseTotale() + this->getJoueur(0)->getCumulMisesEtRelances());
+        this->getJoueur(1)->setMiseTotale(this->getJoueur(1)->getMiseTotale() + this->getJoueur(1)->getCumulMisesEtRelances());
 
         IntelligenceArtificielleProfilage *ia = static_cast<IntelligenceArtificielleProfilage*>(this->getJoueur(1));
 
@@ -434,6 +434,7 @@ void Jeu::resetActions(){
         this->getJoueur(i)->setMiseCourante(0);
         this->getJoueur(i)->setMisePlusHaute(0);
         this->getJoueur(i)->resetCompteurActions();
+        getJoueur(i)->setCumulMisesEtRelances(0);
     }
 }
 
@@ -442,8 +443,8 @@ void Jeu::finPartie() {
 
     std::vector<Joueur*> joueursRestants;
 
-    this->getJoueur(0)->setMisePartie(this->getJoueur(0)->getMisePartie() + this->getJoueur(0)->getMiseTotale());
-    this->getJoueur(1)->setMisePartie(this->getJoueur(1)->getMisePartie() + this->getJoueur(1)->getMiseTotale());
+    this->getJoueur(0)->setMiseTotale(this->getJoueur(0)->getMiseTotale() + this->getJoueur(0)->getCumulMisesEtRelances());
+    this->getJoueur(1)->setMiseTotale(this->getJoueur(1)->getMiseTotale() + this->getJoueur(1)->getCumulMisesEtRelances());
 
     for(Joueur *joueur : this->listeJoueurs){
         if(this->estCouche(joueur->getPosition())){
@@ -452,7 +453,7 @@ void Jeu::finPartie() {
     }
 
     RESULTAT_PARTIE retour;
-    std::cout<<"pot : "<<getPot()<<" - jetons J1: "<<getJoueur(0)->getCave()<<" - jetons J2: "<<getJoueur(1)->getCave()<<std::endl;
+    //std::cout<<"pot : "<<getPot()<<" - jetons J1: "<<getJoueur(0)->getCave()<<" - jetons J2: "<<getJoueur(1)->getCave()<<std::endl;
 
     //Si aucun des deux joueurs ne s'est couché:
     if(!estCouche(0) && !estCouche(1)){
@@ -488,7 +489,7 @@ void Jeu::finPartie() {
        // this->getJoueur(joueursRestants.at(0)->getPosition())->ajouteJetons(this->getPot());
     }
 
-    std::cout<<"pot : "<<getPot()<<" - jetons J1: "<<getJoueur(0)->getCave()<<" - jetons J2: "<<getJoueur(1)->getCave()<<std::endl;
+   // std::cout<<"pot : "<<getPot()<<" - jetons J1: "<<getJoueur(0)->getCave()<<" - jetons J2: "<<getJoueur(1)->getCave()<<std::endl;
 
     resultatPartie = retour;
 
@@ -522,7 +523,7 @@ void Jeu::nouvelleMain(){
 	
     for(int i =0; i< (int) this->listeJoueurs.size(); i++){
         this->getJoueur(i)->videMain();
-        this->getJoueur(i)->setMisePartie(0);
+        this->getJoueur(i)->setMiseTotale(0);
 	}
 	
 	this->deck = nouveauDeck();
@@ -613,7 +614,7 @@ bool Jeu::estCouche(int posJoueur) const {
 void Jeu::executerAction(int posJoueur, Action a){
     int relance;
 
-    std::cout<<"action Joueur"<<std::to_string(posJoueur)<<" : "<<a.getAction()<<"Jetons joués : "<<a.getMontant()<<" étape: "<<getEtape()<<std::endl;
+   // std::cout<<"action Joueur"<<std::to_string(posJoueur)<<" : "<<a.getAction()<<"Jetons joués : "<<a.getMontant()<<" étape: "<<getEtape()<<std::endl;
     switch (a.getAction()) {
         case ACTION::CHECKER:
             if (peutChecker(posJoueur)) {
@@ -705,7 +706,7 @@ bool Jeu::aFaitTapis(){
 bool Jeu::peutJouer(int posJoueur){
 
     if (this->getLastAction(getPositionJoueurAdverse(posJoueur)) == ACTION::TAPIS
-            && (this->getJoueur(posJoueur)->getMiseTotale() > this->getJoueur(getPositionJoueurAdverse(posJoueur))->getMiseTotale())
+            && (this->getJoueur(posJoueur)->getCumulMisesEtRelances() > this->getJoueur(getPositionJoueurAdverse(posJoueur))->getCumulMisesEtRelances())
             && getLastAction(getPositionJoueurAdverse(posJoueur)) == ACTION::SUIVRE) {
         return false;
     }
