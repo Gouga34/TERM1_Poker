@@ -589,7 +589,7 @@ bool Jeu::peutRelancer(int posJoueur, int jetons){
         return false;
     }
 
-    if(jetons>0 && getJoueur(posJoueur)->getCave()>=jetons){
+    if(jetons>0 && getJoueur(posJoueur)->getCave()>=jetons && jetons >= miseCourante * 2){
         return true;
     }
 
