@@ -125,8 +125,12 @@ void Jeu::distributionCartesTable(int nbCartesADistribuer){
 
 void Jeu::distributionBlind(){
 
+    Logger::getInstance()->ajoutLogs("Joueur " + QString::number(getPositionJoueurAdverse(getDealer())) + " : petite blind");
+
     executerAction(getPositionJoueurAdverse(getDealer()), Action(MISER, getBlind()));
     actions[getPositionJoueurAdverse(getDealer())].back() = ACTION::PETITE_BLIND;
+
+    Logger::getInstance()->ajoutLogs("Joueur " + QString::number(getDealer()) + " : grosse blind");
 
     executerAction(getDealer(), Action(RELANCER, getBlind()));
     actions[getDealer()].back() = ACTION::GROSSE_BLIND;
@@ -365,8 +369,10 @@ bool Jeu::finDuTour(){
 
     // Si la suite de mises/relances est terminée (suivi)
     for (int i = 0; i < listeJoueurs.size(); i++) {
-        if (getLastAction(i) == SUIVRE && (getLastAction(getPositionJoueurAdverse(i)) != GROSSE_BLIND)
-                && actions[getPositionJoueurAdverse(i)].at(actions[getPositionJoueurAdverse(i)].size()-2) != GROSSE_BLIND) {
+        if (getLastAction(i) == SUIVRE
+                && (actions[i].at(actions[i].size()-2) != PETITE_BLIND
+                    || (actions[i].at(actions[i].size()-2) == PETITE_BLIND
+                        && getLastAction(getPositionJoueurAdverse(i)) == CHECKER))) {
             return true;
         }
     }
