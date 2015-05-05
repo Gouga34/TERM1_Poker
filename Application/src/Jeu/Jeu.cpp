@@ -56,7 +56,7 @@ void Jeu::distributionMain(){
     getJoueur(0)->setMiseTotale(0);
     getJoueur(1)->setMiseTotale(0);
 
-	this->distributionBlind();
+
 
     for(int i =0; i< (int) (2*this->listeJoueurs.size()); i++){
        if(this->listeJoueurs.at(i % this->listeJoueurs.size())->getMain().size() != 2){
@@ -65,8 +65,9 @@ void Jeu::distributionMain(){
             this->deck.erase(this->deck.begin() + position);
         }
     }
-
     this->nouvelleEtape(ETAPE_JEU::PREFLOP);
+    this->distributionBlind();
+
 }
 
 void Jeu::nouvelleEtape(ETAPE_JEU etape){
@@ -90,8 +91,6 @@ void Jeu::nouvelleEtape(ETAPE_JEU etape){
         distributionCartesTable(nbCartes);
 
         Logger::getInstance()->ajoutLogs("Ajout de cartes sur la table");
-
-
     }
 
     if (!getJoueur(0)->estHumain()) {
@@ -132,7 +131,7 @@ void Jeu::distributionBlind(){
 
     Logger::getInstance()->ajoutLogs("Joueur " + QString::number(getDealer()) + " : grosse blind");
 
-    executerAction(getDealer(), Action(RELANCER, getBlind()));
+    executerAction(getDealer(), Action(RELANCER, getBlind()*2));
     actions[getDealer()].back() = ACTION::GROSSE_BLIND;
 
     this->joueurCourant = getDealer();
@@ -212,12 +211,7 @@ void Jeu::setPot(int jetons){
 }
 
 void Jeu::jouerArgent(int posJoueur, int jetons) {
-
-
-
     setPot(getPot() + jetons);
-
-
 
     getJoueur(posJoueur)->setMiseCourante(jetons);
     getJoueur(posJoueur)->setMiseTotale(getJoueur(posJoueur)->getMiseTotale() + jetons);
@@ -225,7 +219,7 @@ void Jeu::jouerArgent(int posJoueur, int jetons) {
     if (jetons > getJoueur(posJoueur)->getMisePlusHaute()) {
         getJoueur(posJoueur)->setMisePlusHaute(jetons);
     }
-
+    std::cout<<"Joueur "<<posJoueur<<" - retrait de "<<jetons<<" jetons"<<std::endl;
     getJoueur(posJoueur)->retireJetons(jetons);
 }
 
@@ -289,6 +283,7 @@ void Jeu::suivre(int posJoueur){
 
     // Le nombre de jetons à ajouter est le cumul moins le nombre de jetons déjà mis par le joueur
     int jetonsAAjouter = this->cumulMisesEtRelances - this->getJoueur(posJoueur)->getMiseTotale();
+    std::cout<<"suivi - cumulMisesEtRelances : "<<cumulMisesEtRelances<<", miseTotJoueur: "<<getJoueur(posJoueur)->getMiseTotale()<<"jetons : "<<jetonsAAjouter<<std::endl;
 
     // Si on a assez d'argent on suit
     if(this->getJoueur(posJoueur)->getCave() > jetonsAAjouter){
@@ -457,6 +452,8 @@ void Jeu::finPartie() {
     }
 
     RESULTAT_PARTIE retour;
+    std::cout<<"pot : "<<getPot()<<" - jetons J1: "<<getJoueur(0)->getCave()<<" - jetons J2: "<<getJoueur(1)->getCave()<<std::endl;
+
     //Si aucun des deux joueurs ne s'est couché:
     if(!estCouche(0) && !estCouche(1)){
 
@@ -469,18 +466,16 @@ void Jeu::finPartie() {
         if(comparaisonMains == GAGNE){
 
             this->getJoueur(0)->ajouteJetons(this->getPot());
-
-
             retour = GAGNE;
         }else if(comparaisonMains == PERDU){
-              this->getJoueur(1)->ajouteJetons(this->getPot());
+            this->getJoueur(1)->ajouteJetons(this->getPot());
 
             retour = PERDU;
         }else{
             retour = EGALITE;
 
-            this->getJoueur(0)->ajouteJetons(this->getJoueur(0)->getMisePartie());
-            this->getJoueur(1)->ajouteJetons(this->getJoueur(1)->getMisePartie());
+            this->getJoueur(0)->ajouteJetons(getPot()/2);
+            this->getJoueur(1)->ajouteJetons(getPot()/2);
         }
     }else{ //Un joueur s'est couché
         if(estCouche(0)){
@@ -492,6 +487,8 @@ void Jeu::finPartie() {
         }
        // this->getJoueur(joueursRestants.at(0)->getPosition())->ajouteJetons(this->getPot());
     }
+
+    std::cout<<"pot : "<<getPot()<<" - jetons J1: "<<getJoueur(0)->getCave()<<" - jetons J2: "<<getJoueur(1)->getCave()<<std::endl;
 
     resultatPartie = retour;
 
@@ -616,6 +613,7 @@ bool Jeu::estCouche(int posJoueur) const {
 void Jeu::executerAction(int posJoueur, Action a){
     int relance;
 
+    std::cout<<"action Joueur"<<std::to_string(posJoueur)<<" : "<<a.getAction()<<"Jetons joués : "<<a.getMontant()<<" étape: "<<getEtape()<<std::endl;
     switch (a.getAction()) {
         case ACTION::CHECKER:
             if (peutChecker(posJoueur)) {
