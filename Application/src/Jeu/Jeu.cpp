@@ -462,22 +462,13 @@ void Jeu::finPartie() {
 
         if(comparaisonMains == GAGNE){
 
-            if(this->getJoueur(0)->getMisePartie() >= this->getJoueur(1)->getMisePartie()){
-                 this->getJoueur(0)->ajouteJetons(this->getPot());
-            }else{
-                this->getJoueur(0)->ajouteJetons(this->getJoueur(0)->getMisePartie() *2);
-                this->getJoueur(1)->ajouteJetons(this->getPot() - (this->getJoueur(0)->getMisePartie() *2) );
-            }
+            this->getJoueur(0)->ajouteJetons(this->getPot());
+
 
             retour = GAGNE;
         }else if(comparaisonMains == PERDU){
+              this->getJoueur(1)->ajouteJetons(this->getPot());
 
-            if(this->getJoueur(0)->getMisePartie() <= this->getJoueur(1)->getMisePartie() ){
-                 this->getJoueur(1)->ajouteJetons(this->getPot());
-            }else{
-                this->getJoueur(1)->ajouteJetons(this->getJoueur(1)->getMisePartie() *2);
-                this->getJoueur(0)->ajouteJetons(this->getPot() - (this->getJoueur(1)->getMisePartie() *2) );
-            }
             retour = PERDU;
         }else{
             retour = EGALITE;
