@@ -19,9 +19,9 @@ class Joueur{
         int                 position;
         int                 miseCourante;
         int                 misePlusHaute;
-        int                 miseTotale;
+        int                 cumulMisesEtRelances;
         double              chancesGain;
-        int                 misePartie;
+        int                 miseTotale;
 
 		
 	//Constructeur et destructeur
@@ -130,25 +130,25 @@ class Joueur{
         *@action : Permet d'obtenir combien a miser au total le joueur pendant l'etape
         *@return : La somme totale misee par le joueur
         **/
-        int             getMiseTotale();
+        int             getCumulMisesEtRelances();
 
         /**
         *@action : Permet d''affecter combien a miser au total le joueur pendant l'etape
         *@param : La somme totale misee par le joueur
         **/
-        void             setMiseTotale(int miseTotale);
+        void             setCumulMisesEtRelances(int cumulMisesEtRelances);
 
         /**
         *@action : Permet d'obtenir la mise totale de la partie
         *@return : La somme totale misee par le joueur au cours de la partie
         **/
-        int             getMisePartie();
+        int             getMiseTotale();
 
         /**
         *@action : Permet d'affecter le total mise par le joueur
         *@param : La somme totale misee par le joueur au cours de la partie
         **/
-        void            setMisePartie (int mise);
+        void            setMiseTotale (int mise);
 
 		
 	//Methodes
