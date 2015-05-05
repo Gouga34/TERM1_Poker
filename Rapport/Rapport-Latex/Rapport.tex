@@ -6,6 +6,8 @@
 \usepackage{amsmath}%%Pour les formules mathématique
 \usepackage[final]{pdfpages}%%Pour l'inclusion de PDF
 
+\usepackage{float}%%Pour les figures
+
 \title{Rapport}
 \author{}
 \date{}
@@ -260,15 +262,15 @@ On pourra également intégrer un système de dialogue entre les différents jou
 \subsection{Spécifications techniques}
 
 \hspace{0.5cm}Afin de faciliter les conditions de travail en groupe, il faudra utiliser un gestionnaire de version.\par
-L'application devra être réalisée en utilisant le langage C++.\par
+L'application devra être réalisée en utilisant le langage C++ et l'interface sera développée en utilisant Qt.\par
 Le développement devra s'appuyer sur les méthodes agiles. Celles-ci sont basées sur une approche itérative dans un esprit collaboratif en prenant compte des besoins des utilisateurs et de leurs évolutions.\par
 
 \subsection{Organisation prévisionnelle}
 
-\hspace{0.5cm}Comme nous pouvons le voir dans l'annexe A représentant le diagramme de Gantt prévisionnel que nous avons mis en place. Dans un premier temps, nous avons donc prévu une étude préalable du sujet consistant à nous familiariser avec le vocabulaire du poker. De ce fait, Nous avons donc rapidement mis en place un glossaire contenant des définitions des différents termes. Pendant cette période, nous avons également défini les besoins des utilisateurs avec entre-autres un diagramme de cas d'utilisations. Durant cette période, nous avons aussi défini comment nous allions nous organiser durant le déroulement du projet, en définissant la fréquence des rendez-vous ainsi que les modalités de partage des données.\par
+\hspace{0.5cm}Comme nous pouvons le voir dans l'annexe A représentant le diagramme de Gantt prévisionnel que nous avons mis en place, nous avons prévu dans un premier temps une étude préalable du sujet consistant à nous familiariser avec le vocabulaire du poker. De ce fait, Nous avons rapidement mis en place un glossaire contenant des définitions des différents termes. Pendant cette période, nous avons également défini les besoins des utilisateurs avec entre-autres un diagramme de cas d'utilisations. Nous avons aussi défini comment nous allions nous organiser durant le déroulement du projet, en définissant la fréquence des rendez-vous ainsi que les modalités de partage des données.\par
 Par la suite, nous avons prévu de continuer par une étude détaillée durant laquelle nous allons élaborer un diagramme de classe, rédiger le cahier des charges ainsi que commencer à lire des articles sur le sujet.\par
-Ensuite, nous passerons à une première étude technique durant laquelle nous commencerons par établir les normes de programmation. Puis, nous établirons une intelligence artificielle simple permettant à un joueur de jouer. Nous établirons par la suite les différents algorithmes et méthodes permettant d'établir un profilage statique du joueur adverse. Et nous établirons des jeux de tests. En même temps que cette étude technique, nous commencerons la phase de réalisation, en implémentant en parallèle l'interface graphique et l'intelligence artificielle simple puis, nous ajouterons la méthode de profilage statique et effectuerons les tests définis auparavant.\par
-Nous effectuerons ensuite une seconde étude technique pendant laquelle nous définirons les méthodes et algorithmes qui seront utilisés afin d'implémenter la méthode de profilage dynamique. Dans ce même temps, nous implémenterons cette méthode de profilage dynamique, en effectuant les tests définis pendant la phase d'étude technique.\par
+Ensuite, nous passerons à une première étude technique durant laquelle nous commencerons par établir les normes de programmation. Puis, nous développerons une intelligence artificielle simple permettant à un joueur de jouer. Nous réfléchirons par la suite aux différents algorithmes et méthodes permettant d'établir un bon profilage statique du joueur adverse. Et nous établirons des jeux de tests. Dans le même temps, nous commencerons la phase de réalisation, en implémentant en parallèle l'interface graphique et l'intelligence artificielle simple puis, nous ajouterons la méthode de profilage statique et effectuerons les tests définis auparavant.\par
+Nous effectuerons ensuite une seconde étude technique pendant laquelle nous définirons les méthodes et algorithmes qui seront utilisés afin d'implémenter la méthode de profilage dynamique. Dans ce même temps, nous implémenterons la méthode de profilage dynamique, en effectuant les tests définis pendant la phase d'étude technique.\par
 Enfin, la dernière partie sera réservée à la mise en place de la démonstration qui sera effectuée lors de la soutenance, ainsi qu'à la finalisation du rapport qui sera rédigé tout au long de la période du projet et à la préparation de la soutenance.\par
 
 \chapter{Organisation du projet}
@@ -279,8 +281,30 @@ Enfin, la dernière partie sera réservée à la mise en place de la démonstrat
 
 \section{Choix des outils de travail}
 \subsection{Gestionnaire de versions}
+\hspace{0.5cm}Nous avons choisi Git comme gestionnaire de version. C'est un logiciel libre créé par Linus Torvald, simple et performant, qui nous a permis la mise en commun du travail et la gestion de versions tout au long de son avancée.\medskip
+					
+					Notre choix s'est porté sur ce gestionnaire de version car contrairement à d'autres tels que Subversion, Git est décentralisé. Il ne repose pas sur un seul et même dépôt en ligne sur lequel chaque nouvelle version d'un fichier envoyée remplace la précédente et affecte donc l'ensemble du groupe. Git met en place, en plus du dépôt de référence commun à tous, un dépôt en ligne et un dépôt local pour chacun des utilisateurs, comme on peut le voir dans le schéma suivant.\par
+\begin{figure}[H]
+	\begin{center}
+			\includegraphics[scale=0.6]{./imagesRapport/schemaGit.png}
+	\end{center}
+	\caption[Schéma de fonctionnement de Git]{Schéma de fonctionnement de Git}
+\end{figure}
+\medskip
+					 L'utilisation de dépôts publics, en vert clair sur le schéma, permet d'éviter les conflits, notamment lorsque deux personnes travaillent sur un même fichier, puis souhaitent l'envoyer sur le dépôt commun simultanément. Ici, les fichiers sont envoyés sur les dépôts en ligne personnels, puis intégrés sur le dépôt de référence, représenté en bleu, par la personne en charge lorsque les utilisateurs effectuent une demande d'intégration auprès du responsable (integration manager).\\
+				
+	Les conflits n'ont lieu dans ce cas, que lorsqu'une même ligne est modifiée plusieurs fois, auquel cas, c'est le responsable d'intégration qui le verra et donc n'acceptera pas les modifications proposées.
+					
+
+
+			
+
 \subsection{Création de l'interface graphique}
+\hspace{0.5cm}Afin de développer l'interface graphique utilisant la librairie Qt, nous avons utilisé l'IDE Qt Creator. Celui-ci permet une utilisation et un développement simplifié des applications.
 \subsection{Rédaction et mise en page du rapport}
+\hspace{0.5cm}Afin de créer la plupart de nos schémas ainsi que la page de garde de notre rapport, nous avons choisi d'utiliser le logiciel Inkscape qui a la particularité de proposer la création de dessins vectoriels ainsi que la gestion des calques de façon intuitive.
+			
+			Pour la rédaction du rapport, nous avons décidé de nous tourner vers le langage \LaTeX . Afin de nous faciliter le travail sous ce langage, nous avons utilisé l'IDE Texmaker.
 \subsection{Normes de programmation}
 \hspace{0.5cm}Nous coderons en français. Par conséquent, les différents identifiants des attributs, noms de classes et fonctions/méthodes que nous implémenterons auront des noms français, les méthodes toString ainsi que pour les accesseurs et mutateurs que nous nommerons getNomAttribut et setNomAttribut,
 selon les conventions de codage établies.\par
@@ -531,6 +555,16 @@ Pour une première version, nous avons choisi de seulement prendre en compte le 
 
 %%Annexes
 \appendix
-\chapter{Test annexe}
+\chapter{Diagramme de Gantt prévisionnel}
+	\begin{figure}[h]
+		 \hspace{-4cm} 
+			\includegraphics[scale=0.4]{./imagesRapport/DiagrammePrevisionnel.png}
+			\caption[Diagramme de Gantt prévisionnel]{Diagramme de Gantt prévisionnel}
+	\end{figure}
+	\medskip
+		
 
+		
+		
+		
 \end{document}

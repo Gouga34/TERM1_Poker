@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.4.20)  30 APR 2015 09:22
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.2.9)  5 MAY 2015 20:14
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -414,37 +414,46 @@ File: pppdftex.def 2013/08/25 v0.4v Pdfpages driver for pdfTeX (AM)
 \AM@toc@title=\toks23
 \c@AM@survey=\count112
 \AM@templatesizebox=\box31
+)
+(/usr/share/texlive/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count113
+\float@exts=\toks24
+\float@box=\box32
+\@float@everytoks=\toks25
+\@floatcapt=\box33
 ) (./Rapport.aux)
 \openout1 = `Rapport.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
- (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+
+(/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count113
+\scratchcounter=\count114
 \scratchdimen=\dimen120
-\scratchbox=\box32
-\nofMPsegments=\count114
-\nofMParguments=\count115
-\everyMPshowfont=\toks24
-\MPscratchCnt=\count116
+\scratchbox=\box34
+\nofMPsegments=\count115
+\nofMParguments=\count116
+\everyMPshowfont=\toks26
+\MPscratchCnt=\count117
 \MPscratchDim=\dimen121
-\MPnumerator=\count117
-\makeMPintoPDFobject=\count118
-\everyMPtoPDFconversion=\toks25
+\MPnumerator=\count118
+\makeMPintoPDFobject=\count119
+\everyMPtoPDFconversion=\toks27
 )
-\c@lstlisting=\count119
-\AtBeginShipoutBox=\box33
+\c@lstlisting=\count120
+\AtBeginShipoutBox=\box35
  (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
 Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
 )
@@ -493,11 +502,11 @@ e
 File: ./PageGardeRapportTERM1.pdf Graphic file (type pdf)
 
 <use ./PageGardeRapportTERM1.pdf>
-Package pdftex.def Info: ./PageGardeRapportTERM1.pdf used on input line 29.
+Package pdftex.def Info: ./PageGardeRapportTERM1.pdf used on input line 31.
 (pdftex.def)             Requested size: 597.5064pt x 845.0448pt.
 File: ./PageGardeRapportTERM1.pdf Graphic file (type pdf)
  <use ./PageGardeRapportTERM1.pdf>
-Package pdftex.def Info: ./PageGardeRapportTERM1.pdf used on input line 29.
+Package pdftex.def Info: ./PageGardeRapportTERM1.pdf used on input line 31.
 (pdftex.def)             Requested size: 597.5064pt x 845.0448pt.
 
 <./PageGardeRapportTERM1.pdf, id=4, page=1, 597.50786pt x 845.04686pt>
@@ -505,31 +514,31 @@ File: ./PageGardeRapportTERM1.pdf Graphic file (type pdf)
 
 <use ./PageGardeRapportTERM1.pdf, page 1>
 Package pdftex.def Info: ./PageGardeRapportTERM1.pdf, page1 used on input line 
-29.
+31.
 (pdftex.def)             Requested size: 597.5064pt x 845.0448pt.
 File: ./PageGardeRapportTERM1.pdf Graphic file (type pdf)
 
 <use ./PageGardeRapportTERM1.pdf, page 1>
 Package pdftex.def Info: ./PageGardeRapportTERM1.pdf, page1 used on input line 
-29.
+31.
 (pdftex.def)             Requested size: 562.12244pt x 795.00179pt.
 File: ./PageGardeRapportTERM1.pdf Graphic file (type pdf)
 
 <use ./PageGardeRapportTERM1.pdf, page 1>
 Package pdftex.def Info: ./PageGardeRapportTERM1.pdf, page1 used on input line 
-29.
+31.
 (pdftex.def)             Requested size: 562.12244pt x 795.00179pt.
 File: ./PageGardeRapportTERM1.pdf Graphic file (type pdf)
 
 <use ./PageGardeRapportTERM1.pdf, page 1>
 Package pdftex.def Info: ./PageGardeRapportTERM1.pdf, page1 used on input line 
-29.
+31.
 (pdftex.def)             Requested size: 562.12244pt x 795.00179pt.
 File: ./PageGardeRapportTERM1.pdf Graphic file (type pdf)
 
 <use ./PageGardeRapportTERM1.pdf, page 1>
 Package pdftex.def Info: ./PageGardeRapportTERM1.pdf, page1 used on input line 
-29.
+31.
 (pdftex.def)             Requested size: 562.12244pt x 795.00179pt.
  [1
 
@@ -554,7 +563,7 @@ Chapitre 1.
 [9
 
 ]
-Overfull \hbox (25.54301pt too wide) in paragraph at lines 111--111
+Overfull \hbox (25.54301pt too wide) in paragraph at lines 113--113
 []\OT1/cmr/bx/n/14.4 Rapide de-scrip-tion des r^^Regles du Texas Hold'Em
  []
 
@@ -563,14 +572,14 @@ File: ./imagesRapport/quinteFlushRoyale.jpg Graphic file (type jpg)
 
 <use ./imagesRapport/quinteFlushRoyale.jpg>
 Package pdftex.def Info: ./imagesRapport/quinteFlushRoyale.jpg used on input li
-ne 145.
+ne 147.
 (pdftex.def)             Requested size: 147.55238pt x 40.65218pt.
 
 <./imagesRapport/quinteFlush.jpg, id=71, 401.5pt x 120.45pt>
 File: ./imagesRapport/quinteFlush.jpg Graphic file (type jpg)
 
 <use ./imagesRapport/quinteFlush.jpg>
-Package pdftex.def Info: ./imagesRapport/quinteFlush.jpg used on input line 156
+Package pdftex.def Info: ./imagesRapport/quinteFlush.jpg used on input line 158
 .
 (pdftex.def)             Requested size: 160.59715pt x 48.17914pt.
  [11 <./imagesRapport/quinteFlushRoyale.jpg> <./imagesRapport/quinteFlush.jpg>]
@@ -579,21 +588,21 @@ Package pdftex.def Info: ./imagesRapport/quinteFlush.jpg used on input line 156
 File: ./imagesRapport/carre.jpg Graphic file (type jpg)
 
 <use ./imagesRapport/carre.jpg>
-Package pdftex.def Info: ./imagesRapport/carre.jpg used on input line 166.
+Package pdftex.def Info: ./imagesRapport/carre.jpg used on input line 168.
 (pdftex.def)             Requested size: 163.81326pt x 45.47021pt.
 
 <./imagesRapport/full.jpg, id=76, 401.5pt x 120.45pt>
 File: ./imagesRapport/full.jpg Graphic file (type jpg)
 
 <use ./imagesRapport/full.jpg>
-Package pdftex.def Info: ./imagesRapport/full.jpg used on input line 179.
+Package pdftex.def Info: ./imagesRapport/full.jpg used on input line 181.
 (pdftex.def)             Requested size: 160.59715pt x 48.17914pt.
 
 <./imagesRapport/couleur.jpg, id=77, 530.98375pt x 150.5625pt>
 File: ./imagesRapport/couleur.jpg Graphic file (type jpg)
 
 <use ./imagesRapport/couleur.jpg>
-Package pdftex.def Info: ./imagesRapport/couleur.jpg used on input line 189.
+Package pdftex.def Info: ./imagesRapport/couleur.jpg used on input line 191.
 (pdftex.def)             Requested size: 159.29634pt x 45.16908pt.
  [12 <./imagesRapport/carre.jpg> <./imagesRapport/full.jpg> <./imagesRapport/co
 uleur.jpg>]
@@ -601,21 +610,21 @@ uleur.jpg>]
 File: ./imagesRapport/suite.jpg Graphic file (type jpg)
 
 <use ./imagesRapport/suite.jpg>
-Package pdftex.def Info: ./imagesRapport/suite.jpg used on input line 200.
+Package pdftex.def Info: ./imagesRapport/suite.jpg used on input line 202.
 (pdftex.def)             Requested size: 159.29634pt x 45.16908pt.
 
 <./imagesRapport/brelan.jpg, id=82, 441.76309pt x 106.87817pt>
 File: ./imagesRapport/brelan.jpg Graphic file (type jpg)
 
 <use ./imagesRapport/brelan.jpg>
-Package pdftex.def Info: ./imagesRapport/brelan.jpg used on input line 210.
+Package pdftex.def Info: ./imagesRapport/brelan.jpg used on input line 212.
 (pdftex.def)             Requested size: 176.7021pt x 42.7505pt.
 
 <./imagesRapport/doublePaire.jpg, id=83, 441.76309pt x 105.86028pt>
 File: ./imagesRapport/doublePaire.jpg Graphic file (type jpg)
 
 <use ./imagesRapport/doublePaire.jpg>
-Package pdftex.def Info: ./imagesRapport/doublePaire.jpg used on input line 218
+Package pdftex.def Info: ./imagesRapport/doublePaire.jpg used on input line 220
 .
 (pdftex.def)             Requested size: 132.52994pt x 31.75832pt.
  [13 <./imagesRapport/suite.jpg> <./imagesRapport/brelan.jpg> <./imagesRapport/
@@ -624,159 +633,184 @@ doublePaire.jpg>]
 File: ./imagesRapport/paire.jpg Graphic file (type jpg)
 
 <use ./imagesRapport/paire.jpg>
-Package pdftex.def Info: ./imagesRapport/paire.jpg used on input line 228.
+Package pdftex.def Info: ./imagesRapport/paire.jpg used on input line 230.
 (pdftex.def)             Requested size: 156.88733pt x 45.16908pt.
 
 <./imagesRapport/carteHaute.jpg, id=89, 441.76309pt x 105.86028pt>
 File: ./imagesRapport/carteHaute.jpg Graphic file (type jpg)
 
 <use ./imagesRapport/carteHaute.jpg>
-Package pdftex.def Info: ./imagesRapport/carteHaute.jpg used on input line 238.
+Package pdftex.def Info: ./imagesRapport/carteHaute.jpg used on input line 240.
 
 (pdftex.def)             Requested size: 176.7021pt x 42.34335pt.
  [14 <./imagesRapport/paire.jpg> <./imagesRapport/carteHaute.jpg>]
-Overfull \hbox (6.42136pt too wide) in paragraph at lines 257--257
+Overfull \hbox (6.42136pt too wide) in paragraph at lines 259--259
  \OT1/cmr/m/n/10 Une fois les fonc-tion-nalit^^Ses obli-ga-toires mises en plac
 e, il sera pos-si-ble d'ajouter
  []
 
 [15] [16]
 Chapitre 2.
+<./imagesRapport/schemaGit.png, id=99, 573.342pt x 335.654pt>
+File: ./imagesRapport/schemaGit.png Graphic file (type png)
 
-Overfull \hbox (2.3061pt too wide) in paragraph at lines 290--290
+<use ./imagesRapport/schemaGit.png>
+Package pdftex.def Info: ./imagesRapport/schemaGit.png used on input line 289.
+(pdftex.def)             Requested size: 344.00784pt x 201.39394pt.
+ [17
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 294--295
+
+ []
+
+[18 <./imagesRapport/schemaGit.png>]
+Overfull \hbox (2.3061pt too wide) in paragraph at lines 314--314
 []\OT1/cmr/m/n/10 Les noms des m^^Sethodes, des vari-ables et des at-tributs de
 -vront imp^^Serativement
  []
 
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 298.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 322.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 298.
- [17
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 322.
 
-]
-Overfull \hbox (99.00452pt too wide) in paragraph at lines 307--308
+Overfull \hbox (99.00452pt too wide) in paragraph at lines 331--332
 [][][] 
  []
 
 
-Overfull \hbox (99.00452pt too wide) in paragraph at lines 311--312
+Overfull \hbox (99.00452pt too wide) in paragraph at lines 335--336
 [][][] 
  []
 
 
-Overfull \hbox (105.00458pt too wide) in paragraph at lines 313--314
+Overfull \hbox (105.00458pt too wide) in paragraph at lines 337--338
 [][][] 
  []
 
-[18]
+[19]
 Chapitre 3.
 
-Underfull \hbox (badness 10000) in paragraph at lines 327--328
+Underfull \hbox (badness 10000) in paragraph at lines 351--352
 
  []
 
-[19
+[20
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 336--337
+Underfull \hbox (badness 10000) in paragraph at lines 360--361
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 344--345
+Underfull \hbox (badness 10000) in paragraph at lines 368--369
 
- []
-
-[20]
-Underfull \hbox (badness 10000) in paragraph at lines 353--356
-
- []
-
-
-Overfull \hbox (89.94403pt too wide) in paragraph at lines 366--366
-[] 
  []
 
 [21]
-Underfull \hbox (badness 10000) in paragraph at lines 401--402
+Underfull \hbox (badness 10000) in paragraph at lines 377--380
 
+ []
+
+
+Overfull \hbox (89.94403pt too wide) in paragraph at lines 390--390
+[] 
  []
 
 [22]
+Underfull \hbox (badness 10000) in paragraph at lines 425--426
+
+ []
+
+[23]
 Chapitre 4.
 
-Underfull \hbox (badness 10000) in paragraph at lines 437--438
+Underfull \hbox (badness 10000) in paragraph at lines 461--462
 
  []
 
 
-Overfull \hbox (10.82889pt too wide) in paragraph at lines 440--440
+Overfull \hbox (10.82889pt too wide) in paragraph at lines 464--464
 []\OT1/cmr/m/n/9 Pour le choix de l'action agres-sive, le cal-cul se base sur u
 ne mise th^^Seorique d'agressivit^^Se
  []
 
-[23
+[24
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 442--443
-
- []
-
-[24]
-Underfull \hbox (badness 10000) in paragraph at lines 484--485
+Underfull \hbox (badness 10000) in paragraph at lines 466--467
 
  []
 
 [25]
-Underfull \hbox (badness 10000) in paragraph at lines 503--504
+Underfull \hbox (badness 10000) in paragraph at lines 508--509
 
  []
 
 [26]
+Underfull \hbox (badness 10000) in paragraph at lines 527--528
+
+ []
+
+[27]
 Chapitre 5.
-[27
+[28
 
 ]
 Chapitre 6.
-(./Rapport.bbl [28
+(./Rapport.bbl [29
 
-]) [29
+]) [30
 
 ]
 Annexe A.
-[30
 
-] (./Rapport.aux) ) 
+<./imagesRapport/DiagrammePrevisionnel.png, id=157, 1404.24625pt x 258.9675pt>
+File: ./imagesRapport/DiagrammePrevisionnel.png Graphic file (type png)
+
+<use ./imagesRapport/DiagrammePrevisionnel.png>
+Package pdftex.def Info: ./imagesRapport/DiagrammePrevisionnel.png used on inpu
+t line 561.
+(pdftex.def)             Requested size: 561.68855pt x 103.58514pt.
+
+Overfull \hbox (105.09975pt too wide) in paragraph at lines 560--562
+[]  [] 
+ []
+
+[31
+
+ <./imagesRapport/DiagrammePrevisionnel.png (PNG copy)>] (./Rapport.aux) ) 
 Here is how much of TeX's memory you used:
- 5340 strings out of 494985
- 72151 string characters out of 6180356
- 145209 words of memory out of 5000000
- 8464 multiletter control sequences out of 15000+600000
+ 5406 strings out of 494985
+ 73230 string characters out of 6180357
+ 149590 words of memory out of 5000000
+ 8523 multiletter control sequences out of 15000+600000
  9790 words of font info for 35 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 39i,18n,45p,1048b,1532s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx
-12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex9
-.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><
-/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/sh
-are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/tex
-live/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/share/texlive/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
-msfonts/cm/cmsy9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
-/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-ti9.pfb>
-Output written on Rapport.pdf (30 pages, 561535 bytes).
+ 39i,18n,45p,1048b,1212s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr
+/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share
+/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texli
+ve/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex9.pfb></usr/share/texlive
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmmi9.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pf
+b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share
+/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texli
+ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb>
+Output written on Rapport.pdf (31 pages, 657814 bytes).
 PDF statistics:
- 199 PDF objects out of 1000 (max. 8388607)
- 127 compressed objects within 2 object streams
+ 211 PDF objects out of 1000 (max. 8388607)
+ 134 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 71 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 81 words of extra memory for PDF output out of 10000 (max. 10000000)
 

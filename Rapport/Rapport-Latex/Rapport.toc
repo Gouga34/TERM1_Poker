@@ -18,40 +18,40 @@
 \contentsline {section}{\numberline {2.1}Organisation du travail}{17}
 \contentsline {section}{\numberline {2.2}Choix des outils de travail}{17}
 \contentsline {subsection}{\numberline {2.2.1}Gestionnaire de versions}{17}
-\contentsline {subsection}{\numberline {2.2.2}Cr\IeC {\'e}ation de l'interface graphique}{17}
-\contentsline {subsection}{\numberline {2.2.3}R\IeC {\'e}daction et mise en page du rapport}{17}
-\contentsline {subsection}{\numberline {2.2.4}Normes de programmation}{17}
-\contentsline {subsection}{\numberline {2.2.5}Langage}{18}
-\contentsline {chapter}{\numberline {3}Analyse du projet}{19}
-\contentsline {section}{\numberline {3.1}Syst\IeC {\`e}me de jeu}{19}
-\contentsline {section}{\numberline {3.2}Profilage}{20}
-\contentsline {subsection}{\numberline {3.2.1}Choix d'enregistrement des donn\IeC {\'e}es}{20}
-\contentsline {subsection}{\numberline {3.2.2}Formule de calcul du taux de rationalit\IeC {\'e} d'un joueur}{21}
-\contentsline {subsection}{\numberline {3.2.3}Formule de calcul du taux d'agressivit\IeC {\'e} d'un joueur}{21}
-\contentsline {subsection}{\numberline {3.2.4}Formule de calcul du taux de bluff d'un joueur}{22}
-\contentsline {subsection}{\numberline {3.2.5}Formule de calcul du taux de passivit\IeC {\'e} d'un joueur}{22}
-\contentsline {section}{\numberline {3.3}Profilage statique}{22}
-\contentsline {section}{\numberline {3.4}R\IeC {\'e}utilisation des r\IeC {\'e}sultats du profilage}{22}
-\contentsline {section}{\numberline {3.5}Profilage dynamique}{22}
-\contentsline {section}{\numberline {3.6}R\IeC {\'e}utilisation des r\IeC {\'e}sultats du profilage}{22}
-\contentsline {chapter}{\numberline {4}Mise en place des m\IeC {\'e}thodes de profilage}{23}
-\contentsline {section}{\numberline {4.1}Calibrage des intelligences artificielles}{23}
-\contentsline {section}{\numberline {4.2}Profilage statique}{25}
-\contentsline {subsection}{\numberline {4.2.1}Sc\IeC {\'e}narios de tests}{25}
-\contentsline {subsection}{\numberline {4.2.2}Test du profilage}{25}
-\contentsline {subsection}{\numberline {4.2.3}\IeC {\'E}tablissement des profils attendus}{25}
-\contentsline {subsection}{\numberline {4.2.4}R\IeC {\'e}utilisation des r\IeC {\'e}sultats du profilage}{26}
-\contentsline {section}{\numberline {4.3}Profilage dynamique}{26}
-\contentsline {subsection}{\numberline {4.3.1}Sc\IeC {\'e}narios de tests}{26}
-\contentsline {subsection}{\numberline {4.3.2}\IeC {\'E}tablissement des profils attendus}{26}
-\contentsline {subsection}{\numberline {4.3.3}R\IeC {\'e}utilisation des r\IeC {\'e}sultats du profilage}{26}
-\contentsline {chapter}{\numberline {5}Analyse des r\IeC {\'e}sultats obtenus}{27}
-\contentsline {section}{\numberline {5.1}Profilage statique}{27}
-\contentsline {subsection}{\numberline {5.1.1}Sc\IeC {\'e}narios de tests}{27}
-\contentsline {subsection}{\numberline {5.1.2}Analyse des gains de parties}{27}
-\contentsline {section}{\numberline {5.2}Profilage dynamique}{27}
-\contentsline {subsection}{\numberline {5.2.1}Analyse des gains de parties}{27}
-\contentsline {chapter}{\numberline {6}Perspectives et conclusion}{28}
-\contentsline {section}{\numberline {6.1}Perspectives d'am\IeC {\'e}lioration du profilage}{28}
-\contentsline {section}{\numberline {6.2}Profilage obtenu}{28}
-\contentsline {chapter}{\numberline {A}Test annexe}{30}
+\contentsline {subsection}{\numberline {2.2.2}Cr\IeC {\'e}ation de l'interface graphique}{18}
+\contentsline {subsection}{\numberline {2.2.3}R\IeC {\'e}daction et mise en page du rapport}{18}
+\contentsline {subsection}{\numberline {2.2.4}Normes de programmation}{19}
+\contentsline {subsection}{\numberline {2.2.5}Langage}{19}
+\contentsline {chapter}{\numberline {3}Analyse du projet}{20}
+\contentsline {section}{\numberline {3.1}Syst\IeC {\`e}me de jeu}{20}
+\contentsline {section}{\numberline {3.2}Profilage}{21}
+\contentsline {subsection}{\numberline {3.2.1}Choix d'enregistrement des donn\IeC {\'e}es}{21}
+\contentsline {subsection}{\numberline {3.2.2}Formule de calcul du taux de rationalit\IeC {\'e} d'un joueur}{22}
+\contentsline {subsection}{\numberline {3.2.3}Formule de calcul du taux d'agressivit\IeC {\'e} d'un joueur}{22}
+\contentsline {subsection}{\numberline {3.2.4}Formule de calcul du taux de bluff d'un joueur}{23}
+\contentsline {subsection}{\numberline {3.2.5}Formule de calcul du taux de passivit\IeC {\'e} d'un joueur}{23}
+\contentsline {section}{\numberline {3.3}Profilage statique}{23}
+\contentsline {section}{\numberline {3.4}R\IeC {\'e}utilisation des r\IeC {\'e}sultats du profilage}{23}
+\contentsline {section}{\numberline {3.5}Profilage dynamique}{23}
+\contentsline {section}{\numberline {3.6}R\IeC {\'e}utilisation des r\IeC {\'e}sultats du profilage}{23}
+\contentsline {chapter}{\numberline {4}Mise en place des m\IeC {\'e}thodes de profilage}{24}
+\contentsline {section}{\numberline {4.1}Calibrage des intelligences artificielles}{24}
+\contentsline {section}{\numberline {4.2}Profilage statique}{26}
+\contentsline {subsection}{\numberline {4.2.1}Sc\IeC {\'e}narios de tests}{26}
+\contentsline {subsection}{\numberline {4.2.2}Test du profilage}{26}
+\contentsline {subsection}{\numberline {4.2.3}\IeC {\'E}tablissement des profils attendus}{26}
+\contentsline {subsection}{\numberline {4.2.4}R\IeC {\'e}utilisation des r\IeC {\'e}sultats du profilage}{27}
+\contentsline {section}{\numberline {4.3}Profilage dynamique}{27}
+\contentsline {subsection}{\numberline {4.3.1}Sc\IeC {\'e}narios de tests}{27}
+\contentsline {subsection}{\numberline {4.3.2}\IeC {\'E}tablissement des profils attendus}{27}
+\contentsline {subsection}{\numberline {4.3.3}R\IeC {\'e}utilisation des r\IeC {\'e}sultats du profilage}{27}
+\contentsline {chapter}{\numberline {5}Analyse des r\IeC {\'e}sultats obtenus}{28}
+\contentsline {section}{\numberline {5.1}Profilage statique}{28}
+\contentsline {subsection}{\numberline {5.1.1}Sc\IeC {\'e}narios de tests}{28}
+\contentsline {subsection}{\numberline {5.1.2}Analyse des gains de parties}{28}
+\contentsline {section}{\numberline {5.2}Profilage dynamique}{28}
+\contentsline {subsection}{\numberline {5.2.1}Analyse des gains de parties}{28}
+\contentsline {chapter}{\numberline {6}Perspectives et conclusion}{29}
+\contentsline {section}{\numberline {6.1}Perspectives d'am\IeC {\'e}lioration du profilage}{29}
+\contentsline {section}{\numberline {6.2}Profilage obtenu}{29}
+\contentsline {chapter}{\numberline {A}Diagramme de Gantt pr\IeC {\'e}visionnel}{31}
