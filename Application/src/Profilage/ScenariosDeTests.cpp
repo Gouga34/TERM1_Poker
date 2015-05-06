@@ -85,7 +85,7 @@ Profil* ScenariosDeTests::getActionReelleJoueur()const{
 }
 
 void ScenariosDeTests::setChancesDeGain(double chancesGain){
-    chancesDeGain=35.4;
+    chancesDeGain=chancesGain;
 }
 
 double ScenariosDeTests::getChancesDeGain(){
