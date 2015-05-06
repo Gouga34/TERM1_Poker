@@ -10,4 +10,5 @@
 \contentsline {chapter}{\numberline {4}Donn\IeC {\'e}es quantitatives}{8}
 \contentsline {section}{\numberline {4.1}Mise en place de la m\IeC {\'e}thode git-flow}{8}
 \contentsline {section}{\numberline {4.2}Brain Storming}{8}
+\contentsline {section}{\numberline {4.3}Quelques chiffres}{8}
 \contentsline {chapter}{\numberline {5}Conclusion}{9}
