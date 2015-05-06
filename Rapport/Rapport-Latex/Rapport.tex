@@ -546,8 +546,23 @@ Pour une première version, nous avons choisi de seulement prendre en compte le 
 
 \section{Profilage statique}
 \subsection{Scénarios de tests}
+
+% A mettre dans Chapitre 4 ??
+
+\hspace{0.5cm}Pour facilement pour déterminer si le profilage établi est efficace, et également déterminer le nombre de parties nécessaires pour profiler, nous avons ajouté dans un .csv le profilage global établi au fûr et à mesure des parties, ainsi que le taux de similarité entre le profilage établi et le calibrage réel de l'adversaire. Nous avons donc pu ajuster le nombre de parties selon cette valeur de similarité.\par
+Suite à plusieurs tests, nous avons observé qu'au bout de 10 ou 15 parties, nous arrivions à obtenir un profilage satisfaisant, et que celui-ci ne tendait pas à s'améliorer, même en ajoutant des parties.\\
+	
+\hspace{0.5cm}Afin de pouvoir obtenir des résultats facilement visibles, nous avons également produit des graphes représentant le profilage établi du joueur en fonction du nombre de parties, et une constante correspondant au calibrage à déterminer.\\
+
 \subsection{Analyse des gains de parties}
 
+\hspace{0.5cm}Le but de notre IA étant, une fois un profilage correctement établi, de pouvoir augmenter son gain de parties mais aussi son gain d'argent. Nous avons donc renseigné dans l'application le nombre de parties au bout desquelles l'IA va pouvoir arrêter le profilage, et donc adapter elle-même son calibrage pour pouvoir gagner un maximum de parties.\\
+
+Nous avons donc ajouté dans les fichiers résultats le gain d'argent de l'IA pour chacune des parties. Ceci nous a permis de pouvoir obtenir un ratio du nombre de parties gagnées sur le nombre de parties jouées pendant le profilage, puis pendant la phase de jeu.\par
+ 
+Suite à ces réultats, nous avons donc pu produire des courbes de gain en fonction du nombre de parties jouées, et aussi en fonction du mode de jeu de l'IA (profilage ou jeu pour gagner). Nous avons également pu afficher dans une même graphe entre les courbes de profilage et courbe de gain.\par
+Dans le but de rendre plus significative la courbe de profilage, et donc de mieux voir la corrélation entre les deux courbes, nous avons modifié l'affichage de la courbe de profilage. En effet, selon le calibrage à déterminer, la variation de la courbe n'est pas la même. Nous avons donc fait en sorte que celle-ci corresponde à la différence entre le profilage établi et le calibrage réel. Ainsi, plus cette courbe diminue, plus le profilage établi est précis. Et donc plus cette courbe diminue, plus la courbe de gain est supposée augmenter.\\
+ 
 \section{Profilage dynamique}
 \subsection{Analyse des gains de parties}
 
