@@ -1,0 +1,52 @@
+\documentclass{report}
+\usepackage[utf8]{inputenc}
+\usepackage{xcolor}
+\usepackage{sectsty} %%Pour changer la couleur de la police 
+
+\title{Rapport}
+\author{}
+\date{}
+
+
+\renewcommand{\contentsname}{Table des matières}
+\renewcommand{\chaptername}{Chapitre}
+\renewcommand{\appendixname}{Annexe}
+\renewcommand{\bibname}{Bibliographie}
+
+\definecolor{bleurapport}{HTML}{00AAD4}
+
+\chapterfont{\color{bleurapport}}
+\sectionfont{\color{bleurapport}}
+\subsectionfont{\color{bleurapport}}
+
+\begin{document}
+
+\maketitle
+
+\newpage
+\null %%Pour faire une page vide
+\newpage
+
+\tableofcontents %%Table des matières
+\newpage
+
+\chapter{Sujet}
+\chapter{Panification prévisionnelle}
+\section{analyse}
+\section{méthode}
+
+\chapter{Planification réelle}
+\section{Comparaison entre le réel et le prévisionnel}
+
+\chapter{Données quantitatives}
+\section{Utilisation d'un gestionnaire de version}
+\subsection{Mise en place de la méthode git-flow}
+\section{Brain Storming}
+%% Retour sur le comparatif, explication des modifications.
+%%%git, nb commits / codes ...
+%% CMMI MA
+%% lien entre III et IV
+
+\chapter{Conclusion}
+
+\end{document}
