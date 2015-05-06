@@ -54,4 +54,3 @@
 \contentsline {chapter}{\numberline {6}Perspectives et conclusion}{32}
 \contentsline {section}{\numberline {6.1}Perspectives d'am\IeC {\'e}lioration du profilage}{32}
 \contentsline {section}{\numberline {6.2}Profilage obtenu}{32}
-\contentsline {chapter}{\numberline {A}Diagramme de Gantt pr\IeC {\'e}visionnel}{34}
