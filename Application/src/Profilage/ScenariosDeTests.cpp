@@ -85,7 +85,7 @@ Profil* ScenariosDeTests::getActionReelleJoueur()const{
 }
 
 void ScenariosDeTests::setChancesDeGain(double chancesGain){
-    chancesDeGain=chancesGain;
+    chancesDeGain=35.4;
 }
 
 double ScenariosDeTests::getChancesDeGain(){
@@ -99,12 +99,9 @@ bool ScenariosDeTests::sauvegarderPartie(){
     QString nomFichier=QString::fromStdString(actionReelleJoueur->getPseudo())+"_scenarios_tests.csv";
     QFile fichier(QString::fromStdString(DOSSIER_PROFILAGE_STATIQUE)+nomFichier);
 
-    QString nomFichierReference=QString::fromStdString("scenarios_tests_basiques.csv");
-    QFile fichierReference(QString::fromStdString(DOSSIER_PROFILAGE_STATIQUE)+nomFichierReference);
-
     int nbParties=0;
 
-    if(!fichier.open(QIODevice::ReadWrite) || !fichierReference.open(QIODevice::ReadOnly)){
+    if(!fichier.open(QIODevice::ReadWrite | QIODevice::Text)){
         std::cerr<<"Erreur lors de l'ouverture du fichier "<<std::endl;
     }
     else{
@@ -197,7 +194,6 @@ void ScenariosDeTests::calculerActionAttendueJoueur(QFile& fichierProfil){
 
     ancienneSituationLAPlusProche(fichierProfil);
 
-
     if(actionAttendueJoueur.getAgressivite()==-1 || actionAttendueJoueur.getRationalite()==-1){
 
         //On regarde dans le fichier dans lequel se trouvent les données de base.
@@ -243,6 +239,7 @@ void ScenariosDeTests::calculerActionAttendueJoueur(QFile& fichierProfil){
                         ligneCalibrage=cpt;
                     }
 
+                    // Les paliers pour les chances de gain sont les même
                     //On regarde si on est dans l'intervalle des chances de gains de l'IA
                     if(liste.at(0).toDouble()<=getChancesDeGain() && getChancesDeGain()<=liste.at(1).toDouble()){
                         intervalleChancesGainIAInferieur=liste.at(0).toDouble();
