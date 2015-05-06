@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.2.9)  5 MAY 2015 20:14
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.2.9)  6 MAY 2015 12:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -651,147 +651,147 @@ e, il sera pos-si-ble d'ajouter
 
 [15] [16]
 Chapitre 2.
-<./imagesRapport/schemaGit.png, id=99, 573.342pt x 335.654pt>
+[17
+
+] <./imagesRapport/schemaGit.png, id=102, 573.342pt x 335.654pt>
 File: ./imagesRapport/schemaGit.png Graphic file (type png)
 
 <use ./imagesRapport/schemaGit.png>
-Package pdftex.def Info: ./imagesRapport/schemaGit.png used on input line 289.
+Package pdftex.def Info: ./imagesRapport/schemaGit.png used on input line 298.
 (pdftex.def)             Requested size: 344.00784pt x 201.39394pt.
- [17
 
-]
-Underfull \hbox (badness 10000) in paragraph at lines 294--295
+Underfull \hbox (badness 10000) in paragraph at lines 303--304
 
  []
 
 [18 <./imagesRapport/schemaGit.png>]
-Overfull \hbox (2.3061pt too wide) in paragraph at lines 314--314
+Overfull \hbox (2.3061pt too wide) in paragraph at lines 323--323
 []\OT1/cmr/m/n/10 Les noms des m^^Sethodes, des vari-ables et des at-tributs de
 -vront imp^^Serativement
  []
 
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 322.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 331.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 322.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 331.
 
-Overfull \hbox (99.00452pt too wide) in paragraph at lines 331--332
-[][][] 
- []
-
-
-Overfull \hbox (99.00452pt too wide) in paragraph at lines 335--336
-[][][] 
- []
-
-
-Overfull \hbox (105.00458pt too wide) in paragraph at lines 337--338
+Overfull \hbox (99.00452pt too wide) in paragraph at lines 340--341
 [][][] 
  []
 
 [19]
-Chapitre 3.
-
-Underfull \hbox (badness 10000) in paragraph at lines 351--352
-
+Overfull \hbox (99.00452pt too wide) in paragraph at lines 344--345
+[][][] 
  []
 
-[20
 
-]
+Overfull \hbox (105.00458pt too wide) in paragraph at lines 346--347
+[][][] 
+ []
+
+[20]
+Chapitre 3.
+
 Underfull \hbox (badness 10000) in paragraph at lines 360--361
 
  []
 
+[21
 
-Underfull \hbox (badness 10000) in paragraph at lines 368--369
-
- []
-
-[21]
-Underfull \hbox (badness 10000) in paragraph at lines 377--380
+]
+Underfull \hbox (badness 10000) in paragraph at lines 369--370
 
  []
 
 
-Overfull \hbox (89.94403pt too wide) in paragraph at lines 390--390
-[] 
+Underfull \hbox (badness 10000) in paragraph at lines 377--378
+
  []
 
 [22]
-Underfull \hbox (badness 10000) in paragraph at lines 425--426
+Underfull \hbox (badness 10000) in paragraph at lines 386--389
 
+ []
+
+
+Overfull \hbox (89.94403pt too wide) in paragraph at lines 399--399
+[] 
  []
 
 [23]
+Underfull \hbox (badness 10000) in paragraph at lines 434--435
+
+ []
+
+[24]
 Chapitre 4.
 
-Underfull \hbox (badness 10000) in paragraph at lines 461--462
+Underfull \hbox (badness 10000) in paragraph at lines 470--471
 
  []
 
 
-Overfull \hbox (10.82889pt too wide) in paragraph at lines 464--464
+Overfull \hbox (10.82889pt too wide) in paragraph at lines 473--473
 []\OT1/cmr/m/n/9 Pour le choix de l'action agres-sive, le cal-cul se base sur u
 ne mise th^^Seorique d'agressivit^^Se
  []
 
-[24
+[25
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 466--467
-
- []
-
-[25]
-Underfull \hbox (badness 10000) in paragraph at lines 508--509
+Underfull \hbox (badness 10000) in paragraph at lines 475--476
 
  []
 
 [26]
-Underfull \hbox (badness 10000) in paragraph at lines 527--528
+Underfull \hbox (badness 10000) in paragraph at lines 517--518
 
  []
 
 [27]
+Underfull \hbox (badness 10000) in paragraph at lines 536--537
+
+ []
+
+[28]
 Chapitre 5.
-[28
+[29
 
 ]
 Chapitre 6.
-(./Rapport.bbl [29
+(./Rapport.bbl [30
 
-]) [30
+]) [31
 
 ]
 Annexe A.
 
-<./imagesRapport/DiagrammePrevisionnel.png, id=157, 1404.24625pt x 258.9675pt>
+<./imagesRapport/DiagrammePrevisionnel.png, id=161, 1404.24625pt x 258.9675pt>
 File: ./imagesRapport/DiagrammePrevisionnel.png Graphic file (type png)
 
 <use ./imagesRapport/DiagrammePrevisionnel.png>
 Package pdftex.def Info: ./imagesRapport/DiagrammePrevisionnel.png used on inpu
-t line 561.
+t line 570.
 (pdftex.def)             Requested size: 561.68855pt x 103.58514pt.
 
-Overfull \hbox (105.09975pt too wide) in paragraph at lines 560--562
+Overfull \hbox (105.09975pt too wide) in paragraph at lines 569--571
 []  [] 
  []
 
-[31
+[32
 
  <./imagesRapport/DiagrammePrevisionnel.png (PNG copy)>] (./Rapport.aux) ) 
 Here is how much of TeX's memory you used:
- 5406 strings out of 494985
- 73230 string characters out of 6180357
- 149590 words of memory out of 5000000
- 8523 multiletter control sequences out of 15000+600000
+ 5407 strings out of 494985
+ 73238 string characters out of 6180357
+ 146590 words of memory out of 5000000
+ 8524 multiletter control sequences out of 15000+600000
  9790 words of font info for 35 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 39i,18n,45p,1048b,1212s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 39i,18n,45p,1048b,1528s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr
 /share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share
 /texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texli
@@ -807,10 +807,10 @@ b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share
 /texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texli
 ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb>
-Output written on Rapport.pdf (31 pages, 657814 bytes).
+Output written on Rapport.pdf (32 pages, 660005 bytes).
 PDF statistics:
- 211 PDF objects out of 1000 (max. 8388607)
- 134 compressed objects within 2 object streams
+ 214 PDF objects out of 1000 (max. 8388607)
+ 136 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  81 words of extra memory for PDF output out of 10000 (max. 10000000)
 
