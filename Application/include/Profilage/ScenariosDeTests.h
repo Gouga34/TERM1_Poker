@@ -54,7 +54,7 @@ private:
      * (chances de gain et agressivité et chances de gain joueur)
      * @param fichierProfil
      */
-    void ancienneSituationLAPlusProche(QFile &fichierProfil);
+    void ancienneSituationLaPlusProche(QFile &fichierProfil);
 
 public:
     ScenariosDeTests(Profil *profilJoueur, Profil *calibrageIA, Profil calibrageAdversaire);

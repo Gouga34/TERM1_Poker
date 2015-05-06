@@ -191,25 +191,26 @@ void ScenariosDeTests::calculerActionAttendueJoueur(QFile& fichierProfil){
     double intervalleChancesGainIASuperieur=0;
 
     //Si le fichier n'est pas vide, on regarde dedans si on a pas déjà une valeur pour les chances de gains et l'agressivité actuelle
+    ancienneSituationLaPlusProche(fichierProfil);
 
-    ancienneSituationLAPlusProche(fichierProfil);
-
+    //Si on n'a pas d'agressivité attendue et de rationalité attendue:
     if(actionAttendueJoueur.getAgressivite()==-1 || actionAttendueJoueur.getRationalite()==-1){
 
         //On regarde dans le fichier dans lequel se trouvent les données de base.
-    QString nomFichier=QString::fromStdString("scenarios_tests_basiques.csv");
-    QFile fichier(QString::fromStdString(DOSSIER_PROFILAGE_STATIQUE)+nomFichier);
+        QString nomFichier=QString::fromStdString("scenarios_tests_basiques.csv");
+        QFile fichier(QString::fromStdString(DOSSIER_PROFILAGE_STATIQUE)+nomFichier);
 
 
-    if(!fichier.open(QIODevice::ReadWrite)){
-        std::cerr<<"Erreur lors de l'ouverture du fichier "<<std::endl;
-    }
-    else{
+        if(!fichier.open(QIODevice::ReadWrite)){
+            std::cerr<<"Erreur lors de l'ouverture du fichier "<<std::endl;
+        }
+        else{
             QString ligne=fichier.readLine();
             QStringList liste;
             int ligneCalibrage=0;
             int ligneChancesGains=0;
             int ligneAgressiviteAttendue=0;
+            int ligneRationaliteAttendue=0;
             int cpt=0;
 
             int calibrage=1;
@@ -226,7 +227,8 @@ void ScenariosDeTests::calculerActionAttendueJoueur(QFile& fichierProfil){
                 else if(liste.at(0)=="agressivite IA"){
                     calibrage=2;
                 }
-                 cpt++;
+
+                cpt++;
 
                 //Si on cherche l'intervalle du calibrage
                 if(calibrage==1)
@@ -255,6 +257,7 @@ void ScenariosDeTests::calculerActionAttendueJoueur(QFile& fichierProfil){
                    && liste.at(1).toInt()==ligneChancesGains ){
 
                     ligneAgressiviteAttendue=liste.at(2).toInt();
+                    ligneRationaliteAttendue=liste.at(3).toInt();
                     break;
                     break;
                 }
@@ -265,6 +268,7 @@ void ScenariosDeTests::calculerActionAttendueJoueur(QFile& fichierProfil){
             //On récupère l'intervalle d'agressivité attendue du joueur :
             cpt=0;
             fichier.seek(0);
+            ligne=fichier.readLine();
             while(!ligne.isEmpty()){
                 liste = ligne.split(",");
                 cpt++;
@@ -276,19 +280,16 @@ void ScenariosDeTests::calculerActionAttendueJoueur(QFile& fichierProfil){
                 }
                 ligne=fichier.readLine();
             }
-        }
-     fichier.seek(0);
-    }
 
-    //Si on n'a pas d'agressivité attendue et de rationalité attendue:
-    if(actionAttendueJoueur.getAgressivite()==-1 || actionAttendueJoueur.getRationalite()==-1){
+            fichier.seek(0);
+        }
 
         //On calcule le taux d'agressivité attendu :
        double agressiviteAttendue=((getChancesDeGain()-intervalleChancesGainIAInferieur)
                                     *( (intervalleAgressiviteAttendueSuperieur-intervalleAgressiviteAttendueInferieur)/
                                                     (intervalleChancesGainIASuperieur-intervalleChancesGainIAInferieur)))+intervalleAgressiviteAttendueInferieur;
 
-        actionAttendueJoueur.setAgressivite(agressiviteAttendue);
+       actionAttendueJoueur.setAgressivite(agressiviteAttendue);
 
         //Le taux de rationalité attendu est à 50% par défaut :
         actionAttendueJoueur.setRationalite(50.0);
@@ -317,7 +318,7 @@ void ScenariosDeTests::scenarioSuivant(){
     Logger::getInstance()->ajoutLogs("Calibrage IA profilage: agressivité: "+QString::number(agressivite)+" rationalité: "+QString::number(RATIONALITE_IA_PROFILAGE));
 }
 
-void ScenariosDeTests::ancienneSituationLAPlusProche(QFile& fichierProfil){
+void ScenariosDeTests::ancienneSituationLaPlusProche(QFile& fichierProfil){
     ///////////////////////////TODO///////////////////////////////
     ///Faire le même test pour les chances de gain du joueur   ///
     ///quand elles seront implémentées.                        ///
