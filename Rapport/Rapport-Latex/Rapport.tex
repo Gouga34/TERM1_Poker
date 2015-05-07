@@ -104,12 +104,11 @@
 \chapter{Introduction}
 
 \section{Généralités}
-\hspace{0.5cm}Alors qu'actuellement, de plus en plus de méthodes de profilage sont établies dans le monde des jeux afin de trouver le profil d'un joueur adverse, le poker est un jeu qui pose problème dans le domaine de l'intelligence artificielle. En effet, ce jeu est basé sur les connaissances de l'IA qui peuvent être erronées ou incomplètes, mais il existe aussi d'autres propriétés qui en font un jeu intéressant, comme la chance et le bluff. De ce fait, un joueur ne peut jamais être sûr à 100\% de pouvoir gagner et donc, son adversaire ne peut pas connaître de manière certaine le jeu qu'il peut avoir. C'est pourquoi dans ce type de jeu, le profilage est l'élément central du système d'intelligence artificielle. Cependant il est également difficile de profiler un joueur de manière certaine. Il y a donc des recherches dans le développement de méthodes permettant de profiler un joueur de manière efficace.\par
+\hspace{0.5cm}Alors qu'actuellement, de plus en plus de méthodes de profilage sont établies dans le monde des jeux afin de trouver le profil d'un joueur adverse, le poker est un jeu qui pose problème dans ce domaine. En effet, ce jeu est basé sur la chance et sur le bluff. De ce fait, un joueur ne peut jamais être sûr à 100\% de pouvoir gagner et donc, son adversaire ne peut pas deviner le jeu qu'il a de manière certaine. C'est pourquoi, il est dur de profiler un joueur de manière certaine. Il y a donc des recherches dans le développement de méthodes permettant de profiler un joueur de manière efficace. \par
 
 \section{Sujet}
-\hspace{0.5cm}Le but de notre projet est de mettre en place le profilage d'un joueur de poker afin de déterminer de façon efficace le comportement de ce joueur. C'est à dire déterminer si le jouer est caractérisé comme agressif, passif, ou encore s'il a une tendance à bluffer.\par
-Pour ce faire, nous devrons tout d'abord établir une méthode de profilage statique. C'est à dire, une technique pour profiler un joueur en fonction des actions qu'il a effectué pendant toute une partie, de manière globale. Après avoir implémenté cette première méthode de profilage, nous devrons mettre en place une intelligence artificielle pouvant jouer en fonction des résultats obtenus. Ainsi, nous pourrons voir si notre intelligence artificielle est capable de gagner plus de parties une fois le profil du joueur adverse établi.\par
-S'il nous reste du temps, nous devrons mettre en place une méthode de profilage dynamique. Dans ce cas, il s'agit d'un profil qui s’établit tout au long de la partie et qui est modifié à chaque nouvelle action du joueur adverse. Nous devrons alors, de même que précédemment, mettre en place une intelligence artificielle capable de jouer en exploitant les données de profilage. Ainsi, nous pourrons observer la différence du nombre de parties gagnées en fonction des deux types de profilage, à savoir, statique ou dynamique, mais aussi en fonction des profils établis. En effet, un joueur considéré comme agressif et rationnel est-il plus facile à profiler et à battre qu'un joueur considéré comme non agressif et irrationnel ?\par
+\hspace{0.5cm}Le but de notre projet est de mettre en place une façon de profiler de façon efficace un joueur. Nous devrons tout d'abord établir une méthode de profilage statique. C'est à dire, une technique pour profiler un joueur en fonction des actions qu'il a effectuées pendant toute une partie, de manière globale. Après avoir implémenté cette première méthode de profilage, nous devrons mettre en place une intelligence artificielle pouvant jouer en fonction des résultats obtenus. Ainsi, nous pourrons voir si notre intelligence artificielle est capable de gagner plus de parties une fois le profil du joueur adverse établi.\par
+S'il nous reste du temps, nous devrons mettre en place une méthode de profilage dynamique, avec par conséquent, un profil qui s’établit tout au long de la partie et qui est modifié à chaque nouvelle action du joueur adverse. Nous devrons alors, de même que précédemment, mettre en place une intelligence artificielle capable de jouer en exploitant les données de profilage. Ainsi, nous pourrons observer la différence du nombre de parties gagnées en fonction des deux types de profilage, à savoir, statique ou dynamique, mais aussi en fonction des profils établit. En effet, un joueur considéré comme agressif et rationnel est-il plus facile à profil et à battre qu'un joueur considéré comme non agressif et irrationnel ?\par
 
 \section{Rapide description des règles du Texas Hold'Em Poker}
 \subsection{Mise en place du jeu}
@@ -246,15 +245,14 @@ Enfin, lorsqu'un joueur n'a pas d'autre combinaison, on va regarder sa carte la 
 
 \section{Cahier des charges}
 \subsection{Problématique}
-\hspace{0.5cm}Durant les dix semaines de développement du projet, nous devrons donc implémenter de façon intelligente une simple application permettant de jouer au poker puis, une intelligence artificielle capable de profiler différents types de joueurs, tout d'abord de façon statique, et éventuellement de façon dynamique.
-
+\hspace{0.5cm}Durant les 10 semaines de développement du projet, nous devrons donc implémenter de façon intelligence une simple application permettant de jouer au poker puis, une intelligence artificielle capable de profiler différents types de joueur, tout d'abord de façon dynamique et éventuellement de façon statique. 
 \subsection{Fonctionnalités obligatoires}
 
 \hspace{0.5cm}Le projet qui nous a été attribué a pour but de développer une intelligence artificielle de poker permettant d'établir les différents profils des joueurs.\par
 L'intelligence artificielle devra donc profiler ses adversaires en se basant sur différents critères comme la rationalité ou l'agressivité. Elle catégorisera alors les différents types de joueurs et leur attribuera des comportements.\par
 Il nous est demandé d'établir dans un premier temps un profilage statique basé sur un automate à états finis, qui a pour but d'attribuer un unique comportement à chacun des joueurs pour toute la partie. Ce comportement sera attribué puis modifié après chaque nouvelle partie jouée contre un même joueur.\par
 Par la suite, nous devrons mettre en place une nouvelle méthode de profilage afin de profiler de façon dynamique les joueurs. Dans cette seconde version, le profil d'un joueur sera mis à jour tout au long du déroulement d'une partie et l'intelligence artificielle devra pouvoir adapter son comportement aux réactions du joueur adverse.\par
-Tout au long du développement, des scénarios de tests seront mis en place afin de vérifier le bon fonctionnement de la catégorisation des joueurs. Ces scénarios ont pour but d'établir le comportement théorique attendu d'un joueur face à une situation donnée. Ils peuvent donc être utilisés en comparaison des résultats obtenus.\par
+Tout au long du développement, des scénarios de tests seront mis en place afin de vérifier le bon fonctionnement de la catégorisation des joueurs.\par
 
 \subsection{Fonctionnalités optionnelles}
 
@@ -269,34 +267,44 @@ Le développement devra s'appuyer sur les méthodes agiles. Celles-ci sont basé
 
 \subsection{Organisation prévisionnelle}
 
-\hspace{0.5cm}Comme on peut le voir dans l'annexe A représentant le diagramme de Gantt prévisionnel du déroulement du projet, un premier jour sera accordé à une étude préalable durant laquelle les membres du groupe devront se familiariser avec les règles du poker et les termes techniques. De plus, durant cette période, les membres du groupe devront établir ensemble les normes de programmation qui seront respectées par la suite tout au long du projet.\par
-Par la suite, notre projet sera divisé en quatre sous-projets. 
-Le sous-projet correspondant à l'interface graphique commencera tout d'abord pendant une étude détaillée durant laquelle il faudra décider entre-autres des technologies à utiliser pour son développement. L'implémentation de l'interface graphique commencera ensuite, suivie par une série de tests visant à vérifier que l'interface graphique est bien fonctionnelle et répond aux besoins. \par
-Dans le même temps, le sous-projet correspondant à la mise en place de l'intelligence artificielle basique et le jeu commencera. Celui-ci débutera d'abord par une étude préalable durant laquelle il faudra établir de façon claire et précise les différentes règles du Texas Hold'Em Poker. Une fois ces règles établies, une courte étude détaillée aura lieu, afin de discuter des différents points techniques de la mise en place du jeu et des différentes technologies qui pourraient être utilisées. Le jeu et l'intelligence artificielle seront alors développés puis testés.\par
-Une fois les deux premiers sous-projets finis, le sous-projet "profilage statique" débutera. Le but de ce sous-projet sera de mettre en place des méthodes permettant de profiler de manière statique un joueur. Il commencera tout d'abord par une étude préalable durant laquelle une analyse de l'existant sera effectuée notamment par la lecture d'articles sur le sujet. Puis, une petite étude détaillée sera effectuée afin de bien définir les calculs qui seront à implémenter. La tâche de développement des algorithmes à implémenter commencera alors, avec l'écriture formelle des différents algorithmes de calculs qui devront être présents dans l'application. Enfin, l'implémentation des algorithmes dans l'application commencera, suivie par la phase de tests des données ajoutées à l'application. \par
-Enfin, le sous-projet "profilage dynamique" débutera. De même que pour le sous-projet "profilage statique", il débutera par une phase d'analyse de l'existant avec lecture d'articles traitant du sujet. Puis, sera suivi par une étude détaillée. Par la suite, une phase d'étude technique commencera avec le développement des algorithmes à implémenter. Enfin, les phase d'implémentation des algorithmes et de tests suivront.\par
-En parallèle à toutes ses tâches aura lieu la rédaction du rapport et, à la fin du temps imparti, la préparation de la soutenance et de la démonstration. \par
+\hspace{0.5cm}Comme nous pouvons le voir dans l'annexe A représentant le diagramme de Gantt prévisionnel que nous avons mis en place, nous avons prévu dans un premier temps une étude préalable du sujet consistant à nous familiariser avec le vocabulaire du poker. De ce fait, Nous avons rapidement mis en place un glossaire contenant des définitions des différents termes. Pendant cette période, nous avons également défini les besoins des utilisateurs avec entre-autres un diagramme de cas d'utilisations. Nous avons aussi défini comment nous allions nous organiser durant le déroulement du projet, en définissant la fréquence des rendez-vous ainsi que les modalités de partage des données.\par
+Par la suite, nous avons prévu de continuer par une étude détaillée durant laquelle nous allons élaborer un diagramme de classe, rédiger le cahier des charges ainsi que commencer à lire des articles sur le sujet.\par
+Ensuite, nous passerons à une première étude technique durant laquelle nous commencerons par établir les normes de programmation. Puis, nous développerons une intelligence artificielle simple permettant à un joueur de jouer. Nous réfléchirons par la suite aux différents algorithmes et méthodes permettant d'établir un bon profilage statique du joueur adverse. Et nous établirons des jeux de tests. Dans le même temps, nous commencerons la phase de réalisation, en implémentant en parallèle l'interface graphique et l'intelligence artificielle simple puis, nous ajouterons la méthode de profilage statique et effectuerons les tests définis auparavant.\par
+Nous effectuerons ensuite une seconde étude technique pendant laquelle nous définirons les méthodes et algorithmes qui seront utilisés afin d'implémenter la méthode de profilage dynamique. Dans ce même temps, nous implémenterons la méthode de profilage dynamique, en effectuant les tests définis pendant la phase d'étude technique.\par
+Enfin, la dernière partie sera réservée à la mise en place de la démonstration qui sera effectuée lors de la soutenance, ainsi qu'à la finalisation du rapport qui sera rédigé tout au long de la période du projet et à la préparation de la soutenance.\par
 
 \chapter{Organisation du projet}
 
 
 
 \section{Organisation du travail}
+
+\subsection{Réunions}
 \hspace{0.5cm}Comme prévu au départ, nos tuteurs et nous-même avons choisi de nous réunir chaque semaine afin de discuter de nos avancées, des éventuels problèmes rencontrés et des méthodes choisies pour le profilage. De ce fait, nous garantissions que ce que nous faisions était toujours en accord avec les attentes.\par
-De notre côté, nous avions choisi de nous réunir chaque mercredi et chaque vendredi matin afin de pouvoir réfléchir ensemble sur les différentes méthodes de calculs. Par exemple, comment déterminer le taux d'agressivité d'un joueur? Nous nous répartissions ensuite le contenu à implémenter.\par
+De notre côté, nous avions choisi de nous réunir chaque mercredi et chaque vendredi matin afin de pouvoir réfléchir ensemble sur les différentes méthodes de calculs. Par exemple, comment déterminer le taux d'agressivité d'un joueur ? Nous nous répartissions ensuite le contenu à implémenter.\par
 Étant donné le fait que notre groupe n'était composé que de trois membres, nous avons choisi de ne pas élire de chef de projet mais plutôt de travailler tous sur un pied d'égalité. De ce fait, il n'y a pas eu de spécialisation, chaque membre du groupe a participé à toutes les parties du projet. En effet, notre projet étant basé en particulier sur la réflexion et sur la mise en place de différents algorithmes, il était plus intéressant de travailler à plusieurs.\par
-Afin d'avoir une bonne gestion de notre répertoire Git, nous avons choisi de mettre en place un git workflow, le git-flow. De ce fait, nous avons créé une branche master dans laquelle nous mettions uniquement les versions finales. Puis, nous avons mis en place la branche develop dans laquelle nous mettions notre travail en cours. Chacun d'entre nous ouvrait aussi en parallèle des branches lors du développement de nouvelles fonctionalités. Une fois les fonctionalités implémentées, elles étaient mises en place sur le develop. \par
 
-%%%TODO : mettre un schema explicatif du git-flow et bien l'expliquer%%
+\subsection{Mise en commun du travail}
+\hspace{0.5cm}Nous avons choisi d'utiliser un git workflow pour la gestion de notre projet. Cette méthode consiste à mettre en place une branche master qui contient le code de production et sur laquelle rien n'est développé. Elle est donc réservée aux versions fonctionnelles et abouties.
+Nous avons ensuite une branche develop sur laquelle sont ajoutées l'ensemble des modifications effectuées au cours du développement et le code qui sera ajouté pour la nouvelle release. Sur cette branche, on peut corriger ou encore améliorer des fonctions. \par
+C'est donc une fois l'application dans une version finalisée que sont par la suite ajoutées à la branche master l'ensemble des commits effectués sur le develop.\par
+Pour chaque nouvelle fonctionalité ou correction, nous ajoutions une nouvelle branche en local dans nos répertoires sur laquelle les modifications étaient effectuées. Elles étaient ensuite intégrées à la branche develop en local puis envoyées sur le répertoire public correspondant. Enfin, elles étaient intégrées au répertoire de référence.\par
 
-L'annexe B représente le déroulement réel de notre projet. Comme on peut le voir, nous avons ajouté des tâches qui n'étaient pas présentes au départ. En effet, au départ, nous devions récupérer une calculette de probabilités qui devait nous permettre de calculer les chances de gain d'un joueur pour une main donnée, en fonction des cartes présentes sur la table. Cependant, notre tuteur ne l'ayant pas trouvé, nous avons donc dû l'implémenter. 
+\subsection{Planification}
+\hspace{0.5cm}Le diagramme de Gantt de l'annexe B correspond à la planification réelle de notre projet. Comme on peut vite le constater, nous avons eu du retard et n'avons pas pu finir toutes les tâches prévues au départ. De même, on peut constater que quelques tâches absentes au départ ont été ajoutées.\par
 
-%%%TODO faire le gantt et l'expliquer%%%%%%%%%
-\section{Choix des outils de travail}
+On peut tout d'abord voir que la mise en place de l'interface graphique a pris plus de temps que prévu. En effet, nous n'avions pas prévu que la bibliothèque que nous souhaitions utiliser s’avérerait difficile à mettre en place et que par conséquent il nous faudrait partir de zéro pour l'interface graphique. Étant donné le retard pris pour la mise en place de l'interface graphique, nous avons aussi pris quelques jours de retard sur l'implémentation du jeu de poker et de l'intelligence artificielle basique. \par
+Cependant, on peut constater que nous avions commencé l'analyse de l'existant pour le profilage statique bien en avance. Cependant, nous avions ajouté à la liste des articles à lires quelques articles supplémentaires dont une thèse qui nous aura donc pris plus de temps à lire que précédemment. De ce fait, nous avons pris du retard sur la phase d'étude détaillée et sur la phase de développement des algorithmes. De plus, lorsque nous avons voulu passer à la phase d'implémentation des algorithmes. Nous devions récupérer une calculette de probabilités permettant de calculer les chances de gain d'un joueur. Cependant, cette calculette n'ayant pas été retrouvée, nous avons du ajouter de nouvelles tâches : l'étude détaillée et l'implémentation de la calculette de probabilité. Par conséquent, nous avons mis en pause l'implémentation des algorithmes afin que tous les membres du groupe puissent discuter ensemble de l'étude détaillée de la calculette de probabilités. De ce fait, nous avons pris encore plus de départ dans le déroulement de notre projet. \par
+
+Comme on peut le constater, à mi-parcours du projet, du 31 mars au 10 avril, nous nous sommes rendus compte que la partie concernant le jeu et l'intelligence artificielle était difficilement réutilisable et que l'on découvrait régulièrement des bogues qui n'avaient pas été détectées au moment des tests. Cette partie étant difficilement débogable et nous faisant perdre beaucoup de temps, nous avons choisi de reprendre complètement cette partie. Nous avons perdu beaucoup de temps à ce moment là et nous nous sommes rendus compte à quel point la découverte tardive d'un bogue fait perdre énormément de temps sur le développement de l'application. Par conséquent, alors que la période d'implémentation des algorithmes liés au profilage statique aurait du être finie, nous avons repris le code du jeu et avons donc retardé cette implémentation, ce qui a fait prendre du retard aux tâches suivantes.\par
+
+Enfin, nous pensions au départ que nous ne devrions que profiler les joueurs adverses alors que nous devions aussi faire jouer l'intelligence artificielle en fonction du profil établi afin de faire en sorte que l'intelligence artificielle gagne le plus d'argent possible. De ce fait, nous avons ajouté les tâches en rapport à la mise en place du jeu de l'intelligence artificielle en fonction des profils établis. \par
+
+Nous pouvons donc en conclure que nous avons pris beaucoup de retard, sûrement à cause du fait que nous n'avions pas bien compris l'ampleur des tâches qui seraient à effectuer et à cause d'une mauvaise conception au départ de la partie correspondant au jeu et à l'intelligence artificielle basique. Finalement, étant donné que l'on s'est rendu compte du retard pris sur le projet, plutôt que terminer précipitamment la partie sur le profilage statique pour commencer le profilage dynamique prévu, nous avons préféré ne pas nous précipiter et terminer correctement le profilage statique et obtenir de bons résultats, quitte à ne pas faire la partie dynamique. \par
+
+\section{Méthodes et outils de travail}
 \subsection{Gestionnaire de versions}
-\hspace{0.5cm}Nous avons choisi Git comme gestionnaire de version. C'est un logiciel libre créé par Linus Torvald, simple et performant, qui nous a permis la mise en commun du travail et la gestion de versions tout au long de son avancée.\medskip
-					
-					Notre choix s'est porté sur ce gestionnaire de version car contrairement à d'autres tels que Subversion, Git est décentralisé. Il ne repose pas sur un seul et même dépôt en ligne sur lequel chaque nouvelle version d'un fichier envoyée remplace la précédente et affecte donc l'ensemble du groupe. Git met en place, en plus du dépôt de référence commun à tous, un dépôt en ligne et un dépôt local pour chacun des utilisateurs, comme on peut le voir dans le schéma suivant.\par
+\hspace{0.5cm}Notre choix s'est porté sur le gestionnaire de version Git, car contrairement à d'autres tels que Subversion, Git est décentralisé. Il ne repose pas sur un seul et même dépôt en ligne sur lequel chaque nouvelle version d'un fichier envoyée remplace la précédente et affecte donc l'ensemble du groupe. Git met en place, en plus du dépôt de référence commun à tous, un dépôt en ligne et un dépôt local pour chacun des utilisateurs, comme on peut le voir dans le schéma suivant.\par
 \begin{figure}[H]
 	\begin{center}
 			\includegraphics[scale=0.6]{./imagesRapport/schemaGit.png}
@@ -307,22 +315,11 @@ L'annexe B représente le déroulement réel de notre projet. Comme on peut le v
 					 L'utilisation de dépôts publics, en vert clair sur le schéma, permet d'éviter les conflits, notamment lorsque deux personnes travaillent sur un même fichier, puis souhaitent l'envoyer sur le dépôt commun simultanément. Ici, les fichiers sont envoyés sur les dépôts en ligne personnels, puis intégrés sur le dépôt de référence, représenté en bleu, par la personne en charge lorsque les utilisateurs effectuent une demande d'intégration auprès du responsable (integration manager).\\
 				
 	Les conflits n'ont lieu dans ce cas, que lorsqu'une même ligne est modifiée plusieurs fois, auquel cas, c'est le responsable d'intégration qui le verra et donc n'acceptera pas les modifications proposées.
-					
 
-
-			
-
-\subsection{Création de l'interface graphique}
-\hspace{0.5cm}Afin de développer l'interface graphique utilisant la librairie Qt, nous avons utilisé l'IDE Qt Creator. Celui-ci permet une utilisation et un développement simplifié des applications.
-\subsection{Rédaction et mise en page du rapport}
-\hspace{0.5cm}Afin de créer la plupart de nos schémas ainsi que la page de garde de notre rapport, nous avons choisi d'utiliser le logiciel Inkscape qui a la particularité de proposer la création de dessins vectoriels ainsi que la gestion des calques de façon intuitive.
-			
-			Pour la rédaction du rapport, nous avons décidé de nous tourner vers le langage \LaTeX . Afin de nous faciliter le travail sous ce langage, nous avons utilisé l'IDE Texmaker.
 \subsection{Normes de programmation}
-\hspace{0.5cm}Nous coderons en français. Par conséquent, les différents identifiants des attributs, noms de classes et fonctions/méthodes que nous implémenterons auront des noms français, les méthodes toString ainsi que pour les accesseurs et mutateurs que nous nommerons getNomAttribut et setNomAttribut,
-selon les conventions de codage établies.\par
+\hspace{0.5cm}Concernant la réalisation du projet, l'application sera développée en français. Par conséquent, les différents identifiants des attributs, noms de classes et fonctions/méthodes que nous implémenterons auront des noms français, les méthodes toString ainsi que pour les accesseurs et mutateurs que nous nommerons getNomAttribut et setNomAttribut, selon les conventions de codage établies.\par
 
-Les noms des classes commenceront toujours par une majuscule suivie de minuscules. Si le nom de la classe est comp osé de plusieurs mots, alors on ajoutera une majuscule à chaque début de mot.\par
+Les noms des classes commenceront toujours par une majuscule suivie de minuscules. Si le nom de la classe est composé de plusieurs mots, alors on ajoutera une majuscule à chaque début de mot.\par
 
 Les noms des méthodes, des variables et des attributs devront impérativement commencer par une minuscule avec une majuscule à chaque nouveau mot.\par
 
@@ -339,21 +336,18 @@ Dans ces commentaires seront précisés l'action de la fonction/méthode, l'ense
 **/
 \end{lstlisting}
 
-Au début de chaque nouveau fichier créé, il faudra ajouter l'entête suivante: 
+Au début de chaque nouveau fichier créé, il faudra ajouter l'en-tête suivante: 
 \begin{lstlisting}
-/*========================================================================
+/*===============================================
 Nom: fichier.cpp         Auteur: 
 Maj:  27/03/2014         Creation: 01/02/2015
 Projet: Profilage par essais et erreurs au poker
---------------------------------------------------------------------------
+-------------------------------------------------
 Specification: Specifications du fichier
-=========================================================================*/
+=================================================*/
 \end{lstlisting}
 
 De plus, chaque commit effectué sur le projet Git devra avoir une description explicite permettant de savoir, sans avoir à parcourir le code, les modifications qui ont été apportées.\par
-
-\subsection{Langage}
-\hspace{0.5cm}Le langage utilisé pour la mise en place de l'application est le C/C++.
 
 \chapter{Analyse du projet}
 
@@ -585,15 +579,14 @@ Dans le but de rendre plus significative la courbe de profilage, et donc de mieu
 \bibliography{biblio}
 
 %%Annexes
-%%%TODO mettre le nouveau diagramme de Gantt%%
-%\appendix
-%\chapter{Diagramme de Gantt prévisionnel}
-%	\begin{figure}[h]
-%		 \hspace{-4cm} 
-%			\includegraphics[scale=0.4]{./imagesRapport/DiagrammePrevisionnel.png}
-%			\caption[Diagramme de Gantt prévisionnel]{Diagramme de Gantt prévisionnel}
-%	\end{figure}
-%	\medskip
+\appendix
+\chapter{Diagramme de Gantt prévisionnel}
+	\begin{figure}[h]
+		 \hspace{-4cm} 
+			\includegraphics[scale=0.4]{./imagesRapport/DiagrammePrevisionnel.png}
+			\caption[Diagramme de Gantt prévisionnel]{Diagramme de Gantt prévisionnel}
+	\end{figure}
+	\medskip
 		
 
 		
