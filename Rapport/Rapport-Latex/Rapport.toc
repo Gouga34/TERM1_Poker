@@ -26,14 +26,12 @@
 \contentsline {section}{\numberline {3.1}Syst\IeC {\`e}me de jeu}{22}
 \contentsline {section}{\numberline {3.2}Profilage}{23}
 \contentsline {subsection}{\numberline {3.2.1}Choix d'enregistrement des donn\IeC {\'e}es}{23}
-\contentsline {subsection}{\numberline {3.2.2}Formule de calcul du taux de rationalit\IeC {\'e} d'un joueur}{24}
-\contentsline {subsection}{\numberline {3.2.3}Formule de calcul du taux d'agressivit\IeC {\'e} d'un joueur}{25}
-\contentsline {subsection}{\numberline {3.2.4}Formule de calcul du taux de bluff d'un joueur}{26}
-\contentsline {subsection}{\numberline {3.2.5}Formule de calcul du taux de passivit\IeC {\'e} d'un joueur}{26}
+\contentsline {subsection}{\numberline {3.2.2}Calcul de la rationalit\IeC {\'e} d'un joueur}{24}
+\contentsline {subsection}{\numberline {3.2.3}Calcul de l'agressivit\IeC {\'e} d'un joueur}{25}
+\contentsline {subsection}{\numberline {3.2.4}Calcul du bluff d'un joueur}{26}
+\contentsline {subsection}{\numberline {3.2.5}Calcul de la passivit\IeC {\'e} d'un joueur}{26}
 \contentsline {section}{\numberline {3.3}Profilage statique}{26}
 \contentsline {section}{\numberline {3.4}R\IeC {\'e}utilisation des r\IeC {\'e}sultats du profilage}{26}
-\contentsline {section}{\numberline {3.5}Profilage dynamique}{26}
-\contentsline {section}{\numberline {3.6}R\IeC {\'e}utilisation des r\IeC {\'e}sultats du profilage}{26}
 \contentsline {chapter}{\numberline {4}Mise en place des m\IeC {\'e}thodes de profilage}{27}
 \contentsline {section}{\numberline {4.1}Calibrage des intelligences artificielles}{27}
 \contentsline {section}{\numberline {4.2}Profilage statique}{29}
@@ -54,4 +52,5 @@
 \contentsline {chapter}{\numberline {6}Perspectives et conclusion}{33}
 \contentsline {section}{\numberline {6.1}Perspectives d'am\IeC {\'e}lioration du profilage}{33}
 \contentsline {section}{\numberline {6.2}Profilage obtenu}{33}
-\contentsline {chapter}{\numberline {A}Diagramme de Gantt pr\IeC {\'e}visionnel}{35}
+\contentsline {chapter}{\numberline {A}Planification pr\IeC {\'e}visionnelle}{35}
+\contentsline {chapter}{\numberline {B}Planification r\IeC {\'e}elle}{37}
