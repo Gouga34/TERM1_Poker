@@ -2,6 +2,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{xcolor}
 \usepackage{sectsty} %%Pour changer la couleur de la police 
+\usepackage{hyperref}
 
 \title{Rapport}
 \author{}
@@ -50,23 +51,31 @@ En parallèle à toutes ses tâches aura lieu la rédaction du rapport et, à la
 
 \section{méthode}
 \subsection{Utilisation d'un gestionnaire de version}
-\hspace{0.5cm}Afin de permettre un partage efficace des données, le gestionnaire de version Git sera utilisé. Morgane Vidal aura le répertoire principal et Manuel Chataigner et Benjamin Commandre devront mettre leurs ajouts sur leurs propres répertoires puis demander à inclure leurs modifications sur le répertoire principal.
+\hspace{0.5cm}Afin de permettre un partage efficace des données, le gestionnaire de version Git sera utilisé. Morgane Vidal aura le répertoire principal \url{https://github.com/Gouga34/TERM1_Poker} et Manuel Chataigner et Benjamin Commandre devront mettre leurs ajouts sur leurs propres répertoires puis demander à inclure leurs modifications sur le répertoire principal. \par
 
 \chapter{Planification réelle}
 \section{Comparaison entre le réel et le prévisionnel}
 \hspace{0.5cm}Le diagramme de Gantt de l'annexe B correspond à la planification réelle de notre projet. Comme on peut vite le constater, nous avons eu du retard et n'avons pas pu finir toutes les tâches prévues au départ. De même, on peut constater que quelques tâches absentes au départ ont été ajoutées.\par
 
 
+Comme on peut le constater, à mi-parcours du projet, nous nous sommes rendus compte que la partie concernant le jeu et l'intelligence artificielle était difficilement réutilisable et que l'on découvrait régulièrement des bogues qui n'avaient pas été détectés au moment des tests. Cette partie étant difficilement débogable et nous faisant perdre beaucoup de temps, nous avons choisi de reprendre complètement cette partie. Nous avons perdu beaucoup de temps à ce moment là et nous nous sommes rendus compte à quel point la découverte tardive d'un bogue fait perdre énormément de temps sur le développement de l'application.\par
+
+
+
 \chapter{Données quantitatives}
 \section{Mise en place de la méthode git-flow}
 \hspace{0.5cm}Après avoir assisté au cour durant lequel les workflow nous étaient présentés, nous avons choisi de passer en git-flow, donc de mettre en place une branche develop sur laquelle seraient ajoutées les modifications et qui seraient par la suite ajoutées à la branche master une fois celles-ci correctes.\par
+Pour notre projet, nous avons donc une branche master sur laquelle se trouve le code de production et sur laquelle rien n'est développé. Nous avons ensuite une branche develop sur laquelle se trouve le code prêt pour être merge pour la nouvelle release. Sur cette branche, on peut corriger ou encore améliorer des fonctions. \par
+Etant donné le fait que notre projet n'est pas un grand projet et que nous ne sommes pas nombreux, nous avons choisi de ne pas mettre en place de branches feature, realise et hot-fix. En effet, le temps de mettre en place une version de notre projet prend le temps imparti pour la mise en place du projet.\par
 %%TODO : Manu, tu peux développer cette partie ? %%%
-\section{Brain Storming}
-\hspace{0.5cm}Après avoir assisté au cour présentant les brain storming, nous avons décidé d'en mettre en place un. En effet, nous étions à ce moment là du projet un peu perdu et ne savions plus que faire. Nous avions beaucoup de tâches à effectuer en même temps et ne savions pas par lesquelles commencer. Comme on peut le voir dans la figure suivante, nous avons donc mis sur papier chacune des tâches à effectuer puis, nous les avons classées par ordre de priorité et partagées entre les différents membres du groupe. \par
+
+\section{Brainstorming}
+\hspace{0.5cm}Après avoir assisté au cour présentant les brainstorming, nous avons décidé d'en mettre en place un. En effet, nous étions à ce moment là du projet un peu perdu et ne savions plus que faire. Nous avions beaucoup de tâches à effectuer en même temps et ne savions pas par lesquelles commencer. Comme on peut le voir dans la figure suivante, nous avons donc mis sur papier chacune des tâches à effectuer puis, nous les avons classées par ordre de priorité et partagées entre les différents membres du groupe. \par
 %%TODO : mettre une des photos du brain storming%%
 
 
 \section{Quelques chiffres}
+\hspace{0.5cm}
 %% Retour sur le comparatif, explication des modifications.
 %%%git, nb commits / codes ...
 %% CMMI MA
