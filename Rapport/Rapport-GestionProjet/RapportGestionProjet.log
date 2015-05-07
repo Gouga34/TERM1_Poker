@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.4.20)  7 MAY 2015 10:30
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.4.20)  7 MAY 2015 17:23
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -653,69 +653,79 @@ analyse de l'existant
 Chapitre 4.
 [9
 
-]
+] [10]
 Chapitre 5.
-[10
+[11
 
 ]
 Annexe A.
-<../DiagrammePrevisionnel.png, id=137, 3523.1625pt x 548.0475pt>
+<../DiagrammePrevisionnel.png, id=143, 3523.1625pt x 548.0475pt>
 File: ../DiagrammePrevisionnel.png Graphic file (type png)
 
 <use ../DiagrammePrevisionnel.png>
-Package pdftex.def Info: ../DiagrammePrevisionnel.png used on input line 106.
+Package pdftex.def Info: ../DiagrammePrevisionnel.png used on input line 114.
 (pdftex.def)             Requested size: 1056.95694pt x 164.41551pt.
 
-Overfull \hbox (395.36813pt too wide) in paragraph at lines 105--107
+Overfull \hbox (395.36813pt too wide) in paragraph at lines 113--115
 []  []
  []
 
-[11
+[12
 
-] [12pdfTeX warning (ext4): destination with the same identifier (name{figure.A
+] [13pdfTeX warning (ext4): destination with the same identifier (name{figure.A
 .1}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.112 \chapter
+l.120 \chapter
               {Diagramme de Gantt réel} <../DiagrammePrevisionnel.png (PNG cop
 y)>]
 Annexe B.
-<../DiagrammeReel.png, id=149, 4327.16624pt x 548.0475pt>
+<../DiagrammeReel.png, id=154, 4327.16624pt x 548.0475pt>
 File: ../DiagrammeReel.png Graphic file (type png)
 
 <use ../DiagrammeReel.png>
-Package pdftex.def Info: ../DiagrammeReel.png used on input line 115.
+Package pdftex.def Info: ../DiagrammeReel.png used on input line 123.
 (pdftex.def)             Requested size: 1298.15993pt x 164.41551pt.
 
-Overfull \hbox (636.57112pt too wide) in paragraph at lines 114--116
+Overfull \hbox (636.57112pt too wide) in paragraph at lines 122--124
 []  []
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 120.
-[13
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 128.
+[14
 
-] [14pdfTeX warning (ext4): destination with the same identifier (name{figure.B
+] [15pdfTeX warning (ext4): destination with the same identifier (name{figure.B
 .1}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.120 \end{document}
+l.128 \end{document}
                      <../DiagrammeReel.png (PNG copy)>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 120.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 128.
 
 (./RapportGestionProjet.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 120.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 120.
-Package rerunfilecheck Info: File `RapportGestionProjet.out' has not changed.
-(rerunfilecheck)             Checksum: F6F0C4183F5A135A3823CF4DBCC4EF1B;1035.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 120.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 128.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 128.
+
+
+Package rerunfilecheck Warning: File `RapportGestionProjet.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `RapportGestionProjet.out':
+(rerunfilecheck)             Before: F6F0C4183F5A135A3823CF4DBCC4EF1B;1035
+(rerunfilecheck)             After:  72D18A8070EFB4919DE6FDD600879C56;1105.
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 128.
  ) 
 Here is how much of TeX's memory you used:
- 8602 strings out of 494985
- 122575 string characters out of 6180356
+ 8605 strings out of 494985
+ 122601 string characters out of 6180356
  217865 words of memory out of 5000000
- 11678 multiletter control sequences out of 15000+600000
+ 11679 multiletter control sequences out of 15000+600000
  10403 words of font info for 38 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  32i,9n,35p,1133b,345s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -724,10 +734,10 @@ r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texli
 ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on RapportGestionProjet.pdf (15 pages, 206786 bytes).
+Output written on RapportGestionProjet.pdf (16 pages, 209051 bytes).
 PDF statistics:
- 186 PDF objects out of 1000 (max. 8388607)
- 160 compressed objects within 2 object streams
- 34 named destinations out of 1000 (max. 500000)
+ 191 PDF objects out of 1000 (max. 8388607)
+ 164 compressed objects within 2 object streams
+ 36 named destinations out of 1000 (max. 500000)
  139 words of extra memory for PDF output out of 10000 (max. 10000000)
 
