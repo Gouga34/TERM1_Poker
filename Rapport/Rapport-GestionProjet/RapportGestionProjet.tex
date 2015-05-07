@@ -3,6 +3,13 @@
 \usepackage{xcolor}
 \usepackage{sectsty} %%Pour changer la couleur de la police 
 \usepackage{hyperref}
+\usepackage{float}%%Pour les figures
+\usepackage{listings}
+\usepackage{amsmath}%%Pour les formules mathématique
+\usepackage[final]{pdfpages}%%Pour l'inclusion de PDF
+\usepackage{lscape}%%Pour passer une page en format paysage
+\usepackage{graphicx}%%Pour rotation image
+\usepackage{rotating}%%Pour rotation image
 
 \title{Rapport}
 \author{}
@@ -58,6 +65,7 @@ En parallèle à toutes ses tâches aura lieu la rédaction du rapport et, à la
 \hspace{0.5cm}Le diagramme de Gantt de l'annexe B correspond à la planification réelle de notre projet. Comme on peut vite le constater, nous avons eu du retard et n'avons pas pu finir toutes les tâches prévues au départ. De même, on peut constater que quelques tâches absentes au départ ont été ajoutées.\par
 
 
+
 Comme on peut le constater, à mi-parcours du projet, nous nous sommes rendus compte que la partie concernant le jeu et l'intelligence artificielle était difficilement réutilisable et que l'on découvrait régulièrement des bogues qui n'avaient pas été détectés au moment des tests. Cette partie étant difficilement débogable et nous faisant perdre beaucoup de temps, nous avons choisi de reprendre complètement cette partie. Nous avons perdu beaucoup de temps à ce moment là et nous nous sommes rendus compte à quel point la découverte tardive d'un bogue fait perdre énormément de temps sur le développement de l'application.\par
 
 
@@ -82,5 +90,25 @@ Etant donné le fait que notre projet n'est pas un grand projet et que nous ne s
 %% lien entre III et IV
 
 \chapter{Conclusion}
+
+
+
+\appendix
+\chapter{Diagramme de Gantt prévisionnel}
+	\begin{sidewaysfigure}[ht]
+		 \hspace{-4cm} 
+			\includegraphics[scale=0.3]{../DiagrammePrevisionnel.png}
+			\caption[Planification Prévisionnelle]{Planification Prévisionnelle}
+	\end{sidewaysfigure}
+	\medskip
+
+
+\chapter{Diagramme de Gantt réel}
+	\begin{sidewaysfigure}[ht]
+		 \hspace{-4cm} 
+			\includegraphics[scale=0.3]{../DiagrammeReel.png}
+			\caption[Planification réelle]{Planification réelle}
+	\end{sidewaysfigure}
+	\medskip
 
 \end{document}

@@ -12,3 +12,5 @@
 \contentsline {section}{\numberline {4.2}Brainstorming}{8}{section.4.2}
 \contentsline {section}{\numberline {4.3}Quelques chiffres}{8}{section.4.3}
 \contentsline {chapter}{\numberline {5}Conclusion}{9}{chapter.5}
+\contentsline {chapter}{\numberline {A}Diagramme de Gantt pr\IeC {\'e}visionnel}{10}{appendix.A}
+\contentsline {chapter}{\numberline {B}Diagramme de Gantt r\IeC {\'e}el}{12}{appendix.B}
