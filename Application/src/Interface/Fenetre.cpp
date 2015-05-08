@@ -13,6 +13,7 @@ Specification: Fichier contenant les définitions de la classe Fenetre.
 #include "../../include/Interface/Logger.h"
 #include "../../include/Jeu/JoueurHumain.h"
 #include "../../include/IA/IntelligenceArtificielleProfilage.h"
+#include "../../include/IA/CalibrageIdeal.h"
 
 #include <QString>
 #include <QVBoxLayout>
@@ -59,7 +60,7 @@ Fenetre::Fenetre() : QWidget()
         IntelligenceArtificielle *ia = static_cast<IntelligenceArtificielle*>(j1);
 
         if (options.pseudo.isEmpty()) {
-            Profil calibrage = ia->getCalibrage();
+            Profil calibrage = *(ia->getCalibrage());
             pseudoJoueur = QString::number(calibrage.getAgressivite()) + "_" + QString::number(calibrage.getRationalite());
         }
         else {
@@ -164,7 +165,13 @@ Fenetre::Fenetre() : QWidget()
 
     boutonDemarrage.setText("Démarrage partie");
     boutonDemarrage.setMaximumWidth(150);
-    connect(&boutonDemarrage, SIGNAL(clicked()), this, SLOT(demarragePartie()));
+
+    if (CALCUL_CALIBRAGE_IDEAL) {
+        connect(&boutonDemarrage, SIGNAL(clicked()), this, SLOT(demarrageCalibrageIdeal()));
+    }
+    else {
+        connect(&boutonDemarrage, SIGNAL(clicked()), this, SLOT(demarragePartie()));
+    }
 
     boutonChoixCartes.setChecked(false);
     boutonChoixCartes.setText("Choix des cartes");
@@ -344,6 +351,15 @@ void Fenetre::demarragePartie()
         afficheTable();
         partieTermine();
     }
+}
+
+void Fenetre::demarrageCalibrageIdeal()
+{
+    IntelligenceArtificielle *iaQuiProfile = static_cast<IntelligenceArtificielle*>(jeu->getJoueur(1));
+    IntelligenceArtificielle *iaProfilee = static_cast<IntelligenceArtificielle*>(jeu->getJoueur(0));
+
+    CalibrageIdeal c(jeu, iaQuiProfile->getCalibrage(), iaProfilee->getCalibrage(), NOMBRE_PARTIES_CALIBRAGE_IDEAL);
+    c.lancerParties();
 }
 
 void Fenetre::afficheTable()

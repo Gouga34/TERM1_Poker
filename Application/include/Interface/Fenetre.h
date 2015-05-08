@@ -117,6 +117,11 @@ class Fenetre : public QWidget
         void demarragePartie();
 
         /**
+         * @action Lance les tests pour déterminer le calibrage idéal
+         */
+        void demarrageCalibrageIdeal();
+
+        /**
          * @action Effectue les actions de fin de partie
          */
         void partieTermine();
