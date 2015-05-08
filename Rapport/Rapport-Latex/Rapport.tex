@@ -13,6 +13,11 @@
 \author{}
 \date{}
 
+%%%%%%%%%%%%%%%%%%%%%%%TODO%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Trouver un endroit où siter les thèses. %%%%%%%%%%
+%% Faire carément une partie dessus ? (Pompidor %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 \renewcommand{\contentsname}{Table des matières}
 \renewcommand{\chaptername}{Chapitre}
@@ -549,10 +554,10 @@ Enfin, il est aussi possible de prendre une situation dans laquelle la distance 
 Pour une première version, nous avons choisi de seulement prendre en compte le profil final établi et d'attribuer un calibrage selon divers paliers. Ici on prend en compte trois paliers pour l'agressivité ainsi que pour la rationalité. De 0 à 40\% pour le premier palier, 40 à 60\% pour une valeur moyenne puis de 60 à 100\% pour la palier haut. Nous avons déduit les calibrage correspondants à chaque palier du joueur profilé, les résultats sont présentés dans le tableau suivant.\\
 %%%TODO: faire et mettre le tableau%%%
 
-\section{Profilage dynamique}
-\subsection{Scénarios de tests}
-\subsection{Établissement des profils attendus}
-\subsection{Réutilisation des résultats du profilage}
+%\section{Profilage dynamique}
+%\subsection{Scénarios de tests}
+%\subsection{Établissement des profils attendus}
+%\subsection{Réutilisation des résultats du profilage}
 
 
 \chapter{Analyse des résultats obtenus}
@@ -562,27 +567,44 @@ Pour une première version, nous avons choisi de seulement prendre en compte le 
 
 % A mettre dans Chapitre 4 ??
 
-\hspace{0.5cm}Pour facilement pour déterminer si le profilage établi est efficace, et également déterminer le nombre de parties nécessaires pour profiler, nous avons ajouté dans un .csv le profilage global établi au fûr et à mesure des parties, ainsi que le taux de similarité entre le profilage établi et le calibrage réel de l'adversaire. Nous avons donc pu ajuster le nombre de parties selon cette valeur de similarité.\par
-Suite à plusieurs tests, nous avons observé qu'au bout de 10 ou 15 parties, nous arrivions à obtenir un profilage satisfaisant, et que celui-ci ne tendait pas à s'améliorer, même en ajoutant des parties.\\
+\hspace{0.5cm}Pour facilement déterminer si le profilage établi est efficace, et également déterminer le nombre de parties nécessaires pour profiler, nous avons ajouté dans un .csv le profil global établi au fûr et à mesure des parties, le taux de similarité entre le profilage établi et le calibrage réel de l'adversaire. Nous avons donc pu ajuster le nombre de parties selon cette valeur de similarité.\par
+Suite à plusieurs tests, nous avons observé qu'au bout de 10 ou 15 parties, nous arrivions à obtenir un profilage satisfaisant, et que celui-ci ne tendait pas à s'améliorer, même en jouant plus de parties.\\
 	
-\hspace{0.5cm}Afin de pouvoir obtenir des résultats facilement visibles, nous avons également produit des graphes représentant le profilage établi du joueur en fonction du nombre de parties, et une constante correspondant au calibrage à déterminer.\\
+Afin de pouvoir obtenir des résultats facilement visibles, nous avons également produit des graphes représentant le profilage établi du joueur en fonction du nombre de parties, et une constante correspondant au calibrage à déterminer.\\
 
 \subsection{Analyse des gains de parties}
 
-\hspace{0.5cm}Le but de notre IA étant, une fois un profilage correctement établi, de pouvoir augmenter son gain de parties mais aussi son gain d'argent. Nous avons donc renseigné dans l'application le nombre de parties au bout desquelles l'IA va pouvoir arrêter le profilage, et donc adapter elle-même son calibrage pour pouvoir gagner un maximum de parties.\\
+\hspace{0.5cm}Le but de notre intelligence artificielle étant, une fois un profilage correctement établi, de pouvoir augmenter son gain de parties mais aussi son gain d'argent. Nous avons donc renseigné dans l'application le nombre de parties au bout desquelles l'intelligence artificielle va pouvoir arrêter le profilage, et donc adapter elle-même son calibrage pour pouvoir gagner un maximum de parties.\\
 
-Nous avons donc ajouté dans les fichiers résultats le gain d'argent de l'IA pour chacune des parties. Ceci nous a permis de pouvoir obtenir un ratio du nombre de parties gagnées sur le nombre de parties jouées pendant le profilage, puis pendant la phase de jeu.\par
+Nous avons donc ajouté dans les fichiers résultats le gain d'argent de l'intelligence artificielle pour chacune des parties. Ceci nous a permis de pouvoir obtenir un ratio du nombre de parties gagnées sur le nombre de parties jouées pendant le profilage, puis pendant la phase de jeu.\par
+
+Comme dit précédemment dans la partie 3.4, nous avons testé plusieurs types de calibrages face aux différents profils établis avant de trouver le calibrage optimal pour chaque de profil. 
+
+La figure suivante représente les calibrages que nous avions établis au départ par rapport aux profils trouvés. Après avoir effectué quelques tests, nous nous sommes vite rendus compte que dans l'ensemble, l'intelligence artificielle ne gagnait pas assez par rapport à nos attentes. 
+
+%%TODO: mettre le premier calibrage choisi, des courbes montrant ses résultats, puis mettre une autre calibrage meilleur et des courbes le représentant.
  
-Suite à ces réultats, nous avons donc pu produire des courbes de gain en fonction du nombre de parties jouées, et aussi en fonction du mode de jeu de l'IA (profilage ou jeu pour gagner). Nous avons également pu afficher dans une même graphe entre les courbes de profilage et courbe de gain.\par
+ 
+%%TODO: parler des 3h de tests pour trouver le calibrage optimal, mettre une courbe pour montrer les résultats et comparer les résultats avec les calibrages précédents %% 
+ 
+Suite à ces résultats, nous avons donc pu produire des courbes de gain en fonction du nombre de parties jouées, et aussi en fonction du mode de jeu de l'intelligence artificielle (profilage ou jeu pour gagner). Nous avons également pu afficher dans une même graphe entre les courbes de profilage et courbe de gain.\par
 Dans le but de rendre plus significative la courbe de profilage, et donc de mieux voir la corrélation entre les deux courbes, nous avons modifié l'affichage de la courbe de profilage. En effet, selon le calibrage à déterminer, la variation de la courbe n'est pas la même. Nous avons donc fait en sorte que celle-ci corresponde à la différence entre le profilage établi et le calibrage réel. Ainsi, plus cette courbe diminue, plus le profilage établi est précis. Et donc plus cette courbe diminue, plus la courbe de gain est supposée augmenter.\\
  
-\section{Profilage dynamique}
-\subsection{Analyse des gains de parties}
+%\section{Profilage dynamique}
+%\subsection{Analyse des gains de parties}
 
 
 \chapter{Perspectives et conclusion}
 \section{Perspectives d'amélioration du profilage}
+
+%%Parler du profilage dynamique,
+%%Parler de la manière d'effectuer un profilage avec plus de deux joueurs
 \section{Profilage obtenu}
+
+
+
+
+
 
 %%bibliographie /sitographie
 
