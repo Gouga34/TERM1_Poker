@@ -361,15 +361,15 @@ De plus, chaque commit effectué sur le projet Git devra avoir une description e
 
 \section{Système de jeu}
 
+\subsection{Deux joueurs}
 \hspace{0.5cm}Afin de pouvoir effectuer le profilage d'un joueur, nous avons mis en place un jeu de poker à deux joueurs. Dans un premier temps, il s'agissait d'un joueur humain contre une intelligence artificielle ayant pour but de le profiler. Pour pouvoir jouer, une interface graphique a été mise en place pour permettre à la fois le suivi de la partie et le choix des actions.\par
 Au départ, l'intelligence artificielle reposait sur un algorithme basique lui permettant de jouer une partie. Puis nous avons rapidement mis en place un calibrage de l'intelligence artificielle, afin de pouvoir lui attribuer un style de jeu (agressif, rationnel...). Lors l'ajout de ce calibrage, nous avons complexifié le jeu de l'intelligence artificielle en prenant en compte le calibrage donné mais aussi en y ajoutant un choix d'action plus varié.\par
 Afin de différencier les joueurs que profilés, nous avons mis en place un système de pseudos. Avant le démarrage du jeu, il est alors possible de renseigner un pseudo, nouveau ou déjà existant, qui permet à l'intelligence artificielle de collecter et rassembler les données de profilage d'un même joueur. De ce fait, s'il se déconnecte et souhaite rejouer un autre jour, l'intelligence artificielle disposera toujours du précédent profilage effectué.\\
 
+\subsection{Intelligence artificielle contre intelligence artificielle}
 Par la suite, afin de permettre l'automatisation du profilage, et le lancements d'une série de parties, il nous a été demandé de revoir le système de jeu afin que l'intelligence artificielle existante puisse jouer contre une deuxième intelligence artificielle ne profilant pas. Dans cette version, l'interface n'est plus prise en compte et les deux intelligences jouent simultanément jusqu'à fin de la partie. Dans ce cas, un calibrage est donné pour cette deuxième intelligence artificielle, et celui-ci reste fixe pour la suite de parties. C'est l'intelligence artificielle qui profile qui va tenter de retrouver les valeurs de ce calibrage.\par
 Pour permettre ces séries de tests, nous avons donc ajouté la possibilité de choisir le nombre de parties à lancer, afin de tester de façon efficace le profilage mis en place.\par
 
-\section{Profilage}
-%%On mettra ici les données communes aux profilages statiques et dynamiques
 \subsection{Choix d'enregistrement des données}
 
 \hspace{0.5cm}Afin de profiler les joueurs, nous avons choisi d'enregistrer un certain nombre de données dans des fichiers de sortie. Selon le système de pseudos développé, nous avons décidé de mettre en place un fichier par joueur, représenté par le pseudo du joueur. Dans le but d'une réutilisation des données enregistrées par l'application, nous avons choisi le format de données Json car il a l'avantage d'être facilement exploitable. De plus, nous avons pu utiliser la librairie QJson pour traiter les données des fichiers.\\
@@ -379,7 +379,7 @@ Dans un fichier, chaque valeur est représentée sous forme de taux, en pourcent
 Au cours d'une partie, l'intelligence artificielle va donc enregistrer les chances de gain du joueur, calculées en fonction des cartes du joueur adverse en fin de partie.\par
 Elle va également calculer les différentes actions effectuées. Ici, nous avons choisi de classer les différentes actions en trois catégories, les suivis, les checks, et les mises qui comprennent aussi les relances. Chacune de ces valeurs représente donc le pourcentage de réalisation de cette action par le joueur en fonction du nombre de tours de jeu (par exemple si le joueur a suivi une fois sur deux, on aura 50\% de suivis). Si le joueur ne se couche pas, le total de ces trois valeurs est donc 100\%. Enfin un booléen indique si le joueur s'est couché ou non au cours de la partie.\par
 Concernant les mises, afin d'être plus précis sur l'agressivité du joueur, nous mémorisons également la mise la plus haute effectuée en une fois par le joueur, ainsi que le total du montant misé sur l'ensemble des tours.\par
-Finalement, le fichier contient tous les types de comportements possibles que l'on peut attribuer au joueur profilé. Nous avons choisi de catégoriser le joueur selon quatre critères : l'agressivité, c'est à dire sa capacité à miser, la rationalité, le bluff et la passivité. Ces quatre valeurs sont exprimées en pourcentage. Pour chacune d'elle nous avons déterminé une formule qui, à partir des données enregistrées dans le fichier et présentées plus haut, va calculer les taux associés. Pour l'agressivité, nous prenons en compte les mises effectuées, c'est à dire le nombre de mises, la mise la plus haute et le total des mises. La rationalité se base sur la cohérence entre les chances de gain du joueur et les mises effectuées. Puis nous avons dans un premier temps, calculé la passivité comme étant la somme du taux de checks et de suivis, soit l'inverse de l'agressivité, et le bluff comme l'inverse de la rationalité. %Ces quatre valeurs prises deux à deux font donc 100\%.\par
+Finalement, le fichier contient tous les types de comportements possibles que l'on peut attribuer au joueur profilé. Nous avons choisi de catégoriser le joueur selon quatre critères : l'agressivité, c'est à dire sa capacité à miser, la rationalité, le bluff et la passivité. Ces quatre valeurs sont exprimées en pourcentage. Pour chacune d'elle nous avons déterminé une formule qui, à partir des données enregistrées dans le fichier et présentées plus haut, va calculer les taux associés. Pour l'agressivité, nous prenons en compte les mises effectuées, c'est à dire le nombre de mises, la mise la plus haute et le total des mises. La rationalité se base sur la cohérence entre les chances de gain du joueur et les mises effectuées. Puis nous avons dans un premier temps, calculé la passivité comme étant la somme du taux de checks et de suivis, soit l'inverse de l'agressivité, et le bluff comme l'inverse de la rationalité.\par
 Enfin, dans le but d'effectuer un profilage plus précis des joueurs, nous avons distingué chaque étape de jeu, et donc enregistré l'ensemble de ces valeurs pour les quatre étapes d'une partie : préflop, flop, turn et river. Un profil global de la partie est ensuite écrit avec les quatre valeurs de comportement. Puis un booléen contient le résultat de la partie.\\
 
 Pour un joueur donné, le fichier contient donc l'ensemble des parties effectuées. Nous avons aussi au départ pensé à valoriser chacun des comportements de façon globale, après chaque partie enregistrée.\\
@@ -388,9 +388,18 @@ Finalement, nous nous sommes rendu compte qu'enregistrer les différentes valeur
 
 Par la suite, il nous a fallu modifier le style de jeu de l'intelligence artificielle afin que celle-ci, une fois le profilage établi, se mette à jouer de façon à gagner un maximum de parties et d'argent. Dans cette phase de jeu, l'intelligence artificielle ne profile plus le joueur et tente simplement de gagner. Si les gains deviennent trop faibles, alors celle-ci a pour but de reprendre le profilage. Seulement pour pouvoir comparer le nombre de parties gagnées dans chacune des phases de jeu, il nous fallait alors écrire les résultats d'une partie, même lorsque l'on ne profile pas le joueur. Cela revenait donc à écrire les résultats de gain dans le json. Seulement, cette donnée s'avérait difficilement exploitable dans un fichier json, pour générer des graphes à partir des gains.\par
 C'est donc à ce moment que nous avons changé le fichier json, en fichier csv. Dans ce fichier, nous avons ajouté le gagnant de la partie, ainsi que les gains ou pertes d'argent de l'intelligence artificielle au cours de la partie. De cette manière, il nous serait facilement possible d'observer les gains cumulés de l'intelligence artificielle au bout de plusieurs parties.\par
-Nous avons donc aussi ajouté dans le fichier le mode de jeu de l'IA, soit profilage ou bien phase de jeu.\\
+Nous avons donc aussi ajouté dans le fichier le mode de jeu de l'intelligence artificielle, soit profilage ou bien phase de jeu.\\
 
-\subsection{Calcul de la rationalité d'un joueur}
+\section{Profilage}
+%%On mettra ici les données communes aux profilages statiques et dynamiques
+
+\section{Phase de jeu}
+%%Parler du fait que le but c de gagner le plus de parties et/ou le plus de jetons
+
+
+\chapter{Calcul du profil d'un joueur}
+
+\section{Rationalité}
 
 \hspace{0.5cm}Afin de calculer le taux de rationalité d'un joueur pendant une partie, nous avons choisi de nous baser sur une courbe correspondant aux pourcentages théoriques de rationalité en fonction des chances de gagner. A partir de cette courbe, nous avons décidé de calculer la mise le joueur aurait dû théoriquement mettre en jeu en nous basant sur quatre paliers, comme on peut le voir dans la formule suivante. \par
 
@@ -420,7 +429,7 @@ Après avoir calculé la mise théorique que le joueur aurait dû faire, nous la
 Rationalit\acute{e} = 100-abs(M_{th}-M_{r\acute{e}elle})
 \end{align*}
 
-\subsection{Calcul de l'agressivité d'un joueur}
+\section{Agressivité}
 
 \hspace{0.5cm}De même que pour la rationalité, pour calculer le pourcentage d'agressivité d'un joueur pendant une partie, nous avons choisi de nous baser sur un système de paliers, en prenant en compte trois paramètres : le pourcentage de mises, le total des mises qui est exprimé en pourcentage de jetons par rapport aux jetons de départ du joueur et la mise la plus haute du joueur, elle aussi exprimée en pourcentage de jetons par rapport aux jetons de base.\par
 De même que précédemment, pour chaque palier, on va regarder si la mise la plus haute (mph) est comprise entre mph1 (mise la plus haute 1) et mph2. Une fois le palier trouvé, on calcule le pourcentage d'agressivité théorique qui sera compris entre ag1 et ag2. \par
@@ -452,7 +461,7 @@ Pour le dernier palier, nous ne nous basons pas sur la formule précédente mais
 	y=\left(x*\frac{100-mph}{100}\right)
 \end{align*}
 
-\subsection{Calcul du bluff d'un joueur}
+\section{Bluff}
 
 \hspace{0.5cm}Étant donné le fait que nous partons du principe que le bluff est l'inverse de la rationalité, nous calculons le taux de bluff en utilisant la formule suivante : \par
 
@@ -461,7 +470,7 @@ Pour le dernier palier, nous ne nous basons pas sur la formule précédente mais
 \end{align*}
 
 
-\subsection{Calcul de la passivité d'un joueur}
+\section{Passivité}
 
 \hspace{0.5cm}Nous avons décidé que le taux de passivité d'un joueur se calcule en fonction du nombre de fois où il a suivi et du nombre de fois où il a check. De ce fait, nous avons choisi d'établir la formule suivante pour calculer le taux de passivité d'un joueur : \par
 \begin{align*}
@@ -469,16 +478,8 @@ Pour le dernier palier, nous ne nous basons pas sur la formule précédente mais
 \end{align*}
 
 
-\section{Profilage statique}
 
-\section{Réutilisation des résultats du profilage}
-
-%\section{Profilage dynamique}
-%
-%\section{Réutilisation des résultats du profilage}
-
-
-\chapter{Mise en place des méthodes de profilage}
+\chapter{Méthodes de profilage}
 
 \section{Calibrage des intelligences artificielles}
 
@@ -514,7 +515,6 @@ Si elle peut miser, alors elle joue la mise théorique courante en faisant atten
 
 Dans le cas où l'adversaire a misé/relancé, alors l'intelligence artificielle va comparer la mise théorique courante avec la mise adverse et la valeur de relance minimum. Dans le cas où le mise théorique est inférieure à la valeur de suivi -10\% alors on se couche, pour ne  pas miser trop haut en suivant. Si celle-ci est comprise entre le taux de suivi $\pm$ 10\%, on suit.
 Dans le cas ou la relance est inférieure ou égale à la valeur à miser +10\% , on relance de la valeur la plus proche de la mise théorique. Sinon on suit.\par
-%%$\leq$ remplacé par "inférieure ou égale". A discuter.
 
 
 A la suite de ces changements nous avons également revu la sélection entre les actions d'agressivité et de rationalité, une fois ces deux dernières calculées.\par
@@ -528,19 +528,25 @@ Enfin, il reste la possibilité que les actions soient différentes. Ici on dist
 
 \end{itemize}
 
-\section{Profilage statique}
-\subsection{Scénarios de tests}
 
+\section{Scénarios de tests}
+%\subsection{Mise en place des scénarios}
 \hspace{0.5cm}Afin de pouvoir évaluer le profilage effectué par l'intelligence artificielle, il nous a été conseillé de se baser sur la différence entre l'action attendue du joueur adverse, puis son action réelle. De ce fait, il est possible de déterminer facilement l'efficacité du profilage, en analysant cette différence entre l'attendu et le réel.\par
 Pour que l'intelligence artificielle qui effectue le profil puisse connaître le comportement attendu d'un joueur à partir d'une situation donnée, nous avons établi l'ensemble des scénarios possibles. Chaque scénario se base sur le calibrage de l'intelligence artificielle qui profile (son agressivité), ainsi que ses chances de gain. Pour chacune de ces situations, on établit le comportement attendu rationnellement par le joueur adverse, exprimé sous forme de taux d'agressivité. Ce sont ces données qui sont utilisées pour calculer la différence des actions attendues et réelles.\\
 
-\subsection{Test du profilage}
+%\subsection{Analyse des résultats}
+\hspace{0.5cm}Pour facilement déterminer si le profilage établi est efficace, et également déterminer le nombre de parties nécessaires pour profiler, nous avons ajouté dans un .csv le profil global établi au fûr et à mesure des parties, le taux de similarité entre le profilage établi et le calibrage réel de l'adversaire. Nous avons donc pu ajuster le nombre de parties selon cette valeur de similarité.\par
+Suite à plusieurs tests, nous avons observé qu'au bout de 10 ou 15 parties, nous arrivions à obtenir un profilage satisfaisant, et que celui-ci ne tendait pas à s'améliorer, même en jouant plus de parties.\\
+	
+Afin de pouvoir obtenir des résultats facilement visibles, nous avons également produit des graphes représentant le profilage établi du joueur en fonction du nombre de parties, et une constante correspondant au calibrage à déterminer.\\
+
+\section{Test du profilage}
 
 \hspace{0.5cm}Afin d'obtenir un résultat des données de profilage au bout de plusieurs parties, nous enregistrons à la fin de chaque partie une ligne de résultats dans un fichier csv à partir des données du fichier contenant les données de chaque partie. Cette ligne contient la situation du jeu (calibrage de l'interface graphique et chances de gain), les taux d'agressivité et de rationalité attendus, les taux réels et la distance entre ces deux. Enfin une moyenne des taux attendus est mise à jour à chaque ajout, c'est elle qui va donner le profilage obtenu au bout de x parties.\par
 Cela va donc permettre le lancement de plusieurs parties intelligence artificielle contre intelligence artificielle, pour obtenir un profilage rapidement. Suite à ces résultats, il est alors possible de réaliser des courbes permettant d'observer la convergence entre le profil établi, et le calibrage de l'intelligence artificielle profilée. La distance doit alors être de plus en plus proche de zéro.
 
 
-\subsection{Établissement des profils attendus}
+\section{Établissement des profils attendus}
 
 \hspace{0.5cm}Pour calculer une action attendue, c'est à dire un taux d'agressivité et de rationalité attendu pour le joueur, l'intelligence artificielle utilise lors des premières parties les scénarios de tests établis.\par
 Mais une fois le profilage lancé, et les premiers résultats obtenus, la méthode de profilage peut alors commencer à se servir des situations précédentes pour calculer l'action attendue d'un joueur. En effet, selon la situation, il est possible de déterminer quelle va être l'action du joueur en se référant aux scénarios de tests conçus, qui sont communs à tous les joueurs, mais également en se référant aux parties précédentes, si l'on a déjà testé sa réaction précédemment dans une situation équivalente. Une situation équivalente est ici considérée à partir du taux d'agressivité du joueur adverse au joueur, donc l'intelligence artificielle qui profile, et des chances de gain du joueur. A partir de cette méthode, la valeur d'une action réelle dans une situation va permettre de donner la valeur d'une action attendue dans une prochaine partie. Cette méthode va ici nous permettre de profiler le joueur plus rapidement, en réutilisant les résultats précédents.\par
@@ -548,31 +554,17 @@ Pour effectuer cette réutilisation, plusieurs méthodes ont été considérées
 Une seconde méthode a été de limiter la réutilisation des actions réelles comme actions attendues en considérant l'équivalence entre les parties. Toujours en prenant en compte les valeurs d'agressivité et des chances de gain, les pourcentages doivent alors ne varier que de 10\% maximum par exemple, pour que l'on puisse considérer la situation comme équivalente, et donc considérer les actions effectuées comme action attendues pour la partie courante. Ici on prend toujours la situation la plus proche, mais seulement parmi les parties dites équivalentes. Et donc dans le cas où les valeurs sont trop éloignées, on se réfère aux scénarios de tests.\par
 Enfin, il est aussi possible de prendre une situation dans laquelle la distance est la plus petite.
 
-\subsection{Réutilisation des résultats du profilage}
+
+
+
+\chapter{Analyse des gains de parties}
 
 \hspace{0.5cm}Une fois un profil établi, nous pouvons alors faire jouer l'intelligence artificielle en fonction des résultats obtenus, dans le but de lui faire gagner le plus de parties possibles. Lors de cette étape le profilage est interrompu, et on utilise le comportement déduit pour calibrer l'intelligence artificielle de façon à ce qu'elle puisse gagner face à ce type de joueur.\par
+
+\section{Un premier calibrage inefficace}
+
 Pour une première version, nous avons choisi de seulement prendre en compte le profil final établi et d'attribuer un calibrage selon divers paliers. Ici on prend en compte trois paliers pour l'agressivité ainsi que pour la rationalité. De 0 à 40\% pour le premier palier, 40 à 60\% pour une valeur moyenne puis de 60 à 100\% pour la palier haut. Nous avons déduit les calibrage correspondants à chaque palier du joueur profilé, les résultats sont présentés dans le tableau suivant.\\
 %%%TODO: faire et mettre le tableau%%%
-
-%\section{Profilage dynamique}
-%\subsection{Scénarios de tests}
-%\subsection{Établissement des profils attendus}
-%\subsection{Réutilisation des résultats du profilage}
-
-
-\chapter{Analyse des résultats obtenus}
-
-\section{Profilage statique}
-\subsection{Scénarios de tests}
-
-% A mettre dans Chapitre 4 ??
-
-\hspace{0.5cm}Pour facilement déterminer si le profilage établi est efficace, et également déterminer le nombre de parties nécessaires pour profiler, nous avons ajouté dans un .csv le profil global établi au fûr et à mesure des parties, le taux de similarité entre le profilage établi et le calibrage réel de l'adversaire. Nous avons donc pu ajuster le nombre de parties selon cette valeur de similarité.\par
-Suite à plusieurs tests, nous avons observé qu'au bout de 10 ou 15 parties, nous arrivions à obtenir un profilage satisfaisant, et que celui-ci ne tendait pas à s'améliorer, même en jouant plus de parties.\\
-	
-Afin de pouvoir obtenir des résultats facilement visibles, nous avons également produit des graphes représentant le profilage établi du joueur en fonction du nombre de parties, et une constante correspondant au calibrage à déterminer.\\
-
-\subsection{Analyse des gains de parties}
 
 \hspace{0.5cm}Le but de notre intelligence artificielle étant, une fois un profilage correctement établi, de pouvoir augmenter son gain de parties mais aussi son gain d'argent. Nous avons donc renseigné dans l'application le nombre de parties au bout desquelles l'intelligence artificielle va pouvoir arrêter le profilage, et donc adapter elle-même son calibrage pour pouvoir gagner un maximum de parties.\\
 
@@ -583,16 +575,21 @@ Comme dit précédemment dans la partie 3.4, nous avons testé plusieurs types d
 La figure suivante représente les calibrages que nous avions établis au départ par rapport aux profils trouvés. Après avoir effectué quelques tests, nous nous sommes vite rendus compte que dans l'ensemble, l'intelligence artificielle ne gagnait pas assez par rapport à nos attentes. 
 
 %%TODO: mettre le premier calibrage choisi, des courbes montrant ses résultats, puis mettre une autre calibrage meilleur et des courbes le représentant.
- 
- 
+
+
+\section{Recherche du calibrage optimal}
 %%TODO: parler des 3h de tests pour trouver le calibrage optimal, mettre une courbe pour montrer les résultats et comparer les résultats avec les calibrages précédents %% 
+
+\section{Résultats}
+
+
+ 
+ 
+
  
 Suite à ces résultats, nous avons donc pu produire des courbes de gain en fonction du nombre de parties jouées, et aussi en fonction du mode de jeu de l'intelligence artificielle (profilage ou jeu pour gagner). Nous avons également pu afficher dans une même graphe entre les courbes de profilage et courbe de gain.\par
 Dans le but de rendre plus significative la courbe de profilage, et donc de mieux voir la corrélation entre les deux courbes, nous avons modifié l'affichage de la courbe de profilage. En effet, selon le calibrage à déterminer, la variation de la courbe n'est pas la même. Nous avons donc fait en sorte que celle-ci corresponde à la différence entre le profilage établi et le calibrage réel. Ainsi, plus cette courbe diminue, plus le profilage établi est précis. Et donc plus cette courbe diminue, plus la courbe de gain est supposée augmenter.\\
  
-%\section{Profilage dynamique}
-%\subsection{Analyse des gains de parties}
-
 
 \chapter{Perspectives et conclusion}
 \section{Perspectives d'amélioration du profilage}
