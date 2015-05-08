@@ -49,7 +49,7 @@ void IntelligenceArtificielleProfilage::setPseudoJoueurProfile(std::string pseud
     Profil calibrageRecherche;
     if (!jeu->getJoueur(0)->estHumain()) {
         IntelligenceArtificielle *iaProfilee = static_cast<IntelligenceArtificielle*>(jeu->getJoueur(0));
-        calibrageRecherche = iaProfilee->getCalibrage();
+        calibrageRecherche = *(iaProfilee->getCalibrage());
     }
 
     scenario = new ScenariosDeTests(&profilJoueur, resolveur->getCalibrage(), calibrageRecherche);
@@ -138,7 +138,7 @@ void IntelligenceArtificielleProfilage::calculProfilGlobalJoueur() {
 
     RESULTAT_PARTIE resultatPartie = getJeu()->getResultatPartie();
     if(resultatPartie==GAGNE){
-        profilage->nbJetonsGagnesIAQuiProfile=-(getJeu()->getJoueur(getJeu()->getPositionJoueurAdverse(getPosition()))->getCave()-CAVE_JOUEURS);
+        profilage->nbJetonsGagnesIAQuiProfile=getCave()-CAVE_JOUEURS;
         resultatPartie=PERDU;
     }
     else if(resultatPartie==PERDU){
@@ -158,7 +158,7 @@ void IntelligenceArtificielleProfilage::calculProfilGlobalJoueur() {
 
 void IntelligenceArtificielleProfilage::ecritureScenariosDeTests() {
     // Si on profile le joueur
-    if (continuerProfilage) {
+    if (continuerProfilage && !(CALCUL_CALIBRAGE_IDEAL)) {
         scenario->setCalibrageActuelIA(resolveur->getCalibrage());
         scenario->setChancesDeGain(profilage->etatPartie[ETAPE_JEU::NB_ETAPES].probaGainAdversaire);
         continuerProfilage = scenario->sauvegarderPartie();
@@ -171,7 +171,7 @@ double IntelligenceArtificielleProfilage::calculValeurProportionnelle(double min
 
 void IntelligenceArtificielleProfilage::setCalibragePourJouer() {
 
-    if (!continuerProfilage) {
+    if (!continuerProfilage && !(CALCUL_CALIBRAGE_IDEAL)) {
 
         /////// Lecture du profilage déduit global du joueur  //////////
 

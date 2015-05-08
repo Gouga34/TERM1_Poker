@@ -10,8 +10,17 @@ IntelligenceArtificielle::IntelligenceArtificielle(bool estDealer, int jetons, i
     :Joueur(estDealer, jetons, position) {
     resolveur = new Resolveur(this);
 
-    double agressivite=rand()%100+1;
-    double rationalite=rand()%100+1;
+    double agressivite;
+    double rationalite;
+
+    if (CALCUL_CALIBRAGE_IDEAL && position == 0) {
+        agressivite = 78;
+        rationalite = 16;
+    }
+    else {
+        agressivite=rand()%100+1;
+        rationalite=rand()%100+1;
+    }
 
     Profil p;
     p.setAgressivite(agressivite);
@@ -121,8 +130,8 @@ double IntelligenceArtificielle::calculProba(){
 	return probabilite;
 }
 
-Profil IntelligenceArtificielle::getCalibrage() const {
-    return *(resolveur->getCalibrage());
+Profil* IntelligenceArtificielle::getCalibrage() {
+    return resolveur->getCalibrage();
 }
 
 void IntelligenceArtificielle::setCalibrage(Profil profil) {

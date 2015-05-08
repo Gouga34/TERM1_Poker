@@ -22,7 +22,8 @@ SOURCES += \
     src/Profilage/ScenariosDeTests.cpp \
     src/IA/IntelligenceArtificielleProfilage.cpp \
     src/Jeu/Action.cpp \
-    src/Jeu/JoueurHumain.cpp
+    src/Jeu/JoueurHumain.cpp \
+    src/IA/CalibrageIdeal.cpp
 
 
 QT+=widgets
@@ -51,7 +52,8 @@ HEADERS += \
     include/Profilage/ScenariosDeTests.h \
     include/IA/IntelligenceArtificielleProfilage.h \
     include/Jeu/Action.h \
-    include/Jeu/JoueurHumain.h
+    include/Jeu/JoueurHumain.h \
+    include/IA/CalibrageIdeal.h
 
 CONFIG += c++11
 

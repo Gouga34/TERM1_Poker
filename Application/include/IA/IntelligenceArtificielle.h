@@ -58,7 +58,7 @@ class IntelligenceArtificielle : public Joueur {
         /**
          * @return Calibrage de l'IA
          */
-        Profil getCalibrage() const;
+        Profil* getCalibrage();
 
         /**
          * @action Modifie les valeurs de calibrage de l'IA
