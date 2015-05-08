@@ -628,7 +628,17 @@ La figure suivante représente les calibrages que nous avions établis au dépar
 
 
 \section{Recherche du calibrage optimal}
-%%TODO: parler des 3h de tests pour trouver le calibrage optimal, mettre une courbe pour montrer les résultats et comparer les résultats avec les calibrages précédents %% 
+
+	Puisque les premières réponses face à un profilage établi pour gagner le plus de parties et de jetons possibles n'étaient pas concluantes, nous avons établi des tests permettant de déterminer un calibrage optimal.\par
+Pour cela, nous avons lancé une série de parties en faisant varier le calibrage de l'intelligence artificielle qui profile. Nous avons fait varier chacun des paramètres, agressivité et rationalité, de 15 en 15 de la façon suivante.
+15 - 30 - 45 - 60 - 75 - 90 - 100
+
+Nous avons ensuite effectué le produit cartésien entre les deux listes pour obtenir tous les calibrages possibles (par exemple 15-15, 15-30...). Puis pour chaque calibrage, nous avons lancé 40 parties.\par
+
+Nous récupérions à la fin des 40 parties le taux de parties gagnées ainsi que le nombre de jetons gagnés ou perdus.
+
+%%% TODO : Mettre courbe et l'expliqer %%%
+
 
 \section{Résultats}
 
