@@ -13,10 +13,6 @@
 \author{}
 \date{}
 
-%%%%%%%%%%%%%%%%%%%%%%%TODO%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Trouver un endroit où siter les thèses. %%%%%%%%%%
-%% Faire carément une partie dessus ? (Pompidor %%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \renewcommand{\contentsname}{Table des matières}
@@ -362,6 +358,32 @@ De plus, chaque commit effectué sur le projet Git devra avoir une description e
 \section{Analyse de l'existant}
 %%Présenter les articles
 
+%%Ebauches d'infos sur ce qui est contenu par les articles
+
+Articles parlant de la table de poids :
+Improved Opponent Modeling in Poker
+Player Profiling In Texas Holdem
+
+Table de frequence de "paris" : 
+Improved Opponent Modeling in poker
+
+Facteurs à prendre en compte pour le profilage :
+Improved Opponent Modeling : montant pot
+
+
+Poker as a testbed for AI research (Loki-1):
+- force main calculée au flop, turn et river
+- stratégie : déterminer quelle action est la meilleure
+			prendre en compte : -force main
+								-profil établi
+- profil adversaire : faible/fort agressif/passif
+
+
+
+Probabilities and simulations in poker (Loki-1 et Loki-2):
+- profilage dynamique : triplets de proba : fold,call,raise
+- table de poids (OM)
+
 \section{Système de jeu}
 
 \subsection{Deux joueurs}
@@ -523,11 +545,20 @@ Finalement, l'agressivité est calculée comme suit.
 \subsection{Résolveur basique}
 %%Celui de Benjamin
 \subsection{Résolveur avec calibrage}
+%%
+
 \section{Estimation des chances de gain}
-%Calculette proba préflop
-%100 000 tir	ages
+%%Calculette probas préflop
+\hspace{0.5cm}Pour calculer les chances de gain d'un joueur au préflop, nous avons récupéré une calculette de probabilité permettant de connaître les chances de gains pour chaque paire de cartes, dans une partie à deux joueurs. Nous avons donc utilisé cette calculette afin de déterminer au préflop les chances de gain d'un joueur. Par la suite, il nous fallait donc aussi pouvoir calculer les chances de gain aux étapes suivantes, en fonction des cartes découvertes sur la table. 
 
+%%100 000 tirages
+Au départ, nous devions récupérer une calculette de probabilités afin de calculer les chances de gain d'un joueur aux étapes flop, turn et river. Finalement, nous avons dû développer notre propre calculette de probabilités. Nous avons choisi de nous baser sur une estimation des chances de gain d'une main en effectuant X tirages aléatoires de mains. Après chaque tirage aléatoire, nous évaluions quelle main serait la gagnante. De ce fait, nous avions les chances de gain de l'intelligence artificielle. Si une confrontation entre deux mains nous donnais comme résultat une égalité, nous avons décidé de ne pas la compter comme un gain.
+Nous avons donc effectué plusieurs tests avec plusieurs nombres de tirages différents. Nous comparions les résultats avec des calculettes de probabilités en ligne, ce qui nous permettais de vérifier l'exactitude des résultats.
+Comme on peut le voir dans l'exemple suivant, nous nous sommes vite rendus compte que 100 000 tirages aléatoires permettaient d'avoir des chances de gain précises à plus ou moins 5\%. Si nous augmentions encore le nombre de tirage, les chances de gains étaient à peine plus précises et cela augmentait de façon significative le temps de calcul.
 
+%%%Exemple avec 50 000 tirages, 100 000 et 150 000 tirages, pour une même main.
+
+L'implémentation de cette fonctionnalité ayant considérablement ralenti l'application, nous avons choisi de multi-threader l'estimation des chances de gain. En effet, à chaque nouvelle étape, 100 000 tirages étaient effectués, avec 100 000 comparaisons entre la main effective et celle tirée aléatoirement. De plus, lorsque nous faisions jouer deux intelligences artificielles l'une contre l'autre, le temps d'attente pour avoir le résultat de la partie était multiplié par deux. Comme notre but final n'était pas de lancer une partie mais beaucoup plus, nous avons rapidement décidé de rendre cette exécution plus rapide en multi-threadant les calculs.
 
 \chapter{Méthodes de profilage}
 
