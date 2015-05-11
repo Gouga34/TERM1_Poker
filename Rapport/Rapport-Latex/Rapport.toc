@@ -43,15 +43,15 @@
 \contentsline {chapter}{\numberline {6}M\IeC {\'e}thodes de profilage}{34}
 \contentsline {section}{\numberline {6.1}Sc\IeC {\'e}narios de tests}{34}
 \contentsline {subsection}{\numberline {6.1.1}Mise en place des sc\IeC {\'e}narios}{34}
-\contentsline {subsection}{\numberline {6.1.2}Analyse des r\IeC {\'e}sultats}{34}
-\contentsline {section}{\numberline {6.2}Test du profilage}{35}
-\contentsline {section}{\numberline {6.3}\IeC {\'E}tablissement des profils attendus}{35}
-\contentsline {chapter}{\numberline {7}Analyse des gains de parties}{37}
-\contentsline {section}{\numberline {7.1}Un premier calibrage inefficace}{37}
-\contentsline {section}{\numberline {7.2}Recherche du calibrage optimal}{38}
-\contentsline {section}{\numberline {7.3}R\IeC {\'e}sultats}{38}
-\contentsline {chapter}{\numberline {8}Perspectives et conclusion}{39}
-\contentsline {section}{\numberline {8.1}Perspectives d'am\IeC {\'e}lioration du profilage}{39}
-\contentsline {section}{\numberline {8.2}Profilage obtenu}{39}
-\contentsline {chapter}{\numberline {A}Planification pr\IeC {\'e}visionnelle}{41}
-\contentsline {chapter}{\numberline {B}Planification r\IeC {\'e}elle}{43}
+\contentsline {subsection}{\numberline {6.1.2}Analyse des r\IeC {\'e}sultats}{35}
+\contentsline {section}{\numberline {6.2}Test du profilage}{36}
+\contentsline {section}{\numberline {6.3}\IeC {\'E}tablissement des profils attendus}{36}
+\contentsline {chapter}{\numberline {7}Analyse des gains de parties}{38}
+\contentsline {section}{\numberline {7.1}Un premier calibrage inefficace}{38}
+\contentsline {section}{\numberline {7.2}Recherche du calibrage optimal}{39}
+\contentsline {section}{\numberline {7.3}R\IeC {\'e}sultats}{39}
+\contentsline {chapter}{\numberline {8}Perspectives et conclusion}{40}
+\contentsline {section}{\numberline {8.1}Perspectives d'am\IeC {\'e}lioration du profilage}{40}
+\contentsline {section}{\numberline {8.2}Profilage obtenu}{40}
+\contentsline {chapter}{\numberline {A}Planification pr\IeC {\'e}visionnelle}{42}
+\contentsline {chapter}{\numberline {B}Planification r\IeC {\'e}elle}{44}

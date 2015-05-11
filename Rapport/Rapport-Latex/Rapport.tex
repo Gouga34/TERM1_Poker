@@ -564,7 +564,9 @@ Pour notre première version du calibrage, nous avons choisi de calculer une act
 Pour le choix de l'action agressive, le calcul se base sur une mise théorique d'agressivité en fonction des mêmes paliers établis que pour le profilage. Puis, afin de respecter le pourcentage d'agressivité donné à l'intelligence artificielle, nous avons dans un premier temps pensé à alterner entre action agressive et action passive en fonction du calibrage. En effet, le profilage de l'agressivité s'effectue selon trois critères : la fréquence de mises, la mise la plus haute et le montant total des mises. De ce fait, afin que notre intelligence artificielle ne mise pas de façon constante, nous avons pensé à générer un nombre aléatoire entre un et cent et le comparer au taux d'agressivité donné pour choisir l'action. Par exemple, si le calibrage d'agressivité vaut 70\%, alors si le nombre aléatoire est compris entre 0 et 70, on effectue une action de mise cohérente selon la mise théorique (une mise, une relance ou un suivi selon la situation), et si au contraire le nombre est compris entre 70 et 100, on choisit une action passive.\par
 
 
+
 Le choix de l'action rationnelle était basé sur le même principe. La mise théorique de rationalité est calculée en fonction des chances de gain de l'intelligence artificielle, puis de la même manière que pour l'agressivité, un nombre aléatoire détermine si on effectue une action rationnelle ou non. Si on a une valeur de rationalité entre zéro et le taux, alors on choisit une action rationnelle, qui correspond à la mise théorique et qui varie selon la situation actuelle du jeu. Sinon, on liste l'ensemble des actions irrationnelles, comme une mise en dessous ou en dessus de la mise théorique, puis pour renforcer l’irrationalité, et donc l'imprévisibilité du joueur, la sélection de l'action parmi toutes celles considérées comme irrationnelles se fait de façon aléatoire.\par
+
 Enfin, une fois les deux actions calculées, une sélection aléatoire est faite entre ces deux actions, avec les chances de sélection proportionnelles aux valeurs de calibrage.\\
 
 \hspace{0.5cm}Par la suite nous avons revu le calibrage de l'agressivité qui n'était pas assez précis. En effet, comme pour calibrer la rationalité, nous laissions une part de hasard dans le calcul de l'action de l'intelligence artificielle. Ceci avait pour effet de produire des résultats parfois trop éloignés du calibrage de départ.\par
@@ -613,6 +615,7 @@ A la suite de ces changements nous avons également revu la sélection entre les
 
 Une fois que le calibrage nous a donné l'action agressive et l'action rationnelle, on effectue une fusion entre les deux. Dans les cas où les deux actions sont identiques, l'action est prise. Si ce sont toutes les deux des mises/relances, on prend la moitié du nombre de jetons, proportionnellement aux pourcentages de calibrage.
 
+
 En prenant l'exemple suivant, on considère une intelligence artificielle ayant un taux d'agressivité égal à  70\% et un taux de rationalité égal à 20\%, et des actions de mises choisies dans chacun des cas, avec une mise de 300 jetons pour l'action correspondant au taux d'agressivité et une mise de 50 jetons pour l'action de rationalité. Nous prenons donc une mise comprise entre le minimum et le maximum. Cette mise aura donc plus de chances d'être proche de la mise du taux le plus fort, c'est à dire ici, proche de 300. Après avoir effectué le calcul, on obtient une mise égale à 244 jetons. Comme dit précédemment, ce résultat est proche de 300 puisque l'intelligence artificielle est calibrée à 70\% d'agressivité et à seulement 20\% de rationalité.
 
 \begin{figure}[H]
@@ -657,7 +660,9 @@ Enfin, il reste la possibilité que les actions soient différentes. Ici on dist
 \renewcommand{\labelitemi}{-}
 \item on arrive à déterminer une action représentant un juste milieu, par exemple si les deux actions sont se coucher et relancer, on fait suivre l'intelligence artificielle. Dans le cas où on a checker / miser, on considère l'action checker comme miser 1 et on effectue le calcul de la mise moyenne expliqué ci-dessus.
 \item sinon on tire aléatoirement l'action parmi les deux, toujours en prenant en compte les pourcentages du calibrage. 
+
 En reprenant les valeurs de calibrage de l'exemple précédent, à savoir 70\% d'agressivité et 20\% de rationalité, et les actions suivantes, suivre pour l'action agressive et se coucher pour l'action rationnelle. Dans ce cas, l'action à effectuer sera choisie aléatoirement entre les deux. Pour cela, un nombre aléatoire est généré dans l'intervalle [0 - somme], où somme correspond à l'addition des taux d'agressivité et de rationalité. Dans ce cas, il s'agira d'un nombre entre 0 et 90. Si le nombre obtenu est compris entre 0 et la valeur du taux d'agressivité, alors on choisit l'action agressive, sinon on prend l'action rationnelle.
+
 
 \end{itemize}
 
@@ -672,6 +677,12 @@ Nous avons alors choisi de nous baser sur une estimation des chances de gain d'u
 Nous avons donc effectué plusieurs tests avec plusieurs nombres de tirages différents. Nous comparions les résultats avec des calculettes de probabilités en ligne, ce qui nous permettait de vérifier l'exactitude des résultats.
 Comme on peut le voir dans l'exemple suivant, nous nous sommes vite rendus compte que 100 000 tirages aléatoires permettaient d'avoir des chances de gain précises à plus ou moins 5\%. Si nous augmentions encore le nombre de tirage, les chances de gains étaient à peine plus précises et cela augmentait de façon significative le temps de calcul.
 
+
+%%A faire en modifiant le code (ds l'interfacegraphique, ia ne calcule pas ses chances de gain...)
+Calculette de probabilités en ligne : 
+100 000 tirages : 
+150 000 tirages : 
+50 000 tirages : 
 %%%Exemple avec 50 000 tirages, 100 000 et 150 000 tirages, pour une même main.
 
 L'implémentation de cette fonctionnalité ayant considérablement ralenti l'application, nous avons choisi de multi-threader l'estimation des chances de gain. En effet, à chaque nouvelle étape, 100 000 tirages étaient effectués, avec 100 000 comparaisons entre la main effective et celle tirée aléatoirement. De plus, lorsque nous faisions jouer deux intelligences artificielles l'une contre l'autre, le temps d'attente pour avoir le résultat de la partie était multiplié par deux. Comme notre but final n'était pas de lancer une partie mais beaucoup plus, nous avons rapidement décidé de rendre cette exécution plus rapide en parallélisant les calculs.
@@ -683,15 +694,61 @@ L'implémentation de cette fonctionnalité ayant considérablement ralenti l'app
 \subsection{Mise en place des scénarios}
 
 \hspace{0.5cm}Afin de pouvoir évaluer le profilage effectué par l'intelligence artificielle, il nous a été conseillé d'étudier la différence entre l'action attendue du joueur adverse, et son action réelle. De ce fait, il est possible de déterminer facilement l'efficacité du profilage, en analysant la différence entre l'attendu et le réel.\par
+
 Pour que l'intelligence artificielle qui effectue le profil puisse connaître le comportement attendu d'un joueur à partir d'une situation donnée, nous avons établi l'ensemble des scénarios possibles. Chaque scénario se base sur l'agressivité de l'intelligence artificielle qui profile, ainsi que sur ses chances de gain. Pour chacune de ces situations, le comportement attendu rationnellement par le joueur adverse est établi. Il est exprimé sous la forme d'un taux d'agressivité. La différence entre l’action attendue et réelle peut alors être calculée.
 
-%%%TODO ajouter tableau scenarios de tests et faire le texte expliquant%%%
+\begin{figure}[H]
+\begin{center}
+\begin{tabular}{|l|l|l|l|}
+	\hline
+   Agressivité IA & Chances de gain IA & Agressivité attendue & Rationalité attendue\\
+   \hline
+   75-100 & 75-100 & 0 & 50\\
+   \hline
+   75-100 & 50-75 & 0-25 & 50\\
+   \hline
+   75-100 & 35-50 & 50-75 & 50\\
+   \hline
+   75-100 & 0-35 & 75-99 & 50\\
+   \hline
+   50-75 & 75-100 & 0 & 50\\
+   \hline
+   50-75 & 50-75 & 25-50 & 50\\
+   \hline
+   50-75 & 35-50 & 50-75 & 50\\
+   \hline
+   50-75 & 0-35 & 75-99 & 50\\
+   \hline
+   35-50 & 75-100 & 0-25 & 50\\
+   \hline
+   35-50 & 50-75 & 25-50 & 50\\
+   \hline
+   35-50 & 35-50 & 50-75 & 50\\
+   \hline
+   35-50 & 0-35 & 99-100 & 50\\
+   \hline
+   0-35	 & 75-100 & 25-50 & 50\\
+   \hline
+   0-35 & 50-75 & 50-75 & 50\\
+   \hline
+   0-35 & 35-50 & 75-99 & 50\\
+   \hline
+   0-35 & 0-35 & 99-100 & 50\\
+   \hline
+\end{tabular}	
+\end{center}
+\caption{Actions attendues}
+\end{figure}
+
+Le tableau ci-dessus représente les actions attendues de base, sans que l'on ait encore commencé à profiler le joueur. Comme on peut le voir, nous avons choisi de mettre par défaut la rationalité attendue à 50\%. Pour le taux de rationalité, nous le calculons en fonction des chances de gain de l'intelligence artificielle qui profile ainsi qu'en fonction de son taux d'agressivité. Prenons par exemple une intelligence artificielle calibrée à 80\% agressive et ayant 80\% de chances de gagner, on s'attend dans ce cas là à ce que le joueur adverse se couche. En effet, si l'intelligence artificielle qui profile a 80\% de chances de gagner, il y a de fortes chances que le joueur adverse ait un jeu moins bon donc, il y a de fortes chances que le joueur adverse se couche.\\
+
 
 Lors des différentes parties de profilage, le calibrage de l'intelligence artificielle qui profile est tiré aléatoirement à chaque nouvelle partie. En effet, afin de profiler au mieux, nous analysons sa réaction face à différents types de joueurs.\par
 
 \subsection{Analyse des résultats}
 
 \hspace{0.5cm}Pour facilement déterminer si le profilage établi est efficace, et également déterminer le nombre de parties nécessaires pour profiler, nous avons ajouté dans un .csv le profil global établi au fur et à mesure des parties, le taux de similarité entre le profilage établi et le calibrage réel de l'adversaire. Nous avons donc pu ajuster le nombre de parties selon cette valeur de similarité.\par
+
 Suite à plusieurs tests, nous avons observé qu'au bout de 10 ou 15 parties, nous arrivions à obtenir un profilage satisfaisant, et que celui-ci ne tendait pas à s'améliorer, même en jouant plus de parties.\\
 	
 Afin de pouvoir obtenir des résultats facilement visibles, nous avons également produit des graphes représentant le profilage établi du joueur en fonction du nombre de parties, et une constante correspondant au calibrage à déterminer.\\
