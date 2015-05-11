@@ -33,7 +33,7 @@
 \contentsline {chapter}{\numberline {4}Calcul du profil d'un joueur}{26}
 \contentsline {section}{\numberline {4.1}Rationalit\IeC {\'e}}{26}
 \contentsline {section}{\numberline {4.2}Agressivit\IeC {\'e}}{27}
-\contentsline {section}{\numberline {4.3}Bluff}{27}
+\contentsline {section}{\numberline {4.3}Bluff}{28}
 \contentsline {section}{\numberline {4.4}Passivit\IeC {\'e}}{28}
 \contentsline {chapter}{\numberline {5}Intelligence artificielle}{29}
 \contentsline {section}{\numberline {5.1}R\IeC {\'e}solveur}{29}

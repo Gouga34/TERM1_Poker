@@ -414,7 +414,6 @@ Nous avons ensuite ajouté le gagnant de la partie, ainsi que les gains ou perte
 
 
 \section{Profilage}
-%%On mettra ici les données communes aux profilages statiques et dynamiques
 \hspace{0.5cm}Pour établir le profil d'un joueur, nous nous basons sur quatre taux qui seront établis en fonction du comportement du joueur adverse.\\
 
 Nous prenons d'abord en compte la rationalité du joueur, c'est à dire si le montant de ses mise ou bien ses actions sont en accord avec son jeu. Pour calculer ce taux, nous nous basons donc sur les chances de gain du joueur ainsi que sur le montant total de ses mises au cours de la partie. Comme on ne connaît pas durant la partie les cartes du joueur adverse, le taux de rationalité est calculé uniquement à la fin de la partie, après avoir déterminé le gagnant, une fois les cartes du joueur profilé visibles.\\
@@ -448,9 +447,14 @@ Dans le cadre du TER, nous nous sommes concentrés sur le profilage statique afi
 
 \hspace{0.5cm}Afin de calculer le taux de rationalité d'un joueur pendant une partie, nous avons choisi de nous baser sur une courbe correspondant aux pourcentages théoriques de rationalité en fonction des chances de gagner. 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%[ajouter un schéma de la courbe et l'expliquer] %%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.5]{./imagesRapport/courbeRationaliteMiseTheorique.jpg}
+	\end{center}
+	\caption[Mise théorique en fonction de la rationalité]{Mise théorique en fonction de la rationalité}
+\end{figure}
+
+La figure ci-dessus représente la courbe sur laquelle nous nous basons pour calculer le pourcentage de jetons par rapport à la cave de départ qu'un joueur devrait théoriquement miser en fonction de ses chances de gain. Ainsi, on peut voir qu'au départ, un joueur rationnel ne doit presque rien miser, à savoir pas plus de 15\% de ses jetons, puis, à partir du moment où ses chances de gain sont supérieures à 50\%, il doit commencer à miser beaucoup, de façon proportionnelle à ses chances de gain.
 
 A partir de cette courbe, nous avons décidé de calculer la mise que le joueur aurait dû théoriquement mettre en jeu en nous basant sur quatre paliers, comme nous pouvons le voir dans la formule suivante. \par
 
@@ -560,7 +564,7 @@ Pour notre première version du calibrage, nous avons choisi de calculer une act
 Pour le choix de l'action agressive, le calcul se base sur une mise théorique d'agressivité en fonction des mêmes paliers établis que pour le profilage. Puis, afin de respecter le pourcentage d'agressivité donné à l'intelligence artificielle, nous avons dans un premier temps pensé à alterner entre action agressive et action passive en fonction du calibrage. En effet, le profilage de l'agressivité s'effectue selon trois critères : la fréquence de mises, la mise la plus haute et le montant total des mises. De ce fait, afin que notre intelligence artificielle ne mise pas de façon constante, nous avons pensé à générer un nombre aléatoire entre un et cent et le comparer au taux d'agressivité donné pour choisir l'action. Par exemple, si le calibrage d'agressivité vaut 70\%, alors si le nombre aléatoire est compris entre 0 et 70, on effectue une action de mise cohérente selon la mise théorique (une mise, une relance ou un suivi selon la situation), et si au contraire le nombre est compris entre 70 et 100, on choisit une action passive.\par
 
 
-Le choix de l'action rationnelle était basé sur le même principe. La mise théorique de rationalité est calculée en fonction des chances de gain de l'intelligence artificielle, puis de la même manière que pour l'agressivité, un nombre aléatoire détermine si on effectue une action rationnelle ou non. Si on a une valeur de rationalité entre zéro et le taux, alors on choisit une action rationnelle, qui correspond à la mise théorique et qui varie selon la situation actuelle du jeu. Sinon, on liste l'ensemble des actions irrationnelles, comme une mise en dessous ou en dessus de la mise théorique, puis pour renforcer l'irrationnalité, et donc l'imprévisibilité du joueur, la sélection de l'action parmi toutes celles considérées comme irrationnelles se fait de façon aléatoire.\par
+Le choix de l'action rationnelle était basé sur le même principe. La mise théorique de rationalité est calculée en fonction des chances de gain de l'intelligence artificielle, puis de la même manière que pour l'agressivité, un nombre aléatoire détermine si on effectue une action rationnelle ou non. Si on a une valeur de rationalité entre zéro et le taux, alors on choisit une action rationnelle, qui correspond à la mise théorique et qui varie selon la situation actuelle du jeu. Sinon, on liste l'ensemble des actions irrationnelles, comme une mise en dessous ou en dessus de la mise théorique, puis pour renforcer l’irrationalité, et donc l'imprévisibilité du joueur, la sélection de l'action parmi toutes celles considérées comme irrationnelles se fait de façon aléatoire.\par
 Enfin, une fois les deux actions calculées, une sélection aléatoire est faite entre ces deux actions, avec les chances de sélection proportionnelles aux valeurs de calibrage.\\
 
 \hspace{0.5cm}Par la suite nous avons revu le calibrage de l'agressivité qui n'était pas assez précis. En effet, comme pour calibrer la rationalité, nous laissions une part de hasard dans le calcul de l'action de l'intelligence artificielle. Ceci avait pour effet de produire des résultats parfois trop éloignés du calibrage de départ.\par
