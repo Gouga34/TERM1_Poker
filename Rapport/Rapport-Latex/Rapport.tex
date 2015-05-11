@@ -543,35 +543,27 @@ Finalement, l'agressivité est calculée comme suit.
 \chapter{Intelligence artificielle}
 \section{Résolveur}
 \subsection{Résolveur basique}
-%%Celui de Benjamin
+
+Étant donné le fait que nous devions rapidement avoir une simple intelligence artificielle pour commencer à profiler le joueur adverse, nous avons commencé par implémenter une intelligence artificielle basique, ne se basant que sur ses chances de gain au préflop.\par 
+Nous regardions donc tout d'abord si les chances de gain étaient supérieures à 75\%. Si c'était le cas, l'intelligence artificielle se mettait alors à jouer de façon très agressive, en misant, relançant ou parfois même en faisant tapis dès que possible.\par
+Si la force du jeu de l'intelligence artificielle était supérieure à 50\%, l'intelligence artificielle suivait ou misait selon l'action possible.\par
+Enfin, si les chances de gain étaient inférieures à 50\%, l'intelligence artificielle avait le choix entre les actions suivre, checker ou encore se coucher si jamais le montant nécessaire pour rester en jeu était trop important. Notre intelligence artificielle était donc rationnelle mais n'était pas paramétrable, ce qui par la suite devait être corrigé. \par
+C'est pourquoi nous avons ensuite modifié son implémentation afin de pouvoir lui associer un comportement.\par
+
 \subsection{Résolveur avec calibrage}
-%%
 
-\section{Estimation des chances de gain}
-%%Calculette probas préflop
-\hspace{0.5cm}Pour calculer les chances de gain d'un joueur au préflop, nous avons récupéré une calculette de probabilité permettant de connaître les chances de gains pour chaque paire de cartes, dans une partie à deux joueurs. Nous avons donc utilisé cette calculette afin de déterminer au préflop les chances de gain d'un joueur. Par la suite, il nous fallait donc aussi pouvoir calculer les chances de gain aux étapes suivantes, en fonction des cartes découvertes sur la table. 
+\hspace{0.5cm}Afin de pouvoir tester facilement notre profilage, et pouvoir faire varier les actions des intelligences artificielles, nous devions pouvoir choisir le comportement de chaque intelligence artificielle. Pour cela, nous avons permis le calibrage de l'intelligence artificielle, à partir d'un taux d'agressivité et un taux de rationalité donné. Une intelligence artificielle agressive aura donc tendance à fortement miser.\\
 
-%%100 000 tirages
-Au départ, nous devions récupérer une calculette de probabilités afin de calculer les chances de gain d'un joueur aux étapes flop, turn et river. Finalement, nous avons dû développer notre propre calculette de probabilités. Nous avons choisi de nous baser sur une estimation des chances de gain d'une main en effectuant X tirages aléatoires de mains. Après chaque tirage aléatoire, nous évaluions quelle main serait la gagnante. De ce fait, nous avions les chances de gain de l'intelligence artificielle. Si une confrontation entre deux mains nous donnais comme résultat une égalité, nous avons décidé de ne pas la compter comme un gain.
-Nous avons donc effectué plusieurs tests avec plusieurs nombres de tirages différents. Nous comparions les résultats avec des calculettes de probabilités en ligne, ce qui nous permettais de vérifier l'exactitude des résultats.
-Comme on peut le voir dans l'exemple suivant, nous nous sommes vite rendus compte que 100 000 tirages aléatoires permettaient d'avoir des chances de gain précises à plus ou moins 5\%. Si nous augmentions encore le nombre de tirage, les chances de gains étaient à peine plus précises et cela augmentait de façon significative le temps de calcul.
-
-%%%Exemple avec 50 000 tirages, 100 000 et 150 000 tirages, pour une même main.
-
-L'implémentation de cette fonctionnalité ayant considérablement ralenti l'application, nous avons choisi de multi-threader l'estimation des chances de gain. En effet, à chaque nouvelle étape, 100 000 tirages étaient effectués, avec 100 000 comparaisons entre la main effective et celle tirée aléatoirement. De plus, lorsque nous faisions jouer deux intelligences artificielles l'une contre l'autre, le temps d'attente pour avoir le résultat de la partie était multiplié par deux. Comme notre but final n'était pas de lancer une partie mais beaucoup plus, nous avons rapidement décidé de rendre cette exécution plus rapide en multi-threadant les calculs.
-
-\chapter{Méthodes de profilage}
-
-\section{Calibrage des intelligences artificielles}
-
-\hspace{0.5cm}Afin de pouvoir choisir les taux d'agressivité et de rationalité de l'intelligence artificielle profilée, et pour pouvoir faire varier le comportement de celle qui le profile, il nous a fallu mettre en place un calibrage. C'est à dire qu'à partir de taux d'agressivité et de rationalité données, une intelligence artificielle doit pouvoir, quand c'est à elle de jouer, choisir une action en adéquation avec les valeurs fournies. Une intelligence artificielle agressive aura donc tendance à fortement miser.\\
+Pour cela, nous devions donc faire en sorte que les actions choisies par le résolveur soient en accord avec les taux d'agressivité et de rationalité donnés. Nous avons donc choisi de mettre en place une liste d'actions possibles pour une action agressive et de même pour une action rationnelle. Après avoir calculé les actions d'agressivité et de rationalité, nous faisions par la suite un choix entre les deux actions, afin d'avoir des actions cohérentes par rapport aux deux taux. Nous détaillerons par la suite la façon dont nous avions implémenté le choix des différentes actions et la méthode de fusion.\par
 
 Pour notre première version du calibrage, nous avons choisi de calculer une action pour chaque paramètre du calibrage, donc une action d'agressivité et une action de rationalité. Puis nous avons mis en place une méthode de sélection à partir des deux actions calculées et des taux de calibrage correspondants.\par
 Pour le choix de l'action agressive, le calcul se base sur une mise théorique d'agressivité en fonction des mêmes paliers établis que pour le profilage. Puis, afin de respecter le pourcentage d'agressivité donné à l'intelligence artificielle, nous avons dans un premier temps pensé à alterner entre action agressive et action passive en fonction du calibrage. En effet, le profilage de l'agressivité s'effectue selon trois critères : la fréquence de mises, la mise la plus haute et le montant total des mises. De ce fait, afin que notre intelligence artificielle ne mise pas de façon constante, nous avons pensé à générer un nombre aléatoire entre un et cent et le comparer au taux d'agressivité donné pour choisir l'action. Par exemple, si le calibrage d'agressivité vaut 70\%, alors si le nombre aléatoire est compris entre 0 et 70, on effectue une action de mise cohérente selon la mise théorique (une mise, une relance ou un suivi selon la situation), et si au contraire le nombre est compris entre 70 et 100, on choisit une action passive.\par
-Le choix de l'action rationnelle est basé sur le même principe. La mise théorique de rationalité est calculée en fonction des chances de gain de l'intelligence artificielle, puis de la même manière que pour l'agressivité, un nombre aléatoire détermine si on effectue une action rationnelle ou non. Si on a une valeur de rationalité entre 0 et le taux alors on choisit une action rationnelle, qui correspond à la mise théorique et qui varie selon la situation actuelle du jeu. Sinon, on liste l'ensemble des actions irrationnelles, comme une mise en dessous ou en dessus de la mise théorique, puis pour renforcer l'irrationnalité, et donc l'imprévisibilité du joueur, la sélection de l'action parmi toutes celles considérées comme irrationnelles se fait de façon aléatoire.\par
+
+
+Le choix de l'action rationnelle était basé sur le même principe. La mise théorique de rationalité est calculée en fonction des chances de gain de l'intelligence artificielle, puis de la même manière que pour l'agressivité, un nombre aléatoire détermine si on effectue une action rationnelle ou non. Si on a une valeur de rationalité entre zéro et le taux, alors on choisit une action rationnelle, qui correspond à la mise théorique et qui varie selon la situation actuelle du jeu. Sinon, on liste l'ensemble des actions irrationnelles, comme une mise en dessous ou en dessus de la mise théorique, puis pour renforcer l'irrationnalité, et donc l'imprévisibilité du joueur, la sélection de l'action parmi toutes celles considérées comme irrationnelles se fait de façon aléatoire.\par
 Enfin, une fois les deux actions calculées, une sélection aléatoire est faite entre ces deux actions, avec les chances de sélection proportionnelles aux valeurs de calibrage.\\
 
-\hspace{0.5cm}Par la suite nous avons revu le calibrage de l'agressivité qui n'était pas assez précis. En effet, comme pour calibrer la rationalité, nous laissions une part de hasard dans le calcul de l'action de l'intelligence artificielle. Ceci avait pour effet de produire des résultats trop imprévisibles, et parfois trop éloignés du calibrage de départ.\par
+\hspace{0.5cm}Par la suite nous avons revu le calibrage de l'agressivité qui n'était pas assez précis. En effet, comme pour calibrer la rationalité, nous laissions une part de hasard dans le calcul de l'action de l'intelligence artificielle. Ceci avait pour effet de produire des résultats parfois trop éloignés du calibrage de départ.\par
 Pour pallier ce problème, nous avons mis en place le calcul d'une action de mise correspondante au taux d'agressivité en fonction de la mise totale effectuée par l'intelligence artificielle au cours de la partie. Nous avons également adapté le calcul côté profilage afin que la mise totale devienne le critère principal, à la place de la mise la plus haute.\par
 A chaque tour, le résolveur calcule donc la mise théorique à effectuer selon les nouveaux paliers.\par
 
@@ -583,7 +575,7 @@ A chaque tour, le résolveur calcule donc la mise théorique à effectuer selon 
 	80 – 100	60 – 100 exclu
 	100			100
 
-Selon le calibrage, le but est donc que l'intelligence artificielle effectue la mise prévue. Seulement, il n'est pas possible de déterminer la durée de la partie. Il faut donc que celle-ci effectue progressivement sa mise, sans terminer trop tôt où elle devra effectuer des actions check ou suivi pour terminer, ce qui diminuera le taux d'agressivité; et ni trop tard pour qu'elle puisse être considérée suffisamment agressive.\par
+Selon le calibrage, le but est donc que l'intelligence artificielle effectue la mise prévue. Seulement, il n'est pas possible de déterminer la durée de la partie. Il faut donc que celle-ci effectue progressivement sa mise, sans terminer trop tôt où elle devra effectuer des actions check ou suivi pour terminer, ce qui diminuera le taux d'agressivité, et ni trop tard pour qu'elle puisse être considérée suffisamment agressive.\par
 Pour ce faire, nous misons de façon croissante, depuis un départ minimum, jusqu'à atteindre la mise théorique totale calculée à partir du calibrage.\par
 En prenant un rapport $\times2$, on obtient donc les mises totales suivantes à chaque tour de jeu.\par
 %%%TODO: mettre un encadré autour de l'exemple pour mieux le faire ressortir%%%
@@ -595,20 +587,59 @@ Afin d'obtenir ce résultat, nous différencions deux cas : celui où l'intellig
 Si elle peut miser, alors elle joue la mise théorique courante en faisant attention de ne pas dépasser la mise théorique totale. Dans le cas où on est au river (dernier tour), alors elle mise directement ce qui lui manque pour arriver à cette mise théorique totale.\par
 
 Dans le cas où l'adversaire a misé/relancé, alors l'intelligence artificielle va comparer la mise théorique courante avec la mise adverse et la valeur de relance minimum. Dans le cas où le mise théorique est inférieure à la valeur de suivi -10\% alors on se couche, pour ne  pas miser trop haut en suivant. Si celle-ci est comprise entre le taux de suivi $\pm$ 10\%, on suit.
-Dans le cas ou la relance est inférieure ou égale à la valeur à miser +10\% , on relance de la valeur la plus proche de la mise théorique. Sinon on suit.\par
+Dans le cas où la relance est inférieure ou égale à la valeur à miser +10\% , on relance de la valeur la plus proche de la mise théorique. Sinon on suit.\par
 
 
 A la suite de ces changements nous avons également revu la sélection entre les actions d'agressivité et de rationalité, une fois ces deux dernières calculées.\par
 
-Une fois que le calibrage nous a donné l'action agressive et l'action rationnelle, on effectue une fusion entre les deux. Dans les cas où les deux actions sont identiques, l'action est prise. Si ce sont toutes les deux des mises/relances, on prend la moitié du nombre de jetons, proportionnellement aux pourcentages de calibrage. %%%A développer un peu. Mettre un exemple?%%%
+Une fois que le calibrage nous a donné l'action agressive et l'action rationnelle, on effectue une fusion entre les deux. Dans les cas où les deux actions sont identiques, l'action est prise. Si ce sont toutes les deux des mises/relances, on prend la moitié du nombre de jetons, proportionnellement aux pourcentages de calibrage.
+En prenant l'exemple suivant, on consièdre une intelligence artificielle ayant un taux d'agressivité égal à  70\% et un taux de rationalité égal à 20\%, et des actions de mises choisies dans chacun des cas, avec une mise de 300 jetons pour l'action correspondant au taux d'agressivité et une mise de 50 jetons pour l'action de rationalité. Nous prenons donc une mise comprise entre le minimum et le maximum. Cette mise aura donc plus de chances d'être proche de la mise du taux le plus fort, c'est à dire ici, proche de 300. Après avoir effectué le calcul, on obtient une mise égale à 244 jetons. Comme dit précédemment, ce résultat est proche de 300 puisque l'intelligence artificielle est calibrée à 70\% d'agressivité et à seulement 20\% de rationalité.
+
+	%%% TODO  Mettre en tableau propre %%%
+	
+	Action 1			Action 2 		Action finale
+	
+	Checker			Se coucher		Checker
+	Checker			Suivre			Tirage aléatoire
+	Checker			Miser			Miser (fusion)
+	Suivre			Relancer			Si montant > relance minimum, Relancer
+									Sinon, Suivre
+	Suivre			Se coucher		Tirage aléatoire
+	Relancer			Se coucher		Suivre
+	Miser			Se coucher		Miser (fusion)
+	Tapis			Miser			Miser (fusion)
+	Tapis			Relancer			Relancer (fusion)
+	Tapis			Se coucher		Si peut suivre, Suivre
+									Sinon, Miser cave/2
+	Tapis			Checker			Si peut suivre, Suivre
+									Sinon, Miser cave/2
+
+
 Enfin, il reste la possibilité que les actions soient différentes. Ici on distingue deux cas :
 \begin{itemize}
 \renewcommand{\labelitemi}{-}
-\item on arrive à déterminer une action représentant un juste milieu, par exemple si les deux actions sont se coucher et relancer, on fait suivre l'intelligence artificielle. Dans le cas où on a checker / miser, on considère l'action checker comme miser 0 et on effectue le calcul de la mise moyenne expliqué ci-dessus.
-\item sinon on tire aléatoirement l'action parmi les deux, toujours en prenant en compte les pourcentages du calibrage. %%Mettre un exemple / expliquer mieux : si nombre compris entre 0 et Ag : action ag, si compris entre Ag et ag+Ra : action ration (ou inverse ? me rappelle plus)
+\item on arrive à déterminer une action représentant un juste milieu, par exemple si les deux actions sont se coucher et relancer, on fait suivre l'intelligence artificielle. Dans le cas où on a checker / miser, on considère l'action checker comme miser 1 et on effectue le calcul de la mise moyenne expliqué ci-dessus.
+\item sinon on tire aléatoirement l'action parmi les deux, toujours en prenant en compte les pourcentages du calibrage. 
+En reprenant les valeurs de calibrage de l'exemple précédent, à savoir 70\% d'agressivité et 20\% de rationalité, et les actions suivantes, suivre pour l'action agressive et se coucher pour l'action rationelle. Dans ce cas, l'action à effectuer sera choisie aléatoirement entre les deux. Pour cela, un nombre aléatoire est généré dans l'intervalle [0 - somme], où somme correspond à l'addition des taux d'agressivité et de rationalité. Dans ce cas, il s'agira d'un nombre entre 0 et 90. Si le nombre obtenu est compris entre 0 et la valeur du taux d'agressivité, alors on choisit l'action agressive, sinon on prend l'action rationelle.
 
 \end{itemize}
 
+
+\section{Estimation des chances de gain}
+%%Calculette probas préflop
+\hspace{0.5cm}Pour calculer les chances de gain d'un joueur au préflop, nous avons récupéré une calculette de probabilité permettant de connaître la force de la main pour chaque paire de cartes, lors une partie à deux joueurs. Nous avons donc utilisé cette calculette afin de déterminer au préflop les chances de gain d'un joueur. Par la suite, nous devions aussi pouvoir calculer les chances de gain aux étapes suivantes, en fonction des cartes découvertes sur la table.\\
+
+%%100 000 tirages
+Au départ, il était prévu que nous récupérions une calculette de probabilités afin de calculer les chances de gain d'un joueur aux étapes flop, turn et river. Finalement, nous avons dû développer notre propre calculette de probabilités.\par
+Nous avons alors choisi de nous baser sur une estimation des chances de gain d'une main en effectuant X tirages aléatoires de mains. Après chaque tirage, nous évaluions les deux mains pour savoir quelle serait la gagnante. De ce fait, nous avions les chances de gain de l'intelligence artificielle. Lorsqu'une confrontation entre deux mains nous donnait comme résultat une égalité, nous avons choisi de ne pas la compter comme un gain.
+Nous avons donc effectué plusieurs tests avec plusieurs nombres de tirages différents. Nous comparions les résultats avec des calculettes de probabilités en ligne, ce qui nous permettait de vérifier l'exactitude des résultats.
+Comme on peut le voir dans l'exemple suivant, nous nous sommes vite rendus compte que 100 000 tirages aléatoires permettaient d'avoir des chances de gain précises à plus ou moins 5\%. Si nous augmentions encore le nombre de tirage, les chances de gains étaient à peine plus précises et cela augmentait de façon significative le temps de calcul.
+
+%%%Exemple avec 50 000 tirages, 100 000 et 150 000 tirages, pour une même main.
+
+L'implémentation de cette fonctionnalité ayant considérablement ralenti l'application, nous avons choisi de multi-threader l'estimation des chances de gain. En effet, à chaque nouvelle étape, 100 000 tirages étaient effectués, avec 100 000 comparaisons entre la main effective et celle tirée aléatoirement. De plus, lorsque nous faisions jouer deux intelligences artificielles l'une contre l'autre, le temps d'attente pour avoir le résultat de la partie était multiplié par deux. Comme notre but final n'était pas de lancer une partie mais beaucoup plus, nous avons rapidement décidé de rendre cette exécution plus rapide en parallélisant les calculs.
+
+\chapter{Méthodes de profilage}
 
 \section{Scénarios de tests}
 %\subsection{Mise en place des scénarios}

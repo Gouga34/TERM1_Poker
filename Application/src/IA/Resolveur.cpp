@@ -496,7 +496,7 @@ Action Resolveur::calculerAction(){
             tauxMax=calibrage->getRationalite();
         }
 
-        //On va prendre une mise aléatoire comprise entre le min et le max.
+        //On va prendre une mise comprise entre le min et le max.
         //Celle-ci aura plus de chances d'être plus proche du taux le plus fort.
 
         int total=calibrage->getAgressivite()+calibrage->getRationalite();
