@@ -642,28 +642,43 @@ L'implémentation de cette fonctionnalité ayant considérablement ralenti l'app
 \chapter{Méthodes de profilage}
 
 \section{Scénarios de tests}
-%\subsection{Mise en place des scénarios}
-\hspace{0.5cm}Afin de pouvoir évaluer le profilage effectué par l'intelligence artificielle, il nous a été conseillé de se baser sur la différence entre l'action attendue du joueur adverse, puis son action réelle. De ce fait, il est possible de déterminer facilement l'efficacité du profilage, en analysant cette différence entre l'attendu et le réel.\par
-Pour que l'intelligence artificielle qui effectue le profil puisse connaître le comportement attendu d'un joueur à partir d'une situation donnée, nous avons établi l'ensemble des scénarios possibles. Chaque scénario se base sur le calibrage de l'intelligence artificielle qui profile (son agressivité), ainsi que ses chances de gain. Pour chacune de ces situations, on établit le comportement attendu rationnellement par le joueur adverse, exprimé sous forme de taux d'agressivité. Ce sont ces données qui sont utilisées pour calculer la différence des actions attendues et réelles.\\
 
-%\subsection{Analyse des résultats}
+\subsection{Mise en place des scénarios}
+
+\hspace{0.5cm}Afin de pouvoir évaluer le profilage effectué par l'intelligence artificielle, il nous a été conseillé d'étudier la différence entre l'action attendue du joueur adverse, et son action réelle. De ce fait, il est possible de déterminer facilement l'efficacité du profilage, en analysant la différence entre l'attendu et le réel.\par
+Pour que l'intelligence artificielle qui effectue le profil puisse connaître le comportement attendu d'un joueur à partir d'une situation donnée, nous avons établi l'ensemble des scénarios possibles. Chaque scénario se base sur l'agressivité de l'intelligence artificielle qui profile, ainsi que sur ses chances de gain. Pour chacune de ces situations, le comportement attendu rationnellement par le joueur adverse est établi. Il est exprimé sous la forme d'un taux d'agressivité. La différence entre l'ation attendue et réelle peut alors être calculée.
+
+%%%TODO ajouter tableau scenarios de tests et faire le texte expliquant%%%
+
+Lors des différentes parties de profilage, le calibrage de l'intelligence artificielle qui profile est tiré aléatoirement à chaque nouvelle partie. En effet, afin de profiler au mieux, nous analysons sa réaction face à différents types de joueurs.\par
+
+\subsection{Analyse des résultats}
+
 \hspace{0.5cm}Pour facilement déterminer si le profilage établi est efficace, et également déterminer le nombre de parties nécessaires pour profiler, nous avons ajouté dans un .csv le profil global établi au fûr et à mesure des parties, le taux de similarité entre le profilage établi et le calibrage réel de l'adversaire. Nous avons donc pu ajuster le nombre de parties selon cette valeur de similarité.\par
 Suite à plusieurs tests, nous avons observé qu'au bout de 10 ou 15 parties, nous arrivions à obtenir un profilage satisfaisant, et que celui-ci ne tendait pas à s'améliorer, même en jouant plus de parties.\\
 	
 Afin de pouvoir obtenir des résultats facilement visibles, nous avons également produit des graphes représentant le profilage établi du joueur en fonction du nombre de parties, et une constante correspondant au calibrage à déterminer.\\
 
+%%%%  TODO  Ajouter graphique pour montrer la convergeance au bout de 10-15 parties %
+%%%%			Tableau indiquant le % de réussite (taux similarité) pour différents paliers %
+%%%		Expliquer les tableaux dans le texte %%%%
+
 \section{Test du profilage}
 
-\hspace{0.5cm}Afin d'obtenir un résultat des données de profilage au bout de plusieurs parties, nous enregistrons à la fin de chaque partie une ligne de résultats dans un fichier csv à partir des données du fichier contenant les données de chaque partie. Cette ligne contient la situation du jeu (calibrage de l'interface graphique et chances de gain), les taux d'agressivité et de rationalité attendus, les taux réels et la distance entre ces deux. Enfin une moyenne des taux attendus est mise à jour à chaque ajout, c'est elle qui va donner le profilage obtenu au bout de x parties.\par
+\hspace{0.5cm}Lors du lancement des parties de profilage, une ligne de résultats est ajoutée dans un fichier csv correspondant. Cette ligne contient la situation du jeu (calibrage de l'intelligence artificielle et chances de gain), les taux d'agressivité et de rationalité attendus, les taux réels et la distance entre ces deux. Enfin une moyenne du calibrage attendu est mise à jour à chaque ajout, c'est elle qui va donner le profilage obtenu au bout de X parties.\par
 Cela va donc permettre le lancement de plusieurs parties intelligence artificielle contre intelligence artificielle, pour obtenir un profilage rapidement. Suite à ces résultats, il est alors possible de réaliser des courbes permettant d'observer la convergence entre le profil établi, et le calibrage de l'intelligence artificielle profilée. La distance doit alors être de plus en plus proche de zéro.
 
 
 \section{Établissement des profils attendus}
 
 \hspace{0.5cm}Pour calculer une action attendue, c'est à dire un taux d'agressivité et de rationalité attendu pour le joueur, l'intelligence artificielle utilise lors des premières parties les scénarios de tests établis.\par
-Mais une fois le profilage lancé, et les premiers résultats obtenus, la méthode de profilage peut alors commencer à se servir des situations précédentes pour calculer l'action attendue d'un joueur. En effet, selon la situation, il est possible de déterminer quelle va être l'action du joueur en se référant aux scénarios de tests conçus, qui sont communs à tous les joueurs, mais également en se référant aux parties précédentes, si l'on a déjà testé sa réaction précédemment dans une situation équivalente. Une situation équivalente est ici considérée à partir du taux d'agressivité du joueur adverse au joueur, donc l'intelligence artificielle qui profile, et des chances de gain du joueur. A partir de cette méthode, la valeur d'une action réelle dans une situation va permettre de donner la valeur d'une action attendue dans une prochaine partie. Cette méthode va ici nous permettre de profiler le joueur plus rapidement, en réutilisant les résultats précédents.\par
+Mais une fois le profilage lancé, et les premiers résultats obtenus, la méthode de profilage peut alors commencer à se servir des situations précédentes pour calculer l'action attendue d'un joueur de façon plus précise. En effet, selon la situation, il est possible de déterminer quelle va être l'action du joueur en se référant aux scénarios de tests conçus, qui sont communs à tous les joueurs, mais également en se référant aux parties précédentes, si l'on a déjà testé sa réaction précédemment dans une situation équivalente. Les scénarios de tests sont alors mis à jour de façon dynamique.\par 
+
+Pour reconnaître une situation équivalente, nous considérons le taux d'agressivité du joueur adverse, donc l'intelligence artificielle qui profile, et des chances de gain du joueur. A partir de cette méthode, la valeur d'une action réelle dans une situation va permettre de donner la valeur d'une action attendue dans une prochaine partie. Cette méthode va ici nous permettre de profiler le joueur plus rapidement, en réutilisant les résultats précédents.\par
+
 Pour effectuer cette réutilisation, plusieurs méthodes ont été considérées. Tout d'abord, celle qui cherche la situation la plus proche, selon l'agressivité du profileur et les chances de gain, sans considérer le taux de similarité entre les deux situations. C'est à dire que dans cette version, les valeurs de l'action attendue correspondent aux valeurs des scénarios de tests uniquement pour la première partie. Par la suite, c'est la valeur précédente la plus proche qui est prise en compte.\par
-Une seconde méthode a été de limiter la réutilisation des actions réelles comme actions attendues en considérant l'équivalence entre les parties. Toujours en prenant en compte les valeurs d'agressivité et des chances de gain, les pourcentages doivent alors ne varier que de 10\% maximum par exemple, pour que l'on puisse considérer la situation comme équivalente, et donc considérer les actions effectuées comme action attendues pour la partie courante. Ici on prend toujours la situation la plus proche, mais seulement parmi les parties dites équivalentes. Et donc dans le cas où les valeurs sont trop éloignées, on se réfère aux scénarios de tests.\par
+
+Par la suite, nous nous sommes rendus compte qu'il n'était pas optimal de reprendre une valeur précédente lorsque les paramètres de la partie étaient trop éloignés. Une seconde méthode a donc été de limiter la réutilisation des actions réelles comme actions attendues en considérant l'équivalence entre les parties. Toujours en prenant en compte les valeurs d'agressivité et des chances de gain, les pourcentages doivent alors ne varier que de 10\% maximum par exemple, pour que l'on puisse considérer la situation comme équivalente. Ici, on prend toujours la situation la plus proche, mais seulement parmi les parties dîtes équivalentes. Et donc dans le cas où les valeurs sont trop éloignées, on se réfère aux scénarios de tests.\par
 Enfin, il est aussi possible de prendre une situation dans laquelle la distance est la plus petite.
 
 
