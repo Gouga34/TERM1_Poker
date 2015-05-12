@@ -7,7 +7,7 @@
 
 
 
-#define NOMBRE_DE_TESTS                         100000
+#define NOMBRE_DE_TESTS                         10000
 #define CAVE_JOUEURS                            1000
 
 
@@ -32,10 +32,10 @@
  * NOMBRE_PARTIES_PROFILAGE : nombre de parties à effectuer avant de pouvoir jouer
  */
 #define RATIONALITE_IA_PROFILAGE                50.0
-#define NOMBRE_PARTIES                          1
+#define NOMBRE_PARTIES                          30
 #define VARIATION_AUTORISEE                     10
-#define NOMBRE_PARTIES_PROFILAGE                1
-#define CALCUL_CALIBRAGE_IDEAL                  true
+#define NOMBRE_PARTIES_PROFILAGE                11
+#define CALCUL_CALIBRAGE_IDEAL                  false
 #define NOMBRE_PARTIES_CALIBRAGE_IDEAL          40
 
 
