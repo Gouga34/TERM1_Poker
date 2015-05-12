@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.2.9)  12 MAY 2015 19:51
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.2.9)  12 MAY 2015 19:58
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -889,7 +889,7 @@ File: ./imagesRapport/NombrePartiesGagneesEnFonctionCalibrage.jpg Graphic file
 
 <use ./imagesRapport/NombrePartiesGagneesEnFonctionCalibrage.jpg>
 Package pdftex.def Info: ./imagesRapport/NombrePartiesGagneesEnFonctionCalibrag
-e.jpg used on input line 898.
+e.jpg used on input line 901.
 (pdftex.def)             Requested size: 303.63364pt x 170.63707pt.
  [42 <./imagesRapport/PremierCalibrageComparaisonJetonsGagnees.jpg>]
 <./imagesRapport/JetonsGagnesEnFonctionCalibrage.jpg, id=196, 607.26875pt x 341
@@ -898,10 +898,10 @@ File: ./imagesRapport/JetonsGagnesEnFonctionCalibrage.jpg Graphic file (type jp
 g)
  <use ./imagesRapport/JetonsGagnesEnFonctionCalibrage.jpg>
 Package pdftex.def Info: ./imagesRapport/JetonsGagnesEnFonctionCalibrage.jpg us
-ed on input line 907.
+ed on input line 910.
 (pdftex.def)             Requested size: 303.63364pt x 170.63707pt.
  [43 <./imagesRapport/NombrePartiesGagneesEnFonctionCalibrage.jpg>]
-Underfull \hbox (badness 10000) in paragraph at lines 915--916
+Underfull \hbox (badness 10000) in paragraph at lines 918--919
 
  []
 
@@ -917,10 +917,10 @@ Annexe A.
 File: ../DiagrammePrevisionnel.png Graphic file (type png)
 
 <use ../DiagrammePrevisionnel.png>
-Package pdftex.def Info: ../DiagrammePrevisionnel.png used on input line 946.
+Package pdftex.def Info: ../DiagrammePrevisionnel.png used on input line 949.
 (pdftex.def)             Requested size: 1409.24007pt x 219.2151pt.
 
-Overfull \hbox (747.65126pt too wide) in paragraph at lines 945--947
+Overfull \hbox (747.65126pt too wide) in paragraph at lines 948--950
 []  [] 
  []
 
@@ -932,10 +932,10 @@ Annexe B.
 File: ../DiagrammeReel.png Graphic file (type png)
 
 <use ../DiagrammeReel.png>
-Package pdftex.def Info: ../DiagrammeReel.png used on input line 954.
+Package pdftex.def Info: ../DiagrammeReel.png used on input line 957.
 (pdftex.def)             Requested size: 1730.83588pt x 219.2151pt.
 
-Overfull \hbox (1069.24707pt too wide) in paragraph at lines 953--955
+Overfull \hbox (1069.24707pt too wide) in paragraph at lines 956--958
 []  [] 
  []
 
@@ -962,7 +962,7 @@ r9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb
 ></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/
 share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/
 texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb>
-Output written on Rapport.pdf (51 pages, 870902 bytes).
+Output written on Rapport.pdf (51 pages, 870976 bytes).
 PDF statistics:
  270 PDF objects out of 1000 (max. 8388607)
  170 compressed objects within 2 object streams
