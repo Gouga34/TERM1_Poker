@@ -65,6 +65,11 @@ class IntelligenceArtificielle : public Joueur {
          * @param profil Profil de l'IA
          */
         void setCalibrage(Profil profil);
+
+        /**
+         * @brief Attribue un nouveau calibrage tiré aléatoirement pour l'IA
+         */
+        void nouveauCalibrage();
 		
         //Methodes
 

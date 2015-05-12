@@ -52,6 +52,7 @@ void IntelligenceArtificielleProfilage::setPseudoJoueurProfile(std::string pseud
         calibrageRecherche = *(iaProfilee->getCalibrage());
     }
 
+    continuerProfilage = (NOMBRE_PARTIES_PROFILAGE > 0);
     scenario = new ScenariosDeTests(&profilJoueur, resolveur->getCalibrage(), calibrageRecherche);
 }
 
