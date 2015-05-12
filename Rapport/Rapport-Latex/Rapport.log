@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.2.9)  12 MAY 2015 19:10
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.2.9)  12 MAY 2015 19:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -833,106 +833,139 @@ Underfull \hbox (badness 10000) in paragraph at lines 788--789
 [37] [38] [39]
 Chapitre 7.
 
-Underfull \hbox (badness 10000) in paragraph at lines 821--823
+Underfull \hbox (badness 10000) in paragraph at lines 821--849
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 824--825
+Overfull \hbox (18.47597pt too wide) in paragraph at lines 852--853
+\OT1/cmr/m/n/9 avons donc ren-seign^^Se dans l'application le nom-bre de par-ti
+es au bout desquelles l'intelligence
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 852--853
 
  []
 
 [40
 
 ]
-<./imagesRapport/NombrePartiesGagneesEnFonctionCalibrage.jpg, id=186, 607.26875
+Underfull \hbox (badness 10000) in paragraph at lines 856--857
+
+ []
+
+
+<./imagesRapport/PremierCalibrageComparaisonNombrePartiesGagnees.jpg, id=186, 6
+07.26875pt x 341.275pt>
+File: ./imagesRapport/PremierCalibrageComparaisonNombrePartiesGagnees.jpg Graph
+ic file (type jpg)
+
+<use ./imagesRapport/PremierCalibrageComparaisonNombrePartiesGagnees.jpg>
+Package pdftex.def Info: ./imagesRapport/PremierCalibrageComparaisonNombreParti
+esGagnees.jpg used on input line 863.
+(pdftex.def)             Requested size: 303.63364pt x 170.63707pt.
+
+Overfull \hbox (11.38438pt too wide) in paragraph at lines 868--868
+\OT1/cmr/m/n/9 sc^^Senarios de tests, nous avons n^^Seanmoins re-marqu^^Se que 
+dans l'ensemble, nous l'intelligence
+ []
+
+
+<./imagesRapport/PremierCalibrageComparaisonJetonsGagnees.jpg, id=187, 607.2687
+5pt x 341.275pt>
+File: ./imagesRapport/PremierCalibrageComparaisonJetonsGagnees.jpg Graphic file
+ (type jpg)
+
+<use ./imagesRapport/PremierCalibrageComparaisonJetonsGagnees.jpg>
+Package pdftex.def Info: ./imagesRapport/PremierCalibrageComparaisonJetonsGagne
+es.jpg used on input line 873.
+(pdftex.def)             Requested size: 303.63364pt x 170.63707pt.
+ [41 <./imagesRapport/PremierCalibrageComparaisonNombrePartiesGagnees.jpg>]
+<./imagesRapport/NombrePartiesGagneesEnFonctionCalibrage.jpg, id=192, 607.26875
 pt x 341.275pt>
 File: ./imagesRapport/NombrePartiesGagneesEnFonctionCalibrage.jpg Graphic file 
 (type jpg)
 
 <use ./imagesRapport/NombrePartiesGagneesEnFonctionCalibrage.jpg>
 Package pdftex.def Info: ./imagesRapport/NombrePartiesGagneesEnFonctionCalibrag
-e.jpg used on input line 854.
+e.jpg used on input line 898.
 (pdftex.def)             Requested size: 303.63364pt x 170.63707pt.
-
-<./imagesRapport/JetonsGagnesEnFonctionCalibrage.jpg, id=187, 607.26875pt x 341
+ [42 <./imagesRapport/PremierCalibrageComparaisonJetonsGagnees.jpg>]
+<./imagesRapport/JetonsGagnesEnFonctionCalibrage.jpg, id=196, 607.26875pt x 341
 .275pt>
 File: ./imagesRapport/JetonsGagnesEnFonctionCalibrage.jpg Graphic file (type jp
 g)
  <use ./imagesRapport/JetonsGagnesEnFonctionCalibrage.jpg>
 Package pdftex.def Info: ./imagesRapport/JetonsGagnesEnFonctionCalibrage.jpg us
-ed on input line 863.
+ed on input line 907.
 (pdftex.def)             Requested size: 303.63364pt x 170.63707pt.
- [41 <./imagesRapport/NombrePartiesGagneesEnFonctionCalibrage.jpg>]
-Underfull \hbox (badness 10000) in paragraph at lines 871--872
+ [43 <./imagesRapport/NombrePartiesGagneesEnFonctionCalibrage.jpg>]
+Underfull \hbox (badness 10000) in paragraph at lines 915--916
 
  []
 
-[42 <./imagesRapport/JetonsGagnesEnFonctionCalibrage.jpg>]
+[44 <./imagesRapport/JetonsGagnesEnFonctionCalibrage.jpg>]
 Chapitre 8.
-[43
+[45
 
-] (./Rapport.bbl [44]) [45
+] (./Rapport.bbl [46]) [47
 
 ]
 Annexe A.
-<../DiagrammePrevisionnel.png, id=206, 3523.1625pt x 548.0475pt>
+<../DiagrammePrevisionnel.png, id=214, 3523.1625pt x 548.0475pt>
 File: ../DiagrammePrevisionnel.png Graphic file (type png)
 
 <use ../DiagrammePrevisionnel.png>
-Package pdftex.def Info: ../DiagrammePrevisionnel.png used on input line 902.
+Package pdftex.def Info: ../DiagrammePrevisionnel.png used on input line 946.
 (pdftex.def)             Requested size: 1409.24007pt x 219.2151pt.
 
-Overfull \hbox (747.65126pt too wide) in paragraph at lines 901--903
-[]  [] 
- []
-
-[46
-
-] [47 <../DiagrammePrevisionnel.png (PNG copy)>]
-Annexe B.
-<../DiagrammeReel.png, id=213, 4327.16624pt x 548.0475pt>
-File: ../DiagrammeReel.png Graphic file (type png)
-
-<use ../DiagrammeReel.png>
-Package pdftex.def Info: ../DiagrammeReel.png used on input line 910.
-(pdftex.def)             Requested size: 1730.83588pt x 219.2151pt.
-
-Overfull \hbox (1069.24707pt too wide) in paragraph at lines 909--911
+Overfull \hbox (747.65126pt too wide) in paragraph at lines 945--947
 []  [] 
  []
 
 [48
 
-] [49 <../DiagrammeReel.png (PNG copy)>] (./Rapport.aux)
+] [49 <../DiagrammePrevisionnel.png (PNG copy)>]
+Annexe B.
+<../DiagrammeReel.png, id=222, 4327.16624pt x 548.0475pt>
+File: ../DiagrammeReel.png Graphic file (type png)
 
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+<use ../DiagrammeReel.png>
+Package pdftex.def Info: ../DiagrammeReel.png used on input line 954.
+(pdftex.def)             Requested size: 1730.83588pt x 219.2151pt.
 
- ) 
+Overfull \hbox (1069.24707pt too wide) in paragraph at lines 953--955
+[]  [] 
+ []
+
+[50
+
+] [51 <../DiagrammeReel.png (PNG copy)>] (./Rapport.aux) ) 
 Here is how much of TeX's memory you used:
- 5496 strings out of 494985
- 75092 string characters out of 6180357
- 147742 words of memory out of 5000000
- 8604 multiletter control sequences out of 15000+600000
+ 5506 strings out of 494985
+ 75733 string characters out of 6180357
+ 146742 words of memory out of 5000000
+ 8612 multiletter control sequences out of 15000+600000
  9790 words of font info for 35 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  39i,18n,45p,1280b,1212s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex9.pfb></usr/share/
-texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/share/texlive/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type
-1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmsy9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.
-pfb>
-Output written on Rapport.pdf (49 pages, 824936 bytes).
+</usr/share/texlive/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fo
+nts/type1/public/amsfonts/cmextra/cmex9.pfb></usr/share/texlive/texmf-dist/font
+s/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmmi9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+r9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb
+></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/
+share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/
+texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb>
+Output written on Rapport.pdf (51 pages, 870902 bytes).
 PDF statistics:
- 262 PDF objects out of 1000 (max. 8388607)
- 166 compressed objects within 2 object streams
+ 270 PDF objects out of 1000 (max. 8388607)
+ 170 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 101 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 111 words of extra memory for PDF output out of 10000 (max. 10000000)
 

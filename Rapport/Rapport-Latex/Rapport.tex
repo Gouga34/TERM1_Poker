@@ -819,17 +819,61 @@ Enfin, il est aussi possible de prendre une situation dans laquelle la distance 
 \section{Un premier calibrage inefficace}
 
 Pour une première version, nous avons choisi de seulement prendre en compte le profil final établi et d'attribuer un calibrage selon divers paliers. Ici on prend en compte trois paliers pour l'agressivité ainsi que pour la rationalité. De 0 à 40\% pour le premier palier, 40 à 60\% pour une valeur moyenne puis de 60 à 100\% pour la palier haut. Nous avons déduit les calibrage correspondants à chaque palier du joueur profilé, les résultats sont présentés dans le tableau suivant.\\
-%%%TODO: faire et mettre le tableau%%%
+\begin{figure}[H]
+\begin{center}
+\begin{tabular}{|l|l|l|l|}
+\hline
+Agressivité déduite & Rationalité déduite &	Agressivité IA & 	Rationalité IA\\
+\hline
+0-40	 			    & 0-40 				 & 	70-100		   & 50\\
+\hline
+0-40					&	40-60			 &	50-70		   & 	50\\
+\hline
+0-40					& 60-100				 &	70-100		   &	30-50\\
+\hline
+40-60				&	0-40				 &	70-100		   &	50\\
+\hline
+40-60				&	40-60			&	70-100			&	30-50\\
+\hline
+40-60				&	60-100			&	50-70			&	70-90\\
+\hline
+60-100				&	0-40				&	50-70			&	70-90\\
+\hline
+60-100				&	40-60			&	70-100			&	50-70\\
+\hline
+60-100				&	60-100			&	50				&	90-100\\
+\hline
+\end{tabular}
+\end{center}
+\caption{Calibrage de l'intelligence artificielle en fonction du profil adverse}
+\end{figure}
 
-\hspace{0.5cm}Le but de notre intelligence artificielle étant, une fois un profilage correctement établi, de pouvoir augmenter son gain de parties mais aussi son gain d'argent. Nous avons donc renseigné dans l'application le nombre de parties au bout desquelles l'intelligence artificielle va pouvoir arrêter le profilage, et donc adapter elle-même son calibrage pour pouvoir gagner un maximum de parties.\\
 
-Nous avons donc ajouté dans les fichiers résultats le gain d'argent de l'intelligence artificielle pour chacune des parties. Ceci nous a permis de pouvoir obtenir un ratio du nombre de parties gagnées sur le nombre de parties jouées pendant le profilage, puis pendant la phase de jeu.\par
+Le but de notre intelligence artificielle étant, une fois un profilage correctement établi, de pouvoir augmenter son gain de parties mais aussi son gain d'argent. Nous avons donc renseigné dans l'application le nombre de parties au bout desquelles l'intelligence artificielle va pouvoir arrêter le profilage, et donc adapter elle-même son calibrage pour pouvoir gagner un maximum de parties.\\
 
-Comme dit précédemment dans la partie 3.4, nous avons testé plusieurs types de calibrages face aux différents profils établis avant de trouver le calibrage optimal pour chaque de profil. 
 
-La figure suivante représente les calibrages que nous avions établis au départ par rapport aux profils trouvés. Après avoir effectué quelques tests, nous nous sommes vite rendus compte que dans l'ensemble, l'intelligence artificielle ne gagnait pas assez par rapport à nos attentes. 
 
-%%TODO: mettre le premier calibrage choisi, des courbes montrant ses résultats, puis mettre une autre calibrage meilleur et des courbes le représentant.
+Nous avons donc ajouté dans les fichiers résultats le gain d'argent de l'intelligence artificielle pour chacune des parties. Ceci nous a permis de pouvoir obtenir un ratio du nombre de parties gagnées sur le nombre de parties jouées pendant le profilage, puis pendant la phase de jeu.\\
+
+
+La figure suivante représente le nombre de parties gagnées pendant les scénarios de tests et le nombre de parties gagnées après. Comme on peut le constater, le nombre de parties gagnées après le déroulement des scénarios de tests, donc lorsque l'intelligence artificielle qui profile joue en fonction des résultats obtenus, est bon. En effet, celle-ci gagne souvent plus de parties que lors de la période de scénarios de tests. Cependant, nous pouvons déjà voir que pour les derniers paliers, le nombre de parties gagnées après les scénarios de tests est moins bon que le nombre de parties gagnées avant.\par
+
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.5]{./imagesRapport/PremierCalibrageComparaisonNombrePartiesGagnees.jpg}
+	\end{center}
+	\caption{Nombre de parties gagnées pendant les scénarios de tests et après}
+\end{figure}
+
+Même si nous gagnons dans l'ensemble plus de parties que lors de la phase de scénarios de tests, nous avons néanmoins remarqué que dans l'ensemble, nous l'intelligence artificielle n'est pas gagnante en terme de nombre de jetons gagnés à la fin de dix parties. Le diagramme suivant représente le nombre de jetons gagnés par paliers, sur dix parties, pendant les scénarios de tests et après. On peut vite constater que, même si pour beaucoup de paliers nous avons un gain après les scénarios de tests plus élevé qu'avant, l'intelligence artificielle perd des jetons ou bien en gagne très peu. En effet, prenons par exemple le palier numéro 3, même si au départ le nombre de jetons perdus étaient de plus de 1000 sur dix parties et qu'ensuite l'intelligence artificielle gagnait environ 400 jetons, les résultats sont plutôt décevants. En effet, gagner seulement 400 jetons après avoir joué dix parties n'est pas énorme, nous pouvons sûrement trouver un calibrage qui permettrais à l'intelligence artificielle de gagner plus de 400 jetons.\par
+
+
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.5]{./imagesRapport/PremierCalibrageComparaisonJetonsGagnees.jpg}
+	\end{center}
+	\caption{Nombre de jetons gagnés pendant les scénarios de tests et après}
+\end{figure}
 
 
 \section{Recherche du calibrage optimal}
