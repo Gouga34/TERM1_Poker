@@ -10,7 +10,7 @@ Jeu::Jeu(int nbJoueur, int blindDepart, int cave) : actions(nbJoueur) {
     this->deck = nouveauDeck();
 	this->melange();
 	this->blind = blindDepart;
-	this->joueurCourant = 0;
+    this->joueurCourant = 0;
 	this->pot = 0;
 	this->nombreDeCoup = 0;
 	this->dealer = 0;
@@ -93,15 +93,20 @@ void Jeu::nouvelleEtape(ETAPE_JEU etape){
         Logger::getInstance()->ajoutLogs("Ajout de cartes sur la table");
     }
 
+    IntelligenceArtificielle *ia;
+    IntelligenceArtificielle *ia2 = static_cast<IntelligenceArtificielle*>(this->getJoueur(1));
+
     if (!getJoueur(0)->estHumain()) {
-        IntelligenceArtificielle *ia = static_cast<IntelligenceArtificielle*>(this->getJoueur(0));
+        ia = static_cast<IntelligenceArtificielle*>(this->getJoueur(0));
         ia->lancerEstimationChancesDeGain(NOMBRE_DE_TESTS, 2);
-        ia->attendreResultatEstimation();
     }
 
-    IntelligenceArtificielle *ia2 = static_cast<IntelligenceArtificielle*>(this->getJoueur(1));
     ia2->lancerEstimationChancesDeGain(NOMBRE_DE_TESTS, 2);
     ia2->attendreResultatEstimation();
+
+    if (!getJoueur(0)->estHumain()) {
+        ia->attendreResultatEstimation();
+    }
 }
 
 void Jeu::distributionCartesTable(int nbCartesADistribuer){
