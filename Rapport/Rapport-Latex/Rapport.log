@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.2.9)  11 MAY 2015 19:21
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.2.9)  12 MAY 2015 11:03
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -891,10 +891,10 @@ LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  ) 
 Here is how much of TeX's memory you used:
- 5485 strings out of 494985
- 74507 string characters out of 6180357
- 147739 words of memory out of 5000000
- 8595 multiletter control sequences out of 15000+600000
+ 5486 strings out of 494985
+ 74536 string characters out of 6180357
+ 147742 words of memory out of 5000000
+ 8596 multiletter control sequences out of 15000+600000
  9790 words of font info for 35 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  39i,18n,45p,1120b,1212s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -910,7 +910,7 @@ nts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type
 nts/cm/cmsy9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
 cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.
 pfb>
-Output written on Rapport.pdf (45 pages, 768619 bytes).
+Output written on Rapport.pdf (45 pages, 770772 bytes).
 PDF statistics:
  247 PDF objects out of 1000 (max. 8388607)
  157 compressed objects within 2 object streams
