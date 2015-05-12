@@ -28,7 +28,6 @@ class Jeu{
         int                                 blind;
         int                                 joueurCourant;
         int                                 pot;
-        int                                 nombreDeCoup;
 
         /** Correspond aux jetons mis en jeu à un instant t de la partie par le joueur
          *  précédent celui qui doit jouer **/
@@ -233,21 +232,9 @@ class Jeu{
 		void distributionBlind();
 		
 		/**
-		*@action : Augmente le montant de la petite blind
-		**/
-		void miseAJourBlind();
-		
-		/**
 		*@action : Melange le jeu de carte
 		**/
-		void melange();
-		
-		/**
-		*@param  : Le nombre de joueur et le montant de depart d leur cave
-		*@action : Cree les joueurs et les affectent au jeu
-		*@return : L'ensemble des joueurs de la partie
-		**/
-		void initialisationTable(int nbJoueur, int cave);
+        void melangeDeck();
 		
 		/**
 		*@action : Cree l'ensemble des cartes utilisees dans le jeu
