@@ -873,11 +873,16 @@ Dans le but de rendre plus significative la courbe de profilage, et donc de mieu
 
 \chapter{Perspectives et conclusion}
 \section{Perspectives d'amélioration du profilage}
+\subsection{Profilage dynamique}
+\hspace{0.5cm}Même si nous n'avons pas eu le temps d'implémenter la méthode de profilage dynamique, nous avons pu réfléchir un peu à la façon de profiler de façon dynamique. Tout d'abord, lors de la phase de scénarios de tests, pour profiler dynamiquement, nous n'établirions pas le profil uniquement à la fin de la partie mais plutôt au fur et à mesure de la partie, en se basant sur les actions qu'il a effectuées en réponse à nos actions. De même, lors de la phase de scénarios de tests, plutôt que de définir au départ de la partie un calibrage fixe pour l'intelligence artificielle qui profile, nous pourrions choisir de modifier le calibrage en fonction des actions effectuées par le joueur. En effet, si l'on se rend vite compte que le joueur adverse a tendance à être agressif face à un joueur peu agressif, nous pourrions pendant la partie augmenter l'agressivité de l'intelligence artificielle qui profile afin de voir s'il répond toujours ou bien s'il a tendance à suivre. De ce fait, nous pourrions définir des paliers et rapidement savoir dans quel palier d'agressivité et de rationalité se trouve l'adversaire.\par
+De plus, après les scénarios de tests, lors de la phase de jeux, nous pourrions décider de faire en sorte que l'intelligence artificielle modifie son calibrage à chaque tour de jeu, en fonction de l'action jouée par le joueur adverse.\par
 
-%%Parler du profilage dynamique,
-%%Parler de la manière d'effectuer un profilage avec plus de deux joueurs
+\subsection{Profilage avec plus de deux joueurs}
+\hspace{0.5cm}Notre méthode de profilage étant actuellement basée sur un jeu à uniquement deux joueurs, on peut se poser la question d'un profilage sur un jeu à plus de deux joueurs. En effet, les paramètres à prendre en compte pour établir le profil d'un joueur adverse ne seraient pas les mêmes. Il faudrait par exemple ajouter dans ces paramètres le nombre de joueurs adverses. Si un joueur a peu de chances de gain et un nombre important de joueurs adverses, il sera sûrement bien plus rationnel et aura sûrement plus tendance à se coucher que s'il avait été contre un seul adversaire. En effet, il y a beaucoup plus de chances que ses joueurs adverses aient un meilleur jeu que lui. De même, un joueur ayant un jeu moyen et jouant de manière prudente n'aura sûrement pas le même comportement s'il est face à un ou plusieurs joueurs. De ce fait, dans un jeu à plusieurs joueurs, le nombre de joueurs serait un critère très important pour choisir les taux d'agressivité, de rationalité, de bluff et de passivité d'un adversaire. \par
+
+
 \section{Profilage obtenu}
-
+\hspace{0.5cm}Nous avons finalement obtenu un bon profilage statique. En effet, nous arrivons à profiler le joueur adverse à en moyenne 75\% près et nous pouvons ensuite, après avoir établi le profil, gagner plus de jetons qu’auparavant. Cependant, on a pu constater que face à un joueur très irrationnel, il n'est pas facile pour nous de gagner beaucoup de jetons. En effet, il est très difficile de prédire les actions qui seront effectuées par un joueur irrationnel. Même si face à ce type de joueurs nous n'obtenons pas de résultats satisfaisants, nous obtenons dans l'ensemble des résultats très satisfaisant pour la plupart des types de joueurs adverses.\par
 
 
 
