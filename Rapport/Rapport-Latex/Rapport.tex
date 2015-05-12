@@ -687,21 +687,39 @@ En reprenant les valeurs de calibrage de l'exemple précédent, à savoir 70\% d
 %%Calculette probas préflop
 \hspace{0.5cm}Pour calculer les chances de gain d'un joueur au préflop, nous avons récupéré une calculette de probabilité permettant de connaître la force de la main pour chaque paire de cartes, lors une partie à deux joueurs. Nous avons donc utilisé cette calculette afin de déterminer au préflop les chances de gain d'un joueur. Par la suite, nous devions aussi pouvoir calculer les chances de gain aux étapes suivantes, en fonction des cartes découvertes sur la table.\\
 
-%%100 000 tirages
+%%5 000 tirages
 Au départ, il était prévu que nous récupérions une calculette de probabilités afin de calculer les chances de gain d'un joueur aux étapes flop, turn et river. Finalement, nous avons dû développer notre propre calculette de probabilités.\par
 Nous avons alors choisi de nous baser sur une estimation des chances de gain d'une main en effectuant X tirages aléatoires de mains. Après chaque tirage, nous évaluions les deux mains pour savoir quelle serait la gagnante. De ce fait, nous avions les chances de gain de l'intelligence artificielle. Lorsqu'une confrontation entre deux mains nous donnait comme résultat une égalité, nous avons choisi de ne pas la compter comme un gain.
 Nous avons donc effectué plusieurs tests avec plusieurs nombres de tirages différents. Nous comparions les résultats avec des calculettes de probabilités en ligne, ce qui nous permettait de vérifier l'exactitude des résultats.
-Comme on peut le voir dans l'exemple suivant, nous nous sommes vite rendus compte que 100 000 tirages aléatoires permettaient d'avoir des chances de gain précises à plus ou moins 5\%. Si nous augmentions encore le nombre de tirage, les chances de gains étaient à peine plus précises et cela augmentait de façon significative le temps de calcul.
+Comme on peut le voir dans l'exemple suivant, nous nous sommes vite rendus compte que 5 000 tirages aléatoires permettaient d'avoir des chances de gain précises à plus ou moins 5\%. Si nous augmentions encore le nombre de tirage, les chances de gains étaient à peine plus précises et cela augmentait de façon significative le temps de calcul. \par
+
+La figure ci-dessous montre les différentes chances de gains obtenues en fonction du nombre de tests lancés, sur un même instant d'une partie, à savoir, la main composée d'un as de pique et d'un valet de trèfle, à l'étape flop, avec les cartes dix de trèfle, deux de coeur et trois de pique découvertes. Les chances de gain que l'on cherche à atteindre sont de 52,35\%. On peut constater que lorsque nous lançons cent tests, le résultat obtenu est encore trop éloigné du résultat attendu. Cependant, lorsque nous lançons mille tests, ce résultat est déjà plus proche de la vérité. De même, lorsque l'on lance cinq mille tests, on se rapproche encore du résultat attendu. Nous avons ensuite choisi de lancer dix mille tests et nous nous sommes rendus compte que les résultats obtenus étaient en moyenne très précis, à plus ou moins 2\%. Nous avons ensuite choisi de lancer les tests sur cinquante mille parties afin de savoir si l'on se rapprochait encore plus du résultat attendu. Nous nous sommes alors rendus compte que la différence n'était pas énorme et ne dépassait pratiquement jamais les 1\%. Par conséquent, il a été décidé de mettre en place le lacement de dix mille tests pour obtenir de bons résultats.\par
+
+\begin{figure}[H]
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+Nombre de tests & Chances de gain obtenues\\
+\hline
+50000  & 51.616\%\\
+\hline
+10000 & 51.17\%\\
+\hline
+5000 & 50.38\%\\
+\hline
+1000 & 50\%\\
+\hline
+100 & 48\%\\
+\hline
+Calculette de probabilités en ligne & 52,35\%\\
+\hline
+\end{tabular}
+\end{center}
+\caption{Chances de gains obtenues en fonction du nombre de tests effectués}
+\end{figure}
 
 
-%%A faire en modifiant le code (ds l'interfacegraphique, ia ne calcule pas ses chances de gain...)
-Calculette de probabilités en ligne : 
-100 000 tirages : 
-150 000 tirages : 
-50 000 tirages : 
-%%%Exemple avec 50 000 tirages, 100 000 et 150 000 tirages, pour une même main.
-
-L'implémentation de cette fonctionnalité ayant considérablement ralenti l'application, nous avons choisi de multi-threader l'estimation des chances de gain. En effet, à chaque nouvelle étape, 100 000 tirages étaient effectués, avec 100 000 comparaisons entre la main effective et celle tirée aléatoirement. De plus, lorsque nous faisions jouer deux intelligences artificielles l'une contre l'autre, le temps d'attente pour avoir le résultat de la partie était multiplié par deux. Comme notre but final n'était pas de lancer une partie mais beaucoup plus, nous avons rapidement décidé de rendre cette exécution plus rapide en parallélisant les calculs.
+L'implémentation de cette fonctionnalité ayant considérablement ralenti l'application, nous avons choisi de paralléliser l'estimation des chances de gain. En effet, à chaque nouvelle étape, 10 000 tirages étaient effectués, avec 10 000 comparaisons entre la main effective et celle tirée aléatoirement. De plus, lorsque nous faisions jouer deux intelligences artificielles l'une contre l'autre, le temps d'attente pour avoir le résultat de la partie était multiplié par deux. Comme notre but final n'était pas de lancer une partie mais beaucoup plus, nous avons rapidement décidé de rendre cette exécution plus rapide en parallélisant les calculs.\par
 
 \chapter{Méthodes de profilage}
 

@@ -40,18 +40,18 @@
 \contentsline {subsection}{\numberline {5.1.1}R\IeC {\'e}solveur basique}{30}
 \contentsline {subsection}{\numberline {5.1.2}R\IeC {\'e}solveur avec calibrage}{30}
 \contentsline {section}{\numberline {5.2}Estimation des chances de gain}{33}
-\contentsline {chapter}{\numberline {6}M\IeC {\'e}thodes de profilage}{35}
-\contentsline {section}{\numberline {6.1}Sc\IeC {\'e}narios de tests}{35}
-\contentsline {subsection}{\numberline {6.1.1}Mise en place des sc\IeC {\'e}narios}{35}
-\contentsline {subsection}{\numberline {6.1.2}Analyse des r\IeC {\'e}sultats}{36}
-\contentsline {section}{\numberline {6.2}Test du profilage}{37}
-\contentsline {section}{\numberline {6.3}\IeC {\'E}tablissement des profils attendus}{37}
-\contentsline {chapter}{\numberline {7}Analyse des gains de parties}{39}
-\contentsline {section}{\numberline {7.1}Un premier calibrage inefficace}{39}
-\contentsline {section}{\numberline {7.2}Recherche du calibrage optimal}{40}
-\contentsline {section}{\numberline {7.3}R\IeC {\'e}sultats}{41}
-\contentsline {chapter}{\numberline {8}Perspectives et conclusion}{42}
-\contentsline {section}{\numberline {8.1}Perspectives d'am\IeC {\'e}lioration du profilage}{42}
-\contentsline {section}{\numberline {8.2}Profilage obtenu}{42}
-\contentsline {chapter}{\numberline {A}Planification pr\IeC {\'e}visionnelle}{44}
-\contentsline {chapter}{\numberline {B}Planification r\IeC {\'e}elle}{46}
+\contentsline {chapter}{\numberline {6}M\IeC {\'e}thodes de profilage}{36}
+\contentsline {section}{\numberline {6.1}Sc\IeC {\'e}narios de tests}{36}
+\contentsline {subsection}{\numberline {6.1.1}Mise en place des sc\IeC {\'e}narios}{36}
+\contentsline {subsection}{\numberline {6.1.2}Analyse des r\IeC {\'e}sultats}{37}
+\contentsline {section}{\numberline {6.2}Test du profilage}{38}
+\contentsline {section}{\numberline {6.3}\IeC {\'E}tablissement des profils attendus}{38}
+\contentsline {chapter}{\numberline {7}Analyse des gains de parties}{40}
+\contentsline {section}{\numberline {7.1}Un premier calibrage inefficace}{40}
+\contentsline {section}{\numberline {7.2}Recherche du calibrage optimal}{41}
+\contentsline {section}{\numberline {7.3}R\IeC {\'e}sultats}{42}
+\contentsline {chapter}{\numberline {8}Perspectives et conclusion}{43}
+\contentsline {section}{\numberline {8.1}Perspectives d'am\IeC {\'e}lioration du profilage}{43}
+\contentsline {section}{\numberline {8.2}Profilage obtenu}{43}
+\contentsline {chapter}{\numberline {A}Planification pr\IeC {\'e}visionnelle}{45}
+\contentsline {chapter}{\numberline {B}Planification r\IeC {\'e}elle}{47}
