@@ -354,33 +354,49 @@ De plus, chaque commit effectué sur le projet Git devra avoir une description e
 \chapter{Analyse du projet}
 
 \section{Analyse de l'existant}
+
+
+%%TODO: trouver comment on fait référence à un article ds un rapport 
+%%      reprendre le texte
+%%      ajouter plus de références / expliquer en quoi on s'est servi des                                                                  articles
+
+\hspace{0.5cm}Avant de commencer à réfléchir aux différentes méthodes de profilage, nous avons choisi de lire différents articles sur le sujet pour nous faire une idée des données à prendre en compte et des différentes méthodes que nous pourrions utiliser. \par
+Malgré la lecture des articles, nous avons choisi de développer nos propres méthodes de profilage, sans utiliser exactement les méthodes décrites dans les différents articles. Cependant, nous avons choisi de quand même nous inspirer des articles, notamment pour le choix des paramètres importants à prendre en compte, par exemple pour le calcul du profil du joueur, à savoir, le taux d'agressivité, de rationalité, de passivité et de bluff. \par
+Ainsi, grâce à l'article "Poker as a Testbed for IA Research", expliquant entre-autres les paramètres à prendre en compte pour avoir une base de jeu solide, nous avons isolé de façon plus rapide les paramètres importants pour établir les profils des joueurs. De ce fait, nous en avons déduit que le paramètre à prendre en compte en priorité est la force de la main et qu'il faudra bien entendu la recalculer à chaque nouvelle étape puisque après l'apparition de nouvelles cartes, les chances de gain d'un joueur peuvent complètement changer. De même, nous nous sommes basés sur l'article pour la façon dont notre intelligence artificielle allait jouer pour gagner. En effet, dans cet article, il est expliqué à quel point il est important d'avoir un jeu imprévisible, c'est à dire de ne pas effectuer toujours les mêmes actions. \par
+Cependant, nous ne nous sommes pas seulement inspirés de l'article présenté précédemment. En effet, cet article ne se concentre que sur la force de la main, le potentiel d'une main ainsi que la stratégie de jeu et ne traite pas de façon précise des paramètres à prendre en compte pour profiler un joueur. \par
+Pour choisir les paramètres à prendre en compte pour le profilage d'un joueur, nous nous sommes inspirés de la thèse "Probabilities and Simulations in Poker". En effet, dans cette thèse, Maria de Lourdes Peña Castillo explique que pour profiler de manière efficace un joueur, il faut se baser sur le triplet suivant, le taux de suivis, de mises et de checks. \par
+
+Par la suite, si nous avons lu beaucoup d'articles traitant de la mise en place d'une table de poids pour calculer la possible main d'un adversaire en fonction de ses actions, notamment la thèse "Probabilities and Simulations in Poker" ou encore l'article "Player Profiling in Texas Hold'em Poker". Cependant, au vu de la complexité de la mise en place de ce calcul, nous avons choisi de mettre de côté l'implémentation de cette fonctionnalité et de la reprendre éventuellement si nous avions du temps à la fin. \par
+
+
+
 %%Présenter les articles
 
 %%Ebauches d'infos sur ce qui est contenu par les articles
-
-Articles parlant de la table de poids :
-Improved Opponent Modeling in Poker
-Player Profiling In Texas Holdem
-
-Table de frequence de "paris" : 
-Improved Opponent Modeling in poker
-
-Facteurs à prendre en compte pour le profilage :
-Improved Opponent Modeling : montant pot
-
-
-Poker as a testbed for AI research (Loki-1):
-- force main calculée au flop, turn et river
-- stratégie : déterminer quelle action est la meilleure
-			prendre en compte : -force main
-								-profil établi
-- profil adversaire : faible/fort agressif/passif
-
-
-
-Probabilities and simulations in poker (Loki-1 et Loki-2):
-- profilage dynamique : triplets de proba : fold,call,raise
-- table de poids (OM)
+%
+%Articles parlant de la table de poids :
+%Improved Opponent Modeling in Poker
+%Player Profiling In Texas Holdem
+%
+%Table de frequence de "paris" : 
+%Improved Opponent Modeling in poker
+%
+%Facteurs à prendre en compte pour le profilage :
+%Improved Opponent Modeling : montant pot
+%
+%
+%Poker as a testbed for AI research (Loki-1):
+%- force main calculée au flop, turn et river
+%- stratégie : déterminer quelle action est la meilleure
+%			prendre en compte : -force main
+%								-profil établi
+%- profil adversaire : faible/fort agressif/passif
+%
+%
+%
+%Probabilities and simulations in poker (Loki-1 et Loki-2):
+%- profilage dynamique : triplets de proba : fold,call,raise
+%- table de poids (OM)
 
 \section{Système de jeu}
 
@@ -800,7 +816,7 @@ La figure suivante représente les calibrages que nous avions établis au dépar
 
 \section{Recherche du calibrage optimal}
 
-	Puisque les premières réponses face à un profilage établi pour gagner le plus de parties et de jetons possibles n'étaient pas concluantes, nous avons établi des tests permettant de déterminer un calibrage optimal.\par
+\hspace{0.5cm}Puisque les premières réponses face à un profilage établi pour gagner le plus de parties et de jetons possibles n'étaient pas concluantes, nous avons établi des tests permettant de déterminer un calibrage optimal.\par
 Pour cela, nous avons lancé une série de parties en faisant varier le calibrage de l'intelligence artificielle qui profile. Nous avons fait varier chacun des paramètres, agressivité et rationalité, de 15 en 15 de la façon suivante.
 15 - 30 - 45 - 60 - 75 - 90 - 100
 
@@ -808,17 +824,32 @@ Nous avons ensuite effectué le produit cartésien entre les deux listes pour ob
 
 Nous récupérions à la fin des 40 parties le taux de parties gagnées ainsi que le nombre de jetons gagnés ou perdus.
 
-%%% TODO : Mettre courbe et l'expliqer %%%
+%%% TODO : Mettre courbe et l'expliquer 
+%%			Pour ça, lancer un test plus grand?
+%%%
+
+
+
+%%Comparaison entre résultats nouveaux calibrages et anciens calibrages.
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.5]{./imagesRapport/NombrePartiesGagneesEnFonctionCalibrage.jpg}
+	\end{center}
+	\caption{Nombre de parties gagnées en fonction des deux calibrages}
+\end{figure}
+
+Comme on peut le voir dans la figure ci-dessus, le changement de gains de parties par rapport aux résultats précédent n'est pas énorme voire inexistant. En effet, nous avons choisi de nous concentrer davantage sur les gains de jetons. Ainsi, même si un l'intelligence artificielle qui profile ne gagne pas plus de parties, elle gagne plus de jetons qu’auparavant. Le diagramme suivant représente les jetons gagnés en fonction du calibrage. Comme on peut le voir, le nombre de jetons gagnés après implémentation des nouveaux calibrages, en rouge sur la figure, a nettement augmenté dans la plupart des paliers. Ainsi, alors que l'intelligence artificielle perdait plus de 2500 jetons face à un adversaire étant catégorisé dans le palier 7, c'est à dire ayant un taux d'agressivité compris entre soixante et cent et un taux de rationalité compris entre zéro et quarante, elle en gagne maintenant plus de 2500.
+
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.5]{./imagesRapport/JetonsGagnesEnFonctionCalibrage.jpg}
+	\end{center}
+	\caption{Nombre de parties gagnées en fonction des deux calibrages}
+\end{figure}
 
 
 \section{Résultats}
-
-
- 
- 
-
- 
-Suite à ces résultats, nous avons donc pu produire des courbes de gain en fonction du nombre de parties jouées, et aussi en fonction du mode de jeu de l'intelligence artificielle (profilage ou jeu pour gagner). Nous avons également pu afficher dans une même graphe entre les courbes de profilage et courbe de gain.\par
+\hspace{0.5cm}Suite à ces résultats, nous avons donc pu produire des courbes de gain en fonction du nombre de parties jouées, et aussi en fonction du mode de jeu de l'intelligence artificielle (profilage ou jeu pour gagner). Nous avons également pu afficher dans une même graphe entre les courbes de profilage et courbe de gain.\par
 Dans le but de rendre plus significative la courbe de profilage, et donc de mieux voir la corrélation entre les deux courbes, nous avons modifié l'affichage de la courbe de profilage. En effet, selon le calibrage à déterminer, la variation de la courbe n'est pas la même. Nous avons donc fait en sorte que celle-ci corresponde à la différence entre le profilage établi et le calibrage réel. Ainsi, plus cette courbe diminue, plus le profilage établi est précis. Et donc plus cette courbe diminue, plus la courbe de gain est supposée augmenter.\\
  
 

@@ -24,34 +24,34 @@
 \contentsline {subsection}{\numberline {2.2.2}Normes de programmation}{20}
 \contentsline {chapter}{\numberline {3}Analyse du projet}{22}
 \contentsline {section}{\numberline {3.1}Analyse de l'existant}{22}
-\contentsline {section}{\numberline {3.2}Syst\IeC {\`e}me de jeu}{22}
-\contentsline {subsection}{\numberline {3.2.1}Deux joueurs}{22}
+\contentsline {section}{\numberline {3.2}Syst\IeC {\`e}me de jeu}{23}
+\contentsline {subsection}{\numberline {3.2.1}Deux joueurs}{23}
 \contentsline {subsection}{\numberline {3.2.2}Intelligence artificielle contre intelligence artificielle}{23}
-\contentsline {subsection}{\numberline {3.2.3}Choix d'enregistrement des donn\IeC {\'e}es}{23}
-\contentsline {section}{\numberline {3.3}Profilage}{24}
-\contentsline {section}{\numberline {3.4}Phase de jeu}{25}
-\contentsline {chapter}{\numberline {4}Calcul du profil d'un joueur}{26}
-\contentsline {section}{\numberline {4.1}Rationalit\IeC {\'e}}{26}
-\contentsline {section}{\numberline {4.2}Agressivit\IeC {\'e}}{27}
-\contentsline {section}{\numberline {4.3}Bluff}{28}
-\contentsline {section}{\numberline {4.4}Passivit\IeC {\'e}}{28}
-\contentsline {chapter}{\numberline {5}Intelligence artificielle}{29}
-\contentsline {section}{\numberline {5.1}R\IeC {\'e}solveur}{29}
-\contentsline {subsection}{\numberline {5.1.1}R\IeC {\'e}solveur basique}{29}
-\contentsline {subsection}{\numberline {5.1.2}R\IeC {\'e}solveur avec calibrage}{29}
-\contentsline {section}{\numberline {5.2}Estimation des chances de gain}{32}
-\contentsline {chapter}{\numberline {6}M\IeC {\'e}thodes de profilage}{34}
-\contentsline {section}{\numberline {6.1}Sc\IeC {\'e}narios de tests}{34}
-\contentsline {subsection}{\numberline {6.1.1}Mise en place des sc\IeC {\'e}narios}{34}
-\contentsline {subsection}{\numberline {6.1.2}Analyse des r\IeC {\'e}sultats}{35}
-\contentsline {section}{\numberline {6.2}Test du profilage}{36}
-\contentsline {section}{\numberline {6.3}\IeC {\'E}tablissement des profils attendus}{36}
-\contentsline {chapter}{\numberline {7}Analyse des gains de parties}{38}
-\contentsline {section}{\numberline {7.1}Un premier calibrage inefficace}{38}
-\contentsline {section}{\numberline {7.2}Recherche du calibrage optimal}{39}
-\contentsline {section}{\numberline {7.3}R\IeC {\'e}sultats}{39}
-\contentsline {chapter}{\numberline {8}Perspectives et conclusion}{40}
-\contentsline {section}{\numberline {8.1}Perspectives d'am\IeC {\'e}lioration du profilage}{40}
-\contentsline {section}{\numberline {8.2}Profilage obtenu}{40}
-\contentsline {chapter}{\numberline {A}Planification pr\IeC {\'e}visionnelle}{42}
-\contentsline {chapter}{\numberline {B}Planification r\IeC {\'e}elle}{44}
+\contentsline {subsection}{\numberline {3.2.3}Choix d'enregistrement des donn\IeC {\'e}es}{24}
+\contentsline {section}{\numberline {3.3}Profilage}{25}
+\contentsline {section}{\numberline {3.4}Phase de jeu}{26}
+\contentsline {chapter}{\numberline {4}Calcul du profil d'un joueur}{27}
+\contentsline {section}{\numberline {4.1}Rationalit\IeC {\'e}}{27}
+\contentsline {section}{\numberline {4.2}Agressivit\IeC {\'e}}{28}
+\contentsline {section}{\numberline {4.3}Bluff}{29}
+\contentsline {section}{\numberline {4.4}Passivit\IeC {\'e}}{29}
+\contentsline {chapter}{\numberline {5}Intelligence artificielle}{30}
+\contentsline {section}{\numberline {5.1}R\IeC {\'e}solveur}{30}
+\contentsline {subsection}{\numberline {5.1.1}R\IeC {\'e}solveur basique}{30}
+\contentsline {subsection}{\numberline {5.1.2}R\IeC {\'e}solveur avec calibrage}{30}
+\contentsline {section}{\numberline {5.2}Estimation des chances de gain}{33}
+\contentsline {chapter}{\numberline {6}M\IeC {\'e}thodes de profilage}{35}
+\contentsline {section}{\numberline {6.1}Sc\IeC {\'e}narios de tests}{35}
+\contentsline {subsection}{\numberline {6.1.1}Mise en place des sc\IeC {\'e}narios}{35}
+\contentsline {subsection}{\numberline {6.1.2}Analyse des r\IeC {\'e}sultats}{36}
+\contentsline {section}{\numberline {6.2}Test du profilage}{37}
+\contentsline {section}{\numberline {6.3}\IeC {\'E}tablissement des profils attendus}{37}
+\contentsline {chapter}{\numberline {7}Analyse des gains de parties}{39}
+\contentsline {section}{\numberline {7.1}Un premier calibrage inefficace}{39}
+\contentsline {section}{\numberline {7.2}Recherche du calibrage optimal}{40}
+\contentsline {section}{\numberline {7.3}R\IeC {\'e}sultats}{41}
+\contentsline {chapter}{\numberline {8}Perspectives et conclusion}{42}
+\contentsline {section}{\numberline {8.1}Perspectives d'am\IeC {\'e}lioration du profilage}{42}
+\contentsline {section}{\numberline {8.2}Profilage obtenu}{42}
+\contentsline {chapter}{\numberline {A}Planification pr\IeC {\'e}visionnelle}{44}
+\contentsline {chapter}{\numberline {B}Planification r\IeC {\'e}elle}{46}
