@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.2.9)  12 MAY 2015 19:58
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.2.9)  13 MAY 2015 13:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -571,7 +571,7 @@ Chapitre 1.
 [9
 
 ]
-Overfull \hbox (25.54301pt too wide) in paragraph at lines 113--113
+Overfull \hbox (25.54301pt too wide) in paragraph at lines 121--121
 []\OT1/cmr/bx/n/14.4 Rapide de-scrip-tion des r^^Regles du Texas Hold'Em
  []
 
@@ -580,14 +580,14 @@ File: ./imagesRapport/quinteFlushRoyale.jpg Graphic file (type jpg)
 
 <use ./imagesRapport/quinteFlushRoyale.jpg>
 Package pdftex.def Info: ./imagesRapport/quinteFlushRoyale.jpg used on input li
-ne 147.
+ne 158.
 (pdftex.def)             Requested size: 147.55238pt x 40.65218pt.
 
 <./imagesRapport/quinteFlush.jpg, id=71, 401.5pt x 120.45pt>
 File: ./imagesRapport/quinteFlush.jpg Graphic file (type jpg)
 
 <use ./imagesRapport/quinteFlush.jpg>
-Package pdftex.def Info: ./imagesRapport/quinteFlush.jpg used on input line 158
+Package pdftex.def Info: ./imagesRapport/quinteFlush.jpg used on input line 169
 .
 (pdftex.def)             Requested size: 160.59715pt x 48.17914pt.
  [11 <./imagesRapport/quinteFlushRoyale.jpg> <./imagesRapport/quinteFlush.jpg>]
@@ -596,21 +596,21 @@ Package pdftex.def Info: ./imagesRapport/quinteFlush.jpg used on input line 158
 File: ./imagesRapport/carre.jpg Graphic file (type jpg)
 
 <use ./imagesRapport/carre.jpg>
-Package pdftex.def Info: ./imagesRapport/carre.jpg used on input line 168.
+Package pdftex.def Info: ./imagesRapport/carre.jpg used on input line 179.
 (pdftex.def)             Requested size: 163.81326pt x 45.47021pt.
 
 <./imagesRapport/full.jpg, id=76, 401.5pt x 120.45pt>
 File: ./imagesRapport/full.jpg Graphic file (type jpg)
 
 <use ./imagesRapport/full.jpg>
-Package pdftex.def Info: ./imagesRapport/full.jpg used on input line 181.
+Package pdftex.def Info: ./imagesRapport/full.jpg used on input line 192.
 (pdftex.def)             Requested size: 160.59715pt x 48.17914pt.
 
 <./imagesRapport/couleur.jpg, id=77, 530.98375pt x 150.5625pt>
 File: ./imagesRapport/couleur.jpg Graphic file (type jpg)
 
 <use ./imagesRapport/couleur.jpg>
-Package pdftex.def Info: ./imagesRapport/couleur.jpg used on input line 191.
+Package pdftex.def Info: ./imagesRapport/couleur.jpg used on input line 202.
 (pdftex.def)             Requested size: 159.29634pt x 45.16908pt.
  [12 <./imagesRapport/carre.jpg> <./imagesRapport/full.jpg> <./imagesRapport/co
 uleur.jpg>]
@@ -618,21 +618,21 @@ uleur.jpg>]
 File: ./imagesRapport/suite.jpg Graphic file (type jpg)
 
 <use ./imagesRapport/suite.jpg>
-Package pdftex.def Info: ./imagesRapport/suite.jpg used on input line 202.
+Package pdftex.def Info: ./imagesRapport/suite.jpg used on input line 213.
 (pdftex.def)             Requested size: 159.29634pt x 45.16908pt.
 
 <./imagesRapport/brelan.jpg, id=82, 441.76309pt x 106.87817pt>
 File: ./imagesRapport/brelan.jpg Graphic file (type jpg)
 
 <use ./imagesRapport/brelan.jpg>
-Package pdftex.def Info: ./imagesRapport/brelan.jpg used on input line 212.
+Package pdftex.def Info: ./imagesRapport/brelan.jpg used on input line 223.
 (pdftex.def)             Requested size: 176.7021pt x 42.7505pt.
 
 <./imagesRapport/doublePaire.jpg, id=83, 441.76309pt x 105.86028pt>
 File: ./imagesRapport/doublePaire.jpg Graphic file (type jpg)
 
 <use ./imagesRapport/doublePaire.jpg>
-Package pdftex.def Info: ./imagesRapport/doublePaire.jpg used on input line 220
+Package pdftex.def Info: ./imagesRapport/doublePaire.jpg used on input line 231
 .
 (pdftex.def)             Requested size: 132.52994pt x 31.75832pt.
  [13 <./imagesRapport/suite.jpg> <./imagesRapport/brelan.jpg> <./imagesRapport/
@@ -641,18 +641,18 @@ doublePaire.jpg>]
 File: ./imagesRapport/paire.jpg Graphic file (type jpg)
 
 <use ./imagesRapport/paire.jpg>
-Package pdftex.def Info: ./imagesRapport/paire.jpg used on input line 230.
+Package pdftex.def Info: ./imagesRapport/paire.jpg used on input line 241.
 (pdftex.def)             Requested size: 156.88733pt x 45.16908pt.
 
 <./imagesRapport/carteHaute.jpg, id=89, 441.76309pt x 105.86028pt>
 File: ./imagesRapport/carteHaute.jpg Graphic file (type jpg)
 
 <use ./imagesRapport/carteHaute.jpg>
-Package pdftex.def Info: ./imagesRapport/carteHaute.jpg used on input line 240.
+Package pdftex.def Info: ./imagesRapport/carteHaute.jpg used on input line 251.
 
 (pdftex.def)             Requested size: 176.7021pt x 42.34335pt.
  [14 <./imagesRapport/paire.jpg> <./imagesRapport/carteHaute.jpg>]
-Overfull \hbox (6.42136pt too wide) in paragraph at lines 259--259
+Overfull \hbox (6.42136pt too wide) in paragraph at lines 270--270
  \OT1/cmr/m/n/10 Une fois les fonc-tion-nalit^^Ses obli-ga-toires mises en plac
 e, il sera pos-si-ble d'ajouter
  []
@@ -662,7 +662,7 @@ Chapitre 2.
 [17
 
 ]
-Overfull \hbox (8.02838pt too wide) in paragraph at lines 297--297
+Overfull \hbox (8.02838pt too wide) in paragraph at lines 311--311
 []\OT1/cmr/m/n/10 Cependant, on peut con-stater que nous avions com-menc^^Se l'
 analyse de l'existant
  []
@@ -671,52 +671,32 @@ analyse de l'existant
 File: ./imagesRapport/schemaGit.png Graphic file (type png)
 
 <use ./imagesRapport/schemaGit.png>
-Package pdftex.def Info: ./imagesRapport/schemaGit.png used on input line 310.
+Package pdftex.def Info: ./imagesRapport/schemaGit.png used on input line 324.
 (pdftex.def)             Requested size: 344.00784pt x 201.39394pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 315--316
+Underfull \hbox (badness 10000) in paragraph at lines 329--330
 
  []
 
 [19 <./imagesRapport/schemaGit.png>]
-Overfull \hbox (2.3061pt too wide) in paragraph at lines 324--324
+Overfull \hbox (2.3061pt too wide) in paragraph at lines 338--338
 []\OT1/cmr/m/n/10 Les noms des m^^Sethodes, des vari-ables et des at-tributs de
 -vront imp^^Serativement
  []
 
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 332.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 346.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 332.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 346.
  [20] [21]
 Chapitre 3.
 [22
 
 ] [23]
-Underfull \hbox (badness 10000) in paragraph at lines 414--415
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 423--424
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 425--426
-
- []
-
-[24]
-Underfull \hbox (badness 10000) in paragraph at lines 433--434
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 435--436
+Underfull \hbox (badness 10000) in paragraph at lines 428--429
 
  []
 
@@ -730,8 +710,28 @@ Underfull \hbox (badness 10000) in paragraph at lines 439--440
 
  []
 
+[24]
+Underfull \hbox (badness 10000) in paragraph at lines 447--448
 
-Underfull \hbox (badness 10000) in paragraph at lines 445--446
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 449--450
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 451--452
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 453--454
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 459--460
 
  []
 
@@ -744,58 +744,58 @@ File: ./imagesRapport/courbeRationaliteMiseTheorique.jpg Graphic file (type jpg
 )
  <use ./imagesRapport/courbeRationaliteMiseTheorique.jpg>
 Package pdftex.def Info: ./imagesRapport/courbeRationaliteMiseTheorique.jpg use
-d on input line 468.
+d on input line 482.
 (pdftex.def)             Requested size: 303.63364pt x 170.63707pt.
  [27
 
  <./imagesRapport/courbeRationaliteMiseTheorique.jpg>]
-Underfull \hbox (badness 10000) in paragraph at lines 478--481
+Underfull \hbox (badness 10000) in paragraph at lines 492--495
 
  []
 
 
-Overfull \hbox (61.49129pt too wide) in paragraph at lines 490--490
+Overfull \hbox (61.49129pt too wide) in paragraph at lines 504--504
 [] 
  []
 
 [28]
-Underfull \hbox (badness 10000) in paragraph at lines 532--533
+Underfull \hbox (badness 10000) in paragraph at lines 546--547
 
  []
 
 [29]
 Chapitre 5.
 
-Underfull \hbox (badness 10000) in paragraph at lines 575--576
+Underfull \hbox (badness 10000) in paragraph at lines 589--590
 
  []
 
 [30
 
 ]
-Overfull \hbox (10.82889pt too wide) in paragraph at lines 580--580
+Overfull \hbox (10.82889pt too wide) in paragraph at lines 594--594
 []\OT1/cmr/m/n/9 Pour le choix de l'action agres-sive, le cal-cul se base sur u
 ne mise th^^Seorique d'agressivit^^Se
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 586--587
+Underfull \hbox (badness 10000) in paragraph at lines 600--601
 
  []
 
 
-Overfull \hbox (3.99132pt too wide) in paragraph at lines 589--589
+Overfull \hbox (3.99132pt too wide) in paragraph at lines 603--603
 \OT1/cmr/m/n/9 re-spon-dante au taux d'agressivit^^Se en fonc-tion de la mise t
 o-tale ef-fectu^^See par l'intelligence
  []
 
 [31] [32]
-Underfull \hbox (badness 10000) in paragraph at lines 688--689
+Underfull \hbox (badness 10000) in paragraph at lines 702--703
 
  []
 
 [33]
-Overfull \hbox (9.93376pt too wide) in paragraph at lines 722--722
+Overfull \hbox (9.93376pt too wide) in paragraph at lines 736--736
 []\OT1/cmr/m/n/9 L'impl^^Sementation de cette fonc-tion-nalit^^Se ayant con-sid
 ^^Serablement ralenti l'application,
  []
@@ -803,55 +803,55 @@ Overfull \hbox (9.93376pt too wide) in paragraph at lines 722--722
 [34] [35]
 Chapitre 6.
 
-Overfull \hbox (30.69508pt too wide) in paragraph at lines 736--773
+Overfull \hbox (30.69508pt too wide) in paragraph at lines 750--787
  [] 
  []
 
 [36
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 777--778
+Underfull \hbox (badness 10000) in paragraph at lines 791--792
 
  []
 
 
-Overfull \hbox (0.79205pt too wide) in paragraph at lines 784--784
+Overfull \hbox (0.79205pt too wide) in paragraph at lines 798--798
  \OT1/cmr/m/n/9 Pour facile-ment d^^Seterminer si le pro-fi-lage ^^Setabli est 
 ef-fi-cace, et ^^Segalement d^^Seterminer
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 786--787
+Underfull \hbox (badness 10000) in paragraph at lines 800--801
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 788--789
+Underfull \hbox (badness 10000) in paragraph at lines 802--803
 
  []
 
 [37] [38] [39]
 Chapitre 7.
 
-Underfull \hbox (badness 10000) in paragraph at lines 821--849
+Underfull \hbox (badness 10000) in paragraph at lines 835--863
 
  []
 
 
-Overfull \hbox (18.47597pt too wide) in paragraph at lines 852--853
+Overfull \hbox (18.47597pt too wide) in paragraph at lines 866--867
 \OT1/cmr/m/n/9 avons donc ren-seign^^Se dans l'application le nom-bre de par-ti
 es au bout desquelles l'intelligence
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 852--853
+Underfull \hbox (badness 10000) in paragraph at lines 866--867
 
  []
 
 [40
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 856--857
+Underfull \hbox (badness 10000) in paragraph at lines 870--871
 
  []
 
@@ -863,10 +863,10 @@ ic file (type jpg)
 
 <use ./imagesRapport/PremierCalibrageComparaisonNombrePartiesGagnees.jpg>
 Package pdftex.def Info: ./imagesRapport/PremierCalibrageComparaisonNombreParti
-esGagnees.jpg used on input line 863.
+esGagnees.jpg used on input line 877.
 (pdftex.def)             Requested size: 303.63364pt x 170.63707pt.
 
-Overfull \hbox (11.38438pt too wide) in paragraph at lines 868--868
+Overfull \hbox (11.38438pt too wide) in paragraph at lines 882--882
 \OT1/cmr/m/n/9 sc^^Senarios de tests, nous avons n^^Seanmoins re-marqu^^Se que 
 dans l'ensemble, nous l'intelligence
  []
@@ -879,7 +879,7 @@ File: ./imagesRapport/PremierCalibrageComparaisonJetonsGagnees.jpg Graphic file
 
 <use ./imagesRapport/PremierCalibrageComparaisonJetonsGagnees.jpg>
 Package pdftex.def Info: ./imagesRapport/PremierCalibrageComparaisonJetonsGagne
-es.jpg used on input line 873.
+es.jpg used on input line 887.
 (pdftex.def)             Requested size: 303.63364pt x 170.63707pt.
  [41 <./imagesRapport/PremierCalibrageComparaisonNombrePartiesGagnees.jpg>]
 <./imagesRapport/NombrePartiesGagneesEnFonctionCalibrage.jpg, id=192, 607.26875
@@ -889,7 +889,7 @@ File: ./imagesRapport/NombrePartiesGagneesEnFonctionCalibrage.jpg Graphic file
 
 <use ./imagesRapport/NombrePartiesGagneesEnFonctionCalibrage.jpg>
 Package pdftex.def Info: ./imagesRapport/NombrePartiesGagneesEnFonctionCalibrag
-e.jpg used on input line 901.
+e.jpg used on input line 915.
 (pdftex.def)             Requested size: 303.63364pt x 170.63707pt.
  [42 <./imagesRapport/PremierCalibrageComparaisonJetonsGagnees.jpg>]
 <./imagesRapport/JetonsGagnesEnFonctionCalibrage.jpg, id=196, 607.26875pt x 341
@@ -898,10 +898,10 @@ File: ./imagesRapport/JetonsGagnesEnFonctionCalibrage.jpg Graphic file (type jp
 g)
  <use ./imagesRapport/JetonsGagnesEnFonctionCalibrage.jpg>
 Package pdftex.def Info: ./imagesRapport/JetonsGagnesEnFonctionCalibrage.jpg us
-ed on input line 910.
+ed on input line 924.
 (pdftex.def)             Requested size: 303.63364pt x 170.63707pt.
  [43 <./imagesRapport/NombrePartiesGagneesEnFonctionCalibrage.jpg>]
-Underfull \hbox (badness 10000) in paragraph at lines 918--919
+Underfull \hbox (badness 10000) in paragraph at lines 932--933
 
  []
 
@@ -917,10 +917,10 @@ Annexe A.
 File: ../DiagrammePrevisionnel.png Graphic file (type png)
 
 <use ../DiagrammePrevisionnel.png>
-Package pdftex.def Info: ../DiagrammePrevisionnel.png used on input line 949.
+Package pdftex.def Info: ../DiagrammePrevisionnel.png used on input line 963.
 (pdftex.def)             Requested size: 1409.24007pt x 219.2151pt.
 
-Overfull \hbox (747.65126pt too wide) in paragraph at lines 948--950
+Overfull \hbox (747.65126pt too wide) in paragraph at lines 962--964
 []  [] 
  []
 
@@ -932,10 +932,10 @@ Annexe B.
 File: ../DiagrammeReel.png Graphic file (type png)
 
 <use ../DiagrammeReel.png>
-Package pdftex.def Info: ../DiagrammeReel.png used on input line 957.
+Package pdftex.def Info: ../DiagrammeReel.png used on input line 971.
 (pdftex.def)             Requested size: 1730.83588pt x 219.2151pt.
 
-Overfull \hbox (1069.24707pt too wide) in paragraph at lines 956--958
+Overfull \hbox (1069.24707pt too wide) in paragraph at lines 970--972
 []  [] 
  []
 
@@ -945,7 +945,7 @@ Overfull \hbox (1069.24707pt too wide) in paragraph at lines 956--958
 Here is how much of TeX's memory you used:
  5506 strings out of 494985
  75733 string characters out of 6180357
- 146742 words of memory out of 5000000
+ 147742 words of memory out of 5000000
  8612 multiletter control sequences out of 15000+600000
  9790 words of font info for 35 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
@@ -962,7 +962,7 @@ r9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb
 ></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/
 share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/
 texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb>
-Output written on Rapport.pdf (51 pages, 870976 bytes).
+Output written on Rapport.pdf (51 pages, 871700 bytes).
 PDF statistics:
  270 PDF objects out of 1000 (max. 8388607)
  170 compressed objects within 2 object streams
