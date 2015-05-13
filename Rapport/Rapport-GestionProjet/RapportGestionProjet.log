@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.4.20)  7 MAY 2015 17:23
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.2.9)  13 MAY 2015 15:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -649,95 +649,111 @@ analyse de l'existant
 
 [7
 
-] [8]
-Chapitre 4.
-[9
+]
+Overfull \hbox (104.72607pt too wide) in paragraph at lines 82--136
+[] []
+ []
 
-] [10]
-Chapitre 5.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Overfull \hbox (10.74138pt too wide) in paragraph at lines 140--140
+\OT1/cmr/m/n/10 ainsi qu'^^Ra l'^^Setude pr^^Sealable de l'intelligence ar-ti-f
+i-cielle. En-suite, Manuel Chataigner
+ []
+
+
+Overfull \hbox (0.55615pt too wide) in paragraph at lines 140--140
+\OT1/cmr/m/n/10 Par la suite, Manuel Chataigner et Mor-gane Vi-dal ont ef-fectu
+^^Se l'analyse d^^Setaill^^See,
+ []
+
+[8] [9pdfTeX warning (ext4): destination with the same identifier (name{figure.
+3.1}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.147 \chapter
+              {Données quantitatives}] [10]
+Chapitre 4.
 [11
+
+] [12]
+Chapitre 5.
+[13
 
 ]
 Annexe A.
-<../DiagrammePrevisionnel.png, id=143, 3523.1625pt x 548.0475pt>
+<../DiagrammePrevisionnel.png, id=162, 3523.1625pt x 548.0475pt>
 File: ../DiagrammePrevisionnel.png Graphic file (type png)
 
 <use ../DiagrammePrevisionnel.png>
-Package pdftex.def Info: ../DiagrammePrevisionnel.png used on input line 114.
+Package pdftex.def Info: ../DiagrammePrevisionnel.png used on input line 191.
 (pdftex.def)             Requested size: 1056.95694pt x 164.41551pt.
 
-Overfull \hbox (395.36813pt too wide) in paragraph at lines 113--115
+Overfull \hbox (395.36813pt too wide) in paragraph at lines 190--192
 []  []
  []
 
-[12
+[14
 
-] [13pdfTeX warning (ext4): destination with the same identifier (name{figure.A
+] [15pdfTeX warning (ext4): destination with the same identifier (name{figure.A
 .1}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.120 \chapter
+l.197 \chapter
               {Diagramme de Gantt réel} <../DiagrammePrevisionnel.png (PNG cop
 y)>]
 Annexe B.
-<../DiagrammeReel.png, id=154, 4327.16624pt x 548.0475pt>
+<../DiagrammeReel.png, id=172, 4327.16624pt x 548.0475pt>
 File: ../DiagrammeReel.png Graphic file (type png)
 
 <use ../DiagrammeReel.png>
-Package pdftex.def Info: ../DiagrammeReel.png used on input line 123.
+Package pdftex.def Info: ../DiagrammeReel.png used on input line 200.
 (pdftex.def)             Requested size: 1298.15993pt x 164.41551pt.
 
-Overfull \hbox (636.57112pt too wide) in paragraph at lines 122--124
+Overfull \hbox (636.57112pt too wide) in paragraph at lines 199--201
 []  []
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 128.
-[14
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 205.
+[16
 
-] [15pdfTeX warning (ext4): destination with the same identifier (name{figure.B
+] [17pdfTeX warning (ext4): destination with the same identifier (name{figure.B
 .1}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.128 \end{document}
+l.205 \end{document}
                      <../DiagrammeReel.png (PNG copy)>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 128.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 205.
 
 (./RapportGestionProjet.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 128.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 128.
-
-
-Package rerunfilecheck Warning: File `RapportGestionProjet.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `RapportGestionProjet.out':
-(rerunfilecheck)             Before: F6F0C4183F5A135A3823CF4DBCC4EF1B;1035
-(rerunfilecheck)             After:  72D18A8070EFB4919DE6FDD600879C56;1105.
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 128.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 205.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 205.
+Package rerunfilecheck Info: File `RapportGestionProjet.out' has not changed.
+(rerunfilecheck)             Checksum: 55F556A9AE9552FCBF5A3C823DD2FC27;1180.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 205.
  ) 
 Here is how much of TeX's memory you used:
- 8605 strings out of 494985
- 122601 string characters out of 6180356
- 217865 words of memory out of 5000000
- 11679 multiletter control sequences out of 15000+600000
+ 8611 strings out of 494985
+ 122662 string characters out of 6180357
+ 226865 words of memory out of 5000000
+ 11681 multiletter control sequences out of 15000+600000
  10403 words of font info for 38 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 32i,9n,35p,1133b,345s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 32i,9n,35p,1145b,345s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texli
 ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on RapportGestionProjet.pdf (16 pages, 209051 bytes).
+Output written on RapportGestionProjet.pdf (18 pages, 215683 bytes).
 PDF statistics:
- 191 PDF objects out of 1000 (max. 8388607)
- 164 compressed objects within 2 object streams
- 36 named destinations out of 1000 (max. 500000)
- 139 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 212 PDF objects out of 1000 (max. 8388607)
+ 183 compressed objects within 2 object streams
+ 40 named destinations out of 1000 (max. 500000)
+ 155 words of extra memory for PDF output out of 10000 (max. 10000000)
 

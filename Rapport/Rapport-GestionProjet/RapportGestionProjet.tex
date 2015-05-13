@@ -75,6 +75,75 @@ Enfin, nous pensions au départ que nous ne devrions que profiler les joueurs ad
 Nous pouvons donc en conclure que nous avons pris beaucoup de retard, sûrement à cause du fait que nous n'avions pas bien compris l'ampleur des tâches qui seraient à effectuer et à cause d'une mauvaise conception au départ de la partie correspondant au jeu et à l'intelligence artificielle basique. Finalement, étant donné que l'on s'est rendu compte du retard pris sur le projet, plutôt que terminer précipitamment la partie sur le profilage statique pour commencer le profilage dynamique prévu, nous avons préféré ne pas nous précipiter et terminer correctement le profilage statique et obtenir de bons résultats, quitte à ne pas faire la partie dynamique. \par
 
 
+\section{Répartition des tâches}
+
+		\begin{figure}[h]
+			%\begin{center}
+			\hspace{-3cm}\begin{tabular}{|l|l|l|}
+				\hline
+				Étude préalable & & \\
+				\hline
+  				 Interface Graphique & &  \\
+  				 \hline
+  				 & Étude Détaillée &  \textcolor{blue}{Manuel}  \textcolor{red}{Morgane}  \textcolor{purple}{Benjamin}\\
+  				 \hline
+  				 & Programmation & \textcolor{blue}{Manuel}\\
+  				 \hline
+  				 & Tests & \textcolor{blue}{Manuel}  \textcolor{red}{Morgane}\\
+  				 \hline
+  				 IA Basique & & \\
+  				 \hline
+  				 & Étude Préalable & \textcolor{blue}{Manuel}  \textcolor{red}{Morgane}  \textcolor{purple}{Benjamin}\\
+  				 \hline
+  				 & Étude Détaillée & \textcolor{purple}{Benjamin}\\
+  				 \hline
+  				 & Création IA (Programmation) & \textcolor{purple}{Benjamin}\\
+  				 \hline
+  				 & Tests & \textcolor{purple}{Benjamin} \textcolor{red}{Morgane}\\
+  				 \hline
+  				 Profilage Statique & &\\
+  				 \hline
+  				 & Analyse de l'existant & \textcolor{blue}{Manuel}  \textcolor{red}{Morgane} \\
+  				 \hline
+  				 & Étude détaillée & \textcolor{blue}{Manuel}  \textcolor{red}{Morgane}  \textcolor{purple}{Benjamin}\\
+  				 \hline
+  				 & Étude technique & \textcolor{blue}{Manuel}  \textcolor{red}{Morgane}  \textcolor{purple}{Benjamin}\\
+  				 \hline
+  				 & Implémentation Algorithmes & \textcolor{blue}{Manuel}  \textcolor{red}{Morgane}  \textcolor{purple}{Benjamin}\\
+  				 \hline
+  				 & Tests & \textcolor{blue}{Manuel}  \textcolor{red}{Morgane} \\
+  				 \hline
+  				 Jeu IA en fonction des résultats du profilage & &\\
+  				 \hline
+  				 & Étude Technique & \textcolor{blue}{Manuel}  \textcolor{red}{Morgane} \\
+  				 \hline
+  				 & Programmation & \textcolor{blue}{Manuel}  \textcolor{red}{Morgane} \\
+  				 \hline
+  				 Calculette de Probabilités & & \\
+  				 \hline
+  				 & Étude Détaillée & \textcolor{blue}{Manuel}  \textcolor{red}{Morgane} \textcolor{purple}{Benjamin}\\
+  				 \hline
+  				 & Implémentation Calculette de Probabilités & \textcolor{purple}{Benjamin}\\
+  				 \hline
+  				 & Implémentation Évaluateur de mains & \textcolor{red}{Morgane} \\
+  				 \hline
+  				 Rapport & & \textcolor{blue}{Manuel}  \textcolor{red}{Morgane} \\
+  				 \hline
+  				 Remaniement Jeu & & \textcolor{blue}{Manuel}  \textcolor{red}{Morgane} \\
+   				\hline
+			\end{tabular}	
+			%\end{center}
+			\caption{Répartition des tâches}
+		\end{figure}
+		\medskip
+
+\hspace{0.5cm}Afin de travailler de manière efficace, nous avons choisi de nous répartir certaines tâches. Ainsi, nous avons tous participé à la première tâche, à savoir l'étude préalable. En effet, cette étape était essentielle à tout le monde puisque nous devions entre-autres maîtriser le sujet. Par la suite, pour les deux sous-projets concernant l'interface graphique et l'intelligence artificielle basique, tous les membres du groupe ont participé à l'étude détaillée de l'interface graphique ainsi qu'à l'étude préalable de l'intelligence artificielle. Ensuite, Manuel Chataigner a développé l'interface graphique pendant que Benjamin Commandré faisait la partie étude détaillée de l'intelligence artificielle et la développait. Morgane Vidal a ensuite effectué les tests de chacun des sous-projets cités précédemment. Par la suite, Manuel Chataigner et Morgane Vidal ont effectué l'analyse détaillée, en lisant plusieurs articles et en faisant leurs résumés. Chacun des membres du groupe ont ensuite participé à l'étude détaillée du profilage statique. \par
+De même, comme on peut le voir dans le schéma ci-dessus, nous avons tous participé à l'étude technique du sous-projet profilage statique. En effet, les algorithmes à développer étant complexes, nous avons préféré être plusieurs pour en discuter et confronter nos points de vue. Nous avons donc développé ensemble durant cette tâche la méthode d'établissement du profil du joueur adverse. Puis, Manuel Chataigner et Morgane Vidal ont développé dans cette même tâche la méthode de calcul des scénarios de tests. Ensuite, chacun des membres du groupe ont participé à l'implémentation des algorithmes de calcul du profil basique du joueur adverse. Benjamin Commandré a implémenté l'utilisation des méthodes de calculs dans l'intelligence artificielle, Manuel Chataigner a implémenté l'écriture des résultats des profils établis dans un fichier de sortie, Morgane Vidal a implémenté les méthodes de calcul du profilage et Manuel Chataigner et Morgane Vidal ont implémenté l'utilisation des scénarios de tests. 
+Par la suite, la phase de tests du profilage statique a été réalisée par Manuel Chataigner et Morgane Vidal. \par
+Dans le sous-projet calculette de probabilités, nous avons tous participé à la tâche étude détaillée. Puis, Benjamin Commandré a implémenté la calculette de probabilités et Morgane Vidal a implémenté l'évaluateur de main.\par
+La phase de reprise du code de la classe jeu, a été réalisée par Manuel Chataigner et Morgane Vidal. \par
+Enfin l'écriture du rapport a été réalisée par Manuel Chataigner et Morgane Vidal.\par
+
 \chapter{Données quantitatives}
 
 \section{Organisation du travail}
@@ -87,7 +156,7 @@ De notre côté, nous avions choisi de nous réunir chaque mercredi et chaque ve
 Nous avons ensuite une branche develop sur laquelle sont ajoutées l'ensemble des modifications effectuées au cours du développement et le code qui sera ajouté pour la nouvelle release. Sur cette branche, on peut corriger ou encore améliorer des fonctions. \par
 C'est donc une fois l'application dans une version finalisée que sont par la suite ajoutées à la branche master l'ensemble des commits effectués sur le develop.\par
 Etant donné le fait que notre projet n'est pas un grand projet, et que nous ne sommes pas nombreux, nous avons choisi de ne pas mettre en place de branches feature, release et hot-fix. En effet, le temps de mettre en place une version de notre projet prend le temps imparti pour la mise en place du projet.\par
-Pour chaque nouvelle fonctionalité ou correction, nous ajoutions une nouvelle branche en local dans nos répertoires sur laquelle les modifications étaient effectuées. Elles étaient ensuite intégrées à la branche develop en local puis envoyées sur le répertoire public correspondant. Enfin, elles étaient intégrées au répertoire de référence.\par
+Pour chaque nouvelle fonctionnalité ou correction, nous ajoutions une nouvelle branche en local dans nos répertoires sur laquelle les modifications étaient effectuées. Elles étaient ensuite intégrées à la branche develop en local puis envoyées sur le répertoire public correspondant. Enfin, elles étaient intégrées au répertoire de référence.\par
 
 %%%TODO : mettre un schema explicatif du git-flow et bien l'expliquer%%
 
@@ -97,7 +166,14 @@ Pour chaque nouvelle fonctionalité ou correction, nous ajoutions une nouvelle b
 
 
 \section{Quelques chiffres}
-\hspace{0.5cm}
+\hspace{0.5cm}La figure suivante représente la courbe des commits effectués par tous les membres du groupe. Comme on peut le voir, nous avons tous plus ou moins participé. De plus, nous pouvons voir sur cette figure que chacun des membres a ajouté un certain nombre de lignes de code au projet. Le fort nombre de lignes supprimées pour Manuel Chataigner et Morgane Vidal est dû au remaniement de la classe jeu ainsi qu'à la mise en ligne du rapport et des différents commits en rapport.\par
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%TODO mettre un screenshot de la courbe des commits %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
 %% Retour sur le comparatif, explication des modifications.
 %%%git, nb commits / codes ...
 %% CMMI MA
@@ -105,7 +181,8 @@ Pour chaque nouvelle fonctionalité ou correction, nous ajoutions une nouvelle b
 
 \chapter{Conclusion}
 
-
+\hspace{0.5cm}La mise en place de ce projet nous a fait découvrir à quel point plus la détection d'un bogue est tardive, plus on perd du temps. En effet, nous avons perdu beaucoup de temps à remanier les classe jeu et intelligence artificielle car celles-ci étaient mal conçues et nous perdions beaucoup de temps à chaque découverte de bogue, dont certains étaient découverts plusieurs semaines après la fin de la phase de tests de cette partie. \par
+Durant se projet, nous avons choisi d'utiliser dès que possible les méthodes vues au fur et à mesure en cours. De ce fait, après avoir découvert l'utilisation des workflow, nous avons modifié l'architecture de notre Git pour passer en git-flow. De même, après avoir découvert les méthodes agiles et notamment d'utilisation du brainstorming pour faire sortir de manière efficace un maximum d'idées et de tâches à effectuer. \par
 
 \appendix
 \chapter{Diagramme de Gantt prévisionnel}
