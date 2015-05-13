@@ -30,9 +30,6 @@ class Profilage
         bool scenarioDeTest;
 
 
-        int nombreParties;
-        int partiesGagneesParIAQuiProfile;
-
         struct EtapePartie
         {
             bool couche;                    // vrai si le joueur s'est couché

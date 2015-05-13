@@ -89,11 +89,11 @@ void Profilage::sauvegarder()
    QFile fichier(QString::fromStdString(DOSSIER_PROFILAGE_STATIQUE) + nomFichier);
 
    if(profilJoueur->getPseudo().compare("") != 0){
-       if (!fichier.open(QIODevice::ReadWrite)) {
+       if (!fichier.open(QIODevice::ReadWrite | QIODevice::Text)) {
 
            bool dejaPresent = false;
 
-   //Vérif si le pseudo est déjà présent ds le fichier "pseudos.txt".
+           //Vérif si le pseudo est déjà présent ds le fichier "pseudos.txt".
            QFile pseudo(QString::fromStdString(FICHIER_PSEUDOS_PROFILAGE));
            if (!pseudo.open(QIODevice::ReadOnly | QIODevice::Text)) {
                std::cerr << "Erreur lors de l'ouverture du fichier des pseudos !" << std::endl;
@@ -108,12 +108,12 @@ void Profilage::sauvegarder()
                if(ligne.compare(QString::fromStdString(profilJoueur->getPseudo())) == 0 || ligne.compare(QString::fromStdString("")) == 0){
                    dejaPresent = true;
                }
-           }
+            }
 
             pseudo.close();
 
-     //Si pas présent, ajout du pseudo dans le fichier
-           if(!dejaPresent){
+            //Si pas présent, ajout du pseudo dans le fichier
+            if(!dejaPresent){
                // Ouverture de la liste des pseudos
                QFile listePseudos(QString::fromStdString(FICHIER_PSEUDOS_PROFILAGE));
                if (!listePseudos.open(QIODevice::Append | QIODevice::Text)) {
@@ -130,76 +130,112 @@ void Profilage::sauvegarder()
 
        QTextStream out(&fichier);
        QString ligne;
-       QStringList liste;
-       //Si fichier vide, ajout du nombre de parties et du nombre de parties gagnées par l'IA qui profile.
-        if(fichier.size()==0){
-            out<<"Nombre de parties:,"<<1<<"\n";
-            if(partieGagneeIAQuiProfile==GAGNE){
-                out<<" Nombre de parties gagnees par l'IA qui profile :,"<<1<<"\n";
-            }
-            else{
-                out<<" Nombre de parties gagnees par l'IA qui profile:,"<<0<<"\n";
-            }
 
-            out<<"\n\n Gain IA qui profile,Jetons gagnes IA qui profile,Scenarios de tests en cours,Agressivite IA qui profile, Rationalite IA qui profile,Chances de gain de l'IA profilee,"<<
+       //Si fichier vide, ajout du nombre de parties et du nombre de parties gagnées par l'IA qui profile.
+        if(fichier.size()==0) {
+
+            out<<"Gain IA qui profile,Jetons gagnes IA qui profile,Scenarios de tests en cours,Agressivite IA qui profile, Rationalite IA qui profile,Chances de gain de l'IA profilee,"<<
                  "Agressivite IA profilee,Rationalite IA profilee,Bluff IA profilee,Passivite IA profilee,Nombre de checks,"<<
                  "Nombre de mises,Nombre de suivis,Total des mises de l'IA profilee,Mise la plus haute IA profilee,Joueur profile se couche"<<endl;
+
+            // Ajout du contenu de fin
+            out << endl
+                << "Nombre de parties:,0" << endl
+                << "Nombre de parties gagnees par l'IA qui profile pendant profilage :,0,sur,0" << endl
+                << "Nombre de parties gagnees par l'IA qui profile pendant jeu :,0,sur,0" << endl
+                << "Gains de l'IA qui profile pendant profilage :,0" << endl
+                << "Gains de l'IA qui profile pendant jeu :,0" << endl;
         }
-       //Si pas vide, incrémentation.
-        else{
-            ligne=fichier.readLine();
-            liste=ligne.split(",");
-            int nombreParties=liste.at(1).toInt();
-            nombreParties++;
-            std::string nombrePartiesAEcrire="Nombre de parties :,"+QString::number(nombreParties).toStdString()+"\n";
-            ligne=fichier.readLine();
 
-            std::string nombrePartiesGagneesAEcrire;
+        // On va chercher les informations à la fin du fichier
+        fichier.seek(0);
+        ligne = fichier.readLine();
 
-            if(partieGagneeIAQuiProfile==GAGNE){
-                liste=ligne.split(",");
-                int nombrePartiesGagneesIAQuiProfile=liste.at(1).toInt();
-                nombrePartiesGagneesIAQuiProfile++;
-
-                nombrePartiesGagneesAEcrire="Nombre de parties gagnees par l'IA qui profile:,"+QString::number(nombrePartiesGagneesIAQuiProfile).toStdString()+"\n";
-            }
-            fichier.seek(0);
-
-
-            fichier.write(nombrePartiesAEcrire.c_str());
-            if(partieGagneeIAQuiProfile==GAGNE){
-
-                fichier.write(nombrePartiesGagneesAEcrire.c_str());
-            }
+        // Tant qu'on est pas à la fin
+        while (!ligne.isEmpty() && ligne != "\n") {
+            ligne = fichier.readLine();
         }
-            //positionnement à la fin du fichier
-            ligne=fichier.readLine();
-            while(!ligne.isEmpty()){
-                ligne=fichier.readLine();
-            }
 
-            //Écriture des données
-            int i = ETAPE_JEU::NB_ETAPES;
-            if(partieGagneeIAQuiProfile==GAGNE){
-                out<<1<<",";
-            }
-            else if(partieGagneeIAQuiProfile==EGALITE){
+        ligne = fichier.readLine();
+        int nbParties = ligne.split(",").at(1).toInt();
+
+        ligne = fichier.readLine();
+        int nbPartiesGagneesProfilage = ligne.split(",").at(1).toInt();
+        int nbPartiesProfilage = ligne.split(",").at(3).toInt();
+
+        ligne = fichier.readLine();
+        int nbPartiesGagneesJeu = ligne.split(",").at(1).toInt();
+        int nbPartiesJeu = ligne.split(",").at(3).toInt();
+
+        ligne = fichier.readLine();
+        int gainsProfilage = ligne.split(",").at(1).toInt();
+
+        ligne = fichier.readLine();
+        int gainsJeu = ligne.split(",").at(1).toInt();
+
+
+        // On se replace au niveau du total
+        fichier.seek(0);
+        ligne = fichier.readLine();
+
+        // Tant qu'on est pas à la fin
+        while (!ligne.isEmpty() && ligne != "\n") {
+            ligne = fichier.readLine();
+        }
+
+        // On efface la fin
+        fichier.seek(fichier.pos() - 1);
+        fichier.resize(fichier.pos());
+
+        //Écriture de la ligne supplémentaire
+        int i = ETAPE_JEU::NB_ETAPES;
+        if(partieGagneeIAQuiProfile==GAGNE){
+            out<<1<<",";
+        }
+        else if(partieGagneeIAQuiProfile==EGALITE){
             out<<2<<",";
+        }
+        else{
+            out<<0<<",";
+        }
+
+        out<<nbJetonsGagnesIAQuiProfile<<","<<scenarioDeTest<<","<<profilIA->getAgressivite()<<","<<profilIA->getRationalite()<<","<<
+                etatPartie[i].probaGainAdversaire<<","<<etatPartie[i].tauxAgressivite<<","<<etatPartie[i].tauxRationnalite<<","<<
+                etatPartie[i].tauxBluff<<","<<etatPartie[i].tauxPassivite<<","<<etatPartie[i].tauxChecks<<","<<
+                etatPartie[i].tauxMises<<","<<etatPartie[i].tauxSuivis<<","<<etatPartie[i].miseTotaleJoueur<<","<<
+                etatPartie[i].misePlusHaute<<","<<etatPartie[i].couche<<endl;
+
+        // On écrit le total
+
+        nbParties++;
+        if (scenarioDeTest) {
+            nbPartiesProfilage++;
+
+            if (partieGagneeIAQuiProfile == GAGNE) {
+                nbPartiesGagneesProfilage++;
             }
-            else{
-                out<<0<<",";
+
+            gainsProfilage += nbJetonsGagnesIAQuiProfile;
+        }
+        else {
+            nbPartiesJeu++;
+
+            if (partieGagneeIAQuiProfile == GAGNE) {
+                nbPartiesGagneesJeu++;
             }
-              out<<nbJetonsGagnesIAQuiProfile<<","<<scenarioDeTest<<","<<profilIA->getAgressivite()<<","<<profilIA->getRationalite()<<","<<
-                    etatPartie[i].probaGainAdversaire<<","<<etatPartie[i].tauxAgressivite<<","<<etatPartie[i].tauxRationnalite<<","<<
-                    etatPartie[i].tauxBluff<<","<<etatPartie[i].tauxPassivite<<","<<etatPartie[i].tauxChecks<<","<<
-                    etatPartie[i].tauxMises<<","<<etatPartie[i].tauxSuivis<<","<<etatPartie[i].miseTotaleJoueur<<","<<
-                    etatPartie[i].misePlusHaute<<","<<etatPartie[i].couche<<endl;
 
+            gainsJeu += nbJetonsGagnesIAQuiProfile;
+        }
 
+        out << endl
+            << "Nombre de parties:," << nbParties << endl
+            << "Nombre de parties gagnees par l'IA qui profile pendant profilage :," << nbPartiesGagneesProfilage << ",sur," << nbPartiesProfilage << endl
+            << "Nombre de parties gagnees par l'IA qui profile pendant jeu :," << nbPartiesGagneesJeu << ",sur," << nbPartiesJeu << endl
+            << "Gains de l'IA qui profile pendant profilage :," << gainsProfilage << endl
+            << "Gains de l'IA qui profile pendant jeu :," << gainsJeu << endl;
 
-
-   }
-   fichier.close();
+        fichier.close();
+    }
 }
 
 void Profilage::clear(){

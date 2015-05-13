@@ -273,83 +273,96 @@ void Fenetre::ajoutLogs(QString contenu)
 
 void Fenetre::demarragePartie()
 {
-    for(int i=0;i<nombreDeParties;i++){
-        std::cout << "Partie " << i+1 << std::endl;
+    for (int i = 0; i < NOMBRE_CALIBRAGES; i++) {
 
-        actionEffectueeIA.clear();
-        resultatPartie.setText("");
-        boutonDemarrage.hide();
-        layoutCartesCommunes.vider();
+        if (!jeu->getJoueur(0)->estHumain()) {
+            IntelligenceArtificielle *iaProfilee = static_cast<IntelligenceArtificielle*>(jeu->getJoueur(0));
+            iaProfilee->nouveauCalibrage();
+
+            QString pseudo = QString::number(iaProfilee->getCalibrage()->getAgressivite()) + "_" + QString::number(iaProfilee->getCalibrage()->getRationalite());
+
+            IntelligenceArtificielleProfilage *iaQuiProfile = static_cast<IntelligenceArtificielleProfilage*>(jeu->getJoueur(1));
+            iaQuiProfile->setPseudoJoueurProfile(pseudo.toStdString());
+        }
+
+        for(int j=0;j<NOMBRE_PARTIES;j++){
+            std::cout << "Partie " << j+1 << std::endl;
+
+            actionEffectueeIA.clear();
+            resultatPartie.setText("");
+            boutonDemarrage.hide();
+            layoutCartesCommunes.vider();
 
 
-        Logger::getInstance()->ajoutLogs("Distribution des cartes");
+            Logger::getInstance()->ajoutLogs("Distribution des cartes");
 
-        // Sélection des cartes par l'utilisateur
+            // Sélection des cartes par l'utilisateur
 
-        if (boutonChoixCartes.isChecked()) {
-            CartesDialog fenetreCartes(this);
-            std::vector<int> ids = fenetreCartes.choixCartes();
+            if (boutonChoixCartes.isChecked()) {
+                CartesDialog fenetreCartes(this);
+                std::vector<int> ids = fenetreCartes.choixCartes();
 
-            if (!ids.empty()) {
-                jeu->affectationCarte(ids);
+                if (!ids.empty()) {
+                    jeu->affectationCarte(ids);
+                }
             }
-        }
 
-        // Réinitialisation jeu
-        jeu->setPot(0);
-        jeu->getJoueur(0)->setCave(CAVE_JOUEURS);
-        jeu->getJoueur(1)->setCave(CAVE_JOUEURS);
+            // Réinitialisation jeu
+            jeu->setPot(0);
+            jeu->getJoueur(0)->setCave(CAVE_JOUEURS);
+            jeu->getJoueur(1)->setCave(CAVE_JOUEURS);
 
-        jeu->distributionMain();
+            jeu->distributionMain();
 
-        pot.display(jeu->getPot());
-        caveJoueur.display(jeu->getJoueur(0)->getCave());
-        caveIA.display(jeu->getJoueur(1)->getCave());
-
-
-        // Affichage de la main adverse dans les logs
-
-        std::vector<Carte> jeuAdverse = jeu->getJoueur(1)->getMain();
-
-        Logger::getInstance()->ajoutLogs("Jeu adverse : ");
-        for (int i = 0; i < jeuAdverse.size(); i++) {
-            Logger::getInstance()->ajoutLogs("-> " + QString::number(jeuAdverse.at(i).getRang())
-                      + " " + CarteGraphique::couleurs[jeuAdverse.at(i).getCouleur()]);
-        }
+            pot.display(jeu->getPot());
+            caveJoueur.display(jeu->getJoueur(0)->getCave());
+            caveIA.display(jeu->getJoueur(1)->getCave());
 
 
-        // Main du joueur
+            // Affichage de la main adverse dans les logs
 
-        layoutMain.vider();
-        layoutMain.ajoutCartes(jeu->getJoueur(0)->getMain());
+            std::vector<Carte> jeuAdverse = jeu->getJoueur(1)->getMain();
 
-        // Cartes communes
-        layoutCartesCommunes.vider();
+            Logger::getInstance()->ajoutLogs("Jeu adverse : ");
+            for (int i = 0; i < jeuAdverse.size(); i++) {
+                Logger::getInstance()->ajoutLogs("-> " + QString::number(jeuAdverse.at(i).getRang())
+                          + " " + CarteGraphique::couleurs[jeuAdverse.at(i).getCouleur()]);
+            }
 
-        for (int i = 0; i < 5; i++) {
+
+            // Main du joueur
+
+            layoutMain.vider();
+            layoutMain.ajoutCartes(jeu->getJoueur(0)->getMain());
+
+            // Cartes communes
+            layoutCartesCommunes.vider();
+
+            for (int i = 0; i < 5; i++) {
+                CarteGraphique *dos = new CarteGraphique(0, 0);
+                layoutCartesCommunes.addWidget(dos);
+            }
+
+            // Main adverse
+
             CarteGraphique *dos = new CarteGraphique(0, 0);
-            layoutCartesCommunes.addWidget(dos);
+            CarteGraphique *dos2 = new CarteGraphique(0, 0);
+
+            layoutMainAdverse.vider();
+            layoutMainAdverse.addWidget(dos);
+            layoutMainAdverse.addWidget(dos2);
+
+
+            valeurMise.setMinimum(jeu->getBlind());
+
+            pot.display(jeu->getPot());
+            caveJoueur.display(jeu->getJoueur(1)->getCave());
+            caveIA.display(jeu->getJoueur(1)->getCave());
+
+            jeu->lancer();
+            afficheTable();
+            partieTermine();
         }
-
-        // Main adverse
-
-        CarteGraphique *dos = new CarteGraphique(0, 0);
-        CarteGraphique *dos2 = new CarteGraphique(0, 0);
-
-        layoutMainAdverse.vider();
-        layoutMainAdverse.addWidget(dos);
-        layoutMainAdverse.addWidget(dos2);
-
-
-        valeurMise.setMinimum(jeu->getBlind());
-
-        pot.display(jeu->getPot());
-        caveJoueur.display(jeu->getJoueur(1)->getCave());
-        caveIA.display(jeu->getJoueur(1)->getCave());
-
-        jeu->lancer();
-        afficheTable();
-        partieTermine();
     }
 }
 

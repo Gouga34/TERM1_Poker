@@ -8,35 +8,17 @@ Jeu::Jeu(int nbJoueur, int blindDepart, int cave) : actions(nbJoueur) {
 	srand((unsigned)time(0));
 
     this->deck = nouveauDeck();
-	this->melange();
+    this->melangeDeck();
 	this->blind = blindDepart;
     this->joueurCourant = 0;
 	this->pot = 0;
-	this->nombreDeCoup = 0;
-	this->dealer = 0;
-    this->etape = ETAPE_JEU::PREFLOP;
-    this->partieFinie = false;
+    this->dealer = 0;
 }
 
 Jeu::~Jeu(){
     for (int i = 0; i < listeJoueurs.size(); i++) {
         delete listeJoueurs.at(i);
     }
-}
-
-void Jeu::initialisationTable(int nbJoueur, int cave){
-
-	for(int i=0; i<nbJoueur; i++){
-		if( i == 0){
-            Joueur *joueur = new IntelligenceArtificielle(true,cave,i);
-            joueur->setJeu(this);
-            this->listeJoueurs.push_back(joueur);
-		}else{
-            Joueur *ia = new IntelligenceArtificielleProfilage(false,cave,i);
-            ia->setJeu(this);
-            this->listeJoueurs.push_back(ia);
-		}
-	}
 }
 
 void Jeu::addJoueur(Joueur *joueur) {
@@ -46,7 +28,8 @@ void Jeu::addJoueur(Joueur *joueur) {
 
 void Jeu::distributionMain(){
 
-    this->partieFinie = false;
+    etape = ETAPE_JEU::PREFLOP;
+    partieFinie = false;
 
     this->resetActions();
 
@@ -154,12 +137,6 @@ int Jeu::getDealer(){
 	return this->dealer;
 }
 
-
-void Jeu::miseAJourBlind(){
-	this->blind = this->blind * 2;
-}
-
-
 std::vector<Carte> Jeu::nouveauDeck(){
 
     std::vector<Carte> deck;
@@ -175,7 +152,7 @@ std::vector<Carte> Jeu::nouveauDeck(){
 }
 	
 	
-void Jeu::melange(){
+void Jeu::melangeDeck(){
     std::random_shuffle(this->deck.begin(), this->deck.end());
 }
 
@@ -417,8 +394,6 @@ bool Jeu::prochainJoueur(){
             if (this->etape < ETAPE_JEU::NB_ETAPES) {
                 this->etape = static_cast<ETAPE_JEU>(static_cast<int>(this->etape) + 1);
             }
-
-
 
             this->nouvelleEtape(this->getEtape());
         }

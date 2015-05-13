@@ -32,9 +32,14 @@
  * NOMBRE_PARTIES_PROFILAGE : nombre de parties à effectuer avant de pouvoir jouer
  */
 #define RATIONALITE_IA_PROFILAGE                50.0
+
+// Profilage
+#define NOMBRE_CALIBRAGES                       1
+#define NOMBRE_PARTIES_PROFILAGE                10
 #define NOMBRE_PARTIES                          30
 #define VARIATION_AUTORISEE                     10
-#define NOMBRE_PARTIES_PROFILAGE                11
+
+// Calibrage optimal
 #define CALCUL_CALIBRAGE_IDEAL                  false
 #define NOMBRE_PARTIES_CALIBRAGE_IDEAL          40
 

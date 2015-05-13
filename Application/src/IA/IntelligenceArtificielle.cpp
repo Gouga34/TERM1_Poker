@@ -142,6 +142,21 @@ void IntelligenceArtificielle::setCalibrage(Profil profil) {
     resolveur->setCalibrage(profil);
 }
 
+void IntelligenceArtificielle::nouveauCalibrage()
+{
+    int agressivite=rand()%100+1;
+    int rationalite=rand()%100+1;
+
+    Profil p;
+    p.setAgressivite(agressivite);
+    p.setRationalite(rationalite);
+    setCalibrage(p);
+
+    if(position==0) {
+        std::cout<<"Calibrage IA profilée : agressivité: "<<agressivite<<" rationalité: "<<rationalite<<std::endl;
+    }
+}
+
 void IntelligenceArtificielle::lancerEstimationChancesDeGain(int nbTests, int nbThreads)
 {
     estimateurs.clear();
