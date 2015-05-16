@@ -273,6 +273,8 @@ void Fenetre::ajoutLogs(QString contenu)
 
 void Fenetre::demarragePartie()
 {
+    IntelligenceArtificielleProfilage *iaQuiProfile = static_cast<IntelligenceArtificielleProfilage*>(jeu->getJoueur(1));
+
     for (int i = 0; i < NOMBRE_CALIBRAGES; i++) {
 
         if (!jeu->getJoueur(0)->estHumain()) {
@@ -281,7 +283,6 @@ void Fenetre::demarragePartie()
 
             QString pseudo = QString::number(iaProfilee->getCalibrage()->getAgressivite()) + "_" + QString::number(iaProfilee->getCalibrage()->getRationalite());
 
-            IntelligenceArtificielleProfilage *iaQuiProfile = static_cast<IntelligenceArtificielleProfilage*>(jeu->getJoueur(1));
             iaQuiProfile->setPseudoJoueurProfile(pseudo.toStdString());
         }
 
@@ -363,6 +364,8 @@ void Fenetre::demarragePartie()
             afficheTable();
             partieTermine();
         }
+
+        iaQuiProfile->ecritureAnalyseDesGains();
     }
 }
 

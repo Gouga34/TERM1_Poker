@@ -15,15 +15,36 @@ Specification: Fichier contenant les définitions de la classe Profilage.
 #include <string>
 
 Profilage::Profilage(Profil *calibrageIA, Profil *profil)
-    : profilIA(calibrageIA), profilJoueur(profil),
-      etatPartie{{false, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}}
+    : profilIA(calibrageIA), profilJoueur(profil)
 {
-
+    reinitialiser();
 }
 
 Profilage::~Profilage()
 {
 
+}
+
+void Profilage::reinitialiser()
+{
+    int etape = ETAPE_JEU::NB_ETAPES;
+
+    etatPartie[etape].couche = false;
+    etatPartie[etape].probaGainAdversaire = 0;
+
+    etatPartie[etape].tauxAgressivite = 0;
+    etatPartie[etape].tauxRationnalite = 0;
+    etatPartie[etape].tauxBluff = 0;
+    etatPartie[etape].tauxPassivite = 0;
+
+    etatPartie[etape].tauxSuivis = 0;
+    etatPartie[etape].tauxChecks = 0;
+    etatPartie[etape].tauxMises = 0;
+
+    etatPartie[etape].misePlusHaute = 0;
+    etatPartie[etape].miseTotaleJoueur = 0;
+
+    etatPartie[etape].nbTotalActions = 0;
 }
 
 //void Profilage::charger()
@@ -157,21 +178,21 @@ void Profilage::sauvegarder()
         }
 
         ligne = fichier.readLine();
-        int nbParties = ligne.split(",").at(1).toInt();
+        nombreParties = ligne.split(",").at(1).toInt();
 
         ligne = fichier.readLine();
-        int nbPartiesGagneesProfilage = ligne.split(",").at(1).toInt();
-        int nbPartiesProfilage = ligne.split(",").at(3).toInt();
+        nbPartiesGagneesProfilage = ligne.split(",").at(1).toInt();
+        nbPartiesProfilage = ligne.split(",").at(3).toInt();
 
         ligne = fichier.readLine();
-        int nbPartiesGagneesJeu = ligne.split(",").at(1).toInt();
-        int nbPartiesJeu = ligne.split(",").at(3).toInt();
+        nbPartiesGagneesJeu = ligne.split(",").at(1).toInt();
+        nbPartiesJeu = ligne.split(",").at(3).toInt();
 
         ligne = fichier.readLine();
-        int gainsProfilage = ligne.split(",").at(1).toInt();
+        gainsProfilage = ligne.split(",").at(1).toInt();
 
         ligne = fichier.readLine();
-        int gainsJeu = ligne.split(",").at(1).toInt();
+        gainsJeu = ligne.split(",").at(1).toInt();
 
 
         // On se replace au niveau du total
@@ -207,7 +228,7 @@ void Profilage::sauvegarder()
 
         // On écrit le total
 
-        nbParties++;
+        nombreParties++;
         if (scenarioDeTest) {
             nbPartiesProfilage++;
 
@@ -228,7 +249,7 @@ void Profilage::sauvegarder()
         }
 
         out << endl
-            << "Nombre de parties:," << nbParties << endl
+            << "Nombre de parties:," << nombreParties << endl
             << "Nombre de parties gagnees par l'IA qui profile pendant profilage :," << nbPartiesGagneesProfilage << ",sur," << nbPartiesProfilage << endl
             << "Nombre de parties gagnees par l'IA qui profile pendant jeu :," << nbPartiesGagneesJeu << ",sur," << nbPartiesJeu << endl
             << "Gains de l'IA qui profile pendant profilage :," << gainsProfilage << endl
@@ -238,24 +259,3 @@ void Profilage::sauvegarder()
     }
 }
 
-void Profilage::clear(){
-
-    int etape = ETAPE_JEU::NB_ETAPES;
-
-    this->etatPartie[etape].couche = false;
-    this->etatPartie[etape].probaGainAdversaire = 0;
-
-    this->etatPartie[etape].tauxAgressivite = 0;
-    this->etatPartie[etape].tauxRationnalite = 0;
-    this->etatPartie[etape].tauxBluff = 0;
-    this->etatPartie[etape].tauxPassivite = 0;
-
-    this->etatPartie[etape].tauxSuivis = 0;
-    this->etatPartie[etape].tauxChecks = 0;
-    this->etatPartie[etape].tauxMises = 0;
-
-    this->etatPartie[etape].misePlusHaute = 0;
-    this->etatPartie[etape].miseTotaleJoueur = 0;
-
-    this->etatPartie[etape].nbTotalActions = 0;
-}

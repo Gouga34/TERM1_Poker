@@ -34,6 +34,7 @@ void Jeu::distributionMain(){
     this->resetActions();
 
     IntelligenceArtificielleProfilage *iaProfilage = static_cast<IntelligenceArtificielleProfilage*>(listeJoueurs.at(1));
+    iaProfilage->getProfilage()->reinitialiser();
     iaProfilage->setCalibragePourJouer();
 
     getJoueur(0)->setCumulMisesEtRelances(0);
@@ -48,9 +49,9 @@ void Jeu::distributionMain(){
             this->deck.erase(this->deck.begin() + position);
         }
     }
+
     this->nouvelleEtape(ETAPE_JEU::PREFLOP);
     this->distributionBlind();
-
 }
 
 void Jeu::nouvelleEtape(ETAPE_JEU etape){
@@ -476,7 +477,6 @@ void Jeu::finPartie() {
     IntelligenceArtificielleProfilage *ia = static_cast<IntelligenceArtificielleProfilage*>(this->getJoueur(1));
     ia->calculProfilGlobalJoueur();
     ia->ecritureScenariosDeTests();
-    ia->getProfilage()->clear();
 }
 
 std::vector<Carte> Jeu::getTable() const{
