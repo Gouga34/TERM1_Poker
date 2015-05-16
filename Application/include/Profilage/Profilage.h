@@ -25,6 +25,7 @@ class Profilage
     public:
 
         Profil *profilJoueur;
+
         RESULTAT_PARTIE partieGagneeIAQuiProfile;
         int nbJetonsGagnesIAQuiProfile;
         bool scenarioDeTest;
@@ -58,8 +59,25 @@ class Profilage
         EtapePartie etatPartie[ETAPE_JEU::NB_ETAPES + 1];
 
 
+        // Données globales au profilage
+        int nombreParties;
+        int nbPartiesGagneesProfilage;
+        int nbPartiesProfilage;
+
+        int nbPartiesGagneesJeu;
+        int nbPartiesJeu;
+
+        int gainsProfilage;
+        int gainsJeu;
+
+
         Profilage(Profil *calibrageIA, Profil *profil);
         ~Profilage();
+
+        /**
+         * @action Efface les données de profilage de la partie enregistrée
+         */
+        void reinitialiser();
 
         /**
          * @action Remplit les données de profilage avec le contenu du fichier correspondant au joueur
@@ -70,13 +88,6 @@ class Profilage
          * @action Ajoute les données de profilage de la partie dans le fichier correspondant au joueur
          */
         void sauvegarder();
-
-        /**
-         * @action : Vide le tableau
-         */
-        void clear();
-
-
 };
 
 #endif // PROFILAGE_H

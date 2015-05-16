@@ -76,6 +76,14 @@ Profil ScenariosDeTests::getActionAttendueJoueur() const{
     return actionAttendueJoueur;
 }
 
+Profil ScenariosDeTests::getProfilDeduitGlobal() const {
+    return profilDeduitGlobal;
+}
+
+double ScenariosDeTests::getTauxSimilarite() const {
+    return tauxSimilarite;
+}
+
 void ScenariosDeTests::setActionReelleJoueur(Profil *action){
     actionReelleJoueur=action;
 }
@@ -113,14 +121,10 @@ bool ScenariosDeTests::sauvegarderPartie(){
         calculerDistance();
 
         //calcul de la rationalité déduite globale et l'agressivité déduite globale:
-        double agressiviteGlobale=0.0;
-        double rationaliteGlobale=0.0;
-        double tauxSimilarite = 0.0;
-
 
         if(fichier.size()==0){
-            agressiviteGlobale=actionAttendueJoueur.getAgressivite();
-            rationaliteGlobale=actionAttendueJoueur.getRationalite();
+            profilDeduitGlobal.setAgressivite(actionAttendueJoueur.getAgressivite());
+            profilDeduitGlobal.setRationalite(actionAttendueJoueur.getRationalite());
         }else{
             fichier.seek(0);
             QString ligne=fichier.readLine();
@@ -152,11 +156,11 @@ bool ScenariosDeTests::sauvegarderPartie(){
                 ligne=fichier.readLine();
             }
 
-            agressiviteGlobale=(actionAttendueJoueur.getAgressivite()+(agressiviteGlobalePrec*(nbParties-1)))/nbParties;
-            rationaliteGlobale=(actionAttendueJoueur.getRationalite()+(rationaliteGlobalePrec*(nbParties-1)))/nbParties;
+            profilDeduitGlobal.setAgressivite((actionAttendueJoueur.getAgressivite()+(agressiviteGlobalePrec*(nbParties-1)))/nbParties);
+            profilDeduitGlobal.setRationalite((actionAttendueJoueur.getRationalite()+(rationaliteGlobalePrec*(nbParties-1)))/nbParties);
 
-            double similariteAgressivite = 100 - abs(agressiviteGlobale - calibrageRecherche.getAgressivite());
-            double similariteRationalite = 100 - abs(rationaliteGlobale - calibrageRecherche.getRationalite());
+            double similariteAgressivite = 100 - abs(profilDeduitGlobal.getAgressivite() - calibrageRecherche.getAgressivite());
+            double similariteRationalite = 100 - abs(profilDeduitGlobal.getRationalite() - calibrageRecherche.getRationalite());
 
             tauxSimilarite = (similariteAgressivite + similariteRationalite) / 2;
         }
@@ -168,9 +172,9 @@ bool ScenariosDeTests::sauvegarderPartie(){
          //On écrit déjà l'agressivité de l'IA qui profile et ses chances de gain.
         out<<getCalibrageActuelIA()->getAgressivite()<<","<<getChancesDeGain()<<","<<actionAttendueJoueur.getAgressivite()<<","
            <<actionAttendueJoueur.getRationalite()<<","<<actionReelleJoueur->getAgressivite()<<","<<actionReelleJoueur->getRationalite()<<","
-           <<getDistance()<<","<<agressiviteGlobale<<","<<rationaliteGlobale<<","<<tauxSimilarite<<endl;
+           <<getDistance()<<","<<profilDeduitGlobal.getAgressivite()<<","<<profilDeduitGlobal.getRationalite()<<","<<tauxSimilarite<<endl;
 
-       fichier.close();
+        fichier.close();
     }
 
     scenarioSuivant();

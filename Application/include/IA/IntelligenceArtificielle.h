@@ -84,11 +84,6 @@ class IntelligenceArtificielle : public Joueur {
          * @action Attend que l'ensemble des threads soit terminé
          */
         void attendreResultatEstimation();
-
-        /**
-         * @action Calcule les chances de gain en fonction des cartes connues
-         */
-        void estimationChancesDeGain();
 	
 		/**
 		*@action : Pemet a l'IA de jouer

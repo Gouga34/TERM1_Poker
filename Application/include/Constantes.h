@@ -17,9 +17,10 @@
 
 //Constantes correspondant à l'accés aux fichiers de profilages
 #define DOSSIER_PROFILAGE                       DOSSIER_RESSOURCES+std::string("Profilage/")
-#define DOSSIER_PROFILAGE_STATIQUE              DOSSIER_PROFILAGE+std::string("ProfilageStatique/")
+#define DOSSIER_PROFILAGE_STATIQUE              DOSSIER_PROFILAGE+std::string("ProfilageStatique/")                 
 #define DOSSIER_PROFILAGE_DYNAMIQUE             DOSSIER_PROFILAGE+std::string("ProfilageDynamique/")
 
+#define DOSSIER_ANALYSE_GAINS                   DOSSIER_PROFILAGE_STATIQUE+std::string("AnalyseGains/")
 #define FICHIER_PSEUDOS_PROFILAGE               DOSSIER_PROFILAGE_STATIQUE+std::string("pseudos.txt")
 
 //Facteur multiplicateur de la hausse des mises pour l'agressivité
@@ -42,6 +43,9 @@
 // Calibrage optimal
 #define CALCUL_CALIBRAGE_IDEAL                  false
 #define NOMBRE_PARTIES_CALIBRAGE_IDEAL          40
+
+// Si vrai, écrit dans un fichier la comparaison des gains parties/jetons avant et après profilage
+#define ANALYSE_GAINS_PARTIES                   true
 
 
 /**

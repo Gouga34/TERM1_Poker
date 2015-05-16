@@ -64,6 +64,11 @@ class IntelligenceArtificielleProfilage : public IntelligenceArtificielle
          * @action Modifie la calibrage de l'ia si elle n'est pas en train de profiler pour gagner
          */
         void setCalibragePourJouer();
+
+        /**
+         * @action Ajoute une ligne d'analyse des résultats des gains pour le calibrage courant
+         */
+        void ecritureAnalyseDesGains();
 };
 
 #endif // INTELLIGENCEARTIFICIELLEPROFILAGE_H

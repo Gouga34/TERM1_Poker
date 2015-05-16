@@ -29,6 +29,9 @@ private:
     double distance;
     //int numeroCalibrage;
 
+    Profil profilDeduitGlobal;
+    double tauxSimilarite;
+
     /**
      * @brief scenarioSuivant
      * @action passe calibrageActuelIA au calibrage du scénario suivant
@@ -108,6 +111,18 @@ public:
      * @return l'action attendue du joueur
      */
     Profil getActionAttendueJoueur() const;
+
+    /**
+     * @brief getProfilDeduitGlobal
+     * @return Profil déduit global du joueur profilé
+     */
+    Profil getProfilDeduitGlobal() const;
+
+    /**
+     * @brief getTauxSimilarite
+     * @return Taux de similarité du profilage
+     */
+    double getTauxSimilarite() const;
 
     /**
      * @brief setActionReelleJoueur

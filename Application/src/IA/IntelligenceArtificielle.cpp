@@ -184,21 +184,6 @@ void IntelligenceArtificielle::attendreResultatEstimation()
     estimateurs.clear();
 }
 
-void IntelligenceArtificielle::estimationChancesDeGain()
-{
-    double estimation = 100*EstimationProba::estimation(this->getJeu(), this->getJeu()->getJoueur(this->getPosition()));
-    setChancesGain(estimation);
-    string chances;
-    if(getPosition()==1){
-       chances ="Chances Gain IA qui profile: "+to_string(estimation);
-    }
-    else{
-        chances ="Chances Gain IA profilée: "+to_string(estimation);
-    }
-    Logger::getInstance()->ajoutLogs(chances);
-}
-
-
 Action IntelligenceArtificielle::jouer(){
 
     QString actions[] = {"mise", "relance", "suit", "check", "se couche", "rien", "fait tapis"};
