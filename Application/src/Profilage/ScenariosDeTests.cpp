@@ -296,7 +296,7 @@ void ScenariosDeTests::calculerActionAttendueJoueur(QFile& fichierProfil){
        actionAttendueJoueur.setAgressivite(agressiviteAttendue);
 
         //Le taux de rationalité attendu est à 50% par défaut :
-        actionAttendueJoueur.setRationalite(50.0);
+        actionAttendueJoueur.setRationalite(RATIONALITE_IA_PROFILAGE);
     }
 }
 
@@ -343,11 +343,11 @@ void ScenariosDeTests::ancienneSituationLaPlusProche(QFile& fichierProfil){
             int differenceAgressivite=abs(liste.at(AGRESSIVITE_IA).toDouble()-calibrageActuelIA->getAgressivite());
 
             //Si l'agressivité varie de + ou - la variation autorisée, On fait la même chose pour les chances de gain de l'IA
-            if(differenceAgressivite>=0){
+            if(differenceAgressivite<=VARIATION_AUTORISEE){
 
                 //On regarde la différence de chances de gains de l'IA:
                 int differenceChancesGainIA=abs(liste.at(CHANCES_GAIN_IA).toDouble()-getChancesDeGain());
-                if(differenceChancesGainIA>=0){
+                if(differenceChancesGainIA<=VARIATION_AUTORISEE){
 
                     // On regarde si on est dans le même palier
 
