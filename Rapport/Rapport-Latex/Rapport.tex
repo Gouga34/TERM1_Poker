@@ -738,13 +738,15 @@ L'implémentation de cette fonctionnalité ayant considérablement ralenti l'app
 
 \chapter{Méthodes de profilage}
 
+\hspace{0.5cm}Afin d'étudier le comportement d'un joueur adverse, il nous a été conseillé de mettre en place des scénarios de tests. Lorsque nous souhaitons établir le profil du joueur, l'intelligence artificielle se base sur des scénarios prédéfinis au départ, puis mis à jour au fur et à mesure du profilage.
+
 \section{Scénarios de tests}
 
 \subsection{Mise en place des scénarios}
 
 \hspace{0.5cm}Afin de pouvoir évaluer le profilage effectué par l'intelligence artificielle, il nous a été conseillé d'étudier la différence entre l'action attendue du joueur adverse, et son action réelle. De ce fait, il est possible de déterminer facilement l'efficacité du profilage, en analysant la différence entre l'attendu et le réel.\par
 
-Pour que l'intelligence artificielle qui effectue le profil puisse connaître le comportement attendu d'un joueur à partir d'une situation donnée, nous avons établi l'ensemble des scénarios possibles. Chaque scénario se base sur l'agressivité de l'intelligence artificielle qui profile, ainsi que sur ses chances de gain. Pour chacune de ces situations, le comportement attendu rationnellement par le joueur adverse est établi. Il est exprimé sous la forme d'un taux d'agressivité. La différence entre l’action attendue et réelle peut alors être calculée.
+Pour que l'intelligence artificielle qui effectue le profil puisse connaître le comportement attendu d'un joueur à partir d'une situation donnée, nous avons établi l'ensemble des scénarios possibles. Chaque scénario se base sur l'agressivité de l'intelligence artificielle qui profile, ainsi que sur ses chances de gain. Pour chacune de ces situations, le comportement attendu rationnellement par le joueur adverse a été établi. Il est exprimé sous la forme d'un taux d'agressivité. La différence entre l’action attendue et réelle peut alors être calculée.
 
 \begin{figure}[H]
 \begin{center}
@@ -792,48 +794,47 @@ Pour que l'intelligence artificielle qui effectue le profil puisse connaître le
 Le tableau ci-dessus représente les actions attendues de base, sans que l'on ait encore commencé à profiler le joueur. Comme on peut le voir, nous avons choisi de mettre par défaut la rationalité attendue à 50\%. Pour le taux de rationalité, nous le calculons en fonction des chances de gain de l'intelligence artificielle qui profile ainsi qu'en fonction de son taux d'agressivité. Prenons par exemple une intelligence artificielle calibrée à 80\% agressive et ayant 80\% de chances de gagner, on s'attend dans ce cas là à ce que le joueur adverse se couche. En effet, si l'intelligence artificielle qui profile a 80\% de chances de gagner, il y a de fortes chances que le joueur adverse ait un jeu moins bon donc, il y a de fortes chances que le joueur adverse se couche.\\
 
 
-Lors des différentes parties de profilage, le calibrage de l'intelligence artificielle qui profile est tiré aléatoirement à chaque nouvelle partie. En effet, afin de profiler au mieux, nous analysons sa réaction face à différents types de joueurs.\par
+Afin de profiler au mieux un joueur donné, nous analysons sa réaction face à différents types de comportements et différentes situations de jeu. De ce fait, nous obtenons un profil global représentant le joueur profilé. Pour cela, le calibrage de l'intelligence artificielle qui profile est tiré aléatoirement à chaque nouvelle partie, et nous calculons une moyenne de toutes les parties qui donnera le profil global déduit du joueur.
 
 \subsection{Analyse des résultats}
 
-\hspace{0.5cm}Pour facilement déterminer si le profilage établi est efficace, et également déterminer le nombre de parties nécessaires pour profiler, nous avons ajouté dans un .csv le profil global établi au fur et à mesure des parties, le taux de similarité entre le profilage établi et le calibrage réel de l'adversaire. Nous avons donc pu ajuster le nombre de parties selon cette valeur de similarité.\par
+\hspace{0.5cm}Pour facilement déterminer si le profilage établi est efficace, et également déterminer le nombre de parties nécessaires pour profiler, nous avons ajouté dans un .csv le profil global établi au fur et à mesure des parties, ainsi que le taux de similarité entre le profilage établi et le calibrage réel de l'adversaire. Nous avons donc pu ajuster le nombre de parties selon cette valeur de similarité.\par
 
 Suite à plusieurs tests, nous avons observé qu'au bout de 10 ou 15 parties, nous arrivions à obtenir un profilage satisfaisant, et que celui-ci ne tendait pas à s'améliorer, même en jouant plus de parties.\\
 	
-Afin de pouvoir obtenir des résultats facilement visibles, nous avons également produit des graphes représentant le profilage établi du joueur en fonction du nombre de parties, et une constante correspondant au calibrage à déterminer.\\
+Afin de pouvoir obtenir des résultats facilement visibles et pouvoir les étudier, nous avons également produit des graphes représentant le profilage établi du joueur en fonction du nombre de parties, et une constante correspondant au calibrage à déterminer.\\
+
+\hspace{0.5cm}Lors du lancement des parties de profilage, une ligne de résultats est ajoutée dans un fichier csv correspondant. Cette ligne contient la situation du jeu, calibrage de l'intelligence artificielle et chances de gain, les taux d'agressivité et de rationalité attendus, les taux réels et la distance entre ces deux. Enfin une moyenne du calibrage attendu est mise à jour à chaque ajout, c'est elle qui va donner le profilage obtenu au bout de X parties.\par
+Cela va donc permettre le lancement de plusieurs parties intelligence artificielle contre intelligence artificielle, pour obtenir un profilage rapidement. Suite à ces résultats, il est alors possible de réaliser des courbes permettant d'observer la convergence entre le profil établi, et le calibrage de l'intelligence artificielle profilée. La distance doit alors être de plus en plus proche de zéro.
 
 %%%%  TODO  Ajouter graphique pour montrer la convergeance au bout de 10-15 parties %
 %%%%			Tableau indiquant le % de réussite (taux similarité) pour différents paliers %
 %%%		Expliquer les tableaux dans le texte %%%%
-
-\section{Test du profilage}
-
-\hspace{0.5cm}Lors du lancement des parties de profilage, une ligne de résultats est ajoutée dans un fichier csv correspondant. Cette ligne contient la situation du jeu (calibrage de l'intelligence artificielle et chances de gain), les taux d'agressivité et de rationalité attendus, les taux réels et la distance entre ces deux. Enfin une moyenne du calibrage attendu est mise à jour à chaque ajout, c'est elle qui va donner le profilage obtenu au bout de X parties.\par
-Cela va donc permettre le lancement de plusieurs parties intelligence artificielle contre intelligence artificielle, pour obtenir un profilage rapidement. Suite à ces résultats, il est alors possible de réaliser des courbes permettant d'observer la convergence entre le profil établi, et le calibrage de l'intelligence artificielle profilée. La distance doit alors être de plus en plus proche de zéro.
+%%%% Reprendre la partie et combiner les paragraphes %%%%
 
 
 \section{Établissement des profils attendus}
 
 \hspace{0.5cm}Pour calculer une action attendue, c'est à dire un taux d'agressivité et de rationalité attendu pour le joueur, l'intelligence artificielle utilise lors des premières parties les scénarios de tests établis.\par
-Mais une fois le profilage lancé, et les premiers résultats obtenus, la méthode de profilage peut alors commencer à se servir des situations précédentes pour calculer l'action attendue d'un joueur de façon plus précise. En effet, selon la situation, il est possible de déterminer quelle va être l'action du joueur en se référant aux scénarios de tests conçus, qui sont communs à tous les joueurs, mais également en se référant aux parties précédentes, si l'on a déjà testé sa réaction précédemment dans une situation équivalente. Les scénarios de tests sont alors mis à jour de façon dynamique.\par 
+Une fois le profilage lancé, et les premiers résultats obtenus, la méthode de profilage peut alors commencer à se servir des situations précédentes pour calculer l'action attendue d'un joueur de façon plus précise. En effet, selon la situation, il est possible de déterminer quelle va être l'action du joueur en se référant aux scénarios de tests conçus, qui sont communs à tous les joueurs, mais également en se référant aux parties précédentes, si l'on a déjà testé sa réaction précédemment dans une situation équivalente. Les scénarios de tests sont alors mis à jour de façon dynamique.\par 
 
 Pour reconnaître une situation équivalente, nous considérons le taux d'agressivité du joueur adverse, donc l'intelligence artificielle qui profile, et des chances de gain du joueur. A partir de cette méthode, la valeur d'une action réelle dans une situation va permettre de donner la valeur d'une action attendue dans une prochaine partie. Cette méthode va ici nous permettre de profiler le joueur plus rapidement, en réutilisant les résultats précédents.\par
 
-Pour effectuer cette réutilisation, plusieurs méthodes ont été considérées. Tout d'abord, celle qui cherche la situation la plus proche, selon l'agressivité du profileur et les chances de gain, sans considérer le taux de similarité entre les deux situations. C'est à dire que dans cette version, les valeurs de l'action attendue correspondent aux valeurs des scénarios de tests uniquement pour la première partie. Par la suite, c'est la valeur précédente la plus proche qui est prise en compte.\par
+Pour effectuer cette réutilisation, plusieurs méthodes ont été considérées. Tout d'abord, celle qui cherche la situation la plus proche, selon l'agressivité du profileur et les chances de gain, sans considérer le taux de similarité entre les deux situations. C'est à dire que dans cette version, les valeurs de l'action attendue correspondent aux valeurs des scénarios de tests uniquement pour la première partie. Par la suite, c'est la valeur précédente la plus proche qui est prise en compte, même si la situation n'est pas forcément similaire.\par
 
-Par la suite, nous nous sommes rendus compte qu'il n'était pas optimal de reprendre une valeur précédente lorsque les paramètres de la partie étaient trop éloignés. Une seconde méthode a donc été de limiter la réutilisation des actions réelles comme actions attendues en considérant l'équivalence entre les parties. Toujours en prenant en compte les valeurs d'agressivité et des chances de gain, les pourcentages doivent alors ne varier que de 10\% maximum par exemple, pour que l'on puisse considérer la situation comme équivalente. Ici, on prend toujours la situation la plus proche, mais seulement parmi les parties dîtes équivalentes. Et donc dans le cas où les valeurs sont trop éloignées, on se réfère aux scénarios de tests.\par
-Enfin, il est aussi possible de prendre une situation dans laquelle la distance est la plus petite.
+Par la suite, nous nous sommes rendus compte qu'il n'était pas optimal de reprendre une valeur précédente lorsque les paramètres de la partie étaient trop éloignés. Une seconde méthode a donc été de limiter la réutilisation des actions réelles comme actions attendues en considérant l'équivalence entre les parties. Toujours en prenant en compte les valeurs d'agressivité et des chances de gain, les pourcentages doivent alors ne varier que de 20\% maximum par exemple, pour que l'on puisse considérer la situation comme équivalente. Ici, on prend toujours la situation la plus proche, mais seulement parmi les parties dîtes équivalentes. Et donc dans le cas où les valeurs sont trop éloignées, on se réfère aux scénarios de tests de départ.\par
 
-
-
+Nous avons également fait des tests en prenant en compte la situation dans laquelle la distance est la plus petite possible, c'est à dire prendre une situation dans laquelle l'intelligence artificielle a réussi à profiler correctement le joueur. Nous nous sommes rendus compte que la différence des résultats n'était pas significative, et qu'il valait mieux se baser sur les paramètres de la partie, à savoir le calibrage et les chances de gain de l'intelligence artificielle qui profile.
 
 \chapter{Analyse des gains de parties}
 
-\hspace{0.5cm}Une fois un profil établi, nous pouvons alors faire jouer l'intelligence artificielle en fonction des résultats obtenus, dans le but de lui faire gagner le plus de parties possibles. Lors de cette étape le profilage est interrompu, et on utilise le comportement déduit pour calibrer l'intelligence artificielle de façon à ce qu'elle puisse gagner face à ce type de joueur.\par
+\hspace{0.5cm}Une fois un profil établi, nous pouvons alors faire jouer l'intelligence artificielle en fonction des résultats obtenus, dans le but de lui faire gagner le plus de jetons possibles. Lors de cette étape le profilage est interrompu, et on utilise le comportement déduit final pour calibrer l'intelligence artificielle de façon à ce qu'elle puisse gagner face à ce type de joueur.\par
 
 \section{Un premier calibrage inefficace}
 
-Pour une première version, nous avons choisi de seulement prendre en compte le profil final établi et d'attribuer un calibrage selon divers paliers. Ici on prend en compte trois paliers pour l'agressivité ainsi que pour la rationalité. De 0 à 40\% pour le premier palier, 40 à 60\% pour une valeur moyenne puis de 60 à 100\% pour la palier haut. Nous avons déduit les calibrage correspondants à chaque palier du joueur profilé, les résultats sont présentés dans le tableau suivant.\\
+\subsection{Mise en place du calibrage}
+
+\hspace{0.5cm}Pour une première version, nous avons choisi de seulement prendre en compte le profil final établi et d'attribuer un calibrage selon divers paliers. Ici on prend en compte trois paliers pour l'agressivité ainsi que pour la rationalité. De 0 à 40\% pour le premier palier, 40 à 60\% pour une valeur moyenne puis de 60 à 100\% pour la palier haut. Nous avons alors déduit les calibrages correspondants à chaque palier du joueur profilé, les résultats sont présentés dans le tableau suivant.\\
 \begin{figure}[H]
 \begin{center}
 \begin{tabular}{|l|l|l|l|}
@@ -866,12 +867,26 @@ Agressivité déduite & Rationalité déduite &	Agressivité IA & 	Rationalité 
 
 Le but de notre intelligence artificielle étant, une fois un profilage correctement établi, de pouvoir augmenter son gain de parties mais aussi son gain d'argent. Nous avons donc renseigné dans l'application le nombre de parties au bout desquelles l'intelligence artificielle va pouvoir arrêter le profilage, et donc adapter elle-même son calibrage pour pouvoir gagner un maximum de parties.\\
 
+\subsection{Analyse des résultats}
+
+\hspace{0.5cm}Afin de pouvoir étudier les gains de l'intelligence artificielle avant et après le profilage, nous avons alors ajouté dans les fichiers résultats le gain de parties et d'argent pour chacune des parties. Ceci nous a permis de pouvoir obtenir un ratio du nombre de parties gagnées sur le nombre de parties jouées pendant le profilage, puis pendant la phase de jeu. De même pour le nombre de jetons obtenus. Nous avons donc ajouté les lignes suivantes à la fin de chaque fichier contenant le profil établi.\\
+
+%%TODO faire le tableau %%%
+
+Nombre de parties:	30		
+Nombre de parties gagnees par l'IA qui profile pendant profilage :	6	sur	10
+Nombre de parties gagnees par l'IA qui profile pendant jeu :	15	sur	20
+Gains de l'IA qui profile pendant profilage :	-924		
+Gains de l'IA qui profile pendant jeu :	3530		
 
 
-Nous avons donc ajouté dans les fichiers résultats le gain d'argent de l'intelligence artificielle pour chacune des parties. Ceci nous a permis de pouvoir obtenir un ratio du nombre de parties gagnées sur le nombre de parties jouées pendant le profilage, puis pendant la phase de jeu.\\
+Ces données sont mises à jour à chaque nouvelle partie.\\
 
 
-La figure suivante représente le nombre de parties gagnées pendant les scénarios de tests et le nombre de parties gagnées après. Comme on peut le constater, le nombre de parties gagnées après le déroulement des scénarios de tests, donc lorsque l'intelligence artificielle qui profile joue en fonction des résultats obtenus, est bon. En effet, celle-ci gagne souvent plus de parties que lors de la période de scénarios de tests. Cependant, nous pouvons déjà voir que pour les derniers paliers, le nombre de parties gagnées après les scénarios de tests est moins bon que le nombre de parties gagnées avant.\par
+La figure suivante représente le nombre de parties gagnées pendant les scénarios de tests et le nombre de parties gagnées après, pour chaque type d'adversaire possible. Comme on peut le constater, le nombre de parties gagnées après le déroulement des scénarios de tests, donc lorsque l'intelligence artificielle qui profile joue en fonction des résultats obtenus, est meilleur. En effet, celle-ci gagne souvent plus de parties que lors de la période de scénarios de tests. Cependant, nous pouvons déjà voir que pour les derniers paliers, le nombre de parties gagnées après les scénarios de tests est moins bon que le nombre de parties gagnées avant.\par
+
+%% TODO ajouter une légende avec la correspondance des paliers
+
 
 \begin{figure}[H]
 	\begin{center}
@@ -880,7 +895,7 @@ La figure suivante représente le nombre de parties gagnées pendant les scénar
 	\caption{Nombre de parties gagnées pendant les scénarios de tests et après}
 \end{figure}
 
-Même si nous gagnons dans l'ensemble plus de parties que lors de la phase de scénarios de tests, nous avons néanmoins remarqué que dans l'ensemble, nous l'intelligence artificielle n'est pas gagnante en terme de nombre de jetons gagnés à la fin de dix parties. Le diagramme suivant représente le nombre de jetons gagnés par paliers, sur dix parties, pendant les scénarios de tests et après. On peut vite constater que, même si pour beaucoup de paliers nous avons un gain après les scénarios de tests plus élevé qu'avant, l'intelligence artificielle perd des jetons ou bien en gagne très peu. En effet, prenons par exemple le palier numéro 3, même si au départ le nombre de jetons perdus étaient de plus de 1000 sur dix parties et qu'ensuite l'intelligence artificielle gagnait environ 400 jetons, les résultats sont plutôt décevants. En effet, gagner seulement 400 jetons après avoir joué dix parties n'est pas énorme, nous pouvons sûrement trouver un calibrage qui permettrais à l'intelligence artificielle de gagner plus de 400 jetons.\par
+Même si nous gagnons dans l'ensemble plus de parties que lors de la phase de scénarios de tests, nous avons néanmoins remarqué que dans l'ensemble, l'intelligence artificielle n'est pas gagnante en terme de nombre de jetons gagnés à la fin de dix parties. Le diagramme suivant représente le nombre de jetons gagnés par paliers, sur dix parties, pendant les scénarios de tests et après. On peut vite constater que, même si pour beaucoup de paliers nous avons un gain après les scénarios de tests plus élevé qu'avant, l'intelligence artificielle perd des jetons ou bien en gagne très peu. En effet, prenons par exemple le palier numéro 3, même si au départ le nombre de jetons perdus étaient de plus de 1000 sur dix parties et qu'ensuite l'intelligence artificielle gagnait environ 400 jetons, les résultats sont plutôt décevants. En effet, gagner seulement 400 jetons après avoir joué dix parties n'est pas énorme, nous avons pensé que nous pouvions sûrement trouver un calibrage qui permettrait à l'intelligence artificielle de gagner plus de 400 jetons.\par
 
 
 \begin{figure}[H]
@@ -890,7 +905,26 @@ Même si nous gagnons dans l'ensemble plus de parties que lors de la phase de sc
 	\caption{Nombre de jetons gagnés pendant les scénarios de tests et après}
 \end{figure}
 
-Nous avons finalement choisi les calibrages suivant pour les différents paliers :
+
+\section{Recherche du calibrage optimal}
+
+\hspace{0.5cm}Puisque les premières réponses face à un profilage établi pour gagner le plus de parties et de jetons possibles n'étaient pas concluantes, nous avons établi des tests permettant de déterminer un calibrage optimal.\par
+Pour cela, nous avons lancé une série de parties face à un profil donné en faisant varier le calibrage de l'intelligence artificielle qui profile. Nous avons fait varier chacun des paramètres, agressivité et rationalité, de 15 en 15 de la façon suivante.
+
+\begin{center}
+15 - 30 - 45 - 60 - 75 - 90 - 100
+\end{center}
+
+
+Nous avons ensuite effectué le produit cartésien entre les deux listes pour obtenir tous les calibrages possibles (par exemple 15-15, 15-30...). Puis pour chaque calibrage, nous avons lancé 40 parties.\par
+
+Nous récupérions à la fin des 40 parties le taux de parties gagnées ainsi que le nombre de jetons gagnés ou perdus.
+
+%%% TODO : Mettre courbe et l'expliquer 
+%%			Pour ça, lancer un test plus grand?
+%%%
+
+Nous avons finalement choisi les calibrages suivants pour les différents paliers :
 
 \begin{figure}[H]
 \begin{center}
@@ -922,22 +956,6 @@ Agressivité déduite &	Rationalité déduite &	Agressivité IA & 	Rationalité 
 \end{figure}
 
 
-\section{Recherche du calibrage optimal}
-
-\hspace{0.5cm}Puisque les premières réponses face à un profilage établi pour gagner le plus de parties et de jetons possibles n'étaient pas concluantes, nous avons établi des tests permettant de déterminer un calibrage optimal.\par
-Pour cela, nous avons lancé une série de parties en faisant varier le calibrage de l'intelligence artificielle qui profile. Nous avons fait varier chacun des paramètres, agressivité et rationalité, de 15 en 15 de la façon suivante.
-15 - 30 - 45 - 60 - 75 - 90 - 100
-
-Nous avons ensuite effectué le produit cartésien entre les deux listes pour obtenir tous les calibrages possibles (par exemple 15-15, 15-30...). Puis pour chaque calibrage, nous avons lancé 40 parties.\par
-
-Nous récupérions à la fin des 40 parties le taux de parties gagnées ainsi que le nombre de jetons gagnés ou perdus.
-
-%%% TODO : Mettre courbe et l'expliquer 
-%%			Pour ça, lancer un test plus grand?
-%%%
-
-
-
 %%Comparaison entre résultats nouveaux calibrages et anciens calibrages.
 \begin{figure}[H]
 	\begin{center}
@@ -946,7 +964,7 @@ Nous récupérions à la fin des 40 parties le taux de parties gagnées ainsi qu
 	\caption{Nombre de parties gagnées en fonction des deux calibrages}
 \end{figure}
 
-Comme on peut le voir dans la figure ci-dessus, le changement de gains de parties par rapport aux résultats précédent n'est pas énorme voire inexistant. En effet, nous avons choisi de nous concentrer davantage sur les gains de jetons. Ainsi, même si un l'intelligence artificielle qui profile ne gagne pas plus de parties, elle gagne plus de jetons qu’auparavant. Le diagramme suivant représente les jetons gagnés en fonction du calibrage. Comme on peut le voir, le nombre de jetons gagnés après implémentation des nouveaux calibrages, en rouge sur la figure, a nettement augmenté dans la plupart des paliers. Ainsi, alors que l'intelligence artificielle perdait plus de 2500 jetons face à un adversaire étant catégorisé dans le palier 7, c'est à dire ayant un taux d'agressivité compris entre soixante et cent et un taux de rationalité compris entre zéro et quarante, elle en gagne maintenant plus de 2500.
+Comme on peut le voir dans la figure ci-dessus, le changement de gains de parties par rapport aux résultats précédents n'est pas énorme voire inexistant. En effet, nous avons choisi de nous concentrer davantage sur les gains de jetons. Ainsi, même si un l'intelligence artificielle qui profile ne gagne pas plus de parties, elle gagne plus de jetons qu’auparavant. Le diagramme suivant représente les jetons gagnés en fonction du calibrage. Comme on peut le voir, le nombre de jetons gagnés après implémentation des nouveaux calibrages, en rouge sur la figure, a nettement augmenté dans la plupart des paliers. Ainsi, alors que l'intelligence artificielle perdait plus de 2500 jetons face à un adversaire étant catégorisé dans le palier 7, c'est à dire ayant un taux d'agressivité compris entre soixante et cent et un taux de rationalité compris entre zéro et quarante, elle en gagne maintenant plus de 2500.
 
 \begin{figure}[H]
 	\begin{center}
