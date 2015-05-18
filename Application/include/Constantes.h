@@ -38,7 +38,7 @@
 #define NOMBRE_CALIBRAGES                       1
 #define NOMBRE_PARTIES_PROFILAGE                10
 #define NOMBRE_PARTIES                          30
-#define VARIATION_AUTORISEE                     10
+#define VARIATION_AUTORISEE                     20
 
 // Calibrage optimal
 #define CALCUL_CALIBRAGE_IDEAL                  false
