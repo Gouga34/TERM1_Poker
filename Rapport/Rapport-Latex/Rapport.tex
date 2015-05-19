@@ -798,14 +798,27 @@ Afin de profiler au mieux un joueur donné, nous analysons sa réaction face à 
 
 \subsection{Analyse des résultats}
 
-\hspace{0.5cm}Pour facilement déterminer si le profilage établi est efficace, et également déterminer le nombre de parties nécessaires pour profiler, nous avons ajouté dans un .csv le profil global établi au fur et à mesure des parties, ainsi que le taux de similarité entre le profilage établi et le calibrage réel de l'adversaire. Nous avons donc pu ajuster le nombre de parties selon cette valeur de similarité.\par
+\hspace{0.5cm}Lors du lancement des parties de profilage, une ligne de résultats est ajoutée dans un fichier csv correspondant. Cette ligne contient la situation du jeu, calibrage de l'intelligence artificielle et chances de gain, les taux d'agressivité et de rationalité attendus, les taux réels et la distance entre ces deux. Enfin une moyenne du calibrage attendu est mise à jour à chaque ajout, c'est elle qui va donner le profilage obtenu au bout de X parties.\par
 
-Suite à plusieurs tests, nous avons observé qu'au bout de 10 ou 15 parties, nous arrivions à obtenir un profilage satisfaisant, et que celui-ci ne tendait pas à s'améliorer, même en jouant plus de parties.\\
+Cela va donc permettre le lancement de plusieurs parties intelligence artificielle contre intelligence artificielle, pour obtenir un profilage rapidement. Suite à ces résultats, il est alors possible de réaliser des courbes permettant d'observer la convergence entre le profil établi, et le calibrage de l'intelligence artificielle profilée. La distance doit alors être de plus en plus proche de zéro.\par
+
+Nous pouvons donc ajuster le nombre optimal de parties de la phase de profilage en fonction des taux de similarités écrits dans le fichier csv présenté précédemment.\par
+
+Suite à plusieurs tests, nous avons observé qu'au bout de 10 ou 15 parties, nous arrivions à obtenir un profilage satisfaisant, et que celui-ci ne tendait pas à s'améliorer, même en jouant plus de parties. En effet, si l'on regarde la courbe suivante représentant le taux de similarité en fonction du nombre de parties, on constate que le taux de similarité a tendance à augmenter jusqu'à atteindre un certain niveau, à savoir pratiquement 100\% de similarité. À partir du moment où se taux est atteint, le taux de similarité reste constant. On constate donc que lancer plus de dix parties ne permet pas d'avoir un meilleur profil établi. \\
+
+
+\begin{figure}[H]
+\hspace{-2cm}
+	%\begin{center}
+		\includegraphics[scale=0.5]{./imagesRapport/profilageScenariosTestsAnalyseResultats.png}
+	%\end{center}
+	\caption{Taux de similarité du profilage en fonction du nombre de partie}
+\end{figure}
+
 	
 Afin de pouvoir obtenir des résultats facilement visibles et pouvoir les étudier, nous avons également produit des graphes représentant le profilage établi du joueur en fonction du nombre de parties, et une constante correspondant au calibrage à déterminer.\\
 
-\hspace{0.5cm}Lors du lancement des parties de profilage, une ligne de résultats est ajoutée dans un fichier csv correspondant. Cette ligne contient la situation du jeu, calibrage de l'intelligence artificielle et chances de gain, les taux d'agressivité et de rationalité attendus, les taux réels et la distance entre ces deux. Enfin une moyenne du calibrage attendu est mise à jour à chaque ajout, c'est elle qui va donner le profilage obtenu au bout de X parties.\par
-Cela va donc permettre le lancement de plusieurs parties intelligence artificielle contre intelligence artificielle, pour obtenir un profilage rapidement. Suite à ces résultats, il est alors possible de réaliser des courbes permettant d'observer la convergence entre le profil établi, et le calibrage de l'intelligence artificielle profilée. La distance doit alors être de plus en plus proche de zéro.
+
 
 %%%%  TODO  Ajouter graphique pour montrer la convergeance au bout de 10-15 parties %
 %%%%			Tableau indiquant le % de réussite (taux similarité) pour différents paliers %
@@ -880,13 +893,24 @@ Le but de notre intelligence artificielle étant, une fois un profilage correcte
 \hspace{0.5cm}Afin de pouvoir étudier les gains de l'intelligence artificielle avant et après le profilage, nous avons alors ajouté dans les fichiers résultats le gain de parties et d'argent pour chacune des parties. Ceci nous a permis de pouvoir obtenir un ratio du nombre de parties gagnées sur le nombre de parties jouées pendant le profilage, puis pendant la phase de jeu. De même pour le nombre de jetons obtenus. Nous avons donc ajouté les lignes suivantes à la fin de chaque fichier contenant le profil établi.\\
 
 %%TODO faire le tableau %%%
-
-Nombre de parties:	30		
-Nombre de parties gagnees par l'IA qui profile pendant profilage :	6	sur	10
-Nombre de parties gagnees par l'IA qui profile pendant jeu :	15	sur	20
-Gains de l'IA qui profile pendant profilage :	-924		
-Gains de l'IA qui profile pendant jeu :	3530		
-
+\begin{figure}[H]
+\begin{center}
+\begin{tabular}{|l|l|l|l|}
+\hline
+Nombre de parties:&	30		\\
+\hline
+Nombre de parties gagnées par l'IA qui profile pendant profilage :& 6 sur 10\\
+\hline
+Nombre de parties gagnées par l'IA qui profile pendant jeu :& 15 sur 20\\
+\hline
+Gains de l'IA qui profile pendant profilage :& -924		\\
+\hline
+Gains de l'IA qui profile pendant jeu :&	3530		\\
+\hline
+\end{tabular}
+\end{center}
+\caption{Données écrites à la fin d'un fichier contenant le profil établi}
+\end{figure}
 
 Ces données sont mises à jour à chaque nouvelle partie.\\
 
