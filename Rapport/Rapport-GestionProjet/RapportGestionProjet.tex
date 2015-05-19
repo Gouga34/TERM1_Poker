@@ -11,6 +11,9 @@
 \usepackage{graphicx}%%Pour rotation image
 \usepackage{rotating}%%Pour rotation image
 
+\usepackage{geometry} %%Pour les marges
+\geometry{hmargin=3cm,vmargin=3cm}
+
 \title{Rapport}
 \author{}
 \date{}
@@ -56,7 +59,7 @@ Dans le même temps, le sous-projet correspondant à la mise en place de l'intel
 Une fois les deux premiers sous-projets finis, le sous-projet "profilage statique" débutera. Le but de ce sous-projet sera de mettre en place des méthodes permettant de profiler de manière statique un joueur. Il commencera tout d'abord par une étude préalable durant laquelle une analyse de l'existant sera effectuée notamment par la lecture d'articles sur le sujet. Puis, une petite étude détaillée sera effectuée afin de bien définir les calculs qui seront à implémenter. La tâche de développement des algorithmes à implémenter commencera alors, avec l'écriture formelle des différents algorithmes de calculs qui devront être présents dans l'application. Enfin, l'implémentation des algorithmes dans l'application commencera, suivie par la phase de test des données ajoutées à l'application. \par
 Enfin, le sous-projet "profilage dynamique" débutera. De même que pour le sous-projet "profilage statique", il débutera par une phase d'analyse de l'existant avec lecture d'articles traitant du sujet. Puis, sera suivi par une étude détaillée. Par la suite, une phase d'étude technique commencera avec le développement des algorithmes à implémenter. Enfin, les phase d'implémentation des algorithmes et de tests suivront.\par
 En parallèle à toutes ses tâches aura lieu la rédaction du rapport et, à la fin du temps imparti, la préparation de la soutenance et de la démonstration. \par
-
+\newpage
 \section{Méthode}
 \subsection{Utilisation d'un gestionnaire de version}
 \hspace{0.5cm}Afin de permettre un partage efficace des données, le gestionnaire de version Git sera utilisé. Le répertoire principal sera celui de Morgane Vidal \url{https://github.com/Gouga34/TERM1_Poker}, qui sera le responsable de l'intégration du projet. Les deux autres membres du projets Manuel Chataigner et Benjamin Commandre devront envoyer leurs ajouts sur leurs propres répertoires puis demander à ajouter leurs modifications sur le répertoire principal. De plus l'utilisation de Git nous permettra de pouvoir ouvrir des issues correspondant au travail à faire et aux éventuels bogues trouvés.\par
@@ -78,8 +81,7 @@ Nous pouvons donc en conclure que nous avons pris beaucoup de retard, sûrement 
 \section{Répartition des tâches}
 
 		\begin{figure}[h]
-			%\begin{center}
-			\hspace{-3cm}\begin{tabular}{|l|l|l|}
+			\hspace{-1.5cm}	\begin{tabular}{|l|l|l|}
 				\hline
 				Étude préalable & & \\
 				\hline
@@ -132,7 +134,6 @@ Nous pouvons donc en conclure que nous avons pris beaucoup de retard, sûrement 
   				 Remaniement Jeu & & \textcolor{blue}{Manuel}  \textcolor{red}{Morgane} \\
    				\hline
 			\end{tabular}	
-			%\end{center}
 			\caption{Répartition des tâches}
 		\end{figure}
 		\medskip

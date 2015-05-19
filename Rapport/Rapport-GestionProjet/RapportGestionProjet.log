@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.2.9)  14 MAY 2015 19:09
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.2.9)  19 MAY 2015 16:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -544,57 +544,72 @@ Package: rotating 2009/03/28 v2.16a rotated objects in LaTeX
 \rot@float@box=\box34
 \rot@mess@toks=\toks26
 )
+(/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty
+Package: geometry 2010/09/12 v5.6 Page Geometry
+\Gm@cnth=\count125
+\Gm@cntv=\count126
+\c@Gm@tempcnt=\count127
+\Gm@bindingoffset=\dimen124
+\Gm@wd@mp=\dimen125
+\Gm@odd@mp=\dimen126
+\Gm@even@mp=\dimen127
+\Gm@layoutwidth=\dimen128
+\Gm@layoutheight=\dimen129
+\Gm@layouthoffset=\dimen130
+\Gm@layoutvoffset=\dimen131
+\Gm@dimlist=\toks27
+)
 (./RapportGestionProjet.aux)
 \openout1 = `RapportGestionProjet.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count125
-\scratchdimen=\dimen124
+\scratchcounter=\count128
+\scratchdimen=\dimen132
 \scratchbox=\box35
-\nofMPsegments=\count126
-\nofMParguments=\count127
-\everyMPshowfont=\toks27
-\MPscratchCnt=\count128
-\MPscratchDim=\dimen125
-\MPnumerator=\count129
-\makeMPintoPDFobject=\count130
-\everyMPtoPDFconversion=\toks28
+\nofMPsegments=\count129
+\nofMParguments=\count130
+\everyMPshowfont=\toks28
+\MPscratchCnt=\count131
+\MPscratchDim=\dimen133
+\MPnumerator=\count132
+\makeMPintoPDFobject=\count133
+\everyMPtoPDFconversion=\toks29
 )
 \AtBeginShipoutBox=\box36
-Package hyperref Info: Link coloring OFF on input line 30.
+Package hyperref Info: Link coloring OFF on input line 33.
  (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
-\c@section@level=\count131
+\c@section@level=\count134
 )
-LaTeX Info: Redefining \ref on input line 30.
-LaTeX Info: Redefining \pageref on input line 30.
-LaTeX Info: Redefining \nameref on input line 30.
+LaTeX Info: Redefining \ref on input line 33.
+LaTeX Info: Redefining \pageref on input line 33.
+LaTeX Info: Redefining \nameref on input line 33.
 
 (./RapportGestionProjet.out) (./RapportGestionProjet.out)
 \@outlinefile=\write3
 \openout3 = `RapportGestionProjet.out'.
 
-\c@lstlisting=\count132
+\c@lstlisting=\count135
 
 (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
@@ -611,6 +626,40 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: <default>
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(85.35826pt, 443.57848pt, 85.35826pt)
+* v-part:(T,H,B)=(85.35826pt, 624.25346pt, 85.35826pt)
+* \paperwidth=614.295pt
+* \paperheight=794.96999pt
+* \textwidth=443.57848pt
+* \textheight=624.25346pt
+* \oddsidemargin=13.08827pt
+* \evensidemargin=13.08827pt
+* \topmargin=-23.91173pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \topskip=10.0pt
+* \footskip=30.0pt
+* \marginparwidth=65.0pt
+* \marginparsep=11.0pt
+* \columnsep=10.0pt
+* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]pdfTeX warning (ext4): dest
@@ -618,7 +667,7 @@ ination with the same identifier (name{page.1}) has been already used, duplicat
 e ignored
 <to be read again> 
                    \relax 
-l.36 \newpage
+l.39 \newpage
               [1] (./RapportGestionProjet.toc)
 \tf@toc=\write4
 \openout4 = `RapportGestionProjet.toc'.
@@ -629,145 +678,118 @@ l.36 \newpage
 Chapitre 1.
 [3
 
-] [4]
+]
 Chapitre 2.
+[4
 
-Overfull \hbox (25.38042pt too wide) in paragraph at lines 56--56
-\OT1/cmr/m/n/10 pr^^Sesents dans l'application. En-fin, l'impl^^Sementation des
- al-go-rithmes dans l'application
- []
-
-[5
-
-] [6]
+] [5]
 Chapitre 3.
-
-Overfull \hbox (8.02838pt too wide) in paragraph at lines 69--69
-[]\OT1/cmr/m/n/10 Cependant, on peut con-stater que nous avions com-menc^^Se l'
-analyse de l'existant
- []
-
-[7
+[6
 
 ]
-Overfull \hbox (104.72607pt too wide) in paragraph at lines 82--136
-[] []
+Overfull \hbox (51.04895pt too wide) in paragraph at lines 85--139
+[]  []
  []
 
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-Overfull \hbox (10.74138pt too wide) in paragraph at lines 140--140
-\OT1/cmr/m/n/10 ainsi qu'^^Ra l'^^Setude pr^^Sealable de l'intelligence ar-ti-f
-i-cielle. En-suite, Manuel Chataigner
- []
-
-
-Overfull \hbox (0.55615pt too wide) in paragraph at lines 140--140
-\OT1/cmr/m/n/10 Par la suite, Manuel Chataigner et Mor-gane Vi-dal ont ef-fectu
-^^Se l'analyse d^^Setaill^^See,
- []
-
-[8] [9pdfTeX warning (ext4): destination with the same identifier (name{figure.
-3.1}) has been already used, duplicate ignored
+[7pdfTeX warning (ext4): destination with the same identifier (name{figure.3.1}
+) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.145 ...r Manuel Chataigner et Morgane Vidal.\par
-                                                  ] [10]
+l.145 ... Manuel Chataigner et Morgane Vidal. \par
+                                                  ] [8]
 Chapitre 4.
-[11
+[9
 
-] <./brainstorming.jpg, id=153, 3011.25pt x 1003.75pt>
+] <./brainstorming.jpg, id=144, 3011.25pt x 1003.75pt>
 File: ./brainstorming.jpg Graphic file (type jpg)
 
 <use ./brainstorming.jpg>
-Package pdftex.def Info: ./brainstorming.jpg used on input line 168.
+Package pdftex.def Info: ./brainstorming.jpg used on input line 171.
 (pdftex.def)             Requested size: 301.14264pt x 100.38087pt.
- [12pdfTeX warning (ext4): destination with the same identifier (name{figure.4.
+ [10pdfTeX warning (ext4): destination with the same identifier (name{figure.4.
 1}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.187 \chapter
+l.190 \chapter
               {Conclusion} <./brainstorming.jpg>]
 Chapitre 5.
-[13
+[11
 
 ]
 Annexe A.
-<../DiagrammePrevisionnel.png, id=164, 3523.1625pt x 548.0475pt>
+<../DiagrammePrevisionnel.png, id=154, 3523.1625pt x 548.0475pt>
 File: ../DiagrammePrevisionnel.png Graphic file (type png)
 
 <use ../DiagrammePrevisionnel.png>
-Package pdftex.def Info: ../DiagrammePrevisionnel.png used on input line 196.
+Package pdftex.def Info: ../DiagrammePrevisionnel.png used on input line 199.
 (pdftex.def)             Requested size: 1056.95694pt x 164.41551pt.
 
-Overfull \hbox (395.36813pt too wide) in paragraph at lines 195--197
+Overfull \hbox (321.11467pt too wide) in paragraph at lines 198--200
 []  []
  []
 
-[14
+[12
 
-] [15pdfTeX warning (ext4): destination with the same identifier (name{figure.A
+] [13pdfTeX warning (ext4): destination with the same identifier (name{figure.A
 .1}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.202 \chapter
+l.205 \chapter
               {Diagramme de Gantt réel} <../DiagrammePrevisionnel.png (PNG cop
 y)>]
 Annexe B.
 
-<../Rapport-Latex/imagesRapport/DiagrammeReel.png, id=174, 4318.1325pt x 566.11
+<../Rapport-Latex/imagesRapport/DiagrammeReel.png, id=165, 4318.1325pt x 566.11
 5pt>
 File: ../Rapport-Latex/imagesRapport/DiagrammeReel.png Graphic file (type png)
  <use ../Rapport-Latex/imagesRapport/DiagrammeReel.png>
 Package pdftex.def Info: ../Rapport-Latex/imagesRapport/DiagrammeReel.png used 
-on input line 205.
+on input line 208.
 (pdftex.def)             Requested size: 1295.44978pt x 169.8358pt.
 
-Overfull \hbox (633.86098pt too wide) in paragraph at lines 204--206
+Overfull \hbox (559.60751pt too wide) in paragraph at lines 207--209
 []  []
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 210.
-[16
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 213.
+[14
 
-] [17pdfTeX warning (ext4): destination with the same identifier (name{figure.B
+] [15pdfTeX warning (ext4): destination with the same identifier (name{figure.B
 .1}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.210 \end{document}
+l.213 \end{document}
                      <../Rapport-Latex/imagesRapport/DiagrammeReel.png (PNG cop
 y)>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 210.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 213.
  (./RapportGestionProjet.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 210.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 210.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 213.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 213.
 Package rerunfilecheck Info: File `RapportGestionProjet.out' has not changed.
 (rerunfilecheck)             Checksum: 55F556A9AE9552FCBF5A3C823DD2FC27;1180.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 210.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 213.
  ) 
 Here is how much of TeX's memory you used:
- 8620 strings out of 494985
- 122941 string characters out of 6180357
- 226865 words of memory out of 5000000
- 11686 multiletter control sequences out of 15000+600000
+ 9052 strings out of 494985
+ 129206 string characters out of 6180357
+ 237512 words of memory out of 5000000
+ 12117 multiletter control sequences out of 15000+600000
  10403 words of font info for 38 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 32i,9n,35p,1178b,345s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 32i,9n,35p,1178b,349s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texli
 ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on RapportGestionProjet.pdf (18 pages, 2168017 bytes).
+Output written on RapportGestionProjet.pdf (16 pages, 2166949 bytes).
 PDF statistics:
- 214 PDF objects out of 1000 (max. 8388607)
- 184 compressed objects within 2 object streams
- 41 named destinations out of 1000 (max. 500000)
+ 205 PDF objects out of 1000 (max. 8388607)
+ 177 compressed objects within 2 object streams
+ 39 named destinations out of 1000 (max. 500000)
  160 words of extra memory for PDF output out of 10000 (max. 10000000)
 
