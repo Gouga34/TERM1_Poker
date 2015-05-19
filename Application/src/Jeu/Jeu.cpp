@@ -34,8 +34,7 @@ void Jeu::distributionMain(){
     this->resetActions();
 
     IntelligenceArtificielleProfilage *iaProfilage = static_cast<IntelligenceArtificielleProfilage*>(listeJoueurs.at(1));
-    iaProfilage->getProfilage()->reinitialiser();
-    iaProfilage->setCalibragePourJouer();
+    iaProfilage->determinerTypeDeJeu();
 
     getJoueur(0)->setCumulMisesEtRelances(0);
     getJoueur(1)->setCumulMisesEtRelances(0);
@@ -475,8 +474,7 @@ void Jeu::finPartie() {
     resultatPartie = retour;
 
     IntelligenceArtificielleProfilage *ia = static_cast<IntelligenceArtificielleProfilage*>(this->getJoueur(1));
-    ia->calculProfilGlobalJoueur();
-    ia->ecritureScenariosDeTests();
+    ia->ecritureResultatsPartie();
 }
 
 std::vector<Carte> Jeu::getTable() const{

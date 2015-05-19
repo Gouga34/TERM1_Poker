@@ -8,12 +8,13 @@ Specification: Fichier contenant les définitions de la classe IntelligenceArtif
 
 
 #include "../../include/IA/IntelligenceArtificielleProfilage.h"
+#include "../../include/Interface/Logger.h"
 #include <QStringList>
 #include <QTextStream>
 
 
 IntelligenceArtificielleProfilage::IntelligenceArtificielleProfilage(bool estDealer, int jetons, int position)
-    : IntelligenceArtificielle(estDealer, jetons, position), continuerProfilage(true), profilage(0), scenario(0)
+    : IntelligenceArtificielle(estDealer, jetons, position), phaseJeu(PHASE_PROFILAGE), profilage(0), scenario(0)
 {
 
 }
@@ -53,8 +54,13 @@ void IntelligenceArtificielleProfilage::setPseudoJoueurProfile(std::string pseud
         calibrageRecherche = *(iaProfilee->getCalibrage());
     }
 
-    continuerProfilage = (NOMBRE_PARTIES_PROFILAGE > 0);
+    if (scenario) {
+        delete scenario;
+    }
     scenario = new ScenariosDeTests(&profilJoueur, resolveur->getCalibrage(), calibrageRecherche);
+
+    nbPartiesProfilageRestantes = NOMBRE_PARTIES_PROFILAGE;
+    nbPartiesJeuRestantes = 0;
 }
 
 void IntelligenceArtificielleProfilage::remplissageDonneesProfilage() {
@@ -151,7 +157,7 @@ void IntelligenceArtificielleProfilage::calculProfilGlobalJoueur() {
         profilage->nbJetonsGagnesIAQuiProfile=0;
     }
 
-    profilage->scenarioDeTest=continuerProfilage;
+    profilage->scenarioDeTest = (phaseJeu == PHASE_PROFILAGE);
 
     profilage->partieGagneeIAQuiProfile=resultatPartie;
 
@@ -159,11 +165,16 @@ void IntelligenceArtificielleProfilage::calculProfilGlobalJoueur() {
 }
 
 void IntelligenceArtificielleProfilage::ecritureScenariosDeTests() {
+    scenario->setChancesDeGain(profilage->etatPartie[ETAPE_JEU::NB_ETAPES].probaGainAdversaire);
+    scenario->sauvegarderPartie();
+}
+
+void IntelligenceArtificielleProfilage::ecritureResultatsPartie() {
+    calculProfilGlobalJoueur();
+
     // Si on profile le joueur
-    if (continuerProfilage && !(CALCUL_CALIBRAGE_IDEAL)) {
-        scenario->setCalibrageActuelIA(resolveur->getCalibrage());
-        scenario->setChancesDeGain(profilage->etatPartie[ETAPE_JEU::NB_ETAPES].probaGainAdversaire);
-        continuerProfilage = scenario->sauvegarderPartie();
+    if (phaseJeu == PHASE_PROFILAGE) {
+        ecritureScenariosDeTests();
     }
 }
 
@@ -171,63 +182,119 @@ double IntelligenceArtificielleProfilage::calculValeurProportionnelle(double min
     return ((val1 - minVal1) * ((maxVal2 - minVal2) / (maxVal1 - minVal1)) + minVal2);
 }
 
+PHASE_JEU_IA IntelligenceArtificielleProfilage::prochainTypeDeJeu() {
+
+    if (nbPartiesProfilageRestantes > 0) {
+        nbPartiesProfilageRestantes--;
+        return PHASE_PROFILAGE;
+    }
+    else if (nbPartiesJeuRestantes > 0) {
+        nbPartiesJeuRestantes--;
+        return PHASE_GAINS;
+    }
+    else {
+        if (phaseJeu == PHASE_PROFILAGE) {
+            nbPartiesJeuRestantes = NOMBRE_PARTIES_GAINS - 1;
+            return PHASE_GAINS;
+        }
+        else {
+            double gainParPartieJeu = static_cast<double>(profilage->gainsJeu) / profilage->nbPartiesJeu;
+            double gainParPartieProfilage = static_cast<double>(profilage->gainsProfilage) / profilage->nbPartiesGagneesProfilage;
+
+            if (profilage->gainsJeu < 0 || gainParPartieJeu < gainParPartieProfilage) {
+                nbPartiesProfilageRestantes = NOMBRE_PARTIES_REPROFILAGE - 1;
+                return PHASE_PROFILAGE;
+            }
+            else {
+                return PHASE_GAINS;
+            }
+        }
+    }
+}
+
+void IntelligenceArtificielleProfilage::determinerTypeDeJeu() {
+
+    if (CALCUL_CALIBRAGE_IDEAL) {
+        phaseJeu = PHASE_GAINS;
+    }
+    else {
+        phaseJeu = prochainTypeDeJeu();
+
+        if (phaseJeu == PHASE_PROFILAGE) {
+            setCalibragePourProfiler();
+        }
+        else {
+            setCalibragePourJouer();
+        }
+
+        Logger::getInstance()->ajoutLogs("Calibrage IA profilage: agressivité: "+QString::number(resolveur->getCalibrage()->getAgressivite())
+                                         +" rationalité: "+QString::number(resolveur->getCalibrage()->getRationalite()));
+    }
+
+    getProfilage()->reinitialiser();
+}
+
+void IntelligenceArtificielleProfilage::setCalibragePourProfiler() {
+    //On tire aléatoirement un nouveau taux d'agressivite:
+    int agressivite=rand()%100+1;
+
+    resolveur->getCalibrage()->setAgressivite(agressivite);
+}
+
 void IntelligenceArtificielleProfilage::setCalibragePourJouer() {
 
-    if (!continuerProfilage && !(CALCUL_CALIBRAGE_IDEAL)) {
+    /////// Lecture du calibrage pour gagner //////////
 
-        /////// Lecture du calibrage pour gagner //////////
-
-        QFile fichier(QString::fromStdString(DOSSIER_PROFILAGE_STATIQUE)+"jeu_IA.csv");
-        if(!fichier.open(QIODevice::ReadOnly)){
-            std::cerr<<"Erreur lors de l'ouverture du fichier jeu_IA.csv"<<std::endl;
-            return;
-        }
-
-        QString ligne = fichier.readLine();
-        ligne = fichier.readLine();
-
-        while (!ligne.isEmpty()) {
-            QStringList liste = ligne.split(",");
-
-            double agressiviteMin = liste.at(0).split("-").at(0).toDouble();
-            double agressiviteMax = liste.at(0).split("-").at(1).toDouble();
-
-            if (scenario->getProfilDeduitGlobal().getAgressivite() >= agressiviteMin && scenario->getProfilDeduitGlobal().getAgressivite() <= agressiviteMax) {
-                double rationaliteMin = liste.at(1).split("-").at(0).toDouble();
-                double rationaliteMax = liste.at(1).split("-").at(1).toDouble();
-
-                if (scenario->getProfilDeduitGlobal().getRationalite() >= rationaliteMin && scenario->getProfilDeduitGlobal().getRationalite() <= rationaliteMax) {
-
-                    Profil nouveauProfil;
-
-                    if (liste.at(2).split("-").size() == 1) {
-                        nouveauProfil.setAgressivite(liste.at(2).toDouble());
-                    }
-                    else {
-                        nouveauProfil.setAgressivite(calculValeurProportionnelle(agressiviteMin, scenario->getProfilDeduitGlobal().getAgressivite(), agressiviteMax,
-                                                                                 liste.at(2).split("-").at(0).toDouble(), liste.at(2).split("-").at(1).toDouble()));
-                    }
-
-                    if (liste.at(3).split("-").size() == 1) {
-                        nouveauProfil.setRationalite(liste.at(3).toDouble());
-                    }
-                    else {
-                        nouveauProfil.setRationalite(calculValeurProportionnelle(rationaliteMin, scenario->getProfilDeduitGlobal().getRationalite(), rationaliteMax,
-                                                                                 liste.at(3).split("-").at(0).toDouble(), liste.at(3).split("-").at(1).toDouble()));
-                    }
-
-                    setCalibrage(nouveauProfil);
-
-                    fichier.close();
-                    return;
-                }
-            }
-
-            ligne = fichier.readLine();
-        }
-
-        fichier.close();
+    QFile fichier(QString::fromStdString(DOSSIER_PROFILAGE_STATIQUE)+"jeu_IA.csv");
+    if(!fichier.open(QIODevice::ReadOnly)){
+        std::cerr<<"Erreur lors de l'ouverture du fichier jeu_IA.csv"<<std::endl;
+        return;
     }
+
+    QString ligne = fichier.readLine();
+    ligne = fichier.readLine();
+
+    while (!ligne.isEmpty()) {
+        QStringList liste = ligne.split(",");
+
+        double agressiviteMin = liste.at(0).split("-").at(0).toDouble();
+        double agressiviteMax = liste.at(0).split("-").at(1).toDouble();
+
+        if (scenario->getProfilDeduitGlobal().getAgressivite() >= agressiviteMin && scenario->getProfilDeduitGlobal().getAgressivite() <= agressiviteMax) {
+            double rationaliteMin = liste.at(1).split("-").at(0).toDouble();
+            double rationaliteMax = liste.at(1).split("-").at(1).toDouble();
+
+            if (scenario->getProfilDeduitGlobal().getRationalite() >= rationaliteMin && scenario->getProfilDeduitGlobal().getRationalite() <= rationaliteMax) {
+
+                Profil nouveauProfil;
+
+                if (liste.at(2).split("-").size() == 1) {
+                    nouveauProfil.setAgressivite(liste.at(2).toDouble());
+                }
+                else {
+                    nouveauProfil.setAgressivite(calculValeurProportionnelle(agressiviteMin, scenario->getProfilDeduitGlobal().getAgressivite(), agressiviteMax,
+                                                                             liste.at(2).split("-").at(0).toDouble(), liste.at(2).split("-").at(1).toDouble()));
+                }
+
+                if (liste.at(3).split("-").size() == 1) {
+                    nouveauProfil.setRationalite(liste.at(3).toDouble());
+                }
+                else {
+                    nouveauProfil.setRationalite(calculValeurProportionnelle(rationaliteMin, scenario->getProfilDeduitGlobal().getRationalite(), rationaliteMax,
+                                                                             liste.at(3).split("-").at(0).toDouble(), liste.at(3).split("-").at(1).toDouble()));
+                }
+
+                setCalibrage(nouveauProfil);
+
+                fichier.close();
+                return;
+            }
+        }
+
+        ligne = fichier.readLine();
+    }
+
+    fichier.close();
 }
 
 void IntelligenceArtificielleProfilage::ecritureAnalyseDesGains() {

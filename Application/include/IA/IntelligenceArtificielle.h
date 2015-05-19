@@ -24,15 +24,7 @@ class IntelligenceArtificielle : public Joueur {
     private:
 
         std::vector<EstimationProba*> estimateurs;
-
-		//Méthodes
 		
-		/**
-		*@action : Permet d'obtenir la probabilité pre-Flop
-		*@return : La probabilitee pre-Flop de la main courant
-		**/
-        double calculProba();
-	
 	public :
 		//Constructeur et destructeur
 		
