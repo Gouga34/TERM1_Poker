@@ -33,9 +33,6 @@ ScenariosDeTests::ScenariosDeTests(Profil *profilJoueur, Profil *calibrageIA, Pr
 
     int agressivite=rand()%100+1;
     calibrageActuelIA->setAgressivite(agressivite);
-    actionAttendueJoueur.setAgressivite(-1);
-    actionAttendueJoueur.setRationalite(-1);
-
     calibrageActuelIA->setRationalite(RATIONALITE_IA_PROFILAGE);
 }
 
@@ -101,7 +98,7 @@ double ScenariosDeTests::getChancesDeGain(){
 }
 
 
-bool ScenariosDeTests::sauvegarderPartie(){
+void ScenariosDeTests::sauvegarderPartie(){
 
     //On ouvre le fichier dans lequel on sauvegardera les données.
     QString nomFichier=QString::fromStdString(actionReelleJoueur->getPseudo())+"_scenarios_tests.csv";
@@ -158,16 +155,16 @@ bool ScenariosDeTests::sauvegarderPartie(){
 
             profilDeduitGlobal.setAgressivite((actionAttendueJoueur.getAgressivite()+(agressiviteGlobalePrec*(nbParties-1)))/nbParties);
             profilDeduitGlobal.setRationalite((actionAttendueJoueur.getRationalite()+(rationaliteGlobalePrec*(nbParties-1)))/nbParties);
-
-            double similariteAgressivite = 100 - abs(profilDeduitGlobal.getAgressivite() - calibrageRecherche.getAgressivite());
-            double similariteRationalite = 100 - abs(profilDeduitGlobal.getRationalite() - calibrageRecherche.getRationalite());
-
-            tauxSimilarite = (similariteAgressivite + similariteRationalite) / 2;
         }
 
         if(fichier.size()==0){
-          out<<"agressivite IA,Chances de gain IA qui profile,Agressivite attendue,Rationalite attendue,Agressivite reelle,Rationalite Reelle,distance moyenne,Agressivite deduite globale,Rationalite deduite globale,taux similarite"<<endl;
+          out<<"agressivite IA,Chances de gain IA profilee,Agressivite attendue,Rationalite attendue,Agressivite reelle,Rationalite Reelle,distance moyenne,Agressivite deduite globale,Rationalite deduite globale,taux similarite"<<endl;
         }
+
+        double similariteAgressivite = 100 - abs(profilDeduitGlobal.getAgressivite() - calibrageRecherche.getAgressivite());
+        double similariteRationalite = 100 - abs(profilDeduitGlobal.getRationalite() - calibrageRecherche.getRationalite());
+
+        tauxSimilarite = (similariteAgressivite + similariteRationalite) / 2;
 
          //On écrit déjà l'agressivité de l'IA qui profile et ses chances de gain.
         out<<getCalibrageActuelIA()->getAgressivite()<<","<<getChancesDeGain()<<","<<actionAttendueJoueur.getAgressivite()<<","
@@ -176,10 +173,6 @@ bool ScenariosDeTests::sauvegarderPartie(){
 
         fichier.close();
     }
-
-    scenarioSuivant();
-
-    return (nbParties < NOMBRE_PARTIES_PROFILAGE);
 }
 
 
@@ -193,6 +186,9 @@ void ScenariosDeTests::calculerActionAttendueJoueur(QFile& fichierProfil){
 
     double intervalleChancesGainIAInferieur=0;
     double intervalleChancesGainIASuperieur=0;
+
+    actionAttendueJoueur.setAgressivite(-1);
+    actionAttendueJoueur.setRationalite(-1);
 
     //Si le fichier n'est pas vide, on regarde dedans si on a pas déjà une valeur pour les chances de gains et l'agressivité actuelle
     ancienneSituationLaPlusProche(fichierProfil);
@@ -307,19 +303,6 @@ void ScenariosDeTests::calculerDistance(){
 
     //On calcule une distance moyenne:
     distance=(distanceAgressivite+distanceRationalite)/2;
-}
-
-
-void ScenariosDeTests::scenarioSuivant(){
-
-    actionAttendueJoueur.setAgressivite(-1);
-    actionAttendueJoueur.setRationalite(-1);
-
-    //On tire aléatoirement un nouveau taux d'agressivite:
-    int agressivite=rand()%100+1;
-
-    calibrageActuelIA->setAgressivite(agressivite);
-    Logger::getInstance()->ajoutLogs("Calibrage IA profilage: agressivité: "+QString::number(agressivite)+" rationalité: "+QString::number(RATIONALITE_IA_PROFILAGE));
 }
 
 void ScenariosDeTests::ancienneSituationLaPlusProche(QFile& fichierProfil){

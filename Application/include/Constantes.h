@@ -36,9 +36,12 @@
 
 // Profilage
 #define NOMBRE_CALIBRAGES                       1
-#define NOMBRE_PARTIES_PROFILAGE                10
 #define NOMBRE_PARTIES                          30
 #define VARIATION_AUTORISEE                     20
+
+#define NOMBRE_PARTIES_PROFILAGE                10
+#define NOMBRE_PARTIES_REPROFILAGE              5
+#define NOMBRE_PARTIES_GAINS                    10
 
 // Calibrage optimal
 #define CALCUL_CALIBRAGE_IDEAL                  false
@@ -258,7 +261,11 @@ enum COLONNES_CSV{
     TAUX_SIMILARITE
 };
 
-
+// Phases de jeu de l'IA qui profile
+enum PHASE_JEU_IA {
+    PHASE_PROFILAGE,
+    PHASE_GAINS
+};
 
 
 #endif // CONSTANTES_H

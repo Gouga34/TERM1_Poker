@@ -33,12 +33,6 @@ private:
     double tauxSimilarite;
 
     /**
-     * @brief scenarioSuivant
-     * @action passe calibrageActuelIA au calibrage du scénario suivant
-     */
-    void scenarioSuivant();
-
-    /**
      * @brief calculerActionAttendueJoueur
      * @action calcule l'action attendue du joueur,
      *         éventuellement en fonction des actions réelles précédentes
@@ -161,11 +155,9 @@ public:
     double getChancesDeGain();
 
     /**
-     * @brief sauvegarderLigne
      * @action écrit le scénario dans le fichier de sortie "pseudo_scenarios_tests.json"
-     * @return true si le profilage continue
      */
-    bool sauvegarderPartie();
+    void sauvegarderPartie();
 };
 
 #endif // SCENARIOSDETESTS_H

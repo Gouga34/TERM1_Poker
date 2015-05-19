@@ -17,7 +17,7 @@ class IntelligenceArtificielleProfilage : public IntelligenceArtificielle
 {
     private:
 
-        bool continuerProfilage;         // Vrai si l'IA profile, faux si elle utilise les résultats pour gagner
+        PHASE_JEU_IA phaseJeu;
 
         Profil profilJoueur;
 
@@ -25,7 +25,38 @@ class IntelligenceArtificielleProfilage : public IntelligenceArtificielle
 
         ScenariosDeTests *scenario;
 
+        int nbPartiesProfilageRestantes;
+        int nbPartiesJeuRestantes;
+
+
         double calculValeurProportionnelle(double minVal1, double val1, double maxVal1, double minVal2, double maxVal2) const;
+
+
+        /**
+         * @brief Détermine la phase de jeu pour la prochaine partie (profilage, gains)
+         * @return Nouvelle phase de jeu
+         */
+        PHASE_JEU_IA prochainTypeDeJeu();
+
+        /**
+         * @brief Modifie le calibrage de l'ia pour profiler
+         */
+        void setCalibragePourProfiler();
+
+        /**
+         * @brief Modifie la calibrage de l'ia pour gagner
+         */
+        void setCalibragePourJouer();
+
+        /**
+         * @action Calcule les données globales de profilage et sauvegarde les données de la partie
+         */
+        void calculProfilGlobalJoueur();
+
+        /**
+         * @action Ecrit les résultats des scénarios de tests pour la partie courante
+         */
+        void ecritureScenariosDeTests();
 
     public:
 
@@ -51,19 +82,15 @@ class IntelligenceArtificielleProfilage : public IntelligenceArtificielle
         void remplissageDonneesProfilage();
 
         /**
-         * @action Calcule les données globales de profilage et sauvegarde les données de la partie
+         * @action Ecrit les résultats de la partie dans le csv et dans les scénarios de tests
+         *          si l'ia est en phase de profilage
          */
-        void calculProfilGlobalJoueur();
+        void ecritureResultatsPartie();
 
         /**
-         * @action Ecrit les résultats des scénarios de tests pour la partie courante
+         * @action Change le calibrage de l'IA en fonction de la phase de jeu (profilage/gains)
          */
-        void ecritureScenariosDeTests();
-
-        /**
-         * @action Modifie la calibrage de l'ia si elle n'est pas en train de profiler pour gagner
-         */
-        void setCalibragePourJouer();
+        void determinerTypeDeJeu();
 
         /**
          * @action Ajoute une ligne d'analyse des résultats des gains pour le calibrage courant
