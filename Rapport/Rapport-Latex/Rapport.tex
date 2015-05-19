@@ -826,6 +826,14 @@ Par la suite, nous nous sommes rendus compte qu'il n'était pas optimal de repre
 
 Nous avons également fait des tests en prenant en compte la situation dans laquelle la distance est la plus petite possible, c'est à dire prendre une situation dans laquelle l'intelligence artificielle a réussi à profiler correctement le joueur. Nous nous sommes rendus compte que la différence des résultats n'était pas significative, et qu'il valait mieux se baser sur les paramètres de la partie, à savoir le calibrage et les chances de gain de l'intelligence artificielle qui profile.
 
+\section{Vérification du profil établi}
+
+%%TODO : reprendre ensemble le premier jet.
+
+\hspace{0.5cm}Une fois le profil du joueur adverse établi, l'intelligence artificielle a pour but de jouer de façon à gagner le plus de jetons possible. Cependant, si le joueur adverse n'a pas été bien profilé, avec par exemple un profil à 40\% juste, l'intelligence artificielle va jouer en imaginant jouer contre un type d'adversaire qui en fait n'est pas le bon. Par conséquent, nous avons choisi de mettre en place la possibilité de reprendre le profil afin de l’affiner si besoin. 
+
+Par conséquent si, lors de la phase de jeu et à partir de dix parties jouées, l'intelligence artificielle ne perd des jetons ou bien gagne moins de jetons que lors de la phase de scénarios de tests, l'intelligence artificielle reprend le profilage du joueur, en ne jouant donc plus pour gagner. Cette phase de reprise du profilage du joueur dure cinq parties. En effet, après avoir testé avec plusieurs nombre de parties différents, nous nous sommes rendus compte que cinq parties était largement suffisant. Par la suite l'intelligence artificielle reprend sa phase de jeu pour gagner et, si au bout de dix parties, les gains ne sont toujours pas bons, l'intelligence artificielle recommence à profiler le joueur, et cætera.
+
 \chapter{Analyse des gains de parties}
 
 \hspace{0.5cm}Une fois un profil établi, nous pouvons alors faire jouer l'intelligence artificielle en fonction des résultats obtenus, dans le but de lui faire gagner le plus de jetons possibles. Lors de cette étape le profilage est interrompu, et on utilise le comportement déduit final pour calibrer l'intelligence artificielle de façon à ce qu'elle puisse gagner face à ce type de joueur.\par

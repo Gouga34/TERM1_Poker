@@ -45,6 +45,7 @@
 \contentsline {subsection}{\numberline {6.1.1}Mise en place des sc\IeC {\'e}narios}{36}
 \contentsline {subsection}{\numberline {6.1.2}Analyse des r\IeC {\'e}sultats}{37}
 \contentsline {section}{\numberline {6.2}\IeC {\'E}tablissement des profils attendus}{38}
+\contentsline {section}{\numberline {6.3}V\IeC {\'e}rification du profil \IeC {\'e}tabli}{39}
 \contentsline {chapter}{\numberline {7}Analyse des gains de parties}{40}
 \contentsline {section}{\numberline {7.1}Un premier calibrage inefficace}{40}
 \contentsline {subsection}{\numberline {7.1.1}Mise en place du calibrage}{40}
