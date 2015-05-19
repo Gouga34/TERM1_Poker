@@ -1,61 +1,61 @@
-\contentsline {chapter}{\numberline {1}Introduction}{9}
-\contentsline {section}{\numberline {1.1}G\IeC {\'e}n\IeC {\'e}ralit\IeC {\'e}s}{9}
-\contentsline {section}{\numberline {1.2}Sujet}{9}
-\contentsline {section}{\numberline {1.3}Rapide description des r\IeC {\`e}gles du Texas Hold'Em Poker}{10}
-\contentsline {subsection}{\numberline {1.3.1}Mise en place du jeu}{10}
-\contentsline {subsection}{\numberline {1.3.2}Pr\IeC {\'e}flop}{10}
-\contentsline {subsection}{\numberline {1.3.3}Flop}{10}
-\contentsline {subsection}{\numberline {1.3.4}Turn}{10}
-\contentsline {subsection}{\numberline {1.3.5}River}{11}
-\contentsline {subsection}{\numberline {1.3.6}Les combinaisons}{11}
-\contentsline {section}{\numberline {1.4}Cahier des charges}{14}
-\contentsline {subsection}{\numberline {1.4.1}Probl\IeC {\'e}matique}{14}
-\contentsline {subsection}{\numberline {1.4.2}Fonctionnalit\IeC {\'e}s obligatoires}{14}
-\contentsline {subsection}{\numberline {1.4.3}Fonctionnalit\IeC {\'e}s optionnelles}{15}
-\contentsline {subsection}{\numberline {1.4.4}Sp\IeC {\'e}cifications techniques}{15}
-\contentsline {subsection}{\numberline {1.4.5}Organisation pr\IeC {\'e}visionnelle}{15}
-\contentsline {chapter}{\numberline {2}Organisation du projet}{17}
-\contentsline {section}{\numberline {2.1}Organisation du travail}{17}
-\contentsline {subsection}{\numberline {2.1.1}R\IeC {\'e}unions}{17}
-\contentsline {subsection}{\numberline {2.1.2}Mise en commun du travail}{17}
-\contentsline {subsection}{\numberline {2.1.3}Planification}{18}
-\contentsline {section}{\numberline {2.2}M\IeC {\'e}thodes et outils de travail}{19}
-\contentsline {subsection}{\numberline {2.2.1}Gestionnaire de versions}{19}
-\contentsline {subsection}{\numberline {2.2.2}Normes de programmation}{20}
-\contentsline {chapter}{\numberline {3}Analyse du projet}{22}
-\contentsline {section}{\numberline {3.1}Analyse de l'existant}{22}
-\contentsline {section}{\numberline {3.2}Syst\IeC {\`e}me de jeu}{23}
-\contentsline {subsection}{\numberline {3.2.1}Deux joueurs}{23}
-\contentsline {subsection}{\numberline {3.2.2}Intelligence artificielle contre intelligence artificielle}{23}
-\contentsline {subsection}{\numberline {3.2.3}Choix d'enregistrement des donn\IeC {\'e}es}{24}
-\contentsline {section}{\numberline {3.3}Profilage}{25}
-\contentsline {section}{\numberline {3.4}Phase de jeu}{26}
-\contentsline {chapter}{\numberline {4}Calcul du profil d'un joueur}{27}
-\contentsline {section}{\numberline {4.1}Rationalit\IeC {\'e}}{27}
-\contentsline {section}{\numberline {4.2}Agressivit\IeC {\'e}}{28}
-\contentsline {section}{\numberline {4.3}Bluff}{29}
-\contentsline {section}{\numberline {4.4}Passivit\IeC {\'e}}{29}
-\contentsline {chapter}{\numberline {5}Intelligence artificielle}{30}
-\contentsline {section}{\numberline {5.1}R\IeC {\'e}solveur}{30}
-\contentsline {subsection}{\numberline {5.1.1}R\IeC {\'e}solveur basique}{30}
-\contentsline {subsection}{\numberline {5.1.2}R\IeC {\'e}solveur avec calibrage}{30}
-\contentsline {section}{\numberline {5.2}Estimation des chances de gain}{33}
-\contentsline {chapter}{\numberline {6}M\IeC {\'e}thodes de profilage}{36}
-\contentsline {section}{\numberline {6.1}Sc\IeC {\'e}narios de tests}{36}
-\contentsline {subsection}{\numberline {6.1.1}Mise en place des sc\IeC {\'e}narios}{36}
-\contentsline {subsection}{\numberline {6.1.2}Analyse des r\IeC {\'e}sultats}{37}
-\contentsline {section}{\numberline {6.2}\IeC {\'E}tablissement des profils attendus}{38}
-\contentsline {section}{\numberline {6.3}V\IeC {\'e}rification du profil \IeC {\'e}tabli}{39}
-\contentsline {chapter}{\numberline {7}Analyse des gains de parties}{41}
-\contentsline {section}{\numberline {7.1}Un premier calibrage inefficace}{41}
-\contentsline {subsection}{\numberline {7.1.1}Mise en place du calibrage}{41}
-\contentsline {subsection}{\numberline {7.1.2}Analyse des r\IeC {\'e}sultats}{42}
-\contentsline {section}{\numberline {7.2}Recherche du calibrage optimal}{44}
-\contentsline {section}{\numberline {7.3}R\IeC {\'e}sultats}{46}
-\contentsline {chapter}{\numberline {8}Perspectives et conclusion}{47}
-\contentsline {section}{\numberline {8.1}Perspectives d'am\IeC {\'e}lioration du profilage}{47}
-\contentsline {subsection}{\numberline {8.1.1}Profilage dynamique}{47}
-\contentsline {subsection}{\numberline {8.1.2}Profilage avec plus de deux joueurs}{47}
-\contentsline {section}{\numberline {8.2}Profilage obtenu}{48}
-\contentsline {chapter}{\numberline {A}Planification pr\IeC {\'e}visionnelle}{50}
-\contentsline {chapter}{\numberline {B}Planification r\IeC {\'e}elle}{52}
+\contentsline {chapter}{\numberline {1}Introduction}{10}
+\contentsline {section}{\numberline {1.1}G\IeC {\'e}n\IeC {\'e}ralit\IeC {\'e}s}{10}
+\contentsline {section}{\numberline {1.2}Sujet}{10}
+\contentsline {section}{\numberline {1.3}Rapide description des r\IeC {\`e}gles du Texas Hold'Em Poker}{11}
+\contentsline {subsection}{\numberline {1.3.1}Mise en place du jeu}{11}
+\contentsline {subsection}{\numberline {1.3.2}Pr\IeC {\'e}flop}{11}
+\contentsline {subsection}{\numberline {1.3.3}Flop}{11}
+\contentsline {subsection}{\numberline {1.3.4}Turn}{11}
+\contentsline {subsection}{\numberline {1.3.5}River}{12}
+\contentsline {subsection}{\numberline {1.3.6}Les combinaisons}{12}
+\contentsline {section}{\numberline {1.4}Cahier des charges}{15}
+\contentsline {subsection}{\numberline {1.4.1}Probl\IeC {\'e}matique}{15}
+\contentsline {subsection}{\numberline {1.4.2}Fonctionnalit\IeC {\'e}s obligatoires}{15}
+\contentsline {subsection}{\numberline {1.4.3}Fonctionnalit\IeC {\'e}s optionnelles}{16}
+\contentsline {subsection}{\numberline {1.4.4}Sp\IeC {\'e}cifications techniques}{16}
+\contentsline {subsection}{\numberline {1.4.5}Organisation pr\IeC {\'e}visionnelle}{16}
+\contentsline {chapter}{\numberline {2}Organisation du projet}{18}
+\contentsline {section}{\numberline {2.1}Organisation du travail}{18}
+\contentsline {subsection}{\numberline {2.1.1}R\IeC {\'e}unions}{18}
+\contentsline {subsection}{\numberline {2.1.2}Mise en commun du travail}{18}
+\contentsline {subsection}{\numberline {2.1.3}Planification}{19}
+\contentsline {section}{\numberline {2.2}M\IeC {\'e}thodes et outils de travail}{20}
+\contentsline {subsection}{\numberline {2.2.1}Gestionnaire de versions}{20}
+\contentsline {subsection}{\numberline {2.2.2}Normes de programmation}{21}
+\contentsline {chapter}{\numberline {3}Analyse du projet}{23}
+\contentsline {section}{\numberline {3.1}Analyse de l'existant}{23}
+\contentsline {section}{\numberline {3.2}Syst\IeC {\`e}me de jeu}{24}
+\contentsline {subsection}{\numberline {3.2.1}Deux joueurs}{24}
+\contentsline {subsection}{\numberline {3.2.2}Intelligence artificielle contre intelligence artificielle}{24}
+\contentsline {subsection}{\numberline {3.2.3}Choix d'enregistrement des donn\IeC {\'e}es}{25}
+\contentsline {section}{\numberline {3.3}Profilage}{26}
+\contentsline {section}{\numberline {3.4}Phase de jeu}{27}
+\contentsline {chapter}{\numberline {4}Calcul du profil d'un joueur}{28}
+\contentsline {section}{\numberline {4.1}Rationalit\IeC {\'e}}{28}
+\contentsline {section}{\numberline {4.2}Agressivit\IeC {\'e}}{29}
+\contentsline {section}{\numberline {4.3}Bluff}{30}
+\contentsline {section}{\numberline {4.4}Passivit\IeC {\'e}}{30}
+\contentsline {chapter}{\numberline {5}Intelligence artificielle}{31}
+\contentsline {section}{\numberline {5.1}R\IeC {\'e}solveur}{31}
+\contentsline {subsection}{\numberline {5.1.1}R\IeC {\'e}solveur basique}{31}
+\contentsline {subsection}{\numberline {5.1.2}R\IeC {\'e}solveur avec calibrage}{31}
+\contentsline {section}{\numberline {5.2}Estimation des chances de gain}{34}
+\contentsline {chapter}{\numberline {6}M\IeC {\'e}thodes de profilage}{37}
+\contentsline {section}{\numberline {6.1}Sc\IeC {\'e}narios de tests}{37}
+\contentsline {subsection}{\numberline {6.1.1}Mise en place des sc\IeC {\'e}narios}{37}
+\contentsline {subsection}{\numberline {6.1.2}Analyse des r\IeC {\'e}sultats}{39}
+\contentsline {section}{\numberline {6.2}\IeC {\'E}tablissement des profils attendus}{40}
+\contentsline {section}{\numberline {6.3}V\IeC {\'e}rification du profil \IeC {\'e}tabli}{41}
+\contentsline {chapter}{\numberline {7}Analyse des gains de parties}{42}
+\contentsline {section}{\numberline {7.1}Un premier calibrage inefficace}{42}
+\contentsline {subsection}{\numberline {7.1.1}Mise en place du calibrage}{42}
+\contentsline {subsection}{\numberline {7.1.2}Analyse des r\IeC {\'e}sultats}{43}
+\contentsline {section}{\numberline {7.2}Recherche du calibrage optimal}{45}
+\contentsline {section}{\numberline {7.3}R\IeC {\'e}sultats}{47}
+\contentsline {chapter}{\numberline {8}Perspectives et conclusion}{48}
+\contentsline {section}{\numberline {8.1}Perspectives d'am\IeC {\'e}lioration du profilage}{48}
+\contentsline {subsection}{\numberline {8.1.1}Profilage dynamique}{48}
+\contentsline {subsection}{\numberline {8.1.2}Profilage avec plus de deux joueurs}{48}
+\contentsline {section}{\numberline {8.2}Profilage obtenu}{49}
+\contentsline {chapter}{\numberline {A}Planification pr\IeC {\'e}visionnelle}{51}
+\contentsline {chapter}{\numberline {B}Planification r\IeC {\'e}elle}{53}
