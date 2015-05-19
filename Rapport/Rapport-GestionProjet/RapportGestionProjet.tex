@@ -10,9 +10,18 @@
 \usepackage{lscape}%%Pour passer une page en format paysage
 \usepackage{graphicx}%%Pour rotation image
 \usepackage{rotating}%%Pour rotation image
+\usepackage[final]{pdfpages}%%Pour l'inclusion de PDF
 
 \usepackage{geometry} %%Pour les marges
 \geometry{hmargin=3cm,vmargin=3cm}
+
+%%pour qu'il y ait pas les encadrés rouges mais quand même les liens
+\usepackage{hyperref}                 
+ \hypersetup{
+    hyperfigures = true,
+    colorlinks = true,
+    linkcolor=black
+    }
 
 \title{Rapport}
 \author{}
@@ -32,12 +41,9 @@
 
 \begin{document}
 
-\maketitle
+\includepdf{./PageGardeRapportTERM1GestionProjet.pdf}
 
 \newpage
-\null %%Pour faire une page vide
-\newpage
-
 \tableofcontents %%Table des matières
 \newpage
 
