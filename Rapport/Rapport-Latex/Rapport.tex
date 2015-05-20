@@ -46,6 +46,10 @@
 
 \newpage
 
+%%pour qu'il y ait pas les encadrés rouges mais quand même les liens
+            
+
+
 \tableofcontents %%Table des matières
 
 \newpage
@@ -811,9 +815,7 @@ Suite à plusieurs tests, nous avons observé qu'au bout de 10 ou 15 parties, no
 
 \begin{figure}[H]
 \hspace{-2cm}
-	%\begin{center}
 		\includegraphics[scale=0.5]{./imagesRapport/profilageScenariosTestsAnalyseResultats.png}
-	%\end{center}
 	\caption{Taux de similarité du profilage en fonction du nombre de partie}
 \end{figure}
 
@@ -971,15 +973,25 @@ Pour cela, nous avons lancé une série de parties face à un profil donné en f
 \end{center}
 
 
-Nous avons ensuite effectué le produit cartésien entre les deux listes pour obtenir tous les calibrages possibles (par exemple 15-15, 15-30...). Puis pour chaque calibrage, nous avons lancé 40 parties.\par
+Nous avons ensuite effectué le produit cartésien entre les deux listes pour obtenir tous les calibrages possibles (par exemple 15-15, 15-30...). Puis pour chaque calibrage, nous avons lancé 100 parties.\par
 
-Nous récupérions à la fin des 40 parties le taux de parties gagnées ainsi que le nombre de jetons gagnés ou perdus.
+Nous récupérions à la fin des 100 parties le taux de parties gagnées ainsi que le nombre de jetons gagnés ou perdus.
 
-%%% TODO : Mettre courbe et l'expliquer 
-%%			Pour ça, lancer un test plus grand?
-%%%
+La figure suivante correspond au résultat de la recherche du calibrage optimal face à un joueur 80\% agressif et 80\% rationnel. Comme on peut le voir, la courbe du nombre de de parties gagnées a tendance à croître de manière significative à partir du moment où on arrive aux calibrages ayant 75\% d'agressivité et plus. Concernant les jetons gagnés, on constate que la courbe dans son ensemble ne semble pas avoir un comportement défini. Après avoir analysé la courbe, nous avons choisi de calibrer notre intelligence artificielle à 100\% d'agressivité et 60\% de rationalité face à un joueur profilé avec un taux d'agressivité compris entre 60\% et 100\% et un taux de rationalité compris entre 60\% et 100\%. En effet, le calibrage choisi correspond au calibrage numéro 46 de la courbe. Comme on peut le voir, le résultat de ce calibrage est intéressant puisque l'intelligence artificielle a gagné beaucoup de parties et un nombre significatif de jetons.\par
 
-Nous avons finalement choisi les calibrages suivants pour les différents paliers :
+
+%%Comparaison entre résultats nouveaux calibrages et anciens calibrages.
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.5]{./imagesRapport/rechercheCalibrageOptimal8080.jpg}
+	\end{center}
+	\caption{Gains en fonction du calibrage face à un joueur à 80\% agressif et 80\% rationnel}
+\end{figure}
+
+
+Après avoir effectué une première recherche du calibrage optimal pour un palier donné concluante, nous avons choisi de lancer cette recherche pour chacun des autres paliers, afin de permettre à notre intelligence artificielle d'avoir le meilleur jeu possible dans n'importe quelle situation.\par
+
+Nous avons finalement choisi les calibrages suivants pour les différents paliers présentés ci-dessous.
 
 \begin{figure}[H]
 \begin{center}
@@ -1003,14 +1015,14 @@ Agressivité déduite &	Rationalité déduite &	Agressivité IA & 	Rationalité 
 \hline
 60-100 & 	40-60 &	15 & 	75-100\\
 \hline
-60-100 &	 60-100 &	90-100 &	90\\
+60-100 &	 60-100 &	100 &	60\\
 \hline
 \end{tabular}
 \end{center}
 \caption{Calibrage final de l'intelligence artificielle en fonction du profil adverse}
 \end{figure}
 
-
+%%%%%%%%%%%%TODO reprendre avec les nouveaux résultats %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%Comparaison entre résultats nouveaux calibrages et anciens calibrages.
 \begin{figure}[H]
 	\begin{center}
