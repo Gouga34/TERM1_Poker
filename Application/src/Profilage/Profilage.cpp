@@ -27,6 +27,9 @@ Profilage::Profilage(Profil *calibrageIA, Profil *profil)
 
     gainsProfilage = 0;
     gainsJeu = 0;
+
+    phaseProfilageCourante.nouvellePhase(NOMBRE_PARTIES_PROFILAGE);
+    phaseJeuCourante.nouvellePhase(0);
 }
 
 Profilage::~Profilage()

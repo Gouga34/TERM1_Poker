@@ -23,7 +23,8 @@ SOURCES += \
     src/IA/IntelligenceArtificielleProfilage.cpp \
     src/Jeu/Action.cpp \
     src/Jeu/JoueurHumain.cpp \
-    src/IA/CalibrageIdeal.cpp
+    src/IA/CalibrageIdeal.cpp \
+    src/Profilage/PhaseJeu.cpp
 
 
 QT+=widgets
@@ -53,7 +54,8 @@ HEADERS += \
     include/IA/IntelligenceArtificielleProfilage.h \
     include/Jeu/Action.h \
     include/Jeu/JoueurHumain.h \
-    include/IA/CalibrageIdeal.h
+    include/IA/CalibrageIdeal.h \
+    include/Profilage/PhaseJeu.h
 
 CONFIG += c++11
 
