@@ -30,16 +30,16 @@ ChoixOptionsDialog::ChoixOptionsDialog() : QDialog(){
     //fenetre
     QVBoxLayout *boite = new QVBoxLayout;
 
-    ajouterPseudosConnus();
+    //ajouterPseudosConnus();
 
     choixAdversaire.setText("IA contre IA");
     choixAdversaire.setChecked(true);
 
-    boiteNombreParties.setValue(10);
-    boiteNombreParties.setMaximum(500);
+    //boiteNombreParties.setValue(10);
+    //boiteNombreParties.setMaximum(500);
 
-    QLabel *calibrageDefaut = new QLabel("Rationalité : " + QString::number(rationaliteDefaut)
-                                           + "%\nAgressivité : " + QString::number(agressiviteDefaut) + "%");
+    //QLabel *calibrageDefaut = new QLabel("Rationalité : " + QString::number(rationaliteDefaut)
+    //                                       + "%\nAgressivité : " + QString::number(agressiviteDefaut) + "%");
 
     // Rationalité
     QHBoxLayout *layoutRationalite = new QHBoxLayout;
@@ -76,10 +76,10 @@ ChoixOptionsDialog::ChoixOptionsDialog() : QDialog(){
 
     //Formulaire
     QFormLayout *formulaire = new QFormLayout;
-    formulaire->addRow("Nouveau pseudo ",&nouveau);
-    formulaire->addRow("Pseudo déjà existant",&pseudos);
-    formulaire->addRow("Jeu",&choixAdversaire);
-    formulaire->addRow("Nombre de parties", &boiteNombreParties);
+    //formulaire->addRow("Nouveau pseudo ",&nouveau);
+    //formulaire->addRow("Pseudo déjà existant",&pseudos);
+    formulaire->addRow("",&choixAdversaire);
+    //formulaire->addRow("Nombre de parties", &boiteNombreParties);
     //formulaire->addRow("Calibrage par défaut", calibrageDefaut);
     //formulaire->addRow("Rationalité", layoutRationalite);
     //formulaire->addRow("Agressivité", layoutAgressivite);

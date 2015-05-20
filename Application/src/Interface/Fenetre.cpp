@@ -20,6 +20,7 @@ Specification: Fichier contenant les définitions de la classe Fenetre.
 #include <iostream>
 #include <QScrollBar>
 #include <QEventLoop>
+#include <QApplication>
 
 using namespace std;
 
@@ -363,6 +364,8 @@ void Fenetre::demarragePartie()
             jeu->lancer();
             afficheTable();
             partieTermine();
+
+            qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
         }
 
         iaQuiProfile->ecritureAnalyseDesGains();
