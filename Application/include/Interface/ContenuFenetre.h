@@ -1,0 +1,4 @@
+#ifndef CONTENUFENETRE_H
+#define CONTENUFENETRE_H
+
+#endif // CONTENUFENETRE_H
