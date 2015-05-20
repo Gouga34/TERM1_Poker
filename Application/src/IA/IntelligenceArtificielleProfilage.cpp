@@ -372,10 +372,13 @@ void IntelligenceArtificielleProfilage::ecritureAnalyseDesGains() {
         double tauxPartiesGagneesProfilage = profilage->nbPartiesGagneesProfilage * 100.0 / profilage->nbPartiesProfilage;
         double tauxPartiesGagneesJeu = profilage->nbPartiesGagneesJeu * 100.0 / profilage->nbPartiesJeu;
 
+        double tauxGainsProfilage = profilage->gainsProfilage / profilage->nbPartiesProfilage;
+        double tauxGainsjeu=profilage->gainsJeu /  profilage->nbPartiesJeu;
+
         out << calibrageRecherche.getAgressivite() << "-" << calibrageRecherche.getRationalite() << "," << scenario->getProfilDeduitGlobal().getAgressivite()
             << "," << scenario->getProfilDeduitGlobal().getRationalite() << "," << scenario->getTauxSimilarite() << ","
-            << tauxPartiesGagneesProfilage << "," << profilage->gainsProfilage << "," << tauxPartiesGagneesJeu << ","
-            << profilage->gainsJeu << endl;
+            << tauxPartiesGagneesProfilage << "," << tauxGainsProfilage << "," << tauxPartiesGagneesJeu << ","
+            << tauxGainsjeu << endl;
 
         fichier.close();
     }
