@@ -15,6 +15,7 @@ Specification: Classe contenant l'écriture et la lecture
 #include <QString>
 #include "../Constantes.h"
 #include "Profil.h"
+#include "PhaseJeu.h"
 
 class Profilage
 {
@@ -57,6 +58,11 @@ class Profilage
 
         // Une ligne par étape + 1 ligne pour le global
         EtapePartie etatPartie[ETAPE_JEU::NB_ETAPES + 1];
+
+
+        // Données des phases de profilage et de gains en cours
+        PhaseJeu phaseProfilageCourante;
+        PhaseJeu phaseJeuCourante;
 
 
         // Données globales au profilage

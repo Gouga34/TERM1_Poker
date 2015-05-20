@@ -25,9 +25,6 @@ class IntelligenceArtificielleProfilage : public IntelligenceArtificielle
 
         ScenariosDeTests *scenario;
 
-        int nbPartiesProfilageRestantes;
-        int nbPartiesJeuRestantes;
-
 
         double calculValeurProportionnelle(double minVal1, double val1, double maxVal1, double minVal2, double maxVal2) const;
 
