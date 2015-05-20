@@ -43,12 +43,24 @@ class CartesJoueur{
 		 */
 		void setPoids(int p);
 
+        /**
+         * @brief initialiserOccurrences initialise le tableau des occurrences à 0.
+         */
+        void initialiserOccurrences();
+
 		/**
 		 * @param table cartes de la table
 		 * @param mainJoueur cartes du joueur
 	     * @action rempli occurrences
 	     */
 		void remplirTableau(std::vector<Carte> table, std::vector<Carte> mainJoueur);
+
+        /**
+         * @brief enregistrerOccurrencesCartes enregistre les occurrences des cartes dans le tableau occurrences.
+         * @param listeCartes
+         */
+        void enregistrerOccurrencesCartes(std::vector<Carte> listeCartes);
+
 
 		/**
 		 * @param depart case à partir de laquelle on va commencer
@@ -58,7 +70,7 @@ class CartesJoueur{
 		 */
 		bool estSuite(int depart, int ligne) const;
  
-		/*
+        /**
 		 * @param ligne ligne qui sera traitée
 		 * @return true si la ligne contient une suite
 		 */
@@ -77,11 +89,55 @@ class CartesJoueur{
 		 */
 		bool flush() ;
 
+        /**
+         * @brief quinteFlushRoyale regarde si on a une quinte flush royale et set la combinaison si c'est le cas
+         */
+        void quinteFlushRoyale();
+
+        /**
+         * @brief quinteFlush regarde si on a une quinte flush et set la combinaison si c'est le cas
+         */
+        void quinteFlush();
+
+        /**
+         * @brief carre regarde si y a un carré
+         * @return la carte du carré, -1 si pas de carré
+         */
+        int carre();
+
+        /**
+         * @brief full regarde si y a un full
+         * @return la carte du full, 0 si pas de full
+         */
+        int full();
+
+        /**
+         * @brief brelan regarde si y a un brelan et set la combi à brelan si y en a un
+         * @return 0 si brelan, -1 sinon
+         */
+        int brelan();
+
+        /**
+         * @brief doublePaire regarde s'il y a une double paire et set la combinaison si trouvée
+         * @return 0 si double paire, -1 sinon
+         */
+        int doublePaire();
+
+        /**
+         * @brief paire regarde si paire et si c'est le cas, set la combinaison
+         */
+        void paire();
+
 		/**
 		 * @action calcule la combinaison la plus haute
 		 * @return la valeur de la combinaison de la main (de 1 (carte haute) à 10 (quinte flush royale))
 		 */
 		void calculCombinaison();
+
+        /**
+         * @brief setPoidsCarteLaPlusHaute set le poids de la carte la plus haute. Pour couleur et carte_haute
+         */
+        void setPoidsCarteLaPlusHaute();
 
 		/**
 		 *@action calcule le poids calculé de la carte la plus haute (si pas d'autre combinaison)
