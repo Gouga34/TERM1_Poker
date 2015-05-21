@@ -14,5 +14,5 @@
 \contentsline {section}{\numberline {4.3}Brainstorming}{10}{section.4.3}
 \contentsline {section}{\numberline {4.4}Quelques chiffres}{10}{section.4.4}
 \contentsline {chapter}{\numberline {5}Conclusion}{11}{chapter.5}
-\contentsline {chapter}{\numberline {A}Diagramme de Gantt pr\IeC {\'e}visionnel}{12}{appendix.A}
-\contentsline {chapter}{\numberline {B}Diagramme de Gantt r\IeC {\'e}el}{14}{appendix.B}
+\contentsline {chapter}{\numberline {A}Planification pr\IeC {\'e}visionnelle}{12}{appendix.A}
+\contentsline {chapter}{\numberline {B}Planification r\IeC {\'e}elle}{13}{appendix.B}

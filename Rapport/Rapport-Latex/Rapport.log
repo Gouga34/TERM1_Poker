@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.2.9)  21 MAY 2015 18:17
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.2.9)  21 MAY 2015 19:34
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -558,13 +558,13 @@ Package pdftex.def Info: ./PageGardeRapportTERM1.pdf, page1 used on input line
 \openout3 = `Rapport.toc'.
 
 
-[5] (./Rapport.lof [6
-
-])
+[5] (./Rapport.lof)
 \tf@lof=\write4
 \openout4 = `Rapport.lof'.
 
- [7] [8
+ [6
+
+] [7] [8
 
 ] [9]
 Chapitre 1.
@@ -1364,60 +1364,59 @@ Underfull \hbox (badness 10000) in paragraph at lines 1119--1120
 
 ]
 Annexe A.
-<../DiagrammePrevisionnel.png, id=240, 3523.1625pt x 548.0475pt>
+<../DiagrammePrevisionnel.png, id=240, 2091.815pt x 722.7pt>
 File: ../DiagrammePrevisionnel.png Graphic file (type png)
 
 <use ../DiagrammePrevisionnel.png>
-Package pdftex.def Info: ../DiagrammePrevisionnel.png used on input line 1145.
-(pdftex.def)             Requested size: 1409.24007pt x 219.2151pt.
+Package pdftex.def Info: ../DiagrammePrevisionnel.png used on input line 1144.
+(pdftex.def)             Requested size: 585.70422pt x 202.35461pt.
 
-Overfull \hbox (747.65126pt too wide) in paragraph at lines 1144--1146
-[]  [] 
+Overfull \hbox (123.25829pt too wide) in paragraph at lines 1143--1146
+  []
  []
 
 [55
 
-] [56 <../DiagrammePrevisionnel.png (PNG copy)>]
+ <../DiagrammePrevisionnel.png>]
 Annexe B.
-<./imagesRapport/DiagrammeReel.png, id=248, 4318.1325pt x 566.115pt>
-File: ./imagesRapport/DiagrammeReel.png Graphic file (type png)
+<../DiagrammeReel.png, id=246, 2519.4125pt x 849.1725pt>
+File: ../DiagrammeReel.png Graphic file (type png)
 
-<use ./imagesRapport/DiagrammeReel.png>
-Package pdftex.def Info: ./imagesRapport/DiagrammeReel.png used on input line 1
-153.
-(pdftex.def)             Requested size: 1727.22244pt x 226.44199pt.
+<use ../DiagrammeReel.png>
+Package pdftex.def Info: ../DiagrammeReel.png used on input line 1149.
+(pdftex.def)             Requested size: 604.67137pt x 203.80556pt.
 
-Overfull \hbox (1065.63364pt too wide) in paragraph at lines 1152--1154
-[]  [] 
+Overfull \hbox (133.68951pt too wide) in paragraph at lines 1148--1150
+  [] 
  []
 
-[57
+[56
 
-] [58 <./imagesRapport/DiagrammeReel.png (PNG copy)>] (./Rapport.aux) ) 
+ <../DiagrammeReel.png>] (./Rapport.aux) ) 
 Here is how much of TeX's memory you used:
- 5521 strings out of 494985
- 76588 string characters out of 6180357
- 146739 words of memory out of 5000000
- 8624 multiletter control sequences out of 15000+600000
+ 5519 strings out of 494985
+ 76526 string characters out of 6180357
+ 146731 words of memory out of 5000000
+ 8622 multiletter control sequences out of 15000+600000
  9790 words of font info for 35 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  39i,18n,45p,1278b,1208s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/sh
-are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/te
-xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/
-texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex9.pfb></usr/share/texlive/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/share/texlive/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
-msfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cms
-y9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb
-></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb>
-Output written on Rapport.pdf (58 pages, 948857 bytes).
+</usr/share/texlive/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
+/amsfonts/cmextra/cmex9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmmi9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr
+10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb><
+/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/sha
+re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/tex
+live/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmti9.pfb>
+Output written on Rapport.pdf (56 pages, 965054 bytes).
 PDF statistics:
- 296 PDF objects out of 1000 (max. 8388607)
- 185 compressed objects within 2 object streams
+ 292 PDF objects out of 1000 (max. 8388607)
+ 181 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  126 words of extra memory for PDF output out of 10000 (max. 10000000)
 
