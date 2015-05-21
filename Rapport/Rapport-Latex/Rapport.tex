@@ -849,9 +849,41 @@ Suite à plusieurs tests, nous avons observé qu'au bout de 10 ou 15 parties, no
 	\caption{Taux de similarité du profilage en fonction du nombre de partie}
 \end{figure}
 
-	
+%%%%%%%%%% : ??	
 Afin de pouvoir obtenir des résultats facilement observables et pouvoir les étudier, nous avons également produit des graphes représentant le profilage établi du joueur en fonction du nombre de parties, et une constante correspondant au calibrage à déterminer.\\
+%%%%%%%%%%%%%%
 
+Le tableau suivant représente le taux de similarité moyen obtenu pour chaque palier. Comme on peut le constater, on profile assez bien tous les types de joueurs. Les joueurs que nous arrivons le moins à profiler sont ceux ayant un taux de rationalité et un taux d'agressivité compris entre 0\% et 40\% sont les plus difficiles à profiler. En effet, il est difficile de profiler un joueur qui aura tendance à jouer de manière irrationnelle, donc à miser fortement lorsqu'il n'a pas un bon jeu et à miser peu lorsqu'il a un bon jeu. De plus, ce joueur étant à la fois irrationnel et peu agressif, nous obtenons des résultats pas forcément en accord avec les deux paramètres. Si le joueur a un mauvais jeu et qu'il joue de manière irrationnelle, il va miser fortement cependant, il n'est pas censé être agressif donc son taux d'agressivité s'en trouvera augmenté.\par
+
+\begin{figure}[H]
+\begin{center}
+\begin{tabular}{|l|l|l|l|}
+	\hline
+	Palier d'agressivité & Palier de rationalité &	Taux de similarité moyen\\
+\hline
+0-40	 			    & 0-40 				 & 	69\%\\
+\hline
+0-40					&	40-60			 &	85\%\\
+\hline
+0-40					& 60-100				 &	82\%\\
+\hline
+40-60				&	0-40				 &	76\%\\
+\hline
+40-60				&	40-60			&	89\%\\
+\hline
+40-60				&	60-100			&	87\%\\
+\hline
+60-100				&	0-40				&	70\%\\
+\hline
+60-100				&	40-60			&	85\%\\
+\hline
+60-100				&	60-100			&	78\%\\
+
+   \hline
+\end{tabular}	
+\end{center}
+\caption{Taux de similarité des profils établis en fonction des paliers}
+\end{figure}
 
 
 %%%%  TODO  

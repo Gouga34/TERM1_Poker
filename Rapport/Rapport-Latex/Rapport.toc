@@ -44,18 +44,18 @@
 \contentsline {section}{\numberline {6.1}Sc\IeC {\'e}narios de tests}{38}
 \contentsline {subsection}{\numberline {6.1.1}Mise en place des sc\IeC {\'e}narios}{38}
 \contentsline {subsection}{\numberline {6.1.2}Analyse des r\IeC {\'e}sultats}{40}
-\contentsline {section}{\numberline {6.2}\IeC {\'E}tablissement des profils attendus}{41}
-\contentsline {section}{\numberline {6.3}V\IeC {\'e}rification du profil \IeC {\'e}tabli}{42}
-\contentsline {chapter}{\numberline {7}Analyse des gains de parties}{43}
-\contentsline {section}{\numberline {7.1}Un premier calibrage inefficace}{43}
-\contentsline {subsection}{\numberline {7.1.1}Mise en place du calibrage}{43}
-\contentsline {subsection}{\numberline {7.1.2}Analyse des r\IeC {\'e}sultats}{44}
-\contentsline {section}{\numberline {7.2}Recherche du calibrage optimal}{46}
-\contentsline {section}{\numberline {7.3}R\IeC {\'e}sultats}{49}
-\contentsline {chapter}{\numberline {8}Perspectives et conclusion}{50}
-\contentsline {section}{\numberline {8.1}Perspectives d'am\IeC {\'e}lioration du profilage}{50}
-\contentsline {subsection}{\numberline {8.1.1}Profilage dynamique}{50}
-\contentsline {subsection}{\numberline {8.1.2}Profilage avec plus de deux joueurs}{50}
-\contentsline {section}{\numberline {8.2}Profilage obtenu}{51}
-\contentsline {chapter}{\numberline {A}Planification pr\IeC {\'e}visionnelle}{53}
-\contentsline {chapter}{\numberline {B}Planification r\IeC {\'e}elle}{55}
+\contentsline {section}{\numberline {6.2}\IeC {\'E}tablissement des profils attendus}{42}
+\contentsline {section}{\numberline {6.3}V\IeC {\'e}rification du profil \IeC {\'e}tabli}{43}
+\contentsline {chapter}{\numberline {7}Analyse des gains de parties}{44}
+\contentsline {section}{\numberline {7.1}Un premier calibrage inefficace}{44}
+\contentsline {subsection}{\numberline {7.1.1}Mise en place du calibrage}{44}
+\contentsline {subsection}{\numberline {7.1.2}Analyse des r\IeC {\'e}sultats}{45}
+\contentsline {section}{\numberline {7.2}Recherche du calibrage optimal}{47}
+\contentsline {section}{\numberline {7.3}R\IeC {\'e}sultats}{50}
+\contentsline {chapter}{\numberline {8}Perspectives et conclusion}{51}
+\contentsline {section}{\numberline {8.1}Perspectives d'am\IeC {\'e}lioration du profilage}{51}
+\contentsline {subsection}{\numberline {8.1.1}Profilage dynamique}{51}
+\contentsline {subsection}{\numberline {8.1.2}Profilage avec plus de deux joueurs}{51}
+\contentsline {section}{\numberline {8.2}Profilage obtenu}{52}
+\contentsline {chapter}{\numberline {A}Planification pr\IeC {\'e}visionnelle}{54}
+\contentsline {chapter}{\numberline {B}Planification r\IeC {\'e}elle}{56}
