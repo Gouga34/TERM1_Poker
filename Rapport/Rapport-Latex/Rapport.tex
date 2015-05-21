@@ -849,11 +849,20 @@ Suite à plusieurs tests, nous avons observé qu'au bout de 10 ou 15 parties, no
 	\caption{Taux de similarité du profilage en fonction du nombre de partie}
 \end{figure}
 
-%%%%%%%%%% : ??	
-Afin de pouvoir obtenir des résultats facilement observables et pouvoir les étudier, nous avons également produit des graphes représentant le profilage établi du joueur en fonction du nombre de parties, et une constante correspondant au calibrage à déterminer.\\
-%%%%%%%%%%%%%%
 
-Le tableau suivant représente le taux de similarité moyen obtenu pour chaque palier. Comme on peut le constater, on profile assez bien tous les types de joueurs. Les joueurs que nous arrivons le moins à profiler sont ceux ayant un taux de rationalité et un taux d'agressivité compris entre 0\% et 40\% sont les plus difficiles à profiler. En effet, il est difficile de profiler un joueur qui aura tendance à jouer de manière irrationnelle, donc à miser fortement lorsqu'il n'a pas un bon jeu et à miser peu lorsqu'il a un bon jeu. De plus, ce joueur étant à la fois irrationnel et peu agressif, nous obtenons des résultats pas forcément en accord avec les deux paramètres. Si le joueur a un mauvais jeu et qu'il joue de manière irrationnelle, il va miser fortement cependant, il n'est pas censé être agressif donc son taux d'agressivité s'en trouvera augmenté.\par
+Afin de pouvoir obtenir des résultats facilement observables et pouvoir les étudier, nous avons également produit des graphes comparant le profilage établi et le calibrage à déterminer du joueur en fonction du nombre de parties. La figure suivante correspond à un exemple de graphe dans lequel un adversaire agressif à 52\% et rationnel à 64\% est profilé. Comme nous pouvons le voir, les courbes d'agressivité et de rationalité correspondant au profil global établi au fur et à mesure des parties ont tendance à converger vers le profil réel. \\
+
+
+\begin{figure}[H]
+\begin{center}
+	\includegraphics[scale=0.5]{./imagesRapport/profilEtabliEnFonctionPartiesEtReel.jpg}
+	\caption{Profil établi en fonction du nombre de parties}
+\end{center}
+\end{figure}
+
+
+
+Finalement, après avoir lancé un nombre important de parties, nous avons conçu le tableau suivant représentant le taux de similarité moyen obtenu pour chaque palier.
 
 \begin{figure}[H]
 \begin{center}
@@ -885,10 +894,7 @@ Le tableau suivant représente le taux de similarité moyen obtenu pour chaque p
 \caption{Taux de similarité des profils établis en fonction des paliers}
 \end{figure}
 
-
-%%%%  TODO  
-%%%%			Tableau indiquant le % de réussite (taux similarité) pour différents paliers %
-%%%		Expliquer les tableaux dans le texte %%%%
+Comme on peut le constater, on profile assez bien tous les types de joueurs. Les joueurs que nous arrivons le moins à profiler sont ceux ayant un taux de rationalité et un taux d'agressivité compris entre 0\% et 40\%. En effet, il est difficile de profiler un joueur qui aura tendance à jouer de manière irrationnelle, donc de manière très imprévisible. Ce type de joueur pourra alors miser fortement lorsqu'il n'a pas un bon jeu et miser peu lorsqu'il a un bon jeu. De plus, ce joueur étant à la fois irrationnel et peu agressif, nous obtenons des résultats pas forcément en accord avec les deux paramètres. Si le joueur a un mauvais jeu et qu'il joue de manière irrationnelle, il va miser fortement cependant, il n'est pas censé être agressif donc son taux d'agressivité s'en trouvera augmenté.\par
 
 
 \section{Établissement des profils attendus}
@@ -1013,7 +1019,7 @@ La figure suivante représente le nombre de parties gagnées pendant les scénar
 \end{figure}
 
 
-Même si nous gagnons plus de parties que lors de la phase de scénarios de tests, nous avons remarqué que nous avons des gains nettement moins bons. En effet, comme on peut le voir dans la figure suivante représentant le nombre de jetons gagnés en moyenne pour chaque partie, tous les gains sont moins bons lors de la phase de jeu en fonction de profil. L'intelligence artificielle perd même des jetons pour chaque palier, sauf pour le palier six où elle gagne en moyenne un jeton. Ces mauvais résultats peuvent s'expliquer par le fait que nous avons mis en place des taux d'agressivité élevés en réponse aux différents profils établis. De ce fait, lorsque l'intelligence artificielle gagne des jetons, elle en gagne pas énormément car le joueur adverse va avoir tendance à se coucher rapidement car il sera effrayé par le fort taux d'agressivité. Cependant, lorsque l'intelligence artificielle perd des parties, étant donné le fait qu'elle est agressive, elle aura auparavant mis en jeu beaucoup de jetons, ce qui fera qu'au final, elle aura tendance à perdre plus de jetons qu'elle n'en gagne.\par
+Même si nous gagnons plus de parties que lors de la phase de scénarios de tests, nous avons remarqué que nous avons des gains nettement moins bons. En effet, comme on peut le voir dans la figure suivante représentant le nombre de jetons gagnés en moyenne pour chaque partie, les gains sont moins bons lors de la phase de jeu en fonction de profil. L'intelligence artificielle perd même des jetons dans la majorité des paliers. Ces mauvais résultats peuvent s'expliquer par le fait que nous avons mis en place des taux d'agressivité élevés en réponse aux différents profils établis. De ce fait, lorsque l'intelligence artificielle gagne des jetons, elle n'en gagne pas énormément car le joueur adverse va avoir tendance à se coucher rapidement étant donné qu'il sera effrayé par le fort taux d'agressivité. Cependant, lorsque l'intelligence artificielle perd des parties, étant agressive, elle aura auparavant mis en jeu beaucoup de jetons. Par conséquent, elle aura tendance à perdre plus de jetons qu'elle n'en gagne.\par
 
 
 \begin{figure}[H]
@@ -1041,7 +1047,6 @@ Nous récupérions à la fin des 100 parties le taux de parties gagnées ainsi q
 La figure suivante correspond au résultat de la recherche du calibrage optimal face à un joueur 80\% agressif et 80\% rationnel. Comme on peut le voir, la courbe du nombre de de parties gagnées a tendance à croître de manière significative à partir du moment où on arrive aux calibrages ayant 75\% d'agressivité et plus. Concernant les jetons gagnés, on constate que la courbe dans son ensemble ne semble pas avoir un comportement défini. Après avoir analysé la courbe, nous avons choisi de calibrer notre intelligence artificielle à 100\% d'agressivité et 60\% de rationalité face à un joueur profilé avec un taux d'agressivité compris entre 60\% et 100\% et un taux de rationalité compris entre 60\% et 100\%. En effet, le calibrage choisi correspond au calibrage numéro 46 de la courbe. Comme on peut le voir, le résultat de ce calibrage est intéressant puisque l'intelligence artificielle a gagné beaucoup de parties et un nombre significatif de jetons.\par
 
 
-%%Comparaison entre résultats nouveaux calibrages et anciens calibrages.
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[scale=0.5]{./imagesRapport/rechercheCalibrageOptimal8080.jpg}
@@ -1083,8 +1088,7 @@ Agressivité déduite &	Rationalité déduite &	Agressivité IA & 	Rationalité 
 \caption{Calibrage final de l'intelligence artificielle en fonction du profil adverse}
 \end{figure}
 
-%%%%%%%%%%%%TODO reprendre avec les nouveaux résultats %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%Comparaison entre résultats nouveaux calibrages et anciens calibrages.
+
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[scale=0.5]{./imagesRapport/NombrePartiesGagneesEnFonctionCalibrage.jpg}
@@ -1121,7 +1125,7 @@ De plus, après les scénarios de tests, lors de la phase de gains, nous pourrio
 
 
 \section{Profilage obtenu}
-\hspace{0.5cm}Au terme du projet, nous avons finalement obtenu un bon profilage statique. En effet, nous arrivons à profiler un joueur à 75\% près en moyenne, et nous pouvons ensuite, après avoir établi le profil, gagner plus de jetons que durant la phase de profilage. Cependant, on a pu constater que face à un joueur très irrationnel, il n'est pas facile pour nous de gagner beaucoup de jetons. En effet, il est très difficile de prédire les actions qui seront effectuées par un joueur irrationnel. Même si face à ce type de joueurs nous n'obtenons pas de résultats satisfaisants, nous obtenons dans l'ensemble des résultats très corrects pour la plupart des types de joueurs adverses.\par
+\hspace{0.5cm}Au terme du projet, nous avons finalement obtenu un bon profilage statique. En effet, nous arrivons à profiler un joueur à 80\% près en moyenne au bout de quelques parties. Après avoir établi le profil, l'intelligence artificielle est capable de gagner plus de jetons que durant la phase de profilage. Cependant, on a pu constater que face à un joueur très irrationnel, il n'est pas facile pour nous de gagner beaucoup de jetons. En effet, il est très difficile de prédire les actions qui seront effectuées par un joueur irrationnel. Même si face à ce type de joueurs nous n'obtenons pas de résultats satisfaisants, nous obtenons dans l'ensemble des résultats très corrects pour la plupart des types de joueurs adverses.\par
 
 
 

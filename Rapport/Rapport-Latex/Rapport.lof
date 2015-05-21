@@ -21,18 +21,19 @@
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {6.1}{\ignorespaces Actions attendues}}{39}
 \contentsline {figure}{\numberline {6.2}{\ignorespaces Taux de similarit\IeC {\'e} du profilage en fonction du nombre de partie}}{41}
-\contentsline {figure}{\numberline {6.3}{\ignorespaces Taux de similarit\IeC {\'e} des profils \IeC {\'e}tablis en fonction des paliers}}{42}
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Profil \IeC {\'e}tabli en fonction du nombre de parties}}{42}
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Taux de similarit\IeC {\'e} des profils \IeC {\'e}tablis en fonction des paliers}}{42}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {7.1}{\ignorespaces Calibrage de l'intelligence artificielle en fonction du profil adverse}}{44}
-\contentsline {figure}{\numberline {7.2}{\ignorespaces Donn\IeC {\'e}es situ\IeC {\'e}es \IeC {\`a} la fin d'un fichier contenant le profil \IeC {\'e}tabli d'un joueur}}{45}
-\contentsline {figure}{\numberline {7.3}{\ignorespaces Nombre de parties gagn\IeC {\'e}es pendant les sc\IeC {\'e}narios de tests et apr\IeC {\`e}s}}{46}
-\contentsline {figure}{\numberline {7.4}{\ignorespaces Nombre de jetons gagn\IeC {\'e}s pendant les sc\IeC {\'e}narios de tests et apr\IeC {\`e}s}}{47}
-\contentsline {figure}{\numberline {7.5}{\ignorespaces Gains en fonction du calibrage face \IeC {\`a} un joueur \IeC {\`a} 80\% agressif et 80\% rationnel}}{48}
-\contentsline {figure}{\numberline {7.6}{\ignorespaces Calibrage final de l'intelligence artificielle en fonction du profil adverse}}{48}
-\contentsline {figure}{\numberline {7.7}{\ignorespaces Nombre de parties gagn\IeC {\'e}es en fonction des deux calibrages}}{49}
-\contentsline {figure}{\numberline {7.8}{\ignorespaces Nombre de parties gagn\IeC {\'e}es en fonction des deux calibrages}}{50}
+\contentsline {figure}{\numberline {7.1}{\ignorespaces Calibrage de l'intelligence artificielle en fonction du profil adverse}}{45}
+\contentsline {figure}{\numberline {7.2}{\ignorespaces Donn\IeC {\'e}es situ\IeC {\'e}es \IeC {\`a} la fin d'un fichier contenant le profil \IeC {\'e}tabli d'un joueur}}{46}
+\contentsline {figure}{\numberline {7.3}{\ignorespaces Nombre de parties gagn\IeC {\'e}es pendant les sc\IeC {\'e}narios de tests et apr\IeC {\`e}s}}{47}
+\contentsline {figure}{\numberline {7.4}{\ignorespaces Nombre de jetons gagn\IeC {\'e}s pendant les sc\IeC {\'e}narios de tests et apr\IeC {\`e}s}}{48}
+\contentsline {figure}{\numberline {7.5}{\ignorespaces Gains en fonction du calibrage face \IeC {\`a} un joueur \IeC {\`a} 80\% agressif et 80\% rationnel}}{49}
+\contentsline {figure}{\numberline {7.6}{\ignorespaces Calibrage final de l'intelligence artificielle en fonction du profil adverse}}{49}
+\contentsline {figure}{\numberline {7.7}{\ignorespaces Nombre de parties gagn\IeC {\'e}es en fonction des deux calibrages}}{50}
+\contentsline {figure}{\numberline {7.8}{\ignorespaces Nombre de parties gagn\IeC {\'e}es en fonction des deux calibrages}}{51}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {A.1}{\ignorespaces Planification pr\IeC {\'e}visionnelle}}{55}
+\contentsline {figure}{\numberline {A.1}{\ignorespaces Planification pr\IeC {\'e}visionnelle}}{56}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {B.1}{\ignorespaces Planification r\IeC {\'e}elle}}{57}
+\contentsline {figure}{\numberline {B.1}{\ignorespaces Planification r\IeC {\'e}elle}}{58}
