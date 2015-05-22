@@ -71,6 +71,12 @@ public:
     virtual ~Resolveur();
 
     /**
+     * @brief estAgressif
+     * @return true si le joueur a joué plus agressif
+     */
+    bool estAgressif() const;
+
+    /**
      * @brief Modifie le choix de l'action pour que le résolveur privilégie ou non l'agressivité.
      * @param ag true si action agressive prioritaire
      */

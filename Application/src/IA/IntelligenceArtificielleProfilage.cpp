@@ -158,6 +158,7 @@ void IntelligenceArtificielleProfilage::calculProfilGlobalJoueur() {
         profilage->nbJetonsGagnesIAQuiProfile=0;
     }
 
+    profilage->jeuAgressif = resolveur->estAgressif();
     profilage->scenarioDeTest = (phaseJeu == PHASE_PROFILAGE);
     profilage->partieGagneeIAQuiProfile=resultatPartie;
 

@@ -29,6 +29,10 @@ Resolveur::~Resolveur(){
     delete calibrage;
 }
 
+bool Resolveur::estAgressif() const {
+    return jeuAgressif;
+}
+
 void Resolveur::setJeuAgressif(bool ag) {
     jeuAgressif = ag;
 }
