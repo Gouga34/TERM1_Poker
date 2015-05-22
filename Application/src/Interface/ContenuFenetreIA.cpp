@@ -13,6 +13,7 @@ Specification: Fichier contenant les définitions de la classe
 #include <QVBoxLayout>
 #include <QTableWidgetItem>
 #include <QApplication>
+#include <QScrollBar>
 
 ContenuFenetreIA::ContenuFenetreIA(Jeu *j):ContenuFenetre(j){
     //fenetre
@@ -80,12 +81,19 @@ void ContenuFenetreIA::ajouterLigne(){
     recapParties.setItem(nouvelleLigne, GAIN_IA_QUI_PROFILE, new QTableWidgetItem(QString::number(IA->getProfilage()->partieGagneeIAQuiProfile)));
 }
 
+void ContenuFenetreIA::scrollAutomatiqueTableau(){
+    QScrollBar *sb = recapParties.verticalScrollBar();
+    sb->setValue(sb->maximum());
+}
+
 void ContenuFenetreIA::actualiser(){
     //Calibrage IA profilée
     majCalibrageIAProfilee();
 
     //Ajout ligne résultats
     ajouterLigne();
+
+    scrollAutomatiqueTableau();
 
     qApp->processEvents();
 }
