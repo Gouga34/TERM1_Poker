@@ -224,11 +224,17 @@ void IntelligenceArtificielleProfilage::determinerTypeDeJeu() {
     }
     else {
         phaseJeu = prochainTypeDeJeu();
+        resolveur->setJeuAgressif(false);
 
         if (phaseJeu == PHASE_PROFILAGE) {
             setCalibragePourProfiler();
         }
         else {
+            if (UTILISATION_DELTA_AGRESSIVITE && chancesGain >= 45 && chancesGain <= 65) {
+                // Aléatoirement, on augmente l'agressivité
+                resolveur->setJeuAgressif((rand() % DELTA_AGRESSIVITE) == 0);
+            }
+
             setCalibragePourJouer();
         }
 
