@@ -68,11 +68,7 @@ void CalibrageIdeal::lancerParties()
             for (int n = 0; n < nombreParties; n++) {
                 std::cout << "\tPartie " << n+1 << std::endl;
 
-                // Réinitialisation jeu
-                jeu->setPot(0);
-                jeu->getJoueur(0)->setCave(CAVE_JOUEURS);
-                jeu->getJoueur(1)->setCave(CAVE_JOUEURS);
-
+                jeu->reinitialisationCaves();
                 jeu->distributionMain();
 
                 jeu->lancer();
