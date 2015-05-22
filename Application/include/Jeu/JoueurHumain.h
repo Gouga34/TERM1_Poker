@@ -10,18 +10,18 @@ Specification: Classe définissant un joueur humain.
 #define JOUEURHUMAIN_H
 
 #include "Joueur.h"
-#include "../Interface/Fenetre.h"
+#include "../Interface/ContenuFenetreHumain.h"
 
 class JoueurHumain : public Joueur
 {
     private:
 
-        Fenetre *fenetre;
+        ContenuFenetreHumain *fenetre;
 
     public:
 
-        JoueurHumain(bool estDealer, int jetons, int position, Fenetre *f);
-        JoueurHumain(const JoueurHumain& joueur, Fenetre *f);
+        JoueurHumain(bool estDealer, int jetons, int position, ContenuFenetreHumain *f);
+        JoueurHumain(const JoueurHumain& joueur, ContenuFenetreHumain *f);
         virtual ~JoueurHumain();
 
         virtual bool estHumain() const;
