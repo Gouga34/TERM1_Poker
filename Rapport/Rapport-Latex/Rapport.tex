@@ -496,7 +496,13 @@ Dans le cadre du TER, nous nous sommes concentrés sur le profilage statique afi
 
 
 
-
+\chapter{Mise en place du jeu et de l'interface graphique}
+\section{Jeu}
+%%Faire diagramme de classe avec le jeu et IA dedans
+\section{Interface graphique}
+%%Faire un diagramme de classe de l'interface avec contenu fenetre IA et humain
+\subsection{Intelligence artificielle face à un joueur humain}
+\subsection{Intelligence artificielle face à une autre intelligence artificielle}
 
 \chapter{Calcul du profil d'un joueur}
 
@@ -681,14 +687,14 @@ A la suite de ces changements nous avons également revu la sélection entre les
 
 Une fois que le calibrage nous a donné l'action agressive et l'action rationnelle, on effectue une fusion entre les deux. Dans les cas où les deux actions sont identiques, l'action est prise. Si ce sont toutes les deux des mises/relances, on prend la moitié du nombre de jetons, proportionnellement aux pourcentages de calibrage.\\
 
+Le tableau suivant présente des exemples de combinaisons possibles, avec par conséquent des actions agressives et rationnelles différentes ainsi que l'action finale déduite.\\
 
-En prenant l'exemple suivant, on considère une intelligence artificielle ayant un taux d'agressivité égal à  70\% et un taux de rationalité égal à 20\%, et des actions de mises choisies dans chacun des cas, avec une mise de 300 jetons pour l'action correspondant au taux d'agressivité et une mise de 50 jetons pour l'action de rationalité. Nous prenons donc une mise comprise entre le minimum et le maximum. Cette mise aura donc plus de chances d'être proche de la mise du taux le plus fort, c'est à dire ici, proche de 300. Après avoir effectué le calcul, on obtient une mise égale à 244 jetons. Comme dit précédemment, ce résultat est proche de 300 puisque l'intelligence artificielle est calibrée à 70\% d'agressivité et à seulement 20\% de rationalité.\\
 
 \begin{figure}[H]
 \begin{center}
 \begin{tabular}{|l|l|l|}
 	\hline
-	Action 1		&	Action 2 	&	Action finale\\
+	Action agressive		&	Action rationnelle 	&	Action finale\\
 	\hline
 	Checker		&	Se coucher	&	Checker\\
 	\hline
@@ -719,6 +725,8 @@ En prenant l'exemple suivant, on considère une intelligence artificielle ayant 
 \end{center}
 \caption{Choix de l'action à effectuer en fonction des actions d'agressivité et de rationalité}
 \end{figure}
+
+Si l'on considère une intelligence artificielle ayant un taux d'agressivité égal à  70\% et un taux de rationalité égal à 20\%, et des actions de mises choisies dans chacun des cas, avec une mise de 300 jetons pour l'action correspondant au taux d'agressivité et une mise de 50 jetons pour l'action de rationalité. Nous prenons donc une mise comprise entre le minimum et le maximum. Cette mise aura donc plus de chances d'être proche de la mise du taux le plus fort, c'est à dire ici, proche de 300. Après avoir effectué le calcul, on obtient une mise égale à 244 jetons. Comme dit précédemment, ce résultat est proche de 300 puisque l'intelligence artificielle est calibrée à 70\% d'agressivité et à seulement 20\% de rationalité.\\
 
 
 Enfin, il reste la possibilité que les actions soient différentes. Ici on distingue deux cas :
@@ -967,13 +975,13 @@ Le but de notre intelligence artificielle étant, une fois un profilage correcte
 \hline
 Nombre de parties:&	30		\\
 \hline
-Nombre de parties gagnées par l'IA qui profile pendant profilage :& 6 sur 10\\
+Nombre de parties gagnées par l'IA pendant profilage :& 6 sur 10\\
 \hline
-Nombre de parties gagnées par l'IA qui profile pendant jeu :& 15 sur 20\\
+Nombre de parties gagnées par l'IA pendant jeu :& 15 sur 20\\
 \hline
-Gains de l'IA qui profile pendant profilage :& -924		\\
+Gains de l'IA pendant profilage :& -924		\\
 \hline
-Gains de l'IA qui profile pendant jeu :&	3530		\\
+Gains de l'IA pendant jeu :&	3530		\\
 \hline
 \end{tabular}
 \end{center}
@@ -1044,7 +1052,10 @@ Nous avons ensuite effectué le produit cartésien entre les deux listes pour ob
 
 Nous récupérions à la fin des 100 parties le taux de parties gagnées ainsi que le nombre de jetons gagnés ou perdus.\\
 
-La figure suivante correspond au résultat de la recherche du calibrage optimal face à un joueur 80\% agressif et 80\% rationnel. Comme on peut le voir, la courbe du nombre de de parties gagnées a tendance à croître de manière significative à partir du moment où on arrive aux calibrages ayant 75\% d'agressivité et plus. Concernant les jetons gagnés, on constate que la courbe dans son ensemble ne semble pas avoir un comportement défini. Après avoir analysé la courbe, nous avons choisi de calibrer notre intelligence artificielle à 100\% d'agressivité et 60\% de rationalité face à un joueur profilé avec un taux d'agressivité compris entre 60\% et 100\% et un taux de rationalité compris entre 60\% et 100\%. En effet, le calibrage choisi correspond au calibrage numéro 46 de la courbe. Comme on peut le voir, le résultat de ce calibrage est intéressant puisque l'intelligence artificielle a gagné beaucoup de parties et un nombre significatif de jetons.\par
+La figure suivante correspond au résultat de la recherche du calibrage optimal face à un joueur 80\% agressif et 80\% rationnel. Ainsi, la courbe bleue correspond au taux de parties gagnées alors que la seconde courbe correspond au nombre de jetons gagnés au total pendant les cent parties lancées par calibrage. L'abscisse correspond aux calibrages testés. Ainsi, le calibrage numéro un correspond au calibrage 15-15 alors que le dernier calibrage, à savoir le numéro 49, correspond au calibrage 100-100.   
+
+Comme on peut le voir, la courbe du nombre de parties gagnées a tendance à croître de manière significative à partir du moment où on arrive aux calibrages ayant 75\% d'agressivité et plus. En effet, le joueur adverse étant calibré à 80\% d'agressivité et 80\% de rationalité, par conséquent, les joueurs étant moins agressifs gagnent moins souvent. Concernant les jetons gagnés, on constate que la courbe dans son ensemble ne semble pas avoir un comportement défini. 
+On peut voir que les points les plus intéressant sont le point correspondant au calibrage numéro six, à savoir, un comportement 15\% agressif et 90\% rationnel, et le point correspondant au calibrage numéro 46, à savoir, un comportement 100\% agressif et 60\% rationnel. Le calibrage correspondant au point numéro six permet à l'intelligence artificielle de gagner environ 45\% des parties et 15 000 jetons. Cependant le point numéro 46 semble plus intéressant. En effet, avec ce calibrage, l'intelligence artificielle gagne, lors de sa phase de jeu, un nombre important de parties, à savoir, plus de 65\% de parties mais aussi un nombre important de jetons, à savoir, plus de 13 000 jetons. Finalement, nous avons choisi de calibrer notre intelligence artificielle à 100\% d'agressivité et 60\% de rationalité face à un joueur profilé avec un taux d'agressivité compris entre 60\% et 100\% et un taux de rationalité compris entre 60\% et 100\%. Ce calibrage correspond donc au calibrage numéro 46 décrit précédemment. \par
 
 
 \begin{figure}[H]
@@ -1093,10 +1104,10 @@ Agressivité déduite &	Rationalité déduite &	Agressivité IA & 	Rationalité 
 	\begin{center}
 		\includegraphics[scale=0.5]{./imagesRapport/NombrePartiesGagneesEnFonctionCalibrage.jpg}
 	\end{center}
-	\caption{Nombre de parties gagnées en fonction des deux calibrages}
+	\caption{Nombre de parties gagnées en fonction du premier calibrage établi et du second calibrage calculé}
 \end{figure}
 
-Comme on peut le voir dans la figure ci-dessus, le changement de gains de parties par rapport aux résultats précédents n'est pas énorme voire moins bon dans certains paliers. En effet, nous avons choisi de nous concentrer davantage sur les gains de jetons. Ainsi, même si un l'intelligence artificielle qui profile ne gagne pas plus de parties, elle gagne plus de jetons qu’auparavant. Le diagramme suivant représente les jetons gagnés en fonction du calibrage. On constate rapidement que le nombre de jetons gagnés en moyenne sur une partie est nettement meilleur qu'auparavant. Notamment dans le premier palier, correspondant à un jeu face à une intelligence artificielle profilée avec une agressivité et une rationalité comprises entre 0\% et 40\%, où le nombre de jetons gagnés passe d'une perte de plus de 120 jetons en moyenne à un gain d'une trentaine de jetons en moyenne par partie. \\
+Comme on peut le voir dans la figure ci-dessus, le changement de gains de parties par rapport aux résultats précédents n'est pas énorme voire moins bon dans certains paliers. En effet, les données bleues et rouges, respectivement le premier calibrage établi inefficace et le second calibrage résultant de la recherche du calibrage optimal sont sensiblement égales. Nous avons choisi de nous concentrer davantage sur les gains de jetons. Ainsi, même si un l'intelligence artificielle qui profile ne gagne pas plus de parties, elle gagne plus de jetons qu’auparavant. Le diagramme suivant représente les jetons gagnés en fonction du premier calibrage établi, en bleu, et du second calibrage établi en fonction des données collectées pendant la recherche du calibrage optimal, en rouge. On constate rapidement que le nombre de jetons gagnés en moyenne sur une partie est nettement meilleur qu'auparavant. Notamment dans le premier palier, correspondant à un jeu face à une intelligence artificielle profilée avec une agressivité et une rationalité comprises entre 0\% et 40\%, où le nombre de jetons gagnés passe d'une perte de plus de 120 jetons en moyenne à un gain d'une trentaine de jetons en moyenne par partie. \\
 
 \begin{figure}[H]
 	\begin{center}
@@ -1121,7 +1132,8 @@ Premièrement, lors de la phase de scénarios de tests, nous n'établirions pas 
 De plus, après les scénarios de tests, lors de la phase de gains, nous pourrions décider de faire en sorte que l'intelligence artificielle modifie son calibrage à chaque tour de jeu, en fonction de l'action jouée par le joueur adverse et de la situation du jeu, contrairement à la phase de gains actuelle, pour laquelle l'intelligence artificielle ne change pas de profil.\par
 
 \subsection{Profilage avec plus de deux joueurs}
-\hspace{0.5cm}Notre méthode de profilage étant actuellement basée sur un jeu à uniquement deux joueurs, on peut se poser la question d'un profilage sur un jeu à plus de deux joueurs. En effet, les paramètres à prendre en compte pour établir le profil d'un joueur adverse ne seraient pas les mêmes. Il faudrait par exemple ajouter dans ces paramètres le nombre de joueurs adverses, qui influence les comportements. Si un joueur a peu de chances de gain et un nombre important de joueurs adverses, il sera sûrement bien plus rationnel et aura sûrement plus tendance à se coucher que s'il avait été contre un seul adversaire. En effet, il y a beaucoup plus de chances que ses joueurs adverses aient un meilleur jeu que lui. De même, un joueur ayant un jeu moyen et jouant de manière prudente n'aura sûrement pas le même comportement s'il est face à un ou plusieurs joueurs. De ce fait, dans un jeu à plusieurs joueurs, le nombre de joueurs serait un critère très important pour le calcul des taux d'agressivité, de rationalité, de bluff et de passivité d'un adversaire. \par
+\hspace{0.5cm}Notre méthode de profilage étant actuellement basée sur un jeu à uniquement deux joueurs, on peut se poser la question d'un profilage sur un jeu à plus de deux joueurs. En effet, les paramètres à prendre en compte pour établir le profil d'un joueur adverse ne seraient pas les mêmes. Il faudrait par exemple ajouter dans ces paramètres le nombre de joueurs adverses, qui influence les comportements. Si un joueur a peu de chances de gain et un nombre important de joueurs adverses, il sera sûrement bien plus rationnel et aura sûrement plus tendance à se coucher que s'il avait été contre un seul adversaire. En effet, il y a plus de chances que ses joueurs adverses aient un meilleur jeu que lui. De même, un joueur ayant un jeu moyen et jouant de manière prudente n'aura sûrement pas le même comportement s'il est face à un ou plusieurs joueurs. De même, on peut penser que face à plusieurs adversaires, un joueur va prendre plus de risques pour rester dans le jeu et donc, être moins rationnel et plus agressif. De ce fait, dans un jeu à plusieurs joueurs, le nombre de joueurs serait un critère très important pour le calcul des taux d'agressivité, de rationalité, de bluff et de passivité d'un adversaire. \\
+Dans le cas d'un profilage avec plusieurs adversaires, lors de la phase de scénarios de tests, l'intelligence artificielle n'aurait pas forcément besoin d'être agressive puisqu'il y aurait plus de joueurs donc possiblement des joueurs qui pourraient jouer de manière agressive pour elle. Par conséquent, l'intelligence artificielle pourrait faire en sorte de perdre moins de jetons pendant les parties de profilage tout en continuant à profiler les joueurs adverses.\par 
 
 
 \section{Profilage obtenu}
