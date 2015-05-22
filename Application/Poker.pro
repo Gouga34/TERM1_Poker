@@ -25,7 +25,8 @@ SOURCES += \
     src/Jeu/JoueurHumain.cpp \
     src/IA/CalibrageIdeal.cpp \
     src/Profilage/PhaseJeu.cpp \
-    src/Interface/ContenuFenetre.cpp
+    src/Interface/ContenuFenetre.cpp \
+    src/Interface/ContenuFenetreHumain.cpp
 
 
 QT+=widgets
@@ -57,7 +58,8 @@ HEADERS += \
     include/Jeu/JoueurHumain.h \
     include/IA/CalibrageIdeal.h \
     include/Profilage/PhaseJeu.h \
-    include/Interface/ContenuFenetre.h
+    include/Interface/ContenuFenetre.h \
+    include/Interface/ContenuFenetreHumain.h
 
 CONFIG += c++11
 

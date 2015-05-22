@@ -7,7 +7,7 @@ Specification: Fichier contenant les définitions de la classe CarteGraphique.
 =========================================================================*/
 
 #include "../../include/Interface/CarteGraphique.h"
-#include "../../include/Interface/Fenetre.h"
+#include "../../include/Interface/ContenuFenetreHumain.h"
 
 // Définition de la taille d'une carte
 const unsigned int CarteGraphique::LARGEUR_CARTE = 73;
@@ -22,21 +22,18 @@ CarteGraphique::CarteGraphique(int rang, int couleur) : QLabel()
 
 
     if (id == -1){    // Dos de carte
-        setPixmap(Fenetre::textureCartes->copy(QRect((13 * 4 + 1) * LARGEUR_CARTE, 0, LARGEUR_CARTE, HAUTEUR_CARTE)));
+        setPixmap(ContenuFenetreHumain::textureCartes->copy(QRect((13 * 4 + 1) * LARGEUR_CARTE, 0, LARGEUR_CARTE, HAUTEUR_CARTE)));
     }
     else{               // Identifiant de la carte
-        setPixmap(Fenetre::textureCartes->copy(QRect(id * LARGEUR_CARTE, 0, LARGEUR_CARTE, HAUTEUR_CARTE)));
+        setPixmap(ContenuFenetreHumain::textureCartes->copy(QRect(id * LARGEUR_CARTE, 0, LARGEUR_CARTE, HAUTEUR_CARTE)));
     }
 }
-
-
-
 
 CarteGraphique::CarteGraphique(Carte c) : QLabel()
 {
     id = c.getId();
 
-    setPixmap(Fenetre::textureCartes->copy(QRect(id * LARGEUR_CARTE, 0, LARGEUR_CARTE, HAUTEUR_CARTE)));
+    setPixmap(ContenuFenetreHumain::textureCartes->copy(QRect(id * LARGEUR_CARTE, 0, LARGEUR_CARTE, HAUTEUR_CARTE)));
 }
 
 

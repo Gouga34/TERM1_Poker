@@ -11,7 +11,7 @@ Specification: Fichier contenant les définitions de la classe Logger.
 
 Logger* Logger::instance = 0;
 
-Logger::Logger(Fenetre *f) : fenetre(f)
+Logger::Logger(ContenuFenetre *f) : fenetre(f)
 {
 
 }
@@ -21,7 +21,7 @@ Logger::~Logger()
 
 }
 
-void Logger::creerInstance(Fenetre *f)
+void Logger::creerInstance(ContenuFenetre *f)
 {
     if (!instance) {
         instance = new Logger(f);

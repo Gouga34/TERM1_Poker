@@ -10,13 +10,13 @@ Specification: Fichier contenant les définitions de la classe JoueurHumain.
 #include "../../include/Jeu/JoueurHumain.h"
 
 
-JoueurHumain::JoueurHumain(bool estDealer, int jetons, int position, Fenetre *f)
+JoueurHumain::JoueurHumain(bool estDealer, int jetons, int position, ContenuFenetreHumain *f)
     : Joueur(estDealer, jetons, position), fenetre(f)
 {
 
 }
 
-JoueurHumain::JoueurHumain(const JoueurHumain& joueur, Fenetre *f)
+JoueurHumain::JoueurHumain(const JoueurHumain& joueur, ContenuFenetreHumain *f)
     : Joueur(joueur), fenetre(f)
 {
 
