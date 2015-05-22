@@ -26,6 +26,24 @@ void Jeu::addJoueur(Joueur *joueur) {
     listeJoueurs.push_back(joueur);
 }
 
+void Jeu::reinitialisationCaves() {
+
+    setPot(0);
+
+    if (REINITIALISATION_CAVE) {
+
+        getJoueur(0)->setCave(CAVE_JOUEURS);
+        getJoueur(1)->setCave(CAVE_JOUEURS);
+    }
+    else {
+        for (int i = 0; i < listeJoueurs.size(); i++) {
+            if (getJoueur(i)->getCave() == 0) {
+                getJoueur(i)->setCave(CAVE_JOUEURS);
+            }
+        }
+    }
+}
+
 void Jeu::distributionMain(){
 
     etape = ETAPE_JEU::PREFLOP;

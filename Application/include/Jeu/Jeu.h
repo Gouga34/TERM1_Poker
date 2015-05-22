@@ -207,7 +207,16 @@ class Jeu{
 	
 	//Methodes	
 
+        /**
+         * @brief Ajoute un joueur au jeu
+         * @param joueur Joueur à ajouter
+         */
         void addJoueur(Joueur *joueur);
+
+        /**
+         * @brief Réinitialise les caves des joueurs
+         */
+        void reinitialisationCaves();
 
         /**
 		*@action : Distribue a chaque joueur ses cartes

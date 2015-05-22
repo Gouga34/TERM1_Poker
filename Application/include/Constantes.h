@@ -54,6 +54,8 @@
 #define UTILISATION_DELTA_AGRESSIVITE           true
 #define DELTA_AGRESSIVITE                       5           // Nombre de parties pour lesquels on sera une fois plus agressif (1 partie sur 5)
 
+#define REINITIALISATION_CAVE                   true
+
 /**
  * Couleur des cartes
  */

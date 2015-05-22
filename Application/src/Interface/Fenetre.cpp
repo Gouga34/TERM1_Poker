@@ -120,11 +120,7 @@ void Fenetre::demarragePartie()
         for(int j=0;j<nbParties;j++){
             std::cout << "Partie " << j+1 << std::endl;
 
-            // Réinitialisation jeu
-            jeu->setPot(0);
-            jeu->getJoueur(0)->setCave(CAVE_JOUEURS);
-            jeu->getJoueur(1)->setCave(CAVE_JOUEURS);
-
+            jeu->reinitialisationCaves();
             jeu->distributionMain();
 
             if (jeu->getJoueur(0)->estHumain()) {
