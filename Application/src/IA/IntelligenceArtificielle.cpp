@@ -54,8 +54,8 @@ Profil* IntelligenceArtificielle::getCalibrage() {
 void IntelligenceArtificielle::setCalibrage(Profil profil) {
     string ration="Rationalite : "+to_string(profil.getRationalite());
     string agress="Agressivite : "+to_string(profil.getAgressivite());
-    Logger::getInstance()->ajoutLogs(ration);
-    Logger::getInstance()->ajoutLogs(agress);
+//    Logger::getInstance()->ajoutLogs(ration);
+//    Logger::getInstance()->ajoutLogs(agress);
     resolveur->setCalibrage(profil);
 }
 
@@ -63,6 +63,7 @@ void IntelligenceArtificielle::nouveauCalibrage()
 {
     int agressivite=rand()%100+1;
     int rationalite=rand()%100+1;
+
 
     Profil p;
     p.setAgressivite(agressivite);

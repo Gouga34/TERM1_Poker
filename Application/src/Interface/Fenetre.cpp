@@ -13,6 +13,7 @@ Specification: Fichier contenant les définitions de la classe Fenetre.
 #include "../../include/Jeu/JoueurHumain.h"
 #include "../../include/IA/IntelligenceArtificielleProfilage.h"
 #include "../../include/IA/CalibrageIdeal.h"
+#include "../../include/Interface/ContenuFenetreIA.h"
 
 #include <QVBoxLayout>
 #include <iostream>
@@ -51,7 +52,7 @@ Fenetre::Fenetre() : QWidget()
             ia->setCalibrage(calibrage);
         }
 
-        //contenu = new ContenuFenetreIA(jeu);
+        contenu = new ContenuFenetreIA(jeu);
     }
     else {
         contenu = new ContenuFenetreHumain(jeu, this);

@@ -36,6 +36,10 @@ IntelligenceArtificielleProfilage::~IntelligenceArtificielleProfilage()
     }
 }
 
+ScenariosDeTests IntelligenceArtificielleProfilage::getScenario() const{
+    return *scenario;
+}
+
 Profilage* IntelligenceArtificielleProfilage::getProfilage() const {
     return profilage;
 }

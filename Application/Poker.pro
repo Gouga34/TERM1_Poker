@@ -26,7 +26,8 @@ SOURCES += \
     src/IA/CalibrageIdeal.cpp \
     src/Profilage/PhaseJeu.cpp \
     src/Interface/ContenuFenetre.cpp \
-    src/Interface/ContenuFenetreHumain.cpp
+    src/Interface/ContenuFenetreHumain.cpp \
+    src/Interface/ContenuFenetreIA.cpp
 
 
 QT+=widgets
@@ -59,7 +60,8 @@ HEADERS += \
     include/IA/CalibrageIdeal.h \
     include/Profilage/PhaseJeu.h \
     include/Interface/ContenuFenetre.h \
-    include/Interface/ContenuFenetreHumain.h
+    include/Interface/ContenuFenetreHumain.h \
+    include/Interface/ContenuFenetreIA.h
 
 CONFIG += c++11
 

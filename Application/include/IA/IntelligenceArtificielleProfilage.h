@@ -13,6 +13,7 @@ Specification: Classe d'une IA qui profile.
 #include "../Profilage/Profilage.h"
 #include "../Profilage/ScenariosDeTests.h"
 
+
 class IntelligenceArtificielleProfilage : public IntelligenceArtificielle
 {
     private:
@@ -61,6 +62,11 @@ class IntelligenceArtificielleProfilage : public IntelligenceArtificielle
         IntelligenceArtificielleProfilage(const IntelligenceArtificielle& joueur);
         virtual ~IntelligenceArtificielleProfilage();
 
+        /**
+         * @brief getScenario
+         * @return copie de scenarios de tests
+         */
+        ScenariosDeTests getScenario() const;
 
         /**
          * @return Profilage du joueur par l'IA
