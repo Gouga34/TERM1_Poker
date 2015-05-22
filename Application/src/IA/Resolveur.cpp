@@ -20,13 +20,21 @@ Specification: Fichier contenant les corps des méthodes
 
 using namespace std;
 
-Resolveur::Resolveur(IntelligenceArtificielle *ia2):ia(ia2){
+Resolveur::Resolveur(IntelligenceArtificielle *ia2):jeuAgressif(false), ia(ia2){
     calibrage=new Profil;
 }
 
 
 Resolveur::~Resolveur(){
     delete calibrage;
+}
+
+bool Resolveur::estAgressif() const {
+    return jeuAgressif;
+}
+
+void Resolveur::setJeuAgressif(bool ag) {
+    jeuAgressif = ag;
 }
 
 void Resolveur::setCalibrage(Profil profil){
@@ -332,10 +340,12 @@ Action Resolveur::calculerAction(){
     ACTION action=PAS_ENCORE_D_ACTION;
     int jetonsAMiser = -1;
 
-    //fusion des deux résultats :
-
-    //Si les actions ne sont pas les mêmes, on choisit une des deux actions:
-    if(actionAgressivite.getAction()!=actionRationalite.getAction()){
+    if (jeuAgressif) {
+        action = actionAgressivite.getAction();
+        jetonsAMiser = actionAgressivite.getMontant();
+    }
+    // Fusion des deux résultats :Si les actions ne sont pas les mêmes, on choisit une des deux actions:
+    else if(actionAgressivite.getAction()!=actionRationalite.getAction()){
         //CHECKER et SE_COUCHER
         if((actionAgressivite.getAction()==CHECKER && actionRationalite.getAction()==SE_COUCHER)
                 ||(actionAgressivite.getAction()==SE_COUCHER && actionRationalite.getAction()==CHECKER) ){
@@ -473,7 +483,7 @@ Action Resolveur::calculerAction(){
         }
    }
     //Sinon, si l'action est relancer ou miser
-   if(actionAgressivite.getAction()==actionRationalite.getAction() && (actionAgressivite.getAction()==ACTION::RELANCER || actionAgressivite.getAction()==ACTION::MISER)){
+   else if(actionAgressivite.getAction()==actionRationalite.getAction() && (actionAgressivite.getAction()==ACTION::RELANCER || actionAgressivite.getAction()==ACTION::MISER)){
 
         action=actionAgressivite.getAction();
 

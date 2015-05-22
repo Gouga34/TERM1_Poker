@@ -36,12 +36,12 @@ ContenuFenetreIA::~ContenuFenetreIA(){
 }
 
 void ContenuFenetreIA::initialisationRecapParties(){
-    recapParties.setColumnCount(8);
+    recapParties.setColumnCount(9);
 
     //Ajout première ligne:
     QStringList header;
     header<<"Scenarios en cours"<<"Agressivité IA qui profile"<<"Rationalité IA qui profile"
-         <<"Agressivité déduite"<<"Rationalité déduite"<<"Taux de similarité"<<"Gains"<<"Gain IA qui profile";
+         <<"Agressivité déduite"<<"Rationalité déduite"<<"Taux de similarité"<<"Jeu agressif"<<"Gains"<<"Gain IA qui profile";
     recapParties.setHorizontalHeaderLabels(header);
 
     recapParties.resizeColumnsToContents();
@@ -72,6 +72,8 @@ void ContenuFenetreIA::ajouterLigne(){
     recapParties.setItem(nouvelleLigne,RATIONALITE_DEDUITE, new QTableWidgetItem(QString::number(IA->getScenario().getProfilDeduitGlobal().getRationalite())));
 
     recapParties.setItem(nouvelleLigne, TAUX_SIMILARITE, new QTableWidgetItem(QString::number(IA->getScenario().getTauxSimilarite())));
+
+    recapParties.setItem(nouvelleLigne, JEU_AGRESSIF, new QTableWidgetItem(QString::number(IA->getProfilage()->jeuAgressif)));
 
     recapParties.setItem(nouvelleLigne, GAINS, new QTableWidgetItem(QString::number(IA->getProfilage()->nbJetonsGagnesIAQuiProfile)));
 

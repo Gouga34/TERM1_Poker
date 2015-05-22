@@ -110,7 +110,7 @@ void Profilage::sauvegarder()
        //Si fichier vide, ajout du nombre de parties et du nombre de parties gagnées par l'IA qui profile.
         if(fichier.size()==0) {
 
-            out<<"Gain IA qui profile,Jetons gagnes IA qui profile,Scenarios de tests en cours,Agressivite IA qui profile, Rationalite IA qui profile,Chances de gain de l'IA profilee,"<<
+            out<<"Gain IA qui profile,Jetons gagnes IA qui profile,Scenarios de tests en cours,Jeu agressif,Agressivite IA qui profile, Rationalite IA qui profile,Chances de gain de l'IA profilee,"<<
                  "Agressivite IA profilee,Rationalite IA profilee,Bluff IA profilee,Passivite IA profilee,Nombre de checks,"<<
                  "Nombre de mises,Nombre de suivis,Total des mises de l'IA profilee,Mise la plus haute IA profilee,Joueur profile se couche"<<endl;
 
@@ -175,7 +175,7 @@ void Profilage::sauvegarder()
             out<<0<<",";
         }
 
-        out<<nbJetonsGagnesIAQuiProfile<<","<<scenarioDeTest<<","<<profilIA->getAgressivite()<<","<<profilIA->getRationalite()<<","<<
+        out<<nbJetonsGagnesIAQuiProfile<<","<<scenarioDeTest<<","<<jeuAgressif<<","<<profilIA->getAgressivite()<<","<<profilIA->getRationalite()<<","<<
                 etatPartie[i].probaGainAdversaire<<","<<etatPartie[i].tauxAgressivite<<","<<etatPartie[i].tauxRationnalite<<","<<
                 etatPartie[i].tauxBluff<<","<<etatPartie[i].tauxPassivite<<","<<etatPartie[i].tauxChecks<<","<<
                 etatPartie[i].tauxMises<<","<<etatPartie[i].tauxSuivis<<","<<etatPartie[i].miseTotaleJoueur<<","<<

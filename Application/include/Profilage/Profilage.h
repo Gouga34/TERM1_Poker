@@ -30,6 +30,7 @@ class Profilage
         RESULTAT_PARTIE partieGagneeIAQuiProfile;
         int nbJetonsGagnesIAQuiProfile;
         bool scenarioDeTest;
+        bool jeuAgressif;
 
 
         struct EtapePartie

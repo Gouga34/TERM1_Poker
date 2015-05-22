@@ -21,6 +21,7 @@ class IntelligenceArtificielle;
 class Resolveur{
 private:
 
+    bool jeuAgressif;
     Profil *calibrage;
     double miseTotaleTheoriqueAgressivite;
 
@@ -70,6 +71,18 @@ public:
     virtual ~Resolveur();
 
     /**
+     * @brief estAgressif
+     * @return true si le joueur a joué plus agressif
+     */
+    bool estAgressif() const;
+
+    /**
+     * @brief Modifie le choix de l'action pour que le résolveur privilégie ou non l'agressivité.
+     * @param ag true si action agressive prioritaire
+     */
+    void setJeuAgressif(bool ag);
+
+    /**
     * @brief setCalibrage
     * @param profil nouveau calibrage de l'IA
     */
@@ -87,9 +100,6 @@ public:
      * @return l'action finale et sa possible mise en nombre de jetons
      */
     Action calculerAction();
-
-
-
 };
 
 
