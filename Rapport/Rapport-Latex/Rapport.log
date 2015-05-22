@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.4.20)  22 MAY 2015 22:53
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.4.20)  22 MAY 2015 23:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -947,176 +947,193 @@ Underfull \hbox (badness 10000) in paragraph at lines 495--496
 
 [28]
 Chapitre 4.
+
+Overfull \hbox (2.19489pt too wide) in paragraph at lines 505--505
+[]\OT1/cmr/m/n/10 Une classe Es-ti-ma-tion-Proba per-met ^^Ra chaque r^^Sesolve
+ur de cal-culer ses chances
+ []
+
+
+Overfull \hbox (17.86166pt too wide) in paragraph at lines 506--507
+[]\OT1/cmr/m/n/10 Enfin, pour per-me-t-tre le pro-fi-lage, plusieurs classes so
+nt utilis^^Sees par l'intelligence
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 506--507
+
+ []
+
 [29
 
 ]
+Overfull \hbox (15.05618pt too wide) in paragraph at lines 514--515
+[]\OT1/cmr/m/n/10 Enfin, une premi^^Rere boite de di-a-logue per-met ^^Ra l'uti
+lisateur d'indiquer l'ensemble
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 514--515
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 518--519
+
+ []
+
+[30]
 Chapitre 5.
 
-<./imagesRapport/courbeRationaliteMiseTheorique.jpg, id=144, 607.26875pt x 341.
+<./imagesRapport/courbeRationaliteMiseTheorique.jpg, id=147, 607.26875pt x 341.
 275pt>
 File: ./imagesRapport/courbeRationaliteMiseTheorique.jpg Graphic file (type jpg
 )
  <use ./imagesRapport/courbeRationaliteMiseTheorique.jpg>
 Package pdftex.def Info: ./imagesRapport/courbeRationaliteMiseTheorique.jpg use
-d on input line 518.
+d on input line 531.
 (pdftex.def)             Requested size: 303.63364pt x 170.63707pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 523--524
+Underfull \hbox (badness 10000) in paragraph at lines 536--537
 
  []
 
-[30
+[31
 
  <./imagesRapport/courbeRationaliteMiseTheorique.jpg>]
-Underfull \hbox (badness 10000) in paragraph at lines 528--531
+Underfull \hbox (badness 10000) in paragraph at lines 541--544
 
  []
 
 
-Overfull \hbox (61.49129pt too wide) in paragraph at lines 540--540
+Overfull \hbox (61.49129pt too wide) in paragraph at lines 553--553
 [] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 544--545
+Underfull \hbox (badness 10000) in paragraph at lines 557--558
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 556--557
+Underfull \hbox (badness 10000) in paragraph at lines 569--570
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 558--559
+Underfull \hbox (badness 10000) in paragraph at lines 571--572
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 560--561
-
- []
-
-[31]
-Underfull \hbox (badness 10000) in paragraph at lines 582--583
+Underfull \hbox (badness 10000) in paragraph at lines 573--574
 
  []
 
 [32]
+Underfull \hbox (badness 10000) in paragraph at lines 595--596
+
+ []
+
+[33]
 Chapitre 6.
 
-Underfull \hbox (badness 10000) in paragraph at lines 616--617
+Underfull \hbox (badness 10000) in paragraph at lines 629--630
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 618--619
+Underfull \hbox (badness 10000) in paragraph at lines 631--632
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 620--621
+Underfull \hbox (badness 10000) in paragraph at lines 633--634
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 628--629
+Underfull \hbox (badness 10000) in paragraph at lines 641--642
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 630--631
+Underfull \hbox (badness 10000) in paragraph at lines 643--644
 
  []
 
-[33
+[34
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 632--633
+Underfull \hbox (badness 10000) in paragraph at lines 645--646
 
  []
 
 
-Overfull \hbox (10.82889pt too wide) in paragraph at lines 634--635
+Overfull \hbox (10.82889pt too wide) in paragraph at lines 647--648
 []\OT1/cmr/m/n/9 Pour le choix de l'action agres-sive, le cal-cul se base sur u
 ne mise th^^Seorique d'agressivit^^Se
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 634--635
+Underfull \hbox (badness 10000) in paragraph at lines 647--648
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 638--639
+Underfull \hbox (badness 10000) in paragraph at lines 651--652
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 640--641
+Underfull \hbox (badness 10000) in paragraph at lines 653--654
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 642--643
+Underfull \hbox (badness 10000) in paragraph at lines 655--656
 
  []
 
 
-Overfull \hbox (3.99132pt too wide) in paragraph at lines 644--645
+Overfull \hbox (3.99132pt too wide) in paragraph at lines 657--658
 \OT1/cmr/m/n/9 re-spon-dante au taux d'agressivit^^Se en fonc-tion de la mise t
 o-tale ef-fectu^^See par l'intelligence
  []
 
-[34]
-Underfull \hbox (badness 10000) in paragraph at lines 667--668
-
- []
-
-
+[35]
 Underfull \hbox (badness 10000) in paragraph at lines 680--681
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 682--684
+Underfull \hbox (badness 10000) in paragraph at lines 693--694
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 688--689
+Underfull \hbox (badness 10000) in paragraph at lines 695--697
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 690--691
+Underfull \hbox (badness 10000) in paragraph at lines 701--702
 
  []
 
 
-Overfull \hbox (19.69508pt too wide) in paragraph at lines 695--725
+Underfull \hbox (badness 10000) in paragraph at lines 703--704
+
+ []
+
+
+Overfull \hbox (19.69508pt too wide) in paragraph at lines 708--738
  [] 
  []
 
-[35]
-Underfull \hbox (badness 10000) in paragraph at lines 729--730
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 738--739
-
- []
-
 [36]
-Underfull \hbox (badness 10000) in paragraph at lines 746--747
+Underfull \hbox (badness 10000) in paragraph at lines 742--743
 
- []
-
-
-Overfull \hbox (1.39493pt too wide) in paragraph at lines 750--750
-[]\OT1/cmr/m/n/9 Nous avons donc ef-fectu^^Se plusieurs tests avec plusieurs no
-m-bres de tirages diff^^Serents.
  []
 
 
@@ -1124,282 +1141,298 @@ Underfull \hbox (badness 10000) in paragraph at lines 751--752
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 753--754
+[37]
+Underfull \hbox (badness 10000) in paragraph at lines 759--760
 
  []
 
-[37]
-Overfull \hbox (9.93376pt too wide) in paragraph at lines 779--779
+
+Overfull \hbox (1.39493pt too wide) in paragraph at lines 763--763
+[]\OT1/cmr/m/n/9 Nous avons donc ef-fectu^^Se plusieurs tests avec plusieurs no
+m-bres de tirages diff^^Serents.
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 764--765
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 766--767
+
+ []
+
+[38]
+Overfull \hbox (9.93376pt too wide) in paragraph at lines 792--792
 []\OT1/cmr/m/n/9 L'impl^^Sementation de cette fonc-tion-nalit^^Se ayant con-sid
 ^^Serablement ralenti l'application,
  []
 
-[38]
+[39]
 Chapitre 7.
 
-Underfull \hbox (badness 10000) in paragraph at lines 789--790
+Underfull \hbox (badness 10000) in paragraph at lines 802--803
 
  []
 
 
-Overfull \hbox (30.69508pt too wide) in paragraph at lines 795--832
+Overfull \hbox (30.69508pt too wide) in paragraph at lines 808--845
  [] 
  []
 
-[39
+[40
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 836--837
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 839--840
-
- []
-
-[40]
-Underfull \hbox (badness 10000) in paragraph at lines 845--846
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 847--848
-
- []
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 849--850
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 851--852
+Underfull \hbox (badness 10000) in paragraph at lines 852--853
+
+ []
+
+[41]
+Underfull \hbox (badness 10000) in paragraph at lines 858--859
 
  []
 
 
-<./imagesRapport/profilageScenariosTestsAnalyseResultats.png, id=186, 903.375pt
+Underfull \hbox (badness 10000) in paragraph at lines 860--861
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 862--863
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 864--865
+
+ []
+
+
+<./imagesRapport/profilageScenariosTestsAnalyseResultats.png, id=190, 903.375pt
  x 501.875pt>
 File: ./imagesRapport/profilageScenariosTestsAnalyseResultats.png Graphic file 
 (type png)
 
 <use ./imagesRapport/profilageScenariosTestsAnalyseResultats.png>
 Package pdftex.def Info: ./imagesRapport/profilageScenariosTestsAnalyseResultat
-s.png used on input line 856.
+s.png used on input line 869.
 (pdftex.def)             Requested size: 451.6864pt x 250.93687pt.
 
-Overfull \hbox (52.00311pt too wide) in paragraph at lines 855--857
+Overfull \hbox (52.00311pt too wide) in paragraph at lines 868--870
 []  [] 
  []
 
-[41]
-Underfull \hbox (badness 10000) in paragraph at lines 861--862
+[42]
+Underfull \hbox (badness 10000) in paragraph at lines 874--875
 
  []
 
 
-<./imagesRapport/profilEtabliEnFonctionPartiesEtReel.jpg, id=191, 607.26875pt x
+<./imagesRapport/profilEtabliEnFonctionPartiesEtReel.jpg, id=194, 607.26875pt x
  341.275pt>
 File: ./imagesRapport/profilEtabliEnFonctionPartiesEtReel.jpg Graphic file (typ
 e jpg)
  <use ./imagesRapport/profilEtabliEnFonctionPartiesEtReel.jpg>
 Package pdftex.def Info: ./imagesRapport/profilEtabliEnFonctionPartiesEtReel.jp
-g used on input line 866.
+g used on input line 879.
 (pdftex.def)             Requested size: 303.63364pt x 170.63707pt.
 
-[42 <./imagesRapport/profilageScenariosTestsAnalyseResultats.png>] [43 <./image
+[43 <./imagesRapport/profilageScenariosTestsAnalyseResultats.png>] [44 <./image
 sRapport/profilEtabliEnFonctionPartiesEtReel.jpg>]
-Underfull \hbox (badness 10000) in paragraph at lines 911--912
+Underfull \hbox (badness 10000) in paragraph at lines 924--925
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 913--914
+Underfull \hbox (badness 10000) in paragraph at lines 926--927
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 915--916
+Underfull \hbox (badness 10000) in paragraph at lines 928--929
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 917--918
+Underfull \hbox (badness 10000) in paragraph at lines 930--931
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 919--920
+Underfull \hbox (badness 10000) in paragraph at lines 932--933
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 923--924
+Underfull \hbox (badness 10000) in paragraph at lines 936--937
 
  []
 
-[44]
-Overfull \hbox (7.33794pt too wide) in paragraph at lines 925--926
+[45]
+Overfull \hbox (7.33794pt too wide) in paragraph at lines 938--939
 []\OT1/cmr/m/n/9 Par cons^^Sequent si, lors de la phase de jeu et ^^Ra par-tir 
 de dix par-ties jou^^Sees, l'intelligence
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 925--926
+Underfull \hbox (badness 10000) in paragraph at lines 938--939
 
  []
 
-[45]
+[46]
 Chapitre 8.
 
-Underfull \hbox (badness 10000) in paragraph at lines 935--963
+Underfull \hbox (badness 10000) in paragraph at lines 948--976
 
  []
 
 
-Overfull \hbox (18.47597pt too wide) in paragraph at lines 966--967
+Overfull \hbox (18.47597pt too wide) in paragraph at lines 979--980
 \OT1/cmr/m/n/9 avons donc ren-seign^^Se dans l'application le nom-bre de par-ti
 es au bout desquelles l'intelligence
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 966--967
+Underfull \hbox (badness 10000) in paragraph at lines 979--980
 
  []
 
-[46
+[47
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 970--971
+Underfull \hbox (badness 10000) in paragraph at lines 983--984
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 991--992
+Underfull \hbox (badness 10000) in paragraph at lines 1004--1005
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 994--995
+Underfull \hbox (badness 10000) in paragraph at lines 1007--1008
 
  []
 
 
-<./imagesRapport/PremierCalibrageComparaisonNombrePartiesGagnees.jpg, id=209, 6
+<./imagesRapport/PremierCalibrageComparaisonNombrePartiesGagnees.jpg, id=212, 6
 07.26875pt x 341.275pt>
 File: ./imagesRapport/PremierCalibrageComparaisonNombrePartiesGagnees.jpg Graph
 ic file (type jpg)
 
 <use ./imagesRapport/PremierCalibrageComparaisonNombrePartiesGagnees.jpg>
 Package pdftex.def Info: ./imagesRapport/PremierCalibrageComparaisonNombreParti
-esGagnees.jpg used on input line 999.
+esGagnees.jpg used on input line 1012.
 (pdftex.def)             Requested size: 303.63364pt x 170.63707pt.
 
-[47]
-<./imagesRapport/PremierCalibrageComparaisonJetonsGagnees.jpg, id=213, 607.2687
+[48]
+<./imagesRapport/PremierCalibrageComparaisonJetonsGagnees.jpg, id=216, 607.2687
 5pt x 341.275pt>
 File: ./imagesRapport/PremierCalibrageComparaisonJetonsGagnees.jpg Graphic file
  (type jpg)
 
 <use ./imagesRapport/PremierCalibrageComparaisonJetonsGagnees.jpg>
 Package pdftex.def Info: ./imagesRapport/PremierCalibrageComparaisonJetonsGagne
-es.jpg used on input line 1035.
+es.jpg used on input line 1048.
 (pdftex.def)             Requested size: 303.63364pt x 170.63707pt.
- [48 <./imagesRapport/PremierCalibrageComparaisonNombrePartiesGagnees.jpg>]
-Underfull \hbox (badness 10000) in paragraph at lines 1044--1045
+ [49 <./imagesRapport/PremierCalibrageComparaisonNombrePartiesGagnees.jpg>]
+Underfull \hbox (badness 10000) in paragraph at lines 1057--1058
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1053--1054
+Underfull \hbox (badness 10000) in paragraph at lines 1066--1067
 
  []
 
-[49 <./imagesRapport/PremierCalibrageComparaisonJetonsGagnees.jpg>]
-<./imagesRapport/rechercheCalibrageOptimal8080.jpg, id=221, 827.09pt x 465.74pt
+[50 <./imagesRapport/PremierCalibrageComparaisonJetonsGagnees.jpg>]
+<./imagesRapport/rechercheCalibrageOptimal8080.jpg, id=224, 827.09pt x 465.74pt
 >
 File: ./imagesRapport/rechercheCalibrageOptimal8080.jpg Graphic file (type jpg)
 
  <use ./imagesRapport/rechercheCalibrageOptimal8080.jpg>
 Package pdftex.def Info: ./imagesRapport/rechercheCalibrageOptimal8080.jpg used
- on input line 1063.
+ on input line 1076.
 (pdftex.def)             Requested size: 413.54398pt x 232.86943pt.
 
-Overfull \hbox (68.54398pt too wide) in paragraph at lines 1063--1064
+Overfull \hbox (68.54398pt too wide) in paragraph at lines 1076--1077
  [] 
  []
 
-[50 <./imagesRapport/rechercheCalibrageOptimal8080.jpg>]
-<./imagesRapport/NombrePartiesGagneesEnFonctionCalibrage.jpg, id=225, 607.26875
+[51 <./imagesRapport/rechercheCalibrageOptimal8080.jpg>]
+<./imagesRapport/NombrePartiesGagneesEnFonctionCalibrage.jpg, id=228, 607.26875
 pt x 341.275pt>
 File: ./imagesRapport/NombrePartiesGagneesEnFonctionCalibrage.jpg Graphic file 
 (type jpg)
 
 <use ./imagesRapport/NombrePartiesGagneesEnFonctionCalibrage.jpg>
 Package pdftex.def Info: ./imagesRapport/NombrePartiesGagneesEnFonctionCalibrag
-e.jpg used on input line 1105.
-(pdftex.def)             Requested size: 303.63364pt x 170.63707pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 1110--1111
-
- []
-
-[51 <./imagesRapport/NombrePartiesGagneesEnFonctionCalibrage.jpg>]
-<./imagesRapport/JetonsGagnesEnFonctionCalibrage.jpg, id=229, 607.26875pt x 341
-.275pt>
-File: ./imagesRapport/JetonsGagnesEnFonctionCalibrage.jpg Graphic file (type jp
-g)
- <use ./imagesRapport/JetonsGagnesEnFonctionCalibrage.jpg>
-Package pdftex.def Info: ./imagesRapport/JetonsGagnesEnFonctionCalibrage.jpg us
-ed on input line 1114.
+e.jpg used on input line 1118.
 (pdftex.def)             Requested size: 303.63364pt x 170.63707pt.
 
 Underfull \hbox (badness 10000) in paragraph at lines 1123--1124
 
  []
 
-[52 <./imagesRapport/JetonsGagnesEnFonctionCalibrage.jpg>]
-Chapitre 9.
+[52 <./imagesRapport/NombrePartiesGagneesEnFonctionCalibrage.jpg>]
+<./imagesRapport/JetonsGagnesEnFonctionCalibrage.jpg, id=232, 607.26875pt x 341
+.275pt>
+File: ./imagesRapport/JetonsGagnesEnFonctionCalibrage.jpg Graphic file (type jp
+g)
+ <use ./imagesRapport/JetonsGagnesEnFonctionCalibrage.jpg>
+Package pdftex.def Info: ./imagesRapport/JetonsGagnesEnFonctionCalibrage.jpg us
+ed on input line 1127.
+(pdftex.def)             Requested size: 303.63364pt x 170.63707pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1130--1131
+Underfull \hbox (badness 10000) in paragraph at lines 1136--1137
 
  []
 
-[53
+[53 <./imagesRapport/JetonsGagnesEnFonctionCalibrage.jpg>]
+Chapitre 9.
 
-] (./Rapport.bbl [54]) [55
+Underfull \hbox (badness 10000) in paragraph at lines 1143--1144
+
+ []
+
+[54
+
+] (./Rapport.bbl [55]) [56
 
 ]
 Annexe A.
-<../DiagrammePrevisionnel.png, id=244, 2091.815pt x 797.98125pt>
+<../DiagrammePrevisionnel.png, id=247, 2091.815pt x 797.98125pt>
 File: ../DiagrammePrevisionnel.png Graphic file (type png)
 
 <use ../DiagrammePrevisionnel.png>
-Package pdftex.def Info: ../DiagrammePrevisionnel.png used on input line 1156.
+Package pdftex.def Info: ../DiagrammePrevisionnel.png used on input line 1169.
 (pdftex.def)             Requested size: 585.70422pt x 223.43323pt.
 
-Overfull \hbox (123.25829pt too wide) in paragraph at lines 1155--1158
+Overfull \hbox (123.25829pt too wide) in paragraph at lines 1168--1171
   []
  []
 
-[56
+[57
 
  <../DiagrammePrevisionnel.png (PNG copy)>]
 Annexe B.
-<../DiagrammeReel.png, id=248, 2519.4125pt x 849.1725pt>
+<../DiagrammeReel.png, id=251, 2519.4125pt x 849.1725pt>
 File: ../DiagrammeReel.png Graphic file (type png)
 
 <use ../DiagrammeReel.png>
-Package pdftex.def Info: ../DiagrammeReel.png used on input line 1161.
+Package pdftex.def Info: ../DiagrammeReel.png used on input line 1174.
 (pdftex.def)             Requested size: 604.67137pt x 203.80556pt.
 
-Overfull \hbox (133.68951pt too wide) in paragraph at lines 1160--1162
+Overfull \hbox (133.68951pt too wide) in paragraph at lines 1173--1175
   [] 
  []
 
-[57
+[58
 
  <../DiagrammeReel.png>] (./Rapport.aux) ) 
 Here is how much of TeX's memory you used:
@@ -1422,10 +1455,10 @@ re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/tex
 live/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texlive/te
 xmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-di
 st/fonts/type1/public/amsfonts/cm/cmti9.pfb>
-Output written on Rapport.pdf (57 pages, 983812 bytes).
+Output written on Rapport.pdf (58 pages, 986286 bytes).
 PDF statistics:
- 294 PDF objects out of 1000 (max. 8388607)
- 183 compressed objects within 2 object streams
+ 297 PDF objects out of 1000 (max. 8388607)
+ 185 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  126 words of extra memory for PDF output out of 10000 (max. 10000000)
 
