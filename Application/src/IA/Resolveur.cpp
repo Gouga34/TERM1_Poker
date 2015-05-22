@@ -334,7 +334,6 @@ Action Resolveur::calculerAction(){
 
     Action actionAgressivite=calculerActionAgressivite();
     Action actionRationalite=calculerActionRationalite();
-    //std::cout<<"actionAgressivite: "<<actionAgressivite.getAction()<<" actionRationalite: "<<actionRationalite.getAction()<<std::endl;
 
     bool tirageAleatoire=false;
     ACTION action=PAS_ENCORE_D_ACTION;
@@ -441,12 +440,15 @@ Action Resolveur::calculerAction(){
         //TAPIS et SE_COUCHER
         if((actionAgressivite.getAction()==TAPIS && actionRationalite.getAction()==SE_COUCHER)
             || (actionAgressivite.getAction()==SE_COUCHER && actionRationalite.getAction()==TAPIS) ){
+
+            int jetons = (ia->getCave() == 1) ? 1 : ia->getCave()/2;
+
             if(ia->getJeu()->peutSuivre(ia->getPosition())){
                 action=SUIVRE;
             }
-            else if(ia->getJeu()->peutMiser(ia->getPosition(),ia->getCave()/2)){
+            else if(ia->getJeu()->peutMiser(ia->getPosition(),jetons)){
                 action=MISER;
-                jetonsAMiser=ia->getCave()/2;
+                jetonsAMiser=jetons;
             }
         }
         //TAPIS et CHECKER
@@ -456,9 +458,11 @@ Action Resolveur::calculerAction(){
                 action=SUIVRE;
             }
             else{
-                if(ia->getJeu()->peutMiser(ia->getPosition(),ia->getCave()/2)){
+                int jetons = (ia->getCave() == 1) ? 1 : ia->getCave()/2;
+
+                if(ia->getJeu()->peutMiser(ia->getPosition(),jetons)){
                     action=MISER;
-                    jetonsAMiser=ia->getCave()/2;
+                    jetonsAMiser=jetons;
                 }
             }
         }

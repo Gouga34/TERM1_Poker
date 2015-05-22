@@ -47,6 +47,11 @@ private:
      */
     void ajouterLigne();
 
+    /**
+     * @brief Scroll automatiquement vers le bas pour afficher la denrière ligne du tableau
+     */
+    void scrollAutomatiqueTableau();
+
 public:
     ContenuFenetreIA(Jeu *j);
     virtual ~ContenuFenetreIA();
