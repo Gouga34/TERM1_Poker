@@ -26,21 +26,26 @@ void Jeu::addJoueur(Joueur *joueur) {
     listeJoueurs.push_back(joueur);
 }
 
+void Jeu::nouvellePartie() {
+    reinitialisationCaves();
+    distributionMain();
+}
+
 void Jeu::reinitialisationCaves() {
 
     setPot(0);
 
-    if (REINITIALISATION_CAVE) {
-
-        getJoueur(0)->setCave(CAVE_JOUEURS);
-        getJoueur(1)->setCave(CAVE_JOUEURS);
-    }
-    else {
-        for (int i = 0; i < listeJoueurs.size(); i++) {
+    for (int i = 0; i < listeJoueurs.size(); i++) {
+        if (REINITIALISATION_CAVE) {
+            getJoueur(i)->setCave(CAVE_JOUEURS);
+        }
+        else {
             if (getJoueur(i)->getCave() == 0) {
                 getJoueur(i)->setCave(CAVE_JOUEURS);
             }
         }
+
+        getJoueur(i)->setCaveDeDepart(getJoueur(i)->getCave());
     }
 }
 

@@ -172,7 +172,7 @@ void Resolveur::calculerTotalMiseTheoriqueAgressivite(){
     if(tauxMiseTotale==0.0){
         tauxMiseTotale=((calibrage->getAgressivite()-palierInferieur)*((miseTheoriqueSuperieure-miseTheoriqueInferieure)/(palierSuperieur-palierInferieur)))+miseTheoriqueInferieure;
     }
-    miseTotaleTheoriqueAgressivite=(tauxMiseTotale/100) * CAVE_JOUEURS;
+    miseTotaleTheoriqueAgressivite=(tauxMiseTotale/100) * ia->getCaveDeDepart();
 }
 
 

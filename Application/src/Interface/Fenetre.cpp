@@ -120,8 +120,7 @@ void Fenetre::demarragePartie()
         for(int j=0;j<nbParties;j++){
             std::cout << "Partie " << j+1 << std::endl;
 
-            jeu->reinitialisationCaves();
-            jeu->distributionMain();
+            jeu->nouvellePartie();
 
             if (jeu->getJoueur(0)->estHumain()) {
                 ContenuFenetreHumain *c = static_cast<ContenuFenetreHumain*>(contenu);

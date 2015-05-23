@@ -68,8 +68,7 @@ void CalibrageIdeal::lancerParties()
             for (int n = 0; n < nombreParties; n++) {
                 std::cout << "\tPartie " << n+1 << std::endl;
 
-                jeu->reinitialisationCaves();
-                jeu->distributionMain();
+                jeu->nouvellePartie();
 
                 jeu->lancer();
 
@@ -78,7 +77,7 @@ void CalibrageIdeal::lancerParties()
                     nombrePartiesGagnees++;
                 }
 
-                argentTotalGagne += jeu->getJoueur(1)->getCave() - CAVE_JOUEURS;
+                argentTotalGagne += jeu->getJoueur(1)->getCave() - jeu->getJoueur(1)->getCaveDeDepart();
 
                 jeu->nouvelleMain();
             }

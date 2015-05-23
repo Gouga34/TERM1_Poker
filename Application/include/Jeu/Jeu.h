@@ -214,6 +214,11 @@ class Jeu{
         void addJoueur(Joueur *joueur);
 
         /**
+         * @brief Lance une nouvelle partie
+         */
+        void nouvellePartie();
+
+        /**
          * @brief Réinitialise les caves des joueurs
          */
         void reinitialisationCaves();

@@ -118,7 +118,7 @@ void IntelligenceArtificielleProfilage::calculProfilGlobalJoueur() {
         profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxChecks = resultat;
     }
 
-    resultat = CalculDonneesProfilage::taux(profilage->etatPartie[ETAPE_JEU::NB_ETAPES].misePlusHaute,CAVE_JOUEURS);
+    resultat = CalculDonneesProfilage::taux(profilage->etatPartie[ETAPE_JEU::NB_ETAPES].misePlusHaute,getCaveDeDepart());
     if (resultat == -1) {
         profilage->etatPartie[ETAPE_JEU::NB_ETAPES].misePlusHaute = 0;
     }
@@ -126,7 +126,7 @@ void IntelligenceArtificielleProfilage::calculProfilGlobalJoueur() {
         profilage->etatPartie[ETAPE_JEU::NB_ETAPES].misePlusHaute = resultat;
     }
 
-    resultat = CalculDonneesProfilage::taux(profilage->etatPartie[ETAPE_JEU::NB_ETAPES].miseTotaleJoueur,CAVE_JOUEURS);
+    resultat = CalculDonneesProfilage::taux(profilage->etatPartie[ETAPE_JEU::NB_ETAPES].miseTotaleJoueur,getCaveDeDepart());
     if (resultat == -1) {
         profilage->etatPartie[ETAPE_JEU::NB_ETAPES].miseTotaleJoueur = 0;
     }
@@ -147,12 +147,12 @@ void IntelligenceArtificielleProfilage::calculProfilGlobalJoueur() {
 
     RESULTAT_PARTIE resultatPartie = getJeu()->getResultatPartie();
     if(resultatPartie==GAGNE){
-        profilage->nbJetonsGagnesIAQuiProfile=getCave()-CAVE_JOUEURS;
+        profilage->nbJetonsGagnesIAQuiProfile=getCave()-getCaveDeDepart();
         resultatPartie=PERDU;
     }
     else if(resultatPartie==PERDU){
         resultatPartie=GAGNE;
-        profilage->nbJetonsGagnesIAQuiProfile=getCave()-CAVE_JOUEURS;
+        profilage->nbJetonsGagnesIAQuiProfile=getCave()-getCaveDeDepart();
     }
     else{
         profilage->nbJetonsGagnesIAQuiProfile=0;
