@@ -11,10 +11,10 @@ Specification: Fichier contenant les définitions de la classe
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-#include<iostream>
-#include<QFormLayout>
-#include<QFile>
-#include<QTextStream>
+#include <QFormLayout>
+#include <QFile>
+#include <QTextStream>
+#include <QApplication>
 #include "../../include/Interface/ChoixOptionsDialog.h"
 #include "../../include/Constantes.h"
 
@@ -35,8 +35,15 @@ ChoixOptionsDialog::ChoixOptionsDialog() : QDialog(){
     choixAdversaire.setText("IA contre IA");
     choixAdversaire.setChecked(true);
 
-    //boiteNombreParties.setValue(10);
-    //boiteNombreParties.setMaximum(500);
+    boiteNombreCalibrages.setValue(1);
+    boiteNombreCalibrages.setMaximum(500);
+
+    boiteNombreParties.setValue(10);
+    boiteNombreParties.setMaximum(500);
+
+    boiteNombrePartiesProfilage.setValue(10);
+    boiteNombrePartiesReprofilage.setValue(5);
+    boiteNombrePartiesGains.setValue(10);
 
     //QLabel *calibrageDefaut = new QLabel("Rationalité : " + QString::number(rationaliteDefaut)
     //                                       + "%\nAgressivité : " + QString::number(agressiviteDefaut) + "%");
@@ -78,13 +85,21 @@ ChoixOptionsDialog::ChoixOptionsDialog() : QDialog(){
     QFormLayout *formulaire = new QFormLayout;
     //formulaire->addRow("Nouveau pseudo ",&nouveau);
     //formulaire->addRow("Pseudo déjà existant",&pseudos);
-    formulaire->addRow("",&choixAdversaire);
-    //formulaire->addRow("Nombre de parties", &boiteNombreParties);
+
+    formulaire->addRow("Nombre de calibrages à profiler", &boiteNombreCalibrages);
+    formulaire->addRow("Nombre de parties", &boiteNombreParties);
+    formulaire->addRow("Nombre de parties profilage", &boiteNombrePartiesProfilage);
+    formulaire->addRow("Nombre de parties reprofilage", &boiteNombrePartiesReprofilage);
+    formulaire->addRow("Nombre de parties minimum phase de gains", &boiteNombrePartiesGains);
+    formulaire->addRow("Analyse des gains de parties", &caseAnalyseGainsParties);
+
     //formulaire->addRow("Calibrage par défaut", calibrageDefaut);
     //formulaire->addRow("Rationalité", layoutRationalite);
     //formulaire->addRow("Agressivité", layoutAgressivite);
 
     //Ajout du formulaire et du bouton valider dans la fenetre
+    boite->setAlignment(Qt::AlignHCenter);
+    boite->addWidget(&choixAdversaire);
     boite->addLayout(formulaire);
     boite->addWidget(bouton);
 
@@ -124,7 +139,14 @@ Options ChoixOptionsDialog::getOptions(){
         QString ancienPseudo = pseudos.currentText();
 
         options.joueurIA = choixAdversaire.isChecked();
+        options.nombreCalibrages = boiteNombreCalibrages.value();
         options.nombreParties = boiteNombreParties.value();
+
+        options.nombrePartiesProfilage = boiteNombrePartiesProfilage.value();
+        options.nombrePartiesReprofilage = boiteNombrePartiesReprofilage.value();
+        options.nombrePartiesGains = boiteNombrePartiesGains.value();
+
+        options.analyseGainsParties = caseAnalyseGainsParties.isChecked();
 
         if(!nouveauPseudo.isEmpty()){
             options.pseudo = nouveauPseudo;
@@ -138,11 +160,6 @@ Options ChoixOptionsDialog::getOptions(){
 
         options.rationaliteIA = rationalite.value();
         options.agressiviteIA = agressivite.value();
-    }
-    else {
-        options.pseudo = "";
-        options.rationaliteIA = static_cast<double>(rationaliteDefaut);
-        options.agressiviteIA = static_cast<double>(agressiviteDefaut);
     }
 
     return options;
