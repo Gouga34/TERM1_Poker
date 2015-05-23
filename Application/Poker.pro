@@ -27,7 +27,8 @@ SOURCES += \
     src/Profilage/PhaseJeu.cpp \
     src/Interface/ContenuFenetre.cpp \
     src/Interface/ContenuFenetreHumain.cpp \
-    src/Interface/ContenuFenetreIA.cpp
+    src/Interface/ContenuFenetreIA.cpp \
+    src/Formules/Forumules.cpp
 
 
 QT+=widgets
@@ -61,7 +62,8 @@ HEADERS += \
     include/Profilage/PhaseJeu.h \
     include/Interface/ContenuFenetre.h \
     include/Interface/ContenuFenetreHumain.h \
-    include/Interface/ContenuFenetreIA.h
+    include/Interface/ContenuFenetreIA.h \
+    include/Formules/Formules.h
 
 CONFIG += c++11
 
