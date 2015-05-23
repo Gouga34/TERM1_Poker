@@ -96,7 +96,7 @@ class Jeu{
 		*@param  : Le nombre de joueur, le montant de la blind de depart, la cave de depart des joueurs et le type de proffiling de l'IA
 		*@action : Initialise un nouveau jeu
 		**/
-        Jeu(int nbJoueur, int blindDepart, int cave);
+        Jeu(int nbJoueur, int blindDepart);
 		
 		/**
 		*@action : Destructeur de la classe Jeu

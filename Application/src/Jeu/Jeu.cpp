@@ -4,7 +4,7 @@
 
 #include <iterator>
 
-Jeu::Jeu(int nbJoueur, int blindDepart, int cave) : actions(nbJoueur) {
+Jeu::Jeu(int nbJoueur, int blindDepart) : actions(nbJoueur) {
 	srand((unsigned)time(0));
 
     this->deck = nouveauDeck();
@@ -16,7 +16,7 @@ Jeu::Jeu(int nbJoueur, int blindDepart, int cave) : actions(nbJoueur) {
 }
 
 Jeu::~Jeu(){
-    for (int i = 0; i < listeJoueurs.size(); i++) {
+    for (unsigned int i = 0; i < listeJoueurs.size(); i++) {
         delete listeJoueurs.at(i);
     }
 }
@@ -35,7 +35,7 @@ void Jeu::reinitialisationCaves() {
 
     setPot(0);
 
-    for (int i = 0; i < listeJoueurs.size(); i++) {
+    for (unsigned int i = 0; i < listeJoueurs.size(); i++) {
         if (REINITIALISATION_CAVE) {
             getJoueur(i)->setCave(CAVE_JOUEURS);
         }
@@ -147,7 +147,7 @@ void Jeu::distributionBlind(){
 
     this->joueurCourant = getDealer();
 
-    for(int i=0; i<this->listeJoueurs.size(); i++){
+    for(unsigned int i=0; i<listeJoueurs.size(); i++){
         this->getJoueur(i)->resetCompteurActions();
     }
 }
@@ -356,7 +356,7 @@ bool Jeu::finDuTour(){
     }
 
     // Si un joueur a fait tapis et que l'adversaire a joué
-    for (int i = 0; i < listeJoueurs.size(); i++) {
+    for (unsigned int i = 0; i < listeJoueurs.size(); i++) {
         if (getLastAction(i) == TAPIS) {
 
             // Si l'autre a suivi, on cherche si c'est avant ou après le tapis (suivi de grosse blind)
@@ -368,7 +368,7 @@ bool Jeu::finDuTour(){
     }
 
     // Si la suite de mises/relances est terminée (suivi)
-    for (int i = 0; i < listeJoueurs.size(); i++) {
+    for (unsigned int i = 0; i < listeJoueurs.size(); i++) {
         if (getLastAction(i) == SUIVRE
                 && (actions[i].at(actions[i].size()-2) != PETITE_BLIND
                     || (actions[i].at(actions[i].size()-2) == PETITE_BLIND

@@ -23,7 +23,7 @@ ListeCartes::~ListeCartes()
 
 void ListeCartes::ajoutCartes(std::vector<Carte> cartes)
 {
-    for (int i = 0; i < cartes.size(); i++) {
+    for (unsigned int i = 0; i < cartes.size(); i++) {
         CarteGraphique *c = new CarteGraphique(cartes.at(i));
         this->addWidget(c);
     }

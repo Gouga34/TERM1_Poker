@@ -34,7 +34,7 @@ Fenetre::Fenetre() : QWidget()
     nombreDeParties = options.nombreParties;
 
     // Création du jeu
-    jeu = new Jeu(2, 20, CAVE_JOUEURS);
+    jeu = new Jeu(2, 20);
 
     Joueur *j1;
     if (options.joueurIA) {
