@@ -34,7 +34,7 @@ Fenetre::Fenetre() : QWidget()
     nombreDeParties = options.nombreParties;
 
     // Création du jeu
-    jeu = new Jeu(2, 20, CAVE_JOUEURS);
+    jeu = new Jeu(2, 20);
 
     Joueur *j1;
     if (options.joueurIA) {
@@ -120,8 +120,7 @@ void Fenetre::demarragePartie()
         for(int j=0;j<nbParties;j++){
             std::cout << "Partie " << j+1 << std::endl;
 
-            jeu->reinitialisationCaves();
-            jeu->distributionMain();
+            jeu->nouvellePartie();
 
             if (jeu->getJoueur(0)->estHumain()) {
                 ContenuFenetreHumain *c = static_cast<ContenuFenetreHumain*>(contenu);

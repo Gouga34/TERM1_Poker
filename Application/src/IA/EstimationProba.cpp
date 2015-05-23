@@ -7,12 +7,12 @@
 
 
 EstimationProba::EstimationProba(int nombreTests)
-    : nbTests(nombreTests), jeu(0), joueur(0), resultatRestimation(0) {
+    : nbTests(nombreTests), resultatRestimation(0), jeu(0), joueur(0) {
 
 }
 
 EstimationProba::EstimationProba(Jeu *j, Joueur *jo, int nombreTests)
-    : nbTests(nombreTests), jeu(j), joueur(jo), resultatRestimation(0) {
+    : nbTests(nombreTests), resultatRestimation(0), jeu(j), joueur(jo) {
 
 }
 

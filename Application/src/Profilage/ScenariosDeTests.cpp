@@ -317,7 +317,7 @@ void ScenariosDeTests::ancienneSituationLaPlusProche(QFile& fichierProfil){
         QStringList liste;
         int differenceAgressivitePrecedente=100;
         int differenceChancesGainIAPrecedente=100;
-        int distancePrecedente=1000;
+        //int distancePrecedente=1000;
 
         //On va parcourir tout le fichier pour récupérer le profil le plus proche possible s'il y en a un
         while(!ligne.isEmpty()){
@@ -344,7 +344,7 @@ void ScenariosDeTests::ancienneSituationLaPlusProche(QFile& fichierProfil){
 
                         actionAttendueJoueur.setAgressivite(liste.at(AGRESSIVITE_REELLE).toDouble());
                         actionAttendueJoueur.setRationalite(liste.at(RATIONALITE_REELLE).toDouble());
-                        distancePrecedente=liste.at(DISTANCE).toDouble();
+                        //distancePrecedente=liste.at(DISTANCE).toDouble();
                     }
                 }
             }

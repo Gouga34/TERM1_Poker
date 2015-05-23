@@ -31,10 +31,17 @@ int Joueur::getCave() const{
 	return this->cave;
 }
 
+int Joueur::getCaveDeDepart() const {
+    return caveDeDepart;
+}
+
 void Joueur::setCave(int jetons){
     cave=jetons;
 }
 
+void Joueur::setCaveDeDepart(int cave) {
+    caveDeDepart = cave;
+}
 
 int Joueur::getPosition() const{
 	return this->position;

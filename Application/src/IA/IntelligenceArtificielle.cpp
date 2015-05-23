@@ -91,7 +91,7 @@ void IntelligenceArtificielle::attendreResultatEstimation()
 {
     double sommeEstimations = 0;
 
-    for (int i = 0; i < estimateurs.size(); i++) {
+    for (unsigned int i = 0; i < estimateurs.size(); i++) {
         estimateurs[i]->wait();
         sommeEstimations += estimateurs[i]->getResultat();
 

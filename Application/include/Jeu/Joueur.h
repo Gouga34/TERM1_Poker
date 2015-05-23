@@ -15,6 +15,7 @@ class Joueur{
 		std::vector<Carte>	main;
         int*                compteurActions;
         int                 cave;
+        int                 caveDeDepart;
         Jeu*                jeu;
         int                 position;
         int                 miseCourante;
@@ -63,13 +64,24 @@ class Joueur{
 		*@action : Permet d'obtenir le nombre de jeton dont dispose un joueur
 		*@return : La cave d'un joueur
 		**/
-		int  			getCave() const;	
+        int getCave() const;
+
+        /**
+         * @return Cave du joueur en début de partie
+         */
+        int getCaveDeDepart() const;
 
         /**
          * @brief setCave
          * @param jetons
          */
         void setCave(int jetons);
+
+        /**
+         * @brief Set la cave de départ du joueur
+         * @param cave
+         */
+        void setCaveDeDepart(int cave);
 		
 		/**
 		*@action : Permet d'obtenir la main du joueur

@@ -203,7 +203,7 @@ void ContenuFenetreHumain::debutPartie()
     std::vector<Carte> jeuAdverse = jeu->getJoueur(1)->getMain();
 
     Logger::getInstance()->ajoutLogs("Jeu adverse : ");
-    for (int i = 0; i < jeuAdverse.size(); i++) {
+    for (unsigned int i = 0; i < jeuAdverse.size(); i++) {
         Logger::getInstance()->ajoutLogs("-> " + QString::number(jeuAdverse.at(i).getRang())
                   + " " + CarteGraphique::couleurs[jeuAdverse.at(i).getCouleur()]);
     }
@@ -318,7 +318,7 @@ void ContenuFenetreHumain::afficheTable()
     layoutCartesCommunes.ajoutCartes(table);
 
     // On complète la table avec des dos de carte
-    for (int i = 0; i < 5 - table.size(); i++) {
+    for (unsigned int i = 0; i < 5 - table.size(); i++) {
         CarteGraphique *dos = new CarteGraphique(0, 0);
         layoutCartesCommunes.addWidget(dos);
     }

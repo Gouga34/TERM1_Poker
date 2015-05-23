@@ -83,7 +83,7 @@ std::vector<int> CartesDialog::choixCartes()
 
 bool CartesDialog::ajoutCarte(int id, ListeCartes liste)
 {
-    int pos = 0, nbCartes = 2;
+    unsigned int pos = 0, nbCartes = 2;
     if (liste == IA) {
         pos = 2;
     }
@@ -92,7 +92,7 @@ bool CartesDialog::ajoutCarte(int id, ListeCartes liste)
         nbCartes = 5;
     }
 
-    int i = pos;
+    unsigned int i = pos;
     while (i < cartesSelectionnees.size() && i < (pos + nbCartes)
                 && cartesSelectionnees.at(i) != -1) {
         i++;
