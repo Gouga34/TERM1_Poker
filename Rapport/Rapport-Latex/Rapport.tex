@@ -498,24 +498,31 @@ Dans le cadre du TER, nous nous sommes concentrés sur le profilage statique afi
 
 \chapter{Mise en place du jeu et de l'interface graphique}
 \section{Jeu}
-%%Faire diagramme de classe avec le jeu et IA dedans
 
+%%%%%%%%%%%%%%%%%%% TODO %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%Faire diagramme de classe avec le jeu et IA dedans%
+%% Lier diagramme et texte %%%%%%%%%%%%%%%%%%%%%%%%%%
 \hspace{0.5cm}La première étape de développement a consisté à mettre en place le jeu de poker pour permettre la lancement de séries de parties pour le profilage.\par
-Nous avons donc créé une classe Jeu gérant l'ensemble d'une partie. Puis nous avons créé différents types de joueurs, à savoir un joueur humain, une intelligence artificielle et une intelligence artificielle qui profile. Chacune des intelligences artificielles possède une instance d'un résolveur qui est chargé du calcul de la prochaine action à effectuer en fonction de la situation courante et du calibrage de l'intelligence artificielle.\par
+Nous avons donc créé une classe Jeu gérant l'ensemble d'une partie. Puis nous avons créé différents types de joueurs, à savoir un joueur humain, une intelligence artificielle et une intelligence artificielle qui profile son adversaire. Chacune des intelligences artificielles possède un résolveur chargé du calcul de la prochaine action à effectuer en fonction de la situation courante et du calibrage de l'intelligence artificielle.\par
 Une classe EstimationProba permet à chaque résolveur de calculer ses chances de gain, et la classe EvaluateurMains permet de déterminer le gagnant à partir des cartes en jeu. Cet évaluateur est utilisé à chaque fin de partie, ainsi que dans l'estimateur qui lance des séries de parties tests.\par 
-Enfin, pour permettre le profilage, plusieurs classes sont utilisées par l'intelligence artificielle correspondante. Il s'agit de la classe Profilage qui contient toutes les données à enregistrer dans les fichiers, et la classe ScenarioTests qui s'occupe de la gestion des aniens profilages effectués pour affiner au mieux la recherche du profil adverse.\\
+Enfin, pour permettre le profilage, plusieurs classes sont utilisées par l'intelligence artificielle correspondante. Il s'agit de la classe Profilage qui contient toutes les données à enregistrer dans les fichiers, et de la classe ScenarioTests qui s'occupe de la gestion des anciens profilages effectués afin d'affiner au mieux la recherche du profil adverse.\\
 
 \section{Interface graphique}
 %%Faire un diagramme de classe de l'interface avec contenu fenetre IA et humain
 \subsection{Intelligence artificielle face à un joueur humain}
 
+%%%%%%%%%%%%%%%%%%%%%%%%% Mettre screen shot interface graphique humain %%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \hspace{0.5cm}Lors du démarrage de la phase de développement, nous avons développé parallèlement au jeu, l'interface graphique afin de permettre à un joueur humain de pouvoir jouer face à une intelligence artificielle et de suivre le déroulement d'une partie.\par 
-La fenêtre contient donc l'ensemble des cartes du jeu, avec celles du joueur adverse, face cachées pendant la partie et dévoilées à la fin. L'ensemble des boutons d'action sont mis à disposition du joueur avec une boite pour rentrer les mises, et désactivés lorsque c'est au joueur adverse de jouer. Un boite de texte contient également l'ensemble des logs de la partie.\par 
+La fenêtre contient donc l'ensemble des cartes du jeu, avec celles du joueur adverse, face cachées pendant la partie et dévoilées à la fin. L'ensemble des boutons d'action sont mis à disposition du joueur avec une boite permettant de donner le montant des mises. Tous ces boutons sont désactivés lorsque c'est à l'adversaire de jouer. Une boite de texte contient également l'ensemble des logs de la partie.\par 
 Enfin, une première boite de dialogue permet à l'utilisateur d'indiquer l'ensemble des paramètres de la partie, comme le nombre de parties de profilage ou de gains.\\
+%%%%%%%%%%%%%%%%%%%%% Mettre screen shot 1r boite de dialogue %%%%%%%%%%%%%%%%%%%%%'
 
 \subsection{Intelligence artificielle face à une autre intelligence artificielle}
 
-\hspace{0.5cm}Finalement, lors du lancement d'un grand nombre de parties intelligence artificielle contre intelligence artificielle, il n'était pas utile que l'interface affiche le déroulement de l'ensemble des parties. C'est pourquoi nous avons conçu une deuxième interface qui n'affiche alors que le résultat de profilage de chaque partie dans un tableau. A la fin de chaque partie, une ligne est ajoutée au tableau indiquant le taux de profilage, et les gains de l'ia sur la partie.\\
+%%%%%%%%%%%%%%%%%%%%%%% Mettre screen shot interface IA vs IA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\hspace{0.5cm}Étant donné qu'il faut aussi pouvoir lancer un grand nombre de parties en faisant jouer deux intelligences artificielles l'une contre l'autre, il n'était pas utile que l'interface affiche le déroulement de l'ensemble des parties. C'est pourquoi nous avons conçu une deuxième interface qui n'affiche alors que les données résultant de chaque partie dans un tableau. A la fin de chaque partie, une ligne est ajoutée au tableau indiquant le taux de profilage, et les gains de l'intelligence artificielle sur la partie.\\
 
 \chapter{Calcul du profil d'un joueur}
 
