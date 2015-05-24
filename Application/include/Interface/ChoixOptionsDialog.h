@@ -46,13 +46,14 @@ class ChoixOptionsDialog : public QDialog{
 
 private :
 
-   QLineEdit pseudo;
-
    QRadioButton modeProfilage;
    QRadioButton modeCalibrageOptimal;
 
    QStackedLayout layoutParametres;
 
+   //// Paramètres profilage ////
+
+   QLineEdit pseudo;
    QGroupBox choixAdversaire;
    QSpinBox boiteNombreCalibrages;
    QSpinBox boiteNombreParties;
@@ -67,7 +68,11 @@ private :
    ChoixCalibrage calibrageIAProfilee;
    ChoixCalibrage calibrageIAQuiProfile;
 
+   //// Paramètres calibrage optimal ////
+
    QSpinBox boiteNombrePartiesCalibrageOptimal;
+
+   ChoixCalibrage calibrageAdversaire;
 
    /**
     * @action ajoute dans la liste déroulante pseudos les pseudos déjà connus.

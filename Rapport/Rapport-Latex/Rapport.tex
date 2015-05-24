@@ -499,31 +499,46 @@ Dans le cadre du TER, nous nous sommes concentrés sur le profilage statique afi
 \chapter{Mise en place du jeu et de l'interface graphique}
 \section{Jeu}
 
-%%%%%%%%%%%%%%%%%%% TODO %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%Faire diagramme de classe avec le jeu et IA dedans%
-%% Lier diagramme et texte %%%%%%%%%%%%%%%%%%%%%%%%%%
 \hspace{0.5cm}La première étape de développement a consisté à mettre en place le jeu de poker pour permettre la lancement de séries de parties pour le profilage.\\
 
-La gestion globale du jeu de poker est composée des classes représentées de façon minimaliste dans la figure suivante.
+La gestion globale du jeu de poker est composée des classes représentées de façon minimaliste dans la figure suivante.\\
+
+Nous avons donc créé une classe Jeu gérant l'ensemble d'une partie. Puis nous avons créé différents types de joueurs, à savoir un joueur humain, une intelligence artificielle et une intelligence artificielle qui profile son adversaire. Chacune des intelligences artificielles possède un résolveur chargé du calcul de la prochaine action à effectuer en fonction de la situation courante et du calibrage de l'intelligence artificielle.\par
 
 \begin{figure}[H]
 \hspace{-1.5cm}
-%	\begin{center}
 		\includegraphics[scale=0.7]{./imagesRapport/DiagClasseJeu.png}
-%	\end{center}
 	\caption[Diagramme de classe]{Diagramme de classe}
 \end{figure}
 
 
-Nous avons donc créé une classe Jeu gérant l'ensemble d'une partie. Puis nous avons créé différents types de joueurs, à savoir un joueur humain, une intelligence artificielle et une intelligence artificielle qui profile son adversaire. Chacune des intelligences artificielles possède un résolveur chargé du calcul de la prochaine action à effectuer en fonction de la situation courante et du calibrage de l'intelligence artificielle.\par
+
 Une classe EstimationProba permet à chaque intelligence artificielle de calculer ses chances de gain, et la classe EvaluateurMain permet de déterminer le gagnant à partir des cartes en jeu. Cet évaluateur est utilisé à chaque fin de partie, ainsi que dans l'estimateur qui lance des séries de parties tests.\par 
 Enfin, pour permettre le profilage, plusieurs classes sont utilisées par l'intelligence artificielle correspondante. Il s'agit de la classe Profilage qui contient toutes les données à enregistrer dans les fichiers, et de la classe ScenarioDeTests qui s'occupe de la gestion des anciens profilages effectués afin d'affiner au mieux la recherche du profil adverse.\\
 
 \section{Interface graphique}
-%%Faire un diagramme de classe de l'interface avec contenu fenetre IA et humain
+
+\subsection{Paramétrer le jeu}
+
+\hspace{0.5cm}Lors du lancement de l'application, une première boite de dialogue permet à l'utilisateur d'indiquer l'ensemble des paramètres de la partie. La figure suivante donne un aperçu des données à paramétrer.
+
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.3]{./imagesRapport/interfaceGraphiqueFenetreOptions.png}
+	\end{center}
+	\caption[Fenêtre d'options de l'application]{Fenêtre d'options de l'application}
+\end{figure}
+
+Comme on peut le voir, l'utilisateur peut lancer un profilage, à savoir la recherche du comportement d'un adversaire, ou bien rechercher un calibrage optimal face à un adversaire donné.\\
+
+Lorsque l'utilisateur sélectionne le mode profilage, plusieurs données sont à paramétrer comme par exemple si c'est un humain qui joue ou non face à l'intelligence artificielle qui profile, le nombre de parties, ou encore les calibrages des différentes intelligences artificielles si besoin.\\
+
+Concernant la recherche du calibrage optimal, il faut choisir le nombre de parties ainsi que le calibrage à battre.\\
+
 \subsection{Intelligence artificielle face à un joueur humain}
 
-\hspace{0.5cm}Lors du démarrage de la phase de développement, nous avons développé parallèlement au jeu, l'interface graphique afin de permettre à un joueur humain de pouvoir jouer face à une intelligence artificielle et de suivre le déroulement d'une partie.\par 
+\hspace{0.5cm}Lors du démarrage de la phase de développement, nous avons développé parallèlement au jeu, l'interface graphique afin de permettre à un joueur humain de pouvoir jouer face à une intelligence artificielle et de suivre le déroulement d'une partie.\\
+
 Comme on peut le voir dans la figure suivante, la fenêtre contient l'ensemble des cartes du jeu, avec celles du joueur adverse, face cachées pendant la partie et dévoilées à la fin. L'ensemble des boutons d'action sont mis à disposition du joueur avec une boite permettant de donner le montant des mises. Tous ces boutons sont désactivés lorsque c'est à l'adversaire de jouer. Une boite de texte contient également l'ensemble des logs de la partie.\par 
 
 \begin{figure}[H]
@@ -534,8 +549,6 @@ Comme on peut le voir dans la figure suivante, la fenêtre contient l'ensemble d
 	\caption[Interface humain contre intelligence artificielle]{Interface humain contre intelligence artificielle}
 \end{figure}
 
-
-Enfin, une première boite de dialogue permet à l'utilisateur d'indiquer l'ensemble des paramètres de la partie, comme le nombre de parties de profilage ou de gains.\\
 
 %%%%%%%%%%%%%%%%%%%%% Mettre screen shot 1r boite de dialogue %%%%%%%%%%%%%%%%%%%%%'
 

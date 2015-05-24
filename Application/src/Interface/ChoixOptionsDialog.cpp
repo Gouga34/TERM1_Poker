@@ -22,7 +22,8 @@ using namespace std;
 
 
 ChoixOptionsDialog::ChoixOptionsDialog()
-    : QDialog(), calibrageIAProfilee("IA profilée"), calibrageIAQuiProfile("IA qui profile") {
+    : QDialog(), calibrageIAProfilee("IA profilée"), calibrageIAQuiProfile("IA qui profile"),
+        calibrageAdversaire("") {
 
     //titre fenêtre
     setWindowTitle("Choix des options");
@@ -49,7 +50,8 @@ ChoixOptionsDialog::ChoixOptionsDialog()
 
     QFormLayout *layoutJoueurHumain = new QFormLayout;
     layoutJoueurHumain->addRow("Pseudo", &pseudo);
-    choixAdversaire.setLayout(layoutJoueurHumain);
+
+    //choixAdversaire.setLayout(&layoutJoueurHumain);
 
     boiteNombreCalibrages.setValue(1);
     boiteNombreCalibrages.setMaximum(500);
@@ -93,7 +95,11 @@ ChoixOptionsDialog::ChoixOptionsDialog()
     QWidget *widgetCalibrageOptimal = new QWidget;
     QFormLayout *layoutCalibrageOptimal = new QFormLayout;
 
+    calibrageAdversaire.setCheckable(false);
+
     layoutCalibrageOptimal->addRow("Nombre de parties", &boiteNombrePartiesCalibrageOptimal);
+    layoutCalibrageOptimal->addRow("Calibrage adverse", &calibrageAdversaire);
+
     widgetCalibrageOptimal->setLayout(layoutCalibrageOptimal);
 
 
@@ -110,8 +116,6 @@ ChoixOptionsDialog::ChoixOptionsDialog()
     boite->addWidget(&modeCalibrageOptimal);
     boite->addWidget(parametres);
 
-
-    //setLayout(formulaire);
     setLayout(boite);
 
     //Connection avec l'interface graphique du jeu
