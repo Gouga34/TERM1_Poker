@@ -28,7 +28,8 @@ SOURCES += \
     src/Interface/ContenuFenetre.cpp \
     src/Interface/ContenuFenetreHumain.cpp \
     src/Interface/ContenuFenetreIA.cpp \
-    src/Formules/Forumules.cpp
+    src/Formules/Forumules.cpp \
+    src/Interface/ChoixCalibrage.cpp
 
 
 QT+=widgets
@@ -63,7 +64,8 @@ HEADERS += \
     include/Interface/ContenuFenetre.h \
     include/Interface/ContenuFenetreHumain.h \
     include/Interface/ContenuFenetreIA.h \
-    include/Formules/Formules.h
+    include/Formules/Formules.h \
+    include/Interface/ChoixCalibrage.h
 
 CONFIG += c++11
 

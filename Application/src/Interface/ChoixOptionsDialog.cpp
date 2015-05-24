@@ -10,7 +10,6 @@ Specification: Fichier contenant les définitions de la classe
 #include <QLabel>
 #include <QPushButton>
 #include <QVBoxLayout>
-#include <QHBoxLayout>
 #include <QFormLayout>
 #include <QFile>
 #include <QTextStream>
@@ -22,7 +21,8 @@ Specification: Fichier contenant les définitions de la classe
 using namespace std;
 
 
-ChoixOptionsDialog::ChoixOptionsDialog() : QDialog(){
+ChoixOptionsDialog::ChoixOptionsDialog()
+    : QDialog(), calibrageIAProfilee("IA profilée"), calibrageIAQuiProfile("IA qui profile") {
 
     //titre fenêtre
     setWindowTitle("Choix des options");
@@ -32,8 +32,24 @@ ChoixOptionsDialog::ChoixOptionsDialog() : QDialog(){
 
     //ajouterPseudosConnus();
 
-    choixAdversaire.setText("IA contre IA");
-    choixAdversaire.setChecked(true);
+    modeProfilage.setText("Profilage");
+    modeCalibrageOptimal.setText("Recherche du calibrage optimal");
+
+    connect(&modeProfilage, SIGNAL(clicked()), this, SLOT(changePageLayout()));
+    connect(&modeCalibrageOptimal, SIGNAL(clicked()), this, SLOT(changePageLayout()));
+
+    QGroupBox *parametres = new QGroupBox("Paramètres");
+
+    QWidget *widgetProfliage = new QWidget;
+    QVBoxLayout *layoutProfilage = new QVBoxLayout;
+
+    choixAdversaire.setTitle("Joueur humain");
+    choixAdversaire.setCheckable(true);
+    choixAdversaire.setChecked(false);
+
+    QFormLayout *layoutJoueurHumain = new QFormLayout;
+    layoutJoueurHumain->addRow("Pseudo", &pseudo);
+    choixAdversaire.setLayout(layoutJoueurHumain);
 
     boiteNombreCalibrages.setValue(1);
     boiteNombreCalibrages.setMaximum(500);
@@ -41,51 +57,21 @@ ChoixOptionsDialog::ChoixOptionsDialog() : QDialog(){
     boiteNombreParties.setValue(10);
     boiteNombreParties.setMaximum(500);
 
+    boiteNombrePartiesCalibrageOptimal.setMaximum(1000);
+    boiteNombrePartiesCalibrageOptimal.setValue(100);
+
     boiteNombrePartiesProfilage.setValue(10);
     boiteNombrePartiesReprofilage.setValue(5);
     boiteNombrePartiesGains.setValue(10);
     boiteNombrePartiesGains.setMaximum(500);
 
-    //QLabel *calibrageDefaut = new QLabel("Rationalité : " + QString::number(rationaliteDefaut)
-    //                                       + "%\nAgressivité : " + QString::number(agressiviteDefaut) + "%");
-
-    // Rationalité
-    QHBoxLayout *layoutRationalite = new QHBoxLayout;
-
-    rationalite.setRange(0, 100);
-    rationalite.setValue(rationaliteDefaut);
-    rationalite.setOrientation(Qt::Horizontal);
-
-    QLabel *valRationalite = new QLabel(QString::number(rationaliteDefaut));
-
-    connect(&rationalite, SIGNAL(valueChanged(int)), valRationalite, SLOT(setNum(int)));
-
-    layoutRationalite->addWidget(&rationalite);
-    layoutRationalite->addWidget(valRationalite);
-
-
-    // Agressivité
-//    QHBoxLayout *layoutAgressivite = new QHBoxLayout;
-
-//    agressivite.setRange(0, 100);
-//    agressivite.setValue(agressiviteDefaut);
-//    agressivite.setOrientation(Qt::Horizontal);
-
-//    QLabel *valAgressivite = new QLabel(QString::number(agressiviteDefaut));
-
-//    connect(&agressivite, SIGNAL(valueChanged(int)), valAgressivite, SLOT(setNum(int)));
-
-//    layoutAgressivite->addWidget(&agressivite);
-//    layoutAgressivite->addWidget(valAgressivite);
-
+    caseReinitialisationCaves.setChecked(true);
 
     //bouton valider
     QPushButton *bouton=new QPushButton("Valider");
 
     //Formulaire
     QFormLayout *formulaire = new QFormLayout;
-    //formulaire->addRow("Nouveau pseudo ",&nouveau);
-    //formulaire->addRow("Pseudo déjà existant",&pseudos);
 
     formulaire->addRow("Nombre de calibrages à profiler", &boiteNombreCalibrages);
     formulaire->addRow("Nombre de parties", &boiteNombreParties);
@@ -93,29 +79,63 @@ ChoixOptionsDialog::ChoixOptionsDialog() : QDialog(){
     formulaire->addRow("Nombre de parties reprofilage", &boiteNombrePartiesReprofilage);
     formulaire->addRow("Nombre de parties minimum phase de gains", &boiteNombrePartiesGains);
     formulaire->addRow("Analyse des gains de parties", &caseAnalyseGainsParties);
+    formulaire->addRow("Réinitialisation des caves entre chaque partie", &caseReinitialisationCaves);
 
-    //formulaire->addRow("Calibrage par défaut", calibrageDefaut);
-    //formulaire->addRow("Rationalité", layoutRationalite);
-    //formulaire->addRow("Agressivité", layoutAgressivite);
+    layoutProfilage->addWidget(&choixAdversaire);
+    layoutProfilage->addLayout(formulaire);
+    layoutProfilage->addWidget(&calibrageIAProfilee);
+    layoutProfilage->addWidget(&calibrageIAQuiProfile);
+    layoutProfilage->addWidget(bouton);
+
+    widgetProfliage->setLayout(layoutProfilage);
+
+
+    QWidget *widgetCalibrageOptimal = new QWidget;
+    QFormLayout *layoutCalibrageOptimal = new QFormLayout;
+
+    layoutCalibrageOptimal->addRow("Nombre de parties", &boiteNombrePartiesCalibrageOptimal);
+    widgetCalibrageOptimal->setLayout(layoutCalibrageOptimal);
+
+
+    layoutParametres.addWidget(widgetProfliage);
+    layoutParametres.addWidget(widgetCalibrageOptimal);
+
+    modeProfilage.setChecked(true);
+
+    parametres->setLayout(&layoutParametres);
 
     //Ajout du formulaire et du bouton valider dans la fenetre
     boite->setAlignment(Qt::AlignHCenter);
-    boite->addWidget(&choixAdversaire);
-    boite->addLayout(formulaire);
-    boite->addWidget(bouton);
+    boite->addWidget(&modeProfilage);
+    boite->addWidget(&modeCalibrageOptimal);
+    boite->addWidget(parametres);
+
 
     //setLayout(formulaire);
     setLayout(boite);
 
     //Connection avec l'interface graphique du jeu
     connect(bouton, SIGNAL(clicked()), this, SLOT(accept()));
+}
 
+ChoixOptionsDialog::~ChoixOptionsDialog(){
+
+}
+
+void ChoixOptionsDialog::changePageLayout(){
+
+    if (modeProfilage.isChecked()) {
+        layoutParametres.setCurrentIndex(0);
+    }
+    else {
+        layoutParametres.setCurrentIndex(1);
+    }
 }
 
 void ChoixOptionsDialog::ajouterPseudosConnus(){
 
     //Ajout d'un pseudo vide :
-    pseudos.addItem("Calibrage aléatoire");
+    /*pseudos.addItem("Calibrage aléatoire");
     //Ouverture du fichier
     QFile fichierPseudos(QString::fromStdString(FICHIER_PSEUDOS_PROFILAGE));
 
@@ -128,7 +148,7 @@ void ChoixOptionsDialog::ajouterPseudosConnus(){
     while(! flux.atEnd()){
         ligne = flux.readLine();
         pseudos.addItem(ligne);
-    }
+    }*/
 }
 
 Options ChoixOptionsDialog::getOptions(){
@@ -136,10 +156,9 @@ Options ChoixOptionsDialog::getOptions(){
     Options options;
 
     if (exec() == QDialog::Accepted) {
-        QString nouveauPseudo = nouveau.text();
-        QString ancienPseudo = pseudos.currentText();
+        QString pseudoJoueur = pseudo.text();
 
-        options.joueurIA = choixAdversaire.isChecked();
+        options.joueurIA = !choixAdversaire.isChecked();
         options.nombreCalibrages = boiteNombreCalibrages.value();
         options.nombreParties = boiteNombreParties.value();
 
@@ -149,18 +168,10 @@ Options ChoixOptionsDialog::getOptions(){
 
         options.analyseGainsParties = caseAnalyseGainsParties.isChecked();
 
-        if(!nouveauPseudo.isEmpty()){
-            options.pseudo = nouveauPseudo;
-        }
-        else if(pseudos.currentIndex() == 0){
-            options.pseudo = "";
-        }
-        else{
-            options.pseudo = ancienPseudo;
-        }
+        options.pseudo = pseudoJoueur;
 
-        options.rationaliteIA = rationalite.value();
-        options.agressiviteIA = agressivite.value();
+        //options.rationaliteIA = rationalite.value();
+        //options.agressiviteIA = agressivite.value();
     }
 
     return options;
