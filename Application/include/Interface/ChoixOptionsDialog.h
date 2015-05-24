@@ -22,7 +22,15 @@ struct Options
     QString pseudo;
 
     bool joueurIA;
+
+    int nombreCalibrages;
     int nombreParties;
+
+    int nombrePartiesProfilage;
+    int nombrePartiesReprofilage;
+    int nombrePartiesGains;
+
+    bool analyseGainsParties;
 
     double rationaliteIA;
     double agressiviteIA;
@@ -39,7 +47,14 @@ private :
    QComboBox pseudos; //liste déroulante contenant les pseudos déjà connus.
 
    QCheckBox choixAdversaire;
+   QSpinBox boiteNombreCalibrages;
    QSpinBox boiteNombreParties;
+
+   QSpinBox boiteNombrePartiesProfilage;
+   QSpinBox boiteNombrePartiesReprofilage;
+   QSpinBox boiteNombrePartiesGains;
+
+   QCheckBox caseAnalyseGainsParties;
 
    QSlider rationalite;
    QSlider agressivite;

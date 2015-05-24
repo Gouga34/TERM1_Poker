@@ -70,7 +70,7 @@ void CalibrageIdeal::lancerParties()
 
                 jeu->nouvellePartie();
 
-                jeu->lancer();
+                jeu->lancerPartie();
 
                 // Si c'est l'IA qui a gagné
                 if (jeu->getResultatPartie() == PERDU) {

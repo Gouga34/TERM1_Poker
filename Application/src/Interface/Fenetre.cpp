@@ -31,6 +31,7 @@ Fenetre::Fenetre() : QWidget()
     Options options = fenetreOptions.getOptions();
 
     QString pseudoJoueur = options.pseudo;
+    nombreDeCalibrages = options.nombreCalibrages;
     nombreDeParties = options.nombreParties;
 
     // Création du jeu
@@ -127,7 +128,7 @@ void Fenetre::demarragePartie()
                 c->debutPartie();
             }
 
-            jeu->lancer();
+            jeu->lancerPartie();
 
             contenu->actualiser();
 

@@ -492,8 +492,6 @@ void Jeu::finPartie() {
        // this->getJoueur(joueursRestants.at(0)->getPosition())->ajouteJetons(this->getPot());
     }
 
-   // std::cout<<"pot : "<<getPot()<<" - jetons J1: "<<getJoueur(0)->getCave()<<" - jetons J2: "<<getJoueur(1)->getCave()<<std::endl;
-
     resultatPartie = retour;
 
     IntelligenceArtificielleProfilage *ia = static_cast<IntelligenceArtificielleProfilage*>(this->getJoueur(1));
@@ -688,7 +686,7 @@ void Jeu::affectationCarte(std::vector<int> listeId){
     }
 }
 
-void Jeu::lancer()
+void Jeu::lancerPartie()
 {
     while (prochainJoueur()) {
         if (debutTour()) {
@@ -702,17 +700,5 @@ void Jeu::lancer()
 
 bool Jeu::aFaitTapis(){
     return getLastAction(0)== ACTION::TAPIS || getLastAction(1) == ACTION::TAPIS;
-}
-
-bool Jeu::peutJouer(int posJoueur){
-
-    if (this->getLastAction(getPositionJoueurAdverse(posJoueur)) == ACTION::TAPIS
-            && (this->getJoueur(posJoueur)->getCumulMisesEtRelances() > this->getJoueur(getPositionJoueurAdverse(posJoueur))->getCumulMisesEtRelances())
-            && getLastAction(getPositionJoueurAdverse(posJoueur)) == ACTION::SUIVRE) {
-        return false;
-    }
-    else {
-        return true;
-    }
 }
 
