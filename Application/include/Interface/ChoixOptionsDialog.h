@@ -46,8 +46,6 @@ class ChoixOptionsDialog : public QDialog{
 
 private :
 
-   QLineEdit pseudo;
-
    QRadioButton modeProfilage;
    QRadioButton modeCalibrageOptimal;
 
@@ -55,6 +53,7 @@ private :
 
    //// Paramètres profilage ////
 
+   QLineEdit pseudo;
    QGroupBox choixAdversaire;
    QSpinBox boiteNombreCalibrages;
    QSpinBox boiteNombreParties;

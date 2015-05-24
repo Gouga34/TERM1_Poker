@@ -50,7 +50,8 @@ ChoixOptionsDialog::ChoixOptionsDialog()
 
     QFormLayout *layoutJoueurHumain = new QFormLayout;
     layoutJoueurHumain->addRow("Pseudo", &pseudo);
-    choixAdversaire.setLayout(layoutJoueurHumain);
+
+    //choixAdversaire.setLayout(&layoutJoueurHumain);
 
     boiteNombreCalibrages.setValue(1);
     boiteNombreCalibrages.setMaximum(500);
@@ -115,8 +116,6 @@ ChoixOptionsDialog::ChoixOptionsDialog()
     boite->addWidget(&modeCalibrageOptimal);
     boite->addWidget(parametres);
 
-
-    //setLayout(formulaire);
     setLayout(boite);
 
     //Connection avec l'interface graphique du jeu
