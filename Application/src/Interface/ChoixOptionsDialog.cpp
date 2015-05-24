@@ -22,7 +22,8 @@ using namespace std;
 
 
 ChoixOptionsDialog::ChoixOptionsDialog()
-    : QDialog(), calibrageIAProfilee("IA profilée"), calibrageIAQuiProfile("IA qui profile") {
+    : QDialog(), calibrageIAProfilee("IA profilée"), calibrageIAQuiProfile("IA qui profile"),
+        calibrageAdversaire("") {
 
     //titre fenêtre
     setWindowTitle("Choix des options");
@@ -93,7 +94,11 @@ ChoixOptionsDialog::ChoixOptionsDialog()
     QWidget *widgetCalibrageOptimal = new QWidget;
     QFormLayout *layoutCalibrageOptimal = new QFormLayout;
 
+    calibrageAdversaire.setCheckable(false);
+
     layoutCalibrageOptimal->addRow("Nombre de parties", &boiteNombrePartiesCalibrageOptimal);
+    layoutCalibrageOptimal->addRow("Calibrage adverse", &calibrageAdversaire);
+
     widgetCalibrageOptimal->setLayout(layoutCalibrageOptimal);
 
 
