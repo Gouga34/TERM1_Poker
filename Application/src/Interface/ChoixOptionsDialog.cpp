@@ -44,6 +44,7 @@ ChoixOptionsDialog::ChoixOptionsDialog() : QDialog(){
     boiteNombrePartiesProfilage.setValue(10);
     boiteNombrePartiesReprofilage.setValue(5);
     boiteNombrePartiesGains.setValue(10);
+    boiteNombrePartiesGains.setMaximum(500);
 
     //QLabel *calibrageDefaut = new QLabel("Rationalité : " + QString::number(rationaliteDefaut)
     //                                       + "%\nAgressivité : " + QString::number(agressiviteDefaut) + "%");

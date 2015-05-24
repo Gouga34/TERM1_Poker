@@ -14,6 +14,8 @@ Specification: Fichier contenant les définitions de la classe
 #include <QTableWidgetItem>
 #include <QApplication>
 #include <QScrollBar>
+#include <QHeaderView>
+
 
 ContenuFenetreIA::ContenuFenetreIA(Jeu *j):ContenuFenetre(j){
     //fenetre
@@ -25,9 +27,13 @@ ContenuFenetreIA::ContenuFenetreIA(Jeu *j):ContenuFenetre(j){
     //Tableau récapitulatif des parties
     initialisationRecapParties();
 
+    //Tableau contenant les résultats globaux de toutes les parties
+    initialisationResultatsGlobaux();
+
     boite->addWidget(&etatParties);
     boite->addWidget(&calibrageIAProfilee);
     boite->addWidget(&recapParties);
+    boite->addWidget(&resultatsGlobaux);
 
     setLayout(boite);
 }
@@ -46,6 +52,65 @@ void ContenuFenetreIA::initialisationRecapParties(){
     recapParties.setHorizontalHeaderLabels(header);
 
     recapParties.resizeColumnsToContents();
+}
+
+
+void ContenuFenetreIA::initialisationResultatsGlobaux(){
+    resultatsGlobaux.setColumnCount(6);
+
+    QStringList header;
+    header<<"Agressivité déduite"<<"Rationalité déduite"<<"Taux de similarité"<<"Nombre de jeux agressifs"
+            <<"Total gains"<<"Nombre de parties gagnées";
+
+    QStringList verticalHeader;
+    verticalHeader<<"Récapitulatif des résultats : ";
+    resultatsGlobaux.setVerticalHeaderLabels(verticalHeader);
+    resultatsGlobaux.setHorizontalHeaderLabels(header);
+    QHeaderView* headers = resultatsGlobaux.horizontalHeader();
+    headers->setSectionResizeMode(QHeaderView::Stretch);
+
+
+    resultatsGlobaux.resizeColumnsToContents();
+
+    int nouvelleLigne = resultatsGlobaux.rowCount();
+    resultatsGlobaux.insertRow(nouvelleLigne);
+
+
+    //init à 0:
+    resultatsGlobaux.setItem(nouvelleLigne, AG_DEDUITE, new QTableWidgetItem(QString::number(0)));
+    resultatsGlobaux.setItem(nouvelleLigne, RA_DEDUITE, new QTableWidgetItem(QString::number(0)));
+    resultatsGlobaux.setItem(nouvelleLigne, SIMILARITE, new QTableWidgetItem(QString::number(0)));
+    resultatsGlobaux.setItem(nouvelleLigne, NB_JEUX_AGRESSIFS, new QTableWidgetItem(QString::number(0)));
+    resultatsGlobaux.setItem(nouvelleLigne,TOTAL_GAINS, new QTableWidgetItem(QString::number(0)));
+    resultatsGlobaux.setItem(nouvelleLigne, NB_PARTIES_GAGNEES, new QTableWidgetItem(QString::number(0)));
+
+        resultatsGlobaux.setFixedHeight(50);
+}
+
+void ContenuFenetreIA::majResultatsGlobaux(){
+    IntelligenceArtificielleProfilage *IA =static_cast<IntelligenceArtificielleProfilage*>(jeu->getJoueur(1));
+    int ligne =resultatsGlobaux.rowCount()-1;
+    //Ag déduite:
+    resultatsGlobaux.setItem(ligne, AG_DEDUITE, new QTableWidgetItem(QString::number(IA->getScenario().getProfilDeduitGlobal().getAgressivite())));
+    //Ra déduite:
+    resultatsGlobaux.setItem(ligne, RA_DEDUITE, new QTableWidgetItem(QString::number(IA->getScenario().getProfilDeduitGlobal().getRationalite())));
+    //Taux similarite:
+    resultatsGlobaux.setItem(ligne,SIMILARITE, new QTableWidgetItem(QString::number(IA->getScenario().getTauxSimilarite())));
+    //Nb jeux agressifs:
+    QTableWidgetItem* nbPrec=resultatsGlobaux.takeItem(ligne,NB_JEUX_AGRESSIFS);
+    int nbPrecs = nbPrec->text().toInt();
+    resultatsGlobaux.setItem(ligne,NB_JEUX_AGRESSIFS,new QTableWidgetItem(QString::number(nbPrecs+IA->getProfilage()->jeuAgressif)) );
+    //Total gains:
+    QTableWidgetItem* gainsPrec = resultatsGlobaux.takeItem(ligne,TOTAL_GAINS);
+    int gainsPrecs = gainsPrec->text().toInt();
+    int gainsTot = gainsPrecs +IA->getProfilage()->nbJetonsGagnesIAQuiProfile;
+    resultatsGlobaux.setItem(ligne,TOTAL_GAINS,new QTableWidgetItem(QString::number(gainsTot)) );
+    //Nb parties gagnées
+    if(IA->getProfilage()->partieGagneeIAQuiProfile==1){
+        int nbPartiesGagneesPrec=resultatsGlobaux.takeItem(ligne,NB_PARTIES_GAGNEES)->text().toInt();
+        int nbPartiesTot=nbPartiesGagneesPrec+IA->getProfilage()->partieGagneeIAQuiProfile;
+        resultatsGlobaux.setItem(ligne,NB_PARTIES_GAGNEES, new QTableWidgetItem(QString::number(nbPartiesTot)));
+    }
 }
 
 void ContenuFenetreIA::majCalibrageIAProfilee(){
@@ -92,6 +157,9 @@ void ContenuFenetreIA::actualiser(){
 
     //Ajout ligne résultats
     ajouterLigne();
+
+    //Résultats globaux
+    majResultatsGlobaux();
 
     scrollAutomatiqueTableau();
 

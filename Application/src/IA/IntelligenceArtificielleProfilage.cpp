@@ -237,6 +237,8 @@ void IntelligenceArtificielleProfilage::determinerTypeDeJeu() {
             }
 
             setCalibragePourJouer();
+            getCalibrage()->setAgressivite(80);
+            getCalibrage()->setRationalite(80);
         }
 
         Logger::getInstance()->ajoutLogs("Calibrage IA profilage: agressivité: "+QString::number(resolveur->getCalibrage()->getAgressivite())

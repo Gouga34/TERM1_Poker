@@ -18,9 +18,13 @@ class ContenuFenetreIA : public ContenuFenetre{
 private:
     QLabel etatParties;
     QTableWidget recapParties;
+
+    QTableWidget resultatsGlobaux;
+
     QLabel calibrageIAProfilee;
 
-    enum COLONNES{
+
+    enum COLONNES_RECAPPARTIES{
         SCENARIOS_EN_COURS,
         AGRESSIVITE_IA_QUI_PROFILE,
         RATIONALITE_IA_QUI_PROFILE,
@@ -32,10 +36,30 @@ private:
         GAIN_IA_QUI_PROFILE
     };
 
+    enum COLONNES_RESULTATSGLOBAUX{
+        AG_DEDUITE,
+        RA_DEDUITE,
+        SIMILARITE,
+        NB_JEUX_AGRESSIFS,
+        TOTAL_GAINS,
+        NB_PARTIES_GAGNEES
+    };
+
+
+    /**
+     * @brief majResultatsGlobaux maj les résultats globaux de la partie
+     */
+    void majResultatsGlobaux();
+
     /**
      * @brief majCalibrageIAProfilee maj l'affichage du calibrage de l'ia profilée
      */
     void majCalibrageIAProfilee();
+
+    /**
+     * @brief initialisationResultatsGlobaux initialise les données des résultats globaux à 0.
+     */
+    void initialisationResultatsGlobaux();
 
     /**
      * @brief initialisationRecapParties initialise le tableau récapitulatif des parties

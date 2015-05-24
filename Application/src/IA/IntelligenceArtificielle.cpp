@@ -18,8 +18,10 @@ IntelligenceArtificielle::IntelligenceArtificielle(bool estDealer, int jetons, i
         rationalite = 16;
     }
     else {
-        agressivite=rand()%100+1;
-        rationalite=rand()%100+1;
+//        agressivite=rand()%100+1;
+//        rationalite=rand()%100+1;
+        agressivite=80;
+        rationalite=80;
     }
 
     Profil p;
@@ -61,9 +63,11 @@ void IntelligenceArtificielle::setCalibrage(Profil profil) {
 
 void IntelligenceArtificielle::nouveauCalibrage()
 {
-    int agressivite=rand()%100+1;
-    int rationalite=rand()%100+1;
+//    int agressivite=rand()%100+1;
+//    int rationalite=rand()%100+1;
 
+        int agressivite=80;
+        int rationalite=80;
 
     Profil p;
     p.setAgressivite(agressivite);
