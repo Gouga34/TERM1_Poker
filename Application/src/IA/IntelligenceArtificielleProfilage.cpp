@@ -231,7 +231,7 @@ void IntelligenceArtificielleProfilage::determinerTypeDeJeu() {
             setCalibragePourProfiler();
         }
         else {
-            if (UTILISATION_DELTA_AGRESSIVITE && chancesGain >= 45 && chancesGain <= 65) {
+            if (UTILISATION_DELTA_AGRESSIVITE && chancesGain >= 50 && chancesGain <= 70) {
                 // Aléatoirement, on augmente l'agressivité
                 resolveur->setJeuAgressif((rand() % DELTA_AGRESSIVITE) == 0);
             }
