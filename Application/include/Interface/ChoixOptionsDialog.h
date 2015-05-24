@@ -13,9 +13,12 @@ Specification: Classe définissant la fenêtre de choix du pseudo.
 #include <QComboBox>
 #include <QLineEdit>
 #include <QString>
-#include <QSlider>
 #include <QCheckBox>
 #include <QSpinBox>
+#include <QGroupBox>
+#include <QRadioButton>
+#include <QStackedLayout>
+#include "ChoixCalibrage.h"
 
 struct Options
 {
@@ -39,14 +42,18 @@ struct Options
 
 class ChoixOptionsDialog : public QDialog{
 
+    Q_OBJECT
+
 private :
-   const int rationaliteDefaut = 100;
-   const int agressiviteDefaut = 50;
 
-   QLineEdit nouveau;
-   QComboBox pseudos; //liste déroulante contenant les pseudos déjà connus.
+   QLineEdit pseudo;
 
-   QCheckBox choixAdversaire;
+   QRadioButton modeProfilage;
+   QRadioButton modeCalibrageOptimal;
+
+   QStackedLayout layoutParametres;
+
+   QGroupBox choixAdversaire;
    QSpinBox boiteNombreCalibrages;
    QSpinBox boiteNombreParties;
 
@@ -55,9 +62,12 @@ private :
    QSpinBox boiteNombrePartiesGains;
 
    QCheckBox caseAnalyseGainsParties;
+   QCheckBox caseReinitialisationCaves;
 
-   QSlider rationalite;
-   QSlider agressivite;
+   ChoixCalibrage calibrageIAProfilee;
+   ChoixCalibrage calibrageIAQuiProfile;
+
+   QSpinBox boiteNombrePartiesCalibrageOptimal;
 
    /**
     * @action ajoute dans la liste déroulante pseudos les pseudos déjà connus.
@@ -67,6 +77,7 @@ private :
 
 public :
     ChoixOptionsDialog();
+    virtual ~ChoixOptionsDialog();
 
     /**
     * @return retourne les options fournies par l'utilisateur
@@ -74,8 +85,12 @@ public :
     */
     Options getOptions();
 
+private slots:
+
+    /**
+     * @brief Change l'index du QStackedLayout
+     */
+    void changePageLayout();
 };
-
-
 
 #endif
