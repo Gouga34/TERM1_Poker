@@ -550,19 +550,13 @@ Comme on peut le voir dans la figure suivante, la fenêtre contient l'ensemble d
 \end{figure}
 
 
-%%%%%%%%%%%%%%%%%%%%% Mettre screen shot 1r boite de dialogue %%%%%%%%%%%%%%%%%%%%%'
-
 \subsection{Intelligence artificielle face à une autre intelligence artificielle}
-
-%%%%%%%%%%%%%%%%%%%%%%% Mettre screen shot interface IA vs IA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \hspace{0.5cm}Étant donné qu'il faut aussi pouvoir lancer un grand nombre de parties en faisant jouer deux intelligences artificielles l'une contre l'autre, il n'était pas utile que l'interface affiche le déroulement de l'ensemble des parties. C'est pourquoi nous avons conçu une deuxième interface, présentée dans la figure suivante, qui n'affiche alors que les données résultant de chaque partie dans un tableau. A la fin de chaque partie, une ligne est ajoutée au tableau indiquant le taux de profilage, et les gains de l'intelligence artificielle sur la partie.\\
 
 \begin{figure}[H]
 \hspace{-0.5cm}
-	%\begin{center}
 		\includegraphics[scale=0.3]{./imagesRapport/interfaceGraphiqueIA.png}
-%	\end{center}
 	\caption[Interface humain contre intelligence artificielle]{Interface humain contre intelligence artificielle}
 \end{figure}
 
@@ -1179,6 +1173,78 @@ Comme on peut le voir dans la figure ci-dessus, le changement de gains de partie
 \end{figure}
 
 La recherche de calibrages optimaux pour chacun des palier nous a donc permis d'améliorer de façon significative le nombre de jetons gagnés en moyenne par partie après établissement du profil de l'adversaire.
+
+\section{Recherche du meilleur type de joueur}
+\hspace{0.5cm}Après plusieurs tests, nous avons cherché à déterminer le meilleur type de joueur, c'est à dire le calibrage qui va réussir à gagner face à un maximum de comportements différents.\\
+
+Ainsi, nous nous sommes rendus compte que ce meilleur calibrage correspond à un comportement 80\% agressif et 80\% rationnel. En effet, comme on peut le voir dans la figure suiante représentant les gains de ce type de comportement face à différents autres joueurs, ce calibrage permet de gagner dans la majorité des cas. Cependant, on constate que face à un joueur très agressif et parfois irrationnel, on a tendance à perdre des jetons. En effet, ce type de joueur, de part son irrationnalité un peu plus importante, aura tendance à aller au bout de certaines parties, donc à prendre des risques, dans lesquelles un joueur très rationnel va se coucher. C'est à dire que dans les cas où le joueur plus irrationnel a un jeu moyen, il va tenter de gagner en allant le plus loin possible dans la partie. Ainsi, ce joueur plus irrationnel a cette part de risque qui lui permet de gagner parfois plus alors qu'un joueur rationnel aurait abandonné.\\
+
+\begin{figure}[H]
+\hspace{-2cm}
+\begin{tabular}{|l|l|l|}
+\hline
+Comportement adverse (agressivité - rationalité) & Gains sur 100 parties (jetons) &	Parties gagnées \\
+\hline
+20-20	 & 18 550 &	76\% \\
+\hline
+20-50 	&	11 130 &	 70\%\\
+\hline
+20-80 & 20 841 &	75\% \\
+\hline
+50-20 &	16 241 &	 77\% \\
+\hline
+50-50 &	24 336 &	 84\% \\
+\hline
+50-80 &	8 054 &  69\% \\
+\hline
+80-20 &	3 180 &	47\% \\
+\hline
+80-50 & 	-609 &	46\% \\
+\hline
+80-80 & $\pm$ 0  & 50\% \\
+\hline
+\end{tabular}
+
+\caption{Résultats sur 100 parties face à un comportement 80\% agressif et 80\% rationnel}
+\end{figure}
+
+Suite à cette observation, il est intéressant de chercher ce degré d'irrationnalité supplémentaire permettant à un joueur très agressif et très rationnel de battre d'autres joueurs du même type.\\
+ 
+Ce degré d'irrationnalité correspond à une probabilité d'aller au bout d'une partie avec un jeu moyen qu'il n'est pas possible de prédire. Ainsi, le fait d'amener l'adversaire à la fin de la partie doit être toutes les x parties lors desquelles l'intelligence artificielle a un jeu moyen. Par conséquent, nous avons cherché à découvrir la valeur optimale de x. Le tableau présente résultats moyens obtenus sur des séries de 100 parties selon différentes valeurs pour x. \\ 
+
+\begin{figure}[H]
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+x &	Moyenne Jetons gagnés &	Moyenne parties gagnées \\
+\hline
+0 &	$\pm$ 0	&	50 \\
+\hline
+3 &	-4118 &	40\\
+\hline
+5	&-678&	44\\
+\hline
+10&	-2014	&41\\
+\hline
+15&	-3249&	51\\
+\hline
+20&	700	&47\\
+\hline
+25&	179&	45\\
+\hline
+30&	720 &	51\\
+\hline
+40 &	844	& 50\\
+\hline
+45 &	-1947 &	49\\
+\hline
+\end{tabular}
+\caption{Gains de l'intelligence artificielle en fonction de la valeur de x}
+\end{center}
+\end{figure}
+
+
+Comme on peut le constater, il semble que lorsque x est compris entre 20 et 40, on a tendance a gagner plus de jetons que l'intelligence artificielle adverse ayant le même calibrage. Ces résultats s'expliquent par le fait que le degré d'irrationnalité qu'il faut avoir ne doit pas être trop important. Lorsque cette intelligence artificielle possède un jeu moyen, il ne faut pas qu'elle aille au bout de la partie de manière trop fréquente. En effet, le tableau montre que pour des x petits, donc des fréquences d'agressivité importantes, comme par exemple 1 partie sur 3, ne produisent pas des résultats satisfaisants.
 
 \section{Résultats}
 \hspace{0.5cm}Suite à ces résultats, nous avons donc pu produire des courbes de gain en fonction du nombre de parties jouées, et aussi en fonction du mode de jeu de l'intelligence artificielle (profilage ou jeu pour gagner). Nous avons également pu afficher dans une même graphe entre les courbes de profilage et courbe de gain.\par

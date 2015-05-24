@@ -57,11 +57,12 @@
 \contentsline {subsection}{\numberline {8.1.1}Mise en place du calibrage}{50}
 \contentsline {subsection}{\numberline {8.1.2}Analyse des r\IeC {\'e}sultats}{51}
 \contentsline {section}{\numberline {8.2}Recherche du calibrage optimal}{53}
-\contentsline {section}{\numberline {8.3}R\IeC {\'e}sultats}{56}
-\contentsline {chapter}{\numberline {9}Perspectives et conclusion}{57}
-\contentsline {section}{\numberline {9.1}Perspectives d'am\IeC {\'e}lioration du profilage}{57}
-\contentsline {subsection}{\numberline {9.1.1}Profilage dynamique}{57}
-\contentsline {subsection}{\numberline {9.1.2}Profilage avec plus de deux joueurs}{57}
-\contentsline {section}{\numberline {9.2}Profilage obtenu}{58}
-\contentsline {chapter}{\numberline {A}Planification pr\IeC {\'e}visionnelle}{60}
-\contentsline {chapter}{\numberline {B}Planification r\IeC {\'e}elle}{61}
+\contentsline {section}{\numberline {8.3}Recherche du meilleur type de joueur}{56}
+\contentsline {section}{\numberline {8.4}R\IeC {\'e}sultats}{58}
+\contentsline {chapter}{\numberline {9}Perspectives et conclusion}{59}
+\contentsline {section}{\numberline {9.1}Perspectives d'am\IeC {\'e}lioration du profilage}{59}
+\contentsline {subsection}{\numberline {9.1.1}Profilage dynamique}{59}
+\contentsline {subsection}{\numberline {9.1.2}Profilage avec plus de deux joueurs}{59}
+\contentsline {section}{\numberline {9.2}Profilage obtenu}{60}
+\contentsline {chapter}{\numberline {A}Planification pr\IeC {\'e}visionnelle}{62}
+\contentsline {chapter}{\numberline {B}Planification r\IeC {\'e}elle}{63}
