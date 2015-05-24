@@ -523,18 +523,35 @@ Enfin, pour permettre le profilage, plusieurs classes sont utilisées par l'inte
 %%Faire un diagramme de classe de l'interface avec contenu fenetre IA et humain
 \subsection{Intelligence artificielle face à un joueur humain}
 
-%%%%%%%%%%%%%%%%%%%%%%%%% Mettre screen shot interface graphique humain %%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \hspace{0.5cm}Lors du démarrage de la phase de développement, nous avons développé parallèlement au jeu, l'interface graphique afin de permettre à un joueur humain de pouvoir jouer face à une intelligence artificielle et de suivre le déroulement d'une partie.\par 
-La fenêtre contient donc l'ensemble des cartes du jeu, avec celles du joueur adverse, face cachées pendant la partie et dévoilées à la fin. L'ensemble des boutons d'action sont mis à disposition du joueur avec une boite permettant de donner le montant des mises. Tous ces boutons sont désactivés lorsque c'est à l'adversaire de jouer. Une boite de texte contient également l'ensemble des logs de la partie.\par 
+Comme on peut le voir dans la figure suivante, la fenêtre contient l'ensemble des cartes du jeu, avec celles du joueur adverse, face cachées pendant la partie et dévoilées à la fin. L'ensemble des boutons d'action sont mis à disposition du joueur avec une boite permettant de donner le montant des mises. Tous ces boutons sont désactivés lorsque c'est à l'adversaire de jouer. Une boite de texte contient également l'ensemble des logs de la partie.\par 
+
+\begin{figure}[H]
+\hspace{-0.5cm}
+	%\begin{center}
+		\includegraphics[scale=0.3]{./imagesRapport/interfaceGraphiqueHumain.png}
+%	\end{center}
+	\caption[Interface humain contre intelligence artificielle]{Interface humain contre intelligence artificielle}
+\end{figure}
+
+
 Enfin, une première boite de dialogue permet à l'utilisateur d'indiquer l'ensemble des paramètres de la partie, comme le nombre de parties de profilage ou de gains.\\
+
 %%%%%%%%%%%%%%%%%%%%% Mettre screen shot 1r boite de dialogue %%%%%%%%%%%%%%%%%%%%%'
 
 \subsection{Intelligence artificielle face à une autre intelligence artificielle}
 
 %%%%%%%%%%%%%%%%%%%%%%% Mettre screen shot interface IA vs IA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\hspace{0.5cm}Étant donné qu'il faut aussi pouvoir lancer un grand nombre de parties en faisant jouer deux intelligences artificielles l'une contre l'autre, il n'était pas utile que l'interface affiche le déroulement de l'ensemble des parties. C'est pourquoi nous avons conçu une deuxième interface qui n'affiche alors que les données résultant de chaque partie dans un tableau. A la fin de chaque partie, une ligne est ajoutée au tableau indiquant le taux de profilage, et les gains de l'intelligence artificielle sur la partie.\\
+\hspace{0.5cm}Étant donné qu'il faut aussi pouvoir lancer un grand nombre de parties en faisant jouer deux intelligences artificielles l'une contre l'autre, il n'était pas utile que l'interface affiche le déroulement de l'ensemble des parties. C'est pourquoi nous avons conçu une deuxième interface, présentée dans la figure suivante, qui n'affiche alors que les données résultant de chaque partie dans un tableau. A la fin de chaque partie, une ligne est ajoutée au tableau indiquant le taux de profilage, et les gains de l'intelligence artificielle sur la partie.\\
+
+\begin{figure}[H]
+\hspace{-0.5cm}
+	%\begin{center}
+		\includegraphics[scale=0.3]{./imagesRapport/interfaceGraphiqueIA.png}
+%	\end{center}
+	\caption[Interface humain contre intelligence artificielle]{Interface humain contre intelligence artificielle}
+\end{figure}
 
 \chapter{Calcul du profil d'un joueur}
 
