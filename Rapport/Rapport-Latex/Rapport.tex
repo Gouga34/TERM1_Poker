@@ -502,10 +502,22 @@ Dans le cadre du TER, nous nous sommes concentrés sur le profilage statique afi
 %%%%%%%%%%%%%%%%%%% TODO %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%Faire diagramme de classe avec le jeu et IA dedans%
 %% Lier diagramme et texte %%%%%%%%%%%%%%%%%%%%%%%%%%
-\hspace{0.5cm}La première étape de développement a consisté à mettre en place le jeu de poker pour permettre la lancement de séries de parties pour le profilage.\par
+\hspace{0.5cm}La première étape de développement a consisté à mettre en place le jeu de poker pour permettre la lancement de séries de parties pour le profilage.\\
+
+La gestion globale du jeu de poker est composée des classes représentées de façon minimaliste dans la figure suivante.
+
+\begin{figure}[H]
+\hspace{-1.5cm}
+%	\begin{center}
+		\includegraphics[scale=0.7]{./imagesRapport/DiagClasseJeu.png}
+%	\end{center}
+	\caption[Diagramme de classe]{Diagramme de classe}
+\end{figure}
+
+
 Nous avons donc créé une classe Jeu gérant l'ensemble d'une partie. Puis nous avons créé différents types de joueurs, à savoir un joueur humain, une intelligence artificielle et une intelligence artificielle qui profile son adversaire. Chacune des intelligences artificielles possède un résolveur chargé du calcul de la prochaine action à effectuer en fonction de la situation courante et du calibrage de l'intelligence artificielle.\par
-Une classe \textcolor{magenta}{EstimationProba} permet à chaque résolveur de calculer ses chances de gain, et la classe \textcolor{magenta}{EvaluateurMains} permet de déterminer le gagnant à partir des cartes en jeu. Cet évaluateur est utilisé à chaque fin de partie, ainsi que dans l'estimateur qui lance des séries de parties tests.\par 
-Enfin, pour permettre le profilage, plusieurs classes sont utilisées par l'intelligence artificielle correspondante. Il s'agit de la classe Profilage qui contient toutes les données à enregistrer dans les fichiers, et de la classe \textcolor{magenta}{ScenarioTests} qui s'occupe de la gestion des anciens profilages effectués afin d'affiner au mieux la recherche du profil adverse.\\
+Une classe EstimationProba permet à chaque intelligence artificielle de calculer ses chances de gain, et la classe EvaluateurMain permet de déterminer le gagnant à partir des cartes en jeu. Cet évaluateur est utilisé à chaque fin de partie, ainsi que dans l'estimateur qui lance des séries de parties tests.\par 
+Enfin, pour permettre le profilage, plusieurs classes sont utilisées par l'intelligence artificielle correspondante. Il s'agit de la classe Profilage qui contient toutes les données à enregistrer dans les fichiers, et de la classe ScenarioDeTests qui s'occupe de la gestion des anciens profilages effectués afin d'affiner au mieux la recherche du profil adverse.\\
 
 \section{Interface graphique}
 %%Faire un diagramme de classe de l'interface avec contenu fenetre IA et humain
