@@ -26,7 +26,7 @@
 \contentsline {section}{\numberline {3.1}Analyse de l'existant}{23}{section.3.1}
 \contentsline {section}{\numberline {3.2}Syst\IeC {\`e}me de jeu}{24}{section.3.2}
 \contentsline {subsection}{\numberline {3.2.1}Deux joueurs}{24}{subsection.3.2.1}
-\contentsline {subsection}{\numberline {3.2.2}Intelligence artificielle contre intelligence artificielle}{24}{subsection.3.2.2}
+\contentsline {subsection}{\numberline {3.2.2}Intelligence artificielle contre intelligence artificielle}{25}{subsection.3.2.2}
 \contentsline {subsection}{\numberline {3.2.3}Choix d'enregistrement des donn\IeC {\'e}es}{25}{subsection.3.2.3}
 \contentsline {section}{\numberline {3.3}Profilage}{26}{section.3.3}
 \contentsline {section}{\numberline {3.4}Phase de jeu}{27}{section.3.4}

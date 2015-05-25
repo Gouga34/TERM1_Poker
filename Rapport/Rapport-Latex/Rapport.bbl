@@ -1,9 +1,19 @@
 \begin{thebibliography}{1}
 
-\bibitem{ref}
+\bibitem{PokerAsATestbedForaIResearch}
+Darse Billings, Jonathan Schaeffer, Duane Szafron, and Denis Papp.
+\newblock Poker as a testbed for ai research.
+\newblock {\em Department of Computing Science, University of Alberta}.
+
+\bibitem{PlayerProfilingInTexasHoldem}
 Karl~S. Brandt.
 \newblock Player profiling in texas holdem.
 \newblock 2004.
+
+\bibitem{ImprovedOpponentModelingInPoker}
+Aaron Davidson, Darse Billings, Jonathan Schaeffer, and Duane Szafron.
+\newblock Improved opponent modeling in poker.
+\newblock {\em Department of Computing Science, University of Alberta}.
 
 \bibitem{probaiblitiesAndSimulationsInPoker}
 Maria de~Lourdes Peña~Castillo.
@@ -14,5 +24,10 @@ Maria de~Lourdes Peña~Castillo.
 Poker Listings.
 \newblock Poker listings - le guide de poker all-in.
 \newblock fr.pokerlistings.com.
+
+\bibitem{pokernews}
+Pokernews.
+\newblock Pokernews.
+\newblock fr.pokernews.com/poker-tools/poker-odds-calculator.htm.
 
 \end{thebibliography}

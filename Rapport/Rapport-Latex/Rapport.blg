@@ -3,46 +3,48 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: Rapport.aux
 The style file: plain.bst
 Database file #1: biblio.bib
-Warning--empty journal in ref
-You've used 3 entries,
+Warning--empty year in PokerAsATestbedForaIResearch
+Warning--empty journal in PlayerProfilingInTexasHoldem
+Warning--empty year in ImprovedOpponentModelingInPoker
+You've used 6 entries,
             2118 wiz_defined-function locations,
-            512 strings with 4310 characters,
-and the built_in function-call counts, 622 in all, are:
-= -- 58
-> -- 21
+            525 strings with 4820 characters,
+and the built_in function-call counts, 1430 in all, are:
+= -- 128
+> -- 74
 < -- 0
-+ -- 9
-- -- 6
-* -- 24
-:= -- 120
-add.period$ -- 9
-call.type$ -- 3
-change.case$ -- 11
++ -- 30
+- -- 24
+* -- 75
+:= -- 265
+add.period$ -- 18
+call.type$ -- 6
+change.case$ -- 29
 chr.to.int$ -- 0
-cite$ -- 4
-duplicate$ -- 26
-empty$ -- 54
-format.name$ -- 6
-if$ -- 123
+cite$ -- 9
+duplicate$ -- 53
+empty$ -- 110
+format.name$ -- 24
+if$ -- 281
 int.to.chr$ -- 0
-int.to.str$ -- 3
-missing$ -- 1
-newline$ -- 18
-num.names$ -- 6
-pop$ -- 20
+int.to.str$ -- 6
+missing$ -- 3
+newline$ -- 33
+num.names$ -- 12
+pop$ -- 49
 preamble$ -- 1
-purify$ -- 9
+purify$ -- 24
 quote$ -- 0
-skip$ -- 19
+skip$ -- 37
 stack$ -- 0
-substring$ -- 15
-swap$ -- 2
+substring$ -- 30
+swap$ -- 5
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 12
-warning$ -- 1
-while$ -- 6
-width$ -- 4
-write$ -- 31
-(There was 1 warning)
+type$ -- 24
+warning$ -- 3
+while$ -- 12
+width$ -- 7
+write$ -- 58
+(There were 3 warnings)
