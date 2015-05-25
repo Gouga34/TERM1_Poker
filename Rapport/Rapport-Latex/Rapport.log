@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.2.9)  25 MAY 2015 09:52
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.2.9)  25 MAY 2015 11:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1902,25 +1902,34 @@ Underfull \hbox (badness 10000) in paragraph at lines 1231--1232
 
  []
 
+<./imagesRapport/tauxSimilariteGains.jpg, id=759, 607.26875pt x 341.275pt>
+File: ./imagesRapport/tauxSimilariteGains.jpg Graphic file (type jpg)
 
-Underfull \hbox (badness 10000) in paragraph at lines 1233--1234
+<use ./imagesRapport/tauxSimilariteGains.jpg>
+Package pdftex.def Info: ./imagesRapport/tauxSimilariteGains.jpg used on input 
+line 1235.
+(pdftex.def)             Requested size: 303.63364pt x 170.63707pt.
+ [57pdfTeX warning (ext4): destination with the same identifier (name{figure.8.
+11}) has been already used, duplicate ignored
 
- []
-
-[57]
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.1242 \chapter
+               {Perspectives et conclusion} <./imagesRapport/tauxSimilariteGain
+s.jpg>]
 Chapitre 9.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1240--1241
+Underfull \hbox (badness 10000) in paragraph at lines 1246--1247
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1242--1243
+Underfull \hbox (badness 10000) in paragraph at lines 1248--1249
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1247--1248
+Underfull \hbox (badness 10000) in paragraph at lines 1253--1254
 
  []
 
@@ -1930,14 +1939,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 1247--1248
 
 ]
 Annexe A.
-<../DiagrammePrevisionnel.png, id=777, 2091.815pt x 797.98125pt>
+<../DiagrammePrevisionnel.png, id=779, 2091.815pt x 797.98125pt>
 File: ../DiagrammePrevisionnel.png Graphic file (type png)
 
 <use ../DiagrammePrevisionnel.png>
-Package pdftex.def Info: ../DiagrammePrevisionnel.png used on input line 1269.
+Package pdftex.def Info: ../DiagrammePrevisionnel.png used on input line 1275.
 (pdftex.def)             Requested size: 585.70422pt x 223.43323pt.
 
-Overfull \hbox (123.25829pt too wide) in paragraph at lines 1268--1271
+Overfull \hbox (123.25829pt too wide) in paragraph at lines 1274--1277
   []
  []
 
@@ -1945,35 +1954,35 @@ Overfull \hbox (123.25829pt too wide) in paragraph at lines 1268--1271
 
  <../DiagrammePrevisionnel.png (PNG copy)>]
 Annexe B.
-<../DiagrammeReel.png, id=783, 2519.4125pt x 849.1725pt>
+<../DiagrammeReel.png, id=785, 2519.4125pt x 849.1725pt>
 File: ../DiagrammeReel.png Graphic file (type png)
 
 <use ../DiagrammeReel.png>
-Package pdftex.def Info: ../DiagrammeReel.png used on input line 1274.
+Package pdftex.def Info: ../DiagrammeReel.png used on input line 1280.
 (pdftex.def)             Requested size: 604.67137pt x 203.80556pt.
 
-Overfull \hbox (133.68951pt too wide) in paragraph at lines 1273--1275
+Overfull \hbox (133.68951pt too wide) in paragraph at lines 1279--1281
   [] 
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1280.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1286.
 [62
 
  <../DiagrammeReel.png>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1280.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1286.
  (./Rapport.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1280.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1280.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1286.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1286.
 
 Package rerunfilecheck Info: File `Rapport.out' has not changed.
 (rerunfilecheck)             Checksum: 5CB65DF21BA4B9D8F408D30F59AF4BEA;4890.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1280.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1286.
  ) 
 Here is how much of TeX's memory you used:
- 9211 strings out of 494985
- 132191 string characters out of 6180357
+ 9217 strings out of 494985
+ 132400 string characters out of 6180357
  223913 words of memory out of 5000000
- 12098 multiletter control sequences out of 15000+600000
+ 12102 multiletter control sequences out of 15000+600000
  9958 words of font info for 36 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  39i,18n,45p,1264b,1227s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1989,10 +1998,10 @@ nts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type
 nts/cm/cmsy9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
 cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.
 pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on Rapport.pdf (62 pages, 1247609 bytes).
+Output written on Rapport.pdf (62 pages, 1264897 bytes).
 PDF statistics:
- 876 PDF objects out of 1000 (max. 8388607)
- 750 compressed objects within 8 object streams
- 189 named destinations out of 1000 (max. 500000)
- 690 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 878 PDF objects out of 1000 (max. 8388607)
+ 751 compressed objects within 8 object streams
+ 190 named destinations out of 1000 (max. 500000)
+ 695 words of extra memory for PDF output out of 10000 (max. 10000000)
 

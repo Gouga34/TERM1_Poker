@@ -1228,11 +1228,17 @@ x &	Moyenne Jetons gagnés &	Moyenne parties gagnées \\
 Comme on peut le constater, il semble que lorsque x est compris entre 20 et 40, on a tendance a gagner plus de jetons que l'intelligence artificielle adverse ayant le même calibrage. Ces résultats s'expliquent par le fait que le degré d'irrationnalité qu'il faut avoir ne doit pas être trop important. Lorsque cette intelligence artificielle possède un jeu moyen, il ne faut pas qu'elle aille au bout de la partie de manière trop fréquente. En effet, le tableau montre que pour des x petits, donc des fréquences d'agressivité* importantes, comme par exemple 1 partie sur 3, ne produisent pas des résultats satisfaisants.
 
 \section{Résultats}
-\hspace{0.5cm}Suite à ces résultats, nous avons donc pu produire des courbes de gain en fonction du nombre de parties jouées, et aussi en fonction du mode de jeu de l'intelligence artificielle, profilage* ou jeu pour gagner. Nous avons également pu afficher dans un même graphe entre les courbes de profilage* et courbe de gain.\\
+\hspace{0.5cm}Suite à ces résultats, nous avons donc pu produire des courbes de gain en fonction du nombre de parties jouées, comme le présente la figure suivante. Durant les dix premières parties l'intelligence artificielle profile le joueur en passant d'environ 55\% de similarité avec le comportement réel à à plus de 75\% de similarité. Puis l'intelligence artificielle passe à une phase de gains. Ainsi, comme on le peut le constater, les gains augmentent de manière significative lorsque le profil a été établi et que l'intelligence artificielle a modifié son comportement.\\
 
-Dans le but de rendre plus significative la courbe de profilage*, et donc de mieux voir la corrélation entre les deux courbes, nous avons modifié l'affichage de la courbe de profilage*. En effet, selon le calibrage à déterminer, la variation de la courbe n'est pas la même. Nous avons donc fait en sorte que celle-ci corresponde à la différence entre le profilage* établi et le calibrage réel. Ainsi, plus cette courbe diminue, plus le profilage* établi est précis. Et donc plus cette courbe diminue, plus la courbe de gain est supposée augmenter.\\
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.5]{./imagesRapport/tauxSimilariteGains.jpg}
+	\end{center}
+	\caption{Gains en fonction du profilage}
+\end{figure}
+
+On peut en conclure que nous avons globalement une intelligence artificielle qui, après avoir établi un bon profilage est capable d'augmenter ses gains.
  
-
 \chapter{Perspectives et conclusion}
 \section{Perspectives d'amélioration du profilage}
 \subsection{Profilage dynamique}
