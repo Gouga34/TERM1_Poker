@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.2.9)  25 MAY 2015 11:43
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.2.9)  25 MAY 2015 12:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -756,39 +756,39 @@ Underfull \hbox (badness 10000) in paragraph at lines 67--68
 ] [5]
 Chapitre 3.
 
-Underfull \hbox (badness 10000) in paragraph at lines 77--78
+Underfull \hbox (badness 10000) in paragraph at lines 78--79
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 79--80
+Underfull \hbox (badness 10000) in paragraph at lines 80--81
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 81--82
+Underfull \hbox (badness 10000) in paragraph at lines 82--83
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 83--84
+Underfull \hbox (badness 10000) in paragraph at lines 84--85
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 85--86
+Underfull \hbox (badness 10000) in paragraph at lines 86--87
 
  []
 
 [6
 
 ]
-Overfull \hbox (51.04895pt too wide) in paragraph at lines 93--146
+Overfull \hbox (51.04895pt too wide) in paragraph at lines 94--147
 []  []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 150--151
+Underfull \hbox (badness 10000) in paragraph at lines 151--152
 
  []
 
@@ -797,51 +797,51 @@ Underfull \hbox (badness 10000) in paragraph at lines 150--151
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.151 
+l.152 
       ]
-Underfull \hbox (badness 10000) in paragraph at lines 152--154
+Underfull \hbox (badness 10000) in paragraph at lines 153--155
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 155--156
+Underfull \hbox (badness 10000) in paragraph at lines 156--157
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 157--158
+Underfull \hbox (badness 10000) in paragraph at lines 158--159
 
  []
 
 [8]
 Chapitre 4.
 
-Underfull \hbox (badness 10000) in paragraph at lines 166--167
+Underfull \hbox (badness 10000) in paragraph at lines 167--168
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 168--169
+Underfull \hbox (badness 10000) in paragraph at lines 169--170
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 173--174
+Underfull \hbox (badness 10000) in paragraph at lines 174--175
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 175--176
+Underfull \hbox (badness 10000) in paragraph at lines 176--177
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 177--178
+Underfull \hbox (badness 10000) in paragraph at lines 178--179
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 179--180
+Underfull \hbox (badness 10000) in paragraph at lines 180--181
 
  []
 
@@ -851,36 +851,36 @@ Underfull \hbox (badness 10000) in paragraph at lines 179--180
 File: ./brainstorming.jpg Graphic file (type jpg)
 
 <use ./brainstorming.jpg>
-Package pdftex.def Info: ./brainstorming.jpg used on input line 189.
+Package pdftex.def Info: ./brainstorming.jpg used on input line 190.
 (pdftex.def)             Requested size: 301.14264pt x 100.38087pt.
-
-Overfull \hbox (7.72792pt too wide) in paragraph at lines 195--195
-\OT1/cmr/m/n/10 Comme on peut le voir, l'ensemble du groupe a plus ou moins par
--ticip^^Se au d^^Seveloppement de l'application.
- []
-
-<./courbesCommits.png, id=178, 937.5025pt x 406.51875pt>
-File: ./courbesCommits.png Graphic file (type png)
-
-<use ./courbesCommits.png>
-Package pdftex.def Info: ./courbesCommits.png used on input line 199.
-(pdftex.def)             Requested size: 374.99435pt x 162.60461pt.
  [10pdfTeX warning (ext4): destination with the same identifier (name{figure.4.
 1}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.203 
-       <./brainstorming.jpg>] [11pdfTeX warning (ext4): destination with the sa
-me identifier (name{figure.4.2}) has been already used, duplicate ignored
+l.195 \newpage
+               <./brainstorming.jpg>]
+Overfull \hbox (7.72792pt too wide) in paragraph at lines 198--198
+\OT1/cmr/m/n/10 Comme on peut le voir, l'ensemble du groupe a plus ou moins par
+-ticip^^Se au d^^Seveloppement de l'application.
+ []
+
+<./courbesCommits.png, id=183, 937.5025pt x 406.51875pt>
+File: ./courbesCommits.png Graphic file (type png)
+
+<use ./courbesCommits.png>
+Package pdftex.def Info: ./courbesCommits.png used on input line 202.
+(pdftex.def)             Requested size: 374.99435pt x 162.60461pt.
+ [11pdfTeX warning (ext4): destination with the same identifier (name{figure.4.
+2}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.212 \chapter
+l.209 \chapter
               {Conclusion} <./courbesCommits.png>]
 Chapitre 5.
 
-Underfull \hbox (badness 10000) in paragraph at lines 214--215
+Underfull \hbox (badness 10000) in paragraph at lines 211--212
 
  []
 
@@ -892,10 +892,10 @@ Annexe A.
 File: ../DiagrammePrevisionnel.png Graphic file (type png)
 
 <use ../DiagrammePrevisionnel.png>
-Package pdftex.def Info: ../DiagrammePrevisionnel.png used on input line 221.
+Package pdftex.def Info: ../DiagrammePrevisionnel.png used on input line 218.
 (pdftex.def)             Requested size: 585.70422pt x 223.43323pt.
 
-Overfull \hbox (73.21608pt too wide) in paragraph at lines 220--223
+Overfull \hbox (73.21608pt too wide) in paragraph at lines 217--220
   []
  []
 
@@ -907,24 +907,24 @@ Annexe B.
 File: ../DiagrammeReel.png Graphic file (type png)
 
 <use ../DiagrammeReel.png>
-Package pdftex.def Info: ../DiagrammeReel.png used on input line 226.
+Package pdftex.def Info: ../DiagrammeReel.png used on input line 223.
 (pdftex.def)             Requested size: 604.67137pt x 203.80556pt.
 
-Overfull \hbox (86.49277pt too wide) in paragraph at lines 225--227
+Overfull \hbox (86.49277pt too wide) in paragraph at lines 222--224
   [] 
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 230.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 227.
 [14
 
  <../DiagrammeReel.png>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 230.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 227.
  (./RapportGestionProjet.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 230.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 230.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 227.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 227.
 Package rerunfilecheck Info: File `RapportGestionProjet.out' has not changed.
 (rerunfilecheck)             Checksum: 024CB660860ABDA9649A66B5659E2B7E;1246.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 230.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 227.
  ) 
 Here is how much of TeX's memory you used:
  9045 strings out of 494985
@@ -938,7 +938,7 @@ Here is how much of TeX's memory you used:
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texli
 ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on RapportGestionProjet.pdf (14 pages, 2305901 bytes).
+Output written on RapportGestionProjet.pdf (14 pages, 2306189 bytes).
 PDF statistics:
  233 PDF objects out of 1000 (max. 8388607)
  192 compressed objects within 2 object streams
