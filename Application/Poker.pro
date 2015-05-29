@@ -29,10 +29,11 @@ SOURCES += \
     src/Interface/ContenuFenetreHumain.cpp \
     src/Interface/ContenuFenetreIA.cpp \
     src/Formules/Forumules.cpp \
-    src/Interface/ChoixCalibrage.cpp
+    src/Interface/ChoixCalibrage.cpp \
+    src/Interface/CustomPlot/qcustomplot.cpp
 
 
-QT+=widgets
+QT+=widgets printsupport
 
 HEADERS += \
     include/Interface/Fenetre.h \
@@ -65,7 +66,8 @@ HEADERS += \
     include/Interface/ContenuFenetreHumain.h \
     include/Interface/ContenuFenetreIA.h \
     include/Formules/Formules.h \
-    include/Interface/ChoixCalibrage.h
+    include/Interface/ChoixCalibrage.h \
+    include/Interface/CustomPlot/qcustomplot.h
 
 CONFIG += c++11
 
