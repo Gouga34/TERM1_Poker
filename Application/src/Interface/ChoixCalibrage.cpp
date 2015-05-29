@@ -9,7 +9,7 @@ Specification: Fichier contenant les définitions de la classe ChoixCalibrage.
 
 #include "../../include/Interface/ChoixCalibrage.h"
 #include <QHBoxLayout>
-#include <QVBoxLayout>
+#include <QFormLayout>
 #include <QLabel>
 
 
@@ -18,7 +18,7 @@ ChoixCalibrage::ChoixCalibrage(const QString& titre, QWidget *parent) : QGroupBo
     setCheckable(true);
     setChecked(false);
 
-    QVBoxLayout *layout = new QVBoxLayout;
+    QFormLayout *layout = new QFormLayout;
 
     // Rationalité
     QHBoxLayout *layoutRationalite = new QHBoxLayout;
@@ -49,8 +49,8 @@ ChoixCalibrage::ChoixCalibrage(const QString& titre, QWidget *parent) : QGroupBo
     layoutAgressivite->addWidget(&agressivite);
     layoutAgressivite->addWidget(valAgressivite);
 
-    layout->addLayout(layoutRationalite);
-    layout->addLayout(layoutAgressivite);
+    layout->addRow("Agressivité", layoutAgressivite);
+    layout->addRow("Rationalite", layoutRationalite);
 
     setLayout(layout);
 }

@@ -8,7 +8,6 @@ Specification: Fichier contenant les définitions de la classe Fenetre.
 
 #include "../../include/Interface/Fenetre.h"
 #include "../../include/Interface/CarteGraphique.h"
-#include "../../include/Interface/ChoixOptionsDialog.h"
 #include "../../include/Interface/ContenuFenetreHumain.h"
 #include "../../include/Jeu/JoueurHumain.h"
 #include "../../include/IA/IntelligenceArtificielleProfilage.h"
@@ -28,57 +27,65 @@ Fenetre::Fenetre() : QWidget()
 
     //Récupération des options du jeu
     ChoixOptionsDialog fenetreOptions;
-    Options options = fenetreOptions.getOptions();
-
-    QString pseudoJoueur = options.pseudo;
-    nombreDeCalibrages = options.nombreCalibrages;
-    nombreDeParties = options.nombreParties;
 
     // Création du jeu
-    jeu = new Jeu(2, 20);
+    jeu = new Jeu(2, 20, fenetreOptions.getOptions());
+
+    /** Joueur 1 **/
 
     Joueur *j1;
-    if (options.joueurIA) {
+    QString pseudoJoueur = "inconnu";
+
+    if (jeu->getOptions().joueurIA) {
         j1 = new IntelligenceArtificielle(true, CAVE_JOUEURS, 0);
         IntelligenceArtificielle *ia = static_cast<IntelligenceArtificielle*>(j1);
 
-        if (options.pseudo.isEmpty()) {
-            Profil calibrage = *(ia->getCalibrage());
-            pseudoJoueur = QString::number(calibrage.getAgressivite()) + "_" + QString::number(calibrage.getRationalite());
+        // Si on lance une recherche de calibrage optimal ou si on a choisi le calibrage
+        if (!jeu->getOptions().profilage || jeu->getOptions().calibrageIaProfileeFixe) {
+            ia->setCalibrage(jeu->getOptions().iaProfilee);
         }
-        else {
-            Profil calibrage;
-            calibrage.setAgressivite(options.pseudo.split("_")[0].toDouble());
-            calibrage.setRationalite(options.pseudo.split("_")[1].toDouble());
-            ia->setCalibrage(calibrage);
-        }
+
+        Profil calibrage = *(ia->getCalibrage());
+        pseudoJoueur = QString::number(calibrage.getAgressivite()) + "_" + QString::number(calibrage.getRationalite());
 
         contenu = new ContenuFenetreIA(jeu);
     }
     else {
+        pseudoJoueur = jeu->getOptions().pseudo;
+
         contenu = new ContenuFenetreHumain(jeu, this);
         j1 = new JoueurHumain(true, CAVE_JOUEURS, 0, static_cast<ContenuFenetreHumain*>(contenu));
     }
 
     jeu->addJoueur(j1);
 
+
+    /** IA qui profile **/
+
     IntelligenceArtificielleProfilage *ia = new IntelligenceArtificielleProfilage(false, CAVE_JOUEURS, 1);
+
+    if (jeu->getOptions().calibrageIaQuiProfileFixe) {
+        ia->setCalibrage(jeu->getOptions().iaQuiProfile);
+    }
+
     jeu->addJoueur(ia);
 
     // Envoi du pseudo du joueur
     ia->setPseudoJoueurProfile(pseudoJoueur.toStdString());
 
 
+    /** Fenêtre **/
+
     // Layout principal
     QVBoxLayout *layout = new QVBoxLayout;
     boutonDemarrage.setText("Démarrer");
     boutonDemarrage.setFixedSize(boutonDemarrage.sizeHint());
 
-    if (CALCUL_CALIBRAGE_IDEAL) {
-        connect(&boutonDemarrage, SIGNAL(clicked()), this, SLOT(demarrageCalibrageIdeal()));
+    if (jeu->getOptions().profilage) {
+        connect(&boutonDemarrage, SIGNAL(clicked()), this, SLOT(demarragePartie()));
     }
     else {
-        connect(&boutonDemarrage, SIGNAL(clicked()), this, SLOT(demarragePartie()));
+        connect(&boutonDemarrage, SIGNAL(clicked()), this, SLOT(demarrageCalibrageIdeal()));
     }
 
     layout->setAlignment(Qt::AlignCenter);
@@ -97,8 +104,8 @@ void Fenetre::demarragePartie()
 {
     boutonDemarrage.hide();
 
-    int nbCalibrages = NOMBRE_CALIBRAGES;
-    int nbParties = NOMBRE_PARTIES;
+    int nbCalibrages = jeu->getOptions().nombreCalibrages;
+    int nbParties = jeu->getOptions().nombreParties;
 
     if (jeu->getJoueur(0)->estHumain()) {
         nbCalibrages = 1;
@@ -111,7 +118,13 @@ void Fenetre::demarragePartie()
 
         if (!jeu->getJoueur(0)->estHumain()) {
             IntelligenceArtificielle *iaProfilee = static_cast<IntelligenceArtificielle*>(jeu->getJoueur(0));
-            iaProfilee->nouveauCalibrage();
+
+            if (!jeu->getOptions().calibrageIaProfileeFixe) {
+                iaProfilee->nouveauCalibrage();
+            }
+
+            std::cout<<"Calibrage IA profilée : agressivité: "<<iaProfilee->getCalibrage()->getAgressivite()
+                    <<" rationalité: "<<iaProfilee->getCalibrage()->getRationalite()<<std::endl;
 
             QString pseudo = QString::number(iaProfilee->getCalibrage()->getAgressivite()) + "_" + QString::number(iaProfilee->getCalibrage()->getRationalite());
 
@@ -144,7 +157,7 @@ void Fenetre::demarrageCalibrageIdeal()
     IntelligenceArtificielle *iaQuiProfile = static_cast<IntelligenceArtificielle*>(jeu->getJoueur(1));
     IntelligenceArtificielle *iaProfilee = static_cast<IntelligenceArtificielle*>(jeu->getJoueur(0));
 
-    CalibrageIdeal c(jeu, iaQuiProfile->getCalibrage(), iaProfilee->getCalibrage(), NOMBRE_PARTIES_CALIBRAGE_IDEAL);
+    CalibrageIdeal c(jeu, iaQuiProfile->getCalibrage(), iaProfilee->getCalibrage(), jeu->getOptions().nombreParties);
     c.lancerParties();
 }
 

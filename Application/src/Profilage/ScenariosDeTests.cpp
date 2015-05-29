@@ -30,10 +30,6 @@ ScenariosDeTests::ScenariosDeTests(Profil *profilJoueur, Profil *calibrageIA, Pr
 
     calibrageActuelIA=calibrageIA;
     actionReelleJoueur=profilJoueur;
-
-    int agressivite=rand()%100+1;
-    calibrageActuelIA->setAgressivite(agressivite);
-    calibrageActuelIA->setRationalite(RATIONALITE_IA_PROFILAGE);
 }
 
 ScenariosDeTests::~ScenariosDeTests(){

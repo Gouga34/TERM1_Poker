@@ -10,29 +10,14 @@ IntelligenceArtificielle::IntelligenceArtificielle(bool estDealer, int jetons, i
     :Joueur(estDealer, jetons, position) {
     resolveur = new Resolveur(this);
 
-    double agressivite;
-    double rationalite;
-
-    if (CALCUL_CALIBRAGE_IDEAL && position == 0) {
-        agressivite = 78;
-        rationalite = 16;
-    }
-    else {
-//        agressivite=rand()%100+1;
-//        rationalite=rand()%100+1;
-        agressivite=80;
-        rationalite=80;
-    }
+    double agressivite=rand()%100+1;
+    double rationalite=rand()%100+1;
 
     Profil p;
     p.setAgressivite(agressivite);
     p.setRationalite(rationalite);
 
     setCalibrage(p);
-
-    if(position==0){
-        std::cout<<"Calibrage IA profilée : agressivité: "<<agressivite<<" rationalité: "<<rationalite<<std::endl;
-    }
 }
 
 IntelligenceArtificielle::IntelligenceArtificielle(const IntelligenceArtificielle& joueur): Joueur(joueur){
@@ -63,20 +48,13 @@ void IntelligenceArtificielle::setCalibrage(Profil profil) {
 
 void IntelligenceArtificielle::nouveauCalibrage()
 {
-//    int agressivite=rand()%100+1;
-//    int rationalite=rand()%100+1;
-
-        int agressivite=80;
-        int rationalite=80;
+    int agressivite=rand()%100+1;
+    int rationalite=rand()%100+1;
 
     Profil p;
     p.setAgressivite(agressivite);
     p.setRationalite(rationalite);
     setCalibrage(p);
-
-    if(position==0) {
-        std::cout<<"Calibrage IA profilée : agressivité: "<<agressivite<<" rationalité: "<<rationalite<<std::endl;
-    }
 }
 
 void IntelligenceArtificielle::lancerEstimationChancesDeGain(int nbTests, int nbThreads)

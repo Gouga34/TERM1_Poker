@@ -13,6 +13,7 @@
 #include "../Profilage/Profilage.h"
 #include "../IA/EstimationProba.h"
 #include "../IA/IntelligenceArtificielle.h"
+#include "../Interface/ChoixOptionsDialog.h"
 
 class Joueur;
 class IntelligenceArtificielle;
@@ -39,9 +40,10 @@ class Jeu{
         int                                 dealer;
         bool                                partieFinie;
         ETAPE_JEU                           etape;
-        RESULTAT_PARTIE                                 resultatPartie;
+        RESULTAT_PARTIE                     resultatPartie;
         std::vector<Carte>                  tableTmp;
 
+        OptionsJeu options;
 
 
         /**
@@ -93,10 +95,10 @@ class Jeu{
 	//Constructeur et destructeur
 	public:
 		/**
-		*@param  : Le nombre de joueur, le montant de la blind de depart, la cave de depart des joueurs et le type de proffiling de l'IA
+        *@param  : Le nombre de joueur, le montant de la blind de depart et les options
 		*@action : Initialise un nouveau jeu
 		**/
-        Jeu(int nbJoueur, int blindDepart);
+        Jeu(int nbJoueur, int blindDepart, OptionsJeu opt);
 		
 		/**
 		*@action : Destructeur de la classe Jeu
@@ -105,6 +107,11 @@ class Jeu{
 		
     //Accesseurs
 	
+        /**
+         * @return Options du jeu
+         */
+        OptionsJeu getOptions() const;
+
         /**
          * @return Gagnant de la partie (GAGNE, PERDU, EGALITE)
          */
