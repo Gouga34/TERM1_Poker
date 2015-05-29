@@ -18,6 +18,7 @@ Specification: Fichier contenant les définitions de la classe
 
 
 ContenuFenetreIA::ContenuFenetreIA(Jeu *j):ContenuFenetre(j){
+
     //fenetre
     QVBoxLayout *boite = new QVBoxLayout;
 
@@ -30,10 +31,14 @@ ContenuFenetreIA::ContenuFenetreIA(Jeu *j):ContenuFenetre(j){
     //Tableau contenant les résultats globaux de toutes les parties
     initialisationResultatsGlobaux();
 
+    //Graphique
+    initialisationResultats();
+
     boite->addWidget(&etatParties);
     boite->addWidget(&calibrageIAProfilee);
     boite->addWidget(&recapParties);
     boite->addWidget(&resultatsGlobaux);
+    boite->addWidget(&graphiqueresultats);
 
     setLayout(boite);
 }
@@ -43,24 +48,26 @@ ContenuFenetreIA::~ContenuFenetreIA(){
 }
 
 void ContenuFenetreIA::initialisationRecapParties(){
-    recapParties.setColumnCount(9);
+    recapParties.setColumnCount(8);
 
     //Ajout première ligne:
     QStringList header;
     header<<"Scenarios en cours"<<"Agressivité IA qui profile"<<"Rationalité IA qui profile"
-         <<"Agressivité déduite"<<"Rationalité déduite"<<"Taux de similarité"<<"Jeu agressif"<<"Gains"<<"Gain IA qui profile";
+         <<"Agressivité déduite"<<"Rationalité déduite"<<"Taux de similarité"/*<<"Jeu agressif"*/<<"Gains"<<"Gain IA qui profile";
     recapParties.setHorizontalHeaderLabels(header);
 
     recapParties.resizeColumnsToContents();
+
+    recapParties.setMaximumHeight(300);
 }
 
 
 void ContenuFenetreIA::initialisationResultatsGlobaux(){
-    resultatsGlobaux.setColumnCount(6);
+    resultatsGlobaux.setColumnCount(5);
 
     QStringList header;
-    header<<"Agressivité déduite"<<"Rationalité déduite"<<"Taux de similarité"<<"Nombre de jeux agressifs"
-            <<"Total gains"<<"Nombre de parties gagnées";
+    header<<"Agressivité déduite"<<"Rationalité déduite"<<"Taux de similarité"<</*"Nombre de jeux agressifs"
+            <<*/"Total gains"<<"Nombre de parties gagnées";
 
     QStringList verticalHeader;
     verticalHeader<<"Récapitulatif des résultats : ";
@@ -80,11 +87,61 @@ void ContenuFenetreIA::initialisationResultatsGlobaux(){
     resultatsGlobaux.setItem(nouvelleLigne, AG_DEDUITE, new QTableWidgetItem(QString::number(0)));
     resultatsGlobaux.setItem(nouvelleLigne, RA_DEDUITE, new QTableWidgetItem(QString::number(0)));
     resultatsGlobaux.setItem(nouvelleLigne, SIMILARITE, new QTableWidgetItem(QString::number(0)));
-    resultatsGlobaux.setItem(nouvelleLigne, NB_JEUX_AGRESSIFS, new QTableWidgetItem(QString::number(0)));
+    //resultatsGlobaux.setItem(nouvelleLigne, NB_JEUX_AGRESSIFS, new QTableWidgetItem(QString::number(0)));
     resultatsGlobaux.setItem(nouvelleLigne,TOTAL_GAINS, new QTableWidgetItem(QString::number(0)));
     resultatsGlobaux.setItem(nouvelleLigne, NB_PARTIES_GAGNEES, new QTableWidgetItem(QString::number(0)));
 
-        resultatsGlobaux.setFixedHeight(50);
+    resultatsGlobaux.setFixedHeight(50);
+}
+
+void ContenuFenetreIA::initialisationResultats(){
+
+    graphiqueresultats.setMinimumSize(600, 300);
+
+    // add two new graphs and set their look:
+    graphiqueresultats.addGraph(graphiqueresultats.xAxis, graphiqueresultats.yAxis);
+    graphiqueresultats.graph(0)->setPen(QPen(Qt::blue)); // Taux de similarité
+    graphiqueresultats.graph(0)->setName("Taux de similarité");
+
+    graphiqueresultats.addGraph(graphiqueresultats.xAxis, graphiqueresultats.yAxis2);
+    graphiqueresultats.graph(1)->setPen(QPen(Qt::red)); // Cumul des gains
+    graphiqueresultats.graph(1)->setName("Cumul des jetons gagnés");
+
+    // configure right and top axis to show ticks but no labels:
+    // (see QCPAxisRect::setupFullAxesBox for a quicker method to do this)
+    graphiqueresultats.yAxis2->setVisible(true);
+    graphiqueresultats.yAxis2->setTickLabels(true);
+
+    graphiqueresultats.xAxis->setRange(0, jeu->getOptions().nombreParties);
+    graphiqueresultats.yAxis2->setRange(0, 100);
+    graphiqueresultats.yAxis->setRange(-30000, 30000);
+
+    // make left and bottom axes always transfer their ranges to right and top axes:
+    connect(graphiqueresultats.xAxis, SIGNAL(rangeChanged(QCPRange)), graphiqueresultats.xAxis2, SLOT(setRange(QCPRange)));
+    //connect(graphiqueresultats.yAxis, SIGNAL(rangeChanged(QCPRange)), graphiqueresultats.yAxis2, SLOT(setRange(QCPRange)));
+
+
+    // Note: we could have also just called resultats.rescaleAxes(); instead
+    // Allow user to drag axis ranges with mouse, zoom with mouse wheel and select graphs by clicking:
+    graphiqueresultats.setInteractions(QCP::iRangeZoom | QCP::iSelectPlottables);
+    graphiqueresultats.legend->setVisible(true);
+
+    pointsNombreDeParties << 0;
+    pointsTauxSimilarite << 0.0;
+    pointsCumulGains << 0;
+
+    // pass data points to graphs:
+    graphiqueresultats.graph(0)->setData(pointsNombreDeParties, pointsTauxSimilarite);
+    graphiqueresultats.graph(1)->setData(pointsNombreDeParties, pointsCumulGains);
+
+    // let the ranges scale themselves so graph 0 fits perfectly in the visible area:
+    graphiqueresultats.graph(0)->rescaleAxes();
+    // same thing for graph 1, but only enlarge ranges (in case graph 1 is smaller than graph 0):
+    graphiqueresultats.graph(1)->rescaleAxes();
+
+    graphiqueresultats.xAxis->setLabel("Nombre de parties");
+    graphiqueresultats.yAxis->setLabel("Taux de similarité");
+    graphiqueresultats.yAxis2->setLabel("Cumul de jetons gagnés");
 }
 
 void ContenuFenetreIA::majResultatsGlobaux(){
@@ -97,9 +154,9 @@ void ContenuFenetreIA::majResultatsGlobaux(){
     //Taux similarite:
     resultatsGlobaux.setItem(ligne,SIMILARITE, new QTableWidgetItem(QString::number(IA->getScenario().getTauxSimilarite())));
     //Nb jeux agressifs:
-    QTableWidgetItem* nbPrec=resultatsGlobaux.takeItem(ligne,NB_JEUX_AGRESSIFS);
-    int nbPrecs = nbPrec->text().toInt();
-    resultatsGlobaux.setItem(ligne,NB_JEUX_AGRESSIFS,new QTableWidgetItem(QString::number(nbPrecs+IA->getProfilage()->jeuAgressif)) );
+    //QTableWidgetItem* nbPrec=resultatsGlobaux.takeItem(ligne,NB_JEUX_AGRESSIFS);
+    //int nbPrecs = nbPrec->text().toInt();
+    //resultatsGlobaux.setItem(ligne,NB_JEUX_AGRESSIFS,new QTableWidgetItem(QString::number(nbPrecs+IA->getProfilage()->jeuAgressif)) );
     //Total gains:
     QTableWidgetItem* gainsPrec = resultatsGlobaux.takeItem(ligne,TOTAL_GAINS);
     int gainsPrecs = gainsPrec->text().toInt();
@@ -139,7 +196,7 @@ void ContenuFenetreIA::ajouterLigne(){
 
     recapParties.setItem(nouvelleLigne, TAUX_SIMILARITE, new QTableWidgetItem(QString::number(IA->getScenario().getTauxSimilarite())));
 
-    recapParties.setItem(nouvelleLigne, JEU_AGRESSIF, new QTableWidgetItem(QString::number(IA->getProfilage()->jeuAgressif)));
+    //recapParties.setItem(nouvelleLigne, JEU_AGRESSIF, new QTableWidgetItem(QString::number(IA->getProfilage()->jeuAgressif)));
 
     recapParties.setItem(nouvelleLigne, GAINS, new QTableWidgetItem(QString::number(IA->getProfilage()->nbJetonsGagnesIAQuiProfile)));
 
@@ -149,6 +206,22 @@ void ContenuFenetreIA::ajouterLigne(){
 void ContenuFenetreIA::scrollAutomatiqueTableau(){
     QScrollBar *sb = recapParties.verticalScrollBar();
     sb->setValue(sb->maximum());
+}
+
+void ContenuFenetreIA::majGraphiqueResultats(){
+
+    pointsNombreDeParties << recapParties.rowCount();
+    pointsTauxSimilarite << resultatsGlobaux.item(0, SIMILARITE)->text().toFloat();
+    pointsCumulGains << resultatsGlobaux.item(0, TOTAL_GAINS)->text().toInt();
+
+    // pass data points to graphs:
+    graphiqueresultats.graph(0)->setData(pointsNombreDeParties, pointsTauxSimilarite);
+    graphiqueresultats.graph(1)->setData(pointsNombreDeParties, pointsCumulGains);
+
+    // let the ranges scale themselves so graph 0 fits perfectly in the visible area:
+    graphiqueresultats.graph(0)->rescaleAxes();
+    // same thing for graph 1, but only enlarge ranges (in case graph 1 is smaller than graph 0):
+    graphiqueresultats.graph(1)->rescaleAxes();
 }
 
 void ContenuFenetreIA::actualiser(){
@@ -162,6 +235,8 @@ void ContenuFenetreIA::actualiser(){
     majResultatsGlobaux();
 
     scrollAutomatiqueTableau();
+
+    majGraphiqueResultats();
 
     qApp->processEvents();
 }

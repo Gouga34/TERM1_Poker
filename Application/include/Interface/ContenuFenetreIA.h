@@ -12,7 +12,9 @@ Specification: Classe définissant la fenêtre affichée lorsque
 
 #include "ContenuFenetre.h"
 #include <QLabel>
+#include <QVector>
 #include <QTableWidget>
+#include "CustomPlot/qcustomplot.h"
 
 class ContenuFenetreIA : public ContenuFenetre{
 private:
@@ -23,6 +25,12 @@ private:
 
     QLabel calibrageIAProfilee;
 
+    QCustomPlot graphiqueresultats;
+
+    QVector<double> pointsNombreDeParties;
+    QVector<double> pointsTauxSimilarite;
+    QVector<double> pointsCumulGains;
+
 
     enum COLONNES_RECAPPARTIES{
         SCENARIOS_EN_COURS,
@@ -31,7 +39,7 @@ private:
         AGRESSIVITE_DEDUITE,
         RATIONALITE_DEDUITE,
         TAUX_SIMILARITE,
-        JEU_AGRESSIF,
+        //JEU_AGRESSIF,
         GAINS,
         GAIN_IA_QUI_PROFILE
     };
@@ -40,7 +48,7 @@ private:
         AG_DEDUITE,
         RA_DEDUITE,
         SIMILARITE,
-        NB_JEUX_AGRESSIFS,
+        //NB_JEUX_AGRESSIFS,
         TOTAL_GAINS,
         NB_PARTIES_GAGNEES
     };
@@ -67,6 +75,11 @@ private:
     void initialisationRecapParties();
 
     /**
+     * @brief initialisationResultats initialise le graphique des résultats
+     */
+    void initialisationResultats();
+
+    /**
      * @brief ajouterLigne ajoute une ligne dans le récapitulatif des parties
      */
     void ajouterLigne();
@@ -75,6 +88,11 @@ private:
      * @brief Scroll automatiquement vers le bas pour afficher la denrière ligne du tableau
      */
     void scrollAutomatiqueTableau();
+
+    /**
+     * @brief majGraphiqueResultats Ajoute les points de la nouvelle partie
+     */
+    void majGraphiqueResultats();
 
 public:
     ContenuFenetreIA(Jeu *j);
