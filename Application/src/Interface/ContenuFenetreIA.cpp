@@ -221,6 +221,8 @@ void ContenuFenetreIA::majGraphiqueResultats(){
     graphiqueResultats.graph(0)->rescaleAxes();
     // same thing for graph 1, but only enlarge ranges (in case graph 1 is smaller than graph 0):
     graphiqueResultats.graph(1)->rescaleAxes();
+
+    graphiqueResultats.replot();
 }
 
 void ContenuFenetreIA::actualiser(){
