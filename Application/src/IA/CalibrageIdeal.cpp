@@ -54,6 +54,8 @@ void CalibrageIdeal::ecrireRsultatTotalParties() const
 
 void CalibrageIdeal::lancerParties()
 {
+    std::cout << calibrageIAProfilee->getAgressivite() << " - " << calibrageIAProfilee->getRationalite() << std::endl;
+
     for (int i = 0; i < listeTauxIAQuiProfile.size(); i++) {
         for (int j = 0; j < listeTauxIAQuiProfile.size(); j++) {
 

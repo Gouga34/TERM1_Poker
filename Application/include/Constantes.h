@@ -34,27 +34,11 @@
  */
 #define RATIONALITE_IA_PROFILAGE                50.0
 
-// Profilage
-#define NOMBRE_CALIBRAGES                       1
-#define NOMBRE_PARTIES                          30
 #define VARIATION_AUTORISEE                     20
 
-#define NOMBRE_PARTIES_PROFILAGE                10
-#define NOMBRE_PARTIES_REPROFILAGE              5
-#define NOMBRE_PARTIES_GAINS                    10
-
-// Calibrage optimal
-#define CALCUL_CALIBRAGE_IDEAL                  false
-#define NOMBRE_PARTIES_CALIBRAGE_IDEAL          100
-
-// Si vrai, écrit dans un fichier la comparaison des gains parties/jetons avant et après profilage
-#define ANALYSE_GAINS_PARTIES                   true
-
 // Recherche du coefficient
-#define UTILISATION_DELTA_AGRESSIVITE           true
-#define DELTA_AGRESSIVITE                       5           // Nombre de parties pour lesquels on sera une fois plus agressif (1 partie sur 5)
-
-#define REINITIALISATION_CAVE                   true
+#define UTILISATION_DELTA_AGRESSIVITE           false
+#define DELTA_AGRESSIVITE                       15           // Nombre de parties pour lesquels on sera une fois plus agressif (1 partie sur 5)
 
 /**
  * Couleur des cartes

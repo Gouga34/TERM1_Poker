@@ -94,13 +94,6 @@ ContenuFenetreHumain::ContenuFenetreHumain(Jeu *j, Fenetre *f) : ContenuFenetre(
     boutonDemarrage.setMaximumWidth(150);
     boutonDemarrage.hide();
 
-    if (CALCUL_CALIBRAGE_IDEAL) {
-        connect(&boutonDemarrage, SIGNAL(clicked()), f, SLOT(demarrageCalibrageIdeal()));
-    }
-    else {
-        connect(&boutonDemarrage, SIGNAL(clicked()), f, SLOT(demarragePartie()));
-    }
-
     boutonChoixCartes.setChecked(false);
     boutonChoixCartes.setText("Choix des cartes");
     boutonChoixCartes.setObjectName(QString("Checkbox"));

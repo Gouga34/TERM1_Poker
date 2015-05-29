@@ -4,8 +4,10 @@
 
 #include <iterator>
 
-Jeu::Jeu(int nbJoueur, int blindDepart) : actions(nbJoueur) {
+Jeu::Jeu(int nbJoueur, int blindDepart, OptionsJeu opt) : actions(nbJoueur) {
 	srand((unsigned)time(0));
+
+    options = opt;
 
     this->deck = nouveauDeck();
     this->melangeDeck();
@@ -36,7 +38,7 @@ void Jeu::reinitialisationCaves() {
     setPot(0);
 
     for (unsigned int i = 0; i < listeJoueurs.size(); i++) {
-        if (REINITIALISATION_CAVE) {
+        if (options.reinitialisationCaves) {
             getJoueur(i)->setCave(CAVE_JOUEURS);
         }
         else {
@@ -150,6 +152,10 @@ void Jeu::distributionBlind(){
     for(unsigned int i=0; i<listeJoueurs.size(); i++){
         this->getJoueur(i)->resetCompteurActions();
     }
+}
+
+OptionsJeu Jeu::getOptions() const {
+    return options;
 }
 
 RESULTAT_PARTIE Jeu::getResultatPartie() const {

@@ -49,9 +49,9 @@ ChoixOptionsDialog::ChoixOptionsDialog()
     choixAdversaire.setChecked(false);
 
     QFormLayout *layoutJoueurHumain = new QFormLayout;
-    layoutJoueurHumain->addRow("Pseudo", &pseudo);
+    layoutJoueurHumain->addRow("Pseudo", &champPseudo);
 
-    //choixAdversaire.setLayout(&layoutJoueurHumain);
+    //choixAdversaire.setLayout(layoutJoueurHumain);
 
     boiteNombreCalibrages.setValue(1);
     boiteNombreCalibrages.setMaximum(500);
@@ -87,7 +87,6 @@ ChoixOptionsDialog::ChoixOptionsDialog()
     layoutProfilage->addLayout(formulaire);
     layoutProfilage->addWidget(&calibrageIAProfilee);
     layoutProfilage->addWidget(&calibrageIAQuiProfile);
-    layoutProfilage->addWidget(bouton);
 
     widgetProfliage->setLayout(layoutProfilage);
 
@@ -115,6 +114,8 @@ ChoixOptionsDialog::ChoixOptionsDialog()
     boite->addWidget(&modeProfilage);
     boite->addWidget(&modeCalibrageOptimal);
     boite->addWidget(parametres);
+    boite->addStretch();
+    boite->addWidget(bouton);
 
     setLayout(boite);
 
@@ -136,46 +137,46 @@ void ChoixOptionsDialog::changePageLayout(){
     }
 }
 
-void ChoixOptionsDialog::ajouterPseudosConnus(){
+OptionsJeu ChoixOptionsDialog::getOptions(){
 
-    //Ajout d'un pseudo vide :
-    /*pseudos.addItem("Calibrage aléatoire");
-    //Ouverture du fichier
-    QFile fichierPseudos(QString::fromStdString(FICHIER_PSEUDOS_PROFILAGE));
-
-    if(!fichierPseudos.open(QIODevice::ReadOnly | QIODevice::Text)){
-        cerr<<"Erreur lors de l'ouverture du fichier contenant la liste des pseudos"<<endl;
-        return;
-    }
-    QTextStream flux(&fichierPseudos);
-    QString ligne;
-    while(! flux.atEnd()){
-        ligne = flux.readLine();
-        pseudos.addItem(ligne);
-    }*/
-}
-
-Options ChoixOptionsDialog::getOptions(){
-
-    Options options;
+    OptionsJeu options;
 
     if (exec() == QDialog::Accepted) {
-        QString pseudoJoueur = pseudo.text();
 
-        options.joueurIA = !choixAdversaire.isChecked();
-        options.nombreCalibrages = boiteNombreCalibrages.value();
-        options.nombreParties = boiteNombreParties.value();
+        options.profilage = modeProfilage.isChecked();
 
-        options.nombrePartiesProfilage = boiteNombrePartiesProfilage.value();
-        options.nombrePartiesReprofilage = boiteNombrePartiesReprofilage.value();
-        options.nombrePartiesGains = boiteNombrePartiesGains.value();
+        if (modeProfilage.isChecked()) {
 
-        options.analyseGainsParties = caseAnalyseGainsParties.isChecked();
+            options.joueurIA = !choixAdversaire.isChecked();
+            options.pseudo = champPseudo.text();
 
-        options.pseudo = pseudoJoueur;
+            options.nombreCalibrages = boiteNombreCalibrages.value();
+            options.nombreParties = boiteNombreParties.value();
 
-        //options.rationaliteIA = rationalite.value();
-        //options.agressiviteIA = agressivite.value();
+            options.nombrePartiesProfilage = boiteNombrePartiesProfilage.value();
+            options.nombrePartiesReprofilage = boiteNombrePartiesReprofilage.value();
+            options.nombrePartiesGains = boiteNombrePartiesGains.value();
+
+            options.analyseGainsParties = caseAnalyseGainsParties.isChecked();
+            options.reinitialisationCaves = caseReinitialisationCaves.isChecked();
+
+            options.calibrageIaProfileeFixe = calibrageIAProfilee.isChecked();
+            options.calibrageIaQuiProfileFixe = calibrageIAQuiProfile.isChecked();
+
+            if (calibrageIAProfilee.isChecked()) {
+                options.iaProfilee = calibrageIAProfilee.getCalibrage();
+            }
+
+            if (calibrageIAQuiProfile.isChecked()) {
+                options.iaQuiProfile = calibrageIAQuiProfile.getCalibrage();
+            }
+        }
+        else {
+
+            options.joueurIA = true;
+            options.nombreParties = boiteNombrePartiesCalibrageOptimal.value();
+            options.iaProfilee = calibrageAdversaire.getCalibrage();
+        }
     }
 
     return options;

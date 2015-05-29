@@ -20,11 +20,13 @@ Specification: Classe définissant la fenêtre de choix du pseudo.
 #include <QStackedLayout>
 #include "ChoixCalibrage.h"
 
-struct Options
+struct OptionsJeu
 {
-    QString pseudo;
+    bool profilage;         // Choix profilage/calibrage optimal
 
     bool joueurIA;
+
+    QString pseudo;
 
     int nombreCalibrages;
     int nombreParties;
@@ -34,9 +36,13 @@ struct Options
     int nombrePartiesGains;
 
     bool analyseGainsParties;
+    bool reinitialisationCaves;
 
-    double rationaliteIA;
-    double agressiviteIA;
+    bool calibrageIaProfileeFixe;
+    bool calibrageIaQuiProfileFixe;
+
+    Profil iaProfilee;
+    Profil iaQuiProfile;
 };
 
 
@@ -53,7 +59,7 @@ private :
 
    //// Paramètres profilage ////
 
-   QLineEdit pseudo;
+   QLineEdit champPseudo;
    QGroupBox choixAdversaire;
    QSpinBox boiteNombreCalibrages;
    QSpinBox boiteNombreParties;
@@ -74,11 +80,6 @@ private :
 
    ChoixCalibrage calibrageAdversaire;
 
-   /**
-    * @action ajoute dans la liste déroulante pseudos les pseudos déjà connus.
-    * Ces pseudos sont récupérés dans le fichier "../../ressources/Profilage/[ProfilageStatique]OU[ProfilageDynamique]/pseudos.txt" se trouvant
-    */
-   void ajouterPseudosConnus();
 
 public :
     ChoixOptionsDialog();
@@ -88,7 +89,7 @@ public :
     * @return retourne les options fournies par l'utilisateur
     *         (pseudo déjà existant ou non) et le calibrage de l'IA
     */
-    Options getOptions();
+    OptionsJeu getOptions();
 
 private slots:
 

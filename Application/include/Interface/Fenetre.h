@@ -23,9 +23,6 @@ class Fenetre : public QWidget
 
         Jeu *jeu;
 
-        int nombreDeCalibrages;
-        int nombreDeParties;
-
         QPushButton boutonDemarrage;
 
         ContenuFenetre *contenu;

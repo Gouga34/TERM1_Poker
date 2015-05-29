@@ -51,6 +51,7 @@ void IntelligenceArtificielleProfilage::setPseudoJoueurProfile(std::string pseud
         delete profilage;
     }
     profilage = new Profilage(resolveur->getCalibrage(), &profilJoueur);
+    profilage->phaseProfilageCourante.nouvellePhase(jeu->getOptions().nombrePartiesProfilage);
 
     Profil calibrageRecherche;
     if (!jeu->getJoueur(0)->estHumain()) {
@@ -200,7 +201,7 @@ PHASE_JEU_IA IntelligenceArtificielleProfilage::prochainTypeDeJeu() {
     }
     else {
         if (phaseJeu == PHASE_PROFILAGE) {
-            profilage->phaseJeuCourante.nouvellePhase(NOMBRE_PARTIES_GAINS);
+            profilage->phaseJeuCourante.nouvellePhase(jeu->getOptions().nombrePartiesGains);
             return PHASE_GAINS;
         }
         else {
@@ -208,7 +209,7 @@ PHASE_JEU_IA IntelligenceArtificielleProfilage::prochainTypeDeJeu() {
             double gainParPartieProfilage = static_cast<double>(profilage->phaseProfilageCourante.getGains()) / profilage->phaseProfilageCourante.getNbPartiesRealisees();
 
             if (profilage->phaseJeuCourante.getGains() < 0 || gainParPartieJeu < gainParPartieProfilage) {
-                profilage->phaseProfilageCourante.nouvellePhase(NOMBRE_PARTIES_REPROFILAGE);
+                profilage->phaseProfilageCourante.nouvellePhase(jeu->getOptions().nombrePartiesReprofilage);
                 return PHASE_PROFILAGE;
             }
             else {
@@ -220,7 +221,8 @@ PHASE_JEU_IA IntelligenceArtificielleProfilage::prochainTypeDeJeu() {
 
 void IntelligenceArtificielleProfilage::determinerTypeDeJeu() {
 
-    if (CALCUL_CALIBRAGE_IDEAL) {
+    // Si on recherche calibrage optimal
+    if (!jeu->getOptions().profilage) {
         phaseJeu = PHASE_GAINS;
     }
     else {
@@ -237,8 +239,6 @@ void IntelligenceArtificielleProfilage::determinerTypeDeJeu() {
             }
 
             setCalibragePourJouer();
-            getCalibrage()->setAgressivite(80);
-            getCalibrage()->setRationalite(80);
         }
 
         Logger::getInstance()->ajoutLogs("Calibrage IA profilage: agressivité: "+QString::number(resolveur->getCalibrage()->getAgressivite())
@@ -249,13 +249,23 @@ void IntelligenceArtificielleProfilage::determinerTypeDeJeu() {
 }
 
 void IntelligenceArtificielleProfilage::setCalibragePourProfiler() {
+
+    if (jeu->getOptions().calibrageIaQuiProfileFixe) {
+        return;
+    }
+
     //On tire aléatoirement un nouveau taux d'agressivite:
     int agressivite=rand()%100+1;
 
     resolveur->getCalibrage()->setAgressivite(agressivite);
+    resolveur->getCalibrage()->setRationalite(RATIONALITE_IA_PROFILAGE);
 }
 
 void IntelligenceArtificielleProfilage::setCalibragePourJouer() {
+
+    if (jeu->getOptions().calibrageIaQuiProfileFixe) {
+        return;
+    }
 
     /////// Lecture du calibrage pour gagner //////////
 
@@ -313,7 +323,7 @@ void IntelligenceArtificielleProfilage::setCalibragePourJouer() {
 
 void IntelligenceArtificielleProfilage::ecritureAnalyseDesGains() {
 
-    if (ANALYSE_GAINS_PARTIES) {
+    if (jeu->getOptions().analyseGainsParties) {
 
         Profil calibrageRecherche;
 
