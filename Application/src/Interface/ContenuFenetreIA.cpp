@@ -38,7 +38,7 @@ ContenuFenetreIA::ContenuFenetreIA(Jeu *j):ContenuFenetre(j){
     boite->addWidget(&calibrageIAProfilee);
     boite->addWidget(&recapParties);
     boite->addWidget(&resultatsGlobaux);
-    boite->addWidget(&graphiqueresultats);
+    boite->addWidget(&graphiqueResultats);
 
     setLayout(boite);
 }
@@ -96,52 +96,51 @@ void ContenuFenetreIA::initialisationResultatsGlobaux(){
 
 void ContenuFenetreIA::initialisationResultats(){
 
-    graphiqueresultats.setMinimumSize(600, 300);
+    graphiqueResultats.setMinimumSize(600, 300);
 
     // add two new graphs and set their look:
-    graphiqueresultats.addGraph(graphiqueresultats.xAxis, graphiqueresultats.yAxis);
-    graphiqueresultats.graph(0)->setPen(QPen(Qt::blue)); // Taux de similarité
-    graphiqueresultats.graph(0)->setName("Taux de similarité");
+    graphiqueResultats.addGraph(graphiqueResultats.xAxis, graphiqueResultats.yAxis);
+    graphiqueResultats.graph(0)->setPen(QPen(Qt::blue)); // Taux de similarité
+    graphiqueResultats.graph(0)->setName("Taux de similarité");
 
-    graphiqueresultats.addGraph(graphiqueresultats.xAxis, graphiqueresultats.yAxis2);
-    graphiqueresultats.graph(1)->setPen(QPen(Qt::red)); // Cumul des gains
-    graphiqueresultats.graph(1)->setName("Cumul des jetons gagnés");
+    graphiqueResultats.addGraph(graphiqueResultats.xAxis, graphiqueResultats.yAxis2);
+    graphiqueResultats.graph(1)->setPen(QPen(Qt::red)); // Cumul des gains
+    graphiqueResultats.graph(1)->setName("Cumul des jetons gagnés");
 
     // configure right and top axis to show ticks but no labels:
     // (see QCPAxisRect::setupFullAxesBox for a quicker method to do this)
-    graphiqueresultats.yAxis2->setVisible(true);
-    graphiqueresultats.yAxis2->setTickLabels(true);
+    graphiqueResultats.yAxis2->setVisible(true);
+    graphiqueResultats.yAxis2->setTickLabels(true);
 
-    graphiqueresultats.xAxis->setRange(0, jeu->getOptions().nombreParties);
-    graphiqueresultats.yAxis2->setRange(0, 100);
-    graphiqueresultats.yAxis->setRange(-30000, 30000);
+    graphiqueResultats.xAxis->setRange(0, jeu->getOptions().nombreParties);
+    graphiqueResultats.yAxis2->setRange(0, 100);
+    graphiqueResultats.yAxis->setRange(-30000, 30000);
 
     // make left and bottom axes always transfer their ranges to right and top axes:
-    connect(graphiqueresultats.xAxis, SIGNAL(rangeChanged(QCPRange)), graphiqueresultats.xAxis2, SLOT(setRange(QCPRange)));
-    //connect(graphiqueresultats.yAxis, SIGNAL(rangeChanged(QCPRange)), graphiqueresultats.yAxis2, SLOT(setRange(QCPRange)));
-
+    connect(graphiqueResultats.xAxis, SIGNAL(rangeChanged(QCPRange)), graphiqueResultats.xAxis2, SLOT(setRange(QCPRange)));
 
     // Note: we could have also just called resultats.rescaleAxes(); instead
     // Allow user to drag axis ranges with mouse, zoom with mouse wheel and select graphs by clicking:
-    graphiqueresultats.setInteractions(QCP::iRangeZoom | QCP::iSelectPlottables);
-    graphiqueresultats.legend->setVisible(true);
+    graphiqueResultats.setInteractions(QCP::iRangeZoom | QCP::iSelectPlottables);
+    graphiqueResultats.legend->setVisible(true);
+    graphiqueResultats.axisRect()->insetLayout()->setInsetAlignment(0, Qt::AlignBottom | Qt::AlignRight);
 
     pointsNombreDeParties << 0;
     pointsTauxSimilarite << 0.0;
     pointsCumulGains << 0;
 
     // pass data points to graphs:
-    graphiqueresultats.graph(0)->setData(pointsNombreDeParties, pointsTauxSimilarite);
-    graphiqueresultats.graph(1)->setData(pointsNombreDeParties, pointsCumulGains);
+    graphiqueResultats.graph(0)->setData(pointsNombreDeParties, pointsTauxSimilarite);
+    graphiqueResultats.graph(1)->setData(pointsNombreDeParties, pointsCumulGains);
 
     // let the ranges scale themselves so graph 0 fits perfectly in the visible area:
-    graphiqueresultats.graph(0)->rescaleAxes();
+    graphiqueResultats.graph(0)->rescaleAxes();
     // same thing for graph 1, but only enlarge ranges (in case graph 1 is smaller than graph 0):
-    graphiqueresultats.graph(1)->rescaleAxes();
+    graphiqueResultats.graph(1)->rescaleAxes();
 
-    graphiqueresultats.xAxis->setLabel("Nombre de parties");
-    graphiqueresultats.yAxis->setLabel("Taux de similarité");
-    graphiqueresultats.yAxis2->setLabel("Cumul de jetons gagnés");
+    graphiqueResultats.xAxis->setLabel("Nombre de parties");
+    graphiqueResultats.yAxis->setLabel("Taux de similarité");
+    graphiqueResultats.yAxis2->setLabel("Cumul de jetons gagnés");
 }
 
 void ContenuFenetreIA::majResultatsGlobaux(){
@@ -215,13 +214,13 @@ void ContenuFenetreIA::majGraphiqueResultats(){
     pointsCumulGains << resultatsGlobaux.item(0, TOTAL_GAINS)->text().toInt();
 
     // pass data points to graphs:
-    graphiqueresultats.graph(0)->setData(pointsNombreDeParties, pointsTauxSimilarite);
-    graphiqueresultats.graph(1)->setData(pointsNombreDeParties, pointsCumulGains);
+    graphiqueResultats.graph(0)->setData(pointsNombreDeParties, pointsTauxSimilarite);
+    graphiqueResultats.graph(1)->setData(pointsNombreDeParties, pointsCumulGains);
 
     // let the ranges scale themselves so graph 0 fits perfectly in the visible area:
-    graphiqueresultats.graph(0)->rescaleAxes();
+    graphiqueResultats.graph(0)->rescaleAxes();
     // same thing for graph 1, but only enlarge ranges (in case graph 1 is smaller than graph 0):
-    graphiqueresultats.graph(1)->rescaleAxes();
+    graphiqueResultats.graph(1)->rescaleAxes();
 }
 
 void ContenuFenetreIA::actualiser(){

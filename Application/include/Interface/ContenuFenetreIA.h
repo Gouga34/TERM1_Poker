@@ -25,7 +25,7 @@ private:
 
     QLabel calibrageIAProfilee;
 
-    QCustomPlot graphiqueresultats;
+    QCustomPlot graphiqueResultats;
 
     QVector<double> pointsNombreDeParties;
     QVector<double> pointsTauxSimilarite;
