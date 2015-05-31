@@ -59,7 +59,7 @@ private :
 
    //// Paramètres profilage ////
 
-   QLineEdit champPseudo;
+   QLineEdit *champPseudo;
    QGroupBox choixAdversaire;
    QSpinBox boiteNombreCalibrages;
    QSpinBox boiteNombreParties;
