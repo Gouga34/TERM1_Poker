@@ -93,6 +93,7 @@ ContenuFenetreHumain::ContenuFenetreHumain(Jeu *j, Fenetre *f) : ContenuFenetre(
     boutonDemarrage.setText("Démarrage partie");
     boutonDemarrage.setMaximumWidth(150);
     boutonDemarrage.hide();
+    connect(&boutonDemarrage, SIGNAL(clicked()), f, SLOT(demarragePartie()));
 
     boutonChoixCartes.setChecked(false);
     boutonChoixCartes.setText("Choix des cartes");

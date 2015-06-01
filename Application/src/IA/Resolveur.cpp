@@ -339,6 +339,7 @@ Action Resolveur::calculerAction(){
     ACTION action=PAS_ENCORE_D_ACTION;
     int jetonsAMiser = -1;
 
+
     if (jeuAgressif) {
         action = actionAgressivite.getAction();
         jetonsAMiser = actionAgressivite.getMontant();
@@ -486,8 +487,9 @@ Action Resolveur::calculerAction(){
 
         }
    }
-    //Sinon, si l'action est relancer ou miser
-   else if(actionAgressivite.getAction()==actionRationalite.getAction() && (actionAgressivite.getAction()==ACTION::RELANCER || actionAgressivite.getAction()==ACTION::MISER)){
+
+   //Sinon, si l'action est relancer ou miser
+   if(actionAgressivite.getAction()==actionRationalite.getAction() && (actionAgressivite.getAction()==ACTION::RELANCER || actionAgressivite.getAction()==ACTION::MISER)){
 
         action=actionAgressivite.getAction();
 
@@ -526,7 +528,6 @@ Action Resolveur::calculerAction(){
         jetonsAMiser = ia->getCave();
     }
 
-    //std::cout<<"Joueur: "<<ia->getPosition()<<" action: "<<action<<" jetonsAMiser: "<<jetonsAMiser<<"mthTot: "<<miseTotaleTheoriqueAgressivite<<" totMises"<<ia->getMiseTotale()<<std::endl;
     return Action(action,jetonsAMiser);
 }
 
