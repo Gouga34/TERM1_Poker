@@ -51,7 +51,9 @@ Fenetre::Fenetre() : QWidget()
         contenu = new ContenuFenetreIA(jeu);
     }
     else {
-        pseudoJoueur = jeu->getOptions().pseudo;
+        if (!jeu->getOptions().pseudo.isEmpty()) {
+            pseudoJoueur = jeu->getOptions().pseudo;
+        }
 
         contenu = new ContenuFenetreHumain(jeu, this);
         j1 = new JoueurHumain(true, CAVE_JOUEURS, 0, static_cast<ContenuFenetreHumain*>(contenu));

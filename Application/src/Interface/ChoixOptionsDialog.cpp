@@ -48,10 +48,12 @@ ChoixOptionsDialog::ChoixOptionsDialog()
     choixAdversaire.setCheckable(true);
     choixAdversaire.setChecked(false);
 
-    QFormLayout *layoutJoueurHumain = new QFormLayout;
-    layoutJoueurHumain->addRow("Pseudo", &champPseudo);
+    champPseudo = new QLineEdit;
 
-    //choixAdversaire.setLayout(layoutJoueurHumain);
+    QFormLayout *layoutJoueurHumain = new QFormLayout;
+    layoutJoueurHumain->addRow("Pseudo", champPseudo);
+
+    choixAdversaire.setLayout(layoutJoueurHumain);
 
     boiteNombreCalibrages.setValue(1);
     boiteNombreCalibrages.setMaximum(500);
@@ -148,7 +150,7 @@ OptionsJeu ChoixOptionsDialog::getOptions(){
         if (modeProfilage.isChecked()) {
 
             options.joueurIA = !choixAdversaire.isChecked();
-            options.pseudo = champPseudo.text();
+            options.pseudo = champPseudo->text();
 
             options.nombreCalibrages = boiteNombreCalibrages.value();
             options.nombreParties = boiteNombreParties.value();
