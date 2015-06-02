@@ -91,6 +91,11 @@ class Jeu{
         *@param  : Le joueur effectuant l'action
         **/
         void seCoucher(int posJoueur);
+
+        /**
+         * @brief Calcule les chances de gain des deux ia
+         */
+        void calculChancesDeGain();
 		
 	//Constructeur et destructeur
 	public:

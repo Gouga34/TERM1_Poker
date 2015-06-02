@@ -101,6 +101,11 @@ void Jeu::nouvelleEtape(ETAPE_JEU etape){
         Logger::getInstance()->ajoutLogs("Ajout de cartes sur la table");
     }
 
+    calculChancesDeGain();
+}
+
+void Jeu::calculChancesDeGain() {
+
     IntelligenceArtificielle *ia;
     IntelligenceArtificielle *ia2 = static_cast<IntelligenceArtificielle*>(this->getJoueur(1));
 
@@ -255,18 +260,13 @@ void Jeu::tapis(int posJoueur, ACTION action){
     jouerArgent(posJoueur, getJoueur(posJoueur)->getCave());
     this->actions[this->getJoueur(posJoueur)->getPosition()].push_back(ACTION::TAPIS);
 
+    miseCourante = getJoueur(posJoueur)->getCave();
+    cumulMisesEtRelances = getJoueur(posJoueur)->getCumulMisesEtRelances();
+
     if (action == MISER || action == RELANCER) {
         this->getJoueur(posJoueur)->getCompteurActions()[0]++;
-        miseCourante = getJoueur(posJoueur)->getCave();
-        cumulMisesEtRelances = getJoueur(posJoueur)->getCumulMisesEtRelances();
     }
-    else if(getLastAction(getPositionJoueurAdverse(posJoueur))==TAPIS){
-        this->getJoueur(posJoueur)->getCompteurActions()[0]++;
-        miseCourante = getJoueur(posJoueur)->getCave();
-        cumulMisesEtRelances = getJoueur(posJoueur)->getCumulMisesEtRelances();
-        finPartie();
-    }
-    else {
+    else if (getLastAction(getPositionJoueurAdverse(posJoueur))==TAPIS) {
         this->getJoueur(posJoueur)->getCompteurActions()[1]++;
     }
 }
@@ -298,17 +298,9 @@ void Jeu::suivre(int posJoueur){
 
     // Si on a assez d'argent on suit
     if(this->getJoueur(posJoueur)->getCave() > jetonsAAjouter){
-        if(getLastAction(getPositionJoueurAdverse(posJoueur))==TAPIS){ //Si l'autre avait fais tapis, fin partie
-                jouerArgent(posJoueur,jetonsAAjouter);
-                this->actions[this->getJoueur(posJoueur)->getPosition()].push_back(ACTION::SUIVRE);
-                this->getJoueur(posJoueur)->getCompteurActions()[1]++;
-                finPartie();
-        }
-        else {
-            jouerArgent(posJoueur, jetonsAAjouter);
-            this->actions[this->getJoueur(posJoueur)->getPosition()].push_back(ACTION::SUIVRE);
-            this->getJoueur(posJoueur)->getCompteurActions()[1]++;
-        }
+        jouerArgent(posJoueur,jetonsAAjouter);
+        this->actions[this->getJoueur(posJoueur)->getPosition()].push_back(ACTION::SUIVRE);
+        this->getJoueur(posJoueur)->getCompteurActions()[1]++;
     }
     else{      // Sinon on fait tapis
         tapis(posJoueur, SUIVRE);
@@ -412,9 +404,8 @@ bool Jeu::prochainJoueur(){
 
         ia->remplissageDonneesProfilage();
 
-
         // Fin de la partie
-        if (this->getEtape() == ETAPE_JEU::RIVER || this->partieFinie) {
+        if (this->getEtape() == ETAPE_JEU::RIVER || this->partieFinie || this->aFaitTapis()) {
             this->partieFinie = true;
             finPartie();
             return false;
@@ -469,6 +460,7 @@ void Jeu::finPartie() {
 
         if(getTable().size()<5){ //Dans le cas où il y a eu un tapis et que toutes les cartes ont pas été dévoilées
             distributionCartesTable(5-(getTable().size()));
+            calculChancesDeGain();
         }
 
         RESULTAT_PARTIE comparaisonMains = Evaluateur::comparerMains(this->getTable(), this->getJoueur(0)->getMain(), this->getJoueur(1)->getMain());
@@ -499,6 +491,32 @@ void Jeu::finPartie() {
     }
 
     resultatPartie = retour;
+
+    // Si c'est un joueur humain, on calcule ses chances de gain
+    if (getJoueur(0)->estHumain()) {
+
+        int nbThreads = 4;
+        double nbTestsParThread = static_cast<double>(NOMBRE_DE_TESTS) / nbThreads;
+        std::vector<EstimationProba*> estimateurs;
+
+        for (int i = 0; i < 4; i++) {
+            EstimationProba *estimateur = new EstimationProba(this, getJoueur(0), nbTestsParThread);
+            estimateurs.push_back(estimateur);
+            estimateur->start();
+        }
+
+        double sommeEstimations = 0;
+
+        for (unsigned int i = 0; i < estimateurs.size(); i++) {
+            estimateurs[i]->wait();
+            sommeEstimations += estimateurs[i]->getResultat();
+
+            delete estimateurs[i];
+        }
+
+        getJoueur(0)->setChancesGain(100 * (sommeEstimations / estimateurs.size()));
+        estimateurs.clear();
+    }
 
     IntelligenceArtificielleProfilage *ia = static_cast<IntelligenceArtificielleProfilage*>(this->getJoueur(1));
     ia->ecritureResultatsPartie();

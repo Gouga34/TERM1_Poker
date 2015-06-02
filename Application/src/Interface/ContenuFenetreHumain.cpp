@@ -380,6 +380,7 @@ void ContenuFenetreHumain::partieTermine()
     layoutMainAdverse.vider();
     layoutMainAdverse.ajoutCartes(jeu->getJoueur(1)->getMain());
 
+    afficheTable();
 
     int gagne = jeu->getResultatPartie();
 
