@@ -361,11 +361,11 @@ Action Resolveur::calculerAction(){
                 ||(actionAgressivite.getAction()==MISER && actionRationalite.getAction()==CHECKER)){
             if(actionAgressivite.getAction()==CHECKER){
                 actionAgressivite.setAction(MISER);
-                actionAgressivite.setMontant(1);
+                actionAgressivite.setMontant(ia->getJeu()->getBlind());
             }
             else{
                 actionRationalite.setAction(MISER);
-                actionRationalite.setMontant(1);
+                actionRationalite.setMontant(ia->getJeu()->getBlind());
             }
         }
         //SUIVRE et RELANCER
