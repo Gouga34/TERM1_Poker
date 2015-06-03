@@ -141,6 +141,8 @@ void ContenuFenetreIA::initialisationResultats(){
     graphiqueResultats.xAxis->setLabel("Nombre de parties");
     graphiqueResultats.yAxis->setLabel("Taux de similarité");
     graphiqueResultats.yAxis2->setLabel("Cumul de jetons gagnés");
+
+    graphiqueResultats.addLayer("sectionBackground", graphiqueResultats.layer("grid"), QCustomPlot::limBelow);
 }
 
 void ContenuFenetreIA::majResultatsGlobaux(){
@@ -210,7 +212,7 @@ void ContenuFenetreIA::scrollAutomatiqueTableau(){
 void ContenuFenetreIA::changerFondPendantProfilage(){
     QCPItemRect* section = new QCPItemRect(&graphiqueResultats);
     graphiqueResultats.addItem(section);
-    graphiqueResultats.addLayer("sectionBackground", graphiqueResultats.layer("grid"), QCustomPlot::limBelow);
+
     section->setLayer("sectionBackground");
 
     section->topLeft->setTypeX(QCPItemPosition::ptPlotCoords);
