@@ -93,6 +93,8 @@ void IntelligenceArtificielleProfilage::remplissageDonneesProfilage() {
 
 void IntelligenceArtificielleProfilage::calculProfilGlobalJoueur() {
 
+    profilage->etatPartie[ETAPE_JEU::NB_ETAPES].probaGainAdversaire = jeu->getJoueur(0)->getChancesGain();
+
     double resultat;
 
     resultat = CalculDonneesProfilage::taux(profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxMises,profilage->etatPartie[ETAPE_JEU::NB_ETAPES].nbTotalActions);
