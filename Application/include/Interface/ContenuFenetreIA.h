@@ -90,6 +90,11 @@ private:
     void scrollAutomatiqueTableau();
 
     /**
+     * @brief changerFond Change la couleur de fond pendant le profilage
+     */
+    void changerFondPendantProfilage();
+
+    /**
      * @brief majGraphiqueResultats Ajoute les points de la nouvelle partie
      */
     void majGraphiqueResultats();
