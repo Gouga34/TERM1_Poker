@@ -36,9 +36,17 @@ class CartesDialog : public QDialog
          * @action Ajoute la carte sélectionnée dans la liste de cartes correspondante
          * @param id Identifiant de la carte à ajouter
          * @param liste Liste dans laquelle ajouter la carte
-         * @return true si la carte a été ajoutée, faux sinon (carte déjà sélectionné, liste pleine)
+         * @return true si la carte a été ajoutée, faux sinon (liste pleine)
          */
         bool ajoutCarte(int id, ListeCartes liste);
+
+    private slots:
+
+        /**
+         * @action Selectionne la carte cliquée
+         * @param id Identifiant de la carte
+         */
+        void carteSelectionnee(int id);
 
     public:
 
@@ -50,14 +58,6 @@ class CartesDialog : public QDialog
          * @return Vecteur des identifiants des deux cartes séletionnées, vide si pas de choix
          */
         std::vector<int> choixCartes();
-
-    public slots:
-
-        /**
-         * @action Selectionne la carte cliquée
-         * @param id Identifiant de la carte
-         */
-        void carteSelectionnee(int id);
 };
 
 #endif // CARTESDIALOG_H

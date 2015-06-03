@@ -11,16 +11,9 @@ Specification: Classe contenant l'ensemble des propriétés de la fenêtre
 #define FENETRE_H
 
 #include <QWidget>
-#include <QPixmap>
-#include <QSpinBox>
 #include <QPushButton>
-#include <QCheckBox>
-#include <QTextEdit>
-#include <QLineEdit>
 
-#include "ListeCartes.h"
-#include "CompteurJetons.h"
-#include "../Jeu/Jeu.h"
+#include "ContenuFenetre.h"
 
 class Fenetre : public QWidget
 {
@@ -28,90 +21,18 @@ class Fenetre : public QWidget
 
     private:
 
-        //Informations jeu
-        QLineEdit actionEffectueeIA;
-        QLabel resultatPartie;
-
-        // Logs
-        QTextEdit logs;
-        QPushButton boutonLogs;
-
-        // Liste des cartes
-        ListeCartes layoutMain;
-        ListeCartes layoutMainAdverse;
-        ListeCartes layoutCartesCommunes;
-
-        // Compteur du pot et des caves des joueurs
-        CompteurJetons pot;
-        CompteurJetons caveJoueur;
-        CompteurJetons caveIA;
-
-        // Boite de saisie du montant de la mise
-        QSpinBox valeurMise;
-
-        QPushButton boutonDemarrage;
-        QCheckBox boutonChoixCartes;
-
-
-        enum { CHECKER, MISER, SUIVRE, RELANCER, SE_COUCHER, NB_BOUTONS };
-
-        // Boutons d'action de jeu
-        QPushButton boutons[NB_BOUTONS];
-
-        bool activationBoutons[NB_BOUTONS];
-
         Jeu *jeu;
 
+        QPushButton boutonDemarrage;
 
-        /**
-         * @action Active ou désactive l'ensemble des boutons d'action du joueur
-         * @param active Vrai s'il faut activer les boutons, faux pour les désactiver
-         */
-        void activeBoutons(bool active);
-
-        /**
-         * @action afficheTable Réupère l'ensemble des cartes de la table
-         *                      à partir du jeu et les affiche
-         */
-        void afficheTable();
-
-        /**
-         * @action joueurCourant Active les boutons permettant au joueur d'effectuer une action
-         */
-        void joueurCourant();
-
-        /**
-         * @action jeuIA Lance la méthode de jeu de l'IA et actulaise l'interface en conséquence
-         */
-        void jeuIA();
+        ContenuFenetre *contenu;
 
     public:
 
-        // Image contenant l'ensemble des cartes graphiques du jeu de carte
-        static QPixmap *textureCartes;
-
-        Fenetre(Jeu *j);
+        Fenetre();
         ~Fenetre();
 
-        /**
-         * @action Ajoute dans les logs le contenu passé en paramètre
-         * @param contenu Texte à ajouter aux logs
-         */
-        void ajoutLogs(QString contenu);
-
-    signals:
-
-        /**
-         * @action Signal émis lorsque le tour d'un joueur (humain/IA) est terminé
-         */
-        void tourFini();
-
     public slots:
-
-        /**
-         * @action Affiche/cache la boite de logs lorsque le joueur appuie sur le bouton correspondant
-         */
-        void affichageLogs();
 
         /**
          * @action Distribue les cartes de pre-flop à tous les joueurs et lance le jeu
@@ -119,26 +40,9 @@ class Fenetre : public QWidget
         void demarragePartie();
 
         /**
-         * @action Lance le tour du prochain joueur à partir du jeu et met à jour la table si besoin
+         * @action Lance les tests pour déterminer le calibrage idéal
          */
-        void prochainJoueur();
-
-        /**
-         * @action Effectue les actions de fin de partie
-         */
-        void partieTermine();
-
-        /** Méthodes d'action de jeu appelées une fois l'action choisie par le joueur courant **/
-
-        void checker();
-
-        void miser();
-
-        void suivre();
-
-        void relancer();
-
-        void seCoucher();
+        void demarrageCalibrageIdeal();
 };
 
 #endif // FENETRE_H

@@ -1,0 +1,45 @@
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {1.1}{\ignorespaces Quinte Flush Royale}}{12}{figure.1.1}
+\contentsline {figure}{\numberline {1.2}{\ignorespaces Quinte Flush}}{13}{figure.1.2}
+\contentsline {figure}{\numberline {1.3}{\ignorespaces Carr\IeC {\'e}}}{13}{figure.1.3}
+\contentsline {figure}{\numberline {1.4}{\ignorespaces Full}}{13}{figure.1.4}
+\contentsline {figure}{\numberline {1.5}{\ignorespaces Couleur}}{14}{figure.1.5}
+\contentsline {figure}{\numberline {1.6}{\ignorespaces Suite}}{14}{figure.1.6}
+\contentsline {figure}{\numberline {1.7}{\ignorespaces Brelan}}{14}{figure.1.7}
+\contentsline {figure}{\numberline {1.8}{\ignorespaces Double Paire}}{14}{figure.1.8}
+\contentsline {figure}{\numberline {1.9}{\ignorespaces Paire}}{15}{figure.1.9}
+\contentsline {figure}{\numberline {1.10}{\ignorespaces Carte Haute}}{15}{figure.1.10}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Sch\IeC {\'e}ma de fonctionnement de Git}}{21}{figure.2.1}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Diagramme de classe}}{28}{figure.4.1}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Fen\IeC {\^e}tre d'options de l'application}}{30}{figure.4.2}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Interface humain contre intelligence artificielle}}{31}{figure.4.3}
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Interface intelligence artificielle contre intelligence artificielle}}{32}{figure.4.4}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Mise th\IeC {\'e}orique en fonction de la force du jeu}}{33}{figure.5.1}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Paliers d'agressivit\IeC {\'e} et mise totale en fonction}}{38}{figure.6.1}
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Choix de l'action \IeC {\`a} effectuer en fonction des actions d'agressivit\IeC {\'e}* et de rationalit\IeC {\'e}}}{39}{figure.6.2}
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Chances de gains obtenues en fonction du nombre de tests effectu\IeC {\'e}s}}{41}{figure.6.3}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {7.1}{\ignorespaces Actions attendues}}{43}{figure.7.1}
+\contentsline {figure}{\numberline {7.2}{\ignorespaces Taux de similarit\IeC {\'e} du profilage en fonction du nombre de partie}}{45}{figure.7.2}
+\contentsline {figure}{\numberline {7.3}{\ignorespaces Profil \IeC {\'e}tabli en fonction du nombre de parties}}{46}{figure.7.3}
+\contentsline {figure}{\numberline {7.4}{\ignorespaces Taux de similarit\IeC {\'e} des profils \IeC {\'e}tablis en fonction des paliers}}{46}{figure.7.4}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {8.1}{\ignorespaces Calibrage de l'intelligence artificielle en fonction du profil adverse}}{49}{figure.8.1}
+\contentsline {figure}{\numberline {8.2}{\ignorespaces Donn\IeC {\'e}es situ\IeC {\'e}es \IeC {\`a} la fin d'un fichier contenant le profil \IeC {\'e}tabli d'un joueur}}{50}{figure.8.2}
+\contentsline {figure}{\numberline {8.3}{\ignorespaces Nombre de parties gagn\IeC {\'e}es pendant les sc\IeC {\'e}narios de tests et apr\IeC {\`e}s}}{51}{figure.8.3}
+\contentsline {figure}{\numberline {8.4}{\ignorespaces Nombre de jetons gagn\IeC {\'e}s pendant les sc\IeC {\'e}narios de tests et apr\IeC {\`e}s}}{52}{figure.8.4}
+\contentsline {figure}{\numberline {8.5}{\ignorespaces Gains en fonction du calibrage face \IeC {\`a} un joueur 80\% agressif et 80\% rationnel}}{53}{figure.8.5}
+\contentsline {figure}{\numberline {8.6}{\ignorespaces Calibrage final de l'intelligence artificielle en fonction du profil adverse}}{54}{figure.8.6}
+\contentsline {figure}{\numberline {8.7}{\ignorespaces Nombre de parties gagn\IeC {\'e}es en fonction du premier calibrage \IeC {\'e}tabli et du second calibrage calcul\IeC {\'e}}}{54}{figure.8.7}
+\contentsline {figure}{\numberline {8.8}{\ignorespaces Nombre de parties gagn\IeC {\'e}es en fonction des deux calibrages}}{55}{figure.8.8}
+\contentsline {figure}{\numberline {8.9}{\ignorespaces R\IeC {\'e}sultats sur 100 parties face \IeC {\`a} un comportement 80\% agressif et 80\% rationnel}}{56}{figure.8.9}
+\contentsline {figure}{\numberline {8.10}{\ignorespaces Gains de l'intelligence artificielle en fonction de la valeur de x}}{56}{figure.8.10}
+\contentsline {figure}{\numberline {8.11}{\ignorespaces Gains en fonction du profilage}}{57}{figure.8.11}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }

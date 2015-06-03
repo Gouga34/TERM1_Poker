@@ -3,7 +3,7 @@
 
 #include <vector>
 #include "Carte.h"
-#include "../Profilage/Profilage.h"
+#include "Action.h"
 
 class Jeu;
 
@@ -15,11 +15,14 @@ class Joueur{
 		std::vector<Carte>	main;
         int*                compteurActions;
         int                 cave;
+        int                 caveDeDepart;
         Jeu*                jeu;
         int                 position;
-        int                 misePlusHauteJoueur;
-        int                 miseTotaleJoueur;
-        Profilage*           profilJoueur;
+        int                 miseCourante;
+        int                 misePlusHaute;
+        int                 cumulMisesEtRelances;
+        double              chancesGain;
+        int                 miseTotale;
 
 		
 	//Constructeur et destructeur
@@ -36,15 +39,49 @@ class Joueur{
 		/**
 		*@action : Destructeur de la classe Joueur
 		**/
-		~Joueur();
+        virtual ~Joueur();
 		
 	//Accesseur
 	
+        /**
+         * @return true si c'est un joueur humain, false si c'est une IA
+         */
+        virtual bool estHumain() const = 0;
+
+        /**
+         * @brief getChancesGain
+         * @return les chances de gain du joueur
+         */
+        double getChancesGain()const;
+
+        /**
+         * @brief setChancesGain
+         * @param nvChancesGain les nouvelles chances de gain du joueur
+         */
+        void setChancesGain(double nvChancesGain);
+
 		/**
 		*@action : Permet d'obtenir le nombre de jeton dont dispose un joueur
 		*@return : La cave d'un joueur
 		**/
-		int  			getCave() const;	
+        int getCave() const;
+
+        /**
+         * @return Cave du joueur en début de partie
+         */
+        int getCaveDeDepart() const;
+
+        /**
+         * @brief setCave
+         * @param jetons
+         */
+        void setCave(int jetons);
+
+        /**
+         * @brief Set la cave de départ du joueur
+         * @param cave
+         */
+        void setCaveDeDepart(int cave);
 		
 		/**
 		*@action : Permet d'obtenir la main du joueur
@@ -69,18 +106,30 @@ class Joueur{
 		*@return : La position du joueur
 		**/
 		int			getPosition() const;
+
+        /**
+         * @action Permet d'obtenir la mise courante du joueur
+         * @return Mise courante du joueur
+         */
+        int         getMiseCourante() const;
+
+        /**
+         * @action Modifie la mise du joueur
+         * @param jetons Mise du joueur
+         */
+        void        setMiseCourante(int jetons);
 		
 		/**
 		*@action : Permet d'obtenir la mise du joueur
 		*@return : La mise du joueur
 		**/		
-        int			getMisePlusHauteJoueur();
+        int			getMisePlusHaute() const;
 		
 		/**
 		*@action : Modifie la mise du joueur
 		*@param :  La nouvelle mise
 		**/		
-        void			setMisePlusHauteJoueur(int jetons);
+        void			setMisePlusHaute(int jetons);
 
 
         /**
@@ -93,25 +142,25 @@ class Joueur{
         *@action : Permet d'obtenir combien a miser au total le joueur pendant l'etape
         *@return : La somme totale misee par le joueur
         **/
-        int             getMiseTotaleJoueur();
+        int             getCumulMisesEtRelances();
 
         /**
         *@action : Permet d''affecter combien a miser au total le joueur pendant l'etape
         *@param : La somme totale misee par le joueur
         **/
-        void             setMiseTotaleJoueur(int miseTotale);
+        void             setCumulMisesEtRelances(int cumulMisesEtRelances);
 
         /**
-        *@action : Permet d'obtenir le profil du joueur
-        *@return : Le profil du joueur
+        *@action : Permet d'obtenir la mise totale de la partie
+        *@return : La somme totale misee par le joueur au cours de la partie
         **/
-        Profilage*             getProfil();
+        int             getMiseTotale();
 
         /**
-        *@action : Permet d''affecter le profil du joueur
-        *@param : Le pseudo du joueur
+        *@action : Permet d'affecter le total mise par le joueur
+        *@param : La somme totale misee par le joueur au cours de la partie
         **/
-        void             setProfil(std::string pseudo);
+        void            setMiseTotale (int mise);
 
 		
 	//Methodes
@@ -160,7 +209,11 @@ class Joueur{
         *@action : Remet a zero les compteurs comptabilisant les actions du joueur
         **/
         void resetCompteurActions();
-		
+
+        /**
+         * @action Fait jouer le joueur lorsque c'est son tour
+         */
+        virtual Action jouer() = 0;
 };
 
 #endif

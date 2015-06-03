@@ -21,7 +21,7 @@ class Evaluateur{
 		* @action compare les deux mains pour voir laquelle a le poids le plus fort
 		* @return 0 si main1 a gagné, 1 si elle a perdu et 2 si égalité
 		*/
-		static int comparerMains(std::vector<Carte> table, std::vector<Carte> mainJoueur1, std::vector<Carte> mainJoueur2);
+        static RESULTAT_PARTIE comparerMains(std::vector<Carte> table, std::vector<Carte> mainJoueur1, std::vector<Carte> mainJoueur2);
 
 };
 

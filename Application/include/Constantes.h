@@ -3,9 +3,45 @@
 
 #include <cstdint>
 #include <iostream>
+#include <string>
+
+
+
+#define NOMBRE_DE_TESTS                         10000
+#define CAVE_JOUEURS                            1000
+
+
+#define DOSSIER_RESSOURCES                      "../Application/ressources/"
+#define FICHIER_PROBAS_PREFLOP                  DOSSIER_RESSOURCES+std::string("Probas/probas_preflops")
+#define TEXTURE_CARTES                          DOSSIER_RESSOURCES+std::string("Interface/deck.png")
+
+//Constantes correspondant à l'accés aux fichiers de profilages
+#define DOSSIER_PROFILAGE                       DOSSIER_RESSOURCES+std::string("Profilage/")
+#define DOSSIER_PROFILAGE_STATIQUE              DOSSIER_PROFILAGE+std::string("ProfilageStatique/")                 
+#define DOSSIER_PROFILAGE_DYNAMIQUE             DOSSIER_PROFILAGE+std::string("ProfilageDynamique/")
+
+#define DOSSIER_ANALYSE_GAINS                   DOSSIER_PROFILAGE_STATIQUE+std::string("AnalyseGains/")
+#define FICHIER_PSEUDOS_PROFILAGE               DOSSIER_PROFILAGE_STATIQUE+std::string("pseudos.txt")
+
+//Facteur multiplicateur de la hausse des mises pour l'agressivité
+#define HAUSSE_MISES_AGRESSIVITE                2
+
+/*
+ * Constantes utilisées pour les scénarios de tests:
+ * RATIONALITE_IA_PROFILAGE : rationalité de base de l'IA qui profile
+ * NOMBRE_PARTIES : nombre de parties lancées d'affilée
+ * NOMBRE_PARTIES_PROFILAGE : nombre de parties à effectuer avant de pouvoir jouer
+ */
+#define RATIONALITE_IA_PROFILAGE                50.0
+
+#define VARIATION_AUTORISEE                     20
+
+// Recherche du coefficient
+#define UTILISATION_DELTA_AGRESSIVITE           false
+#define DELTA_AGRESSIVITE                       15           // Nombre de parties pour lesquels on sera une fois plus agressif (1 partie sur 5)
 
 /**
- * Type enum Cutilise pour definir la couleur des cartes
+ * Couleur des cartes
  */
 enum COULEUR_CARTE{
     PIQUE   = 0,
@@ -15,7 +51,7 @@ enum COULEUR_CARTE{
 };
 
 /**
- * Type enum utilise pour definir le rang des cartes
+ * Rang des cartes
  */
 enum RANG_CARTE{
     T   = 10,
@@ -26,7 +62,7 @@ enum RANG_CARTE{
 };
 
 /**
- * Type enum utilise pour definir la force des mains
+ * Combinaisons des mains
  */
 enum FORCE_MAIN{
 
@@ -43,32 +79,29 @@ enum FORCE_MAIN{
 };
 
 /**
-  * enum utilisé lors de la comparaison de deux mains. 
+  * Résultat d'une partie
   */
-enum {
+enum RESULTAT_PARTIE{
     EGALITE = 2,
     GAGNE = 1,
     PERDU = 0
 };
 
 /**
- * Type enum pour definir les actions des joueurs
+ * Actions des joueurs
  */
-namespace TYPES
+enum ACTION
 {
-    enum ACTION_LIST
-    {
-        MISER,
-        RELANCER,
-        SUIVRE,
-        CHECKER,
-        SE_COUCHER,
-        EN_ATTENTE,
-        TAPIS,
-        PETITE_BLIND,
-        GROSSE_BLIND
-    };
-}
+    MISER,
+    RELANCER,
+    SUIVRE,
+    CHECKER,
+    SE_COUCHER,
+    PAS_ENCORE_D_ACTION,
+    TAPIS,
+    PETITE_BLIND,
+    GROSSE_BLIND
+};
 
 //Constantes des formules de profilage
 
@@ -129,8 +162,8 @@ namespace AGRESSIVITE{
     //MPH = mise la plus haute
 	namespace PALIER1 {
 	   enum{	
-    		DEBUT_MPH=0,
-    		FIN_MPH=25,
+            DEBUT_MISE_TOTALE=0,
+            FIN_MISE_TOTALE=25,
 
     		DEBUT_AG_THEORIQUE=0,
     		FIN_AG_THEORIQUE=50,
@@ -138,15 +171,15 @@ namespace AGRESSIVITE{
     		RATIO_NB_MISES_DIVISE=1,
             RATIO_NB_MISES_DIVISEUR=2,
 
-    		RATIO_TOTAL_MISES_DIVISE=1,
-            RATIO_TOTAL_MISES_DIVISEUR=2
+            RATIO_MPH_DIVISE=1,
+            RATIO_MPH_DIVISEUR=2
         };
 	}
 
 	namespace PALIER2 {
         enum{
-    		DEBUT_MPH=26,
-    		FIN_MPH=50,
+            DEBUT_MISE_TOTALE=25,
+            FIN_MISE_TOTALE=60,
 
     		DEBUT_AG_THEORIQUE=51,
     		FIN_AG_THEORIQUE=80,
@@ -154,15 +187,15 @@ namespace AGRESSIVITE{
     		RATIO_NB_MISES_DIVISE=2,
             RATIO_NB_MISES_DIVISEUR=3,
 
-    		RATIO_TOTAL_MISES_DIVISE=1,
-            RATIO_TOTAL_MISES_DIVISEUR=3
+            RATIO_MPH_DIVISE=1,
+            RATIO_MPH_DIVISEUR=3
         };
 	}
 
 	namespace PALIER3 {
         enum{
-    		DEBUT_MPH=51,
-    		FIN_MPH=100, //jusqu'à 100 exclu
+            DEBUT_MISE_TOTALE=60,
+            FIN_MISE_TOTALE=100, //jusqu'à 100 exclu
 
     		DEBUT_AG_THEORIQUE=81,
     		FIN_AG_THEORIQUE=100,
@@ -170,15 +203,15 @@ namespace AGRESSIVITE{
     		RATIO_NB_MISES_DIVISE=2,
             RATIO_NB_MISES_DIVISEUR=3,
             
-    		RATIO_TOTAL_MISES_DIVISE=1,
-            RATIO_TOTAL_MISES_DIVISEUR=3
+            RATIO_MPH_DIVISE=1,
+            RATIO_MPH_DIVISEUR=3
         };
 	}	
 
     namespace PALIER4{ //PALIER tapis
 
         enum{
-            MPH=100,
+            MISE_TOTALE=100,
 
             AG_THEORIQUE=100,
         };
@@ -193,14 +226,35 @@ enum ETAPE_JEU { PREFLOP, FLOP, TURN, RIVER, NB_ETAPES };
 const std::string nomEtapes[NB_ETAPES] = {"preflop", "flop", "turn", "river" };
 
 
-// Profils de l'adversaire
-/**
- * Rationnel Agressif (RA)
- * Rationnel Passif (RP)
- * Bluffeur Agressif (BA)
- * Bluffeur Passif (BP)
- */
-enum PROFIL_JOUEUR { RA, RP, BA, BP, NB_PROFILS };
+namespace PROFIL_JOUEUR{
+    enum PROFIL_JOUEUR {
+        AGRESSIVITE,
+        RATIONALITE,
+        PASSIVITE,
+        BLUFF,
+        NB_PROFILS
+    };
+}
+
+/**accès aux données des fichiers contenant les scénarios de tests**/
+enum COLONNES_CSV{
+    AGRESSIVITE_IA,
+    CHANCES_GAIN_IA,
+    AGRESSIVITE_ATTENDUE,
+    RATIONALITE_ATTENDUE,
+    AGRESSIVITE_REELLE,
+    RATIONALITE_REELLE,
+    DISTANCE,
+    AGRESSIVITE_DEDUITE_GLOBALE,
+    RATIONALITE_DEDUITE_GLOBALE,
+    TAUX_SIMILARITE
+};
+
+// Phases de jeu de l'IA qui profile
+enum PHASE_JEU_IA {
+    PHASE_PROFILAGE,
+    PHASE_GAINS
+};
 
 
 #endif // CONSTANTES_H

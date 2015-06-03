@@ -5,7 +5,9 @@ Joueur::Joueur(bool estDealer, int jetons, int position){
 	this->dealer = estDealer;
 	this->cave = jetons;
 	this->position = position;
-	this->misePlusHauteJoueur = 0;
+    this->miseCourante = 0;
+    this->misePlusHaute = 0;
+    this->miseTotale = 0;
     this->compteurActions = new int[3];
     for(int i =0; i<3;i++){
         this->compteurActions[i] = 0;
@@ -17,10 +19,29 @@ Joueur::~Joueur(){
 
 }
 
+double Joueur::getChancesGain() const{
+    return chancesGain;
+}
+
+void Joueur::setChancesGain(double nvChancesGain){
+    chancesGain=nvChancesGain;
+}
+
 int Joueur::getCave() const{
 	return this->cave;
 }
 
+int Joueur::getCaveDeDepart() const {
+    return caveDeDepart;
+}
+
+void Joueur::setCave(int jetons){
+    cave=jetons;
+}
+
+void Joueur::setCaveDeDepart(int cave) {
+    caveDeDepart = cave;
+}
 
 int Joueur::getPosition() const{
 	return this->position;
@@ -91,12 +112,20 @@ void Joueur::changeDealer(){
 	}
 }
 
-int Joueur::getMisePlusHauteJoueur(){
-	return this->misePlusHauteJoueur;
+int Joueur::getMiseCourante() const{
+    return this->miseCourante;
 }
 
-void Joueur::setMisePlusHauteJoueur(int jetons){
-	this->misePlusHauteJoueur = jetons;
+void Joueur::setMiseCourante(int jetons){
+    this->miseCourante = jetons;
+}
+
+int Joueur::getMisePlusHaute() const{
+    return this->misePlusHaute;
+}
+
+void Joueur::setMisePlusHaute(int jetons){
+    this->misePlusHaute = jetons;
 }
 
 void Joueur::videMain(){
@@ -113,18 +142,18 @@ int* Joueur::getCompteurActions(){
     return this->compteurActions;
 }
 
-int Joueur::getMiseTotaleJoueur(){
-    return this->miseTotaleJoueur;
+int Joueur::getCumulMisesEtRelances(){
+    return this->cumulMisesEtRelances;
 }
 
-void Joueur::setMiseTotaleJoueur(int mise){
-    this->miseTotaleJoueur = mise;
+void Joueur::setCumulMisesEtRelances(int mise){
+    this->cumulMisesEtRelances = mise;
 }
 
-Profilage* Joueur::getProfil(){
-    return this->profilJoueur;
+int Joueur::getMiseTotale(){
+    return this->miseTotale;
 }
 
-void Joueur::setProfil(std::string pseudo){
-    this->profilJoueur = new Profilage(pseudo);
+void Joueur::setMiseTotale(int mise){
+    this->miseTotale = mise;
 }

@@ -7,13 +7,13 @@
 #include <time.h>
 #include <stdlib.h>
 #include "Carte.h"
-#include "Joueur.h"
 #include "../Constantes.h"
-#include "IntelligenceArtificielle.h"
 #include "../Evaluateur/Evaluateur.h"
 #include "../Profilage/CalculDonneesProfilage.h"
 #include "../Profilage/Profilage.h"
-#include "EstimationProba.h"
+#include "../IA/EstimationProba.h"
+#include "../IA/IntelligenceArtificielle.h"
+#include "../Interface/ChoixOptionsDialog.h"
 
 class Joueur;
 class IntelligenceArtificielle;
@@ -21,37 +21,108 @@ class IntelligenceArtificielle;
 class Jeu{
 
 	//Liste des attributs
-	private :
-        std::vector<Joueur>                 positionnement;
+	private :    
+        std::vector<Joueur*>                listeJoueurs;
         std::vector<Carte>                  deck;
         std::vector<Carte>                  table;
-        std::vector<TYPES::ACTION_LIST>	    actions;
+        std::vector<std::vector<ACTION>>    actions;        // Liste d'actions par joueur
         int                                 blind;
         int                                 joueurCourant;
         int                                 pot;
-        int                                 nombreDeCoup;
-        int                                 mise;
-        int                                 dealer;
-        double                              agressiviteIA;
-        double                              rationaliteIA;
 
+        /** Correspond aux jetons mis en jeu à un instant t de la partie par le joueur
+         *  précédent celui qui doit jouer **/
+        int                                 miseCourante;
+
+        /** Correspond à la somme des mises et relances d'une étape. C'est la somme des
+         *  jetons qu'un joueur doit mettre pour rester en jeu **/
+        int                                 cumulMisesEtRelances;
+        int                                 dealer;
+        bool                                partieFinie;
+        ETAPE_JEU                           etape;
+        RESULTAT_PARTIE                     resultatPartie;
+        std::vector<Carte>                  tableTmp;
+
+        OptionsJeu options;
+
+
+        /**
+         * @brief Méthode qui permet à un joueur de jouer de l'argent (mise, relancer, suivi...)
+         *        setMiseCourante, setMiseTotale, setMisePlusHaute (avec vérif),
+         *        Incrémentation pot, Décrémentation cave
+         * @param posJoueur Position du joueur
+         * @param jetons Nombre de jetons à jouer
+         */
+        void jouerArgent(int posJoueur, int jetons);
+
+        /**
+        *@action : Commande permettant a un joueur de miser
+        *@param  : La position du joueur effectuant l'action ainsi que le montant de la mise
+        **/
+        void miser(int posJoueur, int jetons);
+
+        /**
+        *@action : Commande permettant a un joueur de relancer
+        *@param  : La position du joueur effectuant l'action ainsi que le montant de la relance
+        **/
+        void relancer(int posJoueur, int jetons);
+
+        /**
+        *@action : Commande permettant a un joueur de faire "tapis"
+        *@param  : La position du joueur effectuant l'action
+        * @param action effetuée (mise, relance, suivi)
+        **/
+        void tapis(int posJoueur, ACTION action);
+
+        /**
+        *@action : Commande permettant a un joueur de suivre
+        *@param  : La position du joueur effectuant l'action
+        **/
+        void suivre(int posJoueur);
+
+        /**
+        *@action : Commande permettant a un joueur de checker
+        *@param  : La position du joueur effectuant l'action
+        **/
+        void checker(int posJoueur);
+
+        /**
+        *@action : Commande permettant a un joueur de se coucher
+        *@param  : Le joueur effectuant l'action
+        **/
+        void seCoucher(int posJoueur);
+
+        /**
+         * @brief Calcule les chances de gain des deux ia
+         */
+        void calculChancesDeGain();
 		
 	//Constructeur et destructeur
 	public:
 		/**
-		*@param  : Le nombre de joueur, le montant de la blind de depart, la cave de depart des joueurs et le type de proffiling de l'IA
+        *@param  : Le nombre de joueur, le montant de la blind de depart et les options
 		*@action : Initialise un nouveau jeu
 		**/
-        Jeu(int nbJoueur, int blindDepart, int cave, double agressivite, double rationalite);
+        Jeu(int nbJoueur, int blindDepart, OptionsJeu opt);
 		
 		/**
 		*@action : Destructeur de la classe Jeu
 		**/
 		~Jeu();
 		
-	//Accesseur
+    //Accesseurs
 	
-		/**
+        /**
+         * @return Options du jeu
+         */
+        OptionsJeu getOptions() const;
+
+        /**
+         * @return Gagnant de la partie (GAGNE, PERDU, EGALITE)
+         */
+        RESULTAT_PARTIE getResultatPartie() const;
+
+        /**
 		*@action : Permet d'obtenir le montant de la petite blind
 		*@return : Le montant de la petite blind
 		**/
@@ -62,18 +133,25 @@ class Jeu{
 		*@return : Le joueur courant
 		**/
 		int 			getJoueurCourant() const;
+
+        /**
+         * @brief Détermine la position du joueur adverse au joueur passé en paramètre
+         * @param joueur Position du joueur dont on veut l'adversaire
+         * @return Position du joueur adverse
+         */
+        int             getPositionJoueurAdverse(int joueur) const;
 		
 		/**
 		*@action : Permet d'obtenir le joueur en i-eme position
 		*@return : Le joueur en i-eme position
 		**/
-		Joueur& 		getJoueur(int i);
+        Joueur* 		getJoueur(int i);
         	
         	/**
 		*@action : Permet d'ajouter un joueur a la partie
 		*@param  : Le joueur a ajouter a la partie
 		**/
-		void 			setJoueur(Joueur joueur);
+        void 			setJoueur(Joueur *joueur);
 		
 		/**
 		*@action : Permet d'obtenir les carte communes
@@ -94,10 +172,11 @@ class Jeu{
 		void			setPot(int jetons);
 		
 		/**
-		*@action  : Permet de connaitre l'action effectué par le joueur courant
-		*@return  : L'action effectué par le joueur courant
+            * @action Permet de connaitre la dernière action effectué par le joueur passé en paramètre
+            * @param posJoueur Joueur dont on veut connaitre l'action
+            * @return L'action effectué par le joueur courant
 		**/
-		TYPES::ACTION_LIST	getAction() const;
+        ACTION          getLastAction(int posJoueur) const;
 		
 		/**
 		*@action : Permet d'obtenir la position du dealer
@@ -106,10 +185,16 @@ class Jeu{
 		int 			getDealer();
 		
 		/**
-		*@action : Permet d'obtenir la mise de la partie courante
+        *@action : Permet d'obtenir la mise courante du tour de table
 		*@return : Un entier représentant la mise courante
 		**/
-		int			getMise();
+        int			getMiseCourante();
+
+        /**
+         * @brief getCumulMisesEtRelances
+         * @return cumulMisesEtRelances
+         */
+        int         getCumulMisesEtRelances();
 
 		/**
 		*@action : Permet d'obtenir le deck
@@ -119,63 +204,53 @@ class Jeu{
 		
 		/**
 		*@action : Permet d'obtenir l'ensemble des actions
+        *@param posJoueur Position du joueur dont on veut la liste
 		*@return : L'ensemble des actions
 		**/
-		std::vector<TYPES::ACTION_LIST> getListeActions() const;
-
-		/**
-		*@action : Permet d'obtenir l'agressivite de l'IA
-		*@return : L'agressivite de l'IA
-		**/
-		double getAgressiviteIA() const;
-
-		/**
-		*@action : Permet d'obtenir la rationnalite de l'IA
-		*@return : La rationnalite de l'IA
-		**/
-		double getRationaliteIA() const;
-
-		/**
-		*@action : Permet d'affecter l'agressivite de l'IA
-		*@param : L'agressivite de l'IA
-		**/
-		void setAgressiviteIA(double agressivite);
-
-		/**
-		*@action : Permet d'affecter la rationnalite de l'IA
-		*@param : La rationnalite de l'IA
-		**/
-		void setRationaliteIA(double rationalite);
+        std::vector<ACTION> getListeActions(int posJoueur) const;
 
         /**
-        *@action : Permet d'affecter le pseudo du joueur
-        *@param : Le pseudo choisi par le joueur
+        *@action : Permet d'obtenir l'etape courante
+        *@return : L'etape courante
         **/
-        void setPseudo(std::string pseudo);
+        ETAPE_JEU getEtape() const;
 
 
 	
 	//Methodes	
-	//private:
-		/**
+
+        /**
+         * @brief Ajoute un joueur au jeu
+         * @param joueur Joueur à ajouter
+         */
+        void addJoueur(Joueur *joueur);
+
+        /**
+         * @brief Lance une nouvelle partie
+         */
+        void nouvellePartie();
+
+        /**
+         * @brief Réinitialise les caves des joueurs
+         */
+        void reinitialisationCaves();
+
+        /**
 		*@action : Distribue a chaque joueur ses cartes
 		**/
 		void distributionMain();
 		
-		/**
-		*@action : Distribue les trois premieres carte commune : le Flop, tirees aleatoirement dans le deck
-		**/
-		void distributionFlop();
-		
-		/**
-		*@action : Distribue la quatrieme carte : le Turn, tiree aleatoirement dans le deck
-		**/
-		void distributionTurn();
-		
-		/**
-		*@action : Distribue la cinquieme carte : la River, tiree aleatoirement dans le deck
-		**/
-		void distributionRiver();
+        /**
+         * @action Distribue les nouvelles cartes de l'étape passée en paramètre
+         * @param etape Nouvelle étape courante
+         */
+        void nouvelleEtape(ETAPE_JEU etape);
+
+        /**
+         * @brief distributionCartes distribue nbCartesADistribuer sur la table
+         * @param nbCartesADistribuer
+         */
+        void distributionCartesTable(int nbCartesADistribuer);
 		
 		/**
 		*@action : Distribue les blinds en debut de partie
@@ -183,21 +258,9 @@ class Jeu{
 		void distributionBlind();
 		
 		/**
-		*@action : Augmente le montant de la petite blind
-		**/
-		void miseAJourBlind();
-		
-		/**
 		*@action : Melange le jeu de carte
 		**/
-		void melange();
-		
-		/**
-		*@param  : Le nombre de joueur et le montant de depart d leur cave
-		*@action : Cree les joueurs et les affectent au jeu
-		*@return : L'ensemble des joueurs de la partie
-		**/
-		void initialisationTable(int nbJoueur, int cave);
+        void melangeDeck();
 		
 		/**
 		*@action : Cree l'ensemble des cartes utilisees dans le jeu
@@ -214,17 +277,17 @@ class Jeu{
 
 		/**
 		*@action : Permet de savoir si le joueur a la possibilite de relancer
-		*@param  : la position du joueur dont on veut savoir s'il peut relancer
+        *@param  : la position du joueur dont on veut savoir s'il peut relancer et montant de la relance
 		*@return : vrai si le joueur peut relancer, faux sinon
 		**/
-		bool peutRelancer(int posJoueur);
+        bool peutRelancer(int posJoueur, int jetons);
 
 		/**
 		*@action : Permet de savoir si le joueur a la possibilite de miser
-		*@param  : la position du joueur dont on veut savoir s'il peut miser
+        *@param  : la position du joueur dont on veut savoir s'il peut miser et montant de la mise
 		*@return : vrai si le joueur peut miser, faux sinon
 		**/
-		bool peutMiser(int posJoueur);
+        bool peutMiser(int posJoueur, int jetons);
 
 
 		/**
@@ -234,50 +297,21 @@ class Jeu{
 		**/
 		bool peutSuivre(int posJoueur);
 
-		
-		/**
-		*@action : Commande permettant a un joueur de miser
-		*@param  : La position du joueur effectuant l'action ainsi que le montant de la mise
-		*@return : Retourne vrai si l'action est possible, faux sinon
-		**/
-		bool miser(int posJoueur, int jetons);
-		
-		/**
-		*@action : Commande permettant a un joueur de relancer
-		*@param  : La position du joueur effectuant l'action ainsi que le montant de la relance
-		*@return : Retourne vrai si l'action est possible, faux sinon
-		**/
-		bool relancer(int posJoueur, int jetons);
-		
-		/**
-		*@action : Commande permettant a un joueur de faire "tapis"
-		*@param  : La position du joueur effectuant l'action
-		*@return : Retourne vrai si l'action est possible, faux sinon
-		**/
-		bool tapis(int posJoueur);
-		
-		/**
-		*@action : Commande permettant a un joueur de suivre
-		*@param  : La position du joueur effectuant l'action
-		*@return : Retourne vrai si l'action est possible, faux sinon
-		**/
-		bool suivre(int posJoueur);
-		
-		/**
-		*@action : Commande permettant a un joueur de checker
-		*@param  : La position du joueur effectuant l'action
-		*@return : Retourne vrai si l'action est possible, faux sinon
-		**/
-		bool checker(int posJoueur);
-		
-		/**
-		*@action : Commande permettant a un joueur de se coucher
-		*@param  : Le joueur effectuant l'action
-		*@return : Retourne vrai si l'action est possible, faux sinon
-		**/
-       		bool seCoucher(int posJoueur);
+        /**
+         * @param posJoueur Position du joueur à tester
+         * @return Vrai si le joueur est couché
+         */
+        bool estCouche(int posJoueur) const;
+
+        /**
+         * @action Exécute l'action du joueur (check, mise...)
+         * @param posJoueur Position du joueur qui exécute l'action
+         * @param action Action à exécuter
+         * @param mise Montant des jetons associés à l'action (-1 si check, se couche, suivre)
+         */
+        void executerAction(int posJoueur, Action a);
        		
-       		/**
+        /**
 		*@action  : Affecte le joueur suivant en tant que joueur courant et renvoi vrai s'il existe
 		*@return : vrai s'il y a un joueur suivant, faux sinon
 		**/
@@ -296,16 +330,20 @@ class Jeu{
 		**/
 		bool finDuTour();
 		
-		/**
-		*@action  : Permet de reinitialiser le tableau des actions
-		**/		
-		void resetActions();
+        /**
+        *@action  : Permet de reinitialiser le tableau des actions
+        **/
+        void resetActions();
+
+        /**
+         * @action Effectue l'ensemble des actions de fin de partie
+         */
+        void finPartie();
 		
 		/**
         *@action  : Relance une nouvelle main
-        *@return  : Gagnant de la partie (GAGNE, PERDU, EGALITE)
 		**/			
-        int nouvelleMain();
+        void nouvelleMain();
 
 		/**
 		*@action  : Affecte les cartes choisies via l'interface
@@ -314,11 +352,15 @@ class Jeu{
 		void affectationCarte(std::vector<int> listeId);
 
         /**
-        *@action  : Fini de remplir le tableau de profilage en fonction des chance de gain du joueur
-        *@param   : Un vecteur d'entier correspondant a la liste des cartes du joueur
-        *@param   : Un vecteur d'entier correspondant a la liste des cartes communes
+         * @action Démarre la boucle de jeu principale
+         */
+        void lancerPartie();
+
+        /**
+        *@action  : Permet de savoir si un Joueur a fait Tapis
+        *@return  : Vrai si un joueur a fait tapis, faux sinon
         **/
-        void remplissageTableau(std::vector<Carte> mainJoueur, std::vector<Carte> table);
+        bool aFaitTapis();
 };
 
 #endif

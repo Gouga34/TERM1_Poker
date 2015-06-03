@@ -1,0 +1,19 @@
+\contentsline {chapter}{\numberline {1}Introduction}{3}{chapter.1}
+\contentsline {section}{\numberline {1.1}G\IeC {\'e}n\IeC {\'e}ralit\IeC {\'e}s}{3}{section.1.1}
+\contentsline {section}{\numberline {1.2}Sujet}{3}{section.1.2}
+\contentsline {chapter}{\numberline {2}Panification pr\IeC {\'e}visionnelle}{4}{chapter.2}
+\contentsline {section}{\numberline {2.1}Analyse}{4}{section.2.1}
+\contentsline {section}{\numberline {2.2}M\IeC {\'e}thode}{5}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Utilisation d'un gestionnaire de version}{5}{subsection.2.2.1}
+\contentsline {chapter}{\numberline {3}Planification r\IeC {\'e}elle}{6}{chapter.3}
+\contentsline {section}{\numberline {3.1}Comparaison entre le r\IeC {\'e}el et le pr\IeC {\'e}visionnel}{6}{section.3.1}
+\contentsline {section}{\numberline {3.2}R\IeC {\'e}partition des t\IeC {\^a}ches}{7}{section.3.2}
+\contentsline {chapter}{\numberline {4}Donn\IeC {\'e}es quantitatives}{9}{chapter.4}
+\contentsline {section}{\numberline {4.1}Organisation du travail}{9}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}R\IeC {\'e}unions}{9}{subsection.4.1.1}
+\contentsline {subsection}{\numberline {4.1.2}Mise en place de la m\IeC {\'e}thode git-flow}{9}{subsection.4.1.2}
+\contentsline {section}{\numberline {4.2}Brainstorming}{10}{section.4.2}
+\contentsline {section}{\numberline {4.3}Quelques chiffres}{11}{section.4.3}
+\contentsline {chapter}{\numberline {5}Conclusion}{12}{chapter.5}
+\contentsline {chapter}{\numberline {A}Planification pr\IeC {\'e}visionnelle}{13}{appendix.A}
+\contentsline {chapter}{\numberline {B}Planification r\IeC {\'e}elle}{14}{appendix.B}

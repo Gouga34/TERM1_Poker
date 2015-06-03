@@ -20,7 +20,7 @@ CarteCliquable::~CarteCliquable()
 
 }
 
-void CarteCliquable::mousePressEvent(QMouseEvent *event)
+void CarteCliquable::mousePressEvent(QMouseEvent * /*event*/)
 {
     emit clicked(id);
 }

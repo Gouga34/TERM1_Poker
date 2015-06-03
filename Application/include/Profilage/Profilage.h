@@ -14,27 +14,34 @@ Specification: Classe contenant l'écriture et la lecture
 #include <string>
 #include <QString>
 #include "../Constantes.h"
+#include "Profil.h"
+#include "PhaseJeu.h"
 
 class Profilage
 {
     private:
 
-        std::string nomJoueur;
+        Profil *profilIA;
 
     public:
 
-        int typeJoueur[PROFIL_JOUEUR::NB_PROFILS];
+        Profil *profilJoueur;
 
-        struct Profil
+        RESULTAT_PARTIE partieGagneeIAQuiProfile;
+        int nbJetonsGagnesIAQuiProfile;
+        bool scenarioDeTest;
+        bool jeuAgressif;
+
+
+        struct EtapePartie
         {
             bool couche;                    // vrai si le joueur s'est couché
 
             double probaGainAdversaire;     // % de chance de gagner du joueur (-1 si cartes inconnues)
-            double pot;                     // % du pot par rapport à la cave du joueur
 
             /* Type du joueur (somme des taux = 100%) */
             double tauxAgressivite;         // Agressivité du joueur (mise la plus haute, mise totale, nb checks)
-            double tauxRationnalite;        // Rationnalite du joueur (mise totale, s'est couché ?)
+            double tauxRationnalite;        // Rationalite du joueur (mise totale, s'est couché ?)
             double tauxBluff;               // Bluff du joueur (mise totale, s'est couché ?)
             double tauxPassivite;           // Passivite du joueur (suivis, checks)
 
@@ -46,28 +53,43 @@ class Profilage
             /* Taux en % des mises en fonction des jetons du joueur */
             double misePlusHaute;           // Mise plus haute du joueur
             double miseTotaleJoueur;        // Mise totale du joueur
-            double miseTotaleIA;            // Mise totale de l'IA
+
+            int nbTotalActions;
         };
 
-        bool partieGagnee;              // vrai si l'IA a gagné la partie
-
-        Profil profil[ETAPE_JEU::NB_ETAPES];
-
+        // Une ligne par étape + 1 ligne pour le global
+        EtapePartie etatPartie[ETAPE_JEU::NB_ETAPES + 1];
 
 
-        Profilage(std::string joueur);
+        // Données des phases de profilage et de gains en cours
+        PhaseJeu phaseProfilageCourante;
+        PhaseJeu phaseJeuCourante;
+
+
+        // Données globales au profilage
+        int nombreParties;
+        int nbPartiesGagneesProfilage;
+        int nbPartiesProfilage;
+
+        int nbPartiesGagneesJeu;
+        int nbPartiesJeu;
+
+        int gainsProfilage;
+        int gainsJeu;
+
+
+        Profilage(Profil *calibrageIA, Profil *profil);
         ~Profilage();
 
         /**
-         * @action Remplit les données de profilage avec le contenu du fichier correspondant au joueur
+         * @action Efface les données de profilage de la partie enregistrée
          */
-        void charger();
+        void reinitialiser();
 
         /**
          * @action Ajoute les données de profilage de la partie dans le fichier correspondant au joueur
          */
-        void sauvegarder() const;
-
+        void sauvegarder();
 };
 
 #endif // PROFILAGE_H

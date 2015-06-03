@@ -9,15 +9,15 @@ Specification: Classe de gestion d'écriture des logs dans le tableau de bord.
 #ifndef LOGGER_H
 #define LOGGER_H
 
-#include "Fenetre.h"
+#include "ContenuFenetre.h"
 
 class Logger
 {
     private:
 
-        Fenetre *fenetre;
+        ContenuFenetre *fenetre;
 
-        Logger(Fenetre *f);
+        Logger(ContenuFenetre *f);
         ~Logger();
 
         /* Instance du singleton */
@@ -29,7 +29,7 @@ class Logger
          * @action Créé l'instance du singleton
          * @param f Pointeur vers la fenêtre utilisée pour afficher les logs
          */
-        static void creerInstance(Fenetre *f);
+        static void creerInstance(ContenuFenetre *f);
 
         /**
          * @return Instance du singleton

@@ -1,0 +1,227 @@
+\documentclass{report}
+\usepackage[utf8]{inputenc}
+\usepackage{xcolor}
+\usepackage{sectsty} %%Pour changer la couleur de la police 
+\usepackage{hyperref}
+\usepackage{float}%%Pour les figures
+\usepackage{listings}
+\usepackage{amsmath}%%Pour les formules mathématique
+\usepackage[final]{pdfpages}%%Pour l'inclusion de PDF
+\usepackage{lscape}%%Pour passer une page en format paysage
+\usepackage{graphicx}%%Pour rotation image
+\usepackage{rotating}%%Pour rotation image
+\usepackage[final]{pdfpages}%%Pour l'inclusion de PDF
+
+\usepackage{geometry} %%Pour les marges
+\geometry{hmargin=3cm,vmargin=3cm}
+
+%%pour qu'il y ait pas les encadrés rouges mais quand même les liens
+\usepackage{hyperref}                 
+ \hypersetup{
+    hyperfigures = true,
+    colorlinks = true,
+    linkcolor=black
+    }
+
+\title{Rapport}
+\author{}
+\date{}
+
+
+\renewcommand{\contentsname}{Table des matières}
+\renewcommand{\chaptername}{Chapitre}
+\renewcommand{\appendixname}{Annexe}
+\renewcommand{\bibname}{Bibliographie}
+
+\definecolor{bleurapport}{HTML}{00AAD4}
+
+\chapterfont{\color{bleurapport}}
+\sectionfont{\color{bleurapport}}
+\subsectionfont{\color{bleurapport}}
+
+\begin{document}
+
+\includepdf{./PageGardeRapportTERM1GestionProjet.pdf}
+
+\newpage
+\tableofcontents %%Table des matières
+\newpage
+
+\chapter{Introduction}
+\section{Généralités}
+\hspace{0.5cm}Alors qu'actuellement, de plus en plus de méthodes de profilage sont établies dans le monde des jeux afin de trouver le profil d'un joueur adverse, le poker est un jeu qui pose problème dans ce domaine. En effet, celui-ci est basé sur la chance et sur le bluff. De ce fait, un joueur ne peut jamais être sûr à 100\% de pouvoir gagner et donc, son adversaire ne peut pas deviner la main qu'il possède de manière certaine. C'est pourquoi, il est dur de profiler un joueur correctement. Il y a donc des recherches dans le développement de méthodes permettant de profiler un joueur de manière efficace. \par
+
+\section{Sujet}
+\hspace{0.5cm}Le but de notre projet est de mettre en place une façon de profiler efficacement un joueur. Nous devrons tout d'abord établir une méthode de profilage statique. C'est à dire, une technique pour profiler un joueur en fonction des actions qu'il a effectuées pendant toute une partie, de manière globale. Après avoir implémenté cette première méthode de profilage, nous devrons mettre en place une intelligence artificielle pouvant jouer en fonction des résultats obtenus. Ainsi, nous pourrons voir si notre intelligence artificielle est capable de gagner plus de parties une fois le profil du joueur adverse établi. \\
+
+S'il nous reste du temps, nous devrons mettre en place une méthode de profilage dynamique, avec par conséquent, un profil qui s’établit tout au long de la partie et qui est modifié à chaque nouvelle action du joueur adverse. Nous devrons alors, de même que précédemment, mettre en place une intelligence artificielle capable de jouer en exploitant les données de profilage. Ainsi, nous pourrons observer la différence du nombre de parties gagnées en fonction des deux types de profilage, à savoir, statique ou dynamique, mais aussi en fonction des profils établis. En effet, un joueur considéré comme agressif et rationnel est-il plus facile à profiler et à battre qu'un joueur considéré comme non agressif et irrationnel ?\par
+
+\chapter{Panification prévisionnelle}
+\section{Analyse}
+\hspace{0.5cm}Comme nous pouvons le voir dans l'annexe A représentant le diagramme de Gantt prévisionnel mis en place, nous avons prévu dans un premier temps une étude préalable du sujet consistant à nous familiariser avec le vocabulaire du poker. De ce fait, nous avons rapidement mis en place un glossaire contenant les définitions des différents termes. Pendant cette période, nous avons également défini les besoins des utilisateurs avec entre autres un diagramme de cas d'utilisations. Nous avons aussi défini comment nous allions nous organiser durant le déroulement du projet, en spécifiant la fréquence des rendez-vous ainsi que les modalités de partage des données.\\
+
+Par la suite, nous avons prévu de continuer par une étude détaillée durant laquelle nous allons élaborer un diagramme de classe, rédiger le cahier des charges ainsi que commencer à lire des articles sur le sujet.\\
+
+Ensuite, nous passerons à une première étude technique durant laquelle nous commencerons par établir les normes de programmation. Puis, nous développerons une intelligence artificielle simple capable de jouer. Nous réfléchirons par la suite aux différents algorithmes et méthodes permettant d'établir un bon profilage statique. Par la suite, nous établirons des jeux de tests. Dans le même temps, nous commencerons la phase de réalisation, en implémentant en parallèle l'interface graphique et l'intelligence artificielle simple puis, nous ajouterons la méthode de profilage statique et effectuerons les tests définis auparavant.\\
+
+Nous réaliserons ensuite une seconde étude technique pendant laquelle nous définirons les méthodes et algorithmes qui seront utilisés afin d'implémenter la méthode de profilage dynamique. Dans ce même temps, nous implémenterons la méthode de profilage dynamique, en effectuant les tests définis pendant la phase d'étude technique.\\
+
+Enfin, la dernière partie sera réservée à la mise en place de la démonstration qui sera effectuée lors de la soutenance, ainsi qu'à la finalisation du rapport rédigé tout au long de la période du projet et à la préparation de la soutenance.\par
+\newpage
+
+\section{Méthode}
+\subsection{Utilisation d'un gestionnaire de version}
+\hspace{0.5cm}Afin de permettre un partage efficace des données, le gestionnaire de version Git sera utilisé. Le répertoire principal sera celui de Morgane Vidal \url{https://github.com/Gouga34/TERM1_Poker}, qui sera responsable de l'intégration du projet. Les deux autres membres du projets Manuel Chataigner et Benjamin Commandre devront envoyer leurs ajouts sur leurs propres répertoires puis demander à intégrer leurs modifications sur le répertoire principal. De plus l'utilisation de Git nous permettra de pouvoir ouvrir des tickets correspondant au travail à faire et aux éventuels bogues trouvées.\par
+
+\chapter{Planification réelle}
+\section{Comparaison entre le réel et le prévisionnel}
+\hspace{0.5cm}Le diagramme de Gantt de l'annexe B correspond à la planification réelle de notre projet. Comme on peut vite le constater, nous avons eu du retard et n'avons pas pu finir toutes les tâches prévues au départ. De même, on peut constater que quelques tâches absentes au départ ont été ajoutées.\\
+
+On peut tout d'abord voir que la mise en place de l'interface graphique a pris plus de temps que prévu. En effet, nous n'avions pas prévu que la bibliothèque que nous souhaitions utiliser s’avérerait difficile à mettre en place et que par conséquent il nous faudrait partir de zéro. Étant donné le retard pris, nous avons aussi eu quelques jours de retard sur l'implémentation du jeu de poker et de l'intelligence artificielle basique. \\
+
+Cependant, on peut constater que nous avions démarré l'analyse de l'existant pour le profilage statique bien en avance. Malgré cela, nous avions ajouté à la liste des articles à lires quelques articles supplémentaires dont une thèse qui nous aura pris plus de temps à lire. De ce fait, nous avons pris du retard sur la phase d'étude détaillée et sur la phase de développement des algorithmes. De plus, lorsque nous avons voulu passer à la phase d'implémentation des algorithmes, nous devions au départ récupérer une calculette de probabilités permettant de calculer les chances de gain d'un joueur. Cependant, cette calculette n'ayant pas été retrouvée, nous avons ajouté de nouvelles tâches : l'étude détaillée, l'implémentation de la calculette de probabilité et l'implémentation d'un évaluateur de mains. Par conséquent, nous avons mis en pause le développement des algorithmes afin que tous les membres du groupe puissent discuter ensemble de l'étude détaillée de la calculette de probabilités. De ce fait, nous avons pris encore plus de retard dans le déroulement de notre projet. \\
+
+Comme on peut le constater, à mi-parcours du projet, du 31 mars au 10 avril, nous nous sommes rendus compte que la partie concernant le jeu et l'intelligence artificielle était difficilement réutilisable. En effet, nous découvrions régulièrement des bogues qui n'avaient pas été détectées au moment des tests. Cette partie étant difficilement débogable et nous faisant perdre beaucoup de temps, nous avons par conséquent choisi de reprendre complètement cette partie. Nous avons perdu beaucoup de temps à ce moment-là et nous nous sommes rendus compte à quel point la découverte tardive d'une bogue fait prendre beaucoup de retard sur le développement de l'application. Par conséquent, alors que la période d'implémentation des algorithmes liés au profilage statique aurait dû être terminée, elle a été retardée, ce qui a fait prendre du retard aux tâches suivantes.\\
+
+Enfin, nous pensions au départ que nous ne devrions que profiler les joueurs adverses alors que nous devions aussi faire jouer l'intelligence artificielle en fonction du profil établi afin de faire en sorte de gagner le plus d'argent possible. De ce fait, nous avons ajouté les tâches en rapport à la mise en place du jeu de l'intelligence artificielle en fonction des profils établis. \\
+
+Nous pouvons donc en conclure que nous avons pris beaucoup de retard, sûrement à cause du fait que nous n'avions pas bien compris l'ampleur des tâches qui seraient à effectuer et à cause d'une mauvaise conception au départ de la partie correspondant au jeu et à l'intelligence artificielle basique. Finalement, étant donné que l'on s'est rendu compte du retard pris sur le projet, plutôt que terminer précipitamment la partie sur le profilage statique pour commencer le profilage dynamique prévu, nous avons préféré ne pas nous précipiter et terminer correctement le profilage statique et obtenir de bons résultats, quitte à ne pas faire la partie dynamique. \par
+
+
+\section{Répartition des tâches}
+
+		\begin{figure}[h]
+			\hspace{-1.5cm}	\begin{tabular}{|l|l|l|}
+				\hline
+				Étude préalable & & \textcolor{blue}{Manuel}  \textcolor{red}{Morgane}  \textcolor{purple}{Benjamin}\\ 
+				\hline
+  				 Interface Graphique & &  \\
+  				 \hline
+  				 & Étude Détaillée &  \textcolor{blue}{Manuel}  \textcolor{red}{Morgane}  \textcolor{purple}{Benjamin}\\
+  				 \hline
+  				 & Programmation & \textcolor{blue}{Manuel}\\
+  				 \hline
+  				 & Tests & \textcolor{blue}{Manuel}  \textcolor{red}{Morgane}\\
+  				 \hline
+  				 Jeu et IA Basique & & \\
+  				 \hline
+  				 & Étude Préalable & \textcolor{blue}{Manuel}  \textcolor{red}{Morgane}  \textcolor{purple}{Benjamin}\\
+  				 \hline
+  				 & Étude Détaillée & \textcolor{purple}{Benjamin}\\
+  				 \hline
+  				 & Création IA (Programmation) & \textcolor{purple}{Benjamin}\\
+  				 \hline
+  				 & Tests & \textcolor{purple}{Benjamin} \textcolor{red}{Morgane}\\
+  				 \hline
+  				 Profilage Statique & &\\
+  				 \hline
+  				 & Analyse de l'existant & \textcolor{blue}{Manuel}  \textcolor{red}{Morgane} \\
+  				 \hline
+  				 & Étude détaillée & \textcolor{blue}{Manuel}  \textcolor{red}{Morgane}  \textcolor{purple}{Benjamin}\\
+  				 \hline
+  				 & Étude technique & \textcolor{blue}{Manuel}  \textcolor{red}{Morgane}  \textcolor{purple}{Benjamin}\\
+  				 \hline
+  				 & Implémentation Algorithmes & \textcolor{blue}{Manuel}  \textcolor{red}{Morgane}  \textcolor{purple}{Benjamin}\\
+  				 \hline
+  				 & Tests & \textcolor{blue}{Manuel}  \textcolor{red}{Morgane} \\
+  				 \hline
+  				 Jeu IA en fonction des résultats du profilage & &\\
+  				 \hline
+  				 & Étude Technique & \textcolor{blue}{Manuel}  \textcolor{red}{Morgane} \\
+  				 \hline
+  				 & Programmation & \textcolor{blue}{Manuel}  \textcolor{red}{Morgane} \\
+  				 \hline
+  				 Calculette de Probabilités & & \\
+  				 \hline
+  				 & Étude Détaillée & \textcolor{blue}{Manuel}  \textcolor{red}{Morgane} \textcolor{purple}{Benjamin}\\
+  				 \hline
+  				 & Implémentation Calculette de Probabilités & \textcolor{purple}{Benjamin}\\
+  				 \hline
+  				 & Implémentation Évaluateur de mains & \textcolor{red}{Morgane} \\
+  				 \hline
+  				 Rapport & & \textcolor{blue}{Manuel}  \textcolor{red}{Morgane} \\
+  				 \hline
+  				 Remaniement Jeu & & \textcolor{blue}{Manuel}  \textcolor{red}{Morgane} \\
+   				\hline
+			\end{tabular}	
+			\caption{Répartition des tâches}
+		\end{figure}
+		\medskip
+
+\hspace{0.5cm}Afin de travailler de manière efficace, nous avons choisi de nous répartir certaines tâches. Ainsi, nous avons tous participé à la première tâche, à savoir l'étude préalable. En effet, cette étape était essentielle à tout le monde puisque nous devions entre autres maîtriser le sujet. Par la suite, pour les deux sous-projets concernant l'interface graphique et l'intelligence artificielle basique, tous les membres du groupe ont participé à l'étude détaillée de l'interface graphique ainsi qu'à l'étude préalable de l'intelligence artificielle. Ensuite, Manuel Chataigner a développé l'interface graphique pendant que Benjamin Commandré s'occupait de la partie étude détaillée et du développement de l'intelligence artificielle. Morgane Vidal a ensuite effectué les tests de chacun des sous-projets cités précédemment. Par la suite, Manuel Chataigner et Morgane Vidal ont effectué l'analyse détaillée, en lisant plusieurs articles et thèses et en faisant leurs résumés. Chacun des membres du groupe a ensuite participé à l'étude détaillée du profilage statique. \\
+
+De même, comme on peut le voir dans le schéma ci-dessus, nous avons tous participé à l'étude technique du sous-projet profilage statique. En effet, les algorithmes à développer étant complexes, nous avons préféré être plusieurs pour en discuter et confronter nos points de vue. Nous avons donc développé ensemble durant cette tâche la méthode d'établissement du profil du joueur adverse. Puis, Manuel Chataigner et Morgane Vidal ont développé dans cette même tâche la méthode de calcul des scénarios de tests. Ensuite, chacun des membres du groupe a participé à l'implémentation des algorithmes de calcul du profil basique du joueur adverse. Benjamin Commandré a implémenté l'utilisation des méthodes de calculs dans l'intelligence artificielle, Manuel Chataigner a implémenté l'écriture des résultats des profils établis dans un fichier de sortie, Morgane Vidal a implémenté les méthodes de calcul du profilage et Manuel Chataigner et Morgane Vidal ont implémenté l'utilisation des scénarios de tests.
+Par la suite, la phase de tests du profilage statique a été réalisée par Manuel Chataigner et Morgane Vidal. \\
+
+Dans le sous-projet calculette de probabilités, nous avons tous participé à la tâche étude détaillée. Puis, Benjamin Commandré a implémenté la calculette de probabilités et Morgane Vidal a implémenté l'évaluateur de main.\\
+
+La phase de reprise du code de la classe jeu, a été réalisée par Manuel Chataigner et Morgane Vidal. \\
+
+Enfin l'écriture du rapport a été réalisée par Manuel Chataigner et Morgane Vidal.\par
+
+\chapter{Données quantitatives}
+
+\section{Organisation du travail}
+
+\subsection{Réunions}
+\hspace{0.5cm}Comme prévu au départ, nos tuteurs et nous-même avons choisi de nous réunir chaque semaine afin de discuter de nos avancées, des éventuels problèmes rencontrés et des méthodes choisies pour le profilage. De ce fait, nous garantissions que ce que nous faisions était toujours en accord avec les attentes.\\
+
+De notre côté, nous avions choisi de nous réunir chaque mercredi et vendredi matin afin de pouvoir réfléchir ensemble sur les différentes méthodes de calculs. Par exemple, comment déterminer le taux d'agressivité d'un joueur ? Nous répartissions ensuite le contenu à implémenter entre les différents membres du groupe.\\
+
+Étant donné le fait que notre groupe n'était composé que de trois membres, nous avons choisi de ne pas élire de chef de projet mais plutôt de travailler tous sur un pied d'égalité. De ce fait, il n'y a pas eu de spécialisation, chaque membre du groupe a participé à toutes les parties du projet. En effet, notre projet étant basé en particulier sur la réflexion et sur la mise en place de différents algorithmes, il était plus intéressant de travailler à plusieurs.\par
+
+\subsection{Mise en place de la méthode git-flow}
+\hspace{0.5cm}Après avoir assisté au cours durant lequel un intervenant nous a présenté les différentes architectures Git, nous avons choisi d'utiliser un git workflow pour la gestion de notre projet. Cette méthode consiste à mettre en place une branche master qui contient le code de production et sur laquelle rien n'est développé. Elle est donc réservée aux versions fonctionnelles et abouties.\\
+
+Nous avons ensuite une branche develop sur laquelle sont ajoutées l'ensemble des modifications effectuées au cours du développement et le code qui sera ajouté pour la nouvelle release. Sur cette branche, on peut corriger ou encore améliorer des fonctionnalités. \\
+
+C'est donc une fois l'application dans une version finalisée que sont par la suite ajoutées à la branche master l'ensemble des commits effectués sur le develop.\\
+
+Etant donné le fait que notre projet n'est pas un grand projet, et que nous ne sommes pas nombreux, nous avons choisi de ne pas mettre en place de branches feature, release et hot-fix. En effet, le temps de mettre en place une version correspond au temps imparti pour la mise en place du projet.\\
+
+Pour chaque nouvelle fonctionnalité ou correction, nous ajoutions une nouvelle branche en local dans nos répertoires sur laquelle les modifications étaient effectuées. Elles étaient ensuite intégrées à la branche develop en local puis envoyées sur le répertoire public correspondant. Enfin, elles étaient intégrées au répertoire de référence.\par
+
+
+\section{Brainstorming}
+\hspace{0.5cm}Après avoir assisté au cours présentant les brainstorming, nous avons décidé d'en organiser un. En effet, nous avions un manque d'organisation à ce moment là du projet et il nous fallait définir des priorités. Nous avions beaucoup de tâches à effectuer en même temps et ne savions pas par lesquelles commencer. Comme on peut le voir dans la figure suivante, nous avons donc mis sur papier chacune des tâches à effectuer puis, nous les avons classées par ordre de priorité et ensuite partagées entre les différents membres du groupe. \par
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.1]{./brainstorming.jpg}
+\caption{Brainstorming}
+\end{center}
+\end{figure}
+
+\newpage
+
+\section{Quelques chiffres}
+\hspace{0.5cm}La figure suivante représente la courbe des commits effectués par tous les membres du groupe. Comme on peut le voir, l'ensemble du groupe a plus ou moins participé au développement de l'application. De plus, nous pouvons voir sur cette figure que chacun des membres a ajouté un certain nombre de lignes de code au projet. Le fort nombre de lignes supprimées pour Manuel Chataigner, dont le pseudo est Manouel, et Morgane Vidal, dont le pseudo est Gouga34, est dû en grande partie à la reprise de la classe jeu.\par
+
+\begin{figure}[H]
+\begin{center}
+	\includegraphics[scale=0.4]{./courbesCommits.png}
+	\caption{Fréquence des commits}
+\end{center}
+\end{figure}
+
+
+
+\chapter{Conclusion}
+
+\hspace{0.5cm}La mise en place de ce projet nous a fait découvrir à quel point plus la détection d'une bogue est tardive, plus on perd du temps à la corriger. En effet, nous avons perdu beaucoup de temps à remanier les parties concernant le jeu et l'intelligence artificielle car celles-ci étaient mal conçues et nous perdions beaucoup de temps à chaque découverte de bogue, en particulier lorsque celles-ci étaient découvertes plusieurs semaines après la fin de la phase de tests de cette partie. \\
+
+Durant ce projet, nous avons choisi d'utiliser dès que possible les méthodes vues au fur et à mesure en cours de conduite de projet. De ce fait, après avoir découvert l'utilisation des workflow, nous avons modifié l'architecture de notre Git pour passer en git-flow. De même, après avoir découvert les méthodes agiles et notamment l'utilisation du brainstorming pour faire sortir de manière efficace un maximum d'idées et de tâches à effectuer, nous avons décidé d'en organiser un. \par
+
+\appendix
+\chapter{Planification prévisionnelle}
+		 \hspace{-2.5cm} 
+			\includegraphics[scale=0.28]{../DiagrammePrevisionnel.png}
+	\medskip
+
+\chapter{Planification réelle}
+		 \hspace{-2.7cm} 
+			\includegraphics[scale=0.24]{../DiagrammeReel.png}
+
+	\medskip
+
+\end{document}

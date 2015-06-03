@@ -13,46 +13,90 @@ Specification: Classe définissant la fenêtre de choix du pseudo.
 #include <QComboBox>
 #include <QLineEdit>
 #include <QString>
-#include <QSlider>
+#include <QCheckBox>
+#include <QSpinBox>
+#include <QGroupBox>
+#include <QRadioButton>
+#include <QStackedLayout>
+#include "ChoixCalibrage.h"
 
-struct Options
+struct OptionsJeu
 {
+    bool profilage;         // Choix profilage/calibrage optimal
+
+    bool joueurIA;
+
     QString pseudo;
 
-    double rationaliteIA;
-    double agressiviteIA;
+    int nombreCalibrages;
+    int nombreParties;
+
+    int nombrePartiesProfilage;
+    int nombrePartiesReprofilage;
+    int nombrePartiesGains;
+
+    bool analyseGainsParties;
+    bool reinitialisationCaves;
+
+    bool calibrageIaProfileeFixe;
+    bool calibrageIaQuiProfileFixe;
+
+    Profil iaProfilee;
+    Profil iaQuiProfile;
 };
 
 
 class ChoixOptionsDialog : public QDialog{
 
+    Q_OBJECT
+
 private :
-   const int rationaliteDefaut = 100;
-   const int agressiviteDefaut = 50;
 
-   QLineEdit nouveau;
-   QComboBox pseudos; //liste déroulante contenant les pseudos déjà connus.
+   QRadioButton modeProfilage;
+   QRadioButton modeCalibrageOptimal;
 
-   QSlider rationalite;
-   QSlider agressivite;
+   QStackedLayout layoutParametres;
 
-   /**
-    * @action ajoute dans la liste déroulante pseudos les pseudos déjà connus.
-    * Ces pseudos sont récupérés dans le fichier "../../ressources/Profilage/[ProfilageStatique]OU[ProfilageDynamique]/pseudos.txt" se trouvant
-    */
-   void ajouterPseudosConnus();
+   //// Paramètres profilage ////
+
+   QLineEdit *champPseudo;
+   QGroupBox choixAdversaire;
+   QSpinBox boiteNombreCalibrages;
+   QSpinBox boiteNombreParties;
+
+   QSpinBox boiteNombrePartiesProfilage;
+   QSpinBox boiteNombrePartiesReprofilage;
+   QSpinBox boiteNombrePartiesGains;
+
+   QCheckBox caseAnalyseGainsParties;
+   QCheckBox caseReinitialisationCaves;
+
+   ChoixCalibrage calibrageIAProfilee;
+   ChoixCalibrage calibrageIAQuiProfile;
+
+   //// Paramètres calibrage optimal ////
+
+   QSpinBox boiteNombrePartiesCalibrageOptimal;
+
+   ChoixCalibrage calibrageAdversaire;
+
 
 public :
     ChoixOptionsDialog();
+    virtual ~ChoixOptionsDialog();
 
     /**
     * @return retourne les options fournies par l'utilisateur
     *         (pseudo déjà existant ou non) et le calibrage de l'IA
     */
-    Options getOptions();
+    OptionsJeu getOptions();
 
+private slots:
+
+    /**
+     * @brief Change l'index du QStackedLayout
+     */
+    void changePageLayout();
 };
-
-
 
 #endif
