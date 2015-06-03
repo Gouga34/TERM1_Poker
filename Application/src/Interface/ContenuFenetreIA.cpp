@@ -207,6 +207,29 @@ void ContenuFenetreIA::scrollAutomatiqueTableau(){
     sb->setValue(sb->maximum());
 }
 
+void ContenuFenetreIA::changerFondPendantProfilage(){
+    QCPItemRect* section = new QCPItemRect(&graphiqueResultats);
+    graphiqueResultats.addItem(section);
+    graphiqueResultats.addLayer("sectionBackground", graphiqueResultats.layer("grid"), QCustomPlot::limBelow);
+    section->setLayer("sectionBackground");
+
+    section->topLeft->setTypeX(QCPItemPosition::ptPlotCoords);
+    section->topLeft->setTypeY(QCPItemPosition::ptAxisRectRatio);
+    section->topLeft->setAxes(graphiqueResultats.xAxis, graphiqueResultats.yAxis);
+    section->topLeft->setAxisRect(graphiqueResultats.axisRect());
+    section->bottomRight->setTypeX(QCPItemPosition::ptPlotCoords);
+    section->bottomRight->setTypeY(QCPItemPosition::ptAxisRectRatio);
+    section->bottomRight->setAxes(graphiqueResultats.xAxis, graphiqueResultats.yAxis);
+    section->bottomRight->setAxisRect(graphiqueResultats.axisRect());
+    section->setClipToAxisRect(true); // is by default true already, but this will change in QCP 2.0.0
+
+    section->topLeft->setCoords(recapParties.rowCount()-1, -0.1); // the y value is now in axis rect ratios, so -0.1 is "barely above" the top axis rect border
+    section->bottomRight->setCoords(recapParties.rowCount(), 1.1); // the y value is now in axis rect ratios, so 1.1 is "barely below" the bottom axis rect border
+
+    section->setBrush(QBrush(QColor(200,200,200,100)));
+    section->setPen(Qt::NoPen);
+}
+
 void ContenuFenetreIA::majGraphiqueResultats(){
 
     pointsNombreDeParties << recapParties.rowCount();
@@ -221,6 +244,11 @@ void ContenuFenetreIA::majGraphiqueResultats(){
     graphiqueResultats.graph(0)->rescaleAxes();
     // same thing for graph 1, but only enlarge ranges (in case graph 1 is smaller than graph 0):
     graphiqueResultats.graph(1)->rescaleAxes();
+
+    IntelligenceArtificielleProfilage *IA =static_cast<IntelligenceArtificielleProfilage*>(jeu->getJoueur(1));
+    if (IA->getProfilage()->scenarioDeTest == 1) {
+        changerFondPendantProfilage();
+    }
 
     graphiqueResultats.replot();
 }
