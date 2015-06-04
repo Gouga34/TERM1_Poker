@@ -11,6 +11,7 @@ Specification: Classe définissant la fenêtre affichée lorsque
 #define CONTENUFENETREIA_H
 
 #include "ContenuFenetre.h"
+#include "Fenetre.h"
 #include <QLabel>
 #include <QVector>
 #include <QTableWidget>
@@ -100,7 +101,7 @@ private:
     void majGraphiqueResultats();
 
 public:
-    ContenuFenetreIA(Jeu *j);
+    ContenuFenetreIA(Jeu *j, Fenetre *f);
     virtual ~ContenuFenetreIA();
 
     /**
