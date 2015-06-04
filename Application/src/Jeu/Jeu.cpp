@@ -318,6 +318,9 @@ void Jeu::seCoucher(int posJoueur){
 
     this->actions[this->getJoueur(posJoueur)->getPosition()].push_back(ACTION::SE_COUCHER);
 
+    this->getJoueur(0)->setMiseTotale(this->getJoueur(0)->getMiseTotale() + this->getJoueur(0)->getCumulMisesEtRelances());
+    this->getJoueur(1)->setMiseTotale(this->getJoueur(1)->getMiseTotale() + this->getJoueur(1)->getCumulMisesEtRelances());
+
     IntelligenceArtificielleProfilage *ia = static_cast<IntelligenceArtificielleProfilage*>(this->getJoueur(1));
     ia->remplissageDonneesProfilage();
 
@@ -442,9 +445,6 @@ void Jeu::finPartie() {
     partieFinie=true;
 
     std::vector<Joueur*> joueursRestants;
-
-    this->getJoueur(0)->setMiseTotale(this->getJoueur(0)->getMiseTotale() + this->getJoueur(0)->getCumulMisesEtRelances());
-    this->getJoueur(1)->setMiseTotale(this->getJoueur(1)->getMiseTotale() + this->getJoueur(1)->getCumulMisesEtRelances());
 
     for(Joueur *joueur : this->listeJoueurs){
         if(this->estCouche(joueur->getPosition())){
