@@ -17,7 +17,12 @@ Specification: Fichier contenant les définitions de la classe
 #include <QHeaderView>
 
 
-ContenuFenetreIA::ContenuFenetreIA(Jeu *j):ContenuFenetre(j){
+ContenuFenetreIA::ContenuFenetreIA(Jeu *j, Fenetre *f):ContenuFenetre(j){
+
+    // Couleur de fond
+    QPalette pal(palette());
+    pal.setColor(QPalette::Background, QColor(240, 240, 240));
+    f->setPalette(pal);
 
     //fenetre
     QVBoxLayout *boite = new QVBoxLayout;
