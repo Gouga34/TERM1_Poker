@@ -8,10 +8,6 @@ Specification: Fichier contenant les corps des méthodes
 =========================================================================*/
 
 
-////////////////::TODO//////////////////////////////////////////////
-/// action tapis et autre action diff : à gérer dans la fusion /////
-/// ////////////////////////////////////////////////////////////////
-
 #include "../../include/IA/Resolveur.h"
 #include "../../include/Constantes.h"
 #include "../../include/Profilage/CalculDonneesProfilage.h"
@@ -339,7 +335,6 @@ Action Resolveur::calculerAction(){
     ACTION action=PAS_ENCORE_D_ACTION;
     int jetonsAMiser = -1;
 
-
     if (jeuAgressif) {
         action = actionAgressivite.getAction();
         jetonsAMiser = actionAgressivite.getMontant();
@@ -361,11 +356,11 @@ Action Resolveur::calculerAction(){
                 ||(actionAgressivite.getAction()==MISER && actionRationalite.getAction()==CHECKER)){
             if(actionAgressivite.getAction()==CHECKER){
                 actionAgressivite.setAction(MISER);
-                actionAgressivite.setMontant(1);
+                actionAgressivite.setMontant(ia->getJeu()->getBlind());
             }
             else{
                 actionRationalite.setAction(MISER);
-                actionRationalite.setMontant(1);
+                actionRationalite.setMontant(ia->getJeu()->getBlind());
             }
         }
         //SUIVRE et RELANCER
@@ -516,7 +511,8 @@ Action Resolveur::calculerAction(){
         //Celle-ci aura plus de chances d'être plus proche du taux le plus fort.
 
         int total=calibrage->getAgressivite()+calibrage->getRationalite();
-        jetonsAMiser= minJetonsAMiser+((tauxMax/total)*abs(maxJetonsAMiser-minJetonsAMiser));
+        double ratio = static_cast<double>(tauxMax) / total;
+        jetonsAMiser = minJetonsAMiser + (ratio * abs(maxJetonsAMiser-minJetonsAMiser));
 
     }else{
        if(action==PAS_ENCORE_D_ACTION){

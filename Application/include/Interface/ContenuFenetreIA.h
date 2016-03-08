@@ -11,6 +11,7 @@ Specification: Classe définissant la fenêtre affichée lorsque
 #define CONTENUFENETREIA_H
 
 #include "ContenuFenetre.h"
+#include "Fenetre.h"
 #include <QLabel>
 #include <QVector>
 #include <QTableWidget>
@@ -90,12 +91,17 @@ private:
     void scrollAutomatiqueTableau();
 
     /**
+     * @brief changerFond Change la couleur de fond pendant le profilage
+     */
+    void changerFondPendantProfilage();
+
+    /**
      * @brief majGraphiqueResultats Ajoute les points de la nouvelle partie
      */
     void majGraphiqueResultats();
 
 public:
-    ContenuFenetreIA(Jeu *j);
+    ContenuFenetreIA(Jeu *j, Fenetre *f);
     virtual ~ContenuFenetreIA();
 
     /**

@@ -19,11 +19,53 @@ Specification: Fichier contenant les définitions de la classe Fenetre.
 
 using namespace std;
 
-Fenetre::Fenetre() : QWidget()
+Fenetre::Fenetre() : QWidget(), jeu(0), contenu(0)
 {
     move(0,0);
     setWindowTitle(tr("Poker"));
     resize(1280,400);
+
+    /** Fenêtre **/
+
+    // Layout principal
+    layout = new QVBoxLayout;
+    boutonDemarrage.setFixedSize(100, 30);
+
+    layout->setAlignment(Qt::AlignCenter);
+    layout->addWidget(&boutonDemarrage);
+
+    initialiser();
+
+    setLayout(layout);
+}
+
+Fenetre::~Fenetre()
+{
+    if (jeu) {
+        delete jeu;
+    }
+
+    if (contenu) {
+        delete contenu;
+    }
+}
+
+void Fenetre::initialiser()
+{
+    if (jeu) {
+        delete jeu;
+        jeu = 0;
+    }
+
+    layout->removeWidget(contenu);
+
+    if (contenu) {
+        delete contenu;
+        contenu = 0;
+    }
+
+
+    hide();
 
     //Récupération des options du jeu
     ChoixOptionsDialog fenetreOptions;
@@ -48,7 +90,7 @@ Fenetre::Fenetre() : QWidget()
         Profil calibrage = *(ia->getCalibrage());
         pseudoJoueur = QString::number(calibrage.getAgressivite()) + "_" + QString::number(calibrage.getRationalite());
 
-        contenu = new ContenuFenetreIA(jeu);
+        contenu = new ContenuFenetreIA(jeu, this);
     }
     else {
         if (!jeu->getOptions().pseudo.isEmpty()) {
@@ -76,13 +118,9 @@ Fenetre::Fenetre() : QWidget()
     ia->setPseudoJoueurProfile(pseudoJoueur.toStdString());
 
 
-    /** Fenêtre **/
+    /** Bouton démarrer **/
 
-    // Layout principal
-    QVBoxLayout *layout = new QVBoxLayout;
-    boutonDemarrage.setText("Démarrer");
-    boutonDemarrage.setFixedSize(boutonDemarrage.sizeHint());
-
+    disconnect(&boutonDemarrage, SIGNAL(clicked()), this, SLOT(initialiser()));
     if (jeu->getOptions().profilage) {
         connect(&boutonDemarrage, SIGNAL(clicked()), this, SLOT(demarragePartie()));
     }
@@ -90,16 +128,10 @@ Fenetre::Fenetre() : QWidget()
         connect(&boutonDemarrage, SIGNAL(clicked()), this, SLOT(demarrageCalibrageIdeal()));
     }
 
-    layout->setAlignment(Qt::AlignCenter);
-    layout->addWidget(&boutonDemarrage);
+
+    boutonDemarrage.setText("Démarrer");
     layout->addWidget(contenu);
-
-    setLayout(layout);
-}
-
-Fenetre::~Fenetre()
-{
-    delete jeu;
+    show();
 }
 
 void Fenetre::demarragePartie()
@@ -152,6 +184,11 @@ void Fenetre::demarragePartie()
 
         iaQuiProfile->ecritureAnalyseDesGains();
     }
+
+    disconnect(&boutonDemarrage, SIGNAL(clicked()), this, SLOT(demarragePartie()));
+    connect(&boutonDemarrage, SIGNAL(clicked()), this, SLOT(initialiser()));
+    boutonDemarrage.setText("Réinitialiser");
+    boutonDemarrage.show();
 }
 
 void Fenetre::demarrageCalibrageIdeal()
