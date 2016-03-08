@@ -69,7 +69,9 @@ HEADERS += \
     include/Interface/ChoixCalibrage.h \
     include/Interface/CustomPlot/qcustomplot.h
 
-CONFIG += c++11
+CONFIG += c++14
+QMAKE_CC = gcc-4.9
+QMAKE_CXX = g++-4.9
 
 MOC_DIR = moc_dir
 OBJECTS_DIR = obj_dir
