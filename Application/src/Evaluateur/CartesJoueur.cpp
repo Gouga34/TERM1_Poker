@@ -9,9 +9,7 @@ Specification: Fichier contenant les définitions de la classe Evaluateur.
 #include "../../include/Evaluateur/CartesJoueur.h"
 #include "../../include/Constantes.h"
 
-using namespace std;
-
-CartesJoueur::CartesJoueur(vector<Carte> table, vector<Carte> mainJoueur) : m_poids(0), m_combinaison(0) {
+CartesJoueur::CartesJoueur(std::vector<Carte> table, std::vector<Carte> mainJoueur) : m_occurrences(), m_poids(0) {
     initialiserOccurrences();
 	remplirTableau(table,mainJoueur);
     calculCombinaison();
@@ -44,12 +42,12 @@ void CartesJoueur::initialiserOccurrences() {
     }
 }
 
-void CartesJoueur::remplirTableau(vector<Carte> table, vector<Carte> mainJoueur) {
+void CartesJoueur::remplirTableau(std::vector<Carte> table, std::vector<Carte> mainJoueur) {
     enregistrerOccurrencesCartes(mainJoueur);
     enregistrerOccurrencesCartes(table);
 }
 
-void CartesJoueur::enregistrerOccurrencesCartes(vector<Carte> listeCartes) {
+void CartesJoueur::enregistrerOccurrencesCartes(std::vector<Carte> listeCartes) {
     for (auto carte : listeCartes) {
         int rangCarte = carte.getRang();
         int couleurCarte = carte.getCouleur();

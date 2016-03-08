@@ -13,6 +13,7 @@ Specification: Classe correspondant à la main d'un joueur,
 #include "../Jeu/Carte.h"
 #include <iostream>
 #include <vector>
+#include <array>
 
 class CartesJoueur {
 
@@ -23,7 +24,8 @@ class CartesJoueur {
 			Les 14 premières colonnes correspondent aux cartes (de 1 à AS, en comptant l'AS deux fois)
 			La dernière colonne correspond au nombre de cartes d'une même couleurs.
 		*/
-        int m_occurrences[15][5];
+
+        std::array< std::array< int, 5>, 15> m_occurrences;
 
 		//Combinaison la plus forte de la main du joueur.
         int m_combinaison;
@@ -86,7 +88,7 @@ class CartesJoueur {
 		 * @action regarde si on a un flush (5 cartes de la même couleur)
          * @return true si on a un flush, false sinon
 		 */
-        virtual bool checkIfFlushAndSetCombinaison() ;
+        virtual bool checkIfFlushAndSetCombinaison();
 
         /**
          * @brief quinteFlushRoyale regarde si on a une quinte flush royale et set la combinaison si c'est le cas
