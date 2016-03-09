@@ -176,39 +176,41 @@ bool CartesJoueur::checkIfCarreAndSetCombinaison() {
 }
 
 bool CartesJoueur::checkIfFullAndSetCombinaison() {
-    int carte = -1;
+    int carte;
 
     if((carte = cartesIdentiques(3)) > 0 && cartesIdentiques(2) > 0) {
         setCombinaison(FULL);
         setPoids(carte);
-        carte = 0;
+        return true;
     }
-    return (carte != -1);
+
+    return false;
 }
 
 bool CartesJoueur::checkIfBrelanAndSetCombinaison() {
-    int carte = -1;
+    int carte;
 
     if((carte = cartesIdentiques(3)) > 0) {
         setCombinaison(BRELAN);
         setPoids(carte);
-        carte = 0;
+        return true;
     }
-    return (carte != -1);
+    return false;
 }
 
 bool CartesJoueur::checkIfDoublePaireAndSetCombinaison() {
-    int carte = -1;
+    int carte;
+
     if((carte = cartesIdentiques(2,2)) > 0) {
         setCombinaison(DOUBLE_PAIRE);
         setPoids(carte);
-        carte = 0;
+        return true;
     }
-    return (carte != -1);
+    return false;
 }
 
 bool CartesJoueur::checkIfPaireAndSetCombinaison() {
-    int carte = -1;
+    int carte;
 
     if((carte = cartesIdentiques(2,1)) > 0){
         setCombinaison(PAIRE);
@@ -268,6 +270,7 @@ void CartesJoueur::calculCombinaison() {
 
     //Si on n'est rentré dans aucun cas,
     //la seule combinaison possible est la carte haute.
+
     setCombinaison(CARTE_HAUTE);
 }
 
