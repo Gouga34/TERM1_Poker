@@ -18,7 +18,8 @@ private:
     virtual std::vector<Carte> getHand2();
 
 private Q_SLOTS:
-    void results();
+    void compareHands();
+    void straight(); //Quinte Flush Royale
 };
 
 TestsAssessor::TestsAssessor() {
@@ -52,15 +53,22 @@ std::vector<Carte> TestsAssessor::getHand2() {
     return hand2;
 }
 
-void TestsAssessor::results() {
+void TestsAssessor::compareHands() {
     std::vector<Carte> table = getTable();
     std::vector<Carte> hand1 = getHand1();
-
     std::vector<Carte> hand2 = getHand2();
 
     QCOMPARE(RESULTAT_PARTIE::GAGNE, Evaluateur::comparerMains(table, hand1, hand2));
     QCOMPARE(RESULTAT_PARTIE::PERDU, Evaluateur::comparerMains(table, hand2, hand1));
     QCOMPARE(RESULTAT_PARTIE::EGALITE, Evaluateur::comparerMains(table, hand1, hand1));
+}
+
+void TestsAssessor::straight() {
+    std::vector<Carte> table = getTable();
+    std::vector<Carte> hand1 = getHand1();
+
+    CartesJoueur cartes(table, hand1);
+    QCOMPARE(FORCE_MAIN::QUINTE_FLUSH_ROYALE, cartes.getCombinaison());
 }
 
 QTEST_APPLESS_MAIN(TestsAssessor)
