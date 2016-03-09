@@ -18,7 +18,7 @@ CartesJoueur::CartesJoueur(std::vector<Carte> table, std::vector<Carte> mainJoue
 CartesJoueur::~CartesJoueur() {
 }
 
-int CartesJoueur::getCombinaison() const {
+FORCE_MAIN CartesJoueur::getCombinaison() const {
     return m_combinaison;
 }
 
@@ -26,7 +26,7 @@ int CartesJoueur::getPoids() const {
     return m_poids;
 }
 
-void CartesJoueur::setCombinaison(int combi) {
+void CartesJoueur::setCombinaison(FORCE_MAIN combi) {
     m_combinaison = combi;
 }
 
@@ -270,7 +270,6 @@ void CartesJoueur::calculCombinaison() {
 
     //Si on n'est rentré dans aucun cas,
     //la seule combinaison possible est la carte haute.
-
     setCombinaison(CARTE_HAUTE);
 }
 

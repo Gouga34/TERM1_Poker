@@ -28,7 +28,7 @@ class CartesJoueur {
         std::array< std::array< int, 5>, 15> m_occurrences;
 
 		//Combinaison la plus forte de la main du joueur.
-        int m_combinaison;
+        FORCE_MAIN m_combinaison;
 
 		//Poids de la main
         int m_poids;
@@ -37,7 +37,7 @@ class CartesJoueur {
 		 * @param combi combinaison
 		 * @action modifie la combinaison avec une nouvelle combinaison
 		 */
-        virtual void setCombinaison(int combi);
+        virtual void setCombinaison(FORCE_MAIN combi);
 
 		/**
 		 * @param p poids
@@ -162,7 +162,7 @@ class CartesJoueur {
 		/**
 		 * @return la combinaison la plus forte des cartes du Joueur 
 		 */
-         virtual int getCombinaison() const;
+         virtual FORCE_MAIN getCombinaison() const;
 
 		 /**
 		  * @return le poids des cartes du joueur
