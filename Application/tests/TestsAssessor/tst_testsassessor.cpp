@@ -21,6 +21,7 @@ private Q_SLOTS:
     void flush(); //Couleur
     void straight(); //Suite
     void threeOfAKind(); //Brelan
+    void twoPair(); //Double Paire
 };
 
 TestsAssessor::TestsAssessor() {
@@ -175,6 +176,24 @@ void TestsAssessor::threeOfAKind() {
 
     CartesJoueur cartes(table, hand);
     QCOMPARE(cartes.getCombinaison(), FORCE_MAIN::BRELAN);
+}
+
+void TestsAssessor::twoPair() {
+    std::vector<Carte> table {
+        {10, COULEUR_CARTE::CARREAU},
+        {RANG_CARTE::J, COULEUR_CARTE::COEUR},
+        {10, COULEUR_CARTE::COEUR},
+        {9, COULEUR_CARTE::PIQUE},
+        {3, COULEUR_CARTE::TREFLE}
+    };
+
+    std::vector<Carte> hand {
+        {3, COULEUR_CARTE::PIQUE},
+        {7, COULEUR_CARTE::PIQUE}
+    };
+
+    CartesJoueur cartes(table, hand);
+    QCOMPARE(cartes.getCombinaison(), FORCE_MAIN::DOUBLE_PAIRE);
 }
 
 QTEST_APPLESS_MAIN(TestsAssessor)
