@@ -16,6 +16,7 @@ private Q_SLOTS:
     void compareHands();
     void royalFlush(); //Quinte Flush Royale
     void straightFlush(); //Quinte Flush
+    void fourOfAKind(); //Carré
 };
 
 TestsAssessor::TestsAssessor() {
@@ -73,13 +74,31 @@ void TestsAssessor::straightFlush() {
         {3, COULEUR_CARTE::TREFLE}
     };
 
-    std::vector<Carte> hand1 {
+    std::vector<Carte> hand {
         {9, COULEUR_CARTE::COEUR},
         {RANG_CARTE::K, COULEUR_CARTE::COEUR}
     };
 
-    CartesJoueur cartes(table, hand1);
+    CartesJoueur cartes(table, hand);
     QCOMPARE(cartes.getCombinaison(), FORCE_MAIN::QUINTE_FLUSH);
+}
+
+void TestsAssessor::fourOfAKind() {
+    std::vector<Carte> table {
+        {10, COULEUR_CARTE::CARREAU},
+        {RANG_CARTE::J, COULEUR_CARTE::COEUR},
+        {10, COULEUR_CARTE::COEUR},
+        {9, COULEUR_CARTE::PIQUE},
+        {3, COULEUR_CARTE::TREFLE}
+    };
+
+    std::vector<Carte> hand {
+        {10, COULEUR_CARTE::PIQUE},
+        {10, COULEUR_CARTE::TREFLE}
+    };
+
+    CartesJoueur cartes(table, hand);
+    QCOMPARE(cartes.getCombinaison(), FORCE_MAIN::CARRE);
 }
 
 QTEST_APPLESS_MAIN(TestsAssessor)
