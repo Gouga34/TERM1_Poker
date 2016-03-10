@@ -15,13 +15,16 @@ Specification: Classe correspondant l'évaluateur de main, compare
 #include <iostream>
 #include <vector>
 
-class Assessor {
-	public:
-		/**
-        * @brief compare les deux mains pour voir laquelle a le poids le plus fort
-        * @return 0 si hand1 a gagné, 1 si elle a perdu et 2 si égalité
-		*/
-        static RESULTAT_PARTIE compareHands(std::vector<Carte> table, std::vector<Carte> handPlayer1, std::vector<Carte> handPlayer2);
-};
+namespace assessor {
+
+    class Assessor {
+        public:
+            /**
+            * @brief compare les deux mains pour voir laquelle a le poids le plus fort
+            * @return 0 si hand1 a gagné, 1 si elle a perdu et 2 si égalité
+            */
+            static RESULTAT_PARTIE compareHands(std::vector<Carte> table, std::vector<Carte> handPlayer1, std::vector<Carte> handPlayer2);
+    };
+}
 
 #endif

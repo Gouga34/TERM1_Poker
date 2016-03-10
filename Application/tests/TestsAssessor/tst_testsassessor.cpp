@@ -54,9 +54,9 @@ void TestsAssessor::compareHands() {
         {10, COULEUR_CARTE::CARREAU}
     };
 
-    QCOMPARE(Assessor::compareHands(table, hand1, hand2), RESULTAT_PARTIE::GAGNE);
-    QCOMPARE(Assessor::compareHands(table, hand2, hand1), RESULTAT_PARTIE::PERDU);
-    QCOMPARE(Assessor::compareHands(table, hand2, hand3), RESULTAT_PARTIE::EGALITE);
+    QCOMPARE(assessor::Assessor::compareHands(table, hand1, hand2), RESULTAT_PARTIE::GAGNE);
+    QCOMPARE(assessor::Assessor::compareHands(table, hand2, hand1), RESULTAT_PARTIE::PERDU);
+    QCOMPARE(assessor::Assessor::compareHands(table, hand2, hand3), RESULTAT_PARTIE::EGALITE);
 }
 
 void TestsAssessor::royalFlush() {
@@ -73,7 +73,7 @@ void TestsAssessor::royalFlush() {
         {RANG_CARTE::K, COULEUR_CARTE::COEUR}
     };
 
-    PlayerCards cartes(table, hand);
+    assessor::PlayerCards cartes(table, hand);
     QCOMPARE(cartes.getHandCategory(), FORCE_MAIN::QUINTE_FLUSH_ROYALE);
 }
 
@@ -96,10 +96,10 @@ void TestsAssessor::straightFlush() {
         {8, COULEUR_CARTE::COEUR}
     };
 
-    PlayerCards cartes(table, hand);
+    assessor::PlayerCards cartes(table, hand);
     QCOMPARE(cartes.getHandCategory(), FORCE_MAIN::QUINTE_FLUSH);
-    QCOMPARE(Assessor::compareHands(table, hand2, hand), RESULTAT_PARTIE::GAGNE);
-    QCOMPARE(Assessor::compareHands(table, hand, hand2), RESULTAT_PARTIE::PERDU);
+    QCOMPARE(assessor::Assessor::compareHands(table, hand2, hand), RESULTAT_PARTIE::GAGNE);
+    QCOMPARE(assessor::Assessor::compareHands(table, hand, hand2), RESULTAT_PARTIE::PERDU);
 }
 
 void TestsAssessor::fourOfAKind() {
@@ -126,11 +126,11 @@ void TestsAssessor::fourOfAKind() {
         {RANG_CARTE::K, COULEUR_CARTE::TREFLE}
     };
 
-    PlayerCards cartes(table, hand);
+    assessor::PlayerCards cartes(table, hand);
     QCOMPARE(cartes.getHandCategory(), FORCE_MAIN::CARRE);
-    QCOMPARE(Assessor::compareHands(table, hand, hand2), RESULTAT_PARTIE::EGALITE);
-    QCOMPARE(Assessor::compareHands(table, hand3, hand2), RESULTAT_PARTIE::GAGNE);
-    QCOMPARE(Assessor::compareHands(table, hand2, hand3), RESULTAT_PARTIE::PERDU);
+    QCOMPARE(assessor::Assessor::compareHands(table, hand, hand2), RESULTAT_PARTIE::EGALITE);
+    QCOMPARE(assessor::Assessor::compareHands(table, hand3, hand2), RESULTAT_PARTIE::GAGNE);
+    QCOMPARE(assessor::Assessor::compareHands(table, hand2, hand3), RESULTAT_PARTIE::PERDU);
 }
 
 void TestsAssessor::fullHouse() {
@@ -157,11 +157,11 @@ void TestsAssessor::fullHouse() {
         {9, COULEUR_CARTE::CARREAU}
     };
 
-    PlayerCards cartes(table, hand);
+    assessor::PlayerCards cartes(table, hand);
     QCOMPARE(cartes.getHandCategory(), FORCE_MAIN::FULL);
-    QCOMPARE(Assessor::compareHands(table, hand, hand2), RESULTAT_PARTIE::EGALITE);
-    QCOMPARE(Assessor::compareHands(table, hand3, hand2), RESULTAT_PARTIE::GAGNE);
-    QCOMPARE(Assessor::compareHands(table, hand2, hand3), RESULTAT_PARTIE::PERDU);
+    QCOMPARE(assessor::Assessor::compareHands(table, hand, hand2), RESULTAT_PARTIE::EGALITE);
+    QCOMPARE(assessor::Assessor::compareHands(table, hand3, hand2), RESULTAT_PARTIE::GAGNE);
+    QCOMPARE(assessor::Assessor::compareHands(table, hand2, hand3), RESULTAT_PARTIE::PERDU);
 }
 
 void TestsAssessor::flush() {
@@ -183,10 +183,10 @@ void TestsAssessor::flush() {
         {5, COULEUR_CARTE::COEUR}
     };
 
-    PlayerCards cartes(table, hand);
+    assessor::PlayerCards cartes(table, hand);
     QCOMPARE(cartes.getHandCategory(), FORCE_MAIN::COULEUR);
-    QCOMPARE(Assessor::compareHands(table, hand, hand2), RESULTAT_PARTIE::PERDU);
-    QCOMPARE(Assessor::compareHands(table, hand2, hand), RESULTAT_PARTIE::GAGNE);
+    QCOMPARE(assessor::Assessor::compareHands(table, hand, hand2), RESULTAT_PARTIE::PERDU);
+    QCOMPARE(assessor::Assessor::compareHands(table, hand2, hand), RESULTAT_PARTIE::GAGNE);
 }
 
 void TestsAssessor::straight() {
@@ -213,11 +213,11 @@ void TestsAssessor::straight() {
         {RANG_CARTE::Q, COULEUR_CARTE::TREFLE}
     };
 
-    PlayerCards cartes(table, hand);
+    assessor::PlayerCards cartes(table, hand);
     QCOMPARE(cartes.getHandCategory(), FORCE_MAIN::SUITE);
-    QCOMPARE(Assessor::compareHands(table, hand, hand2), RESULTAT_PARTIE::EGALITE);
-    QCOMPARE(Assessor::compareHands(table, hand3, hand2), RESULTAT_PARTIE::GAGNE);
-    QCOMPARE(Assessor::compareHands(table, hand2, hand3), RESULTAT_PARTIE::PERDU);
+    QCOMPARE(assessor::Assessor::compareHands(table, hand, hand2), RESULTAT_PARTIE::EGALITE);
+    QCOMPARE(assessor::Assessor::compareHands(table, hand3, hand2), RESULTAT_PARTIE::GAGNE);
+    QCOMPARE(assessor::Assessor::compareHands(table, hand2, hand3), RESULTAT_PARTIE::PERDU);
 }
 
 void TestsAssessor::threeOfAKind() {
@@ -244,11 +244,11 @@ void TestsAssessor::threeOfAKind() {
         {9, COULEUR_CARTE::TREFLE}
     };
 
-    PlayerCards cartes(table, hand);
+    assessor::PlayerCards cartes(table, hand);
     QCOMPARE(cartes.getHandCategory(), FORCE_MAIN::BRELAN);
-    QCOMPARE(Assessor::compareHands(table, hand, hand2), RESULTAT_PARTIE::EGALITE);
-    QCOMPARE(Assessor::compareHands(table, hand3, hand2), RESULTAT_PARTIE::GAGNE);
-    QCOMPARE(Assessor::compareHands(table, hand2, hand3), RESULTAT_PARTIE::PERDU);
+    QCOMPARE(assessor::Assessor::compareHands(table, hand, hand2), RESULTAT_PARTIE::EGALITE);
+    QCOMPARE(assessor::Assessor::compareHands(table, hand3, hand2), RESULTAT_PARTIE::GAGNE);
+    QCOMPARE(assessor::Assessor::compareHands(table, hand2, hand3), RESULTAT_PARTIE::PERDU);
 }
 
 void TestsAssessor::twoPair() {
@@ -275,11 +275,11 @@ void TestsAssessor::twoPair() {
         {7, COULEUR_CARTE::PIQUE}
     };
 
-    PlayerCards cartes(table, hand);
+    assessor::PlayerCards cartes(table, hand);
     QCOMPARE(cartes.getHandCategory(), FORCE_MAIN::DOUBLE_PAIRE);
-    QCOMPARE(Assessor::compareHands(table, hand, hand1), RESULTAT_PARTIE::EGALITE);
-    QCOMPARE(Assessor::compareHands(table, hand2, hand), RESULTAT_PARTIE::GAGNE);
-    QCOMPARE(Assessor::compareHands(table, hand, hand2), RESULTAT_PARTIE::PERDU);
+    QCOMPARE(assessor::Assessor::compareHands(table, hand, hand1), RESULTAT_PARTIE::EGALITE);
+    QCOMPARE(assessor::Assessor::compareHands(table, hand2, hand), RESULTAT_PARTIE::GAGNE);
+    QCOMPARE(assessor::Assessor::compareHands(table, hand, hand2), RESULTAT_PARTIE::PERDU);
 
 }
 
@@ -307,11 +307,11 @@ void TestsAssessor::pair() {
         {7, COULEUR_CARTE::TREFLE}
     };
 
-    PlayerCards cartes(table, hand);
+    assessor::PlayerCards cartes(table, hand);
     QCOMPARE(cartes.getHandCategory(), FORCE_MAIN::PAIRE);
-    QCOMPARE(Assessor::compareHands(table, hand, hand2), RESULTAT_PARTIE::EGALITE);
-    QCOMPARE(Assessor::compareHands(table, hand3, hand2), RESULTAT_PARTIE::GAGNE);
-    QCOMPARE(Assessor::compareHands(table, hand2, hand3), RESULTAT_PARTIE::PERDU);
+    QCOMPARE(assessor::Assessor::compareHands(table, hand, hand2), RESULTAT_PARTIE::EGALITE);
+    QCOMPARE(assessor::Assessor::compareHands(table, hand3, hand2), RESULTAT_PARTIE::GAGNE);
+    QCOMPARE(assessor::Assessor::compareHands(table, hand2, hand3), RESULTAT_PARTIE::PERDU);
 }
 
 void TestsAssessor::hightCard() {
@@ -339,11 +339,11 @@ void TestsAssessor::hightCard() {
     };
 
 
-    PlayerCards cartes(table, hand);
+    assessor::PlayerCards cartes(table, hand);
     QCOMPARE(cartes.getHandCategory(), FORCE_MAIN::CARTE_HAUTE);
-    QCOMPARE(Assessor::compareHands(table, hand, hand2), RESULTAT_PARTIE::EGALITE);
-    QCOMPARE(Assessor::compareHands(table, hand2, hand3), RESULTAT_PARTIE::GAGNE);
-    QCOMPARE(Assessor::compareHands(table, hand3, hand2), RESULTAT_PARTIE::PERDU);
+    QCOMPARE(assessor::Assessor::compareHands(table, hand, hand2), RESULTAT_PARTIE::EGALITE);
+    QCOMPARE(assessor::Assessor::compareHands(table, hand2, hand3), RESULTAT_PARTIE::GAGNE);
+    QCOMPARE(assessor::Assessor::compareHands(table, hand3, hand2), RESULTAT_PARTIE::PERDU);
 }
 
 QTEST_APPLESS_MAIN(TestsAssessor)
