@@ -7,8 +7,8 @@ Specification: Classe correspondant à la main d'un joueur,
 				avec ses cartes et celles du milieu
 =========================================================================*/
 
-#ifndef MAINJOUEUR_H
-#define MAINJOUEUR_H
+#ifndef PLAYERCARDS_H
+#define PLAYERCARDS_H
 
 #include "../Jeu/Carte.h"
 #include <iostream>

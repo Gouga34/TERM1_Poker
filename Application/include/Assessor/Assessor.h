@@ -7,8 +7,8 @@ Specification: Classe correspondant l'évaluateur de main, compare
 				deux mains et donne celle ayant le poids le plus fort
 =========================================================================*/
 
-#ifndef EVALUATEUR_H
-#define EVALUATEUR_H
+#ifndef ASSESSOR_H
+#define ASSESSOR_H
 
 #include "PlayerCards.h"
 #include "../Jeu/Carte.h"
