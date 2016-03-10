@@ -1,7 +1,7 @@
-#ifndef FORMULES_H
-#define FORMULES_H
+#ifndef MATHEMATICALFORMULA_H
+#define MATHEMATICALFORMULA_H
 
-class Formules {
+class MathematicalFormula {
 
 public:
     /**

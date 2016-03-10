@@ -26,11 +26,11 @@ SOURCES += \
     src/Interface/ContenuFenetre.cpp \
     src/Interface/ContenuFenetreHumain.cpp \
     src/Interface/ContenuFenetreIA.cpp \
-    src/Formules/Forumules.cpp \
     src/Interface/ChoixCalibrage.cpp \
     src/Interface/CustomPlot/qcustomplot.cpp \
     src/Assessor/Assessor.cpp \
-    src/Assessor/PlayerCards.cpp
+    src/Assessor/PlayerCards.cpp \
+    src/MathematicalFormula/MathematicalFormula.cpp
 
 
 QT+=widgets printsupport
@@ -63,11 +63,11 @@ HEADERS += \
     include/Interface/ContenuFenetre.h \
     include/Interface/ContenuFenetreHumain.h \
     include/Interface/ContenuFenetreIA.h \
-    include/Formules/Formules.h \
     include/Interface/ChoixCalibrage.h \
     include/Interface/CustomPlot/qcustomplot.h \
     include/Assessor/Assessor.h \
-    include/Assessor/PlayerCards.h
+    include/Assessor/PlayerCards.h \
+    include/MathematicalFormula/MathematicalFormula.h
 
 CONFIG += c++14
 QMAKE_CC = gcc-4.9

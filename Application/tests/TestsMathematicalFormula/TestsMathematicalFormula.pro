@@ -19,10 +19,10 @@ TEMPLATE = app
 
 
 SOURCES += tst_testsmathematicalformula.cpp \
-            ../../src/Formules/Forumules.cpp
+            ../../src/MathematicalFormula/MathematicalFormula.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
 INCLUDEPATH += ../../
 
 HEADERS += \
-    ../../include/Formules/Formules.h
+    ../../include/MathematicalFormula/MathematicalFormula.h
