@@ -1,29 +1,29 @@
 #include "../../include/Formules/Formules.h"
 
 
-double Formules::taux(const double valeur, const double valeurReference){
-    if(valeurReference==0){
+double Formules::rate(const double value, const double referenceValue) {
+    if (referenceValue == 0) {
         return -1;
     }
-    else{
-        return ((valeur*100.0)/valeurReference);
+    else {
+        return ((value * 100.0) / referenceValue);
     }
 }
 
-double Formules::variation(const double valeur1, const double valeur2){
-    if(valeur1==0){
+double Formules::variation(const double value1, const double value2) {
+    if (value1 == 0) {
         return -1;
     }
-    else{
-        return (valeur2-valeur1)/valeur1*100;
+    else {
+        return (value2 - value1) / value1 * 100.0;
     }
 }
 
-double Formules::pourcentageValeur(const double pourcentage, const double valeur){
-    return (valeur*pourcentage)/100;
+double Formules::valuePercentage(const double percentage, const double value) {
+    return (value * percentage) / 100.0;
 }
 
-double Formules::calculValeurProportionnelle(double minVal1, double val1, double maxVal1, double minVal2, double maxVal2) {
+double Formules::calculateProportionalValue(const double minVal1, const double val1, const double maxVal1, const double minVal2, const double maxVal2) {
     return ((val1 - minVal1) * ((maxVal2 - minVal2) / (maxVal1 - minVal1)) + minVal2);
 }
 

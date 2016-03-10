@@ -1,7 +1,7 @@
 #ifndef FORMULES_H
 #define FORMULES_H
 
-class Formules{
+class Formules {
 
 public:
     /**
@@ -9,28 +9,26 @@ public:
      * Exemple : 20 sur 180 donne 11.11%
      * /!\ retourne -1 sur valeurReference == 0
     **/
-    static double taux(const double valeur, const double valeurReference);
+    static double rate(const double value, const double referenceValue);
 
     /**
      * @return la variation entre deux valeurs, en pourcentage.
      * exemple : variation entre 100 et 50 donne -50%
      *
      **/
-    static double variation(const double valeur1, const double valeur2);
+    static double variation(const double value1, const double value2);
 
     /**
      * @return le pourcentage de la valeur.
      * 	Exemple : 20% de 550 donne 110%
     **/
-    static double pourcentageValeur(const double pourcentage, const double valeur);
+    static double valuePercentage(const double percentage, const double value);
 
     /**
      *
      *@return valeur proportionnelle
     **/
-    static double calculValeurProportionnelle(double minVal1, double val1, double maxVal1, double minVal2, double maxVal2);
-
-
+    static double calculateProportionalValue(const double minVal1, const double val1, const double maxVal1, const double minVal2, const double maxVal2);
 };
 
 #endif
