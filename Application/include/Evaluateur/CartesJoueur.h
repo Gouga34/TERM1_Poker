@@ -154,6 +154,81 @@ class CartesJoueur {
 		 */
         virtual void calculerPoidsBasique();
 
+        /**
+         * @brief compareWeight
+         * @param hand2
+         * @return RESULTAT_PARTIE::PERDU si this a un poids inférieur au poids de main2
+         *         RESULTAT_PARTIE::GAGNE si this a un poids supérieur au poids de main2
+         *         RESULTAT_PARTIE::EGALITE sinon
+         */
+        virtual RESULTAT_PARTIE compareWeights(CartesJoueur hand2);
+
+        /**
+         * @brief compareEqualFourOfAKind compare deux carrés égaux
+         * (compare les 5m cartes des deux mains pour savoir laquelle est la plus haute)
+         * @param hand2
+         * @return RESULTAT_PARTIE::PERDU si this a perdu face à main2
+         *         RESULTAT_PARTIE::GAGNE si this a gagné face à main2
+         *         RESULTAT_PARTIE::EGALITE sinon
+         */
+        virtual RESULTAT_PARTIE compareEqualFourOfAKind(CartesJoueur hand2);
+
+        /**
+         * @brief compareEqualFullHouse compare deux full dont les trios sont les mêmes.
+         * (compare les valeurs des deux paires)
+         * @param hand2
+         * @return RESULTAT_PARTIE::PERDU si this a perdu face à main2
+         *         RESULTAT_PARTIE::GAGNE si this a gagné face à main2
+         *         RESULTAT_PARTIE::EGALITE sinon
+         */
+        virtual RESULTAT_PARTIE compareEqualFullHouse(CartesJoueur hand2);
+
+        /**
+         * @brief compareEqualFlush compare deux couleurs en comparant les cartes une à une
+         * @param hand2
+         * @return RESULTAT_PARTIE::PERDU si this a perdu face à main2
+         *         RESULTAT_PARTIE::GAGNE si this a gagné face à main2
+         *         RESULTAT_PARTIE::EGALITE sinon
+         */
+        virtual RESULTAT_PARTIE compareEqualFlush(CartesJoueur hand2);
+
+        /**
+         * @brief compareThreeOfAKind compare deux brelans dont les valeurs des triplets sont les mêmes.
+         * (compare les autres cartes)
+         * @param hand2
+         * @return RESULTAT_PARTIE::PERDU si this a perdu face à main2
+         *         RESULTAT_PARTIE::GAGNE si this a gagné face à main2
+         *         RESULTAT_PARTIE::EGALITE sinon
+         */
+        virtual RESULTAT_PARTIE compareThreeOfAKind(CartesJoueur hand2);
+
+        /**
+         * @brief compareTwoPair compare deux double paires égales.
+         * @param hand2
+         * @return RESULTAT_PARTIE::PERDU si this a perdu face à main2
+         *         RESULTAT_PARTIE::GAGNE si this a gagné face à main2
+         *         RESULTAT_PARTIE::EGALITE sinon
+         */
+        virtual RESULTAT_PARTIE compareTwoPair(CartesJoueur hand2);
+
+        /**
+         * @brief comparePair compare deux paires égales (compare autres cartes)
+         * @param hand2
+         * @return RESULTAT_PARTIE::PERDU si this a perdu face à main2
+         *         RESULTAT_PARTIE::GAGNE si this a gagné face à main2
+         *         RESULTAT_PARTIE::EGALITE sinon
+         */
+        virtual RESULTAT_PARTIE comparePair(CartesJoueur hand2);
+
+        /**
+         * @brief compareHightCard compare la carte la plus haute des mains
+         * @param hand2
+         * @return RESULTAT_PARTIE::PERDU si this a perdu face à main2
+         *         RESULTAT_PARTIE::GAGNE si this a gagné face à main2
+         *         RESULTAT_PARTIE::EGALITE sinon
+         */
+        virtual RESULTAT_PARTIE compareHightCard(CartesJoueur hand2);
+
 	public: 
 
 		CartesJoueur(std::vector<Carte> table, std::vector<Carte> mainJoueur);

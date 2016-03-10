@@ -16,6 +16,7 @@ CartesJoueur::CartesJoueur(std::vector<Carte> table, std::vector<Carte> mainJoue
 }
 
 CartesJoueur::~CartesJoueur() {
+
 }
 
 FORCE_MAIN CartesJoueur::getCombinaison() const {
@@ -35,8 +36,8 @@ void CartesJoueur::setPoids(int p) {
 }
 
 void CartesJoueur::initialiserOccurrences() {
-    for (int i = 0; i < 15; i++) {
-        for (int j = 0; j < 5; j++) {
+    for (int i = 0; i < 15; ++i) {
+        for (int j = 0; j < 5; ++j) {
             m_occurrences[i][j] = 0;
         }
     }
@@ -53,17 +54,17 @@ void CartesJoueur::enregistrerOccurrencesCartes(std::vector<Carte> listeCartes) 
         int couleurCarte = carte.getCouleur();
 
         if (rangCarte == AS) {
-            m_occurrences[0][couleurCarte]++;
-            m_occurrences[13][couleurCarte]++;
+            ++m_occurrences[0][couleurCarte];
+            ++m_occurrences[13][couleurCarte];
 
-            m_occurrences[0][4]++;
-            m_occurrences[13][4]++;
+            ++m_occurrences[0][4];
+            ++m_occurrences[13][4];
         }
         else {
-            m_occurrences[rangCarte-1][couleurCarte]++;
-            m_occurrences[rangCarte-1][4]++;
+            ++m_occurrences[rangCarte-1][couleurCarte];
+            ++m_occurrences[rangCarte-1][4];
         }
-        m_occurrences[14][couleurCarte]++;
+        ++m_occurrences[14][couleurCarte];
     }
 }
 
@@ -71,7 +72,7 @@ bool CartesJoueur::estSuite(int depart, int ligne) const {
     int i = depart;
 
     while (i < 14 && m_occurrences[i][ligne] >= 1 && (depart + 5) > i) {
-		i++;
+        ++i;
 	}
 
     int fin = depart +5;
@@ -85,12 +86,12 @@ bool CartesJoueur::contientSuite(int ligne) {
 
     while (i < 14 && cpt < 5){
         if (m_occurrences[i][ligne] >= 1) {
-			cpt++;
+            ++cpt;
 		}
         else {
             cpt = 0;
 		}
-		i++;
+        ++i;
 	}
 
     if (cpt == 5) {
@@ -103,9 +104,10 @@ bool CartesJoueur::contientSuite(int ligne) {
 int CartesJoueur::cartesIdentiques(int nb, int nbfois) const {
     int poids = 0;
     int cpt = 0;
-    for (int i = 13; i > 0; i--){
+
+    for (int i = 13; i > 0; --i){
         if (m_occurrences[i][4] == nb) {
-			cpt++;
+            ++cpt;
 
             if (poids == 0) {
                 poids = i;
@@ -120,7 +122,7 @@ int CartesJoueur::cartesIdentiques(int nb, int nbfois) const {
 }
 
 bool CartesJoueur::checkIfFlushAndSetCombinaison() {
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 4; ++i) {
         if (m_occurrences[14][i] >= 5) {
             //Le poids est alors égal à la ligne de la couleur
 			//afin de pouvoir trouver plus tard si égalité la carte la plus haute de la couleur 
@@ -145,7 +147,7 @@ bool CartesJoueur::checkIfQuinteFlushRoyaleAndSetCombinaison() {
                 return true;
             }
         }
-        i++;
+        ++i;
     }
 
     return false;
@@ -158,7 +160,7 @@ bool CartesJoueur::checkIfQuinteFlushAndSetCombinaison() {
             setCombinaison(QUINTE_FLUSH);
             return true;
         }
-        i++;
+        ++i;
     }
 
     return false;
@@ -167,7 +169,7 @@ bool CartesJoueur::checkIfQuinteFlushAndSetCombinaison() {
 bool CartesJoueur::checkIfCarreAndSetCombinaison() {
     int carte = -1;
 
-    if((carte = cartesIdentiques(4)) > 0) {
+    if ((carte = cartesIdentiques(4)) > 0) {
         setCombinaison(CARRE);
         setPoids(carte);
         carte = 0;
@@ -178,7 +180,7 @@ bool CartesJoueur::checkIfCarreAndSetCombinaison() {
 bool CartesJoueur::checkIfFullAndSetCombinaison() {
     int carte;
 
-    if((carte = cartesIdentiques(3)) > 0 && cartesIdentiques(2) > 0) {
+    if ((carte = cartesIdentiques(3)) > 0 && cartesIdentiques(2) > 0) {
         setCombinaison(FULL);
         setPoids(carte);
         return true;
@@ -190,7 +192,7 @@ bool CartesJoueur::checkIfFullAndSetCombinaison() {
 bool CartesJoueur::checkIfBrelanAndSetCombinaison() {
     int carte;
 
-    if((carte = cartesIdentiques(3)) > 0) {
+    if ((carte = cartesIdentiques(3)) > 0) {
         setCombinaison(BRELAN);
         setPoids(carte);
         return true;
@@ -201,7 +203,7 @@ bool CartesJoueur::checkIfBrelanAndSetCombinaison() {
 bool CartesJoueur::checkIfDoublePaireAndSetCombinaison() {
     int carte;
 
-    if((carte = cartesIdentiques(2,2)) > 0) {
+    if ((carte = cartesIdentiques(2,2)) > 0) {
         setCombinaison(DOUBLE_PAIRE);
         setPoids(carte);
         return true;
@@ -212,7 +214,7 @@ bool CartesJoueur::checkIfDoublePaireAndSetCombinaison() {
 bool CartesJoueur::checkIfPaireAndSetCombinaison() {
     int carte;
 
-    if((carte = cartesIdentiques(2,1)) > 0){
+    if ((carte = cartesIdentiques(2,1)) > 0) {
         setCombinaison(PAIRE);
         setPoids(carte);
         return true;
@@ -292,7 +294,7 @@ void CartesJoueur::setPoidsCarteLaPlusHaute() {
             setPoids(i);
             p = i;
         }
-        i--;
+        --i;
     }
 }
 
@@ -300,8 +302,195 @@ void CartesJoueur::calculerPoidsBasique() {
    setPoidsCarteLaPlusHaute();
 }
 
+RESULTAT_PARTIE CartesJoueur::compareEqualFourOfAKind(CartesJoueur hand2) {
+    int pMain1 = 0, pMain2 = 0;
+    int i = 13;
+    //On calcule la carte la plus haute autre que celles du carré pour this
+    while (pMain1 == 0 && pMain2 == 0 && i > 0) {
+        if (m_occurrences[i][4] < 4 && m_occurrences[i][4] > 0) {
+            pMain1 = i;
+        }
+
+        if (hand2.m_occurrences[i][4] < 4 && hand2.m_occurrences[i][4] > 0) {
+            pMain2 = i;
+        }
+        --i;
+    }
+
+    if (pMain1 > pMain2) {
+        return GAGNE;
+    }
+    else if (pMain1 < pMain2) {
+        return PERDU;
+    }
+    else {
+        return EGALITE;
+    }
+}
+
+RESULTAT_PARTIE CartesJoueur::compareWeights(CartesJoueur hand2) {
+    if (getPoids() > hand2.getPoids()) {
+        return GAGNE;
+    }
+    else if (getPoids() < hand2.getPoids()) {
+        return PERDU;
+    }
+    else {
+        return EGALITE;
+    }
+}
+
+RESULTAT_PARTIE CartesJoueur::compareEqualFullHouse(CartesJoueur hand2) {
+    setPoids(cartesIdentiques(2));
+    hand2.setPoids(hand2.cartesIdentiques(2));
+
+    return compareWeights(hand2);
+}
+
+RESULTAT_PARTIE CartesJoueur::compareEqualFlush(CartesJoueur hand2) {
+    int i = 13;
+    int color = getPoids();
+
+    while (i > 0) {
+        hand2.setPoids(0);
+        setPoids(0);
+
+        if (m_occurrences[i][color] > 0) {
+            setPoids(i);
+        }
+        if (hand2.m_occurrences[i][color] > 0) {
+            hand2.setPoids(i);
+        }
+
+        if (getPoids() != hand2.getPoids()) {
+            break;
+        }
+
+        --i;
+    }
+
+    return compareWeights(hand2);
+}
+
+RESULTAT_PARTIE CartesJoueur::compareThreeOfAKind(CartesJoueur hand2) {
+    int i = 13;
+
+    while (i > 0) {
+        hand2.setPoids(0);
+        setPoids(0);
+
+        if (m_occurrences[i][4] > 0 && m_occurrences[i][4] != 3) {
+            setPoids(i);
+        }
+        if (hand2.m_occurrences[i][4] > 0 && hand2.m_occurrences[i][4] != 3) {
+            hand2.setPoids(i);
+        }
+        if (getPoids() != hand2.getPoids()) {
+            break;
+        }
+        --i;
+    }
+
+    return compareWeights(hand2);
+}
+
+RESULTAT_PARTIE CartesJoueur::compareTwoPair(CartesJoueur hand2) {
+    int i = 13;
+    int poidsCarte = getPoids();
+
+    //On commence par comparer la seconde paire
+    while (i > 0) {
+        hand2.setPoids(0);
+        setPoids(0);
+
+        if (m_occurrences[i][4] == 2 && i != poidsCarte) {
+            setPoids(i);
+        }
+        if (hand2.m_occurrences[i][4] == 2 && i != poidsCarte) {
+            hand2.setPoids(i);
+        }
+        if(getPoids() != hand2.getPoids()) {
+            break;
+        }
+
+        --i;
+    }
+
+    //Si la seconde paire est la même, on compare la carte la plus haute
+    if (getPoids() == hand2.getPoids()) {
+        i = 13;
+        int poidsCartePaireMain1=getPoids(), poidsCartePaireMain2=hand2.getPoids();
+
+        //On remet les poids à 0 pour compter juste une seule carte.
+        setPoids(0);
+        hand2.setPoids(0);
+        while (i > 0){
+            if ((m_occurrences[i][4] == 1 || (i < poidsCartePaireMain1 && m_occurrences[i][4] >= 1))
+                    && getPoids() == 0) {
+                setPoids(i);
+            }
+            if ((hand2.m_occurrences[i][4] == 1 || (i < poidsCartePaireMain2 && m_occurrences[i][4] >= 1))
+                    && hand2.getPoids() == 0) {
+                hand2.setPoids(i);
+            }
+            if (getPoids() > 0 || hand2.getPoids() > 0){ //si au moins un nouveau poids, on arrête
+                break;
+            }
+            --i;
+        }
+    }
+
+    return compareWeights(hand2);
+}
+
+RESULTAT_PARTIE CartesJoueur::comparePair(CartesJoueur hand2) {
+    int i = 13;
+    while (i > 0) {
+        hand2.setPoids(0);
+        setPoids(0);
+
+        if (m_occurrences[i][4] == 1) {
+            setPoids(i);
+        }
+        if (hand2.m_occurrences[i][4] == 1) {
+            hand2.setPoids(i);
+        }
+
+        if (getPoids() != hand2.getPoids()) {
+            break;
+        }
+        --i;
+    }
+
+    return compareWeights(hand2);
+}
+
+RESULTAT_PARTIE CartesJoueur::compareHightCard(CartesJoueur hand2) {
+    int i = getPoids();
+
+    while (i > 0) {
+        hand2.setPoids(0);
+        setPoids(0);
+
+        if (m_occurrences[i][4] == 1) {
+            setPoids(i);
+        }
+        if (hand2.m_occurrences[i][4] == 1) {
+            hand2.setPoids(i);
+        }
+
+        if(getPoids() != hand2.getPoids()) {
+            break;
+        }
+
+        --i;
+    }
+
+    return compareWeights(hand2);
+}
+
 RESULTAT_PARTIE CartesJoueur::comparerCombinaisonsEgales(CartesJoueur main2) {
- 	
+
     if (getPoids() == 0) {
  		calculerPoidsBasique();
  	}
@@ -311,192 +500,29 @@ RESULTAT_PARTIE CartesJoueur::comparerCombinaisonsEgales(CartesJoueur main2) {
 
     if (getPoids() == main2.getPoids()) {
         if (getCombinaison() == CARRE) {
-            int p = 0, p2 = 0;
- 			int i = 13;
- 			//On calcule la carte la plus haute autre que celles du carré pour this
-            while (p == 0 && p2 == 0 && i > 0) {
-                if (m_occurrences[i][4] < 4 && m_occurrences[i][4] > 0) {
-                    p = i;
-                }
-
-                if (main2.m_occurrences[i][4] < 4 && main2.m_occurrences[i][4] > 0) {
-                    p2 = i;
-                }
- 				i--;
- 			}
-
-            if (p > p2) {
- 				return GAGNE;
- 			}
-            else if (p < p2) {
- 				return PERDU;
- 			}
-            else {
- 				return EGALITE;
- 			}
+           return compareEqualFourOfAKind(main2);
  		}
-        else if (getCombinaison() == FULL) {
 
- 			//On va donc comparer les cartes de la paire
- 			setPoids(cartesIdentiques(2));
-            main2.setPoids(main2.cartesIdentiques(2));
+        else if (getCombinaison() == FULL) {
+           return compareEqualFullHouse(main2);
  		}
         else if (getCombinaison() == COULEUR) {
-            int p = 0;
-            int i = 13;
-
-            checkIfFlushAndSetCombinaison();
-            main2.checkIfFlushAndSetCombinaison();
-
-            int couleurThis = getPoids(), couleurMain2=getPoids();
-
-            while (i > 0 && p == 0) {
-                main2.setPoids(0);
-                setPoids(0);
-                if (m_occurrences[i][couleurThis] > 0) {
-
- 					setPoids(i);
- 				}
-                if (main2.m_occurrences[i][couleurMain2] > 0) {
- 					main2.setPoids(i);
- 				}
-                if (m_occurrences[i][couleurThis] != m_occurrences[i][couleurMain2]) {
-                    p = 1;
- 				}
- 				i--;
-            }
+           return compareEqualFlush(main2);
  		}
         else if (getCombinaison() == BRELAN) {
-            int p = 0;
-            int i = 13;
-            int cpt = 3;
-
-            while (i > 0 && p == 0) {
-                main2.setPoids(0);
-                setPoids(0);
-                if (m_occurrences[i][4] == 1 || main2.m_occurrences[i][4] == 1) {
- 					cpt++;
- 				}
-                if (m_occurrences[i][4] > 0 && m_occurrences[i][4] != 3) {
- 					setPoids(i);
- 				}
-                if (main2.m_occurrences[i][4] > 0 && main2.m_occurrences[i][4] != 3) {
- 					main2.setPoids(i);
- 				} 	
-                if (getPoids() != main2.getPoids()) {
-                    p = 1;
- 				}
- 				i--;
- 			}
+            return compareThreeOfAKind(main2);
  		}
         else if (getCombinaison() == DOUBLE_PAIRE) {
-            int p = 0;
-            int i = 13;
- 			int poidsCarte = getPoids();
-
- 			main2.setPoids(0);
-            setPoids(0);
- 			//On commence par comparer la seconde paire
-            while (i > 0 && p == 0) {
-                main2.setPoids(0);
-                setPoids(0);
-
-                if (m_occurrences[i][4] == 2 && i != poidsCarte) {
-					setPoids(i);
-				}
-                if (main2.m_occurrences[i][4] == 2 && i != poidsCarte) {
-					main2.setPoids(i);
-				}
-                if(getPoids() != main2.getPoids()) {
-                    p = 1;
-				}
-
-				i--;
-			}
-
-			//Si la seconde paire est la même, on compare la carte la plus haute, mais si on a une autre paire, faut quand même que ça soit la carte haute!
-            if (getPoids()==main2.getPoids()) {
-                int p = 0;
-                int i = 13;
- 				int poidsCartePaireMain1=getPoids();
- 				int poidsCartePaireMain2=main2.getPoids();
-
- 				//On remet les poids à 0 pour compter juste une seule carte.
- 				setPoids(0);
- 				main2.setPoids(0);
-                while (i > 0 && p == 0){
-                    if ((m_occurrences[i][4] == 1 || (i < poidsCartePaireMain1 && m_occurrences[i][4] >= 1)) && getPoids() == 0) {
-						setPoids(i);
-					}
-                    if ((main2.m_occurrences[i][4] == 1 || (i < poidsCartePaireMain2 && m_occurrences[i][4] >= 1)) && main2.getPoids() == 0) {
-						main2.setPoids(i);
-					}
-                    if (getPoids() > 0 || main2.getPoids() > 0){//si au moins un nouveau poids, on arrête
-                        p = 1;
-					}
-					i--;
-				}
-			}
+           return compareTwoPair(main2);
  		}
         else if (getCombinaison() == PAIRE) {
-            int cpt = 2;
-            int p = 0;
-            int i = 13;
-            while (cpt < 5 && i > 0 && p == 0) {
-                main2.setPoids(0);
-                setPoids(0);
-
-                if (m_occurrences[i][4] == 1 || main2.m_occurrences[i][4] == 1) {
- 					cpt++;
- 				}
-                if (m_occurrences[i][4] == 1) {
-                    setPoids(i);
- 				}
-                if (main2.m_occurrences[i][4] == 1) {
-                    main2.setPoids(i);
- 				}
-
-                if (getPoids() != main2.getPoids()) {
-                    p = 1;
-                }
- 				i--;
- 			}
+           return comparePair(main2);
  		}
-        else if (getCombinaison() == CARTE_HAUTE) {
-            int cpt = 1;
-            int p = 0;
-            int i = getPoids();
-            while (cpt < 5 && i > 0 && p == 0) {
-                main2.setPoids(0);
-                setPoids(0);
-
-                if (m_occurrences[i][4] == 1) {
- 					setPoids(i);
- 				}
-                if (main2.m_occurrences[i][4] == 1) {
- 					main2.setPoids(i);
- 				}
-                if(getPoids() != main2.getPoids()) {
-                    p = 1;
- 				}
- 				i--;
- 			}
-		}
-
-        if (getPoids() > main2.getPoids()) {
-			return GAGNE;
-		}
-        else if (getPoids() < main2.getPoids()) {
-			return PERDU;
-		}
         else {
-			return EGALITE;
+           return compareHightCard(main2);
 		}
  	}
-    else if (getPoids() > main2.getPoids()) {
- 		return GAGNE;
- 	}
- 	else {
- 		return PERDU;
- 	}
+    else {
+        return compareWeights(main2);
+    }
  }
