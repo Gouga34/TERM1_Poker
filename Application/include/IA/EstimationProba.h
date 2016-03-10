@@ -3,7 +3,7 @@
 
 #include "../Jeu/Jeu.h"
 #include "../Jeu/Joueur.h"
-#include "../Evaluateur/Evaluateur.h"
+#include "../Assessor/Assessor.h"
 #include <QThread>
 
 class EstimationProba : public QThread {

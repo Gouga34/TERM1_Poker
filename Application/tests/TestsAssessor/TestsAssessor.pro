@@ -17,8 +17,8 @@ TEMPLATE = app
 
 
 SOURCES += tst_testsassessor.cpp \
-    ../../src/Evaluateur/Evaluateur.cpp \
-    ../../src/Evaluateur/CartesJoueur.cpp \
+    ../../src/Assessor/Assessor.cpp \
+    ../../src/Assessor/PlayerCards.cpp \
     ../../src/Jeu/Carte.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 

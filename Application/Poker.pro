@@ -8,8 +8,6 @@ SOURCES += \
     src/Jeu/Joueur.cpp \
     src/Profilage/Profilage.cpp \
     src/Profilage/CalculDonneesProfilage.cpp \
-    src/Evaluateur/Evaluateur.cpp \
-    src/Evaluateur/CartesJoueur.cpp \
     src/Interface/CartesDialog.cpp \
     src/Interface/CarteCliquable.cpp \
     src/Interface/ChoixOptionsDialog.cpp \
@@ -30,7 +28,9 @@ SOURCES += \
     src/Interface/ContenuFenetreIA.cpp \
     src/Formules/Forumules.cpp \
     src/Interface/ChoixCalibrage.cpp \
-    src/Interface/CustomPlot/qcustomplot.cpp
+    src/Interface/CustomPlot/qcustomplot.cpp \
+    src/Assessor/Assessor.cpp \
+    src/Assessor/PlayerCards.cpp
 
 
 QT+=widgets printsupport
@@ -45,8 +45,6 @@ HEADERS += \
     include/Profilage/Profilage.h \
     include/Profilage/CalculDonneesProfilage.h \
     include/Constantes.h \
-    include/Evaluateur/CartesJoueur.h \
-    include/Evaluateur/Evaluateur.h \
     include/Interface/CartesDialog.h \
     include/Interface/CarteCliquable.h \
     include/Interface/ChoixOptionsDialog.h \
@@ -67,7 +65,9 @@ HEADERS += \
     include/Interface/ContenuFenetreIA.h \
     include/Formules/Formules.h \
     include/Interface/ChoixCalibrage.h \
-    include/Interface/CustomPlot/qcustomplot.h
+    include/Interface/CustomPlot/qcustomplot.h \
+    include/Assessor/Assessor.h \
+    include/Assessor/PlayerCards.h
 
 CONFIG += c++14
 QMAKE_CC = gcc-4.9

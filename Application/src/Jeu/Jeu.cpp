@@ -463,7 +463,7 @@ void Jeu::finPartie() {
             calculChancesDeGain();
         }
 
-        RESULTAT_PARTIE comparaisonMains = Evaluateur::comparerMains(this->getTable(), this->getJoueur(0)->getMain(), this->getJoueur(1)->getMain());
+        RESULTAT_PARTIE comparaisonMains = Assessor::compareHands(this->getTable(), this->getJoueur(0)->getMain(), this->getJoueur(1)->getMain());
 
         if(comparaisonMains == GAGNE){
 

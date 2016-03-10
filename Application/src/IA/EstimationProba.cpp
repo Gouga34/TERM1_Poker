@@ -67,7 +67,7 @@ double EstimationProba::estimation(Jeu* jeuCourant, Joueur* joueurCourant, int n
 				deck.erase(deck.begin() + position);
             }
 		
-        bool comparaisonMains = Evaluateur::comparerMains(table,joueurCourant->getMain(), mainAdverse);
+        bool comparaisonMains = Assessor::compareHands(table,joueurCourant->getMain(), mainAdverse);
 
         if(comparaisonMains==GAGNE){
 			nombreDeCoupGagner++;

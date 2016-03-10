@@ -15,7 +15,7 @@ Specification: Classe correspondant à la main d'un joueur,
 #include <vector>
 #include <array>
 
-class CartesJoueur {
+class PlayerCards {
 
 	private: 
 		/** 
@@ -28,40 +28,40 @@ class CartesJoueur {
         std::array< std::array< int, 5>, 15> m_occurrences;
 
 		//Combinaison la plus forte de la main du joueur.
-        FORCE_MAIN m_combinaison;
+        FORCE_MAIN m_handCategory;
 
 		//Poids de la main
-        int m_poids;
+        int m_weight;
 
 		/**
 		 * @param combi combinaison
 		 * @action modifie la combinaison avec une nouvelle combinaison
 		 */
-        virtual void setCombinaison(FORCE_MAIN combi);
+        virtual void setHandCategory(FORCE_MAIN handCategory);
 
 		/**
 		 * @param p poids
 		 * @action modifie le poids avec un nouveau poids
 		 */
-        virtual void setPoids(int p);
+        virtual void setWeight(int weight);
 
         /**
-         * @brief initialiserOccurrences initialise le tableau des occurrences à 0.
+         * @brief initializeOccurrences initialise le tableau des occurrences à 0.
          */
-        virtual void initialiserOccurrences();
+        virtual void initializeOccurrences();
 
 		/**
 		 * @param table cartes de la table
 		 * @param mainJoueur cartes du joueur
 	     * @action rempli occurrences
 	     */
-        virtual void remplirTableau(std::vector<Carte> table, std::vector<Carte> mainJoueur);
+        virtual void fillTab(std::vector<Carte> table, std::vector<Carte> playersHand);
 
         /**
-         * @brief enregistrerOccurrencesCartes enregistre les occurrences des cartes dans le tableau occurrences.
+         * @brief registerCardsOccurrences enregistre les occurrences des cartes dans le tableau occurrences.
          * @param listeCartes
          */
-        virtual void enregistrerOccurrencesCartes(std::vector<Carte> listeCartes);
+        virtual void registerCardsOccurrences(std::vector<Carte> cardsList);
 
 		/**
 		 * @param depart case à partir de laquelle on va commencer
@@ -69,20 +69,20 @@ class CartesJoueur {
 		 * @action regarde si on a une suite sur la ligne, à partir du départ (suite de 5 cartes minimum)
 		 * @return true si on a une suite, false sinon
 		 */
-        virtual bool estSuite(int depart, int ligne) const;
+        virtual bool isStraight(int start, int line) const;
  
         /**
 		 * @param ligne ligne qui sera traitée
 		 * @return true si la ligne contient une suite
 		 */
-        virtual bool contientSuite(int ligne);
+        virtual bool containsStraight(int line);
 
 		/**
 		 * @param nb nombre de cartes identiques cherchées
 		 * @param nbfois nombre de fois où l'on veut nb cartes identiques, 1 par défaut
 		 * @return la carte si on a nb cartes identiques nbfois fois, -1 sinon
 		 */
-        virtual int cartesIdentiques(int nb, int nbfois = 1) const;
+        virtual int identicalCards(int nb, int nbTimes = 1) const;
 
 		/**
 		 * @action regarde si on a un flush (5 cartes de la même couleur)
@@ -142,17 +142,17 @@ class CartesJoueur {
 		 * @action calcule la combinaison la plus haute
 		 * @return la valeur de la combinaison de la main (de 1 (carte haute) à 10 (quinte flush royale))
 		 */
-        virtual void calculCombinaison();
+        virtual void calculatesHandCategory();
 
         /**
          * @brief setPoidsCarteLaPlusHaute set le poids de la carte la plus haute. Pour couleur et carte_haute
          */
-        virtual void setPoidsCarteLaPlusHaute();
+        virtual void setHighestCardWeight();
 
 		/**
 		 *@action calcule le poids calculé de la carte la plus haute (si pas d'autre combinaison)
 		 */
-        virtual void calculerPoidsBasique();
+        virtual void calculateBasicWeight();
 
         /**
          * @brief compareWeight
@@ -161,7 +161,7 @@ class CartesJoueur {
          *         RESULTAT_PARTIE::GAGNE si this a un poids supérieur au poids de main2
          *         RESULTAT_PARTIE::EGALITE sinon
          */
-        virtual RESULTAT_PARTIE compareWeights(CartesJoueur hand2);
+        virtual RESULTAT_PARTIE compareWeights(PlayerCards hand2);
 
         /**
          * @brief compareEqualFourOfAKind compare deux carrés égaux
@@ -171,7 +171,7 @@ class CartesJoueur {
          *         RESULTAT_PARTIE::GAGNE si this a gagné face à main2
          *         RESULTAT_PARTIE::EGALITE sinon
          */
-        virtual RESULTAT_PARTIE compareEqualFourOfAKind(CartesJoueur hand2);
+        virtual RESULTAT_PARTIE compareEqualFourOfAKind(PlayerCards hand2);
 
         /**
          * @brief compareEqualFullHouse compare deux full dont les trios sont les mêmes.
@@ -181,7 +181,7 @@ class CartesJoueur {
          *         RESULTAT_PARTIE::GAGNE si this a gagné face à main2
          *         RESULTAT_PARTIE::EGALITE sinon
          */
-        virtual RESULTAT_PARTIE compareEqualFullHouse(CartesJoueur hand2);
+        virtual RESULTAT_PARTIE compareEqualFullHouse(PlayerCards hand2);
 
         /**
          * @brief compareEqualFlush compare deux couleurs en comparant les cartes une à une
@@ -190,7 +190,7 @@ class CartesJoueur {
          *         RESULTAT_PARTIE::GAGNE si this a gagné face à main2
          *         RESULTAT_PARTIE::EGALITE sinon
          */
-        virtual RESULTAT_PARTIE compareEqualFlush(CartesJoueur hand2);
+        virtual RESULTAT_PARTIE compareEqualFlush(PlayerCards hand2);
 
         /**
          * @brief compareThreeOfAKind compare deux brelans dont les valeurs des triplets sont les mêmes.
@@ -200,7 +200,7 @@ class CartesJoueur {
          *         RESULTAT_PARTIE::GAGNE si this a gagné face à main2
          *         RESULTAT_PARTIE::EGALITE sinon
          */
-        virtual RESULTAT_PARTIE compareThreeOfAKind(CartesJoueur hand2);
+        virtual RESULTAT_PARTIE compareThreeOfAKind(PlayerCards hand2);
 
         /**
          * @brief compareTwoPair compare deux double paires égales.
@@ -209,7 +209,7 @@ class CartesJoueur {
          *         RESULTAT_PARTIE::GAGNE si this a gagné face à main2
          *         RESULTAT_PARTIE::EGALITE sinon
          */
-        virtual RESULTAT_PARTIE compareTwoPair(CartesJoueur hand2);
+        virtual RESULTAT_PARTIE compareTwoPair(PlayerCards hand2);
 
         /**
          * @brief comparePair compare deux paires égales (compare autres cartes)
@@ -218,7 +218,7 @@ class CartesJoueur {
          *         RESULTAT_PARTIE::GAGNE si this a gagné face à main2
          *         RESULTAT_PARTIE::EGALITE sinon
          */
-        virtual RESULTAT_PARTIE comparePair(CartesJoueur hand2);
+        virtual RESULTAT_PARTIE comparePair(PlayerCards hand2);
 
         /**
          * @brief compareHightCard compare la carte la plus haute des mains
@@ -227,22 +227,22 @@ class CartesJoueur {
          *         RESULTAT_PARTIE::GAGNE si this a gagné face à main2
          *         RESULTAT_PARTIE::EGALITE sinon
          */
-        virtual RESULTAT_PARTIE compareHightCard(CartesJoueur hand2);
+        virtual RESULTAT_PARTIE compareHightCard(PlayerCards hand2);
 
 	public: 
 
-		CartesJoueur(std::vector<Carte> table, std::vector<Carte> mainJoueur);
-        virtual ~CartesJoueur();
+        PlayerCards(std::vector<Carte> table, std::vector<Carte> playersHand);
+        virtual ~PlayerCards();
 
 		/**
 		 * @return la combinaison la plus forte des cartes du Joueur 
 		 */
-         virtual FORCE_MAIN getCombinaison() const;
+         virtual FORCE_MAIN getHandCategory() const;
 
 		 /**
 		  * @return le poids des cartes du joueur
 		  */
-         virtual int getPoids() const;
+         virtual int getWeight() const;
 
 		 /**
 		  * @param main2 la main à comparer avec this 
@@ -250,7 +250,7 @@ class CartesJoueur {
 		  * @action prend en compte que this et main2 ont la même combinaison 
 		  * et calcule laquelle a les cartes les plus fortes
 		  */
-         virtual RESULTAT_PARTIE comparerCombinaisonsEgales(CartesJoueur main2);
+         virtual RESULTAT_PARTIE compareEqualHandCategories(PlayerCards hand2);
 
 };
 

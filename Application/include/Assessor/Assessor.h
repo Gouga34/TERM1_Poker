@@ -10,19 +10,18 @@ Specification: Classe correspondant l'évaluateur de main, compare
 #ifndef EVALUATEUR_H
 #define EVALUATEUR_H
 
-#include "CartesJoueur.h"
+#include "PlayerCards.h"
 #include "../Jeu/Carte.h"
 #include <iostream>
 #include <vector>
 
-class Evaluateur{
+class Assessor {
 	public:
 		/**
-		* @action compare les deux mains pour voir laquelle a le poids le plus fort
-		* @return 0 si main1 a gagné, 1 si elle a perdu et 2 si égalité
+        * @brief compare les deux mains pour voir laquelle a le poids le plus fort
+        * @return 0 si hand1 a gagné, 1 si elle a perdu et 2 si égalité
 		*/
-        static RESULTAT_PARTIE comparerMains(std::vector<Carte> table, std::vector<Carte> mainJoueur1, std::vector<Carte> mainJoueur2);
-
+        static RESULTAT_PARTIE compareHands(std::vector<Carte> table, std::vector<Carte> handPlayer1, std::vector<Carte> handPlayer2);
 };
 
 #endif

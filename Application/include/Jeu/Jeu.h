@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include "Carte.h"
 #include "../Constantes.h"
-#include "../Evaluateur/Evaluateur.h"
+#include "../Assessor/Assessor.h"
 #include "../Profilage/CalculDonneesProfilage.h"
 #include "../Profilage/Profilage.h"
 #include "../IA/EstimationProba.h"
