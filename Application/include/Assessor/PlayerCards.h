@@ -27,7 +27,10 @@ namespace assessor {
                 La dernière colonne correspond au nombre de cartes d'une même couleurs.
             */
 
-            std::array< std::array< int, 5>, 15> m_occurrences;
+            static const int m_nbRows = 5;
+            static const int m_nbLines = 15;
+
+            std::array< std::array< int, m_nbRows>, m_nbLines> m_occurrences;
 
             //Combinaison la plus forte de la main du joueur.
             FORCE_MAIN m_handCategory;

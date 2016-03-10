@@ -38,8 +38,8 @@ namespace assessor {
     }
 
     void PlayerCards::initializeOccurrences() {
-        for (int i = 0; i < 15; ++i) {
-            for (int j = 0; j < 5; ++j) {
+        for (int i = 0; i < m_nbLines; ++i) {
+            for (int j = 0; j < m_nbRows; ++j) {
                 m_occurrences[i][j] = 0;
             }
         }
