@@ -14,6 +14,7 @@ private Q_SLOTS:
     void testTheoreticalBet();
     void testRationality();
     void testAggressiveness();
+    void testBluff();
 };
 
 TestsProfiling::TestsProfiling()
@@ -41,6 +42,12 @@ void TestsProfiling::testAggressiveness() {
     QCOMPARE(CalculDonneesProfilage::agressivite(1, 25.0, 25.0), 28.25);
     QCOMPARE(CalculDonneesProfilage::agressivite(1, 70.0, 50.0), 64.1);
     QCOMPARE(CalculDonneesProfilage::agressivite(1, 80.0, 85.0), 93.05);
+}
+
+void TestsProfiling::testBluff() {
+    QCOMPARE(CalculDonneesProfilage::bluff(100.0), 0.0);
+    QCOMPARE(CalculDonneesProfilage::bluff(50.0), 50.0);
+    QCOMPARE(CalculDonneesProfilage::bluff(0.0), 100.0);
 }
 
 QTEST_APPLESS_MAIN(TestsProfiling)
