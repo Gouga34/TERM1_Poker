@@ -12,6 +12,31 @@ Specification: Classe permettant de calculer les données de profilage.
 class CalculDonneesProfilage
 {
 
+private:
+
+    /**
+     * @brief calculateAgressiveness
+     * @param betsRatio
+     * @param rateBets
+     * @param rateHighestBet
+     * @param highestBet
+     * @param maxAgressiveness
+     * @param totalBets
+     * @return l'agressivité
+     */
+    static double calculateAgressiveness(const double betsRatio, const double rateBets, const double rateHighestBet,
+                                         const double highestBet, const double maxAgressiveness, const double totalBets);
+
+    /**
+     * @brief calculateTheoreticalBet
+     * @param maxGain
+     * @param minGain
+     * @param winningChances
+     * @param minTheoreticalBet
+     * @param maxTheoreticalBet
+     * @return la mise théorique
+     */
+    static double calculateTheoreticalBet(const double maxGain, const double minGain, const double winningChances, const double minTheoreticalBet, const double maxTheoreticalBet);
 public:
 
     /**
