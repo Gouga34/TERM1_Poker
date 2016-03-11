@@ -6,37 +6,37 @@ Projet: Profilage par essais et erreurs au poker
 Specification: Fichier contenant les définitions de la classe PhaseJeu.
 =========================================================================*/
 
-#include "../../include/Profilage/PhaseJeu.h"
+#include "../../include/Profilage/GamePhase.h"
 
-PhaseJeu::PhaseJeu()
+GamePhase::GamePhase()
 {
 
 }
 
-int PhaseJeu::getNbPartiesRealisees() const
+int GamePhase::getNbPartsDone() const
 {
-    return nbPartiesRealisees;
+    return m_nbPartsDone;
 }
 
-int PhaseJeu::getNbPartiesMinimum() const
+int GamePhase::getNbMinParts() const
 {
-    return nbPartiesMinimum;
+    return m_nbMinParts;
 }
 
-int PhaseJeu::getGains() const
+int GamePhase::getGains() const
 {
-    return gains;
+    return m_gains;
 }
 
-void PhaseJeu::nouvellePhase(int nbParties)
+void GamePhase::newPhase(int nbParts)
 {
-    nbPartiesMinimum = nbParties;
-    nbPartiesRealisees = 0;
-    gains = 0;
+    m_nbMinParts = nbParts;
+    m_nbPartsDone = 0;
+    m_gains = 0;
 }
 
-void PhaseJeu::partieTerminee(int gainsPartie)
+void GamePhase::finishedPart(int partGains)
 {
-    nbPartiesRealisees++;
-    gains += gainsPartie;
+    ++m_nbPartsDone;
+    m_gains += partGains;
 }

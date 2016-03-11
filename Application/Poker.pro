@@ -21,7 +21,6 @@ SOURCES += \
     src/Jeu/Action.cpp \
     src/Jeu/JoueurHumain.cpp \
     src/IA/CalibrageIdeal.cpp \
-    src/Profilage/PhaseJeu.cpp \
     src/Interface/ContenuFenetre.cpp \
     src/Interface/ContenuFenetreHumain.cpp \
     src/Interface/ContenuFenetreIA.cpp \
@@ -30,7 +29,8 @@ SOURCES += \
     src/Assessor/Assessor.cpp \
     src/Assessor/PlayerCards.cpp \
     src/MathematicalFormula/MathematicalFormula.cpp \
-    src/Profilage/CalculateProfilingData.cpp
+    src/Profilage/CalculateProfilingData.cpp \
+    src/Profilage/GamePhase.cpp
 
 
 QT+=widgets printsupport
@@ -58,7 +58,6 @@ HEADERS += \
     include/Jeu/Action.h \
     include/Jeu/JoueurHumain.h \
     include/IA/CalibrageIdeal.h \
-    include/Profilage/PhaseJeu.h \
     include/Interface/ContenuFenetre.h \
     include/Interface/ContenuFenetreHumain.h \
     include/Interface/ContenuFenetreIA.h \
@@ -67,7 +66,8 @@ HEADERS += \
     include/Assessor/Assessor.h \
     include/Assessor/PlayerCards.h \
     include/MathematicalFormula/MathematicalFormula.h \
-    include/Profilage/CalculateProfilingData.h
+    include/Profilage/CalculateProfilingData.h \
+    include/Profilage/GamePhase.h
 
 CONFIG += c++14
 QMAKE_CC = gcc-4.9

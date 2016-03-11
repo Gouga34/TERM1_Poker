@@ -51,7 +51,7 @@ void IntelligenceArtificielleProfilage::setPseudoJoueurProfile(std::string pseud
         delete profilage;
     }
     profilage = new Profilage(resolveur->getCalibrage(), &profilJoueur);
-    profilage->phaseProfilageCourante.nouvellePhase(jeu->getOptions().nombrePartiesProfilage);
+    profilage->phaseProfilageCourante.newPhase(jeu->getOptions().nombrePartiesProfilage);
 
     Profil calibrageRecherche;
     if (!jeu->getJoueur(0)->estHumain()) {
@@ -166,10 +166,10 @@ void IntelligenceArtificielleProfilage::calculProfilGlobalJoueur() {
     profilage->partieGagneeIAQuiProfile=resultatPartie;
 
     if (phaseJeu == PHASE_PROFILAGE) {
-        profilage->phaseProfilageCourante.partieTerminee(profilage->nbJetonsGagnesIAQuiProfile);
+        profilage->phaseProfilageCourante.finishedPart(profilage->nbJetonsGagnesIAQuiProfile);
     }
     else {
-        profilage->phaseJeuCourante.partieTerminee(profilage->nbJetonsGagnesIAQuiProfile);
+        profilage->phaseJeuCourante.finishedPart(profilage->nbJetonsGagnesIAQuiProfile);
     }
 
     profilage->sauvegarder();
@@ -195,23 +195,23 @@ double IntelligenceArtificielleProfilage::calculValeurProportionnelle(double min
 
 PHASE_JEU_IA IntelligenceArtificielleProfilage::prochainTypeDeJeu() {
 
-    if (profilage->phaseProfilageCourante.getNbPartiesRealisees() < profilage->phaseProfilageCourante.getNbPartiesMinimum()) {
+    if (profilage->phaseProfilageCourante.getNbPartsDone() < profilage->phaseProfilageCourante.getNbMinParts()) {
         return PHASE_PROFILAGE;
     }
-    else if (profilage->phaseJeuCourante.getNbPartiesRealisees() < profilage->phaseJeuCourante.getNbPartiesMinimum()) {
+    else if (profilage->phaseJeuCourante.getNbPartsDone() < profilage->phaseJeuCourante.getNbMinParts()) {
         return PHASE_GAINS;
     }
     else {
         if (phaseJeu == PHASE_PROFILAGE) {
-            profilage->phaseJeuCourante.nouvellePhase(jeu->getOptions().nombrePartiesGains);
+            profilage->phaseJeuCourante.newPhase(jeu->getOptions().nombrePartiesGains);
             return PHASE_GAINS;
         }
         else {
-            double gainParPartieJeu = static_cast<double>(profilage->phaseJeuCourante.getGains()) / profilage->phaseJeuCourante.getNbPartiesRealisees();
-            double gainParPartieProfilage = static_cast<double>(profilage->phaseProfilageCourante.getGains()) / profilage->phaseProfilageCourante.getNbPartiesRealisees();
+            double gainParPartieJeu = static_cast<double>(profilage->phaseJeuCourante.getGains()) / profilage->phaseJeuCourante.getNbPartsDone();
+            double gainParPartieProfilage = static_cast<double>(profilage->phaseProfilageCourante.getGains()) / profilage->phaseProfilageCourante.getNbPartsDone();
 
             if (profilage->phaseJeuCourante.getGains() < 0 || gainParPartieJeu < gainParPartieProfilage) {
-                profilage->phaseProfilageCourante.nouvellePhase(jeu->getOptions().nombrePartiesReprofilage);
+                profilage->phaseProfilageCourante.newPhase(jeu->getOptions().nombrePartiesReprofilage);
                 return PHASE_PROFILAGE;
             }
             else {

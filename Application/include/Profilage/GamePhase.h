@@ -6,39 +6,38 @@ Projet: Profilage par essais et erreurs au poker
 Specification: Classe décrivant les résultats d'une phase de jeu (profilage/gains).
 =========================================================================*/
 
-#ifndef PHASEJEU_H
-#define PHASEJEU_H
+#ifndef GAMEPHASE_H
+#define GAMEPHASE_H
 
-class PhaseJeu
+class GamePhase
 {
     private:
 
-        int nbPartiesRealisees;
-        int nbPartiesMinimum;
-        int gains;
+        int m_nbPartsDone;
+        int m_nbMinParts;
+        int m_gains;
 
     public:
 
-        PhaseJeu();
+        GamePhase();
 
-        int getNbPartiesRealisees() const;
+        int getNbPartsDone() const;
 
-        int getNbPartiesMinimum() const;
+        int getNbMinParts() const;
 
         int getGains() const;
 
         /**
          * @brief Réinitialise la phase de jeu avec un nouvelle nombre de parties à réaliser
-         * @param nbParties Nombre de parties minimum à réaliser
+         * @param nbParts Nombre de parties minimum à réaliser
          */
-        void nouvellePhase(int nbParties);
+        void newPhase(int nbParts);
 
         /**
          * @brief Ajoute une nouvelle partie réalisée pour la phase de jeu
-         * @param gainsPartie Gains de la partie terminée
+         * @param partGains Gains de la partie terminée
          */
-        void partieTerminee(int gainsPartie);
+        void finishedPart(int partGains);
 };
 
-
-#endif // PHASEJEU_H
+#endif // GAMEPHASE_H

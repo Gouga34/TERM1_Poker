@@ -28,8 +28,8 @@ Profilage::Profilage(Profil *calibrageIA, Profil *profil)
     gainsProfilage = 0;
     gainsJeu = 0;
 
-    phaseProfilageCourante.nouvellePhase(0);
-    phaseJeuCourante.nouvellePhase(0);
+    phaseProfilageCourante.newPhase(0);
+    phaseJeuCourante.newPhase(0);
 }
 
 Profilage::~Profilage()
