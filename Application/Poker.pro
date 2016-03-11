@@ -7,7 +7,6 @@ SOURCES += \
     src/Jeu/Carte.cpp \
     src/Jeu/Joueur.cpp \
     src/Profilage/Profilage.cpp \
-    src/Profilage/CalculDonneesProfilage.cpp \
     src/Interface/CartesDialog.cpp \
     src/Interface/CarteCliquable.cpp \
     src/Interface/ChoixOptionsDialog.cpp \
@@ -30,7 +29,8 @@ SOURCES += \
     src/Interface/CustomPlot/qcustomplot.cpp \
     src/Assessor/Assessor.cpp \
     src/Assessor/PlayerCards.cpp \
-    src/MathematicalFormula/MathematicalFormula.cpp
+    src/MathematicalFormula/MathematicalFormula.cpp \
+    src/Profilage/CalculateProfilingData.cpp
 
 
 QT+=widgets printsupport
@@ -43,7 +43,6 @@ HEADERS += \
     include/Jeu/Carte.h \
     include/Jeu/Joueur.h \
     include/Profilage/Profilage.h \
-    include/Profilage/CalculDonneesProfilage.h \
     include/Constantes.h \
     include/Interface/CartesDialog.h \
     include/Interface/CarteCliquable.h \
@@ -67,7 +66,8 @@ HEADERS += \
     include/Interface/CustomPlot/qcustomplot.h \
     include/Assessor/Assessor.h \
     include/Assessor/PlayerCards.h \
-    include/MathematicalFormula/MathematicalFormula.h
+    include/MathematicalFormula/MathematicalFormula.h \
+    include/Profilage/CalculateProfilingData.h
 
 CONFIG += c++14
 QMAKE_CC = gcc-4.9

@@ -6,26 +6,26 @@ Projet: Profilage par essais et erreurs au poker
 Specification: Classe permettant de calculer les données de profilage.
 =========================================================================*/
 
-#ifndef CALCUL_DONNEES_PROFILAGE_H
-#define CALCUL_DONNEES_PROFILAGE_H
+#ifndef CALCULATE_PROFILING_DATA_H
+#define CALCULATE_PROFILING_DATA_H
 
-class CalculDonneesProfilage
+class CalculateProfilingData
 {
 
 private:
 
     /**
-     * @brief calculateAgressiveness
+     * @brief calculateAggressiveness
      * @param betsRatio
      * @param rateBets
      * @param rateHighestBet
      * @param highestBet
-     * @param maxAgressiveness
+     * @param maxAggressiveness
      * @param totalBets
      * @return l'agressivité
      */
-    static double calculateAgressiveness(const double betsRatio, const double rateBets, const double rateHighestBet,
-                                         const double highestBet, const double maxAgressiveness, const double totalBets);
+    static double calculateAggressiveness(const double betsRatio, const double rateBets, const double ratioHighestBet,
+                                         const double highestBet, const double maxAggressiveness, const double totalBets);
 
     /**
      * @brief calculateTheoreticalBet
@@ -40,38 +40,38 @@ private:
 public:
 
     /**
-     * @param chancesGain pourcentage de chances de gain du joueur
+     * @param winningChances pourcentage de chances de gain du joueur
      * @return la mise théorique qui devrait être faite.
     */
-    static double miseTheorique(const double chancesGain);
+    static double theoreticalBet(const double winningChances);
 
     /**
-     * @param chancesGain pourcentage de chances de gagner du joueur
-     * @param totalMises total des mises effectuées par le joueur. Il est exprimé en pourcentage par rapport aux jetons du joueur.
+     * @param winningChances pourcentage de chances de gagner du joueur
+     * @param totalBets total des mises effectuées par le joueur. Il est exprimé en pourcentage par rapport aux jetons du joueur.
      * @return retourne le pourcentage de rationalité du joueur. Plus ce pourcentage est proche de 100, plus le joueur est rationnel.
     */
-    static double rationalite(const double chancesGain, const double totalMises);
+    static double rationality(const double winningChances, const double totalBets);
 
     /**
-     * @param miseLaPlusHaute mise la plus haute effectuée. Il est exprimé en pourcentage par rapport aux jetons du joueur au départ
-     * @param tauxMises pourcentage du nombre de mises effectuées
-     * @param totalMises total des mises effectuées par le joueur. Il est exprimé en pourcentage par rapport aux jetons du joueur.
+     * @param highestBet mise la plus haute effectuée. Il est exprimé en pourcentage par rapport aux jetons du joueur au départ
+     * @param rateBets pourcentage du nombre de mises effectuées
+     * @param totalBets total des mises effectuées par le joueur. Il est exprimé en pourcentage par rapport aux jetons du joueur.
      * @return le pourcentage d'agressivité du joueur calculé en fonction des données fournies en paramètre
     */
-    static double agressivite(const double miseLaPlusHaute, const double tauxMises, const double totalMises);
+    static double aggressiveness(const double highestBet, const double rateBets, const double totalBets);
 
     /**
-     * @param rationalite pourcentage de rationalité du joueur.
+     * @param rationality pourcentage de rationalité du joueur.
      * @return le pourcentage de bluff du joueur, calculé en fonction des données fournies en paramètre
     */
-    static double bluff(const double rationalite);
+    static double bluff(const double rationality);
 
     /**
-     * @param tauxSuivis pourcentage du nombre de suivis effectués
-     * @param tauxChecks pourcentage du nompbre de checks effectués
+     * @param rateCall pourcentage du nombre de suivis effectués
+     * @param rateChecks pourcentage du nompbre de checks effectués
      * @return le pourcentage de passivité du joueur.
     */
-    static double passivite(const double tauxSuivis, const double tauxChecks);
+    static double passivity(const double rateCall, const double rateChecks);
 
     /**
      * @param valeur valeur à comparer à la valeur de référence
@@ -86,10 +86,7 @@ public:
      *              - pot.
     */
     static double taux(const double valeur, const double valeurReference);
-
- 
-
 };
 
 #endif 
-// CALCUL_DONNEES_PROFILAGE_H
+// CALCULATE_PROFILING_DATA_H

@@ -19,7 +19,7 @@ TEMPLATE = app
 
 
 SOURCES += tst_testsprofiling.cpp \
-            ../../src/Profilage/CalculDonneesProfilage.cpp \
+            ../../src/Profilage/CalculateProfilingData.cpp \
             ../../src/MathematicalFormula/MathematicalFormula.cpp
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"

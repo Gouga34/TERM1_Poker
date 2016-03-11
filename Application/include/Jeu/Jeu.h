@@ -9,7 +9,7 @@
 #include "Carte.h"
 #include "../Constantes.h"
 #include "../Assessor/Assessor.h"
-#include "../Profilage/CalculDonneesProfilage.h"
+#include "../Profilage/CalculateProfilingData.h"
 #include "../Profilage/Profilage.h"
 #include "../IA/EstimationProba.h"
 #include "../IA/IntelligenceArtificielle.h"

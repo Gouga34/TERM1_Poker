@@ -10,7 +10,7 @@ Specification: Fichier contenant les corps des méthodes
 
 #include "../../include/IA/Resolveur.h"
 #include "../../include/Constantes.h"
-#include "../../include/Profilage/CalculDonneesProfilage.h"
+#include "../../include/Profilage/CalculateProfilingData.h"
 
 #include <vector>
 
@@ -252,7 +252,7 @@ Action Resolveur::calculerActionRationalite(){
         //Choix aléatoire d'une des actions de la liste :
         int random=rand()%listeActions.size();
 
-        double miseTheorique=CalculDonneesProfilage::miseTheorique(ia->getChancesGain());
+        double miseTheorique=CalculateProfilingData::theoreticalBet(ia->getChancesGain());
         int jetonsAMiserTheorique=(miseTheorique*ia->getCave())/100;
 
 
@@ -301,7 +301,7 @@ Action Resolveur::calculerActionRationalite(){
 
 int Resolveur::calculerMiseRationalite(ACTION action){
     //On récupère la mise théorique si le joueur est 100% agressif
-    double miseTheorique=CalculDonneesProfilage::miseTheorique(ia->getChancesGain());
+    double miseTheorique=CalculateProfilingData::theoreticalBet(ia->getChancesGain());
 
     int jetonsAMiser=(miseTheorique*ia->getCave())/100;
 

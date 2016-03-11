@@ -9,7 +9,7 @@ Specification: Fichier contenant l'implémentation de la classe
 
 #include "../../include/Constantes.h"
 #include "../../include/Profilage/ScenariosDeTests.h"
-#include "../../include/Profilage/CalculDonneesProfilage.h"
+#include "../../include/Profilage/CalculateProfilingData.h"
 #include "../../include/Interface/Logger.h"
 
 

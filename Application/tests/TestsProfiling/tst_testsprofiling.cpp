@@ -1,7 +1,7 @@
 #include <QString>
 #include <QtTest>
 
-#include "../../include/Profilage/CalculDonneesProfilage.h"
+#include "../../include/Profilage/CalculateProfilingData.h"
 
 class TestsProfiling : public QObject
 {
@@ -24,39 +24,39 @@ TestsProfiling::TestsProfiling()
 
 void TestsProfiling::testTheoreticalBet()
 {
-    QCOMPARE(CalculDonneesProfilage::miseTheorique(15), 5.0);
-    QCOMPARE(CalculDonneesProfilage::miseTheorique(31), 11.0);
-    QCOMPARE(CalculDonneesProfilage::miseTheorique(51), 16.0);
-    QCOMPARE(CalculDonneesProfilage::miseTheorique(70), 66.0);
-    QCOMPARE(CalculDonneesProfilage::miseTheorique(100), 100.0);
+    QCOMPARE(CalculateProfilingData::theoreticalBet(15), 5.0);
+    QCOMPARE(CalculateProfilingData::theoreticalBet(31), 11.0);
+    QCOMPARE(CalculateProfilingData::theoreticalBet(51), 16.0);
+    QCOMPARE(CalculateProfilingData::theoreticalBet(70), 66.0);
+    QCOMPARE(CalculateProfilingData::theoreticalBet(100), 100.0);
 }
 
 void TestsProfiling::testRationality() {
-    QCOMPARE(CalculDonneesProfilage::rationalite(15.0, 5.0), 100.0);
-    QCOMPARE(CalculDonneesProfilage::rationalite(100.0, 0.0), 0.0);
-    QCOMPARE(CalculDonneesProfilage::rationalite(51.0, 55.0), 61.0);
+    QCOMPARE(CalculateProfilingData::rationality(15.0, 5.0), 100.0);
+    QCOMPARE(CalculateProfilingData::rationality(100.0, 0.0), 0.0);
+    QCOMPARE(CalculateProfilingData::rationality(51.0, 55.0), 61.0);
 }
 
 void TestsProfiling::testAggressiveness() {
-    QCOMPARE(CalculDonneesProfilage::agressivite(100.0, 100.0, 100.0), 100.0);
-    QCOMPARE(CalculDonneesProfilage::agressivite(0.0, 0.0, 0.0), 0.0);
-    QCOMPARE(CalculDonneesProfilage::agressivite(1, 25.0, 25.0), 28.25);
-    QCOMPARE(CalculDonneesProfilage::agressivite(1, 70.0, 50.0), 64.1);
-    QCOMPARE(CalculDonneesProfilage::agressivite(1, 80.0, 85.0), 93.05);
+    QCOMPARE(CalculateProfilingData::aggressiveness(100.0, 100.0, 100.0), 100.0);
+    QCOMPARE(CalculateProfilingData::aggressiveness(0.0, 0.0, 0.0), 0.0);
+    QCOMPARE(CalculateProfilingData::aggressiveness(1, 25.0, 25.0), 28.25);
+    QCOMPARE(CalculateProfilingData::aggressiveness(1, 70.0, 50.0), 64.1);
+    QCOMPARE(CalculateProfilingData::aggressiveness(1, 80.0, 85.0), 93.05);
 }
 
 void TestsProfiling::testBluff() {
-    QCOMPARE(CalculDonneesProfilage::bluff(100.0), 0.0);
-    QCOMPARE(CalculDonneesProfilage::bluff(50.0), 50.0);
-    QCOMPARE(CalculDonneesProfilage::bluff(0.0), 100.0);
+    QCOMPARE(CalculateProfilingData::bluff(100.0), 0.0);
+    QCOMPARE(CalculateProfilingData::bluff(50.0), 50.0);
+    QCOMPARE(CalculateProfilingData::bluff(0.0), 100.0);
 }
 
 void TestsProfiling::testPassivity() {
-    QCOMPARE(CalculDonneesProfilage::passivite(50.0, 50.0), 100.0);
-    QCOMPARE(CalculDonneesProfilage::passivite(0.0, 100.0), 100.0);
-    QCOMPARE(CalculDonneesProfilage::passivite(100.0, 0.0), 100.0);
-    QCOMPARE(CalculDonneesProfilage::passivite(10.0, 0.0), 10.0);
-    QCOMPARE(CalculDonneesProfilage::passivite(0.0,0.0), 0.0);
+    QCOMPARE(CalculateProfilingData::passivity(50.0, 50.0), 100.0);
+    QCOMPARE(CalculateProfilingData::passivity(0.0, 100.0), 100.0);
+    QCOMPARE(CalculateProfilingData::passivity(100.0, 0.0), 100.0);
+    QCOMPARE(CalculateProfilingData::passivity(10.0, 0.0), 10.0);
+    QCOMPARE(CalculateProfilingData::passivity(0.0,0.0), 0.0);
 }
 
 QTEST_APPLESS_MAIN(TestsProfiling)
