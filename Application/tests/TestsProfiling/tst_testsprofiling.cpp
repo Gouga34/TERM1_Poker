@@ -15,6 +15,7 @@ private Q_SLOTS:
     void testRationality();
     void testAggressiveness();
     void testBluff();
+    void testPassivity();
 };
 
 TestsProfiling::TestsProfiling()
@@ -48,6 +49,14 @@ void TestsProfiling::testBluff() {
     QCOMPARE(CalculDonneesProfilage::bluff(100.0), 0.0);
     QCOMPARE(CalculDonneesProfilage::bluff(50.0), 50.0);
     QCOMPARE(CalculDonneesProfilage::bluff(0.0), 100.0);
+}
+
+void TestsProfiling::testPassivity() {
+    QCOMPARE(CalculDonneesProfilage::passivite(50.0, 50.0), 100.0);
+    QCOMPARE(CalculDonneesProfilage::passivite(0.0, 100.0), 100.0);
+    QCOMPARE(CalculDonneesProfilage::passivite(100.0, 0.0), 100.0);
+    QCOMPARE(CalculDonneesProfilage::passivite(10.0, 0.0), 10.0);
+    QCOMPARE(CalculDonneesProfilage::passivite(0.0,0.0), 0.0);
 }
 
 QTEST_APPLESS_MAIN(TestsProfiling)
