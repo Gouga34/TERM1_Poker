@@ -2,7 +2,7 @@
 #define Joueur_h
 
 #include <vector>
-#include "Carte.h"
+#include "Card.h"
 #include "Action.h"
 
 class Jeu;
@@ -12,7 +12,7 @@ class Joueur{
 	//Attributs
 	protected:
         bool                dealer;
-		std::vector<Carte>	main;
+        std::vector<game::Card>	main;
         int*                compteurActions;
         int                 cave;
         int                 caveDeDepart;
@@ -87,7 +87,7 @@ class Joueur{
 		*@action : Permet d'obtenir la main du joueur
 		*@return : La main du joueur
 		**/
-		std::vector<Carte>	getMain() const;
+        std::vector<game::Card>	getMain() const;
 		
 		/**
 		*@action : Permet de relier le jeu et le joueur
@@ -181,7 +181,7 @@ class Joueur{
 		*@param  : La carte a ajouter a la main du joueur
 		*@action : Ajoute une carte a la main du joueur
 		**/
-		void ajouteCarte(Carte carte);
+        void ajouteCarte(game::Card carte);
 		
 		/**
 		*@action : Permet de savoir si un joueur est le dealer virtuel

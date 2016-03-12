@@ -10,9 +10,9 @@ Specification: Fichier contenant les définitions de la classe Evaluateur.
 
 namespace assessor {
 
-    RESULTAT_PARTIE Assessor::compareHands(std::vector<Carte> table,
-                                           std::vector<Carte> handPlayer1,
-                                           std::vector<Carte> handPlayer2){
+    RESULTAT_PARTIE Assessor::compareHands(std::vector<game::Card> table,
+                                           std::vector<game::Card> handPlayer1,
+                                           std::vector<game::Card> handPlayer2){
 
         PlayerCards hand1(table, handPlayer1);
         PlayerCards hand2(table, handPlayer2);

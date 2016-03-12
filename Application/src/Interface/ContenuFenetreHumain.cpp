@@ -194,12 +194,12 @@ void ContenuFenetreHumain::debutPartie()
 
 
     // Affichage de la main adverse dans les logs
-    std::vector<Carte> jeuAdverse = jeu->getJoueur(1)->getMain();
+    std::vector<game::Card> jeuAdverse = jeu->getJoueur(1)->getMain();
 
     Logger::getInstance()->ajoutLogs("Jeu adverse : ");
     for (unsigned int i = 0; i < jeuAdverse.size(); i++) {
-        Logger::getInstance()->ajoutLogs("-> " + QString::number(jeuAdverse.at(i).getRang())
-                  + " " + CarteGraphique::couleurs[jeuAdverse.at(i).getCouleur()]);
+        Logger::getInstance()->ajoutLogs("-> " + QString::number(jeuAdverse.at(i).getRank())
+                  + " " + CarteGraphique::couleurs[jeuAdverse.at(i).getColor()]);
     }
 
     // Main du joueur
@@ -306,7 +306,7 @@ void ContenuFenetreHumain::activeBoutons(bool active)
 
 void ContenuFenetreHumain::afficheTable()
 {
-    std::vector<Carte> table = jeu->getTable();
+    std::vector<game::Card> table = jeu->getTable();
 
     layoutCartesCommunes.vider();
     layoutCartesCommunes.ajoutCartes(table);

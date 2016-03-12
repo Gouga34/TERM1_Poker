@@ -29,7 +29,7 @@ CarteGraphique::CarteGraphique(int rang, int couleur) : QLabel()
     }
 }
 
-CarteGraphique::CarteGraphique(Carte c) : QLabel()
+CarteGraphique::CarteGraphique(game::Card c) : QLabel()
 {
     id = c.getId();
 

@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <time.h>
 #include <stdlib.h>
-#include "Carte.h"
+#include "Card.h"
 #include "../Constantes.h"
 #include "../Assessor/Assessor.h"
 #include "../Profilage/CalculateProfilingData.h"
@@ -23,8 +23,8 @@ class Jeu{
 	//Liste des attributs
 	private :    
         std::vector<Joueur*>                listeJoueurs;
-        std::vector<Carte>                  deck;
-        std::vector<Carte>                  table;
+        std::vector<game::Card>                  deck;
+        std::vector<game::Card>                  table;
         std::vector<std::vector<ACTION>>    actions;        // Liste d'actions par joueur
         int                                 blind;
         int                                 joueurCourant;
@@ -41,7 +41,7 @@ class Jeu{
         bool                                partieFinie;
         ETAPE_JEU                           etape;
         RESULTAT_PARTIE                     resultatPartie;
-        std::vector<Carte>                  tableTmp;
+        std::vector<game::Card>                  tableTmp;
 
         OptionsJeu options;
 
@@ -157,7 +157,7 @@ class Jeu{
 		*@action : Permet d'obtenir les carte communes
 		*@return : L'ensemble des cartes commune
 		**/
-		std::vector<Carte>	getTable() const;
+        std::vector<game::Card>	getTable() const;
 		
 		/**
 		*@action : Permet d'obtenir le pot de la partie
@@ -200,7 +200,7 @@ class Jeu{
 		*@action : Permet d'obtenir le deck
 		*@return : Un vecteur représentant le deck
 		**/
-		std::vector<Carte>			getDeck();
+        std::vector<game::Card>			getDeck();
 		
 		/**
 		*@action : Permet d'obtenir l'ensemble des actions
@@ -266,7 +266,7 @@ class Jeu{
 		*@action : Cree l'ensemble des cartes utilisees dans le jeu
 		*@return : Le "deck", l'ensemble du jeu de carte
 		**/
-		std::vector<Carte> nouveauDeck();
+        std::vector<game::Card> nouveauDeck();
 		
 		/**
 		*@action : Permet de savoir si le joueur a la possibilite checker

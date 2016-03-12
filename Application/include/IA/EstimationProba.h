@@ -24,13 +24,13 @@ class EstimationProba : public QThread {
         *@action : Creer un nouveau deck prive des carte du joueur courant
         *@return  : Le deck des cartes restantes
         **/
-       static  std::vector<Carte> nouveauDeck(Joueur* joueurCourant);
+       static  std::vector<game::Card> nouveauDeck(Joueur* joueurCourant);
 
        /**
        *@action : Melange le jeu de carte
        *@param  : Le jeu a melanger
        **/
-       static void melange(std::vector<Carte>& deck);
+       static void melange(std::vector<game::Card>& deck);
 
     protected:
 

@@ -1,0 +1,32 @@
+#ifndef CARD_H
+#define CARD_H
+
+/**
+
+Couleur  { Pique = 0, Coeur = 1, Trefle = 2, Carreau = 3 };
+Rang { As = 1, 2, 3, 4, 5,  6,  7, 8,  9, 10, Valet = 11, Dame = 12, Roi = 13 };
+
+**/
+
+#include "../Constantes.h"
+
+namespace game {
+
+    class Card
+    {
+        private:
+
+            int m_id;
+
+        public:
+
+            Card(int rank, int color);
+            virtual ~Card();
+
+            int getId() const;
+            int getColor() const;
+            int getRank() const;
+    };
+}
+
+#endif

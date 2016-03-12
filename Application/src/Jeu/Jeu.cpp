@@ -171,13 +171,13 @@ int Jeu::getDealer(){
 	return this->dealer;
 }
 
-std::vector<Carte> Jeu::nouveauDeck(){
+std::vector<game::Card> Jeu::nouveauDeck(){
 
-    std::vector<Carte> deck;
+    std::vector<game::Card> deck;
 
     for(int i = COULEUR_CARTE::PIQUE; i <= COULEUR_CARTE::CARREAU; i++ ){
         for(int j = RANG_CARTE::AS; j<=RANG_CARTE::K; j++){
-            Carte carte(j,i);
+            game::Card carte(j,i);
             deck.push_back(carte);
 		}
 	}
@@ -195,7 +195,7 @@ int Jeu::getBlind() const{
 	return this->blind;
 }
 
-std::vector<Carte> Jeu::getDeck(){
+std::vector<game::Card> Jeu::getDeck(){
     return this->deck;
 }
 
@@ -522,7 +522,7 @@ void Jeu::finPartie() {
     ia->ecritureResultatsPartie();
 }
 
-std::vector<Carte> Jeu::getTable() const{
+std::vector<game::Card> Jeu::getTable() const{
     return this->table;
 }
 
@@ -687,7 +687,7 @@ void Jeu::affectationCarte(std::vector<int> listeId){
 
         if(listeId.at(i) != -1){
             pos = 0;
-            for(Carte carte : this->getDeck()){
+            for(game::Card carte : this->getDeck()){
                 if(carte.getId() == listeId.at(i)){
                     if(i<2){
                         this->listeJoueurs.at(0)->ajouteCarte(this->deck.at(pos));

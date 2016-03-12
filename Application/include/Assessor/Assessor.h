@@ -11,7 +11,7 @@ Specification: Classe correspondant l'évaluateur de main, compare
 #define ASSESSOR_H
 
 #include "PlayerCards.h"
-#include "../Jeu/Carte.h"
+#include "../Jeu/Card.h"
 #include <iostream>
 #include <vector>
 
@@ -23,7 +23,7 @@ namespace assessor {
             * @brief compare les deux mains pour voir laquelle a le poids le plus fort
             * @return 0 si hand1 a gagné, 1 si elle a perdu et 2 si égalité
             */
-            static RESULTAT_PARTIE compareHands(std::vector<Carte> table, std::vector<Carte> handPlayer1, std::vector<Carte> handPlayer2);
+            static RESULTAT_PARTIE compareHands(std::vector<game::Card> table, std::vector<game::Card> handPlayer1, std::vector<game::Card> handPlayer2);
     };
 }
 
