@@ -4,7 +4,6 @@ SOURCES += \
     src/Interface/CarteGraphique.cpp \
     src/Interface/ListeCartes.cpp \
     src/Jeu/Jeu.cpp \
-    src/Jeu/Carte.cpp \
     src/Jeu/Joueur.cpp \
     src/Profilage/Profilage.cpp \
     src/Interface/CartesDialog.cpp \
@@ -30,7 +29,8 @@ SOURCES += \
     src/Assessor/PlayerCards.cpp \
     src/MathematicalFormula/MathematicalFormula.cpp \
     src/Profilage/CalculateProfilingData.cpp \
-    src/Profilage/GamePhase.cpp
+    src/Profilage/GamePhase.cpp \
+    src/Jeu/Card.cpp
 
 
 QT+=widgets printsupport
@@ -40,7 +40,6 @@ HEADERS += \
     include/Interface/CarteGraphique.h \
     include/Interface/ListeCartes.h \
     include/Jeu/Jeu.h \
-    include/Jeu/Carte.h \
     include/Jeu/Joueur.h \
     include/Profilage/Profilage.h \
     include/Constantes.h \
@@ -67,11 +66,12 @@ HEADERS += \
     include/Assessor/PlayerCards.h \
     include/MathematicalFormula/MathematicalFormula.h \
     include/Profilage/CalculateProfilingData.h \
-    include/Profilage/GamePhase.h
+    include/Profilage/GamePhase.h \
+    include/Jeu/Card.h
 
 CONFIG += c++14
-QMAKE_CC = gcc-4.9
 QMAKE_CXX = g++-4.9
+QMAKE_CXXFLAGS += -std=c++14
 
 MOC_DIR = moc_dir
 OBJECTS_DIR = obj_dir

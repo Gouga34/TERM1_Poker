@@ -10,7 +10,7 @@ Specification: Classe définissant une carte graphique.
 #define CARTEGRAPHIQUE_H
 
 #include <QLabel>
-#include "../Jeu/Carte.h"
+#include "../Jeu/Card.h"
 
 class CarteGraphique : public QLabel
 {
@@ -46,7 +46,7 @@ class CarteGraphique : public QLabel
          * @action Constructeur de la carte graphique avec un objet de type Carte
          * @param c Carte à créer
          */
-        CarteGraphique(Carte c);
+        CarteGraphique(game::Card c);
 
         ~CarteGraphique();
 };

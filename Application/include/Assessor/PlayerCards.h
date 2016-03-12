@@ -10,7 +10,7 @@ Specification: Classe correspondant à la main d'un joueur,
 #ifndef PLAYERCARDS_H
 #define PLAYERCARDS_H
 
-#include "../Jeu/Carte.h"
+#include "../Jeu/Card.h"
 #include <iostream>
 #include <vector>
 #include <array>
@@ -60,13 +60,13 @@ namespace assessor {
              * @param mainJoueur cartes du joueur
              * @action rempli occurrences
              */
-            virtual void fillTab(std::vector<Carte> table, std::vector<Carte> playersHand);
+            virtual void fillTab(std::vector<game::Card> table, std::vector<game::Card> playersHand);
 
             /**
              * @brief registerCardsOccurrences enregistre les occurrences des cartes dans le tableau occurrences.
              * @param listeCartes
              */
-            virtual void registerCardsOccurrences(std::vector<Carte> cardsList);
+            virtual void registerCardsOccurrences(std::vector<game::Card> cardsList);
 
             /**
              * @param depart case à partir de laquelle on va commencer
@@ -236,7 +236,7 @@ namespace assessor {
 
         public:
 
-            PlayerCards(std::vector<Carte> table, std::vector<Carte> playersHand);
+            PlayerCards(std::vector<game::Card> table, std::vector<game::Card> playersHand);
             virtual ~PlayerCards();
 
             /**

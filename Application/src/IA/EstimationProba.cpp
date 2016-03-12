@@ -1,5 +1,5 @@
 #include "../../include/IA/EstimationProba.h"
-#include "../../include/Jeu/Carte.h"
+#include "../../include/Jeu/Card.h"
 
 #include <string>
 #include <unordered_map>
@@ -41,9 +41,9 @@ double EstimationProba::estimation(Jeu* jeuCourant, Joueur* joueurCourant, int n
     double nombreDeCoupGagner = 0;
 	int position;
     int tailleTable;
-	std::vector<Carte> table;
-	std::vector<Carte> mainAdverse;
-    std::vector<Carte> deck;
+    std::vector<game::Card> table;
+    std::vector<game::Card> mainAdverse;
+    std::vector<game::Card> deck;
 	
     for(int t=0; t <nombreTests; t++){
         //do{
@@ -81,12 +81,12 @@ double EstimationProba::estimation(Jeu* jeuCourant, Joueur* joueurCourant, int n
 }
 
 
-std::vector<Carte> EstimationProba::nouveauDeck(Joueur* joueurCourant){
-	std::vector<Carte> deck;
+std::vector<game::Card> EstimationProba::nouveauDeck(Joueur* joueurCourant){
+    std::vector<game::Card> deck;
 	
     for(int i =COULEUR_CARTE::PIQUE; i<=COULEUR_CARTE::CARREAU; i++){
         for(int j=RANG_CARTE::AS; j<=RANG_CARTE::K; j++){			
-                Carte carte(j,i);
+                game::Card carte(j,i);
 				deck.push_back(carte);
 		}
 	}
@@ -97,6 +97,6 @@ std::vector<Carte> EstimationProba::nouveauDeck(Joueur* joueurCourant){
 	return deck;
 }
 
-void EstimationProba::melange(std::vector<Carte>& deck){
+void EstimationProba::melange(std::vector<game::Card>& deck){
 	std::random_shuffle(deck.begin(),deck.end());
 }

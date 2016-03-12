@@ -11,7 +11,7 @@ Specification: Fichier contenant les définitions de la classe Evaluateur.
 
 namespace assessor {
 
-    PlayerCards::PlayerCards(std::vector<Carte> table, std::vector<Carte> playersHand) : m_occurrences(), m_weight(0) {
+    PlayerCards::PlayerCards(std::vector<game::Card> table, std::vector<game::Card> playersHand) : m_occurrences(), m_weight(0) {
         initializeOccurrences();
         fillTab(table,playersHand);
         calculatesHandCategory();
@@ -45,15 +45,15 @@ namespace assessor {
         }
     }
 
-    void PlayerCards::fillTab(std::vector<Carte> table, std::vector<Carte> playersHand) {
+    void PlayerCards::fillTab(std::vector<game::Card> table, std::vector<game::Card> playersHand) {
         registerCardsOccurrences(playersHand);
         registerCardsOccurrences(table);
     }
 
-    void PlayerCards::registerCardsOccurrences(std::vector<Carte> cardsList) {
+    void PlayerCards::registerCardsOccurrences(std::vector<game::Card> cardsList) {
         for (auto a_card : cardsList) {
-            int cardRank = a_card.getRang();
-            int cardColor = a_card.getCouleur();
+            int cardRank = a_card.getRank();
+            int cardColor = a_card.getColor();
 
             if (cardRank == AS) {
                 ++m_occurrences[0][cardColor];

@@ -21,7 +21,7 @@ ListeCartes::~ListeCartes()
 
 }
 
-void ListeCartes::ajoutCartes(std::vector<Carte> cartes)
+void ListeCartes::ajoutCartes(std::vector<game::Card> cartes)
 {
     for (unsigned int i = 0; i < cartes.size(); i++) {
         CarteGraphique *c = new CarteGraphique(cartes.at(i));
