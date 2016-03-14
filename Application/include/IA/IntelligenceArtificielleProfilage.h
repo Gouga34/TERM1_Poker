@@ -20,7 +20,7 @@ class IntelligenceArtificielleProfilage : public IntelligenceArtificielle
 
         PHASE_JEU_IA phaseJeu;
 
-        Profil profilJoueur;
+        Profile profilJoueur;
 
         Profilage *profilage;
 

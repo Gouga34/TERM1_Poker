@@ -87,8 +87,8 @@ void Fenetre::initialiser()
             ia->setCalibrage(jeu->getOptions().iaProfilee);
         }
 
-        Profil calibrage = *(ia->getCalibrage());
-        pseudoJoueur = QString::number(calibrage.getAgressivite()) + "_" + QString::number(calibrage.getRationalite());
+        Profile calibrage = *(ia->getCalibrage());
+        pseudoJoueur = QString::number(calibrage.getAggressiveness()) + "_" + QString::number(calibrage.getRationality());
 
         contenu = new ContenuFenetreIA(jeu, this);
     }
@@ -157,10 +157,10 @@ void Fenetre::demarragePartie()
                 iaProfilee->nouveauCalibrage();
             }
 
-            std::cout<<"Calibrage IA profilée : agressivité: "<<iaProfilee->getCalibrage()->getAgressivite()
-                    <<" rationalité: "<<iaProfilee->getCalibrage()->getRationalite()<<std::endl;
+            std::cout<<"Calibrage IA profilée : agressivité: "<<iaProfilee->getCalibrage()->getAggressiveness()
+                    <<" rationalité: "<<iaProfilee->getCalibrage()->getRationality()<<std::endl;
 
-            QString pseudo = QString::number(iaProfilee->getCalibrage()->getAgressivite()) + "_" + QString::number(iaProfilee->getCalibrage()->getRationalite());
+            QString pseudo = QString::number(iaProfilee->getCalibrage()->getAggressiveness()) + "_" + QString::number(iaProfilee->getCalibrage()->getRationality());
 
             iaQuiProfile->setPseudoJoueurProfile(pseudo.toStdString());
         }

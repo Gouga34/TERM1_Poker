@@ -12,24 +12,24 @@ Specification: Classe permettant d'écrire et
 #ifndef SCENARIOSDETESTS_H
 #define SCENARIOSDETESTS_H
 
-#include "Profil.h"
+#include "Profile.h"
 #include <QJsonObject>
 #include <QFile>
 
 class ScenariosDeTests{
 private:
   //Attributs :
-    Profil calibrageRecherche;
-    Profil *calibrageActuelIA;
+    Profile calibrageRecherche;
+    Profile *calibrageActuelIA;
    // int numeroDuTestActuel; //correspond à l'itération du test où on en est. exemple : 3m itération du test avec pour calibrage 100 100.
-    Profil actionAttendueJoueur;
-    Profil *actionReelleJoueur;
+    Profile actionAttendueJoueur;
+    Profile *actionReelleJoueur;
     double chancesDeGain;
     bool joueurSeCouche; //attribut pas encore traité dans les méthodes. A traiter plus tard
     double distance;
     //int numeroCalibrage;
 
-    Profil profilDeduitGlobal;
+    Profile profilDeduitGlobal;
     double tauxSimilarite;
 
     /**
@@ -54,7 +54,7 @@ private:
     void ancienneSituationLaPlusProche(QFile &fichierProfil);
 
 public:
-    ScenariosDeTests(Profil *profilJoueur, Profil *calibrageIA, Profil calibrageAdversaire);
+    ScenariosDeTests(Profile *profilJoueur, Profile *calibrageIA, Profile calibrageAdversaire);
 
     ~ScenariosDeTests();
 
@@ -62,7 +62,7 @@ public:
      * @brief setCalibrageActuelIA
      * @param calibrage
      */
-    void setCalibrageActuelIA(Profil *calibrage);
+    void setCalibrageActuelIA(Profile *calibrage);
 
     /**
      * @brief setJoueurSeCouche
@@ -92,25 +92,25 @@ public:
      * @brief getCalibrageActuelIA
      * @return le calibrage actuel de l'IA
      */
-    Profil *getCalibrageActuelIA();
+    Profile *getCalibrageActuelIA();
 
     /**
      * @brief setActionAttendueJoueur
      * @param actionAttendue
      */
-    void setActionAttendueJoueur(Profil actionAttendue);
+    void setActionAttendueJoueur(Profile actionAttendue);
 
     /**
      * @brief getActionAttendueJoueur
      * @return l'action attendue du joueur
      */
-    Profil getActionAttendueJoueur() const;
+    Profile getActionAttendueJoueur() const;
 
     /**
      * @brief getProfilDeduitGlobal
      * @return Profil déduit global du joueur profilé
      */
-    Profil getProfilDeduitGlobal() const;
+    Profile getProfilDeduitGlobal() const;
 
     /**
      * @brief getTauxSimilarite
@@ -122,13 +122,13 @@ public:
      * @brief setActionReelleJoueur
      * @param action
      */
-    void setActionReelleJoueur(Profil *action);
+    void setActionReelleJoueur(Profile *action);
 
     /**
      * @brief getActionReelleJoueur
      * @return l'action réelle effectuée par le joueur
      */
-    Profil *getActionReelleJoueur() const;
+    Profile *getActionReelleJoueur() const;
 
     /**
      * @brief setNumeroDuTestActuel

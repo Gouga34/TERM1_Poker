@@ -13,7 +13,7 @@ Specification: Classe permettant de calculer les actions de
 #include <utility>
 #include "../Jeu/Jeu.h"
 #include "IntelligenceArtificielle.h"
-#include "../Profilage/Profil.h"
+#include "../Profilage/Profile.h"
 #include <cstdlib>
 
 class IntelligenceArtificielle;
@@ -22,7 +22,7 @@ class Resolveur{
 private:
 
     bool jeuAgressif;
-    Profil *calibrage;
+    Profile *calibrage;
     double miseTotaleTheoriqueAgressivite;
 
 
@@ -86,13 +86,13 @@ public:
     * @brief setCalibrage
     * @param profil nouveau calibrage de l'IA
     */
-   void setCalibrage(Profil profil);
+   void setCalibrage(Profile profil);
 
     /**
      * @brief getRationalite
      * @return le taux de rationalité
      */
-    Profil* getCalibrage();
+    Profile* getCalibrage();
 
 
     /**

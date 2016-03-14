@@ -14,18 +14,18 @@ Specification: Classe contenant l'écriture et la lecture
 #include <string>
 #include <QString>
 #include "../Constantes.h"
-#include "Profil.h"
+#include "Profile.h"
 #include "GamePhase.h"
 
 class Profilage
 {
     private:
 
-        Profil *profilIA;
+        Profile *profilIA;
 
     public:
 
-        Profil *profilJoueur;
+        Profile *profilJoueur;
 
         RESULTAT_PARTIE partieGagneeIAQuiProfile;
         int nbJetonsGagnesIAQuiProfile;
@@ -78,7 +78,7 @@ class Profilage
         int gainsJeu;
 
 
-        Profilage(Profil *calibrageIA, Profil *profil);
+        Profilage(Profile *calibrageIA, Profile *profil);
         ~Profilage();
 
         /**

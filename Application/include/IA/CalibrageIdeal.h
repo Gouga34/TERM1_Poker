@@ -11,7 +11,7 @@ Specification: Classe déterminant le calibrage optimal pour gagner
 #define CALIBRAGEIDEAL_H
 
 #include <QVector>
-#include "../Profilage/Profil.h"
+#include "../Profilage/Profile.h"
 #include "../Jeu/Jeu.h"
 
 class CalibrageIdeal
@@ -20,8 +20,8 @@ class CalibrageIdeal
 
         Jeu *jeu;
 
-        Profil *calibrageIAQuiProfile;
-        Profil *calibrageIAProfilee;
+        Profile *calibrageIAQuiProfile;
+        Profile *calibrageIAProfilee;
 
         int nombreParties;
         int nombrePartiesGagnees;
@@ -38,7 +38,7 @@ class CalibrageIdeal
 
     public:
 
-        CalibrageIdeal(Jeu *j, Profil *iaQuiProfile, Profil *iaProfilee, int nbParties);
+        CalibrageIdeal(Jeu *j, Profile *iaQuiProfile, Profile *iaProfilee, int nbParties);
         ~CalibrageIdeal();
 
         /**

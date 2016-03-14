@@ -17,7 +17,7 @@ Specification: Fichier contenant les corps des méthodes
 using namespace std;
 
 Resolveur::Resolveur(IntelligenceArtificielle *ia2):jeuAgressif(false), ia(ia2){
-    calibrage=new Profil;
+    calibrage=new Profile;
 }
 
 
@@ -33,15 +33,15 @@ void Resolveur::setJeuAgressif(bool ag) {
     jeuAgressif = ag;
 }
 
-void Resolveur::setCalibrage(Profil profil){
+void Resolveur::setCalibrage(Profile profil){
 
-    calibrage->setAgressivite(profil.getAgressivite());
-    calibrage->setRationalite(profil.getRationalite());
+    calibrage->setAggressiveness(profil.getAggressiveness());
+    calibrage->setRationality(profil.getRationality());
 
 }
 
 
-Profil* Resolveur::getCalibrage() {
+Profile* Resolveur::getCalibrage() {
     return calibrage;
 }
 
@@ -143,19 +143,19 @@ void Resolveur::calculerTotalMiseTheoriqueAgressivite(){
     double palierInferieur;
     double miseTheoriqueInferieure;
     double miseTheoriqueSuperieure;
-    if(calibrage->getAgressivite()<AGRESSIVITE::PALIER1::FIN_AG_THEORIQUE){
+    if(calibrage->getAggressiveness()<AGRESSIVITE::PALIER1::FIN_AG_THEORIQUE){
         palierInferieur=AGRESSIVITE::PALIER1::DEBUT_AG_THEORIQUE;
         palierSuperieur=AGRESSIVITE::PALIER1::FIN_AG_THEORIQUE;
         miseTheoriqueInferieure=AGRESSIVITE::PALIER1::DEBUT_MISE_TOTALE;
         miseTheoriqueSuperieure=AGRESSIVITE::PALIER1::FIN_MISE_TOTALE;
     }
-    else if(calibrage->getAgressivite()<AGRESSIVITE::PALIER2::FIN_AG_THEORIQUE){
+    else if(calibrage->getAggressiveness()<AGRESSIVITE::PALIER2::FIN_AG_THEORIQUE){
         palierInferieur=AGRESSIVITE::PALIER2::DEBUT_AG_THEORIQUE;
         palierSuperieur=AGRESSIVITE::PALIER2::FIN_AG_THEORIQUE;
         miseTheoriqueInferieure=AGRESSIVITE::PALIER2::DEBUT_MISE_TOTALE;
         miseTheoriqueSuperieure=AGRESSIVITE::PALIER2::FIN_MISE_TOTALE;
     }
-    else if(calibrage->getAgressivite()<AGRESSIVITE::PALIER3::FIN_AG_THEORIQUE){
+    else if(calibrage->getAggressiveness()<AGRESSIVITE::PALIER3::FIN_AG_THEORIQUE){
         palierInferieur=AGRESSIVITE::PALIER3::DEBUT_AG_THEORIQUE;
         palierSuperieur=AGRESSIVITE::PALIER3::FIN_AG_THEORIQUE;
         miseTheoriqueInferieure=AGRESSIVITE::PALIER3::DEBUT_MISE_TOTALE;
@@ -166,7 +166,7 @@ void Resolveur::calculerTotalMiseTheoriqueAgressivite(){
     }
 
     if(tauxMiseTotale==0.0){
-        tauxMiseTotale=((calibrage->getAgressivite()-palierInferieur)*((miseTheoriqueSuperieure-miseTheoriqueInferieure)/(palierSuperieur-palierInferieur)))+miseTheoriqueInferieure;
+        tauxMiseTotale=((calibrage->getAggressiveness()-palierInferieur)*((miseTheoriqueSuperieure-miseTheoriqueInferieure)/(palierSuperieur-palierInferieur)))+miseTheoriqueInferieure;
     }
     miseTotaleTheoriqueAgressivite=(tauxMiseTotale/100) * ia->getCaveDeDepart();
 }
@@ -178,7 +178,7 @@ Action Resolveur::calculerActionRationalite(){
 
     //On prend un nombre aléatoire
     int random = rand()%101;
-    if(random<(calibrage->getRationalite()-1)){ //Si random E [0 - (rationalite-1)]
+    if(random<(calibrage->getRationality()-1)){ //Si random E [0 - (rationalite-1)]
 
         int jetonsMiseTheorique=calculerMiseRationalite(ACTION::MISER);
 
@@ -465,12 +465,12 @@ Action Resolveur::calculerAction(){
 
 
         if(tirageAleatoire){
-            int total = calibrage->getRationalite()+calibrage->getAgressivite();
+            int total = calibrage->getRationality()+calibrage->getAggressiveness();
 
             int random=rand()%total+1;
 
             //Si random E [0-agressivité], on prend l'action et les jetons de l'agressivité
-            if(random<calibrage->getAgressivite()){
+            if(random<calibrage->getAggressiveness()){
                 action=actionAgressivite.getAction();
                 jetonsAMiser=actionAgressivite.getMontant();
             }
@@ -498,19 +498,19 @@ Action Resolveur::calculerAction(){
             maxJetonsAMiser=actionRationalite.getMontant();
             minJetonsAMiser=actionAgressivite.getMontant();
         }
-        if(calibrage->getAgressivite()>calibrage->getRationalite()){
-            tauxMax=calibrage->getAgressivite();
-            tauxMin=calibrage->getRationalite();
+        if(calibrage->getAggressiveness()>calibrage->getRationality()){
+            tauxMax=calibrage->getAggressiveness();
+            tauxMin=calibrage->getRationality();
         }
         else{
-            tauxMin=calibrage->getAgressivite();
-            tauxMax=calibrage->getRationalite();
+            tauxMin=calibrage->getAggressiveness();
+            tauxMax=calibrage->getRationality();
         }
 
         //On va prendre une mise comprise entre le min et le max.
         //Celle-ci aura plus de chances d'être plus proche du taux le plus fort.
 
-        int total=calibrage->getAgressivite()+calibrage->getRationalite();
+        int total=calibrage->getAggressiveness()+calibrage->getRationality();
         double ratio = static_cast<double>(tauxMax) / total;
         jetonsAMiser = minJetonsAMiser + (ratio * abs(maxJetonsAMiser-minJetonsAMiser));
 

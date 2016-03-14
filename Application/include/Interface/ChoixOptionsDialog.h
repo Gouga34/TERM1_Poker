@@ -41,8 +41,8 @@ struct OptionsJeu
     bool calibrageIaProfileeFixe;
     bool calibrageIaQuiProfileFixe;
 
-    Profil iaProfilee;
-    Profil iaQuiProfile;
+    Profile iaProfilee;
+    Profile iaQuiProfile;
 };
 
 

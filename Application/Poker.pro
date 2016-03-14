@@ -14,7 +14,6 @@ SOURCES += \
     src/IA/EstimationProba.cpp \
     src/IA/IntelligenceArtificielle.cpp \
     src/IA/Resolveur.cpp \
-    src/Profilage/Profil.cpp \
     src/Profilage/ScenariosDeTests.cpp \
     src/IA/IntelligenceArtificielleProfilage.cpp \
     src/Jeu/Action.cpp \
@@ -30,7 +29,8 @@ SOURCES += \
     src/MathematicalFormula/MathematicalFormula.cpp \
     src/Profilage/CalculateProfilingData.cpp \
     src/Profilage/GamePhase.cpp \
-    src/Jeu/Card.cpp
+    src/Jeu/Card.cpp \
+    src/Profilage/Profile.cpp
 
 
 QT+=widgets printsupport
@@ -51,7 +51,6 @@ HEADERS += \
     include/IA/EstimationProba.h \
     include/IA/IntelligenceArtificielle.h \
     include/IA/Resolveur.h \
-    include/Profilage/Profil.h \
     include/Profilage/ScenariosDeTests.h \
     include/IA/IntelligenceArtificielleProfilage.h \
     include/Jeu/Action.h \
@@ -67,7 +66,8 @@ HEADERS += \
     include/MathematicalFormula/MathematicalFormula.h \
     include/Profilage/CalculateProfilingData.h \
     include/Profilage/GamePhase.h \
-    include/Jeu/Card.h
+    include/Jeu/Card.h \
+    include/Profilage/Profile.h
 
 CONFIG += c++14
 QMAKE_CXX = g++-4.9

@@ -13,9 +13,9 @@ IntelligenceArtificielle::IntelligenceArtificielle(bool estDealer, int jetons, i
     double agressivite=rand()%100+1;
     double rationalite=rand()%100+1;
 
-    Profil p;
-    p.setAgressivite(agressivite);
-    p.setRationalite(rationalite);
+    Profile p;
+    p.setAggressiveness(agressivite);
+    p.setRationality(rationalite);
 
     setCalibrage(p);
 }
@@ -34,13 +34,13 @@ bool IntelligenceArtificielle::estHumain() const {
     return false;
 }
 
-Profil* IntelligenceArtificielle::getCalibrage() {
+Profile* IntelligenceArtificielle::getCalibrage() {
     return resolveur->getCalibrage();
 }
 
-void IntelligenceArtificielle::setCalibrage(Profil profil) {
-    string ration="Rationalite : "+to_string(profil.getRationalite());
-    string agress="Agressivite : "+to_string(profil.getAgressivite());
+void IntelligenceArtificielle::setCalibrage(Profile profil) {
+    string ration="Rationalite : "+to_string(profil.getRationality());
+    string agress="Agressivite : "+to_string(profil.getAggressiveness());
 //    Logger::getInstance()->ajoutLogs(ration);
 //    Logger::getInstance()->ajoutLogs(agress);
     resolveur->setCalibrage(profil);
@@ -51,9 +51,9 @@ void IntelligenceArtificielle::nouveauCalibrage()
     int agressivite=rand()%100+1;
     int rationalite=rand()%100+1;
 
-    Profil p;
-    p.setAgressivite(agressivite);
-    p.setRationalite(rationalite);
+    Profile p;
+    p.setAggressiveness(agressivite);
+    p.setRationality(rationalite);
     setCalibrage(p);
 }
 

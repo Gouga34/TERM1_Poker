@@ -14,7 +14,7 @@ Specification: Fichier contenant les définitions de la classe CalibrageIdeal.
 #include <QTextStream>
 
 
-CalibrageIdeal::CalibrageIdeal(Jeu *j, Profil *iaQuiProfile, Profil *iaProfilee, int nbParties)
+CalibrageIdeal::CalibrageIdeal(Jeu *j, Profile *iaQuiProfile, Profile *iaProfilee, int nbParties)
     : jeu(j), calibrageIAQuiProfile(iaQuiProfile), calibrageIAProfilee(iaProfilee), nombreParties(nbParties),
       nombrePartiesGagnees(0), argentTotalGagne(0)
 {
@@ -28,8 +28,8 @@ CalibrageIdeal::~CalibrageIdeal()
 
 void CalibrageIdeal::ecrireRsultatTotalParties() const
 {
-    QString nomFichier = QString::number(calibrageIAProfilee->getAgressivite()) + "_"
-                            + QString::number(calibrageIAProfilee->getRationalite()) + "_testsCalibrageIdeal.csv";
+    QString nomFichier = QString::number(calibrageIAProfilee->getAggressiveness()) + "_"
+                            + QString::number(calibrageIAProfilee->getRationality()) + "_testsCalibrageIdeal.csv";
     QFile fichier(QString::fromStdString(DOSSIER_PROFILAGE_STATIQUE) + nomFichier);
 
     if (!fichier.open(QIODevice::Append | QIODevice::Text)) {
@@ -46,7 +46,7 @@ void CalibrageIdeal::ecrireRsultatTotalParties() const
 
     double partiesGagnees = (static_cast<double>(nombrePartiesGagnees) * 100.0) / nombreParties;
 
-    out << calibrageIAQuiProfile->getAgressivite() << "-" << calibrageIAQuiProfile->getRationalite()
+    out << calibrageIAQuiProfile->getAggressiveness() << "-" << calibrageIAQuiProfile->getRationality()
         << "," << partiesGagnees << "," << argentTotalGagne << endl;
 
     fichier.close();
@@ -54,18 +54,18 @@ void CalibrageIdeal::ecrireRsultatTotalParties() const
 
 void CalibrageIdeal::lancerParties()
 {
-    std::cout << calibrageIAProfilee->getAgressivite() << " - " << calibrageIAProfilee->getRationalite() << std::endl;
+    std::cout << calibrageIAProfilee->getAggressiveness() << " - " << calibrageIAProfilee->getRationality() << std::endl;
 
     for (int i = 0; i < listeTauxIAQuiProfile.size(); i++) {
         for (int j = 0; j < listeTauxIAQuiProfile.size(); j++) {
 
-            calibrageIAQuiProfile->setAgressivite(listeTauxIAQuiProfile[i]);
-            calibrageIAQuiProfile->setRationalite(listeTauxIAQuiProfile[j]);
+            calibrageIAQuiProfile->setAggressiveness(listeTauxIAQuiProfile[i]);
+            calibrageIAQuiProfile->setRationality(listeTauxIAQuiProfile[j]);
 
             nombrePartiesGagnees = 0;
             argentTotalGagne = 0;
 
-            std::cout << "Calibrage " << calibrageIAQuiProfile->getAgressivite() << "-" << calibrageIAQuiProfile->getRationalite() << std::endl;
+            std::cout << "Calibrage " << calibrageIAQuiProfile->getAggressiveness() << "-" << calibrageIAQuiProfile->getRationality() << std::endl;
 
             for (int n = 0; n < nombreParties; n++) {
                 std::cout << "\tPartie " << n+1 << std::endl;

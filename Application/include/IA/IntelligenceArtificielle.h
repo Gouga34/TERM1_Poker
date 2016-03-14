@@ -5,7 +5,7 @@
 #include "../Jeu/Jeu.h"
 #include "Resolveur.h"
 #include "EstimationProba.h"
-#include "../Profilage/Profil.h"
+#include "../Profilage/Profile.h"
 
 #include <vector>
 #include <iostream>
@@ -50,13 +50,13 @@ class IntelligenceArtificielle : public Joueur {
         /**
          * @return Calibrage de l'IA
          */
-        Profil* getCalibrage();
+        Profile* getCalibrage();
 
         /**
          * @action Modifie les valeurs de calibrage de l'IA
          * @param profil Profil de l'IA
          */
-        void setCalibrage(Profil profil);
+        void setCalibrage(Profile profil);
 
         /**
          * @brief Attribue un nouveau calibrage tiré aléatoirement pour l'IA

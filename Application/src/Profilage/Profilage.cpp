@@ -14,7 +14,7 @@ Specification: Fichier contenant les définitions de la classe Profilage.
 #include <QStringList>
 #include <string>
 
-Profilage::Profilage(Profil *calibrageIA, Profil *profil)
+Profilage::Profilage(Profile *calibrageIA, Profile *profil)
     : profilIA(calibrageIA), profilJoueur(profil)
 {
     reinitialiser();
@@ -175,7 +175,7 @@ void Profilage::sauvegarder()
             out<<0<<",";
         }
 
-        out<<nbJetonsGagnesIAQuiProfile<<","<<scenarioDeTest<<","<<jeuAgressif<<","<<profilIA->getAgressivite()<<","<<profilIA->getRationalite()<<","<<
+        out<<nbJetonsGagnesIAQuiProfile<<","<<scenarioDeTest<<","<<jeuAgressif<<","<<profilIA->getAggressiveness()<<","<<profilIA->getRationality()<<","<<
                 etatPartie[i].probaGainAdversaire<<","<<etatPartie[i].tauxAgressivite<<","<<etatPartie[i].tauxRationnalite<<","<<
                 /*etatPartie[i].tauxBluff<<","<<etatPartie[i].tauxPassivite<<","<<*/etatPartie[i].tauxChecks<<","<<
                 etatPartie[i].tauxMises<<","<<etatPartie[i].tauxSuivis<<","<<etatPartie[i].miseTotaleJoueur<<","<<
