@@ -10,7 +10,7 @@
 #include "../Constantes.h"
 #include "../Assessor/Assessor.h"
 #include "../Profilage/CalculateProfilingData.h"
-#include "../Profilage/Profilage.h"
+#include "../Profilage/Profiling.h"
 #include "../IA/EstimationProba.h"
 #include "../IA/IntelligenceArtificielle.h"
 #include "../Interface/ChoixOptionsDialog.h"

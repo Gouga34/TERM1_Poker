@@ -40,7 +40,7 @@ ScenariosDeTests IntelligenceArtificielleProfilage::getScenario() const{
     return *scenario;
 }
 
-Profilage* IntelligenceArtificielleProfilage::getProfilage() const {
+Profiling* IntelligenceArtificielleProfilage::getProfilage() const {
     return profilage;
 }
 
@@ -50,8 +50,8 @@ void IntelligenceArtificielleProfilage::setPseudoJoueurProfile(std::string pseud
     if (profilage) {
         delete profilage;
     }
-    profilage = new Profilage(resolveur->getCalibrage(), &profilJoueur);
-    profilage->phaseProfilageCourante.newPhase(jeu->getOptions().nombrePartiesProfilage);
+    profilage = new Profiling(resolveur->getCalibrage(), &profilJoueur);
+    profilage->m_currentProfilingPhase.newPhase(jeu->getOptions().nombrePartiesProfilage);
 
     Profile calibrageRecherche;
     if (!jeu->getJoueur(0)->estHumain()) {
@@ -73,110 +73,110 @@ void IntelligenceArtificielleProfilage::remplissageDonneesProfilage() {
         nbTotalActions += jeu->getJoueur(0)->getCompteurActions()[i];
     }
 
-    profilage->etatPartie[ETAPE_JEU::NB_ETAPES].probaGainAdversaire = jeu->getJoueur(0)->getChancesGain();
+    profilage->m_stepParts[ETAPE_JEU::NB_ETAPES].adversaryWinningProbabilities = jeu->getJoueur(0)->getChancesGain();
 
-    profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxMises += jeu->getJoueur(0)->getCompteurActions()[0];
-    profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxSuivis += jeu->getJoueur(0)->getCompteurActions()[1];
-    profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxChecks += jeu->getJoueur(0)->getCompteurActions()[2];
+    profilage->m_stepParts[ETAPE_JEU::NB_ETAPES].betRate += jeu->getJoueur(0)->getCompteurActions()[0];
+    profilage->m_stepParts[ETAPE_JEU::NB_ETAPES].callRate += jeu->getJoueur(0)->getCompteurActions()[1];
+    profilage->m_stepParts[ETAPE_JEU::NB_ETAPES].checkRate += jeu->getJoueur(0)->getCompteurActions()[2];
 
-    if (jeu->getJoueur(0)->getMisePlusHaute() > profilage->etatPartie[ETAPE_JEU::NB_ETAPES].misePlusHaute) {
-        profilage->etatPartie[ETAPE_JEU::NB_ETAPES].misePlusHaute = jeu->getJoueur(0)->getMisePlusHaute();
+    if (jeu->getJoueur(0)->getMisePlusHaute() > profilage->m_stepParts[ETAPE_JEU::NB_ETAPES].highestBet) {
+        profilage->m_stepParts[ETAPE_JEU::NB_ETAPES].highestBet = jeu->getJoueur(0)->getMisePlusHaute();
     }
 
-    profilage->etatPartie[ETAPE_JEU::NB_ETAPES].miseTotaleJoueur = jeu->getJoueur(0)->getMiseTotale();
+    profilage->m_stepParts[ETAPE_JEU::NB_ETAPES].totalBet = jeu->getJoueur(0)->getMiseTotale();
 
-    profilage->etatPartie[ETAPE_JEU::NB_ETAPES].couche = jeu->estCouche(0);
+    profilage->m_stepParts[ETAPE_JEU::NB_ETAPES].isFolded = jeu->estCouche(0);
 
-    profilage->etatPartie[ETAPE_JEU::NB_ETAPES].nbTotalActions += nbTotalActions;
+    profilage->m_stepParts[ETAPE_JEU::NB_ETAPES].numberOfActions += nbTotalActions;
 }
 
 
 void IntelligenceArtificielleProfilage::calculProfilGlobalJoueur() {
 
-    profilage->etatPartie[ETAPE_JEU::NB_ETAPES].probaGainAdversaire = jeu->getJoueur(0)->getChancesGain();
+    profilage->m_stepParts[ETAPE_JEU::NB_ETAPES].adversaryWinningProbabilities = jeu->getJoueur(0)->getChancesGain();
 
     double resultat;
 
-    resultat = CalculateProfilingData::taux(profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxMises,profilage->etatPartie[ETAPE_JEU::NB_ETAPES].nbTotalActions);
+    resultat = CalculateProfilingData::taux(profilage->m_stepParts[ETAPE_JEU::NB_ETAPES].betRate,profilage->m_stepParts[ETAPE_JEU::NB_ETAPES].numberOfActions);
     if (resultat == -1) {
-        profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxMises = 0;
+        profilage->m_stepParts[ETAPE_JEU::NB_ETAPES].betRate = 0;
     }
     else {
-        profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxMises = resultat;
+        profilage->m_stepParts[ETAPE_JEU::NB_ETAPES].betRate = resultat;
     }
 
-    resultat = CalculateProfilingData::taux(profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxSuivis,profilage->etatPartie[ETAPE_JEU::NB_ETAPES].nbTotalActions);
+    resultat = CalculateProfilingData::taux(profilage->m_stepParts[ETAPE_JEU::NB_ETAPES].callRate,profilage->m_stepParts[ETAPE_JEU::NB_ETAPES].numberOfActions);
     if (resultat == -1) {
-        profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxSuivis = 0;
+        profilage->m_stepParts[ETAPE_JEU::NB_ETAPES].callRate = 0;
     }
     else {
-        profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxSuivis = resultat;
+        profilage->m_stepParts[ETAPE_JEU::NB_ETAPES].callRate = resultat;
     }
 
-    resultat = CalculateProfilingData::taux(profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxChecks,profilage->etatPartie[ETAPE_JEU::NB_ETAPES].nbTotalActions);
+    resultat = CalculateProfilingData::taux(profilage->m_stepParts[ETAPE_JEU::NB_ETAPES].checkRate,profilage->m_stepParts[ETAPE_JEU::NB_ETAPES].numberOfActions);
     if (resultat == -1) {
-        profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxChecks = 0;
+        profilage->m_stepParts[ETAPE_JEU::NB_ETAPES].checkRate = 0;
     }
     else {
-        profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxChecks = resultat;
+        profilage->m_stepParts[ETAPE_JEU::NB_ETAPES].checkRate = resultat;
     }
 
-    resultat = CalculateProfilingData::taux(profilage->etatPartie[ETAPE_JEU::NB_ETAPES].misePlusHaute,getCaveDeDepart());
+    resultat = CalculateProfilingData::taux(profilage->m_stepParts[ETAPE_JEU::NB_ETAPES].highestBet,getCaveDeDepart());
     if (resultat == -1) {
-        profilage->etatPartie[ETAPE_JEU::NB_ETAPES].misePlusHaute = 0;
+        profilage->m_stepParts[ETAPE_JEU::NB_ETAPES].highestBet = 0;
     }
     else {
-        profilage->etatPartie[ETAPE_JEU::NB_ETAPES].misePlusHaute = resultat;
+        profilage->m_stepParts[ETAPE_JEU::NB_ETAPES].highestBet = resultat;
     }
 
-    resultat = CalculateProfilingData::taux(profilage->etatPartie[ETAPE_JEU::NB_ETAPES].miseTotaleJoueur,getCaveDeDepart());
+    resultat = CalculateProfilingData::taux(profilage->m_stepParts[ETAPE_JEU::NB_ETAPES].totalBet,getCaveDeDepart());
     if (resultat == -1) {
-        profilage->etatPartie[ETAPE_JEU::NB_ETAPES].miseTotaleJoueur = 0;
+        profilage->m_stepParts[ETAPE_JEU::NB_ETAPES].totalBet = 0;
     }
     else {
-        profilage->etatPartie[ETAPE_JEU::NB_ETAPES].miseTotaleJoueur = resultat;
+        profilage->m_stepParts[ETAPE_JEU::NB_ETAPES].totalBet = resultat;
     }
 
-    profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxAgressivite = CalculateProfilingData::aggressiveness(profilage->etatPartie[ETAPE_JEU::NB_ETAPES].misePlusHaute,profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxMises,profilage->etatPartie[ETAPE_JEU::NB_ETAPES].miseTotaleJoueur);
-    profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxRationnalite = CalculateProfilingData::rationality(profilage->etatPartie[ETAPE_JEU::NB_ETAPES].probaGainAdversaire,profilage->etatPartie[ETAPE_JEU::NB_ETAPES].miseTotaleJoueur);
-    profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxPassivite = CalculateProfilingData::passivity( profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxSuivis, profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxChecks);
-    profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxBluff = CalculateProfilingData::bluff(profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxRationnalite);
+    profilage->m_stepParts[ETAPE_JEU::NB_ETAPES].aggressivenessRate = CalculateProfilingData::aggressiveness(profilage->m_stepParts[ETAPE_JEU::NB_ETAPES].highestBet,profilage->m_stepParts[ETAPE_JEU::NB_ETAPES].betRate,profilage->m_stepParts[ETAPE_JEU::NB_ETAPES].totalBet);
+    profilage->m_stepParts[ETAPE_JEU::NB_ETAPES].rationalityRate = CalculateProfilingData::rationality(profilage->m_stepParts[ETAPE_JEU::NB_ETAPES].adversaryWinningProbabilities,profilage->m_stepParts[ETAPE_JEU::NB_ETAPES].totalBet);
+    profilage->m_stepParts[ETAPE_JEU::NB_ETAPES].passivityRate = CalculateProfilingData::passivity( profilage->m_stepParts[ETAPE_JEU::NB_ETAPES].callRate, profilage->m_stepParts[ETAPE_JEU::NB_ETAPES].checkRate);
+    profilage->m_stepParts[ETAPE_JEU::NB_ETAPES].bluffRate = CalculateProfilingData::bluff(profilage->m_stepParts[ETAPE_JEU::NB_ETAPES].rationalityRate);
 
 
-    profilage->profilJoueur->setAggressiveness(profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxAgressivite);
-    profilage->profilJoueur->setRationality(profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxRationnalite);
-    profilage->profilJoueur->setPassivity(profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxPassivite);
-    profilage->profilJoueur->setBluff(profilage->etatPartie[ETAPE_JEU::NB_ETAPES].tauxBluff);
+    profilage->m_playerProfile->setAggressiveness(profilage->m_stepParts[ETAPE_JEU::NB_ETAPES].aggressivenessRate);
+    profilage->m_playerProfile->setRationality(profilage->m_stepParts[ETAPE_JEU::NB_ETAPES].rationalityRate);
+    profilage->m_playerProfile->setPassivity(profilage->m_stepParts[ETAPE_JEU::NB_ETAPES].passivityRate);
+    profilage->m_playerProfile->setBluff(profilage->m_stepParts[ETAPE_JEU::NB_ETAPES].bluffRate);
 
     RESULTAT_PARTIE resultatPartie = getJeu()->getResultatPartie();
     if(resultatPartie==GAGNE){
-        profilage->nbJetonsGagnesIAQuiProfile=getCave()-getCaveDeDepart();
+        profilage->m_numberTokensWonProfilingAI=getCave()-getCaveDeDepart();
         resultatPartie=PERDU;
     }
     else if(resultatPartie==PERDU){
         resultatPartie=GAGNE;
-        profilage->nbJetonsGagnesIAQuiProfile=getCave()-getCaveDeDepart();
+        profilage->m_numberTokensWonProfilingAI=getCave()-getCaveDeDepart();
     }
     else{
-        profilage->nbJetonsGagnesIAQuiProfile=0;
+        profilage->m_numberTokensWonProfilingAI=0;
     }
 
-    profilage->jeuAgressif = resolveur->estAgressif();
-    profilage->scenarioDeTest = (phaseJeu == PHASE_PROFILAGE);
-    profilage->partieGagneeIAQuiProfile=resultatPartie;
+    profilage->m_roughPlay = resolveur->estAgressif();
+    profilage->m_testScenario = (phaseJeu == PHASE_PROFILAGE);
+    profilage->m_gameResultProfilingAIviewpoint=resultatPartie;
 
     if (phaseJeu == PHASE_PROFILAGE) {
-        profilage->phaseProfilageCourante.finishedPart(profilage->nbJetonsGagnesIAQuiProfile);
+        profilage->m_currentProfilingPhase.finishedPart(profilage->m_numberTokensWonProfilingAI);
     }
     else {
-        profilage->phaseJeuCourante.finishedPart(profilage->nbJetonsGagnesIAQuiProfile);
+        profilage->m_currentGamePhase.finishedPart(profilage->m_numberTokensWonProfilingAI);
     }
 
-    profilage->sauvegarder();
+    profilage->save();
 }
 
 void IntelligenceArtificielleProfilage::ecritureScenariosDeTests() {
-    scenario->setChancesDeGain(profilage->etatPartie[ETAPE_JEU::NB_ETAPES].probaGainAdversaire);
+    scenario->setChancesDeGain(profilage->m_stepParts[ETAPE_JEU::NB_ETAPES].adversaryWinningProbabilities);
     scenario->sauvegarderPartie();
 }
 
@@ -195,23 +195,23 @@ double IntelligenceArtificielleProfilage::calculValeurProportionnelle(double min
 
 PHASE_JEU_IA IntelligenceArtificielleProfilage::prochainTypeDeJeu() {
 
-    if (profilage->phaseProfilageCourante.getNbPartsDone() < profilage->phaseProfilageCourante.getNbMinParts()) {
+    if (profilage->m_currentProfilingPhase.getNbPartsDone() < profilage->m_currentProfilingPhase.getNbMinParts()) {
         return PHASE_PROFILAGE;
     }
-    else if (profilage->phaseJeuCourante.getNbPartsDone() < profilage->phaseJeuCourante.getNbMinParts()) {
+    else if (profilage->m_currentGamePhase.getNbPartsDone() < profilage->m_currentGamePhase.getNbMinParts()) {
         return PHASE_GAINS;
     }
     else {
         if (phaseJeu == PHASE_PROFILAGE) {
-            profilage->phaseJeuCourante.newPhase(jeu->getOptions().nombrePartiesGains);
+            profilage->m_currentGamePhase.newPhase(jeu->getOptions().nombrePartiesGains);
             return PHASE_GAINS;
         }
         else {
-            double gainParPartieJeu = static_cast<double>(profilage->phaseJeuCourante.getGains()) / profilage->phaseJeuCourante.getNbPartsDone();
-            double gainParPartieProfilage = static_cast<double>(profilage->phaseProfilageCourante.getGains()) / profilage->phaseProfilageCourante.getNbPartsDone();
+            double gainParPartieJeu = static_cast<double>(profilage->m_currentGamePhase.getGains()) / profilage->m_currentGamePhase.getNbPartsDone();
+            double gainParPartieProfilage = static_cast<double>(profilage->m_currentProfilingPhase.getGains()) / profilage->m_currentProfilingPhase.getNbPartsDone();
 
-            if (profilage->phaseJeuCourante.getGains() < 0 || gainParPartieJeu < gainParPartieProfilage) {
-                profilage->phaseProfilageCourante.newPhase(jeu->getOptions().nombrePartiesReprofilage);
+            if (profilage->m_currentGamePhase.getGains() < 0 || gainParPartieJeu < gainParPartieProfilage) {
+                profilage->m_currentProfilingPhase.newPhase(jeu->getOptions().nombrePartiesReprofilage);
                 return PHASE_PROFILAGE;
             }
             else {
@@ -247,7 +247,7 @@ void IntelligenceArtificielleProfilage::determinerTypeDeJeu() {
                                          +" rationalité: "+QString::number(resolveur->getCalibrage()->getRationality()));
     }
 
-    getProfilage()->reinitialiser();
+    getProfilage()->reset();
 }
 
 void IntelligenceArtificielleProfilage::setCalibragePourProfiler() {
@@ -394,18 +394,19 @@ void IntelligenceArtificielleProfilage::ecritureAnalyseDesGains() {
 
 
 
-        double tauxPartiesGagneesProfilage = CalculateProfilingData::taux(profilage->nbPartiesGagneesProfilage, profilage->nbPartiesProfilage);
-        double tauxPartiesGagneesJeu = CalculateProfilingData::taux(profilage->nbPartiesGagneesJeu, profilage->nbPartiesJeu);
+        double tauxPartiesGagneesProfilage = CalculateProfilingData::taux(profilage->m_numberProfilingGamesWon, profilage->m_numberProfilingGames);
+        double tauxPartiesGagneesJeu = CalculateProfilingData::taux(profilage->m_numberGameGamesWon, profilage->m_numberGamesGame);
 
         double tauxGainsProfilage = 0;
         double tauxGainsjeu=0;
 
-        if (profilage->nbPartiesProfilage != 0) {
-            tauxGainsProfilage = profilage->gainsProfilage / profilage->nbPartiesProfilage;
+        if (profilage->m_numberProfilingGames != 0) {
+            tauxGainsProfilage = profilage->m_profilingEarnings
+ / profilage->m_numberProfilingGames;
         }
 
-        if (profilage->nbPartiesJeu != 0) {
-            tauxGainsjeu=profilage->gainsJeu /  profilage->nbPartiesJeu;
+        if (profilage->m_numberGamesGame != 0) {
+            tauxGainsjeu=profilage->m_gameEarnings /  profilage->m_numberGamesGame;
         }
 
         out << calibrageRecherche.getAggressiveness() << "-" << calibrageRecherche.getRationality() << "," << scenario->getProfilDeduitGlobal().getAggressiveness()

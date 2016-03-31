@@ -24,20 +24,20 @@ Specification: Fichier contenant l'implémentation de la classe
 
 using namespace std;
 
-ScenariosDeTests::ScenariosDeTests(Profile *profilJoueur, Profile *calibrageIA, Profile calibrageAdversaire){
+ScenariosDeTests::ScenariosDeTests(Profile *profilJoueur, Profile *calibrageIA, Profile calibrageAdversaire) {
 
     calibrageRecherche = calibrageAdversaire;
 
-    calibrageActuelIA=calibrageIA;
-    actionReelleJoueur=profilJoueur;
+    calibrageActuelIA = calibrageIA;
+    actionReelleJoueur = profilJoueur;
 }
 
-ScenariosDeTests::~ScenariosDeTests(){
+ScenariosDeTests::~ScenariosDeTests() {
 
 }
 
-void ScenariosDeTests::setCalibrageActuelIA(Profile *calibrage){
-    calibrageActuelIA=calibrage;
+void ScenariosDeTests::setCalibrageActuelIA(Profile *calibrage) {
+    calibrageActuelIA = calibrage;
 }
 
 void ScenariosDeTests::setJoueurSeCouche(bool couche){

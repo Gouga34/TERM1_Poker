@@ -5,7 +5,6 @@ SOURCES += \
     src/Interface/ListeCartes.cpp \
     src/Jeu/Jeu.cpp \
     src/Jeu/Joueur.cpp \
-    src/Profilage/Profilage.cpp \
     src/Interface/CartesDialog.cpp \
     src/Interface/CarteCliquable.cpp \
     src/Interface/ChoixOptionsDialog.cpp \
@@ -30,7 +29,8 @@ SOURCES += \
     src/Profilage/CalculateProfilingData.cpp \
     src/Profilage/GamePhase.cpp \
     src/Jeu/Card.cpp \
-    src/Profilage/Profile.cpp
+    src/Profilage/Profile.cpp \
+    src/Profilage/Profiling.cpp
 
 
 QT+=widgets printsupport
@@ -41,7 +41,6 @@ HEADERS += \
     include/Interface/ListeCartes.h \
     include/Jeu/Jeu.h \
     include/Jeu/Joueur.h \
-    include/Profilage/Profilage.h \
     include/Constantes.h \
     include/Interface/CartesDialog.h \
     include/Interface/CarteCliquable.h \
@@ -67,7 +66,8 @@ HEADERS += \
     include/Profilage/CalculateProfilingData.h \
     include/Profilage/GamePhase.h \
     include/Jeu/Card.h \
-    include/Profilage/Profile.h
+    include/Profilage/Profile.h \
+    include/Profilage/Profiling.h
 
 CONFIG += c++14
 QMAKE_CXX = g++-4.9

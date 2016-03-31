@@ -10,7 +10,7 @@ Specification: Classe d'une IA qui profile.
 #define INTELLIGENCEARTIFICIELLEPROFILAGE_H
 
 #include "IntelligenceArtificielle.h"
-#include "../Profilage/Profilage.h"
+#include "../Profilage/Profiling.h"
 #include "../Profilage/ScenariosDeTests.h"
 
 
@@ -22,7 +22,7 @@ class IntelligenceArtificielleProfilage : public IntelligenceArtificielle
 
         Profile profilJoueur;
 
-        Profilage *profilage;
+        Profiling *profilage;
 
         ScenariosDeTests *scenario;
 
@@ -71,7 +71,7 @@ class IntelligenceArtificielleProfilage : public IntelligenceArtificielle
         /**
          * @return Profilage du joueur par l'IA
          */
-        Profilage* getProfilage() const;
+        Profiling* getProfilage() const;
 
         /**
          * @action Modifie le pseudo du joueur profilé

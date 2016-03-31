@@ -166,12 +166,12 @@ void ContenuFenetreIA::majResultatsGlobaux(){
     //Total gains:
     QTableWidgetItem* gainsPrec = resultatsGlobaux.takeItem(ligne,TOTAL_GAINS);
     int gainsPrecs = gainsPrec->text().toInt();
-    int gainsTot = gainsPrecs +IA->getProfilage()->nbJetonsGagnesIAQuiProfile;
+    int gainsTot = gainsPrecs +IA->getProfilage()->m_numberTokensWonProfilingAI;
     resultatsGlobaux.setItem(ligne,TOTAL_GAINS,new QTableWidgetItem(QString::number(gainsTot)) );
     //Nb parties gagnées
-    if(IA->getProfilage()->partieGagneeIAQuiProfile==1){
+    if(IA->getProfilage()->m_gameResultProfilingAIviewpoint==1){
         int nbPartiesGagneesPrec=resultatsGlobaux.takeItem(ligne,NB_PARTIES_GAGNEES)->text().toInt();
-        int nbPartiesTot=nbPartiesGagneesPrec+IA->getProfilage()->partieGagneeIAQuiProfile;
+        int nbPartiesTot=nbPartiesGagneesPrec+IA->getProfilage()->m_gameResultProfilingAIviewpoint;
         resultatsGlobaux.setItem(ligne,NB_PARTIES_GAGNEES, new QTableWidgetItem(QString::number(nbPartiesTot)));
     }
 }
@@ -190,7 +190,7 @@ void ContenuFenetreIA::ajouterLigne(){
     //Ajout d'une ligne:
     recapParties.insertRow(nouvelleLigne);
 
-    recapParties.setItem(nouvelleLigne,SCENARIOS_EN_COURS,new QTableWidgetItem(QString::number(IA->getProfilage()->scenarioDeTest)));
+    recapParties.setItem(nouvelleLigne,SCENARIOS_EN_COURS,new QTableWidgetItem(QString::number(IA->getProfilage()->m_testScenario)));
 
     recapParties.setItem(nouvelleLigne,AGRESSIVITE_IA_QUI_PROFILE, new QTableWidgetItem(QString::number(IA->getCalibrage()->getAggressiveness())));
 
@@ -204,9 +204,9 @@ void ContenuFenetreIA::ajouterLigne(){
 
     //recapParties.setItem(nouvelleLigne, JEU_AGRESSIF, new QTableWidgetItem(QString::number(IA->getProfilage()->jeuAgressif)));
 
-    recapParties.setItem(nouvelleLigne, GAINS, new QTableWidgetItem(QString::number(IA->getProfilage()->nbJetonsGagnesIAQuiProfile)));
+    recapParties.setItem(nouvelleLigne, GAINS, new QTableWidgetItem(QString::number(IA->getProfilage()->m_numberTokensWonProfilingAI)));
 
-    recapParties.setItem(nouvelleLigne, GAIN_IA_QUI_PROFILE, new QTableWidgetItem(QString::number(IA->getProfilage()->partieGagneeIAQuiProfile)));
+    recapParties.setItem(nouvelleLigne, GAIN_IA_QUI_PROFILE, new QTableWidgetItem(QString::number(IA->getProfilage()->m_gameResultProfilingAIviewpoint)));
 }
 
 void ContenuFenetreIA::scrollAutomatiqueTableau(){
@@ -253,7 +253,7 @@ void ContenuFenetreIA::majGraphiqueResultats(){
     graphiqueResultats.graph(1)->rescaleAxes();
 
     IntelligenceArtificielleProfilage *IA =static_cast<IntelligenceArtificielleProfilage*>(jeu->getJoueur(1));
-    if (IA->getProfilage()->scenarioDeTest == 1) {
+    if (IA->getProfilage()->m_testScenario == 1) {
         changerFondPendantProfilage();
     }
 
