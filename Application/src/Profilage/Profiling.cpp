@@ -14,8 +14,8 @@ Specification: Fichier contenant les définitions de la classe Profilage.
 #include <QStringList>
 #include <string>
 
-Profiling::Profiling(Profile *calibrageIA, Profile *profil)
-    : m_aiProfile(calibrageIA), m_playerProfile(profil), m_partsNumber(0),
+Profiling::Profiling(Profile *aiCalibration, Profile *profile)
+    : m_aiProfile(aiCalibration), m_playerProfile(profile), m_partsNumber(0),
       m_numberProfilingGamesWon(0), m_numberProfilingGames(0), m_numberGameGamesWon(0),
       m_numberGamesGame(0), m_profilingEarnings(0), m_gameEarnings(0)
 {

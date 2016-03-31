@@ -154,11 +154,11 @@ void ContenuFenetreIA::majResultatsGlobaux(){
     IntelligenceArtificielleProfilage *IA =static_cast<IntelligenceArtificielleProfilage*>(jeu->getJoueur(1));
     int ligne =resultatsGlobaux.rowCount()-1;
     //Ag déduite:
-    resultatsGlobaux.setItem(ligne, AG_DEDUITE, new QTableWidgetItem(QString::number(IA->getScenario().getProfilDeduitGlobal().getAggressiveness())));
+    resultatsGlobaux.setItem(ligne, AG_DEDUITE, new QTableWidgetItem(QString::number(IA->getScenario().getGlobalDeductedProfile().getAggressiveness())));
     //Ra déduite:
-    resultatsGlobaux.setItem(ligne, RA_DEDUITE, new QTableWidgetItem(QString::number(IA->getScenario().getProfilDeduitGlobal().getRationality())));
+    resultatsGlobaux.setItem(ligne, RA_DEDUITE, new QTableWidgetItem(QString::number(IA->getScenario().getGlobalDeductedProfile().getRationality())));
     //Taux similarite:
-    resultatsGlobaux.setItem(ligne,SIMILARITE, new QTableWidgetItem(QString::number(IA->getScenario().getTauxSimilarite())));
+    resultatsGlobaux.setItem(ligne,SIMILARITE, new QTableWidgetItem(QString::number(IA->getScenario().getSimilarityDegree())));
     //Nb jeux agressifs:
     //QTableWidgetItem* nbPrec=resultatsGlobaux.takeItem(ligne,NB_JEUX_AGRESSIFS);
     //int nbPrecs = nbPrec->text().toInt();
@@ -196,11 +196,11 @@ void ContenuFenetreIA::ajouterLigne(){
 
     recapParties.setItem(nouvelleLigne,RATIONALITE_IA_QUI_PROFILE, new QTableWidgetItem(QString::number(IA->getCalibrage()->getRationality())));
 
-    recapParties.setItem(nouvelleLigne,AGRESSIVITE_DEDUITE, new QTableWidgetItem(QString::number(IA->getScenario().getProfilDeduitGlobal().getAggressiveness())));
+    recapParties.setItem(nouvelleLigne,AGRESSIVITE_DEDUITE, new QTableWidgetItem(QString::number(IA->getScenario().getGlobalDeductedProfile().getAggressiveness())));
 
-    recapParties.setItem(nouvelleLigne,RATIONALITE_DEDUITE, new QTableWidgetItem(QString::number(IA->getScenario().getProfilDeduitGlobal().getRationality())));
+    recapParties.setItem(nouvelleLigne,RATIONALITE_DEDUITE, new QTableWidgetItem(QString::number(IA->getScenario().getGlobalDeductedProfile().getRationality())));
 
-    recapParties.setItem(nouvelleLigne, TAUX_SIMILARITE, new QTableWidgetItem(QString::number(IA->getScenario().getTauxSimilarite())));
+    recapParties.setItem(nouvelleLigne, TAUX_SIMILARITE, new QTableWidgetItem(QString::number(IA->getScenario().getSimilarityDegree())));
 
     //recapParties.setItem(nouvelleLigne, JEU_AGRESSIF, new QTableWidgetItem(QString::number(IA->getProfilage()->jeuAgressif)));
 

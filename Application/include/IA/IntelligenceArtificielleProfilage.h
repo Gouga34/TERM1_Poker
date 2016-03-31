@@ -11,7 +11,7 @@ Specification: Classe d'une IA qui profile.
 
 #include "IntelligenceArtificielle.h"
 #include "../Profilage/Profiling.h"
-#include "../Profilage/ScenariosDeTests.h"
+#include "../Profilage/TestScenario.h"
 
 
 class IntelligenceArtificielleProfilage : public IntelligenceArtificielle
@@ -24,7 +24,7 @@ class IntelligenceArtificielleProfilage : public IntelligenceArtificielle
 
         Profiling *profilage;
 
-        ScenariosDeTests *scenario;
+        TestScenarios *scenario;
 
 
         double calculValeurProportionnelle(double minVal1, double val1, double maxVal1, double minVal2, double maxVal2) const;
@@ -66,7 +66,7 @@ class IntelligenceArtificielleProfilage : public IntelligenceArtificielle
          * @brief getScenario
          * @return copie de scenarios de tests
          */
-        ScenariosDeTests getScenario() const;
+        TestScenarios getScenario() const;
 
         /**
          * @return Profilage du joueur par l'IA

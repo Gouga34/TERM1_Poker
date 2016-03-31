@@ -12,6 +12,7 @@ Specification: Classe contenant l'écriture et la lecture
 #define PROFILAGE_H
 
 #include <string>
+#include <array>
 #include <QString>
 #include "../Constantes.h"
 #include "Profile.h"
@@ -57,7 +58,7 @@ class Profiling
         };
 
         // Une ligne par étape + 1 ligne pour le global
-        StepPart m_stepParts[ETAPE_JEU::NB_ETAPES + 1];
+        std::array<StepPart, ETAPE_JEU::NB_ETAPES + 1> m_stepParts;
 
 
         // Données des phases de profilage et de gains en cours
@@ -77,7 +78,7 @@ class Profiling
         int m_gameEarnings;
 
 
-        Profiling(Profile *calibrageIA, Profile *profil);
+        Profiling(Profile *aiCalibration, Profile *profile);
         ~Profiling();
 
         /**

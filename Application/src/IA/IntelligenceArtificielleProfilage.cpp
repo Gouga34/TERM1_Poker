@@ -36,7 +36,7 @@ IntelligenceArtificielleProfilage::~IntelligenceArtificielleProfilage()
     }
 }
 
-ScenariosDeTests IntelligenceArtificielleProfilage::getScenario() const{
+TestScenarios IntelligenceArtificielleProfilage::getScenario() const{
     return *scenario;
 }
 
@@ -62,7 +62,7 @@ void IntelligenceArtificielleProfilage::setPseudoJoueurProfile(std::string pseud
     if (scenario) {
         delete scenario;
     }
-    scenario = new ScenariosDeTests(&profilJoueur, resolveur->getCalibrage(), calibrageRecherche);
+    scenario = new TestScenarios(&profilJoueur, resolveur->getCalibrage(), calibrageRecherche);
 }
 
 void IntelligenceArtificielleProfilage::remplissageDonneesProfilage() {
@@ -176,8 +176,8 @@ void IntelligenceArtificielleProfilage::calculProfilGlobalJoueur() {
 }
 
 void IntelligenceArtificielleProfilage::ecritureScenariosDeTests() {
-    scenario->setChancesDeGain(profilage->m_stepParts[ETAPE_JEU::NB_ETAPES].adversaryWinningProbabilities);
-    scenario->sauvegarderPartie();
+    scenario->setWinningChances(profilage->m_stepParts[ETAPE_JEU::NB_ETAPES].adversaryWinningProbabilities);
+    scenario->saveGame();
 }
 
 void IntelligenceArtificielleProfilage::ecritureResultatsPartie() {
@@ -286,11 +286,11 @@ void IntelligenceArtificielleProfilage::setCalibragePourJouer() {
         double agressiviteMin = liste.at(0).split("-").at(0).toDouble();
         double agressiviteMax = liste.at(0).split("-").at(1).toDouble();
 
-        if (scenario->getProfilDeduitGlobal().getAggressiveness() >= agressiviteMin && scenario->getProfilDeduitGlobal().getAggressiveness() <= agressiviteMax) {
+        if (scenario->getGlobalDeductedProfile().getAggressiveness() >= agressiviteMin && scenario->getGlobalDeductedProfile().getAggressiveness() <= agressiviteMax) {
             double rationaliteMin = liste.at(1).split("-").at(0).toDouble();
             double rationaliteMax = liste.at(1).split("-").at(1).toDouble();
 
-            if (scenario->getProfilDeduitGlobal().getRationality() >= rationaliteMin && scenario->getProfilDeduitGlobal().getRationality() <= rationaliteMax) {
+            if (scenario->getGlobalDeductedProfile().getRationality() >= rationaliteMin && scenario->getGlobalDeductedProfile().getRationality() <= rationaliteMax) {
 
                 Profile nouveauProfil;
 
@@ -298,7 +298,7 @@ void IntelligenceArtificielleProfilage::setCalibragePourJouer() {
                     nouveauProfil.setAggressiveness(liste.at(2).toDouble());
                 }
                 else {
-                    nouveauProfil.setAggressiveness(calculValeurProportionnelle(agressiviteMin, scenario->getProfilDeduitGlobal().getAggressiveness(), agressiviteMax,
+                    nouveauProfil.setAggressiveness(calculValeurProportionnelle(agressiviteMin, scenario->getGlobalDeductedProfile().getAggressiveness(), agressiviteMax,
                                                                              liste.at(2).split("-").at(0).toDouble(), liste.at(2).split("-").at(1).toDouble()));
                 }
 
@@ -306,7 +306,7 @@ void IntelligenceArtificielleProfilage::setCalibragePourJouer() {
                     nouveauProfil.setRationality(liste.at(3).toDouble());
                 }
                 else {
-                    nouveauProfil.setRationality(calculValeurProportionnelle(rationaliteMin, scenario->getProfilDeduitGlobal().getRationality(), rationaliteMax,
+                    nouveauProfil.setRationality(calculValeurProportionnelle(rationaliteMin, scenario->getGlobalDeductedProfile().getRationality(), rationaliteMax,
                                                                              liste.at(3).split("-").at(0).toDouble(), liste.at(3).split("-").at(1).toDouble()));
                 }
 
@@ -409,8 +409,8 @@ void IntelligenceArtificielleProfilage::ecritureAnalyseDesGains() {
             tauxGainsjeu=profilage->m_gameEarnings /  profilage->m_numberGamesGame;
         }
 
-        out << calibrageRecherche.getAggressiveness() << "-" << calibrageRecherche.getRationality() << "," << scenario->getProfilDeduitGlobal().getAggressiveness()
-            << "," << scenario->getProfilDeduitGlobal().getRationality() << "," << scenario->getTauxSimilarite() << ","
+        out << calibrageRecherche.getAggressiveness() << "-" << calibrageRecherche.getRationality() << "," << scenario->getGlobalDeductedProfile().getAggressiveness()
+            << "," << scenario->getGlobalDeductedProfile().getRationality() << "," << scenario->getSimilarityDegree() << ","
             << tauxPartiesGagneesProfilage << "," << tauxGainsProfilage << "," << tauxPartiesGagneesJeu << ","
             << tauxGainsjeu << endl;
 
