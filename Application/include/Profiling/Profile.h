@@ -28,7 +28,7 @@ namespace profiling {
 
             Profile();
             Profile(std::string pseudo);
-            ~Profile();
+            virtual ~Profile();
 
             std::string getPseudo() const;
 

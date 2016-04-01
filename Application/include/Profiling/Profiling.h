@@ -81,17 +81,17 @@ namespace profiling {
 
 
             Profiling(Profile *aiCalibration, Profile *profile);
-            ~Profiling();
+            virtual ~Profiling();
 
             /**
              * @action Efface les données de profilage de la partie enregistrée
              */
-            void reset();
+            virtual void reset();
 
             /**
              * @action Ajoute les données de profilage de la partie dans le fichier correspondant au joueur
              */
-            void save();
+            virtual void save();
     };
 }
 

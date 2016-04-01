@@ -15,6 +15,11 @@ namespace profiling {
 
     }
 
+    GamePhase::~GamePhase()
+    {
+
+    }
+
     int GamePhase::getNbPartsDone() const
     {
         return m_nbPartsDone;

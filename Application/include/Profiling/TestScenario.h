@@ -35,13 +35,13 @@ namespace profiling {
          * @action calcule l'action attendue du joueur,
          *         éventuellement en fonction des actions réelles précédentes
          */
-        void calculateExpectedActionPlayer(QFile &profileFile);
+        virtual void calculateExpectedActionPlayer(QFile &profileFile);
 
         /**
          * @brief calculateDistance
          * @action calcule la distance entre l'action réelle et l'action attendue
          */
-        void calculateDistance();
+        virtual void calculateDistance();
 
         /**
          * @brief oldNearestStatus
@@ -49,34 +49,33 @@ namespace profiling {
          * (chances de gain et agressivité et chances de gain joueur)
          * @param fichierProfil
          */
-        void oldNearestStatus(QFile &profileFile);
+        virtual void oldNearestStatus(QFile &profileFile);
 
     public:
         TestScenarios(Profile *playerProfile, Profile *aiCalibration, Profile opponentProfile);
 
-        ~TestScenarios();
+        virtual ~TestScenarios();
 
-        void setAiCurrentCalibration(Profile *aiCurrentCalibration);
-        void setIsPlayerFolded(bool isPlayerFolded);
-        void setDistance(double distance);
-        void setExpectedActionPlayer(Profile expectedActionPlayer);
-        void setRealActionPlayer(Profile *realActionPlayer);
-        void setWinningChances(double winningChances);
+        virtual void setAiCurrentCalibration(Profile *aiCurrentCalibration);
+        virtual void setIsPlayerFolded(bool isPlayerFolded);
+        virtual void setDistance(double distance);
+        virtual void setExpectedActionPlayer(Profile expectedActionPlayer);
+        virtual void setRealActionPlayer(Profile *realActionPlayer);
+        virtual void setWinningChances(double winningChances);
 
-        Profile *getAiCurrentCalibration() const;
-        bool getIsPlayerFolded() const;
-        double getDistance() const;
-        Profile getExpectedActionPlayer() const;
-        Profile *getRealActionPlayer() const;
-        double getWinningChances() const;
-        Profile getGlobalDeductedProfile() const;
-        double getSimilarityDegree() const;
-
+        virtual Profile *getAiCurrentCalibration() const;
+        virtual bool getIsPlayerFolded() const;
+        virtual double getDistance() const;
+        virtual Profile getExpectedActionPlayer() const;
+        virtual Profile *getRealActionPlayer() const;
+        virtual double getWinningChances() const;
+        virtual Profile getGlobalDeductedProfile() const;
+        virtual double getSimilarityDegree() const;
 
         /**
          * @brief saveGame écrit le scénario dans le fichier de sortie "pseudo_scenarios_tests.json"
          */
-        void saveGame();
+        virtual void saveGame();
     };
 }
 
