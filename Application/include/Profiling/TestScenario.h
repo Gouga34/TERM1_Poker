@@ -14,67 +14,70 @@ Specification: Classe permettant d'écrire et
 #include <QJsonObject>
 #include <QFile>
 
-class TestScenarios {
-private:
+namespace profiling {
 
-    Profile m_wantedCalibration;
-    Profile *m_aiCurrentCalibration;
-    Profile m_expectedActionPlayer;
-    Profile *m_realActionPlayer;
-    double m_winningChances;
-    bool m_isPlayerFolded; //attribut pas encore traité dans les méthodes. A traiter plus tard
-    double m_distance;
+    class TestScenarios {
+    private:
 
-    Profile m_globalDeductedProfile;
-    double m_similarityDegree;
+        Profile m_wantedCalibration;
+        Profile *m_aiCurrentCalibration;
+        Profile m_expectedActionPlayer;
+        Profile *m_realActionPlayer;
+        double m_winningChances;
+        bool m_isPlayerFolded; //attribut pas encore traité dans les méthodes. A traiter plus tard
+        double m_distance;
 
-    /**
-     * @brief calculateExpectedActionPlayer
-     * @action calcule l'action attendue du joueur,
-     *         éventuellement en fonction des actions réelles précédentes
-     */
-    void calculateExpectedActionPlayer(QFile &profileFile);
+        Profile m_globalDeductedProfile;
+        double m_similarityDegree;
 
-    /**
-     * @brief calculateDistance
-     * @action calcule la distance entre l'action réelle et l'action attendue
-     */
-    void calculateDistance();
+        /**
+         * @brief calculateExpectedActionPlayer
+         * @action calcule l'action attendue du joueur,
+         *         éventuellement en fonction des actions réelles précédentes
+         */
+        void calculateExpectedActionPlayer(QFile &profileFile);
 
-    /**
-     * @brief oldNearestStatus
-     * @action cherche et trouve s'il y en a une, la situation déjà rencontrée la plus proche de la situation actuelle
-     * (chances de gain et agressivité et chances de gain joueur)
-     * @param fichierProfil
-     */
-    void oldNearestStatus(QFile &profileFile);
+        /**
+         * @brief calculateDistance
+         * @action calcule la distance entre l'action réelle et l'action attendue
+         */
+        void calculateDistance();
 
-public:
-    TestScenarios(Profile *playerProfile, Profile *aiCalibration, Profile opponentProfile);
+        /**
+         * @brief oldNearestStatus
+         * @action cherche et trouve s'il y en a une, la situation déjà rencontrée la plus proche de la situation actuelle
+         * (chances de gain et agressivité et chances de gain joueur)
+         * @param fichierProfil
+         */
+        void oldNearestStatus(QFile &profileFile);
 
-    ~TestScenarios();
+    public:
+        TestScenarios(Profile *playerProfile, Profile *aiCalibration, Profile opponentProfile);
 
-    void setAiCurrentCalibration(Profile *aiCurrentCalibration);
-    void setIsPlayerFolded(bool isPlayerFolded);
-    void setDistance(double distance);
-    void setExpectedActionPlayer(Profile expectedActionPlayer);
-    void setRealActionPlayer(Profile *realActionPlayer);
-    void setWinningChances(double winningChances);
+        ~TestScenarios();
 
-    Profile *getAiCurrentCalibration() const;
-    bool getIsPlayerFolded() const;
-    double getDistance() const;
-    Profile getExpectedActionPlayer() const;
-    Profile *getRealActionPlayer() const;
-    double getWinningChances() const;
-    Profile getGlobalDeductedProfile() const;
-    double getSimilarityDegree() const;
+        void setAiCurrentCalibration(Profile *aiCurrentCalibration);
+        void setIsPlayerFolded(bool isPlayerFolded);
+        void setDistance(double distance);
+        void setExpectedActionPlayer(Profile expectedActionPlayer);
+        void setRealActionPlayer(Profile *realActionPlayer);
+        void setWinningChances(double winningChances);
+
+        Profile *getAiCurrentCalibration() const;
+        bool getIsPlayerFolded() const;
+        double getDistance() const;
+        Profile getExpectedActionPlayer() const;
+        Profile *getRealActionPlayer() const;
+        double getWinningChances() const;
+        Profile getGlobalDeductedProfile() const;
+        double getSimilarityDegree() const;
 
 
-    /**
-     * @brief saveGame écrit le scénario dans le fichier de sortie "pseudo_scenarios_tests.json"
-     */
-    void saveGame();
-};
+        /**
+         * @brief saveGame écrit le scénario dans le fichier de sortie "pseudo_scenarios_tests.json"
+         */
+        void saveGame();
+    };
+}
 
 #endif // SCENARIOSDETESTS_H

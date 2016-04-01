@@ -50,13 +50,13 @@ class IntelligenceArtificielle : public Joueur {
         /**
          * @return Calibrage de l'IA
          */
-        Profile* getCalibrage();
+        profiling::Profile* getCalibrage();
 
         /**
          * @action Modifie les valeurs de calibrage de l'IA
          * @param profil Profil de l'IA
          */
-        void setCalibrage(Profile profil);
+        void setCalibrage(profiling::Profile profil);
 
         /**
          * @brief Attribue un nouveau calibrage tiré aléatoirement pour l'IA

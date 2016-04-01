@@ -18,78 +18,81 @@ Specification: Classe contenant l'écriture et la lecture
 #include "Profile.h"
 #include "GamePhase.h"
 
-class Profiling
-{
-    private:
+namespace profiling {
 
-        Profile *m_aiProfile;
+    class Profiling
+    {
+        private:
 
-    public:
+            Profile *m_aiProfile;
 
-        Profile *m_playerProfile;
+        public:
 
-        RESULTAT_PARTIE m_gameResultProfilingAIviewpoint;
-        int m_numberTokensWonProfilingAI;
-        bool m_testScenario;
-        bool m_roughPlay;
+            Profile *m_playerProfile;
 
-        struct StepPart
-        {
-            bool isFolded;                    // vrai si le joueur s'est couché
+            RESULTAT_PARTIE m_gameResultProfilingAIviewpoint;
+            int m_numberTokensWonProfilingAI;
+            bool m_testScenario;
+            bool m_roughPlay;
 
-            double adversaryWinningProbabilities;     // % de chance de gagner du joueur (-1 si cartes inconnues)
+            struct StepPart
+            {
+                bool isFolded;                    // vrai si le joueur s'est couché
 
-            /* Type du joueur (somme des taux = 100%) */
-            double aggressivenessRate;         // Agressivité du joueur (mise la plus haute, mise totale, nb checks)
-            double rationalityRate;        // Rationalite du joueur (mise totale, s'est couché ?)
-            double bluffRate;               // Bluff du joueur (mise totale, s'est couché ?)
-            double passivityRate;           // Passivite du joueur (suivis, checks)
+                double adversaryWinningProbabilities;     // % de chance de gagner du joueur (-1 si cartes inconnues)
 
-            /* Taux en % des différentes actions effectuées par le joueur (les relances sont incluses dans les mises) */
-            double callRate;
-            double checkRate;
-            double betRate;
+                /* Type du joueur (somme des taux = 100%) */
+                double aggressivenessRate;         // Agressivité du joueur (mise la plus haute, mise totale, nb checks)
+                double rationalityRate;        // Rationalite du joueur (mise totale, s'est couché ?)
+                double bluffRate;               // Bluff du joueur (mise totale, s'est couché ?)
+                double passivityRate;           // Passivite du joueur (suivis, checks)
 
-            /* Taux en % des mises en fonction des jetons du joueur */
-            double highestBet;           // Mise plus haute du joueur
-            double totalBet;        // Mise totale du joueur
+                /* Taux en % des différentes actions effectuées par le joueur (les relances sont incluses dans les mises) */
+                double callRate;
+                double checkRate;
+                double betRate;
 
-            int numberOfActions;
-        };
+                /* Taux en % des mises en fonction des jetons du joueur */
+                double highestBet;           // Mise plus haute du joueur
+                double totalBet;        // Mise totale du joueur
 
-        // Une ligne par étape + 1 ligne pour le global
-        std::array<StepPart, ETAPE_JEU::NB_ETAPES + 1> m_stepParts;
+                int numberOfActions;
+            };
 
-
-        // Données des phases de profilage et de gains en cours
-        GamePhase m_currentProfilingPhase;
-        GamePhase m_currentGamePhase;
+            // Une ligne par étape + 1 ligne pour le global
+            std::array<StepPart, ETAPE_JEU::NB_ETAPES + 1> m_stepParts;
 
 
-        // Données globales au profilage
-        int m_partsNumber;
-        int m_numberProfilingGames;
-        int m_numberProfilingGamesWon;
-
-        int m_numberGameGamesWon;
-        int m_numberGamesGame;
-
-        int m_profilingEarnings;
-        int m_gameEarnings;
+            // Données des phases de profilage et de gains en cours
+            GamePhase m_currentProfilingPhase;
+            GamePhase m_currentGamePhase;
 
 
-        Profiling(Profile *aiCalibration, Profile *profile);
-        ~Profiling();
+            // Données globales au profilage
+            int m_partsNumber;
+            int m_numberProfilingGames;
+            int m_numberProfilingGamesWon;
 
-        /**
-         * @action Efface les données de profilage de la partie enregistrée
-         */
-        void reset();
+            int m_numberGameGamesWon;
+            int m_numberGamesGame;
 
-        /**
-         * @action Ajoute les données de profilage de la partie dans le fichier correspondant au joueur
-         */
-        void save();
-};
+            int m_profilingEarnings;
+            int m_gameEarnings;
+
+
+            Profiling(Profile *aiCalibration, Profile *profile);
+            ~Profiling();
+
+            /**
+             * @action Efface les données de profilage de la partie enregistrée
+             */
+            void reset();
+
+            /**
+             * @action Ajoute les données de profilage de la partie dans le fichier correspondant au joueur
+             */
+            void save();
+    };
+}
 
 #endif // PROFILAGE_H

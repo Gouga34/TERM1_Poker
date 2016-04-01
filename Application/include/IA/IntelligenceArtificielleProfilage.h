@@ -20,11 +20,11 @@ class IntelligenceArtificielleProfilage : public IntelligenceArtificielle
 
         PHASE_JEU_IA phaseJeu;
 
-        Profile profilJoueur;
+        profiling::Profile profilJoueur;
 
-        Profiling *profilage;
+        profiling::Profiling *profilage;
 
-        TestScenarios *scenario;
+        profiling::TestScenarios *scenario;
 
 
         double calculValeurProportionnelle(double minVal1, double val1, double maxVal1, double minVal2, double maxVal2) const;
@@ -66,12 +66,12 @@ class IntelligenceArtificielleProfilage : public IntelligenceArtificielle
          * @brief getScenario
          * @return copie de scenarios de tests
          */
-        TestScenarios getScenario() const;
+        profiling::TestScenarios getScenario() const;
 
         /**
          * @return Profilage du joueur par l'IA
          */
-        Profiling* getProfilage() const;
+        profiling::Profiling* getProfilage() const;
 
         /**
          * @action Modifie le pseudo du joueur profilé

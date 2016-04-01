@@ -8,35 +8,38 @@ Specification: Fichier contenant les définitions de la classe PhaseJeu.
 
 #include "../../include/Profiling/GamePhase.h"
 
-GamePhase::GamePhase()
-{
+namespace profiling {
 
-}
+    GamePhase::GamePhase()
+    {
 
-int GamePhase::getNbPartsDone() const
-{
-    return m_nbPartsDone;
-}
+    }
 
-int GamePhase::getNbMinParts() const
-{
-    return m_nbMinParts;
-}
+    int GamePhase::getNbPartsDone() const
+    {
+        return m_nbPartsDone;
+    }
 
-int GamePhase::getGains() const
-{
-    return m_gains;
-}
+    int GamePhase::getNbMinParts() const
+    {
+        return m_nbMinParts;
+    }
 
-void GamePhase::newPhase(int nbParts)
-{
-    m_nbMinParts = nbParts;
-    m_nbPartsDone = 0;
-    m_gains = 0;
-}
+    int GamePhase::getGains() const
+    {
+        return m_gains;
+    }
 
-void GamePhase::finishedPart(int partGains)
-{
-    ++m_nbPartsDone;
-    m_gains += partGains;
+    void GamePhase::newPhase(int nbParts)
+    {
+        m_nbMinParts = nbParts;
+        m_nbPartsDone = 0;
+        m_gains = 0;
+    }
+
+    void GamePhase::finishedPart(int partGains)
+    {
+        ++m_nbPartsDone;
+        m_gains += partGains;
+    }
 }

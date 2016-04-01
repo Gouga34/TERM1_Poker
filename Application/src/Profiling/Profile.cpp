@@ -8,55 +8,58 @@ Specification: Fichier contenant les définitions de la classe Profil.
 
 #include "../../include/Profiling/Profile.h"
 
-Profile::Profile() : m_pseudo(""), m_aggressiveness(0), m_rationality(0), m_bluff(0), m_passivity(0) {
+namespace profiling {
 
-}
+    Profile::Profile() : m_pseudo(""), m_aggressiveness(0), m_rationality(0), m_bluff(0), m_passivity(0) {
 
-Profile::Profile(std::string pseudo) : m_pseudo(pseudo),
-    m_aggressiveness(0), m_rationality(0), m_bluff(0), m_passivity(0) {
+    }
 
-}
+    Profile::Profile(std::string pseudo) : m_pseudo(pseudo),
+        m_aggressiveness(0), m_rationality(0), m_bluff(0), m_passivity(0) {
 
-Profile::~Profile() {
+    }
 
-}
+    Profile::~Profile() {
 
-std::string Profile::getPseudo() const {
-    return m_pseudo;
-}
+    }
 
-double Profile::getAggressiveness() const {
-    return m_aggressiveness;
-}
+    std::string Profile::getPseudo() const {
+        return m_pseudo;
+    }
 
-double Profile::getRationality() const {
-    return m_rationality;
-}
+    double Profile::getAggressiveness() const {
+        return m_aggressiveness;
+    }
 
-double Profile::getBluff() const {
-    return m_bluff;
-}
+    double Profile::getRationality() const {
+        return m_rationality;
+    }
 
-double Profile::getPassivity() const {
-    return m_passivity;
-}
+    double Profile::getBluff() const {
+        return m_bluff;
+    }
 
-void Profile::setPseudo(std::string pseudo) {
-    m_pseudo = pseudo;
-}
+    double Profile::getPassivity() const {
+        return m_passivity;
+    }
 
-void Profile::setAggressiveness(double aggressiveness) {
-    m_aggressiveness = aggressiveness;
-}
+    void Profile::setPseudo(std::string pseudo) {
+        m_pseudo = pseudo;
+    }
 
-void Profile::setRationality(double rationality) {
-    m_rationality = rationality;
-}
+    void Profile::setAggressiveness(double aggressiveness) {
+        m_aggressiveness = aggressiveness;
+    }
 
-void Profile::setBluff(double bluff) {
-    m_bluff = bluff;
-}
+    void Profile::setRationality(double rationality) {
+        m_rationality = rationality;
+    }
 
-void Profile::setPassivity(double passivity) {
-    m_passivity = passivity;
+    void Profile::setBluff(double bluff) {
+        m_bluff = bluff;
+    }
+
+    void Profile::setPassivity(double passivity) {
+        m_passivity = passivity;
+    }
 }

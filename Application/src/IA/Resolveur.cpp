@@ -17,7 +17,7 @@ Specification: Fichier contenant les corps des méthodes
 using namespace std;
 
 Resolveur::Resolveur(IntelligenceArtificielle *ia2):jeuAgressif(false), ia(ia2){
-    calibrage=new Profile;
+    calibrage=new profiling::Profile;
 }
 
 
@@ -33,7 +33,7 @@ void Resolveur::setJeuAgressif(bool ag) {
     jeuAgressif = ag;
 }
 
-void Resolveur::setCalibrage(Profile profil){
+void Resolveur::setCalibrage(profiling::Profile profil){
 
     calibrage->setAggressiveness(profil.getAggressiveness());
     calibrage->setRationality(profil.getRationality());
@@ -41,7 +41,7 @@ void Resolveur::setCalibrage(Profile profil){
 }
 
 
-Profile* Resolveur::getCalibrage() {
+profiling::Profile* Resolveur::getCalibrage() {
     return calibrage;
 }
 
@@ -252,7 +252,7 @@ Action Resolveur::calculerActionRationalite(){
         //Choix aléatoire d'une des actions de la liste :
         int random=rand()%listeActions.size();
 
-        double miseTheorique=CalculateProfilingData::theoreticalBet(ia->getChancesGain());
+        double miseTheorique=profiling::CalculateProfilingData::theoreticalBet(ia->getChancesGain());
         int jetonsAMiserTheorique=(miseTheorique*ia->getCave())/100;
 
 
@@ -301,7 +301,7 @@ Action Resolveur::calculerActionRationalite(){
 
 int Resolveur::calculerMiseRationalite(ACTION action){
     //On récupère la mise théorique si le joueur est 100% agressif
-    double miseTheorique=CalculateProfilingData::theoreticalBet(ia->getChancesGain());
+    double miseTheorique=profiling::CalculateProfilingData::theoreticalBet(ia->getChancesGain());
 
     int jetonsAMiser=(miseTheorique*ia->getCave())/100;
 

@@ -87,7 +87,7 @@ void Fenetre::initialiser()
             ia->setCalibrage(jeu->getOptions().iaProfilee);
         }
 
-        Profile calibrage = *(ia->getCalibrage());
+        profiling::Profile calibrage = *(ia->getCalibrage());
         pseudoJoueur = QString::number(calibrage.getAggressiveness()) + "_" + QString::number(calibrage.getRationality());
 
         contenu = new ContenuFenetreIA(jeu, this);

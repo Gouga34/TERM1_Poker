@@ -55,9 +55,9 @@ ChoixCalibrage::ChoixCalibrage(const QString& titre, QWidget *parent) : QGroupBo
     setLayout(layout);
 }
 
-Profile ChoixCalibrage::getCalibrage() const
+profiling::Profile ChoixCalibrage::getCalibrage() const
 {
-    Profile p;
+    profiling::Profile p;
 
     p.setAggressiveness(agressivite.value());
     p.setRationality(rationalite.value());

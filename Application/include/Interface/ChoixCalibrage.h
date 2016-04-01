@@ -30,7 +30,7 @@ class ChoixCalibrage : public QGroupBox
          * @brief getCalibrage
          * @return Calibrage des sliders
          */
-        Profile getCalibrage() const;
+        profiling::Profile getCalibrage() const;
 };
 
 #endif // CHOIXCALIBRAGE_H

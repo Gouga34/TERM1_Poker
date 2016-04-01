@@ -20,8 +20,8 @@ class CalibrageIdeal
 
         Jeu *jeu;
 
-        Profile *calibrageIAQuiProfile;
-        Profile *calibrageIAProfilee;
+        profiling::Profile *calibrageIAQuiProfile;
+        profiling::Profile *calibrageIAProfilee;
 
         int nombreParties;
         int nombrePartiesGagnees;
@@ -38,7 +38,7 @@ class CalibrageIdeal
 
     public:
 
-        CalibrageIdeal(Jeu *j, Profile *iaQuiProfile, Profile *iaProfilee, int nbParties);
+        CalibrageIdeal(Jeu *j, profiling::Profile *iaQuiProfile, profiling::Profile *iaProfilee, int nbParties);
         ~CalibrageIdeal();
 
         /**

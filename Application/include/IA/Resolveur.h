@@ -22,7 +22,7 @@ class Resolveur{
 private:
 
     bool jeuAgressif;
-    Profile *calibrage;
+    profiling::Profile *calibrage;
     double miseTotaleTheoriqueAgressivite;
 
 
@@ -86,13 +86,13 @@ public:
     * @brief setCalibrage
     * @param profil nouveau calibrage de l'IA
     */
-   void setCalibrage(Profile profil);
+   void setCalibrage(profiling::Profile profil);
 
     /**
      * @brief getRationalite
      * @return le taux de rationalité
      */
-    Profile* getCalibrage();
+    profiling::Profile* getCalibrage();
 
 
     /**

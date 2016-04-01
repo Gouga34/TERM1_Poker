@@ -14,7 +14,7 @@ Specification: Fichier contenant les définitions de la classe CalibrageIdeal.
 #include <QTextStream>
 
 
-CalibrageIdeal::CalibrageIdeal(Jeu *j, Profile *iaQuiProfile, Profile *iaProfilee, int nbParties)
+CalibrageIdeal::CalibrageIdeal(Jeu *j, profiling::Profile *iaQuiProfile, profiling::Profile *iaProfilee, int nbParties)
     : jeu(j), calibrageIAQuiProfile(iaQuiProfile), calibrageIAProfilee(iaProfilee), nombreParties(nbParties),
       nombrePartiesGagnees(0), argentTotalGagne(0)
 {

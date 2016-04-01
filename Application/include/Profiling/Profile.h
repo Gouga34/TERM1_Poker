@@ -11,36 +11,39 @@ Specification: Classe contenant les informations du profil d'un joueur.
 
 #include <string>
 
-class Profile
-{
-    private:
+namespace profiling {
 
-        std::string m_pseudo;
+    class Profile
+    {
+        private:
 
-        double m_aggressiveness;
-        double m_rationality;
-        double m_bluff;
-        double m_passivity;
+            std::string m_pseudo;
 
-    public:
+            double m_aggressiveness;
+            double m_rationality;
+            double m_bluff;
+            double m_passivity;
 
-        Profile();
-        Profile(std::string pseudo);
-        ~Profile();
+        public:
 
-        std::string getPseudo() const;
+            Profile();
+            Profile(std::string pseudo);
+            ~Profile();
 
-        double getAggressiveness() const;
-        double getRationality() const;
-        double getBluff() const;
-        double getPassivity() const;
+            std::string getPseudo() const;
 
-        void setPseudo(std::string pseudo);
+            double getAggressiveness() const;
+            double getRationality() const;
+            double getBluff() const;
+            double getPassivity() const;
 
-        void setAggressiveness(double aggressiveness);
-        void setRationality(double rationality);
-        void setBluff(double bluff);
-        void setPassivity(double passivity);
-};
+            void setPseudo(std::string pseudo);
+
+            void setAggressiveness(double aggressiveness);
+            void setRationality(double rationality);
+            void setBluff(double bluff);
+            void setPassivity(double passivity);
+    };
+}
 
 #endif // CALIBRAGE_H

@@ -9,35 +9,38 @@ Specification: Classe décrivant les résultats d'une phase de jeu (profilage/ga
 #ifndef GAMEPHASE_H
 #define GAMEPHASE_H
 
-class GamePhase
-{
-    private:
+namespace profiling {
 
-        int m_nbPartsDone;
-        int m_nbMinParts;
-        int m_gains;
+    class GamePhase
+    {
+        private:
 
-    public:
+            int m_nbPartsDone;
+            int m_nbMinParts;
+            int m_gains;
 
-        GamePhase();
+        public:
 
-        int getNbPartsDone() const;
+            GamePhase();
 
-        int getNbMinParts() const;
+            int getNbPartsDone() const;
 
-        int getGains() const;
+            int getNbMinParts() const;
 
-        /**
-         * @brief Réinitialise la phase de jeu avec un nouvelle nombre de parties à réaliser
-         * @param nbParts Nombre de parties minimum à réaliser
-         */
-        void newPhase(int nbParts);
+            int getGains() const;
 
-        /**
-         * @brief Ajoute une nouvelle partie réalisée pour la phase de jeu
-         * @param partGains Gains de la partie terminée
-         */
-        void finishedPart(int partGains);
-};
+            /**
+             * @brief Réinitialise la phase de jeu avec un nouvelle nombre de parties à réaliser
+             * @param nbParts Nombre de parties minimum à réaliser
+             */
+            void newPhase(int nbParts);
+
+            /**
+             * @brief Ajoute une nouvelle partie réalisée pour la phase de jeu
+             * @param partGains Gains de la partie terminée
+             */
+            void finishedPart(int partGains);
+    };
+}
 
 #endif // GAMEPHASE_H
