@@ -16,7 +16,6 @@ SOURCES += \
     src/IA/IntelligenceArtificielleProfilage.cpp \
     src/Jeu/Action.cpp \
     src/Jeu/JoueurHumain.cpp \
-    src/IA/CalibrageIdeal.cpp \
     src/Interface/ContenuFenetre.cpp \
     src/Interface/ContenuFenetreHumain.cpp \
     src/Interface/ContenuFenetreIA.cpp \
@@ -30,7 +29,8 @@ SOURCES += \
     src/Profiling/GamePhase.cpp \
     src/Profiling/Profile.cpp \
     src/Profiling/Profiling.cpp \
-    src/Profiling/TestScenario.cpp
+    src/Profiling/TestScenario.cpp \
+    src/IA/IdealCalibration.cpp
 
 
 QT+=widgets printsupport
@@ -53,7 +53,6 @@ HEADERS += \
     include/IA/IntelligenceArtificielleProfilage.h \
     include/Jeu/Action.h \
     include/Jeu/JoueurHumain.h \
-    include/IA/CalibrageIdeal.h \
     include/Interface/ContenuFenetre.h \
     include/Interface/ContenuFenetreHumain.h \
     include/Interface/ContenuFenetreIA.h \
@@ -67,7 +66,8 @@ HEADERS += \
     include/Profiling/GamePhase.h \
     include/Profiling/Profile.h \
     include/Profiling/Profiling.h \
-    include/Profiling/TestScenario.h
+    include/Profiling/TestScenario.h \
+    include/IA/IdealCalibration.h
 
 CONFIG += c++14
 QMAKE_CXX = g++-4.9

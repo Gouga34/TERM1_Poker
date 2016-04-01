@@ -14,37 +14,37 @@ Specification: Classe déterminant le calibrage optimal pour gagner
 #include "../Profiling/Profile.h"
 #include "../Jeu/Jeu.h"
 
-class CalibrageIdeal
+class IdealCalibration
 {
     private:
 
-        Jeu *jeu;
+        Jeu *m_game;
 
-        profiling::Profile *calibrageIAQuiProfile;
-        profiling::Profile *calibrageIAProfilee;
+        profiling::Profile *m_profilingAICalibration;
+        profiling::Profile *m_profiledAICalibration;
 
-        int nombreParties;
-        int nombrePartiesGagnees;
-        int argentTotalGagne;
+        int m_partsNumber;
+        int m_numberPartsWon;
+        int m_totalTokensWon;
 
-        QVector<int> listeTauxIAQuiProfile;
+        QVector<int> m_profilingAIRates;
 
 
         /**
          * @brief Ajout une ligne dans le fichier avec les résultats
          *        du calibrage donné face au calibrage testé.
          */
-        void ecrireRsultatTotalParties() const;
+        virtual void writeTotalPartsResult() const;
 
     public:
 
-        CalibrageIdeal(Jeu *j, profiling::Profile *iaQuiProfile, profiling::Profile *iaProfilee, int nbParties);
-        ~CalibrageIdeal();
+        IdealCalibration(Jeu *j, profiling::Profile *iaQuiProfile, profiling::Profile *iaProfilee, int nbParties);
+        virtual ~IdealCalibration();
 
         /**
          * @brief Effectue nombreParties pour chaque calibrage possible face au calibrage adverse
          */
-        void lancerParties();
+        virtual void launchParts();
 };
 
 #endif // CALIBRAGEIDEAL_H

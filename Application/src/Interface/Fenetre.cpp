@@ -11,7 +11,7 @@ Specification: Fichier contenant les définitions de la classe Fenetre.
 #include "../../include/Interface/ContenuFenetreHumain.h"
 #include "../../include/Jeu/JoueurHumain.h"
 #include "../../include/IA/IntelligenceArtificielleProfilage.h"
-#include "../../include/IA/CalibrageIdeal.h"
+#include "../../include/IA/IdealCalibration.h"
 #include "../../include/Interface/ContenuFenetreIA.h"
 
 #include <QVBoxLayout>
@@ -196,7 +196,7 @@ void Fenetre::demarrageCalibrageIdeal()
     IntelligenceArtificielle *iaQuiProfile = static_cast<IntelligenceArtificielle*>(jeu->getJoueur(1));
     IntelligenceArtificielle *iaProfilee = static_cast<IntelligenceArtificielle*>(jeu->getJoueur(0));
 
-    CalibrageIdeal c(jeu, iaQuiProfile->getCalibrage(), iaProfilee->getCalibrage(), jeu->getOptions().nombreParties);
-    c.lancerParties();
+    IdealCalibration c(jeu, iaQuiProfile->getCalibrage(), iaProfilee->getCalibrage(), jeu->getOptions().nombreParties);
+    c.launchParts();
 }
 
