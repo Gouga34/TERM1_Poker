@@ -7,8 +7,8 @@ Specification: Classe déterminant le calibrage optimal pour gagner
                 face à un profilage donné.
 =========================================================================*/
 
-#ifndef CALIBRAGEIDEAL_H
-#define CALIBRAGEIDEAL_H
+#ifndef IDEALCALIBRATION_H
+#define IDEALCALIBRATION_H
 
 #include <QVector>
 #include "../Profiling/Profile.h"
@@ -47,4 +47,4 @@ class IdealCalibration
         virtual void launchParts();
 };
 
-#endif // CALIBRAGEIDEAL_H
+#endif // IDEALCALIBRATION_H

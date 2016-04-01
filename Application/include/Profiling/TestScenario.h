@@ -7,8 +7,8 @@ Specification: Classe permettant d'écrire et
                                       d'exploiter les scénarios de tests
 =========================================================================*/
 
-#ifndef SCENARIOSDETESTS_H
-#define SCENARIOSDETESTS_H
+#ifndef TESTSCENARIOS_H
+#define TESTSCENARIOS_H
 
 #include "Profile.h"
 #include <QJsonObject>
@@ -79,4 +79,4 @@ namespace profiling {
     };
 }
 
-#endif // SCENARIOSDETESTS_H
+#endif // TESTSCENARIOS_H

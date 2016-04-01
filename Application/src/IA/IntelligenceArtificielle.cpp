@@ -1,5 +1,5 @@
 #include "../../include/IA/IntelligenceArtificielle.h"
-#include "../../include/IA/EstimationProba.h"
+#include "../../include/IA/WinningChancesEstimator.h"
 #include "../../include/Interface/Logger.h"
 #include <sstream> 
 #include <string>
@@ -63,7 +63,7 @@ void IntelligenceArtificielle::lancerEstimationChancesDeGain(int nbTests, int nb
     double nbTestsParThread = static_cast<double>(nbTests) / nbThreads;
 
     for (int i = 0; i < nbThreads; i++) {
-        EstimationProba *estimateur = new EstimationProba(getJeu(), getJeu()->getJoueur(getPosition()), nbTestsParThread);
+        WinningChancesEstimator *estimateur = new WinningChancesEstimator(getJeu(), getJeu()->getJoueur(getPosition()), nbTestsParThread);
         estimateurs.push_back(estimateur);
         estimateur->start();
     }
@@ -75,7 +75,7 @@ void IntelligenceArtificielle::attendreResultatEstimation()
 
     for (unsigned int i = 0; i < estimateurs.size(); i++) {
         estimateurs[i]->wait();
-        sommeEstimations += estimateurs[i]->getResultat();
+        sommeEstimations += estimateurs[i]->getEstimateResult();
 
         delete estimateurs[i];
     }

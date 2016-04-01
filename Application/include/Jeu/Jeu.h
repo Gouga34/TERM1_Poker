@@ -11,7 +11,7 @@
 #include "../Assessor/Assessor.h"
 #include "../Profiling/CalculateProfilingData.h"
 #include "../Profiling/Profiling.h"
-#include "../IA/EstimationProba.h"
+#include "../IA/WinningChancesEstimator.h"
 #include "../IA/IntelligenceArtificielle.h"
 #include "../Interface/ChoixOptionsDialog.h"
 

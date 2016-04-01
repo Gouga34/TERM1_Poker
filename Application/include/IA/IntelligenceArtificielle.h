@@ -4,7 +4,7 @@
 #include "../Jeu/Joueur.h"
 #include "../Jeu/Jeu.h"
 #include "Resolveur.h"
-#include "EstimationProba.h"
+#include "WinningChancesEstimator.h"
 #include "../Profiling/Profile.h"
 
 #include <vector>
@@ -14,7 +14,7 @@
 
 
 class Resolveur;
-class EstimationProba;
+class WinningChancesEstimator;
 
 class IntelligenceArtificielle : public Joueur {
 
@@ -23,7 +23,7 @@ class IntelligenceArtificielle : public Joueur {
 
     private:
 
-        std::vector<EstimationProba*> estimateurs;
+        std::vector<WinningChancesEstimator*> estimateurs;
 		
 	public :
 		//Constructeur et destructeur

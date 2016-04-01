@@ -6,8 +6,8 @@ Projet: Profilage par essais et erreurs au poker
 Specification: Classe contenant les informations du profil d'un joueur.
 =========================================================================*/
 
-#ifndef CALIBRAGE_H
-#define CALIBRAGE_H
+#ifndef PROFILE_H
+#define PROFILE_H
 
 #include <string>
 
@@ -46,4 +46,4 @@ namespace profiling {
     };
 }
 
-#endif // CALIBRAGE_H
+#endif // PROFILE_H

@@ -497,10 +497,10 @@ void Jeu::finPartie() {
 
         int nbThreads = 4;
         double nbTestsParThread = static_cast<double>(NOMBRE_DE_TESTS) / nbThreads;
-        std::vector<EstimationProba*> estimateurs;
+        std::vector<WinningChancesEstimator*> estimateurs;
 
         for (int i = 0; i < 4; i++) {
-            EstimationProba *estimateur = new EstimationProba(this, getJoueur(0), nbTestsParThread);
+            WinningChancesEstimator *estimateur = new WinningChancesEstimator(this, getJoueur(0), nbTestsParThread);
             estimateurs.push_back(estimateur);
             estimateur->start();
         }
@@ -509,7 +509,7 @@ void Jeu::finPartie() {
 
         for (unsigned int i = 0; i < estimateurs.size(); i++) {
             estimateurs[i]->wait();
-            sommeEstimations += estimateurs[i]->getResultat();
+            sommeEstimations += estimateurs[i]->getEstimateResult();
 
             delete estimateurs[i];
         }

@@ -8,8 +8,8 @@ Specification: Classe contenant l'écriture et la lecture
 =========================================================================*/
 
 
-#ifndef PROFILAGE_H
-#define PROFILAGE_H
+#ifndef PROFILING_H
+#define PROFILING_H
 
 #include <string>
 #include <array>
@@ -95,4 +95,4 @@ namespace profiling {
     };
 }
 
-#endif // PROFILAGE_H
+#endif // PROFILING_H
