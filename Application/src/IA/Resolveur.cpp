@@ -10,7 +10,7 @@ Specification: Fichier contenant les corps des méthodes
 
 #include "../../include/IA/Resolveur.h"
 #include "../../include/Constantes.h"
-#include "../../include/Profilage/CalculateProfilingData.h"
+#include "../../include/Profiling/CalculateProfilingData.h"
 
 #include <vector>
 

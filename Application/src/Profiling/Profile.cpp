@@ -6,7 +6,7 @@ Projet: Profilage par essais et erreurs au poker
 Specification: Fichier contenant les définitions de la classe Profil.
 =========================================================================*/
 
-#include "../../include/Profilage/Profile.h"
+#include "../../include/Profiling/Profile.h"
 
 Profile::Profile() : m_pseudo(""), m_aggressiveness(0), m_rationality(0), m_bluff(0), m_passivity(0) {
 

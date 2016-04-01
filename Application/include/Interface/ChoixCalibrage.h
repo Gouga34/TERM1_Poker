@@ -13,7 +13,7 @@ Specification: Classe contenant les widgets .
 #include <QSlider>
 #include <QString>
 #include <QGroupBox>
-#include "../Profilage/Profile.h"
+#include "../Profiling/Profile.h"
 
 class ChoixCalibrage : public QGroupBox
 {

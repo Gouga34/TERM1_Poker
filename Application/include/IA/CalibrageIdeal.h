@@ -11,7 +11,7 @@ Specification: Classe déterminant le calibrage optimal pour gagner
 #define CALIBRAGEIDEAL_H
 
 #include <QVector>
-#include "../Profilage/Profile.h"
+#include "../Profiling/Profile.h"
 #include "../Jeu/Jeu.h"
 
 class CalibrageIdeal

@@ -1,6 +1,6 @@
 #include "../../include/Constantes.h"
-#include "../../include/Profilage/TestScenario.h"
-#include "../../include/Profilage/CalculateProfilingData.h"
+#include "../../include/Profiling/TestScenario.h"
+#include "../../include/Profiling/CalculateProfilingData.h"
 #include "../../include/Interface/Logger.h"
 
 

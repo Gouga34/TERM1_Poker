@@ -13,7 +13,7 @@ Specification: Classe permettant de calculer les actions de
 #include <utility>
 #include "../Jeu/Jeu.h"
 #include "IntelligenceArtificielle.h"
-#include "../Profilage/Profile.h"
+#include "../Profiling/Profile.h"
 #include <cstdlib>
 
 class IntelligenceArtificielle;

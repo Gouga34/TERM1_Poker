@@ -7,7 +7,7 @@ Specification: Fichier contenant les définitions de
                                         la classe CalculDonneesProfilage.
 =========================================================================*/
 
-#include "../../include/Profilage/CalculateProfilingData.h"
+#include "../../include/Profiling/CalculateProfilingData.h"
 #include "../../include/Constantes.h"
 #include "../../include/MathematicalFormula/MathematicalFormula.h"
 

@@ -5,7 +5,7 @@
 #include "../Jeu/Jeu.h"
 #include "Resolveur.h"
 #include "EstimationProba.h"
-#include "../Profilage/Profile.h"
+#include "../Profiling/Profile.h"
 
 #include <vector>
 #include <iostream>

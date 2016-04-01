@@ -10,8 +10,8 @@ Specification: Classe d'une IA qui profile.
 #define INTELLIGENCEARTIFICIELLEPROFILAGE_H
 
 #include "IntelligenceArtificielle.h"
-#include "../Profilage/Profiling.h"
-#include "../Profilage/TestScenario.h"
+#include "../Profiling/Profiling.h"
+#include "../Profiling/TestScenario.h"
 
 
 class IntelligenceArtificielleProfilage : public IntelligenceArtificielle

@@ -6,7 +6,7 @@ Projet: Profilage par essais et erreurs au poker
 Specification: Fichier contenant les définitions de la classe Profilage.
 =========================================================================*/
 
-#include "../../include/Profilage/Profiling.h"
+#include "../../include/Profiling/Profiling.h"
 #include <QFile>
 #include <QTextStream>
 #include <QIODevice>

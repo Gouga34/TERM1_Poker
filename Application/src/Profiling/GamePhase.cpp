@@ -6,7 +6,7 @@ Projet: Profilage par essais et erreurs au poker
 Specification: Fichier contenant les définitions de la classe PhaseJeu.
 =========================================================================*/
 
-#include "../../include/Profilage/GamePhase.h"
+#include "../../include/Profiling/GamePhase.h"
 
 GamePhase::GamePhase()
 {
