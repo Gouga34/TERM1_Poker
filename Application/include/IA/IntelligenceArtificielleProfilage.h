@@ -9,12 +9,12 @@ Specification: Classe d'une IA qui profile.
 #ifndef INTELLIGENCEARTIFICIELLEPROFILAGE_H
 #define INTELLIGENCEARTIFICIELLEPROFILAGE_H
 
-#include "IntelligenceArtificielle.h"
+#include "ArtificialIntelligence.h"
 #include "../Profiling/Profiling.h"
 #include "../Profiling/TestScenario.h"
 
 
-class IntelligenceArtificielleProfilage : public IntelligenceArtificielle
+class IntelligenceArtificielleProfilage : public ArtificialIntelligence
 {
     private:
 
@@ -59,7 +59,7 @@ class IntelligenceArtificielleProfilage : public IntelligenceArtificielle
     public:
 
         IntelligenceArtificielleProfilage(bool estDealer, int jetons, int position);
-        IntelligenceArtificielleProfilage(const IntelligenceArtificielle& joueur);
+        IntelligenceArtificielleProfilage(const ArtificialIntelligence& joueur);
         virtual ~IntelligenceArtificielleProfilage();
 
         /**

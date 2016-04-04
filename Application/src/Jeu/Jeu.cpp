@@ -106,19 +106,19 @@ void Jeu::nouvelleEtape(ETAPE_JEU etape){
 
 void Jeu::calculChancesDeGain() {
 
-    IntelligenceArtificielle *ia;
-    IntelligenceArtificielle *ia2 = static_cast<IntelligenceArtificielle*>(this->getJoueur(1));
+    ArtificialIntelligence *ia;
+    ArtificialIntelligence *ia2 = static_cast<ArtificialIntelligence*>(this->getJoueur(1));
 
-    if (!getJoueur(0)->estHumain()) {
-        ia = static_cast<IntelligenceArtificielle*>(this->getJoueur(0));
-        ia->lancerEstimationChancesDeGain(NOMBRE_DE_TESTS, 2);
+    if (!getJoueur(0)->isHumain()) {
+        ia = static_cast<ArtificialIntelligence*>(this->getJoueur(0));
+        ia->launchWinningChancesEstimator(NOMBRE_DE_TESTS, 2);
     }
 
-    ia2->lancerEstimationChancesDeGain(NOMBRE_DE_TESTS, 2);
-    ia2->attendreResultatEstimation();
+    ia2->launchWinningChancesEstimator(NOMBRE_DE_TESTS, 2);
+    ia2->waitWinningChancesEstimatorResult();
 
-    if (!getJoueur(0)->estHumain()) {
-        ia->attendreResultatEstimation();
+    if (!getJoueur(0)->isHumain()) {
+        ia->waitWinningChancesEstimatorResult();
     }
 }
 
@@ -493,7 +493,7 @@ void Jeu::finPartie() {
     resultatPartie = retour;
 
     // Si c'est un joueur humain, on calcule ses chances de gain
-    if (getJoueur(0)->estHumain()) {
+    if (getJoueur(0)->isHumain()) {
 
         int nbThreads = 4;
         double nbTestsParThread = static_cast<double>(NOMBRE_DE_TESTS) / nbThreads;
@@ -717,7 +717,7 @@ void Jeu::lancerPartie()
             Logger::getInstance()->ajoutLogs("--- Nouvelle Etape ---");
         }
 
-        Action a = listeJoueurs.at(joueurCourant)->jouer();
+        Action a = listeJoueurs.at(joueurCourant)->play();
         executerAction(joueurCourant, a);
     }
 }

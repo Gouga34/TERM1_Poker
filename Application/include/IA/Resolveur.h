@@ -12,11 +12,11 @@ Specification: Classe permettant de calculer les actions de
 
 #include <utility>
 #include "../Jeu/Jeu.h"
-#include "IntelligenceArtificielle.h"
+#include "ArtificialIntelligence.h"
 #include "../Profiling/Profile.h"
 #include <cstdlib>
 
-class IntelligenceArtificielle;
+class ArtificialIntelligence;
 
 class Resolveur{
 private:
@@ -26,7 +26,7 @@ private:
     double miseTotaleTheoriqueAgressivite;
 
 
-    IntelligenceArtificielle *ia;
+    ArtificialIntelligence *ia;
 
     /**
      * @action calcule l'action à effectuer en fonction du taux d'agressivité
@@ -67,7 +67,7 @@ private:
     int calculerMiseFusion(int miseAgressivite, int miseRationalite);
 
 public:
-    Resolveur(IntelligenceArtificielle* ia2);
+    Resolveur(ArtificialIntelligence* ia2);
     virtual ~Resolveur();
 
     /**

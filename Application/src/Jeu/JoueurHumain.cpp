@@ -27,11 +27,11 @@ JoueurHumain::~JoueurHumain()
 
 }
 
-bool JoueurHumain::estHumain() const {
+bool JoueurHumain::isHumain() const {
     return true;
 }
 
-Action JoueurHumain::jouer(){
+Action JoueurHumain::play(){
 
     return fenetre->getAction();
 }

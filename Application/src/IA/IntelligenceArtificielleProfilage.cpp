@@ -14,13 +14,13 @@ Specification: Fichier contenant les définitions de la classe IntelligenceArtif
 
 
 IntelligenceArtificielleProfilage::IntelligenceArtificielleProfilage(bool estDealer, int jetons, int position)
-    : IntelligenceArtificielle(estDealer, jetons, position), phaseJeu(PHASE_PROFILAGE), profilage(0), scenario(0)
+    : ArtificialIntelligence(estDealer, jetons, position), phaseJeu(PHASE_PROFILAGE), profilage(0), scenario(0)
 {
 
 }
 
-IntelligenceArtificielleProfilage::IntelligenceArtificielleProfilage(const IntelligenceArtificielle& joueur)
-    : IntelligenceArtificielle(joueur), profilage(0), scenario(0)
+IntelligenceArtificielleProfilage::IntelligenceArtificielleProfilage(const ArtificialIntelligence& joueur)
+    : ArtificialIntelligence(joueur), profilage(0), scenario(0)
 {
 
 }
@@ -50,19 +50,19 @@ void IntelligenceArtificielleProfilage::setPseudoJoueurProfile(std::string pseud
     if (profilage) {
         delete profilage;
     }
-    profilage = new profiling::Profiling(resolveur->getCalibrage(), &profilJoueur);
+    profilage = new profiling::Profiling(m_resolver->getCalibrage(), &profilJoueur);
     profilage->m_currentProfilingPhase.newPhase(jeu->getOptions().nombrePartiesProfilage);
 
     profiling::Profile calibrageRecherche;
-    if (!jeu->getJoueur(0)->estHumain()) {
-        IntelligenceArtificielle *iaProfilee = static_cast<IntelligenceArtificielle*>(jeu->getJoueur(0));
-        calibrageRecherche = *(iaProfilee->getCalibrage());
+    if (!jeu->getJoueur(0)->isHumain()) {
+        ArtificialIntelligence *iaProfilee = static_cast<ArtificialIntelligence*>(jeu->getJoueur(0));
+        calibrageRecherche = *(iaProfilee->getCalibration());
     }
 
     if (scenario) {
         delete scenario;
     }
-    scenario = new profiling::TestScenarios(&profilJoueur, resolveur->getCalibrage(), calibrageRecherche);
+    scenario = new profiling::TestScenarios(&profilJoueur, m_resolver->getCalibrage(), calibrageRecherche);
 }
 
 void IntelligenceArtificielleProfilage::remplissageDonneesProfilage() {
@@ -161,7 +161,7 @@ void IntelligenceArtificielleProfilage::calculProfilGlobalJoueur() {
         profilage->m_numberTokensWonProfilingAI=0;
     }
 
-    profilage->m_roughPlay = resolveur->estAgressif();
+    profilage->m_roughPlay = m_resolver->estAgressif();
     profilage->m_testScenario = (phaseJeu == PHASE_PROFILAGE);
     profilage->m_gameResultProfilingAIviewpoint=resultatPartie;
 
@@ -229,7 +229,7 @@ void IntelligenceArtificielleProfilage::determinerTypeDeJeu() {
     }
     else {
         phaseJeu = prochainTypeDeJeu();
-        resolveur->setJeuAgressif(false);
+        m_resolver->setJeuAgressif(false);
 
         if (phaseJeu == PHASE_PROFILAGE) {
             setCalibragePourProfiler();
@@ -237,14 +237,14 @@ void IntelligenceArtificielleProfilage::determinerTypeDeJeu() {
         else {
             if (UTILISATION_DELTA_AGRESSIVITE && chancesGain >= 50 && chancesGain <= 70) {
                 // Aléatoirement, on augmente l'agressivité
-                resolveur->setJeuAgressif((rand() % DELTA_AGRESSIVITE) == 0);
+                m_resolver->setJeuAgressif((rand() % DELTA_AGRESSIVITE) == 0);
             }
 
             setCalibragePourJouer();
         }
 
-        Logger::getInstance()->ajoutLogs("Calibrage IA profilage: agressivité: "+QString::number(resolveur->getCalibrage()->getAggressiveness())
-                                         +" rationalité: "+QString::number(resolveur->getCalibrage()->getRationality()));
+        Logger::getInstance()->ajoutLogs("Calibrage IA profilage: agressivité: "+QString::number(m_resolver->getCalibrage()->getAggressiveness())
+                                         +" rationalité: "+QString::number(m_resolver->getCalibrage()->getRationality()));
     }
 
     getProfilage()->reset();
@@ -259,8 +259,8 @@ void IntelligenceArtificielleProfilage::setCalibragePourProfiler() {
     //On tire aléatoirement un nouveau taux d'agressivite:
     int agressivite=rand()%100+1;
 
-    resolveur->getCalibrage()->setAggressiveness(agressivite);
-    resolveur->getCalibrage()->setRationality(RATIONALITE_IA_PROFILAGE);
+    m_resolver->getCalibrage()->setAggressiveness(agressivite);
+    m_resolver->getCalibrage()->setRationality(RATIONALITE_IA_PROFILAGE);
 }
 
 void IntelligenceArtificielleProfilage::setCalibragePourJouer() {
@@ -310,7 +310,7 @@ void IntelligenceArtificielleProfilage::setCalibragePourJouer() {
                                                                              liste.at(3).split("-").at(0).toDouble(), liste.at(3).split("-").at(1).toDouble()));
                 }
 
-                setCalibrage(nouveauProfil);
+                setCalibration(nouveauProfil);
 
                 fichier.close();
                 return;
@@ -329,9 +329,9 @@ void IntelligenceArtificielleProfilage::ecritureAnalyseDesGains() {
 
         profiling::Profile calibrageRecherche;
 
-        if (!jeu->getJoueur(0)->estHumain()) {
-            IntelligenceArtificielle *iaProfilee = static_cast<IntelligenceArtificielle*>(jeu->getJoueur(0));
-            calibrageRecherche = *(iaProfilee->getCalibrage());
+        if (!jeu->getJoueur(0)->isHumain()) {
+            ArtificialIntelligence *iaProfilee = static_cast<ArtificialIntelligence*>(jeu->getJoueur(0));
+            calibrageRecherche = *(iaProfilee->getCalibration());
         }
 
         /////////// On cherche le palier ///////////

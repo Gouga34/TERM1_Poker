@@ -16,71 +16,66 @@
 class Resolveur;
 class WinningChancesEstimator;
 
-class IntelligenceArtificielle : public Joueur {
+class ArtificialIntelligence : public Joueur {
 
     protected:
-        Resolveur *resolveur; //Cerveau de l'intelligence artificielle
+        Resolveur *m_resolver; //Cerveau de l'intelligence artificielle
 
     private:
-
-        std::vector<WinningChancesEstimator*> estimateurs;
+        std::vector<WinningChancesEstimator*> m_winningChancesEstimators;
 		
-	public :
-		//Constructeur et destructeur
-		
+	public :	
 		/**
 		*@action : Constructeur de la classe Intelligence Artificielle
 		*@param  : Un boolean indiquant si le jouer est le dealer, sa cave de depart et sa position
 		**/
-		IntelligenceArtificielle(bool estDealer, int jetons, int position);
+        ArtificialIntelligence(bool isDealer, int tokens, int position);
 		
 		/**
 		*@action : Constructeur de la classe Intelligence Artificielle par copie de la classe Joueur
 		*@param  : L'instance de la classe Joueur utilisee pour la copie
 		**/		
-        IntelligenceArtificielle(const IntelligenceArtificielle& joueur);
+        ArtificialIntelligence(const ArtificialIntelligence& player);
 		
 		/**
 		*@action : Destructeur de la classe Intelligence Artificielle
 		**/
-        virtual ~IntelligenceArtificielle();
+        virtual ~ArtificialIntelligence();
 		
-        virtual bool estHumain() const;
+        virtual bool isHumain() const;
 
         /**
          * @return Calibrage de l'IA
          */
-        profiling::Profile* getCalibrage();
+        virtual profiling::Profile* getCalibration();
 
         /**
          * @action Modifie les valeurs de calibrage de l'IA
          * @param profil Profil de l'IA
          */
-        void setCalibrage(profiling::Profile profil);
+        virtual void setCalibration(profiling::Profile profile);
 
         /**
          * @brief Attribue un nouveau calibrage tiré aléatoirement pour l'IA
          */
-        void nouveauCalibrage();
+        virtual void changeRandomlyCalibration();
 		
-        //Methodes
-
         /**
          * @action Lance une estimation des chances de gain dans plusieurs threads simultanément
          * @param nbTests Nombre de tests à lancer au total
          * @param nbThreads Nombre de threads à lancer
          */
-        void lancerEstimationChancesDeGain(int nbTests, int nbThreads = 1);
+        virtual void launchWinningChancesEstimator(int testsNumber, int threadsNumber = 1);
 
         /**
          * @action Attend que l'ensemble des threads soit terminé
          */
-        void attendreResultatEstimation();
+        virtual void waitWinningChancesEstimatorResult();
 	
 		/**
 		*@action : Pemet a l'IA de jouer
 		**/
-        virtual Action jouer();
+        virtual Action play();
 	
 };
 

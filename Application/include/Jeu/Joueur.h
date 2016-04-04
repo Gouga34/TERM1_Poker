@@ -46,7 +46,7 @@ class Joueur{
         /**
          * @return true si c'est un joueur humain, false si c'est une IA
          */
-        virtual bool estHumain() const = 0;
+        virtual bool isHumain() const = 0;
 
         /**
          * @brief getChancesGain
@@ -213,7 +213,7 @@ class Joueur{
         /**
          * @action Fait jouer le joueur lorsque c'est son tour
          */
-        virtual Action jouer() = 0;
+        virtual Action play() = 0;
 };
 
 #endif

@@ -12,11 +12,11 @@
 #include "../Profiling/CalculateProfilingData.h"
 #include "../Profiling/Profiling.h"
 #include "../IA/WinningChancesEstimator.h"
-#include "../IA/IntelligenceArtificielle.h"
+#include "../IA/ArtificialIntelligence.h"
 #include "../Interface/ChoixOptionsDialog.h"
 
 class Joueur;
-class IntelligenceArtificielle;
+class ArtificialIntelligence;
 
 class Jeu{
 

@@ -10,7 +10,6 @@ SOURCES += \
     src/Interface/ChoixOptionsDialog.cpp \
     src/Interface/CompteurJetons.cpp \
     src/Interface/Logger.cpp \
-    src/IA/IntelligenceArtificielle.cpp \
     src/IA/Resolveur.cpp \
     src/IA/IntelligenceArtificielleProfilage.cpp \
     src/Jeu/Action.cpp \
@@ -30,7 +29,8 @@ SOURCES += \
     src/Profiling/Profiling.cpp \
     src/Profiling/TestScenario.cpp \
     src/IA/IdealCalibration.cpp \
-    src/IA/WinningChancesEstimator.cpp
+    src/IA/WinningChancesEstimator.cpp \
+    src/IA/ArtificialIntelligence.cpp
 
 
 QT+=widgets printsupport
@@ -47,7 +47,6 @@ HEADERS += \
     include/Interface/ChoixOptionsDialog.h \
     include/Interface/CompteurJetons.h \
     include/Interface/Logger.h \
-    include/IA/IntelligenceArtificielle.h \
     include/IA/Resolveur.h \
     include/IA/IntelligenceArtificielleProfilage.h \
     include/Jeu/Action.h \
@@ -67,7 +66,8 @@ HEADERS += \
     include/Profiling/Profiling.h \
     include/Profiling/TestScenario.h \
     include/IA/IdealCalibration.h \
-    include/IA/WinningChancesEstimator.h
+    include/IA/WinningChancesEstimator.h \
+    include/IA/ArtificialIntelligence.h
 
 CONFIG += c++14
 QMAKE_CXX = g++-4.9

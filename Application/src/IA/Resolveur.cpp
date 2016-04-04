@@ -16,7 +16,7 @@ Specification: Fichier contenant les corps des méthodes
 
 using namespace std;
 
-Resolveur::Resolveur(IntelligenceArtificielle *ia2):jeuAgressif(false), ia(ia2){
+Resolveur::Resolveur(ArtificialIntelligence *ia2):jeuAgressif(false), ia(ia2){
     calibrage=new profiling::Profile;
 }
 
