@@ -3,7 +3,7 @@
 
 #include "../Jeu/Joueur.h"
 #include "../Jeu/Jeu.h"
-#include "Resolveur.h"
+#include "Resolver.h"
 #include "WinningChancesEstimator.h"
 #include "../Profiling/Profile.h"
 
@@ -13,13 +13,13 @@
 #include <string>
 
 
-class Resolveur;
+class Resolver;
 class WinningChancesEstimator;
 
 class ArtificialIntelligence : public Joueur {
 
     protected:
-        Resolveur *m_resolver; //Cerveau de l'intelligence artificielle
+        Resolver *m_resolver; //Cerveau de l'intelligence artificielle
 
     private:
         std::vector<WinningChancesEstimator*> m_winningChancesEstimators;

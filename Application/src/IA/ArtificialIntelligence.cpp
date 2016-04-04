@@ -6,14 +6,14 @@
 
 ArtificialIntelligence::ArtificialIntelligence(bool isDealer, int tokens, int position)
     : Joueur(isDealer, tokens, position) {
-    m_resolver = new Resolveur(this);
+    m_resolver = new Resolver(this);
 
     changeRandomlyCalibration();
 }
 
 ArtificialIntelligence::ArtificialIntelligence(const ArtificialIntelligence& player)
     : Joueur(player) {
-    m_resolver = new Resolveur(this);
+    m_resolver = new Resolver(this);
 }
 
 ArtificialIntelligence::~ArtificialIntelligence() {
@@ -27,11 +27,11 @@ bool ArtificialIntelligence::isHumain() const {
 }
 
 profiling::Profile* ArtificialIntelligence::getCalibration() {
-    return m_resolver->getCalibrage();
+    return m_resolver->getCalibration();
 }
 
 void ArtificialIntelligence::setCalibration(profiling::Profile profile) {
-    m_resolver->setCalibrage(profile);
+    m_resolver->setCalibration(profile);
 }
 
 void ArtificialIntelligence::changeRandomlyCalibration()
@@ -75,7 +75,7 @@ void ArtificialIntelligence::waitWinningChancesEstimatorResult()
 Action ArtificialIntelligence::play() {
     QString actions[] = {"mise", "relance", "suit", "check", "se couche", "rien", "fait tapis"};
 
-    Action action = m_resolver->calculerAction();
+    Action action = m_resolver->calculateAction();
 
     QString log = "IA " + QString::number(position) + " " + actions[action.getAction()];
     if (action.getAction() == MISER || action.getAction() == RELANCER) {

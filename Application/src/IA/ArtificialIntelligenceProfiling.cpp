@@ -51,7 +51,7 @@ void ArtificialIntelligenceProfiling::setProfiledPlayerNickname(std::string nick
     if (m_profiling) {
         delete m_profiling;
     }
-    m_profiling = new profiling::Profiling(m_resolver->getCalibrage(), &m_playerProfile);
+    m_profiling = new profiling::Profiling(m_resolver->getCalibration(), &m_playerProfile);
     m_profiling->m_currentProfilingPhase.newPhase(jeu->getOptions().nombrePartiesProfilage);
 
     profiling::Profile searchedCalibration;
@@ -63,7 +63,7 @@ void ArtificialIntelligenceProfiling::setProfiledPlayerNickname(std::string nick
     if (m_scenario) {
         delete m_scenario;
     }
-    m_scenario = new profiling::TestScenarios(&m_playerProfile, m_resolver->getCalibrage(), searchedCalibration);
+    m_scenario = new profiling::TestScenarios(&m_playerProfile, m_resolver->getCalibration(), searchedCalibration);
 }
 
 void ArtificialIntelligenceProfiling::fillProfilingData() {
@@ -162,7 +162,7 @@ void ArtificialIntelligenceProfiling::calculatePlayerGlobalProfile() {
         m_profiling->m_numberTokensWonProfilingAI = 0;
     }
 
-    m_profiling->m_roughPlay = m_resolver->estAgressif();
+    m_profiling->m_roughPlay = m_resolver->isAggressive();
     m_profiling->m_testScenario = (m_gamePhase == PHASE_PROFILAGE);
     m_profiling->m_gameResultProfilingAIviewpoint = gameResult;
 
@@ -226,7 +226,7 @@ void ArtificialIntelligenceProfiling::determineGameType() {
     }
     else {
         m_gamePhase = getNextGameType();
-        m_resolver->setJeuAgressif(false);
+        m_resolver->setRoughtGame(false);
 
         if (m_gamePhase == PHASE_PROFILAGE) {
             setProfilingCalibration();
@@ -234,14 +234,14 @@ void ArtificialIntelligenceProfiling::determineGameType() {
         else {
             if (UTILISATION_DELTA_AGRESSIVITE && chancesGain >= 50 && chancesGain <= 70) {
                 // Aléatoirement, on augmente l'agressivité
-                m_resolver->setJeuAgressif((rand() % DELTA_AGRESSIVITE) == 0);
+                m_resolver->setRoughtGame((rand() % DELTA_AGRESSIVITE) == 0);
             }
 
             setCalibrationToPlay();
         }
 
-        Logger::getInstance()->ajoutLogs("Calibrage IA profilage: agressivité: " + QString::number(m_resolver->getCalibrage()->getAggressiveness())
-                                         + " rationalité: " + QString::number(m_resolver->getCalibrage()->getRationality()));
+        Logger::getInstance()->ajoutLogs("Calibrage IA profilage: agressivité: " + QString::number(m_resolver->getCalibration()->getAggressiveness())
+                                         + " rationalité: " + QString::number(m_resolver->getCalibration()->getRationality()));
     }
 
     getProfiling()->reset();
@@ -256,8 +256,8 @@ void ArtificialIntelligenceProfiling::setProfilingCalibration() {
     //On tire aléatoirement un nouveau taux d'agressivite:
     int agressivite = rand()%100+1;
 
-    m_resolver->getCalibrage()->setAggressiveness(agressivite);
-    m_resolver->getCalibrage()->setRationality(RATIONALITE_IA_PROFILAGE);
+    m_resolver->getCalibration()->setAggressiveness(agressivite);
+    m_resolver->getCalibration()->setRationality(RATIONALITE_IA_PROFILAGE);
 }
 
 void ArtificialIntelligenceProfiling::setCalibrationToPlay() {

@@ -7,8 +7,8 @@ Specification: Classe permettant de calculer les actions de
                                              l'intelligence artificielle.
 =========================================================================*/
 
-#ifndef RESOLVEUR_H
-#define RESOLVEUR_H
+#ifndef RESOLVER_H
+#define RESOLVER_H
 
 #include <utility>
 #include "../Jeu/Jeu.h"
@@ -18,89 +18,88 @@ Specification: Classe permettant de calculer les actions de
 
 class ArtificialIntelligence;
 
-class Resolveur{
+class Resolver {
+
 private:
 
-    bool jeuAgressif;
-    profiling::Profile *calibrage;
-    double miseTotaleTheoriqueAgressivite;
+    bool m_roughtPlay;
+    profiling::Profile *m_calibration;
+    double m_aggressivenessTheoreticalTotalBet;
 
-
-    ArtificialIntelligence *ia;
+    ArtificialIntelligence *m_ai;
 
     /**
      * @action calcule l'action à effectuer en fonction du taux d'agressivité
      * @return l'action à effectuer et le montant de sa mise s'il y en a un.
      *          Ce montant est égal à -1 si pas de mise.
     */
-    Action calculerActionAgressivite();
+    virtual Action calculateRoughtAction();
 
     /**
-     * @brief calculerActionRationalite
+     * @brief calculateRationalAction
      * @action calcule l'action à effectuer en fonction du taux de rationalité
      * @return l'action à effectuer et le montant de sa mise s'il y en a un.
      *          Ce montant est égal à -1 si pas de mise.
      */
-    Action calculerActionRationalite();
+    virtual Action calculateRationalAction();
 
     /**
-     * @brief calculerTotalMiseTheoriqueAgressivite
+     * @brief calculateAggressivenessTheoreticalTotalBet
      * @action calcule la mise totale théorique de la partie en fonction de l'agressivité
      */
-    void calculerTotalMiseTheoriqueAgressivite();
+    virtual void calculateAggressivenessTheoreticalTotalBet();
 
     /**
-     * @brief calculerMiseRationalite
+     * @brief calculateRationalityBet
      * @param action l'action à effectuer
      * @return les jetons à jouer en fonction de l'action qui sera effectuée
      *          et en fonction du taux de rationalité
      */
-    int calculerMiseRationalite(ACTION action);
+    virtual int calculateRationalityBet(ACTION action);
 
     /**
-     * @brief calculerMiseFusion
+     * @brief calculateAggressivenessRationalityFusionBet
      * @param miseAgressivite mise calculée en fonction du taux d'agressivité de l'IA
      * @param miseRationalite mise calculée en fonction du taux de rationalité de l'IA
      * @return le nombre de jetons à miser, en fonction des mises calculées auparavent
      *                                                  et des taux de rationalité et agressivité
      */
-    int calculerMiseFusion(int miseAgressivite, int miseRationalite);
+    virtual int calculateAggressivenessRationalityFusionBet(int miseAgressivite, int miseRationalite);
 
 public:
-    Resolveur(ArtificialIntelligence* ia2);
-    virtual ~Resolveur();
+    Resolver(ArtificialIntelligence* ai);
+    virtual ~Resolver();
 
     /**
-     * @brief estAgressif
+     * @brief isAggressive
      * @return true si le joueur a joué plus agressif
      */
-    bool estAgressif() const;
+    bool isAggressive() const;
 
     /**
-     * @brief Modifie le choix de l'action pour que le résolveur privilégie ou non l'agressivité.
+     * @brief setRoughtGame Modifie le choix de l'action pour que le résolveur privilégie ou non l'agressivité.
      * @param ag true si action agressive prioritaire
      */
-    void setJeuAgressif(bool ag);
+    void setRoughtGame(bool roughtPlay);
 
     /**
-    * @brief setCalibrage
+    * @brief setCalibration
     * @param profil nouveau calibrage de l'IA
     */
-   void setCalibrage(profiling::Profile profil);
+   void setCalibration(profiling::Profile profile);
 
     /**
-     * @brief getRationalite
+     * @brief getCalibration
      * @return le taux de rationalité
      */
-    profiling::Profile* getCalibrage();
-
+    profiling::Profile* getCalibration();
 
     /**
-     * @brief calculerAction
+     * @brief calculateAction
      * @return l'action finale et sa possible mise en nombre de jetons
      */
-    Action calculerAction();
+    Action calculateAction();
 };
 
 
-#endif // RESOLVEUR_H
+#endif // RESOLVER_H
