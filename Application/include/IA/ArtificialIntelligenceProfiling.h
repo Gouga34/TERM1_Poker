@@ -6,99 +6,93 @@ Projet: Profilage par essais et erreurs au poker
 Specification: Classe d'une IA qui profile.
 =========================================================================*/
 
-#ifndef INTELLIGENCEARTIFICIELLEPROFILAGE_H
-#define INTELLIGENCEARTIFICIELLEPROFILAGE_H
+#ifndef ARTIFICIALINTELLIGENCEPROFILING_H
+#define ARTIFICIALINTELLIGENCEPROFILING_H
 
 #include "ArtificialIntelligence.h"
 #include "../Profiling/Profiling.h"
 #include "../Profiling/TestScenario.h"
 
 
-class IntelligenceArtificielleProfilage : public ArtificialIntelligence
+class ArtificialIntelligenceProfiling : public ArtificialIntelligence
 {
     private:
 
-        PHASE_JEU_IA phaseJeu;
+        PHASE_JEU_IA m_gamePhase;
 
-        profiling::Profile profilJoueur;
-
-        profiling::Profiling *profilage;
-
-        profiling::TestScenarios *scenario;
-
-
-        double calculValeurProportionnelle(double minVal1, double val1, double maxVal1, double minVal2, double maxVal2) const;
-
+        profiling::Profile m_playerProfile;
+        profiling::Profiling *m_profiling;
+        profiling::TestScenarios *m_scenario;
 
         /**
          * @brief Détermine la phase de jeu pour la prochaine partie (profilage, gains)
          * @return Nouvelle phase de jeu
          */
-        PHASE_JEU_IA prochainTypeDeJeu();
+        virtual PHASE_JEU_IA getNextGameType();
 
         /**
          * @brief Modifie le calibrage de l'ia pour profiler
          */
-        void setCalibragePourProfiler();
+        virtual void setProfilingCalibration();
 
         /**
          * @brief Modifie la calibrage de l'ia pour gagner
          */
-        void setCalibragePourJouer();
+        virtual void setCalibrationToPlay();
 
         /**
          * @action Calcule les données globales de profilage et sauvegarde les données de la partie
          */
-        void calculProfilGlobalJoueur();
+        virtual void calculatePlayerGlobalProfile();
 
         /**
          * @action Ecrit les résultats des scénarios de tests pour la partie courante
          */
-        void ecritureScenariosDeTests();
+        virtual void writeScenariosTestsResults();
 
     public:
 
-        IntelligenceArtificielleProfilage(bool estDealer, int jetons, int position);
-        IntelligenceArtificielleProfilage(const ArtificialIntelligence& joueur);
-        virtual ~IntelligenceArtificielleProfilage();
+        ArtificialIntelligenceProfiling(bool isDealer, int tokens, int position);
+        ArtificialIntelligenceProfiling(const ArtificialIntelligence& player);
+        virtual ~ArtificialIntelligenceProfiling();
 
         /**
          * @brief getScenario
          * @return copie de scenarios de tests
          */
-        profiling::TestScenarios getScenario() const;
+        virtual profiling::TestScenarios getScenario() const;
 
         /**
          * @return Profilage du joueur par l'IA
          */
-        profiling::Profiling* getProfilage() const;
+        virtual profiling::Profiling* getProfiling() const;
 
         /**
          * @action Modifie le pseudo du joueur profilé
          * @param pseudo Pseudo du joueur
          */
-        void setPseudoJoueurProfile(std::string pseudo);
+        virtual void setProfiledPlayerNickname(std::string nickname);
 
         /**
          * @action Remplit l'objet contenant les données de profilage du joueur
          */
-        void remplissageDonneesProfilage();
+        virtual void fillProfilingData();
 
         /**
          * @action Ecrit les résultats de la partie dans le csv et dans les scénarios de tests
          *          si l'ia est en phase de profilage
          */
-        void ecritureResultatsPartie();
+        virtual void writeGameResult();
 
         /**
          * @action Change le calibrage de l'IA en fonction de la phase de jeu (profilage/gains)
          */
-        void determinerTypeDeJeu();
+        virtual void determineGameType();
 
         /**
          * @action Ajoute une ligne d'analyse des résultats des gains pour le calibrage courant
          */
-        void ecritureAnalyseDesGains();
+        virtual void writeEarningsAnalysis();
 };
 
-#endif // INTELLIGENCEARTIFICIELLEPROFILAGE_H
+#endif // ARTIFICIALINTELLIGENCEPROFILING_H

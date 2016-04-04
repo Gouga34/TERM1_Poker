@@ -10,7 +10,7 @@ Specification: Fichier contenant les définitions de la classe Fenetre.
 #include "../../include/Interface/CarteGraphique.h"
 #include "../../include/Interface/ContenuFenetreHumain.h"
 #include "../../include/Jeu/JoueurHumain.h"
-#include "../../include/IA/IntelligenceArtificielleProfilage.h"
+#include "../../include/IA/ArtificialIntelligenceProfiling.h"
 #include "../../include/IA/IdealCalibration.h"
 #include "../../include/Interface/ContenuFenetreIA.h"
 
@@ -106,7 +106,7 @@ void Fenetre::initialiser()
 
     /** IA qui profile **/
 
-    IntelligenceArtificielleProfilage *ia = new IntelligenceArtificielleProfilage(false, CAVE_JOUEURS, 1);
+    ArtificialIntelligenceProfiling *ia = new ArtificialIntelligenceProfiling(false, CAVE_JOUEURS, 1);
 
     if (jeu->getOptions().calibrageIaQuiProfileFixe) {
         ia->setCalibration(jeu->getOptions().iaQuiProfile);
@@ -115,7 +115,7 @@ void Fenetre::initialiser()
     jeu->addJoueur(ia);
 
     // Envoi du pseudo du joueur
-    ia->setPseudoJoueurProfile(pseudoJoueur.toStdString());
+    ia->setProfiledPlayerNickname(pseudoJoueur.toStdString());
 
 
     /** Bouton démarrer **/
@@ -146,7 +146,7 @@ void Fenetre::demarragePartie()
         nbParties = 1;
     }
 
-    IntelligenceArtificielleProfilage *iaQuiProfile = static_cast<IntelligenceArtificielleProfilage*>(jeu->getJoueur(1));
+    ArtificialIntelligenceProfiling *iaQuiProfile = static_cast<ArtificialIntelligenceProfiling*>(jeu->getJoueur(1));
 
     for (int i = 0; i < nbCalibrages; i++) {
 
@@ -162,7 +162,7 @@ void Fenetre::demarragePartie()
 
             QString pseudo = QString::number(iaProfilee->getCalibration()->getAggressiveness()) + "_" + QString::number(iaProfilee->getCalibration()->getRationality());
 
-            iaQuiProfile->setPseudoJoueurProfile(pseudo.toStdString());
+            iaQuiProfile->setProfiledPlayerNickname(pseudo.toStdString());
         }
 
         for(int j=0;j<nbParties;j++){
@@ -182,7 +182,7 @@ void Fenetre::demarragePartie()
             jeu->nouvelleMain();
         }
 
-        iaQuiProfile->ecritureAnalyseDesGains();
+        iaQuiProfile->writeEarningsAnalysis();
     }
 
     disconnect(&boutonDemarrage, SIGNAL(clicked()), this, SLOT(demarragePartie()));

@@ -1,5 +1,5 @@
-#ifndef IntelligenceArtificielle_h
-#define IntelligenceArtificielle_h
+#ifndef ARTIFICIALINTELLIGENCE_H
+#define ARTIFICIALINTELLIGENCE_H
 
 #include "../Jeu/Joueur.h"
 #include "../Jeu/Jeu.h"
@@ -79,4 +79,4 @@ class ArtificialIntelligence : public Joueur {
 	
 };
 
-#endif
+#endif //ARTIFICIALINTELLIGENCE_H

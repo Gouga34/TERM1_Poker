@@ -1,5 +1,5 @@
 #include "../../include/Jeu/Jeu.h"
-#include "../../include/IA/IntelligenceArtificielleProfilage.h"
+#include "../../include/IA/ArtificialIntelligenceProfiling.h"
 #include "../../include/Interface/Logger.h"
 
 #include <iterator>
@@ -58,8 +58,8 @@ void Jeu::distributionMain(){
 
     this->resetActions();
 
-    IntelligenceArtificielleProfilage *iaProfilage = static_cast<IntelligenceArtificielleProfilage*>(listeJoueurs.at(1));
-    iaProfilage->determinerTypeDeJeu();
+    ArtificialIntelligenceProfiling *iaProfilage = static_cast<ArtificialIntelligenceProfiling*>(listeJoueurs.at(1));
+    iaProfilage->determineGameType();
 
     getJoueur(0)->setCumulMisesEtRelances(0);
     getJoueur(1)->setCumulMisesEtRelances(0);
@@ -321,8 +321,8 @@ void Jeu::seCoucher(int posJoueur){
     this->getJoueur(0)->setMiseTotale(this->getJoueur(0)->getMiseTotale() + this->getJoueur(0)->getCumulMisesEtRelances());
     this->getJoueur(1)->setMiseTotale(this->getJoueur(1)->getMiseTotale() + this->getJoueur(1)->getCumulMisesEtRelances());
 
-    IntelligenceArtificielleProfilage *ia = static_cast<IntelligenceArtificielleProfilage*>(this->getJoueur(1));
-    ia->remplissageDonneesProfilage();
+    ArtificialIntelligenceProfiling *ia = static_cast<ArtificialIntelligenceProfiling*>(this->getJoueur(1));
+    ia->fillProfilingData();
 
     finPartie();
 }    
@@ -403,9 +403,9 @@ bool Jeu::prochainJoueur(){
         this->getJoueur(0)->setMiseTotale(this->getJoueur(0)->getMiseTotale() + this->getJoueur(0)->getCumulMisesEtRelances());
         this->getJoueur(1)->setMiseTotale(this->getJoueur(1)->getMiseTotale() + this->getJoueur(1)->getCumulMisesEtRelances());
 
-        IntelligenceArtificielleProfilage *ia = static_cast<IntelligenceArtificielleProfilage*>(this->getJoueur(1));
+        ArtificialIntelligenceProfiling *ia = static_cast<ArtificialIntelligenceProfiling*>(this->getJoueur(1));
 
-        ia->remplissageDonneesProfilage();
+        ia->fillProfilingData();
 
         // Fin de la partie
         if (this->getEtape() == ETAPE_JEU::RIVER || this->partieFinie || this->aFaitTapis()) {
@@ -518,8 +518,8 @@ void Jeu::finPartie() {
         estimateurs.clear();
     }
 
-    IntelligenceArtificielleProfilage *ia = static_cast<IntelligenceArtificielleProfilage*>(this->getJoueur(1));
-    ia->ecritureResultatsPartie();
+    ArtificialIntelligenceProfiling *ia = static_cast<ArtificialIntelligenceProfiling*>(this->getJoueur(1));
+    ia->writeGameResult();
 }
 
 std::vector<game::Card> Jeu::getTable() const{
