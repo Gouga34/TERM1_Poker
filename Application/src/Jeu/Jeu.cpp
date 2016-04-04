@@ -1,5 +1,5 @@
 #include "../../include/Jeu/Jeu.h"
-#include "../../include/IA/ArtificialIntelligenceProfiling.h"
+#include "../../include/AI/ArtificialIntelligenceProfiling.h"
 #include "../../include/Interface/Logger.h"
 
 #include <iterator>
@@ -58,7 +58,7 @@ void Jeu::distributionMain(){
 
     this->resetActions();
 
-    ArtificialIntelligenceProfiling *iaProfilage = static_cast<ArtificialIntelligenceProfiling*>(listeJoueurs.at(1));
+    ai::ArtificialIntelligenceProfiling *iaProfilage = static_cast<ai::ArtificialIntelligenceProfiling*>(listeJoueurs.at(1));
     iaProfilage->determineGameType();
 
     getJoueur(0)->setCumulMisesEtRelances(0);
@@ -106,11 +106,11 @@ void Jeu::nouvelleEtape(ETAPE_JEU etape){
 
 void Jeu::calculChancesDeGain() {
 
-    ArtificialIntelligence *ia;
-    ArtificialIntelligence *ia2 = static_cast<ArtificialIntelligence*>(this->getJoueur(1));
+    ai::ArtificialIntelligence *ia;
+    ai::ArtificialIntelligence *ia2 = static_cast<ai::ArtificialIntelligence*>(this->getJoueur(1));
 
     if (!getJoueur(0)->isHumain()) {
-        ia = static_cast<ArtificialIntelligence*>(this->getJoueur(0));
+        ia = static_cast<ai::ArtificialIntelligence*>(this->getJoueur(0));
         ia->launchWinningChancesEstimator(NOMBRE_DE_TESTS, 2);
     }
 
@@ -321,7 +321,7 @@ void Jeu::seCoucher(int posJoueur){
     this->getJoueur(0)->setMiseTotale(this->getJoueur(0)->getMiseTotale() + this->getJoueur(0)->getCumulMisesEtRelances());
     this->getJoueur(1)->setMiseTotale(this->getJoueur(1)->getMiseTotale() + this->getJoueur(1)->getCumulMisesEtRelances());
 
-    ArtificialIntelligenceProfiling *ia = static_cast<ArtificialIntelligenceProfiling*>(this->getJoueur(1));
+    ai::ArtificialIntelligenceProfiling *ia = static_cast<ai::ArtificialIntelligenceProfiling*>(this->getJoueur(1));
     ia->fillProfilingData();
 
     finPartie();
@@ -403,7 +403,7 @@ bool Jeu::prochainJoueur(){
         this->getJoueur(0)->setMiseTotale(this->getJoueur(0)->getMiseTotale() + this->getJoueur(0)->getCumulMisesEtRelances());
         this->getJoueur(1)->setMiseTotale(this->getJoueur(1)->getMiseTotale() + this->getJoueur(1)->getCumulMisesEtRelances());
 
-        ArtificialIntelligenceProfiling *ia = static_cast<ArtificialIntelligenceProfiling*>(this->getJoueur(1));
+        ai::ArtificialIntelligenceProfiling *ia = static_cast<ai::ArtificialIntelligenceProfiling*>(this->getJoueur(1));
 
         ia->fillProfilingData();
 
@@ -497,10 +497,10 @@ void Jeu::finPartie() {
 
         int nbThreads = 4;
         double nbTestsParThread = static_cast<double>(NOMBRE_DE_TESTS) / nbThreads;
-        std::vector<WinningChancesEstimator*> estimateurs;
+        std::vector<ai::WinningChancesEstimator*> estimateurs;
 
         for (int i = 0; i < 4; i++) {
-            WinningChancesEstimator *estimateur = new WinningChancesEstimator(this, getJoueur(0), nbTestsParThread);
+            ai::WinningChancesEstimator *estimateur = new ai::WinningChancesEstimator(this, getJoueur(0), nbTestsParThread);
             estimateurs.push_back(estimateur);
             estimateur->start();
         }
@@ -518,7 +518,7 @@ void Jeu::finPartie() {
         estimateurs.clear();
     }
 
-    ArtificialIntelligenceProfiling *ia = static_cast<ArtificialIntelligenceProfiling*>(this->getJoueur(1));
+    ai::ArtificialIntelligenceProfiling *ia = static_cast<ai::ArtificialIntelligenceProfiling*>(this->getJoueur(1));
     ia->writeGameResult();
 }
 

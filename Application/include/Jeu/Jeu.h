@@ -11,8 +11,8 @@
 #include "../Assessor/Assessor.h"
 #include "../Profiling/CalculateProfilingData.h"
 #include "../Profiling/Profiling.h"
-#include "../IA/WinningChancesEstimator.h"
-#include "../IA/ArtificialIntelligence.h"
+#include "../AI/WinningChancesEstimator.h"
+#include "../AI/ArtificialIntelligence.h"
 #include "../Interface/ChoixOptionsDialog.h"
 
 class Joueur;

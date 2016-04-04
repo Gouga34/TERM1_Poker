@@ -16,3 +16,5 @@ _*
 Application/Poker
 Application/*/Poker
 
+# Fichiers de résultat générés
+Application/ressources/Profilage/ProfilageStatique/*.csv

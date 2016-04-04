@@ -8,7 +8,7 @@ Specification: Fichier contenant les définitions de la classe
 =========================================================================*/
 
 #include "../../include/Interface/ContenuFenetreIA.h"
-#include "../../include/IA/ArtificialIntelligenceProfiling.h"
+#include "../../include/AI/ArtificialIntelligenceProfiling.h"
 #include <QStringList>
 #include <QVBoxLayout>
 #include <QTableWidgetItem>
@@ -151,7 +151,7 @@ void ContenuFenetreIA::initialisationResultats(){
 }
 
 void ContenuFenetreIA::majResultatsGlobaux(){
-    ArtificialIntelligenceProfiling *IA =static_cast<ArtificialIntelligenceProfiling*>(jeu->getJoueur(1));
+    ai::ArtificialIntelligenceProfiling *IA =static_cast<ai::ArtificialIntelligenceProfiling*>(jeu->getJoueur(1));
     int ligne =resultatsGlobaux.rowCount()-1;
     //Ag déduite:
     resultatsGlobaux.setItem(ligne, AG_DEDUITE, new QTableWidgetItem(QString::number(IA->getScenario().getGlobalDeductedProfile().getAggressiveness())));
@@ -178,15 +178,15 @@ void ContenuFenetreIA::majResultatsGlobaux(){
 
 void ContenuFenetreIA::majCalibrageIAProfilee(){
 
-   int agressiviteIAProfilee=static_cast<ArtificialIntelligence*>(jeu->getJoueur(0))->getCalibration()->getAggressiveness();
-   int rationaliteIAProfilee=static_cast<ArtificialIntelligence*>(jeu->getJoueur(0))->getCalibration()->getRationality();
+   int agressiviteIAProfilee=static_cast<ai::ArtificialIntelligence*>(jeu->getJoueur(0))->getCalibration()->getAggressiveness();
+   int rationaliteIAProfilee=static_cast<ai::ArtificialIntelligence*>(jeu->getJoueur(0))->getCalibration()->getRationality();
    calibrageIAProfilee.setText("Calibrage IA profilée : "+QString::number(agressiviteIAProfilee)+"% d'agressivité et "+QString::number(rationaliteIAProfilee)+"% de rationalité");
 }
 
 void ContenuFenetreIA::ajouterLigne(){
 
     int nouvelleLigne = recapParties.rowCount();
-    ArtificialIntelligenceProfiling *IA =static_cast<ArtificialIntelligenceProfiling*>(jeu->getJoueur(1));
+    ai::ArtificialIntelligenceProfiling *IA =static_cast<ai::ArtificialIntelligenceProfiling*>(jeu->getJoueur(1));
     //Ajout d'une ligne:
     recapParties.insertRow(nouvelleLigne);
 
@@ -252,7 +252,7 @@ void ContenuFenetreIA::majGraphiqueResultats(){
     // same thing for graph 1, but only enlarge ranges (in case graph 1 is smaller than graph 0):
     graphiqueResultats.graph(1)->rescaleAxes();
 
-    ArtificialIntelligenceProfiling *IA =static_cast<ArtificialIntelligenceProfiling*>(jeu->getJoueur(1));
+    ai::ArtificialIntelligenceProfiling *IA =static_cast<ai::ArtificialIntelligenceProfiling*>(jeu->getJoueur(1));
     if (IA->getProfiling()->m_testScenario == 1) {
         changerFondPendantProfilage();
     }

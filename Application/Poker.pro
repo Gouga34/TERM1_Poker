@@ -26,11 +26,11 @@ SOURCES += \
     src/Profiling/Profile.cpp \
     src/Profiling/Profiling.cpp \
     src/Profiling/TestScenario.cpp \
-    src/IA/IdealCalibration.cpp \
-    src/IA/WinningChancesEstimator.cpp \
-    src/IA/ArtificialIntelligence.cpp \
-    src/IA/ArtificialIntelligenceProfiling.cpp \
-    src/IA/Resolver.cpp
+    src/AI/IdealCalibration.cpp \
+    src/AI/WinningChancesEstimator.cpp \
+    src/AI/ArtificialIntelligence.cpp \
+    src/AI/ArtificialIntelligenceProfiling.cpp \
+    src/AI/Resolver.cpp
 
 
 QT+=widgets printsupport
@@ -63,11 +63,11 @@ HEADERS += \
     include/Profiling/Profile.h \
     include/Profiling/Profiling.h \
     include/Profiling/TestScenario.h \
-    include/IA/IdealCalibration.h \
-    include/IA/WinningChancesEstimator.h \
-    include/IA/ArtificialIntelligence.h \
-    include/IA/ArtificialIntelligenceProfiling.h \
-    include/IA/Resolver.h
+    include/AI/IdealCalibration.h \
+    include/AI/WinningChancesEstimator.h \
+    include/AI/ArtificialIntelligence.h \
+    include/AI/ArtificialIntelligenceProfiling.h \
+    include/AI/Resolver.h
 
 CONFIG += c++14
 QMAKE_CXX = g++-4.9
