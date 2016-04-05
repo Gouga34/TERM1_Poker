@@ -6,17 +6,17 @@
 #include "Card.h"
 #include "Action.h"
 
-class Jeu;
+class Game;
 
 class Player {
 
 	protected:
         bool                m_isDealer;
         std::vector<game::Card>	m_hand;
-        int*                m_actionsCounter;
+        int*                m_actionsCounter; //TODO passer en std::array
         int                 m_cave;
         int                 m_startingCave;
-        Jeu*                m_game;
+        Game*               m_game;
         int                 m_position;
         int                 m_currentBet;
         int                 m_highestBet;
@@ -31,14 +31,14 @@ class Player {
         *@param  : Le nombre de jetons dont il dispose au debut de la partie
         *@param  : Sa position
 		**/
-        Player(bool isDealer, int cave, int m_position);
+        Player(bool isDealer, int cave, int position);
 		
         virtual ~Player();
 
         virtual double getWinningChances() const;
         virtual int getCave() const;
         virtual int getStartingCave() const;
-        virtual Jeu* getGame() const;
+        virtual Game* getGame() const;
         virtual int	getPosition() const;
         virtual int getCurrentBet() const;
         virtual int	getHighestBet() const;
@@ -49,8 +49,8 @@ class Player {
 
         virtual void setWinningChances(double winningChances);
         virtual void setCave(int cave);
-        virtual void setStartingCave(int m_cave);
-        virtual void setGame(Jeu* game);
+        virtual void setStartingCave(int cave);
+        virtual void setGame(Game* game);
         virtual void setCurrentBet(int currentBet);
         virtual void setHighestBet(int highestBet);
         virtual void setAccumulatedBetsAndRaises(int accumulatedBetsAndRaises);

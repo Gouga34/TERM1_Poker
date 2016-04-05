@@ -7,7 +7,7 @@
 
 namespace ai {
 
-    WinningChancesEstimator::WinningChancesEstimator(Jeu *game, Player *player, int testsNumber)
+    WinningChancesEstimator::WinningChancesEstimator(Game *game, Player *player, int testsNumber)
         : m_testsNumber(testsNumber), m_estimateResult(0), m_game(game), m_player(player) {
 
     }
@@ -24,7 +24,7 @@ namespace ai {
         m_testsNumber = testsNumber;
     }
 
-    void WinningChancesEstimator::setGame(Jeu *game) {
+    void WinningChancesEstimator::setGame(Game *game) {
         m_game = game;
     }
 

@@ -53,7 +53,7 @@ namespace ai {
 
         public:
 
-            ArtificialIntelligenceProfiling(bool isDealer, int tokens, int m_position);
+            ArtificialIntelligenceProfiling(bool isDealer, int tokens, int position);
             ArtificialIntelligenceProfiling(const ArtificialIntelligence& player);
             virtual ~ArtificialIntelligenceProfiling();
 

@@ -56,8 +56,8 @@ namespace ai {
         m_profiling->m_currentProfilingPhase.newPhase(m_game->getOptions().nombrePartiesProfilage);
 
         profiling::Profile searchedCalibration;
-        if (!m_game->getJoueur(0)->isHumain()) {
-            ArtificialIntelligence *profiledAI = static_cast<ArtificialIntelligence*>(m_game->getJoueur(0));
+        if (!m_game->getPlayer(0)->isHumain()) {
+            ArtificialIntelligence *profiledAI = static_cast<ArtificialIntelligence*>(m_game->getPlayer(0));
             searchedCalibration = *(profiledAI->getCalibration());
         }
 
@@ -72,22 +72,22 @@ namespace ai {
         int totalNumberOfActions = 0;
 
         for (int i = 0; i < 3; i++) {
-            totalNumberOfActions += m_game->getJoueur(0)->getActionsCounter()[i];
+            totalNumberOfActions += m_game->getPlayer(0)->getActionsCounter()[i];
         }
 
-        m_profiling->m_stepParts[ETAPE_JEU::NB_ETAPES].adversaryWinningProbabilities = m_game->getJoueur(0)->getWinningChances();
+        m_profiling->m_stepParts[ETAPE_JEU::NB_ETAPES].adversaryWinningProbabilities = m_game->getPlayer(0)->getWinningChances();
 
-        m_profiling->m_stepParts[ETAPE_JEU::NB_ETAPES].betRate += m_game->getJoueur(0)->getActionsCounter()[0];
-        m_profiling->m_stepParts[ETAPE_JEU::NB_ETAPES].callRate += m_game->getJoueur(0)->getActionsCounter()[1];
-        m_profiling->m_stepParts[ETAPE_JEU::NB_ETAPES].checkRate += m_game->getJoueur(0)->getActionsCounter()[2];
+        m_profiling->m_stepParts[ETAPE_JEU::NB_ETAPES].betRate += m_game->getPlayer(0)->getActionsCounter()[0];
+        m_profiling->m_stepParts[ETAPE_JEU::NB_ETAPES].callRate += m_game->getPlayer(0)->getActionsCounter()[1];
+        m_profiling->m_stepParts[ETAPE_JEU::NB_ETAPES].checkRate += m_game->getPlayer(0)->getActionsCounter()[2];
 
-        if (m_game->getJoueur(0)->getHighestBet() > m_profiling->m_stepParts[ETAPE_JEU::NB_ETAPES].highestBet) {
-            m_profiling->m_stepParts[ETAPE_JEU::NB_ETAPES].highestBet = m_game->getJoueur(0)->getHighestBet();
+        if (m_game->getPlayer(0)->getHighestBet() > m_profiling->m_stepParts[ETAPE_JEU::NB_ETAPES].highestBet) {
+            m_profiling->m_stepParts[ETAPE_JEU::NB_ETAPES].highestBet = m_game->getPlayer(0)->getHighestBet();
         }
 
-        m_profiling->m_stepParts[ETAPE_JEU::NB_ETAPES].totalBet = m_game->getJoueur(0)->getTotalBet();
+        m_profiling->m_stepParts[ETAPE_JEU::NB_ETAPES].totalBet = m_game->getPlayer(0)->getTotalBet();
 
-        m_profiling->m_stepParts[ETAPE_JEU::NB_ETAPES].isFolded = m_game->estCouche(0);
+        m_profiling->m_stepParts[ETAPE_JEU::NB_ETAPES].isFolded = m_game->isFolded(0);
 
         m_profiling->m_stepParts[ETAPE_JEU::NB_ETAPES].numberOfActions += totalNumberOfActions;
     }
@@ -95,7 +95,7 @@ namespace ai {
 
     void ArtificialIntelligenceProfiling::calculatePlayerGlobalProfile() {
 
-        m_profiling->m_stepParts[ETAPE_JEU::NB_ETAPES].adversaryWinningProbabilities = m_game->getJoueur(0)->getWinningChances();
+        m_profiling->m_stepParts[ETAPE_JEU::NB_ETAPES].adversaryWinningProbabilities = m_game->getPlayer(0)->getWinningChances();
 
         double result;
 
@@ -150,7 +150,7 @@ namespace ai {
         m_profiling->m_playerProfile->setPassivity(m_profiling->m_stepParts[ETAPE_JEU::NB_ETAPES].passivityRate);
         m_profiling->m_playerProfile->setBluff(m_profiling->m_stepParts[ETAPE_JEU::NB_ETAPES].bluffRate);
 
-        RESULTAT_PARTIE gameResult = getGame()->getResultatPartie();
+        RESULTAT_PARTIE gameResult = getGame()->getGameResult();
         if (gameResult == GAGNE) {
             m_profiling->m_numberTokensWonProfilingAI = getCave()-getStartingCave();
             gameResult = PERDU;
@@ -329,8 +329,8 @@ namespace ai {
 
             profiling::Profile searchedCalibration;
 
-            if (!m_game->getJoueur(0)->isHumain()) {
-                ArtificialIntelligence *iaProfilee = static_cast<ArtificialIntelligence*>(m_game->getJoueur(0));
+            if (!m_game->getPlayer(0)->isHumain()) {
+                ArtificialIntelligence *iaProfilee = static_cast<ArtificialIntelligence*>(m_game->getPlayer(0));
                 searchedCalibration = *(iaProfilee->getCalibration());
             }
 

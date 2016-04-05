@@ -54,7 +54,7 @@ namespace ai {
         double nbTestsByThread = static_cast<double>(testsNumber) / threadsNumber;
 
         for (int i = 0; i < threadsNumber; i++) {
-            WinningChancesEstimator *estimateur = new WinningChancesEstimator(getGame(), getGame()->getJoueur(getPosition()), nbTestsByThread);
+            WinningChancesEstimator *estimateur = new WinningChancesEstimator(getGame(), getGame()->getPlayer(getPosition()), nbTestsByThread);
             m_winningChancesEstimators.push_back(estimateur);
             estimateur->start();
         }

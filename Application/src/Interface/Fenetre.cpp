@@ -71,7 +71,7 @@ void Fenetre::initialiser()
     ChoixOptionsDialog fenetreOptions;
 
     // Création du jeu
-    jeu = new Jeu(2, 20, fenetreOptions.getOptions());
+    jeu = new Game(2, 20, fenetreOptions.getOptions());
 
     /** Joueur 1 **/
 
@@ -101,7 +101,7 @@ void Fenetre::initialiser()
         j1 = new HumanPlayer(true, CAVE_JOUEURS, 0, static_cast<ContenuFenetreHumain*>(contenu));
     }
 
-    jeu->addJoueur(j1);
+    jeu->addPlayer(j1);
 
 
     /** IA qui profile **/
@@ -112,7 +112,7 @@ void Fenetre::initialiser()
         ia->setCalibration(jeu->getOptions().iaQuiProfile);
     }
 
-    jeu->addJoueur(ia);
+    jeu->addPlayer(ia);
 
     // Envoi du pseudo du joueur
     ia->setProfiledPlayerNickname(pseudoJoueur.toStdString());
@@ -141,17 +141,17 @@ void Fenetre::demarragePartie()
     int nbCalibrages = jeu->getOptions().nombreCalibrages;
     int nbParties = jeu->getOptions().nombreParties;
 
-    if (jeu->getJoueur(0)->isHumain()) {
+    if (jeu->getPlayer(0)->isHumain()) {
         nbCalibrages = 1;
         nbParties = 1;
     }
 
-    ai::ArtificialIntelligenceProfiling *iaQuiProfile = static_cast<ai::ArtificialIntelligenceProfiling*>(jeu->getJoueur(1));
+    ai::ArtificialIntelligenceProfiling *iaQuiProfile = static_cast<ai::ArtificialIntelligenceProfiling*>(jeu->getPlayer(1));
 
     for (int i = 0; i < nbCalibrages; i++) {
 
-        if (!jeu->getJoueur(0)->isHumain()) {
-            ai::ArtificialIntelligence *iaProfilee = static_cast<ai::ArtificialIntelligence*>(jeu->getJoueur(0));
+        if (!jeu->getPlayer(0)->isHumain()) {
+            ai::ArtificialIntelligence *iaProfilee = static_cast<ai::ArtificialIntelligence*>(jeu->getPlayer(0));
 
             if (!jeu->getOptions().calibrageIaProfileeFixe) {
                 iaProfilee->changeRandomlyCalibration();
@@ -168,18 +168,18 @@ void Fenetre::demarragePartie()
         for(int j=0;j<nbParties;j++){
             std::cout << "Partie " << j+1 << std::endl;
 
-            jeu->nouvellePartie();
+            jeu->newGame();
 
-            if (jeu->getJoueur(0)->isHumain()) {
+            if (jeu->getPlayer(0)->isHumain()) {
                 ContenuFenetreHumain *c = static_cast<ContenuFenetreHumain*>(contenu);
                 c->debutPartie();
             }
 
-            jeu->lancerPartie();
+            jeu->launchPart();
 
             contenu->actualiser();
 
-            jeu->nouvelleMain();
+            jeu->newHand();
         }
 
         iaQuiProfile->writeEarningsAnalysis();
@@ -193,8 +193,8 @@ void Fenetre::demarragePartie()
 
 void Fenetre::demarrageCalibrageIdeal()
 {
-    ai::ArtificialIntelligence *iaQuiProfile = static_cast<ai::ArtificialIntelligence*>(jeu->getJoueur(1));
-    ai::ArtificialIntelligence *iaProfilee = static_cast<ai::ArtificialIntelligence*>(jeu->getJoueur(0));
+    ai::ArtificialIntelligence *iaQuiProfile = static_cast<ai::ArtificialIntelligence*>(jeu->getPlayer(1));
+    ai::ArtificialIntelligence *iaProfilee = static_cast<ai::ArtificialIntelligence*>(jeu->getPlayer(0));
 
     ai::IdealCalibration c(jeu, iaQuiProfile->getCalibration(), iaProfilee->getCalibration(), jeu->getOptions().nombreParties);
     c.launchParts();

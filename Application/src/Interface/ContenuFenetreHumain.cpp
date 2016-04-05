@@ -17,7 +17,7 @@ Specification: Fichier contenant les définitions de la classe ContenuFenetreHum
 
 QPixmap *ContenuFenetreHumain::textureCartes = 0;
 
-ContenuFenetreHumain::ContenuFenetreHumain(Jeu *j, Fenetre *f) : ContenuFenetre(j)
+ContenuFenetreHumain::ContenuFenetreHumain(Game *j, Fenetre *f) : ContenuFenetre(j)
 {
     // Couleur de fond
     QPalette pal(palette());
@@ -181,7 +181,7 @@ void ContenuFenetreHumain::debutPartie()
         std::vector<int> ids = fenetreCartes.choixCartes();
 
         if (!ids.empty()) {
-            jeu->affectationCarte(ids);
+            jeu->affectsCards(ids);
         }
     }
 
@@ -194,7 +194,7 @@ void ContenuFenetreHumain::debutPartie()
 
 
     // Affichage de la main adverse dans les logs
-    std::vector<game::Card> jeuAdverse = jeu->getJoueur(1)->getHand();
+    std::vector<game::Card> jeuAdverse = jeu->getPlayer(1)->getHand();
 
     Logger::getInstance()->ajoutLogs("Jeu adverse : ");
     for (unsigned int i = 0; i < jeuAdverse.size(); i++) {
@@ -204,7 +204,7 @@ void ContenuFenetreHumain::debutPartie()
 
     // Main du joueur
     layoutMain.vider();
-    layoutMain.ajoutCartes(jeu->getJoueur(0)->getHand());
+    layoutMain.ajoutCartes(jeu->getPlayer(0)->getHand());
 
     // Cartes communes
     layoutCartesCommunes.vider();
@@ -229,8 +229,8 @@ void ContenuFenetreHumain::debutPartie()
 void ContenuFenetreHumain::actualiser()
 {
     pot.display(jeu->getPot());
-    caveJoueur.display(jeu->getJoueur(0)->getCave());
-    caveIA.display(jeu->getJoueur(1)->getCave());
+    caveJoueur.display(jeu->getPlayer(0)->getCave());
+    caveIA.display(jeu->getPlayer(1)->getCave());
 
     valeurMise.setMinimum(jeu->getBlind());
 
@@ -242,8 +242,8 @@ Action ContenuFenetreHumain::getAction()
     // Mise à jour des informations
     afficheTable();
     pot.display(jeu->getPot());
-    caveJoueur.display(jeu->getJoueur(0)->getCave());
-    caveIA.display(jeu->getJoueur(1)->getCave());
+    caveJoueur.display(jeu->getPlayer(0)->getCave());
+    caveIA.display(jeu->getPlayer(1)->getCave());
 
     activeBoutons(true);
 
@@ -278,19 +278,19 @@ void ContenuFenetreHumain::activeBoutons(bool active)
             switch (i) {
 
                 case CHECKER:
-                    boutons[i].setEnabled(jeu->peutChecker(0));
+                    boutons[i].setEnabled(jeu->canCheck(0));
                     break;
 
                 case MISER:
-                    boutons[i].setEnabled(jeu->peutMiser(0, 1));
+                    boutons[i].setEnabled(jeu->canBet(0, 1));
                     break;
 
                 case SUIVRE:
-                    boutons[i].setEnabled(jeu->peutSuivre(0));
+                    boutons[i].setEnabled(jeu->canCall(0));
                     break;
 
                 case RELANCER:
-                    boutons[i].setEnabled(jeu->peutRelancer(0, 2 * jeu->getMiseCourante()));
+                    boutons[i].setEnabled(jeu->canRaise(0, 2 * jeu->getCurrentBet()));
                     break;
 
                 default:
@@ -299,8 +299,8 @@ void ContenuFenetreHumain::activeBoutons(bool active)
             }
         }
 
-        valeurMise.setMinimum(2 * jeu->getMiseCourante());
-        valeurMise.setMaximum(jeu->getJoueur(0)->getCave());
+        valeurMise.setMinimum(2 * jeu->getCurrentBet());
+        valeurMise.setMaximum(jeu->getPlayer(0)->getCave());
     }
 }
 
@@ -378,11 +378,11 @@ void ContenuFenetreHumain::partieTermine()
     activeBoutons(false);
 
     layoutMainAdverse.vider();
-    layoutMainAdverse.ajoutCartes(jeu->getJoueur(1)->getHand());
+    layoutMainAdverse.ajoutCartes(jeu->getPlayer(1)->getHand());
 
     afficheTable();
 
-    int gagne = jeu->getResultatPartie();
+    int gagne = jeu->getGameResult();
 
     if(gagne==GAGNE){
         resultatPartie.setStyleSheet("QLabel {color : #89DF57; font-size : 40px; text-align:center; padding-left:80px; font-weight:bold;}");

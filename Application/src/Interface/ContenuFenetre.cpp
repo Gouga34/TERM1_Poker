@@ -11,7 +11,7 @@ Specification: Fichier contenant les définitions de la classe ContenuFenetre.
 
 #include <QScrollBar>
 
-ContenuFenetre::ContenuFenetre(Jeu *j) : QWidget(), jeu(j)
+ContenuFenetre::ContenuFenetre(Game *j) : QWidget(), jeu(j)
 {
     Logger::creerInstance(this);
 }

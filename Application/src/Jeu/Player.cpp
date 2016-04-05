@@ -1,5 +1,5 @@
 #include "../../include/Jeu/Player.h"
-#include "../../include/Jeu/Jeu.h" 
+#include "../../include/Jeu/Game.h"
 
 Player::Player(bool isDealer, int cave, int position)
     : m_isDealer(isDealer), m_cave(cave), m_position(position),
@@ -8,7 +8,7 @@ Player::Player(bool isDealer, int cave, int position)
 }
 
 Player::~Player() {
-
+    delete [] m_actionsCounter;
 }
 
 double Player::getWinningChances() const {
@@ -43,11 +43,11 @@ std::vector<game::Card> Player::getHand() const {
     return m_hand;
 }
 
-void Player::setGame(Jeu* game) {
+void Player::setGame(Game* game) {
     m_game = game;
 }
 
-Jeu* Player::getGame() const {
+Game* Player::getGame() const {
     return m_game;
 }
 

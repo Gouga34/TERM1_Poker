@@ -1,7 +1,7 @@
 #ifndef WINNINGCHANCESESTIMATOR_H
 #define WINNINGCHANCESESTIMATOR_H
 
-#include "../Jeu/Jeu.h"
+#include "../Jeu/Game.h"
 #include "../Jeu/Player.h"
 #include "../Assessor/Assessor.h"
 #include <QThread>
@@ -18,7 +18,7 @@ namespace ai {
             // Résultat de l'estimation lancée dans le thread
             double m_estimateResult;
 
-            Jeu *m_game;
+            Game *m_game;
             Player *m_player;
 
 
@@ -43,13 +43,13 @@ namespace ai {
 
         public:
 
-            WinningChancesEstimator(Jeu *game, Player *player, int testsNumber = NOMBRE_DE_TESTS);
+            WinningChancesEstimator(Game *game, Player *player, int testsNumber = NOMBRE_DE_TESTS);
             virtual ~WinningChancesEstimator();
 
             virtual double getEstimateResult() const;
 
             virtual void setTestsNumber(int testsNumber);
-            virtual void setGame(Jeu *game);
+            virtual void setGame(Game *game);
             virtual void setPlayer(Player *player);
 
             /**

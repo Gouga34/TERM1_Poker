@@ -11,7 +11,7 @@ Specification: Classe permettant de calculer les actions de
 #define RESOLVER_H
 
 #include <utility>
-#include "../Jeu/Jeu.h"
+#include "../Jeu/Game.h"
 #include "ArtificialIntelligence.h"
 #include "../Profiling/Profile.h"
 #include <cstdlib>

@@ -88,7 +88,7 @@ class ContenuFenetreHumain : public ContenuFenetre
         // Image contenant l'ensemble des cartes graphiques du jeu de carte
         static QPixmap *textureCartes;
 
-        ContenuFenetreHumain(Jeu *j, Fenetre *f);
+        ContenuFenetreHumain(Game *j, Fenetre *f);
         virtual ~ContenuFenetreHumain();
 
         /**

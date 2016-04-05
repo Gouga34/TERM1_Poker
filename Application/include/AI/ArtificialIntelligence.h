@@ -2,7 +2,7 @@
 #define ARTIFICIALINTELLIGENCE_H
 
 #include "../Jeu/Player.h"
-#include "../Jeu/Jeu.h"
+#include "../Jeu/Game.h"
 #include "Resolver.h"
 #include "WinningChancesEstimator.h"
 #include "../Profiling/Profile.h"
@@ -30,7 +30,7 @@ namespace ai {
             *@action : Constructeur de la classe Intelligence Artificielle
             *@param  : Un boolean indiquant si le jouer est le dealer, sa cave de depart et sa position
             **/
-            ArtificialIntelligence(bool isDealer, int tokens, int m_position);
+            ArtificialIntelligence(bool isDealer, int tokens, int position);
 
             /**
             *@action : Constructeur de la classe Intelligence Artificielle par copie de la classe Joueur

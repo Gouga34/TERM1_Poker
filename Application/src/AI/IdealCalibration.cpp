@@ -15,7 +15,7 @@ Specification: Fichier contenant les définitions de la classe CalibrageIdeal.
 
 namespace ai {
 
-    IdealCalibration::IdealCalibration(Jeu *j, profiling::Profile *iaQuiProfile, profiling::Profile *iaProfilee, int nbParties)
+    IdealCalibration::IdealCalibration(Game *j, profiling::Profile *iaQuiProfile, profiling::Profile *iaProfilee, int nbParties)
         : m_game(j), m_profilingAICalibration(iaQuiProfile), m_profiledAICalibration(iaProfilee), m_partsNumber(nbParties),
           m_numberPartsWon(0), m_totalTokensWon(0)
     {
@@ -71,18 +71,18 @@ namespace ai {
                 for (int n = 0; n < m_partsNumber; n++) {
                     std::cout << "\tPartie " << n+1 << std::endl;
 
-                    m_game->nouvellePartie();
+                    m_game->newGame();
 
-                    m_game->lancerPartie();
+                    m_game->launchPart();
 
                     // Si c'est l'IA qui a gagné
-                    if (m_game->getResultatPartie() == PERDU) {
+                    if (m_game->getGameResult() == PERDU) {
                         ++m_numberPartsWon;
                     }
 
-                    m_totalTokensWon += m_game->getJoueur(1)->getCave() - m_game->getJoueur(1)->getStartingCave();
+                    m_totalTokensWon += m_game->getPlayer(1)->getCave() - m_game->getPlayer(1)->getStartingCave();
 
-                    m_game->nouvelleMain();
+                    m_game->newHand();
                 }
 
                 writeTotalPartsResult();

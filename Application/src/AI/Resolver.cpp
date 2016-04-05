@@ -54,13 +54,13 @@ namespace ai {
         //Si le total des mises de l'IA est supérieur à mth, on checke ou on se couche.
         //Sinon, on mise/relance/suit
         if (roundTheoreticalBet > m_aggressivenessTheoreticalTotalBet - m_ai->getAccumulatedBetsAndRaises()
-                || m_ai->getGame()->getEtape() != RIVER) {
+                || m_ai->getGame()->getStep() != RIVER) {
             roundTheoreticalBet = m_aggressivenessTheoreticalTotalBet - m_ai->getAccumulatedBetsAndRaises();
         }
         //Si on peut miser
-        if (m_ai->getGame()->peutMiser(m_ai->getPosition(),1)) {
+        if (m_ai->getGame()->canBet(m_ai->getPosition(),1)) {
             // Si on a l'argent
-            if (m_ai->getGame()->peutMiser(m_ai->getPosition(),roundTheoreticalBet)) {
+            if (m_ai->getGame()->canBet(m_ai->getPosition(),roundTheoreticalBet)) {
                 action = MISER;
                 tokensToBet = roundTheoreticalBet;
             }
@@ -69,28 +69,28 @@ namespace ai {
             }
         }
         //Si le joueur adverse a misé ou relancé
-        else if (m_ai->getGame()->getLastAction(m_ai->getGame()->getPositionJoueurAdverse(m_ai->getPosition())) == MISER
-                    || m_ai->getGame()->getLastAction(m_ai->getGame()->getPositionJoueurAdverse(m_ai->getPosition())) == RELANCER
-                    || m_ai->getGame()->getLastAction(m_ai->getGame()->getPositionJoueurAdverse(m_ai->getPosition())) == GROSSE_BLIND
-                    || m_ai->getGame()->getLastAction(m_ai->getGame()->getPositionJoueurAdverse(m_ai->getPosition())) == TAPIS) {
+        else if (m_ai->getGame()->getPlayersLastAction(m_ai->getGame()->getOpponentsPosition(m_ai->getPosition())) == MISER
+                    || m_ai->getGame()->getPlayersLastAction(m_ai->getGame()->getOpponentsPosition(m_ai->getPosition())) == RELANCER
+                    || m_ai->getGame()->getPlayersLastAction(m_ai->getGame()->getOpponentsPosition(m_ai->getPosition())) == GROSSE_BLIND
+                    || m_ai->getGame()->getPlayersLastAction(m_ai->getGame()->getOpponentsPosition(m_ai->getPosition())) == TAPIS) {
 
-            double variationAutoriseeMiseAdversaire = (VARIATION_AUTORISEE / 100) * m_ai->getGame()->getMiseCourante();
+            double variationAutoriseeMiseAdversaire = (VARIATION_AUTORISEE / 100) * m_ai->getGame()->getCurrentBet();
 
             //Si la mise courante est inférieure à ce qu'il reste à miser +10% de la mise
-            if (m_ai->getGame()->getMiseCourante() <= m_aggressivenessTheoreticalTotalBet - m_ai->getAccumulatedBetsAndRaises() + variationAutoriseeMiseAdversaire) {
+            if (m_ai->getGame()->getCurrentBet() <= m_aggressivenessTheoreticalTotalBet - m_ai->getAccumulatedBetsAndRaises() + variationAutoriseeMiseAdversaire) {
                 //On continue à jouer
                 //Si la mise théorique est inférieure à la relance minimum (-10%), on suit
-                if (roundTheoreticalBet < 2 * m_ai->getGame()->getMiseCourante() - variationAutoriseeMiseAdversaire) {
+                if (roundTheoreticalBet < 2 * m_ai->getGame()->getCurrentBet() - variationAutoriseeMiseAdversaire) {
                     action = SUIVRE;
                 }
                 else {   // On relance
                     //Si on peut relancer
-                    if (m_ai->getGame()->peutRelancer(m_ai->getPosition(), 2 * m_ai->getGame()->getMiseCourante())) {
-                        if (roundTheoreticalBet < 2 * m_ai->getGame()->getMiseCourante()) {
-                            tokensToBet = 2 * m_ai->getGame()->getMiseCourante();
+                    if (m_ai->getGame()->canRaise(m_ai->getPosition(), 2 * m_ai->getGame()->getCurrentBet())) {
+                        if (roundTheoreticalBet < 2 * m_ai->getGame()->getCurrentBet()) {
+                            tokensToBet = 2 * m_ai->getGame()->getCurrentBet();
                         }
                         else {
-                            if (m_ai->getGame()->peutRelancer(m_ai->getPosition(), roundTheoreticalBet)) {
+                            if (m_ai->getGame()->canRaise(m_ai->getPosition(), roundTheoreticalBet)) {
                                 tokensToBet = roundTheoreticalBet;
                             }
                             else {
@@ -100,14 +100,14 @@ namespace ai {
                         action = RELANCER;
                     }
                     else {
-                        if (m_ai->getGame()->peutSuivre(m_ai->getPosition())) {
+                        if (m_ai->getGame()->canCall(m_ai->getPosition())) {
                             action = SUIVRE;
                         }
                     }
                 }
             }
             else {
-                if (m_ai->getGame()->peutChecker(m_ai->getPosition())) {
+                if (m_ai->getGame()->canCheck(m_ai->getPosition())) {
                     action = CHECKER;
                 }
                 else {
@@ -115,7 +115,7 @@ namespace ai {
                 }
             }
         }
-        else if (m_ai->getGame()->peutChecker(m_ai->getPosition())) {
+        else if (m_ai->getGame()->canCheck(m_ai->getPosition())) {
             action = CHECKER;
         }
 
@@ -173,35 +173,35 @@ namespace ai {
 
             //Si on peut pas checker et peut de chances de gain :
             if (m_ai->getWinningChances() < 30.0
-                    && !(m_ai->getGame()->peutChecker(m_ai->getPosition()))) {
+                    && !(m_ai->getGame()->canCheck(m_ai->getPosition()))) {
                 action = ACTION::SE_COUCHER;
             }
             else if (m_ai->getAccumulatedBetsAndRaises() < theoreticalBetTokens) {
                 int tokensToBetRationality = theoreticalBetTokens - m_ai->getAccumulatedBetsAndRaises();
 
-                if (m_ai->getGame()->peutMiser(m_ai->getPosition(),tokensToBetRationality)) { //Si on peut miser
+                if (m_ai->getGame()->canBet(m_ai->getPosition(),tokensToBetRationality)) { //Si on peut miser
                     action = ACTION::MISER;
                     tokensToBet = tokensToBetRationality;
                 }
 
                 //Si on peut Relancer, on relance
-                else if (m_ai->getGame()->peutRelancer(m_ai->getPosition(),calculateRationalityBet(ACTION::RELANCER))) {
+                else if (m_ai->getGame()->canRaise(m_ai->getPosition(),calculateRationalityBet(ACTION::RELANCER))) {
                     action = ACTION::RELANCER;
                     tokensToBet = calculateRationalityBet(action);
                 }
                 //Si on peut suivre, on suit
-                else if (m_ai->getGame()->peutSuivre(m_ai->getPosition())) {
+                else if (m_ai->getGame()->canCall(m_ai->getPosition())) {
                     action = ACTION::SUIVRE;
                 }
                 //Si on peut checker on checke
-                else if (m_ai->getGame()->peutChecker(m_ai->getPosition())) {
+                else if (m_ai->getGame()->canCheck(m_ai->getPosition())) {
                     action = ACTION::CHECKER;
                 }
             }
-            else if (m_ai->getGame()->peutChecker(m_ai->getPosition())) {
+            else if (m_ai->getGame()->canCheck(m_ai->getPosition())) {
                 action = ACTION::CHECKER;
             }
-            else if (m_ai->getGame()->peutSuivre(m_ai->getPosition())) {
+            else if (m_ai->getGame()->canCall(m_ai->getPosition())) {
                 action = ACTION::SUIVRE;
             }
         }
@@ -209,7 +209,7 @@ namespace ai {
             std::vector<ACTION> actionsList;
 
          //Construction de la liste des actions possibles :
-            if (m_ai->getGame()->peutMiser(m_ai->getPosition(), 1)) {
+            if (m_ai->getGame()->canBet(m_ai->getPosition(), 1)) {
                 //Miser plus que la mise théroque:
                 actionsList.push_back(GROSSE_BLIND); //En fait c'est miserplus que théorique mais
 
@@ -221,18 +221,18 @@ namespace ai {
                 actionsList.push_back(ACTION::SE_COUCHER);
             }
             else if (m_ai->getWinningChances() <= 70) { //Relancer et/ou Suivre
-                if (m_ai->getGame()->peutRelancer(m_ai->getPosition(),2 * m_ai->getGame()->getMiseCourante())) {
+                if (m_ai->getGame()->canRaise(m_ai->getPosition(),2 * m_ai->getGame()->getCurrentBet())) {
                     actionsList.push_back(ACTION::RELANCER);
                 }
-                else if (m_ai->getGame()->peutSuivre(m_ai->getPosition())) {
+                else if (m_ai->getGame()->canCall(m_ai->getPosition())) {
                     actionsList.push_back(ACTION::SUIVRE);
                 }
-                else if (m_ai->getGame()->peutChecker(m_ai->getPosition())) {
+                else if (m_ai->getGame()->canCheck(m_ai->getPosition())) {
                     actionsList.push_back(ACTION::CHECKER);
                 }
             }
             else { //Checker
-                if (m_ai->getGame()->peutChecker(m_ai->getPosition())) {
+                if (m_ai->getGame()->canCheck(m_ai->getPosition())) {
                     actionsList.push_back(ACTION::CHECKER);
                 }
             }
@@ -274,10 +274,10 @@ namespace ai {
                 action = actionsList.at(randomNumber);
 
                 if (action == ACTION::RELANCER) {
-                    tokensToBet = 2 * m_ai->getGame()->getMiseCourante();
+                    tokensToBet = 2 * m_ai->getGame()->getCurrentBet();
                 }
                 else if (action == ACTION::SUIVRE) {
-                    tokensToBet = m_ai->getGame()->getMiseCourante();
+                    tokensToBet = m_ai->getGame()->getCurrentBet();
                 }
             }
         }
@@ -296,12 +296,12 @@ namespace ai {
             tokensToBet = -1;
         }
         else if (action == ACTION::SUIVRE) {
-            tokensToBet = m_ai->getGame()->getMiseCourante();
+            tokensToBet = m_ai->getGame()->getCurrentBet();
         }
         else if (action == ACTION::RELANCER) {
             //Si on peut relancer
-            if (tokensToBet >= 2 * m_ai->getGame()->getMiseCourante()) {
-                tokensToBet = 2 * m_ai->getGame()->getMiseCourante();
+            if (tokensToBet >= 2 * m_ai->getGame()->getCurrentBet()) {
+                tokensToBet = 2 * m_ai->getGame()->getCurrentBet();
             }
             else {
                 tokensToBet = 0;
@@ -362,8 +362,8 @@ namespace ai {
                      && rationalAction.getAction() == SUIVRE)) {
 
                 if (roughtAction.getAction() == RELANCER) {
-                    if (roughtAction.getTokens() > m_ai->getGame()->getMiseCourante() * 2) {
-                        tokensToBet = m_ai->getGame()->getMiseCourante() * 2;
+                    if (roughtAction.getTokens() > m_ai->getGame()->getCurrentBet() * 2) {
+                        tokensToBet = m_ai->getGame()->getCurrentBet() * 2;
                         action = RELANCER;
                     }
                     else {
@@ -371,8 +371,8 @@ namespace ai {
                     }
                 }
                 else {
-                    if (rationalAction.getTokens() > m_ai->getGame()->getMiseCourante() * 2) {
-                        tokensToBet = m_ai->getGame()->getMiseCourante() * 2;
+                    if (rationalAction.getTokens() > m_ai->getGame()->getCurrentBet() * 2) {
+                        tokensToBet = m_ai->getGame()->getCurrentBet() * 2;
                         action = RELANCER;
                     }
                     else {
@@ -446,10 +446,10 @@ namespace ai {
 
                 int tokens = (m_ai->getCave() == 1) ? 1 : m_ai->getCave() / 2;
 
-                if (m_ai->getGame()->peutSuivre(m_ai->getPosition())) {
+                if (m_ai->getGame()->canCall(m_ai->getPosition())) {
                     action = SUIVRE;
                 }
-                else if (m_ai->getGame()->peutMiser(m_ai->getPosition(),tokens)) {
+                else if (m_ai->getGame()->canBet(m_ai->getPosition(),tokens)) {
                     action = MISER;
                     tokensToBet = tokens;
                 }
@@ -459,13 +459,13 @@ namespace ai {
                     && rationalAction.getAction() == CHECKER)
                  || (roughtAction.getAction() == CHECKER
                      && rationalAction.getAction() == TAPIS)) {
-                if (m_ai->getGame()->peutSuivre(m_ai->getPosition())) {
+                if (m_ai->getGame()->canCall(m_ai->getPosition())) {
                     action = SUIVRE;
                 }
                 else {
                     int tokens = (m_ai->getCave() == 1) ? 1 : m_ai->getCave() / 2;
 
-                    if (m_ai->getGame()->peutMiser(m_ai->getPosition(),tokens)) {
+                    if (m_ai->getGame()->canBet(m_ai->getPosition(),tokens)) {
                         action = MISER;
                         tokensToBet = tokens;
                     }

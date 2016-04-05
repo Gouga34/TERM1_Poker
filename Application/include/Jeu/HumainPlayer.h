@@ -20,7 +20,7 @@ class HumanPlayer : public Player
 
     public:
 
-        HumanPlayer(bool isDealer, int tokens, int m_position, ContenuFenetreHumain *window);
+        HumanPlayer(bool isDealer, int tokens, int position, ContenuFenetreHumain *window);
         HumanPlayer(const HumanPlayer& player, ContenuFenetreHumain *window);
         virtual ~HumanPlayer();
 
