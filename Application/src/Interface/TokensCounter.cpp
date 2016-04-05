@@ -6,17 +6,17 @@ Projet: Profilage par essais et erreurs au poker
 Specification: Fichier contenant les définitions de la classe CompteurJetons.
 =========================================================================*/
 
-#include "../../include/Interface/CompteurJetons.h"
+#include "../../include/Interface/TokensCounter.h"
 
 
-CompteurJetons::CompteurJetons() : QLCDNumber()
+TokensCounter::TokensCounter() : QLCDNumber()
 {
     setFixedSize(80, 50);
     setSegmentStyle(QLCDNumber::Flat);
     setStyleSheet("background-color: #89DF57");
 }
 
-CompteurJetons::~CompteurJetons()
+TokensCounter::~TokensCounter()
 {
 
 }

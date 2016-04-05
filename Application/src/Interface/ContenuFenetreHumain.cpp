@@ -7,7 +7,7 @@ Specification: Fichier contenant les définitions de la classe ContenuFenetreHum
 =========================================================================*/
 
 #include "../../include/Interface/ContenuFenetreHumain.h"
-#include "../../include/Interface/CartesDialog.h"
+#include "../../include/Interface/CardsDialog.h"
 #include "../../include/Interface/Logger.h"
 
 #include <QString>
@@ -177,8 +177,8 @@ void ContenuFenetreHumain::debutPartie()
 {
     // Sélection des cartes par l'utilisateur
     if (boutonChoixCartes.isChecked()) {
-        CartesDialog fenetreCartes(this);
-        std::vector<int> ids = fenetreCartes.choixCartes();
+        CardsDialog fenetreCartes(this);
+        std::vector<int> ids = fenetreCartes.cardsChoice();
 
         if (!ids.empty()) {
             jeu->affectsCards(ids);
@@ -203,11 +203,11 @@ void ContenuFenetreHumain::debutPartie()
     }
 
     // Main du joueur
-    layoutMain.vider();
-    layoutMain.ajoutCartes(jeu->getPlayer(0)->getHand());
+    layoutMain.clear();
+    layoutMain.addCards(jeu->getPlayer(0)->getHand());
 
     // Cartes communes
-    layoutCartesCommunes.vider();
+    layoutCartesCommunes.clear();
 
     for (int i = 0; i < 5; i++) {
         GraphicCard *dos = new GraphicCard(0, 0);
@@ -219,7 +219,7 @@ void ContenuFenetreHumain::debutPartie()
     GraphicCard *dos = new GraphicCard(0, 0);
     GraphicCard *dos2 = new GraphicCard(0, 0);
 
-    layoutMainAdverse.vider();
+    layoutMainAdverse.clear();
     layoutMainAdverse.addWidget(dos);
     layoutMainAdverse.addWidget(dos2);
 
@@ -308,8 +308,8 @@ void ContenuFenetreHumain::afficheTable()
 {
     std::vector<game::Card> table = jeu->getTable();
 
-    layoutCartesCommunes.vider();
-    layoutCartesCommunes.ajoutCartes(table);
+    layoutCartesCommunes.clear();
+    layoutCartesCommunes.addCards(table);
 
     // On complète la table avec des dos de carte
     for (unsigned int i = 0; i < 5 - table.size(); i++) {
@@ -377,8 +377,8 @@ void ContenuFenetreHumain::partieTermine()
     Logger::getInstance()->addLogs("Partie terminée !");
     activeBoutons(false);
 
-    layoutMainAdverse.vider();
-    layoutMainAdverse.ajoutCartes(jeu->getPlayer(1)->getHand());
+    layoutMainAdverse.clear();
+    layoutMainAdverse.addCards(jeu->getPlayer(1)->getHand());
 
     afficheTable();
 

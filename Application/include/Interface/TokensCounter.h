@@ -6,17 +6,17 @@ Projet: Profilage par essais et erreurs au poker
 Specification: Classe définissant un LCD Number pour l'interface graphique.
 =========================================================================*/
 
-#ifndef COMPTEURJETONS_H
-#define COMPTEURJETONS_H
+#ifndef TOKENSCOUNTER_H
+#define TOKENSCOUNTER_H
 
 #include <QLCDNumber>
 
-class CompteurJetons : public QLCDNumber
+class TokensCounter : public QLCDNumber
 {
     public:
 
-        CompteurJetons();
-        ~CompteurJetons();
+        TokensCounter();
+        virtual ~TokensCounter();
 };
 
-#endif // COMPTEURJETONS_H
+#endif // TOKENSCOUNTER_H
