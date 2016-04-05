@@ -11,7 +11,7 @@ Specification: Classe définissant la fenêtre de choix des cartes.
 
 #include "ContenuFenetre.h"
 #include "ListeCartes.h"
-#include "CompteurJetons.h"
+#include "TokensCounter.h"
 #include "Fenetre.h"
 
 #include <QPixmap>
@@ -39,9 +39,9 @@ class ContenuFenetreHumain : public ContenuFenetre
         ListeCartes layoutCartesCommunes;
 
         // Compteur du pot et des caves des joueurs
-        CompteurJetons pot;
-        CompteurJetons caveJoueur;
-        CompteurJetons caveIA;
+        TokensCounter pot;
+        TokensCounter caveJoueur;
+        TokensCounter caveIA;
 
         // Boite de saisie du montant de la mise
         QSpinBox valeurMise;
