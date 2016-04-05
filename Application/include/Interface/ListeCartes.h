@@ -13,7 +13,7 @@ Specification: Classe correspondant à un ensemble de cartes contenues
 #include <QHBoxLayout>
 #include <QList>
 #include <QLabel>
-#include "../Jeu/Card.h"
+#include "../Game/Card.h"
 
 class ListeCartes : public QHBoxLayout
 {

@@ -1,4 +1,4 @@
-#include "../../include/Jeu/Card.h"
+#include "../../include/Game/Card.h"
 
 
 namespace game {

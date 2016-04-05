@@ -8,7 +8,7 @@ Specification: Fichier contenant le main de l'application graphique.
 
 #include <QApplication>
 #include "../../include/Interface/Fenetre.h"
-#include "../../include/Jeu/Game.h"
+#include "../../include/Game/Game.h"
 
 int main(int argc, char *argv[])
 {

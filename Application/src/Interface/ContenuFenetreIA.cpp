@@ -17,7 +17,7 @@ Specification: Fichier contenant les définitions de la classe
 #include <QHeaderView>
 
 
-ContenuFenetreIA::ContenuFenetreIA(Game *j, Fenetre *f):ContenuFenetre(j){
+ContenuFenetreIA::ContenuFenetreIA(game::Game *j, Fenetre *f):ContenuFenetre(j){
 
     // Couleur de fond
     QPalette pal(palette());

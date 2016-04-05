@@ -44,7 +44,7 @@ namespace ai {
     }
 
 
-    Action Resolver::calculateRoughtAction() {
+    game::Action Resolver::calculateRoughtAction() {
         calculateAggressivenessTheoreticalTotalBet();
 
         ACTION action = PAS_ENCORE_D_ACTION;
@@ -123,7 +123,7 @@ namespace ai {
             std::cout << "pas encore d'action" << std::endl;
         }
 
-        return Action(action,tokensToBet);
+        return game::Action(action,tokensToBet);
     }
 
     void Resolver::calculateAggressivenessTheoreticalTotalBet() {
@@ -161,7 +161,7 @@ namespace ai {
     }
 
 
-    Action Resolver::calculateRationalAction() {
+    game::Action Resolver::calculateRationalAction() {
         ACTION action;
         int tokensToBet =-1; //-1 si pas une action avec une mise
 
@@ -282,7 +282,7 @@ namespace ai {
             }
         }
 
-        return Action(action,tokensToBet);
+        return game::Action(action,tokensToBet);
     }
 
 
@@ -312,9 +312,9 @@ namespace ai {
     }
 
 
-    Action Resolver::calculateAction() {
-        Action roughtAction = calculateRoughtAction();
-        Action rationalAction = calculateRationalAction();
+    game::Action Resolver::calculateAction() {
+        game::Action roughtAction = calculateRoughtAction();
+        game::Action rationalAction = calculateRationalAction();
 
         bool randomSelection = false;
         ACTION action = PAS_ENCORE_D_ACTION;
@@ -531,6 +531,6 @@ namespace ai {
             tokensToBet = m_ai->getCave();
         }
 
-        return Action(action,tokensToBet);
+        return game::Action(action,tokensToBet);
     }
 }

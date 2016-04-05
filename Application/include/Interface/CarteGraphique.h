@@ -10,7 +10,7 @@ Specification: Classe définissant une carte graphique.
 #define CARTEGRAPHIQUE_H
 
 #include <QLabel>
-#include "../Jeu/Card.h"
+#include "../Game/Card.h"
 
 class CarteGraphique : public QLabel
 {

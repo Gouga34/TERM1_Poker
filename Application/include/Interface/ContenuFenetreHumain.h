@@ -88,7 +88,7 @@ class ContenuFenetreHumain : public ContenuFenetre
         // Image contenant l'ensemble des cartes graphiques du jeu de carte
         static QPixmap *textureCartes;
 
-        ContenuFenetreHumain(Game *j, Fenetre *f);
+        ContenuFenetreHumain(game::Game *j, Fenetre *f);
         virtual ~ContenuFenetreHumain();
 
         /**
@@ -100,7 +100,7 @@ class ContenuFenetreHumain : public ContenuFenetre
          * @brief getAction
          * @return Retourne l'action du joueur lorsque c'est à lui de jouer
          */
-        Action getAction();
+        game::Action getAction();
 
         /**
          * @brief Met à jour l'interface

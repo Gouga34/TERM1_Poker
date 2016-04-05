@@ -8,7 +8,7 @@ SOURCES += \
     src/Interface/ChoixOptionsDialog.cpp \
     src/Interface/CompteurJetons.cpp \
     src/Interface/Logger.cpp \
-    src/Jeu/Action.cpp \
+    src/Game/Action.cpp \
     src/Interface/ContenuFenetre.cpp \
     src/Interface/ContenuFenetreHumain.cpp \
     src/Interface/ContenuFenetreIA.cpp \
@@ -17,7 +17,7 @@ SOURCES += \
     src/Assessor/Assessor.cpp \
     src/Assessor/PlayerCards.cpp \
     src/MathematicalFormula/MathematicalFormula.cpp \
-    src/Jeu/Card.cpp \
+    src/Game/Card.cpp \
     src/Profiling/CalculateProfilingData.cpp \
     src/Profiling/GamePhase.cpp \
     src/Profiling/Profile.cpp \
@@ -28,9 +28,9 @@ SOURCES += \
     src/AI/ArtificialIntelligence.cpp \
     src/AI/ArtificialIntelligenceProfiling.cpp \
     src/AI/Resolver.cpp \
-    src/Jeu/HumanPlayer.cpp \
-    src/Jeu/Player.cpp \
-    src/Jeu/Game.cpp
+    src/Game/HumanPlayer.cpp \
+    src/Game/Player.cpp \
+    src/Game/Game.cpp
 
 
 QT+=widgets printsupport
@@ -45,7 +45,7 @@ HEADERS += \
     include/Interface/ChoixOptionsDialog.h \
     include/Interface/CompteurJetons.h \
     include/Interface/Logger.h \
-    include/Jeu/Action.h \
+    include/Game/Action.h \
     include/Interface/ContenuFenetre.h \
     include/Interface/ContenuFenetreHumain.h \
     include/Interface/ContenuFenetreIA.h \
@@ -54,7 +54,7 @@ HEADERS += \
     include/Assessor/Assessor.h \
     include/Assessor/PlayerCards.h \
     include/MathematicalFormula/MathematicalFormula.h \
-    include/Jeu/Card.h \
+    include/Game/Card.h \
     include/Profiling/CalculateProfilingData.h \
     include/Profiling/GamePhase.h \
     include/Profiling/Profile.h \
@@ -65,9 +65,9 @@ HEADERS += \
     include/AI/ArtificialIntelligence.h \
     include/AI/ArtificialIntelligenceProfiling.h \
     include/AI/Resolver.h \
-    include/Jeu/HumainPlayer.h \
-    include/Jeu/Player.h \
-    include/Jeu/Game.h
+    include/Game/HumainPlayer.h \
+    include/Game/Player.h \
+    include/Game/Game.h
 
 CONFIG += c++14
 QMAKE_CXX = g++-4.9

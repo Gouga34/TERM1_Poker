@@ -12,7 +12,7 @@ Specification: Classe déterminant le calibrage optimal pour gagner
 
 #include <QVector>
 #include "../Profiling/Profile.h"
-#include "../Jeu/Game.h"
+#include "../Game/Game.h"
 
 namespace ai {
 
@@ -20,7 +20,7 @@ namespace ai {
     {
         private:
 
-            Game *m_game;
+            game::Game *m_game;
 
             profiling::Profile *m_profilingAICalibration;
             profiling::Profile *m_profiledAICalibration;
@@ -40,7 +40,7 @@ namespace ai {
 
         public:
 
-            IdealCalibration(Game *j, profiling::Profile *iaQuiProfile, profiling::Profile *iaProfilee, int nbParties);
+            IdealCalibration(game::Game *game, profiling::Profile *profilingAI, profiling::Profile *profiledAI, int nbParts);
             virtual ~IdealCalibration();
 
             /**

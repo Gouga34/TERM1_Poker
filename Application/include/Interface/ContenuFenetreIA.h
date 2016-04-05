@@ -101,7 +101,7 @@ private:
     void majGraphiqueResultats();
 
 public:
-    ContenuFenetreIA(Game *j, Fenetre *f);
+    ContenuFenetreIA(game::Game *j, Fenetre *f);
     virtual ~ContenuFenetreIA();
 
     /**

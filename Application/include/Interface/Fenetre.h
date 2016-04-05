@@ -22,7 +22,7 @@ class Fenetre : public QWidget
 
     private:
 
-        Game *jeu;
+        game::Game *jeu;
 
         QPushButton boutonDemarrage;
 

@@ -11,25 +11,28 @@ Specification: Classe définissant une action de poker.
 #ifndef ACTION_H
 #define ACTION_H
 
-class Action
-{
-    private:
+namespace game {
 
-        ACTION m_action;
+    class Action
+    {
+        private:
 
-        int m_tokens;
+            ACTION m_action;
 
-    public:
+            int m_tokens;
 
-        Action();
-        Action(ACTION ac, int tokens = -1);
-        virtual ~Action();
+        public:
 
-        virtual ACTION getAction() const;
-        virtual int getTokens() const;
+            Action();
+            Action(ACTION ac, int tokens = -1);
+            virtual ~Action();
 
-        virtual void setAction(ACTION action);
-        virtual void setTokens(int tokens);
-};
+            virtual ACTION getAction() const;
+            virtual int getTokens() const;
+
+            virtual void setAction(ACTION action);
+            virtual void setTokens(int tokens);
+    };
+}
 
 #endif // ACTION_H

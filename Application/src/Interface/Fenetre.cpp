@@ -9,7 +9,7 @@ Specification: Fichier contenant les définitions de la classe Fenetre.
 #include "../../include/Interface/Fenetre.h"
 #include "../../include/Interface/CarteGraphique.h"
 #include "../../include/Interface/ContenuFenetreHumain.h"
-#include "../../include/Jeu/HumainPlayer.h"
+#include "../../include/Game/HumainPlayer.h"
 #include "../../include/AI/ArtificialIntelligenceProfiling.h"
 #include "../../include/AI/IdealCalibration.h"
 #include "../../include/Interface/ContenuFenetreIA.h"
@@ -71,11 +71,11 @@ void Fenetre::initialiser()
     ChoixOptionsDialog fenetreOptions;
 
     // Création du jeu
-    jeu = new Game(2, 20, fenetreOptions.getOptions());
+    jeu = new game::Game(2, 20, fenetreOptions.getOptions());
 
     /** Joueur 1 **/
 
-    Player *j1;
+    game::Player *j1;
     QString pseudoJoueur = "inconnu";
 
     if (jeu->getOptions().joueurIA) {
@@ -98,7 +98,7 @@ void Fenetre::initialiser()
         }
 
         contenu = new ContenuFenetreHumain(jeu, this);
-        j1 = new HumanPlayer(true, CAVE_JOUEURS, 0, static_cast<ContenuFenetreHumain*>(contenu));
+        j1 = new game::HumanPlayer(true, CAVE_JOUEURS, 0, static_cast<ContenuFenetreHumain*>(contenu));
     }
 
     jeu->addPlayer(j1);

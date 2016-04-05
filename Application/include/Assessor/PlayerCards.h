@@ -10,7 +10,7 @@ Specification: Classe correspondant à la main d'un joueur,
 #ifndef PLAYERCARDS_H
 #define PLAYERCARDS_H
 
-#include "../Jeu/Card.h"
+#include "../Game/Card.h"
 #include <iostream>
 #include <vector>
 #include <array>

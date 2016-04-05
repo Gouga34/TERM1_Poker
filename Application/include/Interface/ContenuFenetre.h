@@ -9,7 +9,7 @@ Specification: Classe définissant la fenêtre de choix des cartes.
 #ifndef CONTENUFENETRE_H
 #define CONTENUFENETRE_H
 
-#include "../Jeu/Game.h"
+#include "../Game/Game.h"
 #include <QWidget>
 #include <QTextEdit>
 
@@ -17,13 +17,13 @@ class ContenuFenetre : public QWidget
 {
     protected:
 
-        Game *jeu;
+        game::Game *jeu;
 
         QTextEdit logs;
 
     public:
 
-        ContenuFenetre(Game *j);
+        ContenuFenetre(game::Game *j);
         virtual ~ContenuFenetre();
 
         /**

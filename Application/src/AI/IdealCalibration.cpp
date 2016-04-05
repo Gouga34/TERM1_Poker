@@ -15,8 +15,8 @@ Specification: Fichier contenant les définitions de la classe CalibrageIdeal.
 
 namespace ai {
 
-    IdealCalibration::IdealCalibration(Game *j, profiling::Profile *iaQuiProfile, profiling::Profile *iaProfilee, int nbParties)
-        : m_game(j), m_profilingAICalibration(iaQuiProfile), m_profiledAICalibration(iaProfilee), m_partsNumber(nbParties),
+    IdealCalibration::IdealCalibration(game::Game *game, profiling::Profile *profilingAI, profiling::Profile *profiledAI, int nbParts)
+        : m_game(game), m_profilingAICalibration(profilingAI), m_profiledAICalibration(profiledAI), m_partsNumber(nbParts),
           m_numberPartsWon(0), m_totalTokensWon(0)
     {
         m_profilingAIRates << 15 << 30 << 45 << 60 << 75 << 90 << 100;

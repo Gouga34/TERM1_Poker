@@ -11,7 +11,7 @@ Specification: Classe permettant de calculer les actions de
 #define RESOLVER_H
 
 #include <utility>
-#include "../Jeu/Game.h"
+#include "../Game/Game.h"
 #include "ArtificialIntelligence.h"
 #include "../Profiling/Profile.h"
 #include <cstdlib>
@@ -35,7 +35,7 @@ namespace ai {
          * @return l'action à effectuer et le montant de sa mise s'il y en a un.
          *          Ce montant est égal à -1 si pas de mise.
         */
-        virtual Action calculateRoughtAction();
+        virtual game::Action calculateRoughtAction();
 
         /**
          * @brief calculateRationalAction
@@ -43,7 +43,7 @@ namespace ai {
          * @return l'action à effectuer et le montant de sa mise s'il y en a un.
          *          Ce montant est égal à -1 si pas de mise.
          */
-        virtual Action calculateRationalAction();
+        virtual game::Action calculateRationalAction();
 
         /**
          * @brief calculateAggressivenessTheoreticalTotalBet
@@ -91,7 +91,7 @@ namespace ai {
          * @brief calculateAction
          * @return l'action finale et sa possible mise en nombre de jetons
          */
-        Action calculateAction();
+        game::Action calculateAction();
     };
 }
 

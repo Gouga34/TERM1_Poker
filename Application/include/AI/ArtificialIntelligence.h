@@ -1,8 +1,8 @@
 #ifndef ARTIFICIALINTELLIGENCE_H
 #define ARTIFICIALINTELLIGENCE_H
 
-#include "../Jeu/Player.h"
-#include "../Jeu/Game.h"
+#include "../Game/Player.h"
+#include "../Game/Game.h"
 #include "Resolver.h"
 #include "WinningChancesEstimator.h"
 #include "../Profiling/Profile.h"
@@ -17,7 +17,7 @@ namespace ai {
     class Resolver;
     class WinningChancesEstimator;
 
-    class ArtificialIntelligence : public Player {
+    class ArtificialIntelligence : public game::Player {
 
         protected:
             Resolver *m_resolver; //Cerveau de l'intelligence artificielle
@@ -76,7 +76,7 @@ namespace ai {
             /**
             *@action : Pemet a l'IA de jouer
             **/
-            virtual Action play();
+            virtual game::Action play();
 
     };
 }

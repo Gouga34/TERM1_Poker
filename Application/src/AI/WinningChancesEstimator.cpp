@@ -1,5 +1,5 @@
 #include "../../include/AI/WinningChancesEstimator.h"
-#include "../../include/Jeu/Card.h"
+#include "../../include/Game/Card.h"
 
 #include <string>
 #include <unordered_map>
@@ -7,7 +7,7 @@
 
 namespace ai {
 
-    WinningChancesEstimator::WinningChancesEstimator(Game *game, Player *player, int testsNumber)
+    WinningChancesEstimator::WinningChancesEstimator(game::Game *game, game::Player *player, int testsNumber)
         : m_testsNumber(testsNumber), m_estimateResult(0), m_game(game), m_player(player) {
 
     }
@@ -24,11 +24,11 @@ namespace ai {
         m_testsNumber = testsNumber;
     }
 
-    void WinningChancesEstimator::setGame(Game *game) {
+    void WinningChancesEstimator::setGame(game::Game *game) {
         m_game = game;
     }
 
-    void WinningChancesEstimator::setPlayer(Player *player) {
+    void WinningChancesEstimator::setPlayer(game::Player *player) {
         m_player = player;
     }
 

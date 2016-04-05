@@ -75,10 +75,10 @@ namespace ai {
         m_winningChancesEstimators.clear();
     }
 
-    Action ArtificialIntelligence::play() {
+    game::Action ArtificialIntelligence::play() {
         QString actions[] = {"mise", "relance", "suit", "check", "se couche", "rien", "fait tapis"};
 
-        Action action = m_resolver->calculateAction();
+        game::Action action = m_resolver->calculateAction();
 
         QString log = "IA " + QString::number(m_position) + " " + actions[action.getAction()];
         if (action.getAction() == MISER || action.getAction() == RELANCER) {

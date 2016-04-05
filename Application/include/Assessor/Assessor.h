@@ -11,7 +11,7 @@ Specification: Classe correspondant l'évaluateur de main, compare
 #define ASSESSOR_H
 
 #include "PlayerCards.h"
-#include "../Jeu/Card.h"
+#include "../Game/Card.h"
 #include <iostream>
 #include <vector>
 

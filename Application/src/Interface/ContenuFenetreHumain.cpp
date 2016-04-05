@@ -17,7 +17,7 @@ Specification: Fichier contenant les définitions de la classe ContenuFenetreHum
 
 QPixmap *ContenuFenetreHumain::textureCartes = 0;
 
-ContenuFenetreHumain::ContenuFenetreHumain(Game *j, Fenetre *f) : ContenuFenetre(j)
+ContenuFenetreHumain::ContenuFenetreHumain(game::Game *j, Fenetre *f) : ContenuFenetre(j)
 {
     // Couleur de fond
     QPalette pal(palette());
@@ -237,7 +237,7 @@ void ContenuFenetreHumain::actualiser()
     partieTermine();
 }
 
-Action ContenuFenetreHumain::getAction()
+game::Action ContenuFenetreHumain::getAction()
 {
     // Mise à jour des informations
     afficheTable();
@@ -254,7 +254,7 @@ Action ContenuFenetreHumain::getAction()
 
     activeBoutons(false);
 
-    return Action(actionUtilisateur, valeurMise.value());
+    return game::Action(actionUtilisateur, valeurMise.value());
 }
 
 void ContenuFenetreHumain::affichageLogs()
