@@ -29,7 +29,7 @@ CartesDialog::CartesDialog(QWidget *parent) : QDialog(parent), cartesSelectionne
         layoutCartes.setColumnMinimumWidth(i-1, 83);
 
         for (int j = 0; j < 4; j++) {
-            CarteCliquable *c = new CarteCliquable(i, j);
+            ClickableCard *c = new ClickableCard(i, j);
             layoutCartes.addWidget(c, j, i, Qt::AlignCenter);
 
             connect(c, SIGNAL(clicked(int)), this, SLOT(carteSelectionnee(int)));

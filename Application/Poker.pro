@@ -3,7 +3,6 @@ SOURCES += \
     src/Interface/Fenetre.cpp \
     src/Interface/ListeCartes.cpp \
     src/Interface/CartesDialog.cpp \
-    src/Interface/CarteCliquable.cpp \
     src/Interface/ChoixOptionsDialog.cpp \
     src/Interface/CompteurJetons.cpp \
     src/Interface/Logger.cpp \
@@ -30,7 +29,8 @@ SOURCES += \
     src/Game/HumanPlayer.cpp \
     src/Game/Player.cpp \
     src/Game/Game.cpp \
-    src/Interface/GraphicCard.cpp
+    src/Interface/GraphicCard.cpp \
+    src/Interface/ClickableCard.cpp
 
 
 QT+=widgets printsupport
@@ -40,7 +40,6 @@ HEADERS += \
     include/Interface/ListeCartes.h \
     include/Constantes.h \
     include/Interface/CartesDialog.h \
-    include/Interface/CarteCliquable.h \
     include/Interface/ChoixOptionsDialog.h \
     include/Interface/CompteurJetons.h \
     include/Interface/Logger.h \
@@ -67,7 +66,8 @@ HEADERS += \
     include/Game/HumainPlayer.h \
     include/Game/Player.h \
     include/Game/Game.h \
-    include/Interface/GraphicCard.h
+    include/Interface/GraphicCard.h \
+    include/Interface/ClickableCard.h
 
 CONFIG += c++14
 !win32 {
