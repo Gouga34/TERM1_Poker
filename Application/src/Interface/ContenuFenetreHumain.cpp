@@ -7,7 +7,7 @@ Specification: Fichier contenant les définitions de la classe ContenuFenetreHum
 =========================================================================*/
 
 #include "../../include/Interface/ContenuFenetreHumain.h"
-#include "../../include/Interface/CartesDialog.h"
+#include "../../include/Interface/CardsDialog.h"
 #include "../../include/Interface/Logger.h"
 
 #include <QString>
@@ -177,8 +177,8 @@ void ContenuFenetreHumain::debutPartie()
 {
     // Sélection des cartes par l'utilisateur
     if (boutonChoixCartes.isChecked()) {
-        CartesDialog fenetreCartes(this);
-        std::vector<int> ids = fenetreCartes.choixCartes();
+        CardsDialog fenetreCartes(this);
+        std::vector<int> ids = fenetreCartes.cardsChoice();
 
         if (!ids.empty()) {
             jeu->affectsCards(ids);
