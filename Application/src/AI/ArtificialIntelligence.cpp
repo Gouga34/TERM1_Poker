@@ -82,7 +82,7 @@ namespace ai {
 
         QString log = "IA " + QString::number(position) + " " + actions[action.getAction()];
         if (action.getAction() == MISER || action.getAction() == RELANCER) {
-            log += " " + QString::number(action.getMontant());
+            log += " " + QString::number(action.getTokens());
         }
 
         Logger::getInstance()->ajoutLogs(log);

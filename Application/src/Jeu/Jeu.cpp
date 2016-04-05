@@ -646,8 +646,8 @@ void Jeu::executerAction(int posJoueur, Action a){
             break;
 
         case ACTION::MISER:
-            if (peutMiser(posJoueur, a.getMontant())) {
-                miser(posJoueur, a.getMontant());
+            if (peutMiser(posJoueur, a.getTokens())) {
+                miser(posJoueur, a.getTokens());
             }
             break;
 
@@ -659,7 +659,7 @@ void Jeu::executerAction(int posJoueur, Action a){
 
         case ACTION::RELANCER:
         
-            relance = (a.getMontant() < 2 * getMiseCourante()) ? 2 * getMiseCourante() : a.getMontant();
+            relance = (a.getTokens() < 2 * getMiseCourante()) ? 2 * getMiseCourante() : a.getTokens();
 
             if (peutRelancer(posJoueur, relance)) {
                 relancer(posJoueur, relance);

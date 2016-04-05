@@ -15,21 +15,21 @@ class Action
 {
     private:
 
-        ACTION action;
+        ACTION m_action;
 
-        int montant;
+        int m_tokens;
 
     public:
 
         Action();
-        Action(ACTION ac, int m = -1);
-        ~Action();
+        Action(ACTION ac, int tokens = -1);
+        virtual ~Action();
 
-        ACTION getAction() const;
-        int getMontant() const;
+        virtual ACTION getAction() const;
+        virtual int getTokens() const;
 
-        void setAction(ACTION a);
-        void setMontant(int m);
+        virtual void setAction(ACTION action);
+        virtual void setTokens(int tokens);
 };
 
 #endif // ACTION_H

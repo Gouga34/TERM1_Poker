@@ -322,7 +322,7 @@ namespace ai {
 
         if (m_roughtPlay) {
             action = roughtAction.getAction();
-            tokensToBet = roughtAction.getMontant();
+            tokensToBet = roughtAction.getTokens();
         }
         // Fusion des deux résultats :Si les actions ne sont pas les mêmes, on choisit une des deux actions:
         else if (roughtAction.getAction() != rationalAction.getAction()) {
@@ -348,11 +348,11 @@ namespace ai {
 
                 if (roughtAction.getAction() == CHECKER) {
                     roughtAction.setAction(MISER);
-                    roughtAction.setMontant(m_ai->getJeu()->getBlind());
+                    roughtAction.setTokens(m_ai->getJeu()->getBlind());
                 }
                 else {
                     rationalAction.setAction(MISER);
-                    rationalAction.setMontant(m_ai->getJeu()->getBlind());
+                    rationalAction.setTokens(m_ai->getJeu()->getBlind());
                 }
             }
             //SUIVRE et RELANCER
@@ -362,7 +362,7 @@ namespace ai {
                      && rationalAction.getAction() == SUIVRE)) {
 
                 if (roughtAction.getAction() == RELANCER) {
-                    if (roughtAction.getMontant() > m_ai->getJeu()->getMiseCourante() * 2) {
+                    if (roughtAction.getTokens() > m_ai->getJeu()->getMiseCourante() * 2) {
                         tokensToBet = m_ai->getJeu()->getMiseCourante() * 2;
                         action = RELANCER;
                     }
@@ -371,7 +371,7 @@ namespace ai {
                     }
                 }
                 else {
-                    if (rationalAction.getMontant() > m_ai->getJeu()->getMiseCourante() * 2) {
+                    if (rationalAction.getTokens() > m_ai->getJeu()->getMiseCourante() * 2) {
                         tokensToBet = m_ai->getJeu()->getMiseCourante() * 2;
                         action = RELANCER;
                     }
@@ -402,11 +402,11 @@ namespace ai {
 
                 if (roughtAction.getAction() == SE_COUCHER) {
                     roughtAction.setAction(MISER);
-                    rationalAction.setMontant(rationalAction.getMontant() / 2);
+                    rationalAction.setTokens(rationalAction.getTokens() / 2);
                 }
                 else {
                     rationalAction.setAction(MISER);
-                    roughtAction.setMontant(roughtAction.getMontant() / 2);
+                    roughtAction.setTokens(roughtAction.getTokens() / 2);
                 }
             }
             //TAPIS et MISER
@@ -417,10 +417,10 @@ namespace ai {
 
                 if (roughtAction.getAction() == TAPIS) {
                     roughtAction.setAction(MISER);
-                    roughtAction.setMontant(m_ai->getCave());
+                    roughtAction.setTokens(m_ai->getCave());
                 } else {
                     rationalAction.setAction(MISER);
-                    rationalAction.setMontant(m_ai->getCave());
+                    rationalAction.setTokens(m_ai->getCave());
                 }
             }
             //TAPIS et RELANCER
@@ -431,11 +431,11 @@ namespace ai {
 
                 if (roughtAction.getAction() == TAPIS) {
                     roughtAction.setAction(RELANCER);
-                    roughtAction.setMontant(m_ai->getCave());
+                    roughtAction.setTokens(m_ai->getCave());
                 }
                 else {
                     rationalAction.setAction(RELANCER);
-                    rationalAction.setMontant(m_ai->getCave());
+                    rationalAction.setTokens(m_ai->getCave());
                 }
             }
             //TAPIS et SE_COUCHER
@@ -480,12 +480,12 @@ namespace ai {
                 //Si random E [0-agressivité], on prend l'action et les jetons de l'agressivité
                 if (randomNumber < m_calibration->getAggressiveness()) {
                     action = roughtAction.getAction();
-                    tokensToBet = roughtAction.getMontant();
+                    tokensToBet = roughtAction.getTokens();
                 }
                 //Sinon, random E[agressivite+1 - total], on prend l'action et les jetons de la rationalité
                 else {
                     action = rationalAction.getAction();
-                    tokensToBet = rationalAction.getMontant();
+                    tokensToBet = rationalAction.getTokens();
                 }
             }
        }
@@ -499,13 +499,13 @@ namespace ai {
 
             int tokensToBetMax, tokensToBetMin, rateMax;
 
-            if (roughtAction.getMontant() > rationalAction.getMontant()) {
-                tokensToBetMax = roughtAction.getMontant();
-                tokensToBetMin = rationalAction.getMontant();
+            if (roughtAction.getTokens() > rationalAction.getTokens()) {
+                tokensToBetMax = roughtAction.getTokens();
+                tokensToBetMin = rationalAction.getTokens();
             }
             else {
-                tokensToBetMax = rationalAction.getMontant();
-                tokensToBetMin = roughtAction.getMontant();
+                tokensToBetMax = rationalAction.getTokens();
+                tokensToBetMin = roughtAction.getTokens();
             }
             if (m_calibration->getAggressiveness() > m_calibration->getRationality()) {
                 rateMax = m_calibration->getAggressiveness();

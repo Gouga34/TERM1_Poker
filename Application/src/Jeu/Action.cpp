@@ -9,12 +9,12 @@ Specification: Fichier contenant les définitions de la classe Action.
 #include "../../include/Jeu/Action.h"
 
 
-Action::Action() : action(PAS_ENCORE_D_ACTION), montant(-1)
+Action::Action() : m_action(PAS_ENCORE_D_ACTION), m_tokens(-1)
 {
 
 }
 
-Action::Action(ACTION ac, int m) : action(ac), montant(m)
+Action::Action(ACTION action, int tokens) : m_action(action), m_tokens(tokens)
 {
 
 }
@@ -26,20 +26,20 @@ Action::~Action()
 
 ACTION Action::getAction() const
 {
-    return action;
+    return m_action;
 }
 
-int Action::getMontant() const
+int Action::getTokens() const
 {
-    return montant;
+    return m_tokens;
 }
 
-void Action::setAction(ACTION a)
+void Action::setAction(ACTION action)
 {
-    action = a;
+    m_action = action;
 }
 
-void Action::setMontant(int m)
+void Action::setTokens(int tokens)
 {
-    montant = m;
+    m_tokens = tokens;
 }
