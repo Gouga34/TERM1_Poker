@@ -15,9 +15,9 @@ class Logger
 {
     private:
 
-        ContenuFenetre *fenetre;
+        ContenuFenetre *m_window;
 
-        Logger(ContenuFenetre *f);
+        Logger(ContenuFenetre *window);
         ~Logger();
 
         /* Instance du singleton */
@@ -26,10 +26,10 @@ class Logger
     public:
 
         /**
-         * @action Créé l'instance du singleton
-         * @param f Pointeur vers la fenêtre utilisée pour afficher les logs
+         * @brief Créé l'instance du singleton
+         * @param window Pointeur vers la fenêtre utilisée pour afficher les logs
          */
-        static void creerInstance(ContenuFenetre *f);
+        static void createInstance(ContenuFenetre *window);
 
         /**
          * @return Instance du singleton
@@ -37,27 +37,27 @@ class Logger
         static Logger* getInstance();
 
         /**
-         * @action Supprimer l'instance du singleton allouée dynamiquement
+         * @brief Supprimer l'instance du singleton allouée dynamiquement
          */
-        static void supprimerInstance();
+        static void deleteInstance();
 
         /**
-         * @action Ajoute dans les logs de la fenêtre le contenu passé en paramètre
-         * @param contenu Contenu à ajouter au tableau de bord
+         * @brief Ajoute dans les logs de la fenêtre le contenu passé en paramètre
+         * @param content Contenu à ajouter au tableau de bord
          */
-        void ajoutLogs(const char *contenu);
+        virtual void addLogs(const char *content);
 
         /**
-         * @action Ajoute dans les logs de la fenêtre le contenu passé en paramètre
-         * @param contenu Contenu à ajouter au tableau de bord
+         * @brief Ajoute dans les logs de la fenêtre le contenu passé en paramètre
+         * @param content Contenu à ajouter au tableau de bord
          */
-        void ajoutLogs(std::string contenu);
+        virtual void addLogs(std::string content);
 
         /**
-         * @action Ajoute dans les logs de la fenêtre le contenu passé en paramètre
-         * @param contenu Contenu à ajouter au tableau de bord
+         * @brief Ajoute dans les logs de la fenêtre le contenu passé en paramètre
+         * @param content Contenu à ajouter au tableau de bord
          */
-        void ajoutLogs(QString contenu);
+        virtual void addLogs(QString content);
 };
 
 #endif // LOGGER_H

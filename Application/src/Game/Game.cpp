@@ -96,7 +96,7 @@ namespace game {
 
             tableCardsDistribution(cardsNumber);
 
-            Logger::getInstance()->ajoutLogs("Ajout de cartes sur la table");
+            Logger::getInstance()->addLogs("Ajout de cartes sur la table");
         }
 
         calculateWinningChances();
@@ -140,12 +140,12 @@ namespace game {
 
     void Game::blindDistribution() {
 
-        Logger::getInstance()->ajoutLogs("Joueur " + QString::number(getOpponentsPosition(getDealer())) + " : petite blind");
+        Logger::getInstance()->addLogs("Joueur " + QString::number(getOpponentsPosition(getDealer())) + " : petite blind");
 
         executeAction(getOpponentsPosition(getDealer()), Action(MISER, getBlind()));
         m_actions[getOpponentsPosition(getDealer())].back() = ACTION::PETITE_BLIND;
 
-        Logger::getInstance()->ajoutLogs("Joueur " + QString::number(getDealer()) + " : grosse blind");
+        Logger::getInstance()->addLogs("Joueur " + QString::number(getDealer()) + " : grosse blind");
 
         executeAction(getDealer(), Action(RELANCER, getBlind()*2));
         m_actions[getDealer()].back() = ACTION::GROSSE_BLIND;
@@ -710,7 +710,7 @@ namespace game {
     {
         while (nextPlayer()) {
             if (isRoundBeginning()) {
-                Logger::getInstance()->ajoutLogs("--- Nouvelle Etape ---");
+                Logger::getInstance()->addLogs("--- Nouvelle Etape ---");
             }
 
             Action a = m_players.at(m_currentPlayer)->play();

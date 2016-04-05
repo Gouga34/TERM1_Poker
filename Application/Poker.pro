@@ -70,7 +70,9 @@ HEADERS += \
     include/Game/Game.h
 
 CONFIG += c++14
-QMAKE_CXX = g++-4.9
+!win32 {
+    QMAKE_CXX = g++-4.9
+}
 QMAKE_CXXFLAGS += -std=c++14
 
 MOC_DIR = moc_dir

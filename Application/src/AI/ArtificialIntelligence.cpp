@@ -85,7 +85,7 @@ namespace ai {
             log += " " + QString::number(action.getTokens());
         }
 
-        Logger::getInstance()->ajoutLogs(log);
+        Logger::getInstance()->addLogs(log);
 
         return action;
     }

@@ -13,12 +13,12 @@ Specification: Fichier contenant les définitions de la classe ContenuFenetre.
 
 ContenuFenetre::ContenuFenetre(game::Game *j) : QWidget(), jeu(j)
 {
-    Logger::creerInstance(this);
+    Logger::createInstance(this);
 }
 
 ContenuFenetre::~ContenuFenetre()
 {
-    Logger::supprimerInstance();
+    Logger::deleteInstance();
 }
 
 void ContenuFenetre::ajoutLogs(QString contenu)
