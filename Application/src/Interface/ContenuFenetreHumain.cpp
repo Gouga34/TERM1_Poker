@@ -199,7 +199,7 @@ void ContenuFenetreHumain::debutPartie()
     Logger::getInstance()->addLogs("Jeu adverse : ");
     for (unsigned int i = 0; i < jeuAdverse.size(); i++) {
         Logger::getInstance()->addLogs("-> " + QString::number(jeuAdverse.at(i).getRank())
-                  + " " + CarteGraphique::couleurs[jeuAdverse.at(i).getColor()]);
+                  + " " + GraphicCard::colors[jeuAdverse.at(i).getColor()]);
     }
 
     // Main du joueur
@@ -210,14 +210,14 @@ void ContenuFenetreHumain::debutPartie()
     layoutCartesCommunes.vider();
 
     for (int i = 0; i < 5; i++) {
-        CarteGraphique *dos = new CarteGraphique(0, 0);
+        GraphicCard *dos = new GraphicCard(0, 0);
         layoutCartesCommunes.addWidget(dos);
     }
 
     // Main adverse
 
-    CarteGraphique *dos = new CarteGraphique(0, 0);
-    CarteGraphique *dos2 = new CarteGraphique(0, 0);
+    GraphicCard *dos = new GraphicCard(0, 0);
+    GraphicCard *dos2 = new GraphicCard(0, 0);
 
     layoutMainAdverse.vider();
     layoutMainAdverse.addWidget(dos);
@@ -313,7 +313,7 @@ void ContenuFenetreHumain::afficheTable()
 
     // On complète la table avec des dos de carte
     for (unsigned int i = 0; i < 5 - table.size(); i++) {
-        CarteGraphique *dos = new CarteGraphique(0, 0);
+        GraphicCard *dos = new GraphicCard(0, 0);
         layoutCartesCommunes.addWidget(dos);
     }
 }

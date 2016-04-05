@@ -18,7 +18,7 @@ class Logger
         ContenuFenetre *m_window;
 
         Logger(ContenuFenetre *window);
-        ~Logger();
+        virtual ~Logger();
 
         /* Instance du singleton */
         static Logger *instance;

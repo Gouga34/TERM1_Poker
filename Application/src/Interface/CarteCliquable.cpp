@@ -10,7 +10,7 @@ Specification: Fichier contenant les définitions de la classe CarteCliquable.
 
 
 CarteCliquable::CarteCliquable(int rang, int couleur)
-    : CarteGraphique(rang, couleur)
+    : GraphicCard(rang, couleur)
 {
 
 }
@@ -22,6 +22,6 @@ CarteCliquable::~CarteCliquable()
 
 void CarteCliquable::mousePressEvent(QMouseEvent * /*event*/)
 {
-    emit clicked(id);
+    emit clicked(m_id);
 }
 

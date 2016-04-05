@@ -9,9 +9,9 @@ Specification: Classe définissant une carte cliquable.
 #ifndef CARTECLIQUABLE_H
 #define CARTECLIQUABLE_H
 
-#include "CarteGraphique.h"
+#include "GraphicCard.h"
 
-class CarteCliquable : public CarteGraphique
+class CarteCliquable : public GraphicCard
 {
     Q_OBJECT
 
@@ -21,7 +21,7 @@ class CarteCliquable : public CarteGraphique
 
     signals:
 
-        void clicked(int id);
+        void clicked(int m_id);
 
     public:
 
