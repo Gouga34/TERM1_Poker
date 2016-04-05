@@ -13,7 +13,7 @@ Specification: Classe définissant la fenêtre de choix des cartes.
 #include <QGridLayout>
 #include <QRadioButton>
 #include <vector>
-#include "CarteCliquable.h"
+#include "ClickableCard.h"
 
 class CartesDialog : public QDialog
 {

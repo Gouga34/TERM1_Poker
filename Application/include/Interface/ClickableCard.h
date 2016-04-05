@@ -6,27 +6,27 @@ Projet: Profilage par essais et erreurs au poker
 Specification: Classe définissant une carte cliquable.
 =========================================================================*/
 
-#ifndef CARTECLIQUABLE_H
-#define CARTECLIQUABLE_H
+#ifndef CLICKABLECARD_H
+#define CLICKABLECARD_H
 
-#include "CarteGraphique.h"
+#include "GraphicCard.h"
 
-class CarteCliquable : public CarteGraphique
+class ClickableCard : public GraphicCard
 {
     Q_OBJECT
 
     protected:
 
-        void mousePressEvent(QMouseEvent *event);
+        virtual void mousePressEvent(QMouseEvent *event);
 
     signals:
 
-        void clicked(int id);
+        void clicked(int m_id);
 
     public:
 
-        CarteCliquable(int rang, int couleur);
-        ~CarteCliquable();
+        ClickableCard(int rank, int color);
+        virtual ~ClickableCard();
 };
 
-#endif // CARTECLIQUABLE_H
+#endif // CLICKABLECARD_H

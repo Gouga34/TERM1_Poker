@@ -7,7 +7,7 @@ Specification: Fichier contenant les définitions de la classe ListeCartes.
 =========================================================================*/
 
 #include "../../include/Interface/ListeCartes.h"
-#include "../../include/Interface/CarteGraphique.h"
+#include "../../include/Interface/GraphicCard.h"
 
 
 ListeCartes::ListeCartes() : QHBoxLayout()
@@ -24,7 +24,7 @@ ListeCartes::~ListeCartes()
 void ListeCartes::ajoutCartes(std::vector<game::Card> cartes)
 {
     for (unsigned int i = 0; i < cartes.size(); i++) {
-        CarteGraphique *c = new CarteGraphique(cartes.at(i));
+        GraphicCard *c = new GraphicCard(cartes.at(i));
         this->addWidget(c);
     }
 }

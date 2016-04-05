@@ -7,7 +7,7 @@ Specification: Fichier contenant les définitions de la classe Fenetre.
 =========================================================================*/
 
 #include "../../include/Interface/Fenetre.h"
-#include "../../include/Interface/CarteGraphique.h"
+#include "../../include/Interface/GraphicCard.h"
 #include "../../include/Interface/ContenuFenetreHumain.h"
 #include "../../include/Game/HumainPlayer.h"
 #include "../../include/AI/ArtificialIntelligenceProfiling.h"

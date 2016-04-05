@@ -241,7 +241,7 @@ namespace ai {
                 setCalibrationToPlay();
             }
 
-            Logger::getInstance()->ajoutLogs("Calibrage IA profilage: agressivité: " + QString::number(m_resolver->getCalibration()->getAggressiveness())
+            Logger::getInstance()->addLogs("Calibrage IA profilage: agressivité: " + QString::number(m_resolver->getCalibration()->getAggressiveness())
                                              + " rationalité: " + QString::number(m_resolver->getCalibration()->getRationality()));
         }
 

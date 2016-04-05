@@ -6,22 +6,22 @@ Projet: Profilage par essais et erreurs au poker
 Specification: Fichier contenant les définitions de la classe CarteCliquable.
 =========================================================================*/
 
-#include "../../include/Interface/CarteCliquable.h"
+#include "../../include/Interface/ClickableCard.h"
 
 
-CarteCliquable::CarteCliquable(int rang, int couleur)
-    : CarteGraphique(rang, couleur)
+ClickableCard::ClickableCard(int rank, int color)
+    : GraphicCard(rank, color)
 {
 
 }
 
-CarteCliquable::~CarteCliquable()
+ClickableCard::~ClickableCard()
 {
 
 }
 
-void CarteCliquable::mousePressEvent(QMouseEvent * /*event*/)
+void ClickableCard::mousePressEvent(QMouseEvent * /*event*/)
 {
-    emit clicked(id);
+    emit clicked(m_id);
 }
 

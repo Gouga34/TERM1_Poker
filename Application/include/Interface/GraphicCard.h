@@ -6,49 +6,49 @@ Projet: Profilage par essais et erreurs au poker
 Specification: Classe définissant une carte graphique.
 =========================================================================*/
 
-#ifndef CARTEGRAPHIQUE_H
-#define CARTEGRAPHIQUE_H
+#ifndef GRAPHICCARD_H
+#define GRAPHICCARD_H
 
 #include <QLabel>
 #include "../Game/Card.h"
 
-class CarteGraphique : public QLabel
+class GraphicCard : public QLabel
 {
     private:
 
         // Constantes définissant la taille d'une carte
-        static const unsigned int LARGEUR_CARTE;
-        static const unsigned int HAUTEUR_CARTE;
+        static const unsigned int CARD_WIDTH;
+        static const unsigned int CARD_HEIGHT;
 
         /**
-         * @param rang Rang de la carte
-         * @param couleur Couleur de la carte
+         * @param rank Rang de la carte
+         * @param color Couleur de la carte
          * @return Identifiant de la carte à partir de son rang et sa couleur
          */
-        int makeCard(int rang, int couleur) const;
+        virtual int makeCard(int rank, int couleur) const;
 
     protected:
 
-        int id;
+        int m_id;
 
     public:
 
-        static const QString couleurs[4];
+        static const QString colors[4];
 
         /**
-         * @action Constructeur de la carte graphique avec son rang et sa couleur
-         * @param rang Rang de la carte
-         * @param couleur Couleur de la carte
+         * @brief Constructeur de la carte graphique avec son rang et sa couleur
+         * @param rank Rang de la carte
+         * @param color Couleur de la carte
          */
-        CarteGraphique(int rang, int couleur);
+        GraphicCard(int rank, int color);
 
         /**
-         * @action Constructeur de la carte graphique avec un objet de type Carte
+         * @brief Constructeur de la carte graphique avec un objet de type Carte
          * @param c Carte à créer
          */
-        CarteGraphique(game::Card c);
+        GraphicCard(game::Card c);
 
-        ~CarteGraphique();
+        virtual ~GraphicCard();
 };
 
-#endif // CARTEGRAPHIQUE_H
+#endif // GRAPHICCARD_H

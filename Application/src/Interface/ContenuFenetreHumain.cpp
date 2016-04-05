@@ -189,17 +189,17 @@ void ContenuFenetreHumain::debutPartie()
     boutonChoixCartes.hide();
     resultatPartie.clear();
 
-    Logger::getInstance()->ajoutLogs("Distribution des cartes");
+    Logger::getInstance()->addLogs("Distribution des cartes");
     afficheTable();
 
 
     // Affichage de la main adverse dans les logs
     std::vector<game::Card> jeuAdverse = jeu->getPlayer(1)->getHand();
 
-    Logger::getInstance()->ajoutLogs("Jeu adverse : ");
+    Logger::getInstance()->addLogs("Jeu adverse : ");
     for (unsigned int i = 0; i < jeuAdverse.size(); i++) {
-        Logger::getInstance()->ajoutLogs("-> " + QString::number(jeuAdverse.at(i).getRank())
-                  + " " + CarteGraphique::couleurs[jeuAdverse.at(i).getColor()]);
+        Logger::getInstance()->addLogs("-> " + QString::number(jeuAdverse.at(i).getRank())
+                  + " " + GraphicCard::colors[jeuAdverse.at(i).getColor()]);
     }
 
     // Main du joueur
@@ -210,14 +210,14 @@ void ContenuFenetreHumain::debutPartie()
     layoutCartesCommunes.vider();
 
     for (int i = 0; i < 5; i++) {
-        CarteGraphique *dos = new CarteGraphique(0, 0);
+        GraphicCard *dos = new GraphicCard(0, 0);
         layoutCartesCommunes.addWidget(dos);
     }
 
     // Main adverse
 
-    CarteGraphique *dos = new CarteGraphique(0, 0);
-    CarteGraphique *dos2 = new CarteGraphique(0, 0);
+    GraphicCard *dos = new GraphicCard(0, 0);
+    GraphicCard *dos2 = new GraphicCard(0, 0);
 
     layoutMainAdverse.vider();
     layoutMainAdverse.addWidget(dos);
@@ -313,7 +313,7 @@ void ContenuFenetreHumain::afficheTable()
 
     // On complète la table avec des dos de carte
     for (unsigned int i = 0; i < 5 - table.size(); i++) {
-        CarteGraphique *dos = new CarteGraphique(0, 0);
+        GraphicCard *dos = new GraphicCard(0, 0);
         layoutCartesCommunes.addWidget(dos);
     }
 }
@@ -322,7 +322,7 @@ void ContenuFenetreHumain::checker()
 {
     actionUtilisateur = ACTION::CHECKER;
 
-    Logger::getInstance()->ajoutLogs("Joueur 1 check");
+    Logger::getInstance()->addLogs("Joueur 1 check");
 
     emit actionChoisie();
 }
@@ -331,7 +331,7 @@ void ContenuFenetreHumain::miser()
 {
     actionUtilisateur = ACTION::MISER;
 
-    Logger::getInstance()->ajoutLogs("Joueur 1 mise " + QString::number(valeurMise.value()));
+    Logger::getInstance()->addLogs("Joueur 1 mise " + QString::number(valeurMise.value()));
 
     emit actionChoisie();
 }
@@ -340,7 +340,7 @@ void ContenuFenetreHumain::suivre()
 {
     actionUtilisateur = ACTION::SUIVRE;
 
-    Logger::getInstance()->ajoutLogs("Joueur 1 suit");
+    Logger::getInstance()->addLogs("Joueur 1 suit");
 
     emit actionChoisie();
 }
@@ -349,7 +349,7 @@ void ContenuFenetreHumain::relancer()
 {
     actionUtilisateur = ACTION::RELANCER;
 
-    Logger::getInstance()->ajoutLogs("Joueur 1 relance " + QString::number(valeurMise.value()));
+    Logger::getInstance()->addLogs("Joueur 1 relance " + QString::number(valeurMise.value()));
 
     emit actionChoisie();
 }
@@ -358,7 +358,7 @@ void ContenuFenetreHumain::seCoucher()
 {
     actionUtilisateur = ACTION::SE_COUCHER;
 
-    Logger::getInstance()->ajoutLogs("Joueur 1 se couche");
+    Logger::getInstance()->addLogs("Joueur 1 se couche");
 
     emit actionChoisie();
 }
@@ -367,14 +367,14 @@ void ContenuFenetreHumain::tapis()
 {
     actionUtilisateur = ACTION::TAPIS;
 
-    Logger::getInstance()->ajoutLogs("Joueur 1 fait tapis");
+    Logger::getInstance()->addLogs("Joueur 1 fait tapis");
 
     emit actionChoisie();
 }
 
 void ContenuFenetreHumain::partieTermine()
 {
-    Logger::getInstance()->ajoutLogs("Partie terminée !");
+    Logger::getInstance()->addLogs("Partie terminée !");
     activeBoutons(false);
 
     layoutMainAdverse.vider();

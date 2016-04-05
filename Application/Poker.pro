@@ -1,10 +1,8 @@
 SOURCES += \
     src/Interface/main.cpp \
     src/Interface/Fenetre.cpp \
-    src/Interface/CarteGraphique.cpp \
     src/Interface/ListeCartes.cpp \
     src/Interface/CartesDialog.cpp \
-    src/Interface/CarteCliquable.cpp \
     src/Interface/ChoixOptionsDialog.cpp \
     src/Interface/CompteurJetons.cpp \
     src/Interface/Logger.cpp \
@@ -30,18 +28,18 @@ SOURCES += \
     src/AI/Resolver.cpp \
     src/Game/HumanPlayer.cpp \
     src/Game/Player.cpp \
-    src/Game/Game.cpp
+    src/Game/Game.cpp \
+    src/Interface/GraphicCard.cpp \
+    src/Interface/ClickableCard.cpp
 
 
 QT+=widgets printsupport
 
 HEADERS += \
     include/Interface/Fenetre.h \
-    include/Interface/CarteGraphique.h \
     include/Interface/ListeCartes.h \
     include/Constantes.h \
     include/Interface/CartesDialog.h \
-    include/Interface/CarteCliquable.h \
     include/Interface/ChoixOptionsDialog.h \
     include/Interface/CompteurJetons.h \
     include/Interface/Logger.h \
@@ -67,10 +65,14 @@ HEADERS += \
     include/AI/Resolver.h \
     include/Game/HumainPlayer.h \
     include/Game/Player.h \
-    include/Game/Game.h
+    include/Game/Game.h \
+    include/Interface/GraphicCard.h \
+    include/Interface/ClickableCard.h
 
 CONFIG += c++14
-QMAKE_CXX = g++-4.9
+!win32 {
+    QMAKE_CXX = g++-4.9
+}
 QMAKE_CXXFLAGS += -std=c++14
 
 MOC_DIR = moc_dir
