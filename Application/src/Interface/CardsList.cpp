@@ -6,30 +6,30 @@ Projet: Profilage par essais et erreurs au poker
 Specification: Fichier contenant les définitions de la classe ListeCartes.
 =========================================================================*/
 
-#include "../../include/Interface/ListeCartes.h"
+#include "../../include/Interface/CardsList.h"
 #include "../../include/Interface/GraphicCard.h"
 
 
-ListeCartes::ListeCartes() : QHBoxLayout()
+CardsList::CardsList() : QHBoxLayout()
 {
     setSpacing(10);
     setAlignment(Qt::AlignLeft);
 }
 
-ListeCartes::~ListeCartes()
+CardsList::~CardsList()
 {
 
 }
 
-void ListeCartes::ajoutCartes(std::vector<game::Card> cartes)
+void CardsList::addCards(std::vector<game::Card> cards)
 {
-    for (unsigned int i = 0; i < cartes.size(); i++) {
-        GraphicCard *c = new GraphicCard(cartes.at(i));
-        this->addWidget(c);
+    for (unsigned int i = 0; i < cards.size(); i++) {
+        GraphicCard *card = new GraphicCard(cards.at(i));
+        addWidget(card);
     }
 }
 
-void ListeCartes::vider()
+void CardsList::clear()
 {
     QLayoutItem *item;
 

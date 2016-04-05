@@ -10,7 +10,7 @@ Specification: Classe définissant la fenêtre de choix des cartes.
 #define CONTENUFENETREHUMAIN_H
 
 #include "ContenuFenetre.h"
-#include "ListeCartes.h"
+#include "CardsList.h"
 #include "TokensCounter.h"
 #include "Fenetre.h"
 
@@ -34,9 +34,9 @@ class ContenuFenetreHumain : public ContenuFenetre
         QPushButton boutonLogs;
 
         // Liste des cartes
-        ListeCartes layoutMain;
-        ListeCartes layoutMainAdverse;
-        ListeCartes layoutCartesCommunes;
+        CardsList layoutMain;
+        CardsList layoutMainAdverse;
+        CardsList layoutCartesCommunes;
 
         // Compteur du pot et des caves des joueurs
         TokensCounter pot;

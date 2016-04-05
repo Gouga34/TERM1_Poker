@@ -7,31 +7,31 @@ Specification: Classe correspondant à un ensemble de cartes contenues
                dans un layout.
 =========================================================================*/
 
-#ifndef LISTECARTES_H
-#define LISTECARTES_H
+#ifndef CARDSLIST_H
+#define CARDSLIST_H
 
 #include <QHBoxLayout>
 #include <QList>
 #include <QLabel>
 #include "../Game/Card.h"
 
-class ListeCartes : public QHBoxLayout
+class CardsList : public QHBoxLayout
 {
     public:
 
-        ListeCartes();
-        ~ListeCartes();
+        CardsList();
+        virtual ~CardsList();
 
         /**
-         * @action Ajoute les cartes de la liste passées en paramètres à l'objet courant
-         * @param cartes Ensemble de cartes à ajouter
+         * @brief Ajoute les cartes de la liste passées en paramètres à l'objet courant
+         * @param cards Ensemble de cartes à ajouter
          */
-        void ajoutCartes(std::vector<game::Card> cartes);
+        virtual void addCards(std::vector<game::Card> cards);
 
         /**
-         * @action Retire l'ensemble des cartes de la liste
+         * @brief Retire l'ensemble des cartes de la liste
          */
-        void vider();
+        virtual void clear();
 };
 
-#endif // LISTECARTES_H
+#endif // CARDSLIST_H

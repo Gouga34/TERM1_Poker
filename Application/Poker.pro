@@ -1,7 +1,6 @@
 SOURCES += \
     src/Interface/main.cpp \
     src/Interface/Fenetre.cpp \
-    src/Interface/ListeCartes.cpp \
     src/Interface/ChoixOptionsDialog.cpp \
     src/Interface/Logger.cpp \
     src/Game/Action.cpp \
@@ -30,7 +29,8 @@ SOURCES += \
     src/Interface/GraphicCard.cpp \
     src/Interface/ClickableCard.cpp \
     src/Interface/TokensCounter.cpp \
-    src/Interface/CardsDialog.cpp
+    src/Interface/CardsDialog.cpp \
+    src/Interface/CardsList.cpp
 
 
 QT+=widgets printsupport
@@ -67,7 +67,7 @@ HEADERS += \
     include/Interface/ClickableCard.h \
     include/Interface/TokensCounter.h \
     include/Interface/CardsDialog.h \
-    include/Interface/ListeCartes.h
+    include/Interface/CardsList.h
 
 CONFIG += c++14
 !win32 {
