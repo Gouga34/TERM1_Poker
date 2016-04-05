@@ -4,7 +4,6 @@ SOURCES += \
     src/Interface/CarteGraphique.cpp \
     src/Interface/ListeCartes.cpp \
     src/Jeu/Jeu.cpp \
-    src/Jeu/Joueur.cpp \
     src/Interface/CartesDialog.cpp \
     src/Interface/CarteCliquable.cpp \
     src/Interface/ChoixOptionsDialog.cpp \
@@ -30,7 +29,8 @@ SOURCES += \
     src/AI/ArtificialIntelligence.cpp \
     src/AI/ArtificialIntelligenceProfiling.cpp \
     src/AI/Resolver.cpp \
-    src/Jeu/HumanPlayer.cpp
+    src/Jeu/HumanPlayer.cpp \
+    src/Jeu/Player.cpp
 
 
 QT+=widgets printsupport
@@ -40,7 +40,6 @@ HEADERS += \
     include/Interface/CarteGraphique.h \
     include/Interface/ListeCartes.h \
     include/Jeu/Jeu.h \
-    include/Jeu/Joueur.h \
     include/Constantes.h \
     include/Interface/CartesDialog.h \
     include/Interface/CarteCliquable.h \
@@ -67,7 +66,8 @@ HEADERS += \
     include/AI/ArtificialIntelligence.h \
     include/AI/ArtificialIntelligenceProfiling.h \
     include/AI/Resolver.h \
-    include/Jeu/HumainPlayer.h
+    include/Jeu/HumainPlayer.h \
+    include/Jeu/Player.h
 
 CONFIG += c++14
 QMAKE_CXX = g++-4.9

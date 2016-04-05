@@ -1,7 +1,7 @@
 #ifndef ARTIFICIALINTELLIGENCE_H
 #define ARTIFICIALINTELLIGENCE_H
 
-#include "../Jeu/Joueur.h"
+#include "../Jeu/Player.h"
 #include "../Jeu/Jeu.h"
 #include "Resolver.h"
 #include "WinningChancesEstimator.h"
@@ -17,7 +17,7 @@ namespace ai {
     class Resolver;
     class WinningChancesEstimator;
 
-    class ArtificialIntelligence : public Joueur {
+    class ArtificialIntelligence : public Player {
 
         protected:
             Resolver *m_resolver; //Cerveau de l'intelligence artificielle
@@ -30,7 +30,7 @@ namespace ai {
             *@action : Constructeur de la classe Intelligence Artificielle
             *@param  : Un boolean indiquant si le jouer est le dealer, sa cave de depart et sa position
             **/
-            ArtificialIntelligence(bool isDealer, int tokens, int position);
+            ArtificialIntelligence(bool isDealer, int tokens, int m_position);
 
             /**
             *@action : Constructeur de la classe Intelligence Artificielle par copie de la classe Joueur

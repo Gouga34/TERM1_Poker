@@ -75,7 +75,7 @@ void Fenetre::initialiser()
 
     /** Joueur 1 **/
 
-    Joueur *j1;
+    Player *j1;
     QString pseudoJoueur = "inconnu";
 
     if (jeu->getOptions().joueurIA) {

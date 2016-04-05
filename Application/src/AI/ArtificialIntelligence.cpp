@@ -8,14 +8,14 @@
 namespace ai {
 
     ArtificialIntelligence::ArtificialIntelligence(bool isDealer, int tokens, int position)
-        : Joueur(isDealer, tokens, position) {
+        : Player(isDealer, tokens, position) {
         m_resolver = new Resolver(this);
 
         changeRandomlyCalibration();
     }
 
     ArtificialIntelligence::ArtificialIntelligence(const ArtificialIntelligence& player)
-        : Joueur(player) {
+        : Player(player) {
         m_resolver = new Resolver(this);
     }
 
@@ -54,7 +54,7 @@ namespace ai {
         double nbTestsByThread = static_cast<double>(testsNumber) / threadsNumber;
 
         for (int i = 0; i < threadsNumber; i++) {
-            WinningChancesEstimator *estimateur = new WinningChancesEstimator(getJeu(), getJeu()->getJoueur(getPosition()), nbTestsByThread);
+            WinningChancesEstimator *estimateur = new WinningChancesEstimator(getGame(), getGame()->getJoueur(getPosition()), nbTestsByThread);
             m_winningChancesEstimators.push_back(estimateur);
             estimateur->start();
         }
@@ -71,7 +71,7 @@ namespace ai {
             delete m_winningChancesEstimators[i];
         }
 
-        setChancesGain(100 * (estimationsSum / m_winningChancesEstimators.size()));
+        setWinningChances(100 * (estimationsSum / m_winningChancesEstimators.size()));
         m_winningChancesEstimators.clear();
     }
 
@@ -80,7 +80,7 @@ namespace ai {
 
         Action action = m_resolver->calculateAction();
 
-        QString log = "IA " + QString::number(position) + " " + actions[action.getAction()];
+        QString log = "IA " + QString::number(m_position) + " " + actions[action.getAction()];
         if (action.getAction() == MISER || action.getAction() == RELANCER) {
             log += " " + QString::number(action.getTokens());
         }

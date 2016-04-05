@@ -7,7 +7,7 @@
 
 namespace ai {
 
-    WinningChancesEstimator::WinningChancesEstimator(Jeu *game, Joueur *player, int testsNumber)
+    WinningChancesEstimator::WinningChancesEstimator(Jeu *game, Player *player, int testsNumber)
         : m_testsNumber(testsNumber), m_estimateResult(0), m_game(game), m_player(player) {
 
     }
@@ -28,7 +28,7 @@ namespace ai {
         m_game = game;
     }
 
-    void WinningChancesEstimator::setPlayer(Joueur *player) {
+    void WinningChancesEstimator::setPlayer(Player *player) {
         m_player = player;
     }
 
@@ -68,7 +68,7 @@ namespace ai {
                 deck.erase(deck.begin() + position);
             }
 
-            RESULTAT_PARTIE compareHandsResult = assessor::Assessor::compareHands(table,m_player->getMain(), opponentsHand);
+            RESULTAT_PARTIE compareHandsResult = assessor::Assessor::compareHands(table,m_player->getHand(), opponentsHand);
 
             if (compareHandsResult == GAGNE) {
                 ++numberOfPartsWon;
@@ -90,8 +90,8 @@ namespace ai {
             }
         }
 
-        deck.erase(deck.begin() + m_player->getMain().at(0).getId());
-        deck.erase(deck.begin() + m_player->getMain().at(1).getId());
+        deck.erase(deck.begin() + m_player->getHand().at(0).getId());
+        deck.erase(deck.begin() + m_player->getHand().at(1).getId());
 
         return deck;
     }

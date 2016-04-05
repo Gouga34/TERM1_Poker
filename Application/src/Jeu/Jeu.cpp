@@ -23,8 +23,8 @@ Jeu::~Jeu(){
     }
 }
 
-void Jeu::addJoueur(Joueur *joueur) {
-    joueur->setJeu(this);
+void Jeu::addJoueur(Player *joueur) {
+    joueur->setGame(this);
     listeJoueurs.push_back(joueur);
 }
 
@@ -47,7 +47,7 @@ void Jeu::reinitialisationCaves() {
             }
         }
 
-        getJoueur(i)->setCaveDeDepart(getJoueur(i)->getCave());
+        getJoueur(i)->setStartingCave(getJoueur(i)->getCave());
     }
 }
 
@@ -61,15 +61,15 @@ void Jeu::distributionMain(){
     ai::ArtificialIntelligenceProfiling *iaProfilage = static_cast<ai::ArtificialIntelligenceProfiling*>(listeJoueurs.at(1));
     iaProfilage->determineGameType();
 
-    getJoueur(0)->setCumulMisesEtRelances(0);
-    getJoueur(1)->setCumulMisesEtRelances(0);
+    getJoueur(0)->setAccumulatedBetsAndRaises(0);
+    getJoueur(1)->setAccumulatedBetsAndRaises(0);
 
 
 
     for(int i =0; i< (int) (2*this->listeJoueurs.size()); i++){
-       if(this->listeJoueurs.at(i % this->listeJoueurs.size())->getMain().size() != 2){
+       if(this->listeJoueurs.at(i % this->listeJoueurs.size())->getHand().size() != 2){
             int position = rand() % deck.size();
-            this->listeJoueurs.at(i % this->listeJoueurs.size())->ajouteCarte(this->deck.at(position));
+            this->listeJoueurs.at(i % this->listeJoueurs.size())->addCard(this->deck.at(position));
             this->deck.erase(this->deck.begin() + position);
         }
     }
@@ -155,7 +155,7 @@ void Jeu::distributionBlind(){
     this->joueurCourant = getDealer();
 
     for(unsigned int i=0; i<listeJoueurs.size(); i++){
-        this->getJoueur(i)->resetCompteurActions();
+        this->getJoueur(i)->resetActionsCounter();
     }
 }
 
@@ -207,12 +207,12 @@ int Jeu::getPositionJoueurAdverse(int joueur) const{
     return (joueur == 0) ? 1 : 0;
 }
 
-Joueur* Jeu::getJoueur(int i){
+Player* Jeu::getJoueur(int i){
     return this->listeJoueurs.at(i);
 }
 
 
-void Jeu::setJoueur(Joueur *joueur){
+void Jeu::setJoueur(Player *joueur){
     this->listeJoueurs.push_back(joueur);
 }
 
@@ -229,14 +229,14 @@ void Jeu::setPot(int jetons){
 void Jeu::jouerArgent(int posJoueur, int jetons) {
     setPot(getPot() + jetons);
 
-    getJoueur(posJoueur)->setMiseCourante(jetons);
-    getJoueur(posJoueur)->setCumulMisesEtRelances(getJoueur(posJoueur)->getCumulMisesEtRelances() + jetons);
+    getJoueur(posJoueur)->setCurrentBet(jetons);
+    getJoueur(posJoueur)->setAccumulatedBetsAndRaises(getJoueur(posJoueur)->getAccumulatedBetsAndRaises() + jetons);
 
-    if (jetons > getJoueur(posJoueur)->getMisePlusHaute()) {
-        getJoueur(posJoueur)->setMisePlusHaute(jetons);
+    if (jetons > getJoueur(posJoueur)->getHighestBet()) {
+        getJoueur(posJoueur)->setHighestBet(jetons);
     }
     //std::cout<<"Joueur "<<posJoueur<<" - retrait de "<<jetons<<" jetons"<<std::endl;
-    getJoueur(posJoueur)->retireJetons(jetons);
+    getJoueur(posJoueur)->removesTokens(jetons);
 }
 
 void Jeu::miser(int posJoueur, int jetons){
@@ -248,7 +248,7 @@ void Jeu::miser(int posJoueur, int jetons){
         cumulMisesEtRelances = jetons;
 
         this->actions[this->getJoueur(posJoueur)->getPosition()].push_back(ACTION::MISER);
-        this->getJoueur(posJoueur)->getCompteurActions()[0]++;
+        this->getJoueur(posJoueur)->getActionsCounter()[0]++;
     }
     else{ //Sinon: tapis
         tapis(posJoueur, MISER);
@@ -261,13 +261,13 @@ void Jeu::tapis(int posJoueur, ACTION action){
     this->actions[this->getJoueur(posJoueur)->getPosition()].push_back(ACTION::TAPIS);
 
     miseCourante = getJoueur(posJoueur)->getCave();
-    cumulMisesEtRelances = getJoueur(posJoueur)->getCumulMisesEtRelances();
+    cumulMisesEtRelances = getJoueur(posJoueur)->getAccumulatedBetsAndRaises();
 
     if (action == MISER || action == RELANCER) {
-        this->getJoueur(posJoueur)->getCompteurActions()[0]++;
+        this->getJoueur(posJoueur)->getActionsCounter()[0]++;
     }
     else if (getLastAction(getPositionJoueurAdverse(posJoueur))==TAPIS) {
-        this->getJoueur(posJoueur)->getCompteurActions()[1]++;
+        this->getJoueur(posJoueur)->getActionsCounter()[1]++;
     }
 }
 
@@ -279,10 +279,10 @@ void Jeu::relancer(int posJoueur, int jetons){
 
         jouerArgent(posJoueur, jetons);
         miseCourante = jetons;
-        cumulMisesEtRelances = getJoueur(posJoueur)->getCumulMisesEtRelances();
+        cumulMisesEtRelances = getJoueur(posJoueur)->getAccumulatedBetsAndRaises();
 
         this->actions[this->getJoueur(posJoueur)->getPosition()].push_back(ACTION::RELANCER);
-        this->getJoueur(posJoueur)->getCompteurActions()[0]++;
+        this->getJoueur(posJoueur)->getActionsCounter()[0]++;
     }
     else{ //Sinon: tapis
         tapis(posJoueur, RELANCER);
@@ -293,14 +293,14 @@ void Jeu::relancer(int posJoueur, int jetons){
 void Jeu::suivre(int posJoueur){
 
     // Le nombre de jetons à ajouter est le cumul moins le nombre de jetons déjà mis par le joueur
-    int jetonsAAjouter = this->cumulMisesEtRelances - this->getJoueur(posJoueur)->getCumulMisesEtRelances();
+    int jetonsAAjouter = this->cumulMisesEtRelances - this->getJoueur(posJoueur)->getAccumulatedBetsAndRaises();
    // std::cout<<"suivi - cumulMisesEtRelances : "<<cumulMisesEtRelances<<", miseTotJoueur: "<<getJoueur(posJoueur)->getCumulMisesEtRelances()<<"jetons : "<<jetonsAAjouter<<std::endl;
 
     // Si on a assez d'argent on suit
     if(this->getJoueur(posJoueur)->getCave() > jetonsAAjouter){
         jouerArgent(posJoueur,jetonsAAjouter);
         this->actions[this->getJoueur(posJoueur)->getPosition()].push_back(ACTION::SUIVRE);
-        this->getJoueur(posJoueur)->getCompteurActions()[1]++;
+        this->getJoueur(posJoueur)->getActionsCounter()[1]++;
     }
     else{      // Sinon on fait tapis
         tapis(posJoueur, SUIVRE);
@@ -311,15 +311,15 @@ void Jeu::suivre(int posJoueur){
 void Jeu::checker(int posJoueur){
 
     this->actions[this->getJoueur(posJoueur)->getPosition()].push_back(ACTION::CHECKER);
-    this->getJoueur(posJoueur)->getCompteurActions()[2]++;
+    this->getJoueur(posJoueur)->getActionsCounter()[2]++;
 }
 
 void Jeu::seCoucher(int posJoueur){
 
     this->actions[this->getJoueur(posJoueur)->getPosition()].push_back(ACTION::SE_COUCHER);
 
-    this->getJoueur(0)->setMiseTotale(this->getJoueur(0)->getMiseTotale() + this->getJoueur(0)->getCumulMisesEtRelances());
-    this->getJoueur(1)->setMiseTotale(this->getJoueur(1)->getMiseTotale() + this->getJoueur(1)->getCumulMisesEtRelances());
+    this->getJoueur(0)->setTotalBet(this->getJoueur(0)->getTotalBet() + this->getJoueur(0)->getAccumulatedBetsAndRaises());
+    this->getJoueur(1)->setTotalBet(this->getJoueur(1)->getTotalBet() + this->getJoueur(1)->getAccumulatedBetsAndRaises());
 
     ai::ArtificialIntelligenceProfiling *ia = static_cast<ai::ArtificialIntelligenceProfiling*>(this->getJoueur(1));
     ia->fillProfilingData();
@@ -400,8 +400,8 @@ bool Jeu::prochainJoueur(){
 
     if (this->finDuTour()) {
 
-        this->getJoueur(0)->setMiseTotale(this->getJoueur(0)->getMiseTotale() + this->getJoueur(0)->getCumulMisesEtRelances());
-        this->getJoueur(1)->setMiseTotale(this->getJoueur(1)->getMiseTotale() + this->getJoueur(1)->getCumulMisesEtRelances());
+        this->getJoueur(0)->setTotalBet(this->getJoueur(0)->getTotalBet() + this->getJoueur(0)->getAccumulatedBetsAndRaises());
+        this->getJoueur(1)->setTotalBet(this->getJoueur(1)->getTotalBet() + this->getJoueur(1)->getAccumulatedBetsAndRaises());
 
         ai::ArtificialIntelligenceProfiling *ia = static_cast<ai::ArtificialIntelligenceProfiling*>(this->getJoueur(1));
 
@@ -434,19 +434,19 @@ void Jeu::resetActions(){
             actions.at(i).push_back(ACTION::PAS_ENCORE_D_ACTION);
         }
 
-        this->getJoueur(i)->setMiseCourante(0);
-        this->getJoueur(i)->setMisePlusHaute(0);
-        this->getJoueur(i)->resetCompteurActions();
-        getJoueur(i)->setCumulMisesEtRelances(0);
+        this->getJoueur(i)->setCurrentBet(0);
+        this->getJoueur(i)->setHighestBet(0);
+        this->getJoueur(i)->resetActionsCounter();
+        getJoueur(i)->setAccumulatedBetsAndRaises(0);
     }
 }
 
 void Jeu::finPartie() {
     partieFinie=true;
 
-    std::vector<Joueur*> joueursRestants;
+    std::vector<Player*> joueursRestants;
 
-    for(Joueur *joueur : this->listeJoueurs){
+    for(Player *joueur : this->listeJoueurs){
         if(this->estCouche(joueur->getPosition())){
             joueursRestants.push_back(joueur);
         }
@@ -463,29 +463,29 @@ void Jeu::finPartie() {
             calculChancesDeGain();
         }
 
-        RESULTAT_PARTIE comparaisonMains = assessor::Assessor::compareHands(this->getTable(), this->getJoueur(0)->getMain(), this->getJoueur(1)->getMain());
+        RESULTAT_PARTIE comparaisonMains = assessor::Assessor::compareHands(this->getTable(), this->getJoueur(0)->getHand(), this->getJoueur(1)->getHand());
 
         if(comparaisonMains == GAGNE){
 
-            this->getJoueur(0)->ajouteJetons(this->getPot());
+            this->getJoueur(0)->addTokens(this->getPot());
             retour = GAGNE;
         }else if(comparaisonMains == PERDU){
-            this->getJoueur(1)->ajouteJetons(this->getPot());
+            this->getJoueur(1)->addTokens(this->getPot());
 
             retour = PERDU;
         }else{
             retour = EGALITE;
 
-            this->getJoueur(0)->ajouteJetons(getPot()/2);
-            this->getJoueur(1)->ajouteJetons(getPot()/2);
+            this->getJoueur(0)->addTokens(getPot()/2);
+            this->getJoueur(1)->addTokens(getPot()/2);
         }
     }else{ //Un joueur s'est couché
         if(estCouche(0)){
             retour = PERDU;
-            this->getJoueur(1)->ajouteJetons(this->getPot());
+            this->getJoueur(1)->addTokens(this->getPot());
         }else{
             retour = GAGNE;
-            this->getJoueur(0)->ajouteJetons(this->getPot());
+            this->getJoueur(0)->addTokens(this->getPot());
         }
        // this->getJoueur(joueursRestants.at(0)->getPosition())->ajouteJetons(this->getPot());
     }
@@ -514,7 +514,7 @@ void Jeu::finPartie() {
             delete estimateurs[i];
         }
 
-        getJoueur(0)->setChancesGain(100 * (sommeEstimations / estimateurs.size()));
+        getJoueur(0)->setWinningChances(100 * (sommeEstimations / estimateurs.size()));
         estimateurs.clear();
     }
 
@@ -545,8 +545,8 @@ void Jeu::nouvelleMain(){
     this->resetActions();
 	
     for(int i =0; i< (int) this->listeJoueurs.size(); i++){
-        this->getJoueur(i)->videMain();
-        this->getJoueur(i)->setMiseTotale(0);
+        this->getJoueur(i)->clearHand();
+        this->getJoueur(i)->setTotalBet(0);
 	}
 	
 	this->deck = nouveauDeck();
@@ -690,11 +690,11 @@ void Jeu::affectationCarte(std::vector<int> listeId){
             for(game::Card carte : this->getDeck()){
                 if(carte.getId() == listeId.at(i)){
                     if(i<2){
-                        this->listeJoueurs.at(0)->ajouteCarte(this->deck.at(pos));
+                        this->listeJoueurs.at(0)->addCard(this->deck.at(pos));
                         this->deck.erase(this->deck.begin() + pos);
                         pos--;
                     }else if (i<4){
-                        this->listeJoueurs.at(1)->ajouteCarte(this->deck.at(pos));
+                        this->listeJoueurs.at(1)->addCard(this->deck.at(pos));
                         this->deck.erase(this->deck.begin() + pos);
                         pos--;
                     }else{

@@ -80,7 +80,7 @@ namespace ai {
                         ++m_numberPartsWon;
                     }
 
-                    m_totalTokensWon += m_game->getJoueur(1)->getCave() - m_game->getJoueur(1)->getCaveDeDepart();
+                    m_totalTokensWon += m_game->getJoueur(1)->getCave() - m_game->getJoueur(1)->getStartingCave();
 
                     m_game->nouvelleMain();
                 }

@@ -9,10 +9,10 @@ Specification: Classe définissant un joueur humain.
 #ifndef HUMANPLAYER_H
 #define HUMANPLAYER_H
 
-#include "Joueur.h"
+#include "Player.h"
 #include "../Interface/ContenuFenetreHumain.h"
 
-class HumanPlayer : public Joueur
+class HumanPlayer : public Player
 {
     private:
 
@@ -20,7 +20,7 @@ class HumanPlayer : public Joueur
 
     public:
 
-        HumanPlayer(bool isDealer, int tokens, int position, ContenuFenetreHumain *window);
+        HumanPlayer(bool isDealer, int tokens, int m_position, ContenuFenetreHumain *window);
         HumanPlayer(const HumanPlayer& player, ContenuFenetreHumain *window);
         virtual ~HumanPlayer();
 

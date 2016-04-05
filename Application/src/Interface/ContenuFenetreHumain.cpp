@@ -194,7 +194,7 @@ void ContenuFenetreHumain::debutPartie()
 
 
     // Affichage de la main adverse dans les logs
-    std::vector<game::Card> jeuAdverse = jeu->getJoueur(1)->getMain();
+    std::vector<game::Card> jeuAdverse = jeu->getJoueur(1)->getHand();
 
     Logger::getInstance()->ajoutLogs("Jeu adverse : ");
     for (unsigned int i = 0; i < jeuAdverse.size(); i++) {
@@ -204,7 +204,7 @@ void ContenuFenetreHumain::debutPartie()
 
     // Main du joueur
     layoutMain.vider();
-    layoutMain.ajoutCartes(jeu->getJoueur(0)->getMain());
+    layoutMain.ajoutCartes(jeu->getJoueur(0)->getHand());
 
     // Cartes communes
     layoutCartesCommunes.vider();
@@ -378,7 +378,7 @@ void ContenuFenetreHumain::partieTermine()
     activeBoutons(false);
 
     layoutMainAdverse.vider();
-    layoutMainAdverse.ajoutCartes(jeu->getJoueur(1)->getMain());
+    layoutMainAdverse.ajoutCartes(jeu->getJoueur(1)->getHand());
 
     afficheTable();
 

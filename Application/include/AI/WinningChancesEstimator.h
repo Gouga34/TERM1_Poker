@@ -2,7 +2,7 @@
 #define WINNINGCHANCESESTIMATOR_H
 
 #include "../Jeu/Jeu.h"
-#include "../Jeu/Joueur.h"
+#include "../Jeu/Player.h"
 #include "../Assessor/Assessor.h"
 #include <QThread>
 
@@ -19,7 +19,7 @@ namespace ai {
             double m_estimateResult;
 
             Jeu *m_game;
-            Joueur *m_player;
+            Player *m_player;
 
 
             /**
@@ -43,14 +43,14 @@ namespace ai {
 
         public:
 
-            WinningChancesEstimator(Jeu *game, Joueur *player, int testsNumber = NOMBRE_DE_TESTS);
+            WinningChancesEstimator(Jeu *game, Player *player, int testsNumber = NOMBRE_DE_TESTS);
             virtual ~WinningChancesEstimator();
 
             virtual double getEstimateResult() const;
 
             virtual void setTestsNumber(int testsNumber);
             virtual void setGame(Jeu *game);
-            virtual void setPlayer(Joueur *player);
+            virtual void setPlayer(Player *player);
 
             /**
             *@action : Calcule les chances de gagner du joueurCourant en fonction du jeu

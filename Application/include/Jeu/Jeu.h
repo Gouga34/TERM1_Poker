@@ -15,14 +15,14 @@
 #include "../AI/ArtificialIntelligence.h"
 #include "../Interface/ChoixOptionsDialog.h"
 
-class Joueur;
+class Player;
 class ArtificialIntelligence;
 
 class Jeu{
 
 	//Liste des attributs
 	private :    
-        std::vector<Joueur*>                listeJoueurs;
+        std::vector<Player*>                listeJoueurs;
         std::vector<game::Card>                  deck;
         std::vector<game::Card>                  table;
         std::vector<std::vector<ACTION>>    actions;        // Liste d'actions par joueur
@@ -145,13 +145,13 @@ class Jeu{
 		*@action : Permet d'obtenir le joueur en i-eme position
 		*@return : Le joueur en i-eme position
 		**/
-        Joueur* 		getJoueur(int i);
+        Player* 		getJoueur(int i);
         	
         	/**
 		*@action : Permet d'ajouter un joueur a la partie
 		*@param  : Le joueur a ajouter a la partie
 		**/
-        void 			setJoueur(Joueur *joueur);
+        void 			setJoueur(Player *joueur);
 		
 		/**
 		*@action : Permet d'obtenir les carte communes
@@ -223,7 +223,7 @@ class Jeu{
          * @brief Ajoute un joueur au jeu
          * @param joueur Joueur à ajouter
          */
-        void addJoueur(Joueur *joueur);
+        void addJoueur(Player *joueur);
 
         /**
          * @brief Lance une nouvelle partie
