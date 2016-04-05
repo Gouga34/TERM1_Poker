@@ -6,27 +6,27 @@ Projet: Profilage par essais et erreurs au poker
 Specification: Classe définissant un joueur humain.
 =========================================================================*/
 
-#ifndef JOUEURHUMAIN_H
-#define JOUEURHUMAIN_H
+#ifndef HUMANPLAYER_H
+#define HUMANPLAYER_H
 
 #include "Joueur.h"
 #include "../Interface/ContenuFenetreHumain.h"
 
-class JoueurHumain : public Joueur
+class HumanPlayer : public Joueur
 {
     private:
 
-        ContenuFenetreHumain *fenetre;
+        ContenuFenetreHumain *m_window;
 
     public:
 
-        JoueurHumain(bool estDealer, int jetons, int position, ContenuFenetreHumain *f);
-        JoueurHumain(const JoueurHumain& joueur, ContenuFenetreHumain *f);
-        virtual ~JoueurHumain();
+        HumanPlayer(bool isDealer, int tokens, int position, ContenuFenetreHumain *window);
+        HumanPlayer(const HumanPlayer& player, ContenuFenetreHumain *window);
+        virtual ~HumanPlayer();
 
         virtual bool isHumain() const;
 
         virtual Action play();
 };
 
-#endif // JOUEURHUMAIN_H
+#endif // HUMANPLAYER_H

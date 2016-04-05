@@ -9,7 +9,7 @@ Specification: Fichier contenant les définitions de la classe Fenetre.
 #include "../../include/Interface/Fenetre.h"
 #include "../../include/Interface/CarteGraphique.h"
 #include "../../include/Interface/ContenuFenetreHumain.h"
-#include "../../include/Jeu/JoueurHumain.h"
+#include "../../include/Jeu/HumainPlayer.h"
 #include "../../include/AI/ArtificialIntelligenceProfiling.h"
 #include "../../include/AI/IdealCalibration.h"
 #include "../../include/Interface/ContenuFenetreIA.h"
@@ -98,7 +98,7 @@ void Fenetre::initialiser()
         }
 
         contenu = new ContenuFenetreHumain(jeu, this);
-        j1 = new JoueurHumain(true, CAVE_JOUEURS, 0, static_cast<ContenuFenetreHumain*>(contenu));
+        j1 = new HumanPlayer(true, CAVE_JOUEURS, 0, static_cast<ContenuFenetreHumain*>(contenu));
     }
 
     jeu->addJoueur(j1);

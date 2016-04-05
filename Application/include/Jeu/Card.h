@@ -23,9 +23,9 @@ namespace game {
             Card(int rank, int color);
             virtual ~Card();
 
-            int getId() const;
-            int getColor() const;
-            int getRank() const;
+            virtual int getId() const;
+            virtual int getColor() const;
+            virtual int getRank() const;
     };
 }
 

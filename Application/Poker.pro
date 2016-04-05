@@ -11,7 +11,6 @@ SOURCES += \
     src/Interface/CompteurJetons.cpp \
     src/Interface/Logger.cpp \
     src/Jeu/Action.cpp \
-    src/Jeu/JoueurHumain.cpp \
     src/Interface/ContenuFenetre.cpp \
     src/Interface/ContenuFenetreHumain.cpp \
     src/Interface/ContenuFenetreIA.cpp \
@@ -30,7 +29,8 @@ SOURCES += \
     src/AI/WinningChancesEstimator.cpp \
     src/AI/ArtificialIntelligence.cpp \
     src/AI/ArtificialIntelligenceProfiling.cpp \
-    src/AI/Resolver.cpp
+    src/AI/Resolver.cpp \
+    src/Jeu/HumanPlayer.cpp
 
 
 QT+=widgets printsupport
@@ -48,7 +48,6 @@ HEADERS += \
     include/Interface/CompteurJetons.h \
     include/Interface/Logger.h \
     include/Jeu/Action.h \
-    include/Jeu/JoueurHumain.h \
     include/Interface/ContenuFenetre.h \
     include/Interface/ContenuFenetreHumain.h \
     include/Interface/ContenuFenetreIA.h \
@@ -67,7 +66,8 @@ HEADERS += \
     include/AI/WinningChancesEstimator.h \
     include/AI/ArtificialIntelligence.h \
     include/AI/ArtificialIntelligenceProfiling.h \
-    include/AI/Resolver.h
+    include/AI/Resolver.h \
+    include/Jeu/HumainPlayer.h
 
 CONFIG += c++14
 QMAKE_CXX = g++-4.9

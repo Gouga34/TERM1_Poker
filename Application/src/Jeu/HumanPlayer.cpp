@@ -7,31 +7,31 @@ Specification: Fichier contenant les définitions de la classe JoueurHumain.
 =========================================================================*/
 
 
-#include "../../include/Jeu/JoueurHumain.h"
+#include "../../include/Jeu/HumainPlayer.h"
 
 
-JoueurHumain::JoueurHumain(bool estDealer, int jetons, int position, ContenuFenetreHumain *f)
-    : Joueur(estDealer, jetons, position), fenetre(f)
+HumanPlayer::HumanPlayer(bool isDealer, int tokens, int position, ContenuFenetreHumain *window)
+    : Joueur(isDealer, tokens, position), m_window(window)
 {
 
 }
 
-JoueurHumain::JoueurHumain(const JoueurHumain& joueur, ContenuFenetreHumain *f)
-    : Joueur(joueur), fenetre(f)
+HumanPlayer::HumanPlayer(const HumanPlayer& player, ContenuFenetreHumain *window)
+    : Joueur(player), m_window(window)
 {
 
 }
 
-JoueurHumain::~JoueurHumain()
+HumanPlayer::~HumanPlayer()
 {
 
 }
 
-bool JoueurHumain::isHumain() const {
+bool HumanPlayer::isHumain() const {
     return true;
 }
 
-Action JoueurHumain::play(){
+Action HumanPlayer::play(){
 
-    return fenetre->getAction();
+    return m_window->getAction();
 }
