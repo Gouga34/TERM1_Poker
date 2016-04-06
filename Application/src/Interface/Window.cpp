@@ -175,7 +175,7 @@ void Window::startGame()
 
             m_game->launchPart();
 
-            m_content->actualiser();
+            m_content->refresh();
 
             m_game->newHand();
         }

@@ -11,7 +11,7 @@ Specification: Fichier contenant les définitions de la classe Logger.
 
 Logger* Logger::instance = 0;
 
-Logger::Logger(ContenuFenetre *window) : m_window(window)
+Logger::Logger(WindowContent *window) : m_window(window)
 {
 
 }
@@ -21,7 +21,7 @@ Logger::~Logger()
 
 }
 
-void Logger::createInstance(ContenuFenetre *window)
+void Logger::createInstance(WindowContent *window)
 {
     if (!instance) {
         instance = new Logger(window);
@@ -43,15 +43,15 @@ void Logger::deleteInstance()
 
 void Logger::addLogs(const char *content)
 {
-    m_window->ajoutLogs(QString(content));
+    m_window->addLogs(QString(content));
 }
 
 void Logger::addLogs(std::string content)
 {
-    m_window->ajoutLogs(QString::fromStdString(content));
+    m_window->addLogs(QString::fromStdString(content));
 }
 
 void Logger::addLogs(QString content)
 {
-    m_window->ajoutLogs(content);
+    m_window->addLogs(content);
 }

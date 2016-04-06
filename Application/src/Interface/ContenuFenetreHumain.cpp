@@ -17,7 +17,7 @@ Specification: Fichier contenant les définitions de la classe ContenuFenetreHum
 
 QPixmap *ContenuFenetreHumain::textureCartes = 0;
 
-ContenuFenetreHumain::ContenuFenetreHumain(game::Game *j, Window *f) : ContenuFenetre(j)
+ContenuFenetreHumain::ContenuFenetreHumain(game::Game *j, Window *f) : WindowContent(j)
 {
     // Couleur de fond
     QPalette pal(palette());
@@ -36,8 +36,8 @@ ContenuFenetreHumain::ContenuFenetreHumain(game::Game *j, Window *f) : ContenuFe
     titreTableauDeBord->setFixedSize(300, 50);
     titreTableauDeBord->setStyleSheet("QLabel {color : #89DF57; text-align:center; font-weight:bold;}");
 
-    logs.setReadOnly(true);
-    logs.setMaximumSize(300, 300);
+    m_logs.setReadOnly(true);
+    m_logs.setMaximumSize(300, 300);
 
 
     boutonLogs.setText("Afficher/Cacher");
@@ -48,7 +48,7 @@ ContenuFenetreHumain::ContenuFenetreHumain(game::Game *j, Window *f) : ContenuFe
     layoutLogs->setSpacing(20);
 
     layoutLogs->addWidget(titreTableauDeBord);
-    layoutLogs->addWidget(&logs);
+    layoutLogs->addWidget(&m_logs);
     layoutLogs->addWidget(&boutonLogs);
     layoutLogs->addWidget(&resultatPartie);
 
@@ -181,7 +181,7 @@ void ContenuFenetreHumain::debutPartie()
         std::vector<int> ids = fenetreCartes.cardsChoice();
 
         if (!ids.empty()) {
-            jeu->affectsCards(ids);
+            m_game->affectsCards(ids);
         }
     }
 
@@ -194,7 +194,7 @@ void ContenuFenetreHumain::debutPartie()
 
 
     // Affichage de la main adverse dans les logs
-    std::vector<game::Card> jeuAdverse = jeu->getPlayer(1)->getHand();
+    std::vector<game::Card> jeuAdverse = m_game->getPlayer(1)->getHand();
 
     Logger::getInstance()->addLogs("Jeu adverse : ");
     for (unsigned int i = 0; i < jeuAdverse.size(); i++) {
@@ -204,7 +204,7 @@ void ContenuFenetreHumain::debutPartie()
 
     // Main du joueur
     layoutMain.clear();
-    layoutMain.addCards(jeu->getPlayer(0)->getHand());
+    layoutMain.addCards(m_game->getPlayer(0)->getHand());
 
     // Cartes communes
     layoutCartesCommunes.clear();
@@ -226,13 +226,13 @@ void ContenuFenetreHumain::debutPartie()
     activeBoutons(false);
 }
 
-void ContenuFenetreHumain::actualiser()
+void ContenuFenetreHumain::refresh()
 {
-    pot.display(jeu->getPot());
-    caveJoueur.display(jeu->getPlayer(0)->getCave());
-    caveIA.display(jeu->getPlayer(1)->getCave());
+    pot.display(m_game->getPot());
+    caveJoueur.display(m_game->getPlayer(0)->getCave());
+    caveIA.display(m_game->getPlayer(1)->getCave());
 
-    valeurMise.setMinimum(jeu->getBlind());
+    valeurMise.setMinimum(m_game->getBlind());
 
     partieTermine();
 }
@@ -241,9 +241,9 @@ game::Action ContenuFenetreHumain::getAction()
 {
     // Mise à jour des informations
     afficheTable();
-    pot.display(jeu->getPot());
-    caveJoueur.display(jeu->getPlayer(0)->getCave());
-    caveIA.display(jeu->getPlayer(1)->getCave());
+    pot.display(m_game->getPot());
+    caveJoueur.display(m_game->getPlayer(0)->getCave());
+    caveIA.display(m_game->getPlayer(1)->getCave());
 
     activeBoutons(true);
 
@@ -259,9 +259,9 @@ game::Action ContenuFenetreHumain::getAction()
 
 void ContenuFenetreHumain::affichageLogs()
 {
-    bool visible = !logs.isHidden();
+    bool visible = !m_logs.isHidden();
 
-    logs.setHidden(visible);
+    m_logs.setHidden(visible);
 }
 
 void ContenuFenetreHumain::activeBoutons(bool active)
@@ -278,19 +278,19 @@ void ContenuFenetreHumain::activeBoutons(bool active)
             switch (i) {
 
                 case CHECKER:
-                    boutons[i].setEnabled(jeu->canCheck(0));
+                    boutons[i].setEnabled(m_game->canCheck(0));
                     break;
 
                 case MISER:
-                    boutons[i].setEnabled(jeu->canBet(0, 1));
+                    boutons[i].setEnabled(m_game->canBet(0, 1));
                     break;
 
                 case SUIVRE:
-                    boutons[i].setEnabled(jeu->canCall(0));
+                    boutons[i].setEnabled(m_game->canCall(0));
                     break;
 
                 case RELANCER:
-                    boutons[i].setEnabled(jeu->canRaise(0, 2 * jeu->getCurrentBet()));
+                    boutons[i].setEnabled(m_game->canRaise(0, 2 * m_game->getCurrentBet()));
                     break;
 
                 default:
@@ -299,14 +299,14 @@ void ContenuFenetreHumain::activeBoutons(bool active)
             }
         }
 
-        valeurMise.setMinimum(2 * jeu->getCurrentBet());
-        valeurMise.setMaximum(jeu->getPlayer(0)->getCave());
+        valeurMise.setMinimum(2 * m_game->getCurrentBet());
+        valeurMise.setMaximum(m_game->getPlayer(0)->getCave());
     }
 }
 
 void ContenuFenetreHumain::afficheTable()
 {
-    std::vector<game::Card> table = jeu->getTable();
+    std::vector<game::Card> table = m_game->getTable();
 
     layoutCartesCommunes.clear();
     layoutCartesCommunes.addCards(table);
@@ -378,11 +378,11 @@ void ContenuFenetreHumain::partieTermine()
     activeBoutons(false);
 
     layoutMainAdverse.clear();
-    layoutMainAdverse.addCards(jeu->getPlayer(1)->getHand());
+    layoutMainAdverse.addCards(m_game->getPlayer(1)->getHand());
 
     afficheTable();
 
-    int gagne = jeu->getGameResult();
+    int gagne = m_game->getGameResult();
 
     if(gagne==GAGNE){
         resultatPartie.setStyleSheet("QLabel {color : #89DF57; font-size : 40px; text-align:center; padding-left:80px; font-weight:bold;}");

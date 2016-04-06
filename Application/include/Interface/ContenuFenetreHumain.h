@@ -9,7 +9,7 @@ Specification: Classe définissant la fenêtre de choix des cartes.
 #ifndef CONTENUFENETREHUMAIN_H
 #define CONTENUFENETREHUMAIN_H
 
-#include "ContenuFenetre.h"
+#include "WindowContent.h"
 #include "CardsList.h"
 #include "TokensCounter.h"
 #include "Window.h"
@@ -20,7 +20,7 @@ Specification: Classe définissant la fenêtre de choix des cartes.
 #include <QCheckBox>
 #include <QLineEdit>
 
-class ContenuFenetreHumain : public ContenuFenetre
+class ContenuFenetreHumain : public WindowContent
 {
     Q_OBJECT
 
@@ -105,7 +105,7 @@ class ContenuFenetreHumain : public ContenuFenetre
         /**
          * @brief Met à jour l'interface
          */
-        virtual void actualiser();
+        virtual void refresh();
 
     public slots:
 

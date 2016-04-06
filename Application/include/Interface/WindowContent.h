@@ -6,36 +6,36 @@ Projet: Profilage par essais et erreurs au poker
 Specification: Classe définissant la fenêtre de choix des cartes.
 =========================================================================*/
 
-#ifndef CONTENUFENETRE_H
-#define CONTENUFENETRE_H
+#ifndef WINDOWCONTENT_H
+#define WINDOWCONTENT_H
 
 #include "../Game/Game.h"
 #include <QWidget>
 #include <QTextEdit>
 
-class ContenuFenetre : public QWidget
+class WindowContent : public QWidget
 {
     protected:
 
-        game::Game *jeu;
+        game::Game *m_game;
 
-        QTextEdit logs;
+        QTextEdit m_logs;
 
     public:
 
-        ContenuFenetre(game::Game *j);
-        virtual ~ContenuFenetre();
+        WindowContent(game::Game *game);
+        virtual ~WindowContent();
 
         /**
-         * @action Ajoute dans les logs le contenu passé en paramètre
-         * @param contenu Texte à ajouter aux logs
+         * @brief Ajoute dans les logs le contenu passé en paramètre
+         * @param content Texte à ajouter aux logs
          */
-        void ajoutLogs(QString contenu);
+        virtual void addLogs(QString content);
 
         /**
          * @brief Met à jour l'interface
          */
-        virtual void actualiser() = 0;
+        virtual void refresh() = 0;
 };
 
-#endif // CONTENUFENETRE_H
+#endif // WINDOWCONTENT_H
