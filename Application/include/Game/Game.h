@@ -14,7 +14,7 @@
 #include "../Profiling/Profiling.h"
 #include "../AI/WinningChancesEstimator.h"
 #include "../AI/ArtificialIntelligence.h"
-#include "../Interface/ChoixOptionsDialog.h"
+#include "../Interface/OptionsDialog.h"
 
 class ArtificialIntelligence;
 
@@ -46,7 +46,7 @@ namespace game {
             RESULTAT_PARTIE                     m_gameResult;
             std::vector<game::Card>             m_tableTmp;
 
-            OptionsJeu                          m_options;
+            GameOptions                          m_options;
 
 
             /**
@@ -105,12 +105,12 @@ namespace game {
             *@param  : Le nombre de joueur, le montant de la blind de depart et les options
             *@action : Initialise un nouveau jeu
             **/
-            Game(int nbPlayers, int blind, OptionsJeu options);
+            Game(int nbPlayers, int blind, GameOptions options);
 
             virtual ~Game();
 
 
-            virtual OptionsJeu getOptions() const;
+            virtual GameOptions getOptions() const;
             virtual RESULTAT_PARTIE getGameResult() const;
             virtual int	getBlind() const;
             virtual int getCurrentPlayer() const;

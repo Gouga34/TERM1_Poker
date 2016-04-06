@@ -7,7 +7,7 @@ Specification: Fichier contenant les définitions de la classe JoueurHumain.
 =========================================================================*/
 
 
-#include "../../include/Game/HumainPlayer.h"
+#include "../../include/Game/HumanPlayer.h"
 
 namespace game {
 

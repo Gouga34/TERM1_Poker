@@ -53,7 +53,7 @@ namespace ai {
             delete m_profiling;
         }
         m_profiling = new profiling::Profiling(m_resolver->getCalibration(), &m_playerProfile);
-        m_profiling->m_currentProfilingPhase.newPhase(m_game->getOptions().nombrePartiesProfilage);
+        m_profiling->m_currentProfilingPhase.newPhase(m_game->getOptions().nbProfilingParts);
 
         profiling::Profile searchedCalibration;
         if (!m_game->getPlayer(0)->isHumain()) {
@@ -201,7 +201,7 @@ namespace ai {
         }
         else {
             if (m_gamePhase == PHASE_PROFILAGE) {
-                m_profiling->m_currentGamePhase.newPhase(m_game->getOptions().nombrePartiesGains);
+                m_profiling->m_currentGamePhase.newPhase(m_game->getOptions().nbWinningsParts);
                 return PHASE_GAINS;
             }
             else {
@@ -209,7 +209,7 @@ namespace ai {
                 double gainParPartieProfilage = static_cast<double>(m_profiling->m_currentProfilingPhase.getGains()) / m_profiling->m_currentProfilingPhase.getNbPartsDone();
 
                 if (m_profiling->m_currentGamePhase.getGains() < 0 || gainParPartieJeu < gainParPartieProfilage) {
-                    m_profiling->m_currentProfilingPhase.newPhase(m_game->getOptions().nombrePartiesReprofilage);
+                    m_profiling->m_currentProfilingPhase.newPhase(m_game->getOptions().nbReprofilingParts);
                     return PHASE_PROFILAGE;
                 }
                 else {
@@ -222,7 +222,7 @@ namespace ai {
     void ArtificialIntelligenceProfiling::determineGameType() {
 
         // Si on recherche calibrage optimal
-        if (!m_game->getOptions().profilage) {
+        if (!m_game->getOptions().profiling) {
             m_gamePhase = PHASE_GAINS;
         }
         else {
@@ -250,7 +250,7 @@ namespace ai {
 
     void ArtificialIntelligenceProfiling::setProfilingCalibration() {
 
-        if (m_game->getOptions().calibrageIaQuiProfileFixe) {
+        if (m_game->getOptions().fixedProfilingAiCalibration) {
             return;
         }
 
@@ -263,7 +263,7 @@ namespace ai {
 
     void ArtificialIntelligenceProfiling::setCalibrationToPlay() {
 
-        if (m_game->getOptions().calibrageIaQuiProfileFixe) {
+        if (m_game->getOptions().fixedProfilingAiCalibration) {
             return;
         }
 
@@ -325,7 +325,7 @@ namespace ai {
 
     void ArtificialIntelligenceProfiling::writeEarningsAnalysis() {
 
-        if (m_game->getOptions().analyseGainsParties) {
+        if (m_game->getOptions().partsWinningsAnalysis) {
 
             profiling::Profile searchedCalibration;
 

@@ -117,7 +117,7 @@ void ContenuFenetreIA::initialisationResultats(){
     graphiqueResultats.yAxis2->setVisible(true);
     graphiqueResultats.yAxis2->setTickLabels(true);
 
-    graphiqueResultats.xAxis->setRange(0, jeu->getOptions().nombreParties);
+    graphiqueResultats.xAxis->setRange(0, jeu->getOptions().nbParts);
     graphiqueResultats.yAxis2->setRange(0, 100);
     graphiqueResultats.yAxis->setRange(-30000, 30000);
 
