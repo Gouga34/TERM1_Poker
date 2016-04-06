@@ -7,7 +7,7 @@ Specification: Fichier contenant les définitions de la classe CarteGraphique.
 =========================================================================*/
 
 #include "../../include/Interface/GraphicCard.h"
-#include "../../include/Interface/ContenuFenetreHumain.h"
+#include "../../include/Interface/HumanWindowContent.h"
 
 // Définition de la taille d'une carte
 const unsigned int GraphicCard::CARD_WIDTH = 73;
@@ -22,10 +22,10 @@ GraphicCard::GraphicCard(int rank, int color) : QLabel()
 
 
     if (m_id == -1) {    // Dos de carte
-        setPixmap(ContenuFenetreHumain::textureCartes->copy(QRect((13 * 4 + 1) * CARD_WIDTH, 0, CARD_WIDTH, CARD_HEIGHT)));
+        setPixmap(HumanWindowContent::m_cardsTexture->copy(QRect((13 * 4 + 1) * CARD_WIDTH, 0, CARD_WIDTH, CARD_HEIGHT)));
     }
     else {               // Identifiant de la carte
-        setPixmap(ContenuFenetreHumain::textureCartes->copy(QRect(m_id * CARD_WIDTH, 0, CARD_WIDTH, CARD_HEIGHT)));
+        setPixmap(HumanWindowContent::m_cardsTexture->copy(QRect(m_id * CARD_WIDTH, 0, CARD_WIDTH, CARD_HEIGHT)));
     }
 }
 
@@ -33,7 +33,7 @@ GraphicCard::GraphicCard(game::Card c) : QLabel()
 {
     m_id = c.getId();
 
-    setPixmap(ContenuFenetreHumain::textureCartes->copy(QRect(m_id * CARD_WIDTH, 0, CARD_WIDTH, CARD_HEIGHT)));
+    setPixmap(HumanWindowContent::m_cardsTexture->copy(QRect(m_id * CARD_WIDTH, 0, CARD_WIDTH, CARD_HEIGHT)));
 }
 
 

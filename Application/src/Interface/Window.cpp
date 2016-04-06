@@ -8,7 +8,7 @@ Specification: Fichier contenant les définitions de la classe Fenetre.
 
 #include "../../include/Interface/Window.h"
 #include "../../include/Interface/GraphicCard.h"
-#include "../../include/Interface/ContenuFenetreHumain.h"
+#include "../../include/Interface/HumanWindowContent.h"
 #include "../../include/Game/HumanPlayer.h"
 #include "../../include/AI/ArtificialIntelligenceProfiling.h"
 #include "../../include/AI/IdealCalibration.h"
@@ -96,8 +96,8 @@ void Window::initialize()
             playerPseudo = m_game->getOptions().pseudo;
         }
 
-        m_content = new ContenuFenetreHumain(m_game, this);
-        p1 = new game::HumanPlayer(true, CAVE_JOUEURS, 0, static_cast<ContenuFenetreHumain*>(m_content));
+        m_content = new HumanWindowContent(m_game, this);
+        p1 = new game::HumanPlayer(true, CAVE_JOUEURS, 0, static_cast<HumanWindowContent*>(m_content));
     }
 
     m_game->addPlayer(p1);
@@ -169,8 +169,8 @@ void Window::startGame()
             m_game->newGame();
 
             if (m_game->getPlayer(0)->isHumain()) {
-                ContenuFenetreHumain *content = static_cast<ContenuFenetreHumain*>(m_content);
-                content->debutPartie();
+                HumanWindowContent *content = static_cast<HumanWindowContent*>(m_content);
+                content->startPart();
             }
 
             m_game->launchPart();
