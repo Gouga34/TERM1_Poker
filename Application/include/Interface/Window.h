@@ -7,8 +7,8 @@ Specification: Classe contenant l'ensemble des propriétés de la fenêtre
                graphique.
 =========================================================================*/
 
-#ifndef FENETRE_H
-#define FENETRE_H
+#ifndef WINDOW_H
+#define WINDOW_H
 
 #include <QWidget>
 #include <QPushButton>
@@ -16,43 +16,43 @@ Specification: Classe contenant l'ensemble des propriétés de la fenêtre
 
 #include "ContenuFenetre.h"
 
-class Fenetre : public QWidget
+class Window : public QWidget
 {
     Q_OBJECT
 
     private:
 
-        game::Game *jeu;
+        game::Game *m_game;
 
-        QPushButton boutonDemarrage;
+        QPushButton m_startButton;
 
-        ContenuFenetre *contenu;
+        ContenuFenetre *m_content;
 
-        QVBoxLayout *layout;
+        QVBoxLayout *m_layout;
 
     private slots:
 
         /**
          * @brief Initialise ou réinitialise l'application
          */
-        void initialiser();
+        virtual void initialize();
 
     public:
 
-        Fenetre();
-        ~Fenetre();
+        Window();
+        virtual ~Window();
 
     public slots:
 
         /**
-         * @action Distribue les cartes de pre-flop à tous les joueurs et lance le jeu
+         * @brief Distribue les cartes de pre-flop à tous les joueurs et lance le jeu
          */
-        void demarragePartie();
+        virtual void startGame();
 
         /**
-         * @action Lance les tests pour déterminer le calibrage idéal
+         * @brief Lance les tests pour déterminer le calibrage idéal
          */
-        void demarrageCalibrageIdeal();
+        virtual void startOptimalCalibration();
 };
 
-#endif // FENETRE_H
+#endif // WINDOW_H
