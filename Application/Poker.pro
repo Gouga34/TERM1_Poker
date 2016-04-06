@@ -1,6 +1,5 @@
 SOURCES += \
     src/Interface/main.cpp \
-    src/Interface/Fenetre.cpp \
     src/Interface/Logger.cpp \
     src/Game/Action.cpp \
     src/Interface/ContenuFenetre.cpp \
@@ -30,13 +29,13 @@ SOURCES += \
     src/Interface/CardsDialog.cpp \
     src/Interface/CardsList.cpp \
     src/Interface/CalibrationChoice.cpp \
-    src/Interface/OptionsDialog.cpp
+    src/Interface/OptionsDialog.cpp \
+    src/Interface/Window.cpp
 
 
 QT+=widgets printsupport
 
 HEADERS += \
-    include/Interface/Fenetre.h \
     include/Constantes.h \
     include/Interface/Logger.h \
     include/Game/Action.h \
@@ -67,7 +66,8 @@ HEADERS += \
     include/Interface/CardsList.h \
     include/Interface/CalibrationChoice.h \
     include/Interface/OptionsDialog.h \
-    include/Game/HumanPlayer.h
+    include/Game/HumanPlayer.h \
+    include/Interface/Window.h
 
 CONFIG += c++14
 !win32 {

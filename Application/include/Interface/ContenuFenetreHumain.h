@@ -12,7 +12,7 @@ Specification: Classe définissant la fenêtre de choix des cartes.
 #include "ContenuFenetre.h"
 #include "CardsList.h"
 #include "TokensCounter.h"
-#include "Fenetre.h"
+#include "Window.h"
 
 #include <QPixmap>
 #include <QSpinBox>
@@ -88,7 +88,7 @@ class ContenuFenetreHumain : public ContenuFenetre
         // Image contenant l'ensemble des cartes graphiques du jeu de carte
         static QPixmap *textureCartes;
 
-        ContenuFenetreHumain(game::Game *j, Fenetre *f);
+        ContenuFenetreHumain(game::Game *j, Window *f);
         virtual ~ContenuFenetreHumain();
 
         /**

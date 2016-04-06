@@ -17,7 +17,7 @@ Specification: Fichier contenant les définitions de la classe ContenuFenetreHum
 
 QPixmap *ContenuFenetreHumain::textureCartes = 0;
 
-ContenuFenetreHumain::ContenuFenetreHumain(game::Game *j, Fenetre *f) : ContenuFenetre(j)
+ContenuFenetreHumain::ContenuFenetreHumain(game::Game *j, Window *f) : ContenuFenetre(j)
 {
     // Couleur de fond
     QPalette pal(palette());
