@@ -6,26 +6,26 @@ Projet: Profilage par essais et erreurs au poker
 Specification: Fichier contenant les définitions de la classe ContenuFenetre.
 =========================================================================*/
 
-#include "../../include/Interface/ContenuFenetre.h"
+#include "../../include/Interface/WindowContent.h"
 #include "../../include/Interface/Logger.h"
 
 #include <QScrollBar>
 
-ContenuFenetre::ContenuFenetre(game::Game *j) : QWidget(), jeu(j)
+WindowContent::WindowContent(game::Game *game) : QWidget(), m_game(game)
 {
     Logger::createInstance(this);
 }
 
-ContenuFenetre::~ContenuFenetre()
+WindowContent::~WindowContent()
 {
     Logger::deleteInstance();
 }
 
-void ContenuFenetre::ajoutLogs(QString contenu)
+void WindowContent::addLogs(QString content)
 {
-    logs.setText(logs.toPlainText() + contenu + "\n");
+    m_logs.setText(m_logs.toPlainText() + content + "\n");
 
     // Scroll automatique vers la fin
-    QScrollBar *sb=logs.verticalScrollBar();
+    QScrollBar *sb = m_logs.verticalScrollBar();
     sb->setValue(sb->maximum());
 }

@@ -14,7 +14,7 @@ Specification: Classe contenant l'ensemble des propriétés de la fenêtre
 #include <QPushButton>
 #include <QVBoxLayout>
 
-#include "ContenuFenetre.h"
+#include "WindowContent.h"
 
 class Window : public QWidget
 {
@@ -26,7 +26,7 @@ class Window : public QWidget
 
         QPushButton m_startButton;
 
-        ContenuFenetre *m_content;
+        WindowContent *m_content;
 
         QVBoxLayout *m_layout;
 

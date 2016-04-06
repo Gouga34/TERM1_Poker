@@ -10,14 +10,14 @@ Specification: Classe définissant la fenêtre affichée lorsque
 #ifndef CONTENUFENETREIA_H
 #define CONTENUFENETREIA_H
 
-#include "ContenuFenetre.h"
+#include "WindowContent.h"
 #include "Window.h"
 #include <QLabel>
 #include <QVector>
 #include <QTableWidget>
 #include "CustomPlot/qcustomplot.h"
 
-class ContenuFenetreIA : public ContenuFenetre{
+class ContenuFenetreIA : public WindowContent{
 private:
     QLabel etatParties;
     QTableWidget recapParties;
@@ -107,7 +107,7 @@ public:
     /**
      * @brief actualiser actualise le récapitulatif des parties.
      */
-    virtual void actualiser();
+    virtual void refresh();
 };
 
 #endif // CONTENUFENETREIA_H

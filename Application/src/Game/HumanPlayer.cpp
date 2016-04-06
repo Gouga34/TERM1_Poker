@@ -11,13 +11,13 @@ Specification: Fichier contenant les définitions de la classe JoueurHumain.
 
 namespace game {
 
-    HumanPlayer::HumanPlayer(bool isDealer, int tokens, int position, ContenuFenetreHumain *window)
+    HumanPlayer::HumanPlayer(bool isDealer, int tokens, int position, HumanWindowContent *window)
         : Player(isDealer, tokens, position), m_window(window)
     {
 
     }
 
-    HumanPlayer::HumanPlayer(const HumanPlayer& player, ContenuFenetreHumain *window)
+    HumanPlayer::HumanPlayer(const HumanPlayer& player, HumanWindowContent *window)
         : Player(player), m_window(window)
     {
 
