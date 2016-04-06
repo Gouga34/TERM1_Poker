@@ -6,7 +6,7 @@
 
 namespace game {
 
-    Game::Game(int nbPlayers, int blind, OptionsJeu options)
+    Game::Game(int nbPlayers, int blind, GameOptions options)
         : m_actions(nbPlayers), m_options(options), m_blind(blind),
           m_currentPlayer(0), m_pot(0), m_dealer(0) {
 
@@ -37,7 +37,7 @@ namespace game {
         setPot(0);
 
         for (unsigned int i = 0; i < m_players.size(); i++) {
-            if (m_options.reinitialisationCaves) {
+            if (m_options.resetCaves) {
                 getPlayer(i)->setCave(CAVE_JOUEURS);
             }
             else {
@@ -157,7 +157,7 @@ namespace game {
         }
     }
 
-    OptionsJeu Game::getOptions() const {
+    GameOptions Game::getOptions() const {
         return m_options;
     }
 

@@ -1,7 +1,6 @@
 SOURCES += \
     src/Interface/main.cpp \
     src/Interface/Fenetre.cpp \
-    src/Interface/ChoixOptionsDialog.cpp \
     src/Interface/Logger.cpp \
     src/Game/Action.cpp \
     src/Interface/ContenuFenetre.cpp \
@@ -30,7 +29,8 @@ SOURCES += \
     src/Interface/TokensCounter.cpp \
     src/Interface/CardsDialog.cpp \
     src/Interface/CardsList.cpp \
-    src/Interface/CalibrationChoice.cpp
+    src/Interface/CalibrationChoice.cpp \
+    src/Interface/OptionsDialog.cpp
 
 
 QT+=widgets printsupport
@@ -38,7 +38,6 @@ QT+=widgets printsupport
 HEADERS += \
     include/Interface/Fenetre.h \
     include/Constantes.h \
-    include/Interface/ChoixOptionsDialog.h \
     include/Interface/Logger.h \
     include/Game/Action.h \
     include/Interface/ContenuFenetre.h \
@@ -59,7 +58,6 @@ HEADERS += \
     include/AI/ArtificialIntelligence.h \
     include/AI/ArtificialIntelligenceProfiling.h \
     include/AI/Resolver.h \
-    include/Game/HumainPlayer.h \
     include/Game/Player.h \
     include/Game/Game.h \
     include/Interface/GraphicCard.h \
@@ -67,7 +65,9 @@ HEADERS += \
     include/Interface/TokensCounter.h \
     include/Interface/CardsDialog.h \
     include/Interface/CardsList.h \
-    include/Interface/CalibrationChoice.h
+    include/Interface/CalibrationChoice.h \
+    include/Interface/OptionsDialog.h \
+    include/Game/HumanPlayer.h
 
 CONFIG += c++14
 !win32 {

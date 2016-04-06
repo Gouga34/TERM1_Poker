@@ -9,7 +9,7 @@ Specification: Fichier contenant les définitions de la classe Fenetre.
 #include "../../include/Interface/Fenetre.h"
 #include "../../include/Interface/GraphicCard.h"
 #include "../../include/Interface/ContenuFenetreHumain.h"
-#include "../../include/Game/HumainPlayer.h"
+#include "../../include/Game/HumanPlayer.h"
 #include "../../include/AI/ArtificialIntelligenceProfiling.h"
 #include "../../include/AI/IdealCalibration.h"
 #include "../../include/Interface/ContenuFenetreIA.h"
@@ -68,7 +68,7 @@ void Fenetre::initialiser()
     hide();
 
     //Récupération des options du jeu
-    ChoixOptionsDialog fenetreOptions;
+    OptionsDialog fenetreOptions;
 
     // Création du jeu
     jeu = new game::Game(2, 20, fenetreOptions.getOptions());
@@ -78,13 +78,13 @@ void Fenetre::initialiser()
     game::Player *j1;
     QString pseudoJoueur = "inconnu";
 
-    if (jeu->getOptions().joueurIA) {
+    if (jeu->getOptions().aiPlayer) {
         j1 = new ai::ArtificialIntelligence(true, CAVE_JOUEURS, 0);
         ai::ArtificialIntelligence *ia = static_cast<ai::ArtificialIntelligence*>(j1);
 
         // Si on lance une recherche de calibrage optimal ou si on a choisi le calibrage
-        if (!jeu->getOptions().profilage || jeu->getOptions().calibrageIaProfileeFixe) {
-            ia->setCalibration(jeu->getOptions().iaProfilee);
+        if (!jeu->getOptions().profiling || jeu->getOptions().fixedProfiledAiCalibration) {
+            ia->setCalibration(jeu->getOptions().profiledAi);
         }
 
         profiling::Profile calibrage = *(ia->getCalibration());
@@ -108,8 +108,8 @@ void Fenetre::initialiser()
 
     ai::ArtificialIntelligenceProfiling *ia = new ai::ArtificialIntelligenceProfiling(false, CAVE_JOUEURS, 1);
 
-    if (jeu->getOptions().calibrageIaQuiProfileFixe) {
-        ia->setCalibration(jeu->getOptions().iaQuiProfile);
+    if (jeu->getOptions().fixedProfilingAiCalibration) {
+        ia->setCalibration(jeu->getOptions().profilingAi);
     }
 
     jeu->addPlayer(ia);
@@ -121,7 +121,7 @@ void Fenetre::initialiser()
     /** Bouton démarrer **/
 
     disconnect(&boutonDemarrage, SIGNAL(clicked()), this, SLOT(initialiser()));
-    if (jeu->getOptions().profilage) {
+    if (jeu->getOptions().profiling) {
         connect(&boutonDemarrage, SIGNAL(clicked()), this, SLOT(demarragePartie()));
     }
     else {
@@ -138,8 +138,8 @@ void Fenetre::demarragePartie()
 {
     boutonDemarrage.hide();
 
-    int nbCalibrages = jeu->getOptions().nombreCalibrages;
-    int nbParties = jeu->getOptions().nombreParties;
+    int nbCalibrages = jeu->getOptions().nbCalibrations;
+    int nbParties = jeu->getOptions().nbParts;
 
     if (jeu->getPlayer(0)->isHumain()) {
         nbCalibrages = 1;
@@ -153,7 +153,7 @@ void Fenetre::demarragePartie()
         if (!jeu->getPlayer(0)->isHumain()) {
             ai::ArtificialIntelligence *iaProfilee = static_cast<ai::ArtificialIntelligence*>(jeu->getPlayer(0));
 
-            if (!jeu->getOptions().calibrageIaProfileeFixe) {
+            if (!jeu->getOptions().fixedProfiledAiCalibration) {
                 iaProfilee->changeRandomlyCalibration();
             }
 
@@ -196,7 +196,7 @@ void Fenetre::demarrageCalibrageIdeal()
     ai::ArtificialIntelligence *iaQuiProfile = static_cast<ai::ArtificialIntelligence*>(jeu->getPlayer(1));
     ai::ArtificialIntelligence *iaProfilee = static_cast<ai::ArtificialIntelligence*>(jeu->getPlayer(0));
 
-    ai::IdealCalibration c(jeu, iaQuiProfile->getCalibration(), iaProfilee->getCalibration(), jeu->getOptions().nombreParties);
+    ai::IdealCalibration c(jeu, iaQuiProfile->getCalibration(), iaProfilee->getCalibration(), jeu->getOptions().nbParts);
     c.launchParts();
 }
 
