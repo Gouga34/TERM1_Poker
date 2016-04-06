@@ -7,7 +7,6 @@ SOURCES += \
     src/Interface/ContenuFenetre.cpp \
     src/Interface/ContenuFenetreHumain.cpp \
     src/Interface/ContenuFenetreIA.cpp \
-    src/Interface/ChoixCalibrage.cpp \
     src/Interface/CustomPlot/qcustomplot.cpp \
     src/Assessor/Assessor.cpp \
     src/Assessor/PlayerCards.cpp \
@@ -30,7 +29,8 @@ SOURCES += \
     src/Interface/ClickableCard.cpp \
     src/Interface/TokensCounter.cpp \
     src/Interface/CardsDialog.cpp \
-    src/Interface/CardsList.cpp
+    src/Interface/CardsList.cpp \
+    src/Interface/CalibrationChoice.cpp
 
 
 QT+=widgets printsupport
@@ -44,7 +44,6 @@ HEADERS += \
     include/Interface/ContenuFenetre.h \
     include/Interface/ContenuFenetreHumain.h \
     include/Interface/ContenuFenetreIA.h \
-    include/Interface/ChoixCalibrage.h \
     include/Interface/CustomPlot/qcustomplot.h \
     include/Assessor/Assessor.h \
     include/Assessor/PlayerCards.h \
@@ -67,7 +66,8 @@ HEADERS += \
     include/Interface/ClickableCard.h \
     include/Interface/TokensCounter.h \
     include/Interface/CardsDialog.h \
-    include/Interface/CardsList.h
+    include/Interface/CardsList.h \
+    include/Interface/CalibrationChoice.h
 
 CONFIG += c++14
 !win32 {

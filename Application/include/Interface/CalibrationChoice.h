@@ -6,8 +6,8 @@ Projet: Profilage par essais et erreurs au poker
 Specification: Classe contenant les widgets .
 =========================================================================*/
 
-#ifndef CHOIXCALIBRAGE_H
-#define CHOIXCALIBRAGE_H
+#ifndef CALIBRATIONCHOICE_H
+#define CALIBRATIONCHOICE_H
 
 #include <QWidget>
 #include <QSlider>
@@ -15,22 +15,23 @@ Specification: Classe contenant les widgets .
 #include <QGroupBox>
 #include "../Profiling/Profile.h"
 
-class ChoixCalibrage : public QGroupBox
+class CalibrationChoice : public QGroupBox
 {
     private:
 
-        QSlider rationalite;
-        QSlider agressivite;
+        QSlider m_rationality;
+        QSlider m_aggressiveness;
 
     public:
 
-        ChoixCalibrage(const QString& titre, QWidget *parent = 0);
+        CalibrationChoice(const QString& title, QWidget *parent = 0);
+        virtual ~CalibrationChoice();
 
         /**
          * @brief getCalibrage
          * @return Calibrage des sliders
          */
-        profiling::Profile getCalibrage() const;
+        virtual profiling::Profile getCalibration() const;
 };
 
-#endif // CHOIXCALIBRAGE_H
+#endif // CALIBRATIONCHOICE_H

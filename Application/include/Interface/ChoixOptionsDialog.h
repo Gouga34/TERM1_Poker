@@ -18,7 +18,7 @@ Specification: Classe définissant la fenêtre de choix du pseudo.
 #include <QGroupBox>
 #include <QRadioButton>
 #include <QStackedLayout>
-#include "ChoixCalibrage.h"
+#include "CalibrationChoice.h"
 
 struct OptionsJeu
 {
@@ -71,14 +71,14 @@ private :
    QCheckBox caseAnalyseGainsParties;
    QCheckBox caseReinitialisationCaves;
 
-   ChoixCalibrage calibrageIAProfilee;
-   ChoixCalibrage calibrageIAQuiProfile;
+   CalibrationChoice calibrageIAProfilee;
+   CalibrationChoice calibrageIAQuiProfile;
 
    //// Paramètres calibrage optimal ////
 
    QSpinBox boiteNombrePartiesCalibrageOptimal;
 
-   ChoixCalibrage calibrageAdversaire;
+   CalibrationChoice calibrageAdversaire;
 
 
 public :

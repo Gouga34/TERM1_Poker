@@ -166,18 +166,18 @@ OptionsJeu ChoixOptionsDialog::getOptions(){
             options.calibrageIaQuiProfileFixe = calibrageIAQuiProfile.isChecked();
 
             if (calibrageIAProfilee.isChecked()) {
-                options.iaProfilee = calibrageIAProfilee.getCalibrage();
+                options.iaProfilee = calibrageIAProfilee.getCalibration();
             }
 
             if (calibrageIAQuiProfile.isChecked()) {
-                options.iaQuiProfile = calibrageIAQuiProfile.getCalibrage();
+                options.iaQuiProfile = calibrageIAQuiProfile.getCalibration();
             }
         }
         else {
 
             options.joueurIA = true;
             options.nombreParties = boiteNombrePartiesCalibrageOptimal.value();
-            options.iaProfilee = calibrageAdversaire.getCalibrage();
+            options.iaProfilee = calibrageAdversaire.getCalibration();
         }
     }
 
