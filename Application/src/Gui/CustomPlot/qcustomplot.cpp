@@ -23,7 +23,7 @@
 **          Version: 1.3.1                                                **
 ****************************************************************************/
 
-#include "../../../include/Interface/CustomPlot/qcustomplot.h"
+#include "../../../include/Gui/CustomPlot/qcustomplot.h"
 
 
 

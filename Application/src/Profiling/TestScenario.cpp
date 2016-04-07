@@ -1,7 +1,7 @@
 #include "../../include/Constantes.h"
 #include "../../include/Profiling/TestScenario.h"
 #include "../../include/Profiling/CalculateProfilingData.h"
-#include "../../include/Interface/Logger.h"
+#include "../../include/Gui/Logger.h"
 
 
 #include <QString>

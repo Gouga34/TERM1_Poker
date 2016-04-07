@@ -1,12 +1,12 @@
 #include "../../include/Game/Game.h"
 #include "../../include/AI/ArtificialIntelligenceProfiling.h"
-#include "../../include/Interface/Logger.h"
+#include "../../include/Gui/Logger.h"
 
 #include <iterator>
 
 namespace game {
 
-    Game::Game(int nbPlayers, int blind, GameOptions options)
+    Game::Game(int nbPlayers, int blind, gui::GameOptions options)
         : m_actions(nbPlayers), m_options(options), m_blind(blind),
           m_currentPlayer(0), m_pot(0), m_dealer(0) {
 
@@ -96,7 +96,7 @@ namespace game {
 
             tableCardsDistribution(cardsNumber);
 
-            Logger::getInstance()->addLogs("Ajout de cartes sur la table");
+            gui::Logger::getInstance()->addLogs("Ajout de cartes sur la table");
         }
 
         calculateWinningChances();
@@ -140,12 +140,12 @@ namespace game {
 
     void Game::blindDistribution() {
 
-        Logger::getInstance()->addLogs("Joueur " + QString::number(getOpponentsPosition(getDealer())) + " : petite blind");
+        gui::Logger::getInstance()->addLogs("Joueur " + QString::number(getOpponentsPosition(getDealer())) + " : petite blind");
 
         executeAction(getOpponentsPosition(getDealer()), Action(MISER, getBlind()));
         m_actions[getOpponentsPosition(getDealer())].back() = ACTION::PETITE_BLIND;
 
-        Logger::getInstance()->addLogs("Joueur " + QString::number(getDealer()) + " : grosse blind");
+        gui::Logger::getInstance()->addLogs("Joueur " + QString::number(getDealer()) + " : grosse blind");
 
         executeAction(getDealer(), Action(RELANCER, getBlind()*2));
         m_actions[getDealer()].back() = ACTION::GROSSE_BLIND;
@@ -157,7 +157,7 @@ namespace game {
         }
     }
 
-    GameOptions Game::getOptions() const {
+    gui::GameOptions Game::getOptions() const {
         return m_options;
     }
 
@@ -710,7 +710,7 @@ namespace game {
     {
         while (nextPlayer()) {
             if (isRoundBeginning()) {
-                Logger::getInstance()->addLogs("--- Nouvelle Etape ---");
+                gui::Logger::getInstance()->addLogs("--- Nouvelle Etape ---");
             }
 
             Action a = m_players.at(m_currentPlayer)->play();

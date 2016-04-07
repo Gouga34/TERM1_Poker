@@ -11,22 +11,25 @@ Specification: Classe définissant une carte cliquable.
 
 #include "GraphicCard.h"
 
-class ClickableCard : public GraphicCard
+namespace gui
 {
-    Q_OBJECT
+    class ClickableCard : public GraphicCard
+    {
+        Q_OBJECT
 
-    protected:
+        protected:
 
-        virtual void mousePressEvent(QMouseEvent *event);
+            virtual void mousePressEvent(QMouseEvent *event);
 
-    signals:
+        signals:
 
-        void clicked(int m_id);
+            void clicked(int m_id);
 
-    public:
+        public:
 
-        ClickableCard(int rank, int color);
-        virtual ~ClickableCard();
-};
+            ClickableCard(int rank, int color);
+            virtual ~ClickableCard();
+    };
+}
 
 #endif // CLICKABLECARD_H

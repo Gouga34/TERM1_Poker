@@ -8,7 +8,7 @@ Specification: Fichier contenant les définitions de la classe IntelligenceArtif
 
 
 #include "../../include/AI/ArtificialIntelligenceProfiling.h"
-#include "../../include/Interface/Logger.h"
+#include "../../include/Gui/Logger.h"
 #include "../../include/MathematicalFormula/MathematicalFormula.h"
 #include <QStringList>
 #include <QTextStream>
@@ -241,7 +241,7 @@ namespace ai {
                 setCalibrationToPlay();
             }
 
-            Logger::getInstance()->addLogs("Calibrage IA profilage: agressivité: " + QString::number(m_resolver->getCalibration()->getAggressiveness())
+            gui::Logger::getInstance()->addLogs("Calibrage IA profilage: agressivité: " + QString::number(m_resolver->getCalibration()->getAggressiveness())
                                              + " rationalité: " + QString::number(m_resolver->getCalibration()->getRationality()));
         }
 

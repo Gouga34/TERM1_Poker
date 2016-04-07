@@ -1,8 +1,5 @@
 SOURCES += \
-    src/Interface/main.cpp \
-    src/Interface/Logger.cpp \
     src/Game/Action.cpp \
-    src/Interface/CustomPlot/qcustomplot.cpp \
     src/Assessor/Assessor.cpp \
     src/Assessor/PlayerCards.cpp \
     src/MathematicalFormula/MathematicalFormula.cpp \
@@ -20,26 +17,27 @@ SOURCES += \
     src/Game/HumanPlayer.cpp \
     src/Game/Player.cpp \
     src/Game/Game.cpp \
-    src/Interface/GraphicCard.cpp \
-    src/Interface/ClickableCard.cpp \
-    src/Interface/TokensCounter.cpp \
-    src/Interface/CardsDialog.cpp \
-    src/Interface/CardsList.cpp \
-    src/Interface/CalibrationChoice.cpp \
-    src/Interface/OptionsDialog.cpp \
-    src/Interface/Window.cpp \
-    src/Interface/WindowContent.cpp \
-    src/Interface/HumanWindowContent.cpp \
-    src/Interface/AiWindowContent.cpp
+    src/Gui/CustomPlot/qcustomplot.cpp \
+    src/Gui/AiWindowContent.cpp \
+    src/Gui/CalibrationChoice.cpp \
+    src/Gui/CardsDialog.cpp \
+    src/Gui/CardsList.cpp \
+    src/Gui/ClickableCard.cpp \
+    src/Gui/GraphicCard.cpp \
+    src/Gui/HumanWindowContent.cpp \
+    src/Gui/Logger.cpp \
+    src/Gui/main.cpp \
+    src/Gui/OptionsDialog.cpp \
+    src/Gui/TokensCounter.cpp \
+    src/Gui/Window.cpp \
+    src/Gui/WindowContent.cpp
 
 
 QT+=widgets printsupport
 
 HEADERS += \
     include/Constantes.h \
-    include/Interface/Logger.h \
     include/Game/Action.h \
-    include/Interface/CustomPlot/qcustomplot.h \
     include/Assessor/Assessor.h \
     include/Assessor/PlayerCards.h \
     include/MathematicalFormula/MathematicalFormula.h \
@@ -56,18 +54,20 @@ HEADERS += \
     include/AI/Resolver.h \
     include/Game/Player.h \
     include/Game/Game.h \
-    include/Interface/GraphicCard.h \
-    include/Interface/ClickableCard.h \
-    include/Interface/TokensCounter.h \
-    include/Interface/CardsDialog.h \
-    include/Interface/CardsList.h \
-    include/Interface/CalibrationChoice.h \
-    include/Interface/OptionsDialog.h \
     include/Game/HumanPlayer.h \
-    include/Interface/Window.h \
-    include/Interface/WindowContent.h \
-    include/Interface/HumanWindowContent.h \
-    include/Interface/AiWindowContent.h
+    include/Gui/CustomPlot/qcustomplot.h \
+    include/Gui/AiWindowContent.h \
+    include/Gui/CalibrationChoice.h \
+    include/Gui/CardsDialog.h \
+    include/Gui/CardsList.h \
+    include/Gui/ClickableCard.h \
+    include/Gui/GraphicCard.h \
+    include/Gui/HumanWindowContent.h \
+    include/Gui/Logger.h \
+    include/Gui/OptionsDialog.h \
+    include/Gui/TokensCounter.h \
+    include/Gui/Window.h \
+    include/Gui/WindowContent.h
 
 CONFIG += c++14
 !win32 {

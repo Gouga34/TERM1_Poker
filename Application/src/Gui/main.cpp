@@ -7,14 +7,14 @@ Specification: Fichier contenant le main de l'application graphique.
 =========================================================================*/
 
 #include <QApplication>
-#include "../../include/Interface/Window.h"
+#include "../../include/Gui/Window.h"
 #include "../../include/Game/Game.h"
 
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-    Window window;
+    gui::Window window;
     window.show();
 
     return app.exec();
