@@ -2,7 +2,6 @@ SOURCES += \
     src/Interface/main.cpp \
     src/Interface/Logger.cpp \
     src/Game/Action.cpp \
-    src/Interface/ContenuFenetreIA.cpp \
     src/Interface/CustomPlot/qcustomplot.cpp \
     src/Assessor/Assessor.cpp \
     src/Assessor/PlayerCards.cpp \
@@ -30,7 +29,8 @@ SOURCES += \
     src/Interface/OptionsDialog.cpp \
     src/Interface/Window.cpp \
     src/Interface/WindowContent.cpp \
-    src/Interface/HumanWindowContent.cpp
+    src/Interface/HumanWindowContent.cpp \
+    src/Interface/AiWindowContent.cpp
 
 
 QT+=widgets printsupport
@@ -39,7 +39,6 @@ HEADERS += \
     include/Constantes.h \
     include/Interface/Logger.h \
     include/Game/Action.h \
-    include/Interface/ContenuFenetreIA.h \
     include/Interface/CustomPlot/qcustomplot.h \
     include/Assessor/Assessor.h \
     include/Assessor/PlayerCards.h \
@@ -67,7 +66,8 @@ HEADERS += \
     include/Game/HumanPlayer.h \
     include/Interface/Window.h \
     include/Interface/WindowContent.h \
-    include/Interface/HumanWindowContent.h
+    include/Interface/HumanWindowContent.h \
+    include/Interface/AiWindowContent.h
 
 CONFIG += c++14
 !win32 {
