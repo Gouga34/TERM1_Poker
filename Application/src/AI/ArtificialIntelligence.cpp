@@ -1,6 +1,6 @@
 #include "../../include/AI/ArtificialIntelligence.h"
 #include "../../include/AI/WinningChancesEstimator.h"
-#include "../../include/Interface/Logger.h"
+#include "../../include/Gui/Logger.h"
 
 #include <sstream> 
 #include <string>
@@ -85,7 +85,7 @@ namespace ai {
             log += " " + QString::number(action.getTokens());
         }
 
-        Logger::getInstance()->addLogs(log);
+        gui::Logger::getInstance()->addLogs(log);
 
         return action;
     }

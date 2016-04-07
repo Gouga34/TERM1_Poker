@@ -15,23 +15,26 @@ Specification: Classe correspondant à un ensemble de cartes contenues
 #include <QLabel>
 #include "../Game/Card.h"
 
-class CardsList : public QHBoxLayout
+namespace gui
 {
-    public:
+    class CardsList : public QHBoxLayout
+    {
+        public:
 
-        CardsList();
-        virtual ~CardsList();
+            CardsList();
+            virtual ~CardsList();
 
-        /**
-         * @brief Ajoute les cartes de la liste passées en paramètres à l'objet courant
-         * @param cards Ensemble de cartes à ajouter
-         */
-        virtual void addCards(std::vector<game::Card> cards);
+            /**
+             * @brief Ajoute les cartes de la liste passées en paramètres à l'objet courant
+             * @param cards Ensemble de cartes à ajouter
+             */
+            virtual void addCards(std::vector<game::Card> cards);
 
-        /**
-         * @brief Retire l'ensemble des cartes de la liste
-         */
-        virtual void clear();
-};
+            /**
+             * @brief Retire l'ensemble des cartes de la liste
+             */
+            virtual void clear();
+    };
+}
 
 #endif // CARDSLIST_H

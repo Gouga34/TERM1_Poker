@@ -11,12 +11,15 @@ Specification: Classe définissant un LCD Number pour l'interface graphique.
 
 #include <QLCDNumber>
 
-class TokensCounter : public QLCDNumber
+namespace gui
 {
-    public:
+    class TokensCounter : public QLCDNumber
+    {
+        public:
 
-        TokensCounter();
-        virtual ~TokensCounter();
-};
+            TokensCounter();
+            virtual ~TokensCounter();
+    };
+}
 
 #endif // TOKENSCOUNTER_H

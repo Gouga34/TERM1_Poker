@@ -10,7 +10,7 @@ Specification: Classe définissant un joueur humain.
 #define HUMANPLAYER_H
 
 #include "Player.h"
-#include "../Interface/HumanWindowContent.h"
+#include "../Gui/HumanWindowContent.h"
 
 namespace game {
 
@@ -18,12 +18,12 @@ namespace game {
     {
         private:
 
-            HumanWindowContent *m_window;
+            gui::HumanWindowContent *m_window;
 
         public:
 
-            HumanPlayer(bool isDealer, int tokens, int position, HumanWindowContent *window);
-            HumanPlayer(const HumanPlayer& player, HumanWindowContent *window);
+            HumanPlayer(bool isDealer, int tokens, int position, gui::HumanWindowContent *window);
+            HumanPlayer(const HumanPlayer& player, gui::HumanWindowContent *window);
             virtual ~HumanPlayer();
 
             virtual bool isHumain() const;

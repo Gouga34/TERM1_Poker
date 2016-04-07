@@ -15,8 +15,10 @@ Specification: Classe contenant les widgets .
 #include <QGroupBox>
 #include "../Profiling/Profile.h"
 
-class CalibrationChoice : public QGroupBox
+namespace gui
 {
+    class CalibrationChoice : public QGroupBox
+    {
     private:
 
         QSlider m_rationality;
@@ -28,10 +30,11 @@ class CalibrationChoice : public QGroupBox
         virtual ~CalibrationChoice();
 
         /**
-         * @brief getCalibrage
-         * @return Calibrage des sliders
-         */
+             * @brief getCalibrage
+             * @return Calibrage des sliders
+             */
         virtual profiling::Profile getCalibration() const;
-};
+    };
+}
 
 #endif // CALIBRATIONCHOICE_H

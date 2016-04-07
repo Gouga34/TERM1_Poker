@@ -13,29 +13,32 @@ Specification: Classe définissant la fenêtre de choix des cartes.
 #include <QWidget>
 #include <QTextEdit>
 
-class WindowContent : public QWidget
+namespace gui
 {
-    protected:
+    class WindowContent : public QWidget
+    {
+        protected:
 
-        game::Game *m_game;
+            game::Game *m_game;
 
-        QTextEdit m_logs;
+            QTextEdit m_logs;
 
-    public:
+        public:
 
-        WindowContent(game::Game *game);
-        virtual ~WindowContent();
+            WindowContent(game::Game *game);
+            virtual ~WindowContent();
 
-        /**
-         * @brief Ajoute dans les logs le contenu passé en paramètre
-         * @param content Texte à ajouter aux logs
-         */
-        virtual void addLogs(QString content);
+            /**
+             * @brief Ajoute dans les logs le contenu passé en paramètre
+             * @param content Texte à ajouter aux logs
+             */
+            virtual void addLogs(QString content);
 
-        /**
-         * @brief Met à jour l'interface
-         */
-        virtual void refresh() = 0;
-};
+            /**
+             * @brief Met à jour l'interface
+             */
+            virtual void refresh() = 0;
+    };
+}
 
 #endif // WINDOWCONTENT_H
