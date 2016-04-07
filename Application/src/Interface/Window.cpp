@@ -12,7 +12,7 @@ Specification: Fichier contenant les définitions de la classe Fenetre.
 #include "../../include/Game/HumanPlayer.h"
 #include "../../include/AI/ArtificialIntelligenceProfiling.h"
 #include "../../include/AI/IdealCalibration.h"
-#include "../../include/Interface/ContenuFenetreIA.h"
+#include "../../include/Interface/AiWindowContent.h"
 
 #include <QVBoxLayout>
 #include <iostream>
@@ -89,7 +89,7 @@ void Window::initialize()
         profiling::Profile calibration = *(ai->getCalibration());
         playerPseudo = QString::number(calibration.getAggressiveness()) + "_" + QString::number(calibration.getRationality());
 
-        m_content = new ContenuFenetreIA(m_game, this);
+        m_content = new AiWindowContent(m_game, this);
     }
     else {
         if (!m_game->getOptions().pseudo.isEmpty()) {
