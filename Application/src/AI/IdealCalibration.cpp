@@ -8,7 +8,7 @@ Specification: Fichier contenant les définitions de la classe CalibrageIdeal.
 
 
 #include "../../include/AI/IdealCalibration.h"
-#include "../../include/Constantes.h"
+#include "../../include/Constants.h"
 
 #include <QFile>
 #include <QTextStream>
@@ -31,7 +31,7 @@ namespace ai {
     {
         QString filename = QString::number(m_profiledAICalibration->getAggressiveness()) + "_"
                                 + QString::number(m_profiledAICalibration->getRationality()) + "_testsCalibrageIdeal.csv";
-        QFile file(QString::fromStdString(DOSSIER_PROFILAGE_STATIQUE) + filename);
+        QFile file(QString::fromStdString(STATIC_PROFILING_FOLDER) + filename);
 
         if (!file.open(QIODevice::Append | QIODevice::Text)) {
             std::cerr << "Erreur lors de l'ouverture du fichier de calibrage ideal" << std::endl;
@@ -76,7 +76,7 @@ namespace ai {
                     m_game->launchPart();
 
                     // Si c'est l'IA qui a gagné
-                    if (m_game->getGameResult() == PERDU) {
+                    if (m_game->getGameResult() == LOOSE) {
                         ++m_numberPartsWon;
                     }
 

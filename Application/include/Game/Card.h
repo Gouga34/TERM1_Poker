@@ -8,7 +8,7 @@ Rang { As = 1, 2, 3, 4, 5,  6,  7, 8,  9, 10, Valet = 11, Dame = 12, Roi = 13 };
 
 **/
 
-#include "../Constantes.h"
+#include "../Constants.h"
 
 namespace game {
 

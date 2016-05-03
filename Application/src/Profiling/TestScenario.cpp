@@ -1,4 +1,4 @@
-#include "../../include/Constantes.h"
+#include "../../include/Constants.h"
 #include "../../include/Profiling/TestScenario.h"
 #include "../../include/Profiling/CalculateProfilingData.h"
 #include "../../include/Gui/Logger.h"
@@ -87,7 +87,7 @@ namespace profiling {
 
         //On ouvre le fichier dans lequel on sauvegardera les données.
         QString filename = QString::fromStdString(m_realActionPlayer->getPseudo()) + "_scenarios_tests.csv";
-        QFile file(QString::fromStdString(DOSSIER_PROFILAGE_STATIQUE) + filename);
+        QFile file(QString::fromStdString(STATIC_PROFILING_FOLDER) + filename);
 
         int nbGames = 0;
 
@@ -118,8 +118,8 @@ namespace profiling {
                 while (!line.isEmpty()) {
                     list = line.split(",");
                     if (referenceData == 1) {
-                        previousGlobalRationality = list.at(RATIONALITE_DEDUITE_GLOBALE).toDouble();
-                        previousGlobalAggressiveness = list.at(AGRESSIVITE_DEDUITE_GLOBALE).toDouble();
+                        previousGlobalRationality = list.at(GLOBAL_DEDUCED_RATIONALITY).toDouble();
+                        previousGlobalAggressiveness = list.at(GLOBAL_DEDUCED_AGGRESSIVENESS).toDouble();
                     }
 
                     if (list.at(0) == "agressivite IA") {
@@ -185,7 +185,7 @@ namespace profiling {
 
             //On regarde dans le fichier dans lequel se trouvent les données de base.
             QString filename = QString::fromStdString("scenarios_tests_basiques.csv");
-            QFile file(QString::fromStdString(DOSSIER_PROFILAGE_STATIQUE) + filename);
+            QFile file(QString::fromStdString(STATIC_PROFILING_FOLDER) + filename);
 
             if (!file.open(QIODevice::ReadWrite)) {
                 std::cerr << "Erreur lors de l'ouverture du fichier " << std::endl;
@@ -274,7 +274,7 @@ namespace profiling {
            m_expectedActionPlayer.setAggressiveness(expectedAggressiveness);
 
             //Le taux de rationalité attendu est à 50% par défaut :
-            m_expectedActionPlayer.setRationality(RATIONALITE_IA_PROFILAGE);
+            m_expectedActionPlayer.setRationality(PROFILING_IA_RATIONALITY);
         }
     }
 
@@ -304,14 +304,14 @@ namespace profiling {
             while (!line.isEmpty()) {
                 list = line.split(",");
 
-                int differenceAgressiveness = abs(list.at(AGRESSIVITE_IA).toDouble() - m_aiCurrentCalibration->getAggressiveness());
+                int differenceAgressiveness = abs(list.at(AI_AGGRESSIVENESS).toDouble() - m_aiCurrentCalibration->getAggressiveness());
 
                 //Si l'agressivité varie de + ou - la variation autorisée, On fait la même chose pour les chances de gain de l'IA
-                if (differenceAgressiveness <= VARIATION_AUTORISEE) {
+                if (differenceAgressiveness <= ALLOWED_VARIATION) {
 
                     //On regarde la différence de chances de gains de l'IA:
-                    int differenceAIWinningChances = abs(list.at(CHANCES_GAIN_IA).toDouble() - getWinningChances());
-                    if (differenceAIWinningChances <= VARIATION_AUTORISEE) {
+                    int differenceAIWinningChances = abs(list.at(AI_WINNING_CHANCES).toDouble() - getWinningChances());
+                    if (differenceAIWinningChances <= ALLOWED_VARIATION) {
 
                         // On regarde si on est dans le même palier
 
@@ -323,8 +323,8 @@ namespace profiling {
                             differencePreviousAgressiveness = differenceAgressiveness;
                             differencePreviousAIWinningChances = differenceAIWinningChances;
 
-                            m_expectedActionPlayer.setAggressiveness(list.at(AGRESSIVITE_REELLE).toDouble());
-                            m_expectedActionPlayer.setRationality(list.at(RATIONALITE_REELLE).toDouble());
+                            m_expectedActionPlayer.setAggressiveness(list.at(REAL_AGGRESSIVENESS).toDouble());
+                            m_expectedActionPlayer.setRationality(list.at(REAL_RATIONALITY).toDouble());
                         }
                     }
                 }

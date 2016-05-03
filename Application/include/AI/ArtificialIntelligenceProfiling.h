@@ -19,7 +19,7 @@ namespace ai {
     {
         private:
 
-            PHASE_JEU_IA m_gamePhase;
+            AI_PLAY_PHASES m_gamePhase;
 
             profiling::Profile m_playerProfile;
             profiling::Profiling *m_profiling;
@@ -29,7 +29,7 @@ namespace ai {
              * @brief Détermine la phase de jeu pour la prochaine partie (profilage, gains)
              * @return Nouvelle phase de jeu
              */
-            virtual PHASE_JEU_IA getNextGameType();
+            virtual AI_PLAY_PHASES getNextGameType();
 
             /**
              * @brief Modifie le calibrage de l'ia pour profiler

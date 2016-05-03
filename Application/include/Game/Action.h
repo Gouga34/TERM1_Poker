@@ -6,7 +6,7 @@ Projet: Profilage par essais et erreurs au poker
 Specification: Classe définissant une action de poker.
 =========================================================================*/
 
-#include "../Constantes.h"
+#include "../Constants.h"
 
 #ifndef ACTION_H
 #define ACTION_H

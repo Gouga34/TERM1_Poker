@@ -8,7 +8,7 @@
 #include <stdlib.h>
 
 #include "Card.h"
-#include "../Constantes.h"
+#include "../Constants.h"
 #include "../Assessor/Assessor.h"
 #include "../Profiling/CalculateProfilingData.h"
 #include "../Profiling/Profiling.h"
@@ -42,8 +42,8 @@ namespace game {
             int                                 m_accumulatedBetsAndRaises;
             int                                 m_dealer;
             bool                                m_isGameOver;
-            ETAPE_JEU                           m_currentStep;
-            RESULTAT_PARTIE                     m_gameResult;
+            GAME_STEPS                           m_currentStep;
+            GAME_RESULT                     m_gameResult;
             std::vector<game::Card>             m_tableTmp;
 
             gui::GameOptions                    m_options;
@@ -111,7 +111,7 @@ namespace game {
 
 
             virtual gui::GameOptions getOptions() const;
-            virtual RESULTAT_PARTIE getGameResult() const;
+            virtual GAME_RESULT getGameResult() const;
             virtual int	getBlind() const;
             virtual int getCurrentPlayer() const;
             virtual Player* getPlayer(int i);
@@ -122,7 +122,7 @@ namespace game {
             virtual int getAccumulatedBetsAndRaises() const;
             virtual std::vector<game::Card>	getDeck() const;
             virtual std::vector<ACTION> getPlayersActions(int playerPosition) const;
-            virtual ETAPE_JEU getStep() const;
+            virtual GAME_STEPS getStep() const;
 
             virtual void setPot(int pot);
 
@@ -165,7 +165,7 @@ namespace game {
              * @action Distribue les nouvelles cartes de l'étape passée en paramètre
              * @param etape Nouvelle étape courante
              */
-            virtual void newStep(ETAPE_JEU currentStep);
+            virtual void newStep(GAME_STEPS currentStep);
 
             /**
              * @brief distributionCartes distribue nbCartesADistribuer sur la table

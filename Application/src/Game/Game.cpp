@@ -38,11 +38,11 @@ namespace game {
 
         for (unsigned int i = 0; i < m_players.size(); i++) {
             if (m_options.resetCaves) {
-                getPlayer(i)->setCave(CAVE_JOUEURS);
+                getPlayer(i)->setCave(PLAYERS_CAVE);
             }
             else {
                 if (getPlayer(i)->getCave() == 0) {
-                    getPlayer(i)->setCave(CAVE_JOUEURS);
+                    getPlayer(i)->setCave(PLAYERS_CAVE);
                 }
             }
 
@@ -52,7 +52,7 @@ namespace game {
 
     void Game::handDistribution() {
 
-        m_currentStep = ETAPE_JEU::PREFLOP;
+        m_currentStep = GAME_STEPS::PREFLOP;
         m_isGameOver = false;
 
         resetActions();
@@ -71,13 +71,13 @@ namespace game {
             }
         }
 
-        newStep(ETAPE_JEU::PREFLOP);
+        newStep(GAME_STEPS::PREFLOP);
         blindDistribution();
     }
 
-    void Game::newStep(ETAPE_JEU currentStep) {
+    void Game::newStep(GAME_STEPS currentStep) {
 
-        if (currentStep != ETAPE_JEU::PREFLOP) {
+        if (currentStep != GAME_STEPS::PREFLOP) {
 
             m_currentPlayer = (m_dealer + 1) % m_players.size();
             m_currentBet = 0;
@@ -86,11 +86,11 @@ namespace game {
             resetActions();
 
             int cardsNumber = 0;
-            if (currentStep == ETAPE_JEU::FLOP) {
+            if (currentStep == GAME_STEPS::FLOP) {
                 cardsNumber = 3;
             }
-            else if (currentStep == ETAPE_JEU::TURN
-                     || currentStep == ETAPE_JEU::RIVER) {
+            else if (currentStep == GAME_STEPS::TURN
+                     || currentStep == GAME_STEPS::RIVER) {
                 cardsNumber = 1;
             }
 
@@ -109,10 +109,10 @@ namespace game {
 
         if (!getPlayer(0)->isHumain()) {
             ai = static_cast<ai::ArtificialIntelligence*>(getPlayer(0));
-            ai->launchWinningChancesEstimator(NOMBRE_DE_TESTS, 2);
+            ai->launchWinningChancesEstimator(TESTS_NUMBER, 2);
         }
 
-        ai2->launchWinningChancesEstimator(NOMBRE_DE_TESTS, 2);
+        ai2->launchWinningChancesEstimator(TESTS_NUMBER, 2);
         ai2->waitWinningChancesEstimatorResult();
 
         if (!getPlayer(0)->isHumain()) {
@@ -142,13 +142,13 @@ namespace game {
 
         gui::Logger::getInstance()->addLogs("Joueur " + QString::number(getOpponentsPosition(getDealer())) + " : petite blind");
 
-        executeAction(getOpponentsPosition(getDealer()), Action(MISER, getBlind()));
-        m_actions[getOpponentsPosition(getDealer())].back() = ACTION::PETITE_BLIND;
+        executeAction(getOpponentsPosition(getDealer()), Action(BET, getBlind()));
+        m_actions[getOpponentsPosition(getDealer())].back() = ACTION::SMALL_BLIND;
 
         gui::Logger::getInstance()->addLogs("Joueur " + QString::number(getDealer()) + " : grosse blind");
 
-        executeAction(getDealer(), Action(RELANCER, getBlind()*2));
-        m_actions[getDealer()].back() = ACTION::GROSSE_BLIND;
+        executeAction(getDealer(), Action(RAISE, getBlind()*2));
+        m_actions[getDealer()].back() = ACTION::BIG_BLIND;
 
         m_currentPlayer = getDealer();
 
@@ -161,7 +161,7 @@ namespace game {
         return m_options;
     }
 
-    RESULTAT_PARTIE Game::getGameResult() const {
+    GAME_RESULT Game::getGameResult() const {
         return m_gameResult;
     }
 
@@ -173,8 +173,8 @@ namespace game {
 
         std::vector<game::Card> deck;
 
-        for (int i = COULEUR_CARTE::PIQUE; i <= COULEUR_CARTE::CARREAU; i++ ) {
-            for (int j = RANG_CARTE::AS; j<=RANG_CARTE::K; j++) {
+        for (int i = CARD_COLOR::SPADES; i <= CARD_COLOR::DIAMONDS; i++ ) {
+            for (int j = CARD_RANK::AS; j<=CARD_RANK::K; j++) {
                 game::Card carte(j,i);
                 deck.push_back(carte);
             }
@@ -238,26 +238,26 @@ namespace game {
             m_currentBet = tokens;
             m_accumulatedBetsAndRaises = tokens;
 
-            m_actions[getPlayer(playerPosition)->getPosition()].push_back(ACTION::MISER);
+            m_actions[getPlayer(playerPosition)->getPosition()].push_back(ACTION::BET);
             getPlayer(playerPosition)->getActionsCounter()[0]++;
         }
         else{ //Sinon: tapis
-            allIn(playerPosition, MISER);
+            allIn(playerPosition, BET);
         }
     }
 
     void Game::allIn(int playerPostion, ACTION action) {
 
         putMoneyIntoGame(playerPostion, getPlayer(playerPostion)->getCave());
-        m_actions[getPlayer(playerPostion)->getPosition()].push_back(ACTION::TAPIS);
+        m_actions[getPlayer(playerPostion)->getPosition()].push_back(ACTION::ALL_IN);
 
         m_currentBet = getPlayer(playerPostion)->getCave();
         m_accumulatedBetsAndRaises = getPlayer(playerPostion)->getAccumulatedBetsAndRaises();
 
-        if (action == MISER || action == RELANCER) {
+        if (action == BET || action == RAISE) {
             getPlayer(playerPostion)->getActionsCounter()[0]++;
         }
-        else if (getPlayersLastAction(getOpponentsPosition(playerPostion)) == TAPIS) {
+        else if (getPlayersLastAction(getOpponentsPosition(playerPostion)) == ALL_IN) {
             getPlayer(playerPostion)->getActionsCounter()[1]++;
         }
     }
@@ -271,11 +271,11 @@ namespace game {
             m_currentBet = tokens;
             m_accumulatedBetsAndRaises = getPlayer(playerPosition)->getAccumulatedBetsAndRaises();
 
-            m_actions[getPlayer(playerPosition)->getPosition()].push_back(ACTION::RELANCER);
+            m_actions[getPlayer(playerPosition)->getPosition()].push_back(ACTION::RAISE);
             getPlayer(playerPosition)->getActionsCounter()[0]++;
         }
         else{ //Sinon: tapis
-            allIn(playerPosition, RELANCER);
+            allIn(playerPosition, RAISE);
         }
     }
 
@@ -287,22 +287,22 @@ namespace game {
         // Si on a assez d'argent on suit
         if (getPlayer(playerPosition)->getCave() > tokensToAdd) {
             putMoneyIntoGame(playerPosition,tokensToAdd);
-            m_actions[getPlayer(playerPosition)->getPosition()].push_back(ACTION::SUIVRE);
+            m_actions[getPlayer(playerPosition)->getPosition()].push_back(ACTION::CALL);
             getPlayer(playerPosition)->getActionsCounter()[1]++;
         }
         else {      // Sinon on fait tapis
-            allIn(playerPosition, SUIVRE);
+            allIn(playerPosition, CALL);
         }
     }
 
     void Game::check(int playerPosition) {
-        m_actions[getPlayer(playerPosition)->getPosition()].push_back(ACTION::CHECKER);
+        m_actions[getPlayer(playerPosition)->getPosition()].push_back(ACTION::CHECK);
         getPlayer(playerPosition)->getActionsCounter()[2]++;
     }
 
     void Game::fold(int playerPosition) {
 
-        m_actions[getPlayer(playerPosition)->getPosition()].push_back(ACTION::SE_COUCHER);
+        m_actions[getPlayer(playerPosition)->getPosition()].push_back(ACTION::FOLD);
 
         getPlayer(0)->setTotalBet(getPlayer(0)->getTotalBet() + getPlayer(0)->getAccumulatedBetsAndRaises());
         getPlayer(1)->setTotalBet(getPlayer(1)->getTotalBet() + getPlayer(1)->getAccumulatedBetsAndRaises());
@@ -316,7 +316,7 @@ namespace game {
     bool Game::isRoundBeginning() {
 
         for (int i = 0; i < (int) m_actions.size(); i++) {
-            if (getPlayersLastAction(i) != ACTION::PAS_ENCORE_D_ACTION && getPlayersLastAction(i) != ACTION::TAPIS) {
+            if (getPlayersLastAction(i) != ACTION::NO_ACTION && getPlayersLastAction(i) != ACTION::ALL_IN) {
                 return false;
             }
         }
@@ -328,30 +328,30 @@ namespace game {
     bool Game::isRoundEnd() {
 
         // Si un joueur n'a pas encore joué
-        if (getPlayersLastAction(0) == PAS_ENCORE_D_ACTION
-                || getPlayersLastAction(1) == PAS_ENCORE_D_ACTION) {
+        if (getPlayersLastAction(0) == NO_ACTION
+                || getPlayersLastAction(1) == NO_ACTION) {
             return false;
         }
 
         // Si un joueur s'est couché
-        if (getPlayersLastAction(0) == SE_COUCHER
-                || getPlayersLastAction(1) == SE_COUCHER) {
+        if (getPlayersLastAction(0) == FOLD
+                || getPlayersLastAction(1) == FOLD) {
             return true;
         }
 
         // Si tout le monde a checké
-        if (getPlayersLastAction(0) == CHECKER
-                && getPlayersLastAction(1) == CHECKER) {
+        if (getPlayersLastAction(0) == CHECK
+                && getPlayersLastAction(1) == CHECK) {
             return true;
         }
 
         // Si un joueur a fait tapis et que l'adversaire a joué
         for (unsigned int i = 0; i < m_players.size(); i++) {
-            if (getPlayersLastAction(i) == TAPIS) {
+            if (getPlayersLastAction(i) == ALL_IN) {
 
                 // Si l'autre a suivi, on cherche si c'est avant ou après le tapis (suivi de grosse blind)
-                if (getPlayersLastAction(getOpponentsPosition(i)) == TAPIS
-                        || (getPlayersLastAction(getOpponentsPosition(i)) == SUIVRE && m_actions[i].at(m_actions[i].size()-2) != GROSSE_BLIND)) {
+                if (getPlayersLastAction(getOpponentsPosition(i)) == ALL_IN
+                        || (getPlayersLastAction(getOpponentsPosition(i)) == CALL && m_actions[i].at(m_actions[i].size()-2) != BIG_BLIND)) {
                     return true;
                 }
             }
@@ -359,10 +359,10 @@ namespace game {
 
         // Si la suite de mises/relances est terminée (suivi)
         for (unsigned int i = 0; i < m_players.size(); i++) {
-            if (getPlayersLastAction(i) == SUIVRE
-                    && (m_actions[i].at(m_actions[i].size()-2) != PETITE_BLIND
-                        || (m_actions[i].at(m_actions[i].size()-2) == PETITE_BLIND
-                            && getPlayersLastAction(getOpponentsPosition(i)) == CHECKER))) {
+            if (getPlayersLastAction(i) == CALL
+                    && (m_actions[i].at(m_actions[i].size()-2) != SMALL_BLIND
+                        || (m_actions[i].at(m_actions[i].size()-2) == SMALL_BLIND
+                            && getPlayersLastAction(getOpponentsPosition(i)) == CHECK))) {
                 return true;
             }
         }
@@ -375,7 +375,7 @@ namespace game {
         return m_actions.at(playerPosition).back();
     }
 
-    ETAPE_JEU Game::getStep() const {
+    GAME_STEPS Game::getStep() const {
         return m_currentStep;
     }
 
@@ -397,14 +397,14 @@ namespace game {
             ia->fillProfilingData();
 
             // Fin de la partie
-            if (getStep() == ETAPE_JEU::RIVER || m_isGameOver || isPlayerAllIn()) {
+            if (getStep() == GAME_STEPS::RIVER || m_isGameOver || isPlayerAllIn()) {
                 m_isGameOver = true;
                 partEnd();
                 return false;
             } else {
                 // On incrémente l'étape courante en passant par des entiers
-                if (m_currentStep < ETAPE_JEU::NB_ETAPES) {
-                    m_currentStep = static_cast<ETAPE_JEU>(static_cast<int>(m_currentStep) + 1);
+                if (m_currentStep < GAME_STEPS::STEPS_NB) {
+                    m_currentStep = static_cast<GAME_STEPS>(static_cast<int>(m_currentStep) + 1);
                 }
 
                 newStep(getStep());
@@ -418,9 +418,9 @@ namespace game {
         for (int i = 0; i < (int) m_actions.size(); i++) {
 
             // Si le joueur n'a pas fait tapis
-            if (std::find(m_actions.at(i).begin(), m_actions.at(i).end(), ACTION::TAPIS) == m_actions.at(i).end()) {
+            if (std::find(m_actions.at(i).begin(), m_actions.at(i).end(), ACTION::ALL_IN) == m_actions.at(i).end()) {
                 m_actions.at(i).clear();
-                m_actions.at(i).push_back(ACTION::PAS_ENCORE_D_ACTION);
+                m_actions.at(i).push_back(ACTION::NO_ACTION);
             }
 
             getPlayer(i)->setCurrentBet(0);
@@ -441,7 +441,7 @@ namespace game {
             }
         }
 
-        RESULTAT_PARTIE gameResult;
+        GAME_RESULT gameResult;
 
         //Si aucun des deux joueurs ne s'est couché:
         if (!isFolded(0) && !isFolded(1)) {
@@ -450,28 +450,28 @@ namespace game {
                 calculateWinningChances();
             }
 
-            RESULTAT_PARTIE comparaisonMains = assessor::Assessor::compareHands(this->getTable(), this->getPlayer(0)->getHand(), this->getPlayer(1)->getHand());
+            GAME_RESULT comparaisonMains = assessor::Assessor::compareHands(this->getTable(), this->getPlayer(0)->getHand(), this->getPlayer(1)->getHand());
 
-            if (comparaisonMains == GAGNE) {
+            if (comparaisonMains == WON) {
 
                 getPlayer(0)->addTokens(getPot());
-                gameResult = GAGNE;
-            } else if (comparaisonMains == PERDU) {
+                gameResult = WON;
+            } else if (comparaisonMains == LOOSE) {
                 getPlayer(1)->addTokens(getPot());
-                gameResult = PERDU;
+                gameResult = LOOSE;
 
             } else {
-                gameResult = EGALITE;
+                gameResult = EQUALITY;
 
                 getPlayer(0)->addTokens(getPot() / 2);
                 getPlayer(1)->addTokens(getPot() / 2);
             }
         } else { //Un joueur s'est couché
             if (isFolded(0)) {
-                gameResult = PERDU;
+                gameResult = LOOSE;
                 getPlayer(1)->addTokens(getPot());
             } else {
-                gameResult = GAGNE;
+                gameResult = WON;
                 getPlayer(0)->addTokens(getPot());
             }
        }
@@ -482,7 +482,7 @@ namespace game {
         if (getPlayer(0)->isHumain()) {
 
             int nbThreads = 4;
-            double nbTestsParThread = static_cast<double>(NOMBRE_DE_TESTS) / nbThreads;
+            double nbTestsParThread = static_cast<double>(TESTS_NUMBER) / nbThreads;
             std::vector<ai::WinningChancesEstimator*> estimators;
 
             for (int i = 0; i < 4; i++) {
@@ -541,7 +541,7 @@ namespace game {
         m_dealer = (m_dealer + 1) % m_players.size();
         getPlayer(m_dealer)->changeDealer();
 
-        m_currentStep = ETAPE_JEU::PREFLOP;
+        m_currentStep = GAME_STEPS::PREFLOP;
     }
 
 
@@ -551,16 +551,16 @@ namespace game {
 
         //On peut checker quand le joueur précédent a checké ou suivi.
 
-        if (getPlayersLastAction(opponentsPosition) == ACTION::TAPIS
+        if (getPlayersLastAction(opponentsPosition) == ACTION::ALL_IN
                 && isRoundBeginning()) {
             return true;
         }
 
         //Si l'action de l'autre joueur est miser, relancer ou grosse blinde, on retourne false
-        if (getPlayersLastAction(opponentsPosition) == ACTION::MISER
-                || getPlayersLastAction(opponentsPosition) == ACTION::RELANCER
-                || getPlayersLastAction(opponentsPosition) == ACTION::GROSSE_BLIND
-                || getPlayersLastAction(opponentsPosition) == ACTION::TAPIS) {
+        if (getPlayersLastAction(opponentsPosition) == ACTION::BET
+                || getPlayersLastAction(opponentsPosition) == ACTION::RAISE
+                || getPlayersLastAction(opponentsPosition) == ACTION::BIG_BLIND
+                || getPlayersLastAction(opponentsPosition) == ACTION::ALL_IN) {
             return false;
         }
 
@@ -572,13 +572,13 @@ namespace game {
         int opponentsPosition = getOpponentsPosition(playerPosition);
 
         //On peut miser quand le joueur précédent a checké
-        if (getPlayersLastAction(opponentsPosition) == ACTION::MISER
-                || getPlayersLastAction(opponentsPosition) == ACTION::RELANCER
-                || getPlayersLastAction(opponentsPosition) == ACTION::GROSSE_BLIND
-                || getPlayersLastAction(opponentsPosition)==ACTION::TAPIS) {
+        if (getPlayersLastAction(opponentsPosition) == ACTION::BET
+                || getPlayersLastAction(opponentsPosition) == ACTION::RAISE
+                || getPlayersLastAction(opponentsPosition) == ACTION::BIG_BLIND
+                || getPlayersLastAction(opponentsPosition)==ACTION::ALL_IN) {
 
-            if (getPlayersLastAction(opponentsPosition) == ACTION::SUIVRE
-                    && getPlayersLastAction(playerPosition) == ACTION::GROSSE_BLIND) {
+            if (getPlayersLastAction(opponentsPosition) == ACTION::CALL
+                    && getPlayersLastAction(playerPosition) == ACTION::BIG_BLIND) {
                 return true;
             }
             return false;
@@ -597,10 +597,10 @@ namespace game {
         int opponentsPosition = getOpponentsPosition(playerPosition);
 
         //On peut pas relancer quand le joueur précédent a checké, n'as pas agit, a fait tapis ou a suivi.
-        if (getPlayersLastAction(opponentsPosition) == ACTION::CHECKER
-                || getPlayersLastAction(opponentsPosition) == ACTION::PAS_ENCORE_D_ACTION
-                || getPlayersLastAction(opponentsPosition) == ACTION::TAPIS
-                || getPlayersLastAction(opponentsPosition) == ACTION::SUIVRE) {
+        if (getPlayersLastAction(opponentsPosition) == ACTION::CHECK
+                || getPlayersLastAction(opponentsPosition) == ACTION::NO_ACTION
+                || getPlayersLastAction(opponentsPosition) == ACTION::ALL_IN
+                || getPlayersLastAction(opponentsPosition) == ACTION::CALL) {
             return false;
         }
 
@@ -617,10 +617,10 @@ namespace game {
         int opponentsPosition = getOpponentsPosition(playerPosition);
 
         //On peut suivre quand le joueur précédent a misé, relancé, grosse blind ou fait tapis
-        if (getPlayersLastAction(opponentsPosition) == ACTION::CHECKER
-                || getPlayersLastAction(opponentsPosition) == ACTION::PETITE_BLIND
-                || getPlayersLastAction(opponentsPosition) == ACTION::SUIVRE
-                || getPlayersLastAction(opponentsPosition) == ACTION::PAS_ENCORE_D_ACTION) {
+        if (getPlayersLastAction(opponentsPosition) == ACTION::CHECK
+                || getPlayersLastAction(opponentsPosition) == ACTION::SMALL_BLIND
+                || getPlayersLastAction(opponentsPosition) == ACTION::CALL
+                || getPlayersLastAction(opponentsPosition) == ACTION::NO_ACTION) {
             return false;
         }
 
@@ -628,32 +628,32 @@ namespace game {
     }
 
     bool Game::isFolded(int playerPosition) const {
-        return (getPlayersLastAction(playerPosition) == ACTION::SE_COUCHER);
+        return (getPlayersLastAction(playerPosition) == ACTION::FOLD);
     }
 
     void Game::executeAction(int playerPosition, Action action) {
         int raiseTokens;
 
         switch (action.getAction()) {
-            case ACTION::CHECKER:
+            case ACTION::CHECK:
                 if (canCheck(playerPosition)) {
                     check(playerPosition);
                 }
                 break;
 
-            case ACTION::MISER:
+            case ACTION::BET:
                 if (canBet(playerPosition, action.getTokens())) {
                     bet(playerPosition, action.getTokens());
                 }
                 break;
 
-            case ACTION::SUIVRE:
+            case ACTION::CALL:
                 if (canCall(playerPosition)) {
                     call(playerPosition);
                 }
                 break;
 
-            case ACTION::RELANCER:
+            case ACTION::RAISE:
 
                 raiseTokens = (action.getTokens() < 2 * getCurrentBet()) ? 2 * getCurrentBet() : action.getTokens();
 
@@ -662,12 +662,12 @@ namespace game {
                 }
                 break;
 
-            case ACTION::SE_COUCHER:
+            case ACTION::FOLD:
                 fold(playerPosition);
                 break;
 
-            case ACTION::TAPIS:
-                allIn(playerPosition, MISER);
+            case ACTION::ALL_IN:
+                allIn(playerPosition, BET);
                 break;
 
             default:
@@ -719,6 +719,6 @@ namespace game {
     }
 
     bool Game::isPlayerAllIn() {
-        return getPlayersLastAction(0)== ACTION::TAPIS || getPlayersLastAction(1) == ACTION::TAPIS;
+        return getPlayersLastAction(0)== ACTION::ALL_IN || getPlayersLastAction(1) == ACTION::ALL_IN;
     }
 }

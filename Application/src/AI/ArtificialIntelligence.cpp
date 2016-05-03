@@ -81,7 +81,7 @@ namespace ai {
         game::Action action = m_resolver->calculateAction();
 
         QString log = "IA " + QString::number(m_position) + " " + actions[action.getAction()];
-        if (action.getAction() == MISER || action.getAction() == RELANCER) {
+        if (action.getAction() == BET || action.getAction() == RAISE) {
             log += " " + QString::number(action.getTokens());
         }
 

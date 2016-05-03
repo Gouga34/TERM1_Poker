@@ -14,7 +14,7 @@ Specification: Classe contenant l'écriture et la lecture
 #include <string>
 #include <array>
 #include <QString>
-#include "../Constantes.h"
+#include "../Constants.h"
 #include "Profile.h"
 #include "GamePhase.h"
 
@@ -30,7 +30,7 @@ namespace profiling {
 
             Profile *m_playerProfile;
 
-            RESULTAT_PARTIE m_gameResultProfilingAIviewpoint;
+            GAME_RESULT m_gameResultProfilingAIviewpoint;
             int m_numberTokensWonProfilingAI;
             bool m_testScenario;
             bool m_roughPlay;
@@ -60,7 +60,7 @@ namespace profiling {
             };
 
             // Une ligne par étape + 1 ligne pour le global
-            std::array<StepPart, ETAPE_JEU::NB_ETAPES + 1> m_stepParts;
+            std::array<StepPart, GAME_STEPS::STEPS_NB + 1> m_stepParts;
 
 
             // Données des phases de profilage et de gains en cours

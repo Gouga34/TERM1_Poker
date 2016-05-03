@@ -65,7 +65,7 @@ namespace gui
 
         // Chargement de l'image
         if (!m_cardsTexture){
-            m_cardsTexture = new QPixmap(QString::fromStdString(TEXTURE_CARTES));
+            m_cardsTexture = new QPixmap(QString::fromStdString(CARDS_TEXTURE));
         }
 
         QHBoxLayout *opponentLayout =new QHBoxLayout;
@@ -322,7 +322,7 @@ namespace gui
 
     void HumanWindowContent::check()
     {
-        m_userAction = ACTION::CHECKER;
+        m_userAction = ACTION::CHECK;
 
         Logger::getInstance()->addLogs("Joueur 1 check");
 
@@ -331,7 +331,7 @@ namespace gui
 
     void HumanWindowContent::bet()
     {
-        m_userAction = ACTION::MISER;
+        m_userAction = ACTION::BET;
 
         Logger::getInstance()->addLogs("Joueur 1 mise " + QString::number(m_betValue.value()));
 
@@ -340,7 +340,7 @@ namespace gui
 
     void HumanWindowContent::call()
     {
-        m_userAction = ACTION::SUIVRE;
+        m_userAction = ACTION::CALL;
 
         Logger::getInstance()->addLogs("Joueur 1 suit");
 
@@ -349,7 +349,7 @@ namespace gui
 
     void HumanWindowContent::raise()
     {
-        m_userAction = ACTION::RELANCER;
+        m_userAction = ACTION::RAISE;
 
         Logger::getInstance()->addLogs("Joueur 1 relance " + QString::number(m_betValue.value()));
 
@@ -358,7 +358,7 @@ namespace gui
 
     void HumanWindowContent::drop()
     {
-        m_userAction = ACTION::SE_COUCHER;
+        m_userAction = ACTION::FOLD;
 
         Logger::getInstance()->addLogs("Joueur 1 se couche");
 
@@ -367,7 +367,7 @@ namespace gui
 
     void HumanWindowContent::allIn()
     {
-        m_userAction = ACTION::TAPIS;
+        m_userAction = ACTION::ALL_IN;
 
         Logger::getInstance()->addLogs("Joueur 1 fait tapis");
 
@@ -386,11 +386,11 @@ namespace gui
 
         int result = m_game->getGameResult();
 
-        if (result == GAGNE) {
+        if (result == WON) {
             m_partResult.setStyleSheet("QLabel {color : #89DF57; font-size : 40px; text-align:center; padding-left:80px; font-weight:bold;}");
             m_partResult.setText("Gagné !");
         }
-        else if (result == EGALITE) {
+        else if (result == EQUALITY) {
             m_partResult.setStyleSheet("QLabel {color : #23BDFE; font-size : 40px; text-align:center; padding-left:80px; font-weight:bold;}");
             m_partResult.setText("Egalité");
         }

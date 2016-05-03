@@ -68,9 +68,9 @@ namespace ai {
                 deck.erase(deck.begin() + position);
             }
 
-            RESULTAT_PARTIE compareHandsResult = assessor::Assessor::compareHands(table,m_player->getHand(), opponentsHand);
+            GAME_RESULT compareHandsResult = assessor::Assessor::compareHands(table,m_player->getHand(), opponentsHand);
 
-            if (compareHandsResult == GAGNE) {
+            if (compareHandsResult == WON) {
                 ++numberOfPartsWon;
 
             }
@@ -83,8 +83,8 @@ namespace ai {
     std::vector<game::Card> WinningChancesEstimator::newDeck() {
         std::vector<game::Card> deck;
 
-        for (int i = COULEUR_CARTE::PIQUE; i <= COULEUR_CARTE::CARREAU; i++) {
-            for (int j = RANG_CARTE::AS; j <= RANG_CARTE::K; j++) {
+        for (int i = CARD_COLOR::SPADES; i <= CARD_COLOR::DIAMONDS; i++) {
+            for (int j = CARD_RANK::AS; j <= CARD_RANK::K; j++) {
                 game::Card carte(j,i);
                 deck.push_back(carte);
             }

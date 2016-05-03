@@ -33,7 +33,7 @@ namespace assessor {
             std::array< std::array< int, m_nbRows>, m_nbLines> m_occurrences;
 
             //Combinaison la plus forte de la main du joueur.
-            FORCE_MAIN m_handCategory;
+            HAND_STRENGHT m_handCategory;
 
             //Poids de la main
             int m_weight;
@@ -42,7 +42,7 @@ namespace assessor {
              * @param combi combinaison
              * @action modifie la combinaison avec une nouvelle combinaison
              */
-            virtual void setHandCategory(FORCE_MAIN handCategory);
+            virtual void setHandCategory(HAND_STRENGHT handCategory);
 
             /**
              * @param p poids
@@ -166,7 +166,7 @@ namespace assessor {
              *         RESULTAT_PARTIE::GAGNE si this a un poids supérieur au poids de main2
              *         RESULTAT_PARTIE::EGALITE sinon
              */
-            virtual RESULTAT_PARTIE compareWeights(PlayerCards hand2);
+            virtual GAME_RESULT compareWeights(PlayerCards hand2);
 
             /**
              * @brief compareEqualFourOfAKind compare deux carrés égaux
@@ -176,7 +176,7 @@ namespace assessor {
              *         RESULTAT_PARTIE::GAGNE si this a gagné face à main2
              *         RESULTAT_PARTIE::EGALITE sinon
              */
-            virtual RESULTAT_PARTIE compareEqualFourOfAKind(PlayerCards hand2);
+            virtual GAME_RESULT compareEqualFourOfAKind(PlayerCards hand2);
 
             /**
              * @brief compareEqualFullHouse compare deux full dont les trios sont les mêmes.
@@ -186,7 +186,7 @@ namespace assessor {
              *         RESULTAT_PARTIE::GAGNE si this a gagné face à main2
              *         RESULTAT_PARTIE::EGALITE sinon
              */
-            virtual RESULTAT_PARTIE compareEqualFullHouse(PlayerCards hand2);
+            virtual GAME_RESULT compareEqualFullHouse(PlayerCards hand2);
 
             /**
              * @brief compareEqualFlush compare deux couleurs en comparant les cartes une à une
@@ -195,7 +195,7 @@ namespace assessor {
              *         RESULTAT_PARTIE::GAGNE si this a gagné face à main2
              *         RESULTAT_PARTIE::EGALITE sinon
              */
-            virtual RESULTAT_PARTIE compareEqualFlush(PlayerCards hand2);
+            virtual GAME_RESULT compareEqualFlush(PlayerCards hand2);
 
             /**
              * @brief compareThreeOfAKind compare deux brelans dont les valeurs des triplets sont les mêmes.
@@ -205,7 +205,7 @@ namespace assessor {
              *         RESULTAT_PARTIE::GAGNE si this a gagné face à main2
              *         RESULTAT_PARTIE::EGALITE sinon
              */
-            virtual RESULTAT_PARTIE compareThreeOfAKind(PlayerCards hand2);
+            virtual GAME_RESULT compareThreeOfAKind(PlayerCards hand2);
 
             /**
              * @brief compareTwoPair compare deux double paires égales.
@@ -214,7 +214,7 @@ namespace assessor {
              *         RESULTAT_PARTIE::GAGNE si this a gagné face à main2
              *         RESULTAT_PARTIE::EGALITE sinon
              */
-            virtual RESULTAT_PARTIE compareTwoPair(PlayerCards hand2);
+            virtual GAME_RESULT compareTwoPair(PlayerCards hand2);
 
             /**
              * @brief comparePair compare deux paires égales (compare autres cartes)
@@ -223,7 +223,7 @@ namespace assessor {
              *         RESULTAT_PARTIE::GAGNE si this a gagné face à main2
              *         RESULTAT_PARTIE::EGALITE sinon
              */
-            virtual RESULTAT_PARTIE comparePair(PlayerCards hand2);
+            virtual GAME_RESULT comparePair(PlayerCards hand2);
 
             /**
              * @brief compareHightCard compare la carte la plus haute des mains
@@ -232,7 +232,7 @@ namespace assessor {
              *         RESULTAT_PARTIE::GAGNE si this a gagné face à main2
              *         RESULTAT_PARTIE::EGALITE sinon
              */
-            virtual RESULTAT_PARTIE compareHightCard(PlayerCards hand2);
+            virtual GAME_RESULT compareHightCard(PlayerCards hand2);
 
         public:
 
@@ -242,7 +242,7 @@ namespace assessor {
             /**
              * @return la combinaison la plus forte des cartes du Joueur
              */
-             virtual FORCE_MAIN getHandCategory() const;
+             virtual HAND_STRENGHT getHandCategory() const;
 
              /**
               * @return le poids des cartes du joueur
@@ -255,7 +255,7 @@ namespace assessor {
               * @action prend en compte que this et main2 ont la même combinaison
               * et calcule laquelle a les cartes les plus fortes
               */
-             virtual RESULTAT_PARTIE compareEqualHandCategories(PlayerCards hand2);
+             virtual GAME_RESULT compareEqualHandCategories(PlayerCards hand2);
 
     };
 }

@@ -34,7 +34,7 @@ namespace profiling {
 
     void Profiling::reset()
     {
-        int step = ETAPE_JEU::NB_ETAPES;
+        int step = GAME_STEPS::STEPS_NB;
 
         m_stepParts[step].isFolded = false;
         m_stepParts[step].adversaryWinningProbabilities = 0;
@@ -57,7 +57,7 @@ namespace profiling {
     void Profiling::save()
     {
        QString filename = QString::fromStdString(m_playerProfile->getPseudo()) + ".csv";
-       QFile file(QString::fromStdString(DOSSIER_PROFILAGE_STATIQUE) + filename);
+       QFile file(QString::fromStdString(STATIC_PROFILING_FOLDER) + filename);
 
        if (m_playerProfile->getPseudo().compare("") != 0) {
            if (!file.open(QIODevice::ReadWrite | QIODevice::Text)) {
@@ -65,7 +65,7 @@ namespace profiling {
                bool alreadyPresent = false;
 
                //Vérif si le pseudo est déjà présent ds le fichier "pseudos.txt".
-               QFile nicknamesFile(QString::fromStdString(FICHIER_PSEUDOS_PROFILAGE));
+               QFile nicknamesFile(QString::fromStdString(PROFILING_NICKNAMES_FILE));
                if (!nicknamesFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
                    std::cerr << "Erreur lors de l'ouverture du fichier des pseudos !" << std::endl;
                    return;
@@ -86,7 +86,7 @@ namespace profiling {
                 //Si pas présent, ajout du pseudo dans le fichier
                 if (!alreadyPresent) {
                    // Ouverture de la liste des pseudos
-                   QFile nicknamesList(QString::fromStdString(FICHIER_PSEUDOS_PROFILAGE));
+                   QFile nicknamesList(QString::fromStdString(PROFILING_NICKNAMES_FILE));
                    if (!nicknamesList.open(QIODevice::Append | QIODevice::Text)) {
                        std::cerr << "Erreur lors de l'ouverture du fichier des pseudos !" << std::endl;
                        return;
@@ -158,11 +158,11 @@ namespace profiling {
             file.resize(file.pos());
 
             //Écriture de la ligne supplémentaire
-            int i = ETAPE_JEU::NB_ETAPES;
-            if (m_gameResultProfilingAIviewpoint == GAGNE) {
+            int i = GAME_STEPS::STEPS_NB;
+            if (m_gameResultProfilingAIviewpoint == WON) {
                 out << 1 << ",";
             }
-            else if (m_gameResultProfilingAIviewpoint == EGALITE) {
+            else if (m_gameResultProfilingAIviewpoint == EQUALITY) {
                 out << 2 << ",";
             }
             else {
@@ -189,7 +189,7 @@ namespace profiling {
             if (m_testScenario) {
                 m_numberProfilingGames++;
 
-                if (m_gameResultProfilingAIviewpoint == GAGNE) {
+                if (m_gameResultProfilingAIviewpoint == WON) {
                     m_numberProfilingGamesWon++;
                 }
 
@@ -198,7 +198,7 @@ namespace profiling {
             else {
                 m_numberGamesGame++;
 
-                if (m_gameResultProfilingAIviewpoint == GAGNE) {
+                if (m_gameResultProfilingAIviewpoint == WON) {
                     m_numberGameGamesWon++;
                 }
 

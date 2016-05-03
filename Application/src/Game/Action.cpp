@@ -10,7 +10,7 @@ Specification: Fichier contenant les définitions de la classe Action.
 
 namespace game {
 
-    Action::Action() : m_action(PAS_ENCORE_D_ACTION), m_tokens(-1)
+    Action::Action() : m_action(NO_ACTION), m_tokens(-1)
     {
 
     }

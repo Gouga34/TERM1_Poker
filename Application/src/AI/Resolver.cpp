@@ -9,7 +9,7 @@ Specification: Fichier contenant les corps des méthodes
 
 
 #include "../../include/AI/Resolver.h"
-#include "../../include/Constantes.h"
+#include "../../include/Constants.h"
 #include "../../include/Profiling/CalculateProfilingData.h"
 
 #include <vector>
@@ -47,10 +47,10 @@ namespace ai {
     game::Action Resolver::calculateRoughtAction() {
         calculateAggressivenessTheoreticalTotalBet();
 
-        ACTION action = PAS_ENCORE_D_ACTION;
+        ACTION action = NO_ACTION;
         int tokensToBet = -1; //mise à effectuer s'il y en a une. Correspond au nombre de jetons
 
-        double roundTheoreticalBet = m_ai->getAccumulatedBetsAndRaises() * HAUSSE_MISES_AGRESSIVITE - m_ai->getAccumulatedBetsAndRaises();
+        double roundTheoreticalBet = m_ai->getAccumulatedBetsAndRaises() * INCREASE_AGGRESSIVE_BETS - m_ai->getAccumulatedBetsAndRaises();
         //Si le total des mises de l'IA est supérieur à mth, on checke ou on se couche.
         //Sinon, on mise/relance/suit
         if (roundTheoreticalBet > m_aggressivenessTheoreticalTotalBet - m_ai->getAccumulatedBetsAndRaises()
@@ -61,27 +61,27 @@ namespace ai {
         if (m_ai->getGame()->canBet(m_ai->getPosition(),1)) {
             // Si on a l'argent
             if (m_ai->getGame()->canBet(m_ai->getPosition(),roundTheoreticalBet)) {
-                action = MISER;
+                action = BET;
                 tokensToBet = roundTheoreticalBet;
             }
             else {
-                action = TAPIS;
+                action = ALL_IN;
             }
         }
         //Si le joueur adverse a misé ou relancé
-        else if (m_ai->getGame()->getPlayersLastAction(m_ai->getGame()->getOpponentsPosition(m_ai->getPosition())) == MISER
-                    || m_ai->getGame()->getPlayersLastAction(m_ai->getGame()->getOpponentsPosition(m_ai->getPosition())) == RELANCER
-                    || m_ai->getGame()->getPlayersLastAction(m_ai->getGame()->getOpponentsPosition(m_ai->getPosition())) == GROSSE_BLIND
-                    || m_ai->getGame()->getPlayersLastAction(m_ai->getGame()->getOpponentsPosition(m_ai->getPosition())) == TAPIS) {
+        else if (m_ai->getGame()->getPlayersLastAction(m_ai->getGame()->getOpponentsPosition(m_ai->getPosition())) == BET
+                    || m_ai->getGame()->getPlayersLastAction(m_ai->getGame()->getOpponentsPosition(m_ai->getPosition())) == RAISE
+                    || m_ai->getGame()->getPlayersLastAction(m_ai->getGame()->getOpponentsPosition(m_ai->getPosition())) == BIG_BLIND
+                    || m_ai->getGame()->getPlayersLastAction(m_ai->getGame()->getOpponentsPosition(m_ai->getPosition())) == ALL_IN) {
 
-            double variationAutoriseeMiseAdversaire = (VARIATION_AUTORISEE / 100) * m_ai->getGame()->getCurrentBet();
+            double variationAutoriseeMiseAdversaire = (ALLOWED_VARIATION / 100) * m_ai->getGame()->getCurrentBet();
 
             //Si la mise courante est inférieure à ce qu'il reste à miser +10% de la mise
             if (m_ai->getGame()->getCurrentBet() <= m_aggressivenessTheoreticalTotalBet - m_ai->getAccumulatedBetsAndRaises() + variationAutoriseeMiseAdversaire) {
                 //On continue à jouer
                 //Si la mise théorique est inférieure à la relance minimum (-10%), on suit
                 if (roundTheoreticalBet < 2 * m_ai->getGame()->getCurrentBet() - variationAutoriseeMiseAdversaire) {
-                    action = SUIVRE;
+                    action = CALL;
                 }
                 else {   // On relance
                     //Si on peut relancer
@@ -97,29 +97,29 @@ namespace ai {
                                 tokensToBet = m_ai->getCave();
                             }
                         }
-                        action = RELANCER;
+                        action = RAISE;
                     }
                     else {
                         if (m_ai->getGame()->canCall(m_ai->getPosition())) {
-                            action = SUIVRE;
+                            action = CALL;
                         }
                     }
                 }
             }
             else {
                 if (m_ai->getGame()->canCheck(m_ai->getPosition())) {
-                    action = CHECKER;
+                    action = CHECK;
                 }
                 else {
-                    action = SE_COUCHER;
+                    action = FOLD;
                 }
             }
         }
         else if (m_ai->getGame()->canCheck(m_ai->getPosition())) {
-            action = CHECKER;
+            action = CHECK;
         }
 
-        if (action == PAS_ENCORE_D_ACTION) {
+        if (action == NO_ACTION) {
             std::cout << "pas encore d'action" << std::endl;
         }
 
@@ -132,26 +132,26 @@ namespace ai {
         double levelSuperior, levelInferior;
         double theoreticalBetInferior, theoreticalBetSuperior;
 
-        if (m_calibration->getAggressiveness() < AGRESSIVITE::PALIER1::FIN_AG_THEORIQUE) {
-            levelInferior = AGRESSIVITE::PALIER1::DEBUT_AG_THEORIQUE;
-            levelSuperior = AGRESSIVITE::PALIER1::FIN_AG_THEORIQUE;
-            theoreticalBetInferior = AGRESSIVITE::PALIER1::DEBUT_MISE_TOTALE;
-            theoreticalBetSuperior = AGRESSIVITE::PALIER1::FIN_MISE_TOTALE;
+        if (m_calibration->getAggressiveness() < AGGRESSIVENESS::PALIER1::FIN_AG_THEORIQUE) {
+            levelInferior = AGGRESSIVENESS::PALIER1::DEBUT_AG_THEORIQUE;
+            levelSuperior = AGGRESSIVENESS::PALIER1::FIN_AG_THEORIQUE;
+            theoreticalBetInferior = AGGRESSIVENESS::PALIER1::DEBUT_MISE_TOTALE;
+            theoreticalBetSuperior = AGGRESSIVENESS::PALIER1::FIN_MISE_TOTALE;
         }
-        else if (m_calibration->getAggressiveness() < AGRESSIVITE::PALIER2::FIN_AG_THEORIQUE) {
-            levelInferior = AGRESSIVITE::PALIER2::DEBUT_AG_THEORIQUE;
-            levelSuperior = AGRESSIVITE::PALIER2::FIN_AG_THEORIQUE;
-            theoreticalBetInferior = AGRESSIVITE::PALIER2::DEBUT_MISE_TOTALE;
-            theoreticalBetSuperior = AGRESSIVITE::PALIER2::FIN_MISE_TOTALE;
+        else if (m_calibration->getAggressiveness() < AGGRESSIVENESS::PALIER2::FIN_AG_THEORIQUE) {
+            levelInferior = AGGRESSIVENESS::PALIER2::DEBUT_AG_THEORIQUE;
+            levelSuperior = AGGRESSIVENESS::PALIER2::FIN_AG_THEORIQUE;
+            theoreticalBetInferior = AGGRESSIVENESS::PALIER2::DEBUT_MISE_TOTALE;
+            theoreticalBetSuperior = AGGRESSIVENESS::PALIER2::FIN_MISE_TOTALE;
         }
-        else if (m_calibration->getAggressiveness() < AGRESSIVITE::PALIER3::FIN_AG_THEORIQUE) {
-            levelInferior = AGRESSIVITE::PALIER3::DEBUT_AG_THEORIQUE;
-            levelSuperior = AGRESSIVITE::PALIER3::FIN_AG_THEORIQUE;
-            theoreticalBetInferior = AGRESSIVITE::PALIER3::DEBUT_MISE_TOTALE;
-            theoreticalBetSuperior = AGRESSIVITE::PALIER3::FIN_MISE_TOTALE;
+        else if (m_calibration->getAggressiveness() < AGGRESSIVENESS::PALIER3::FIN_AG_THEORIQUE) {
+            levelInferior = AGGRESSIVENESS::PALIER3::DEBUT_AG_THEORIQUE;
+            levelSuperior = AGGRESSIVENESS::PALIER3::FIN_AG_THEORIQUE;
+            theoreticalBetInferior = AGGRESSIVENESS::PALIER3::DEBUT_MISE_TOTALE;
+            theoreticalBetSuperior = AGGRESSIVENESS::PALIER3::FIN_MISE_TOTALE;
         }
         else {
-            rateTotalBet = AGRESSIVITE::PALIER4::MISE_TOTALE;
+            rateTotalBet = AGGRESSIVENESS::PALIER4::MISE_TOTALE;
         }
 
         if (rateTotalBet == 0.0) {
@@ -169,40 +169,40 @@ namespace ai {
         int randomNumber = rand() % 101;
         if (randomNumber < (m_calibration->getRationality()-1)) { //Si random E [0 - (rationalite-1)]
 
-            int theoreticalBetTokens = calculateRationalityBet(ACTION::MISER);
+            int theoreticalBetTokens = calculateRationalityBet(ACTION::BET);
 
             //Si on peut pas checker et peut de chances de gain :
             if (m_ai->getWinningChances() < 30.0
                     && !(m_ai->getGame()->canCheck(m_ai->getPosition()))) {
-                action = ACTION::SE_COUCHER;
+                action = ACTION::FOLD;
             }
             else if (m_ai->getAccumulatedBetsAndRaises() < theoreticalBetTokens) {
                 int tokensToBetRationality = theoreticalBetTokens - m_ai->getAccumulatedBetsAndRaises();
 
                 if (m_ai->getGame()->canBet(m_ai->getPosition(),tokensToBetRationality)) { //Si on peut miser
-                    action = ACTION::MISER;
+                    action = ACTION::BET;
                     tokensToBet = tokensToBetRationality;
                 }
 
                 //Si on peut Relancer, on relance
-                else if (m_ai->getGame()->canRaise(m_ai->getPosition(),calculateRationalityBet(ACTION::RELANCER))) {
-                    action = ACTION::RELANCER;
+                else if (m_ai->getGame()->canRaise(m_ai->getPosition(),calculateRationalityBet(ACTION::RAISE))) {
+                    action = ACTION::RAISE;
                     tokensToBet = calculateRationalityBet(action);
                 }
                 //Si on peut suivre, on suit
                 else if (m_ai->getGame()->canCall(m_ai->getPosition())) {
-                    action = ACTION::SUIVRE;
+                    action = ACTION::CALL;
                 }
                 //Si on peut checker on checke
                 else if (m_ai->getGame()->canCheck(m_ai->getPosition())) {
-                    action = ACTION::CHECKER;
+                    action = ACTION::CHECK;
                 }
             }
             else if (m_ai->getGame()->canCheck(m_ai->getPosition())) {
-                action = ACTION::CHECKER;
+                action = ACTION::CHECK;
             }
             else if (m_ai->getGame()->canCall(m_ai->getPosition())) {
-                action = ACTION::SUIVRE;
+                action = ACTION::CALL;
             }
         }
         else{ //random E [rationalite- 100]
@@ -211,29 +211,29 @@ namespace ai {
          //Construction de la liste des actions possibles :
             if (m_ai->getGame()->canBet(m_ai->getPosition(), 1)) {
                 //Miser plus que la mise théroque:
-                actionsList.push_back(GROSSE_BLIND); //En fait c'est miserplus que théorique mais
+                actionsList.push_back(BIG_BLIND); //En fait c'est miserplus que théorique mais
 
                 //Miser moins que la mise théorique:
-                actionsList.push_back(PETITE_BLIND);
+                actionsList.push_back(SMALL_BLIND);
             }
             //se coucher
             if (m_ai->getWinningChances() > 70) {
-                actionsList.push_back(ACTION::SE_COUCHER);
+                actionsList.push_back(ACTION::FOLD);
             }
             else if (m_ai->getWinningChances() <= 70) { //Relancer et/ou Suivre
                 if (m_ai->getGame()->canRaise(m_ai->getPosition(),2 * m_ai->getGame()->getCurrentBet())) {
-                    actionsList.push_back(ACTION::RELANCER);
+                    actionsList.push_back(ACTION::RAISE);
                 }
                 else if (m_ai->getGame()->canCall(m_ai->getPosition())) {
-                    actionsList.push_back(ACTION::SUIVRE);
+                    actionsList.push_back(ACTION::CALL);
                 }
                 else if (m_ai->getGame()->canCheck(m_ai->getPosition())) {
-                    actionsList.push_back(ACTION::CHECKER);
+                    actionsList.push_back(ACTION::CHECK);
                 }
             }
             else { //Checker
                 if (m_ai->getGame()->canCheck(m_ai->getPosition())) {
-                    actionsList.push_back(ACTION::CHECKER);
+                    actionsList.push_back(ACTION::CHECK);
                 }
             }
 
@@ -243,8 +243,8 @@ namespace ai {
             double theoreticalBet = profiling::CalculateProfilingData::theoreticalBet(m_ai->getWinningChances());
             int theoreticalTokensToBet = (theoreticalBet * m_ai->getCave()) / 100;
 
-            if (actionsList.at(randomNumber) == GROSSE_BLIND) {
-                action = ACTION::MISER;
+            if (actionsList.at(randomNumber) == BIG_BLIND) {
+                action = ACTION::BET;
 
                 //borneInférieure=10% de la cave + la mise théorique
                 int lowerBound = theoreticalTokensToBet + ((m_ai->getCave() * 10) / 100);
@@ -257,8 +257,8 @@ namespace ai {
                     tokensToBet = m_ai->getCave();
                 }
             }
-            else if (actionsList.at(randomNumber) == PETITE_BLIND) {
-                action = ACTION::MISER;
+            else if (actionsList.at(randomNumber) == SMALL_BLIND) {
+                action = ACTION::BET;
 
                 //borneSuperieure=mise théorique -10% de la cave
                 int upperBound = theoreticalTokensToBet - ((m_ai->getCave() * 10) / 100);
@@ -273,10 +273,10 @@ namespace ai {
             else {
                 action = actionsList.at(randomNumber);
 
-                if (action == ACTION::RELANCER) {
+                if (action == ACTION::RAISE) {
                     tokensToBet = 2 * m_ai->getGame()->getCurrentBet();
                 }
-                else if (action == ACTION::SUIVRE) {
+                else if (action == ACTION::CALL) {
                     tokensToBet = m_ai->getGame()->getCurrentBet();
                 }
             }
@@ -292,13 +292,13 @@ namespace ai {
 
         int tokensToBet = (theoreticalBet * m_ai->getCave()) / 100;
 
-        if (action == ACTION::CHECKER) {
+        if (action == ACTION::CHECK) {
             tokensToBet = -1;
         }
-        else if (action == ACTION::SUIVRE) {
+        else if (action == ACTION::CALL) {
             tokensToBet = m_ai->getGame()->getCurrentBet();
         }
-        else if (action == ACTION::RELANCER) {
+        else if (action == ACTION::RAISE) {
             //Si on peut relancer
             if (tokensToBet >= 2 * m_ai->getGame()->getCurrentBet()) {
                 tokensToBet = 2 * m_ai->getGame()->getCurrentBet();
@@ -317,7 +317,7 @@ namespace ai {
         game::Action rationalAction = calculateRationalAction();
 
         bool randomSelection = false;
-        ACTION action = PAS_ENCORE_D_ACTION;
+        ACTION action = NO_ACTION;
         int tokensToBet = -1;
 
         if (m_roughtPlay) {
@@ -327,146 +327,146 @@ namespace ai {
         // Fusion des deux résultats :Si les actions ne sont pas les mêmes, on choisit une des deux actions:
         else if (roughtAction.getAction() != rationalAction.getAction()) {
             //CHECKER et SE_COUCHER
-            if ((roughtAction.getAction() == CHECKER
-                    && rationalAction.getAction() == SE_COUCHER)
-                 ||(roughtAction.getAction() == SE_COUCHER
-                    && rationalAction.getAction()==CHECKER)) {
-                action = CHECKER;
+            if ((roughtAction.getAction() == CHECK
+                    && rationalAction.getAction() == FOLD)
+                 ||(roughtAction.getAction() == FOLD
+                    && rationalAction.getAction()==CHECK)) {
+                action = CHECK;
             }
             //CHECKER et SUIVRE
-            if ((roughtAction.getAction() == CHECKER
-                    && rationalAction.getAction() == SUIVRE)
-                 ||(roughtAction.getAction() == SUIVRE
-                    && rationalAction.getAction() == CHECKER)) {
+            if ((roughtAction.getAction() == CHECK
+                    && rationalAction.getAction() == CALL)
+                 ||(roughtAction.getAction() == CALL
+                    && rationalAction.getAction() == CHECK)) {
                 randomSelection = true;
             }
             //CHECKER et MISER
-            if ((roughtAction.getAction() == CHECKER
-                    && rationalAction.getAction() == MISER)
-                 ||(roughtAction.getAction() == MISER
-                    && rationalAction.getAction() == CHECKER)) {
+            if ((roughtAction.getAction() == CHECK
+                    && rationalAction.getAction() == BET)
+                 ||(roughtAction.getAction() == BET
+                    && rationalAction.getAction() == CHECK)) {
 
-                if (roughtAction.getAction() == CHECKER) {
-                    roughtAction.setAction(MISER);
+                if (roughtAction.getAction() == CHECK) {
+                    roughtAction.setAction(BET);
                     roughtAction.setTokens(m_ai->getGame()->getBlind());
                 }
                 else {
-                    rationalAction.setAction(MISER);
+                    rationalAction.setAction(BET);
                     rationalAction.setTokens(m_ai->getGame()->getBlind());
                 }
             }
             //SUIVRE et RELANCER
-            if ((roughtAction.getAction() == SUIVRE
-                    && rationalAction.getAction() == RELANCER)
-                  || (roughtAction.getAction() == RELANCER
-                     && rationalAction.getAction() == SUIVRE)) {
+            if ((roughtAction.getAction() == CALL
+                    && rationalAction.getAction() == RAISE)
+                  || (roughtAction.getAction() == RAISE
+                     && rationalAction.getAction() == CALL)) {
 
-                if (roughtAction.getAction() == RELANCER) {
+                if (roughtAction.getAction() == RAISE) {
                     if (roughtAction.getTokens() > m_ai->getGame()->getCurrentBet() * 2) {
                         tokensToBet = m_ai->getGame()->getCurrentBet() * 2;
-                        action = RELANCER;
+                        action = RAISE;
                     }
                     else {
-                        action = SUIVRE;
+                        action = CALL;
                     }
                 }
                 else {
                     if (rationalAction.getTokens() > m_ai->getGame()->getCurrentBet() * 2) {
                         tokensToBet = m_ai->getGame()->getCurrentBet() * 2;
-                        action = RELANCER;
+                        action = RAISE;
                     }
                     else {
-                        action = SUIVRE;
+                        action = CALL;
                     }
                 }
             }
             //SUIVRE et SE_COUCHER
-            if ((roughtAction.getAction() == SUIVRE
-                    && rationalAction.getAction() == SE_COUCHER)
-                 || (roughtAction.getAction() == SE_COUCHER
-                    && rationalAction.getAction() == SUIVRE)) {
+            if ((roughtAction.getAction() == CALL
+                    && rationalAction.getAction() == FOLD)
+                 || (roughtAction.getAction() == FOLD
+                    && rationalAction.getAction() == CALL)) {
                 randomSelection = true;
             }
             //RELANCER et SE_COUCHER
-            if ((roughtAction.getAction() == SE_COUCHER
-                    && rationalAction.getAction() == RELANCER)
-                 || (roughtAction.getAction() == RELANCER
-                    && rationalAction.getAction() == SE_COUCHER)) {
-                action = SUIVRE;
+            if ((roughtAction.getAction() == FOLD
+                    && rationalAction.getAction() == RAISE)
+                 || (roughtAction.getAction() == RAISE
+                    && rationalAction.getAction() == FOLD)) {
+                action = CALL;
             }
             //MISER et SE_COUCHER
-            if ((roughtAction.getAction() == MISER
-                    && rationalAction.getAction() == SE_COUCHER)
-                 || (roughtAction.getAction() == SE_COUCHER
-                    && rationalAction.getAction() == MISER)) {
+            if ((roughtAction.getAction() == BET
+                    && rationalAction.getAction() == FOLD)
+                 || (roughtAction.getAction() == FOLD
+                    && rationalAction.getAction() == BET)) {
 
-                if (roughtAction.getAction() == SE_COUCHER) {
-                    roughtAction.setAction(MISER);
+                if (roughtAction.getAction() == FOLD) {
+                    roughtAction.setAction(BET);
                     rationalAction.setTokens(rationalAction.getTokens() / 2);
                 }
                 else {
-                    rationalAction.setAction(MISER);
+                    rationalAction.setAction(BET);
                     roughtAction.setTokens(roughtAction.getTokens() / 2);
                 }
             }
             //TAPIS et MISER
-            if ((roughtAction.getAction() == TAPIS
-                    && rationalAction.getAction() == MISER)
-                 || (roughtAction.getAction() == MISER
-                     && rationalAction.getAction() == TAPIS)) {
+            if ((roughtAction.getAction() == ALL_IN
+                    && rationalAction.getAction() == BET)
+                 || (roughtAction.getAction() == BET
+                     && rationalAction.getAction() == ALL_IN)) {
 
-                if (roughtAction.getAction() == TAPIS) {
-                    roughtAction.setAction(MISER);
+                if (roughtAction.getAction() == ALL_IN) {
+                    roughtAction.setAction(BET);
                     roughtAction.setTokens(m_ai->getCave());
                 } else {
-                    rationalAction.setAction(MISER);
+                    rationalAction.setAction(BET);
                     rationalAction.setTokens(m_ai->getCave());
                 }
             }
             //TAPIS et RELANCER
-            if ((roughtAction.getAction() == TAPIS
-                    && rationalAction.getAction() == RELANCER)
-                 || (roughtAction.getAction() == RELANCER
-                     && rationalAction.getAction() == TAPIS)) {
+            if ((roughtAction.getAction() == ALL_IN
+                    && rationalAction.getAction() == RAISE)
+                 || (roughtAction.getAction() == RAISE
+                     && rationalAction.getAction() == ALL_IN)) {
 
-                if (roughtAction.getAction() == TAPIS) {
-                    roughtAction.setAction(RELANCER);
+                if (roughtAction.getAction() == ALL_IN) {
+                    roughtAction.setAction(RAISE);
                     roughtAction.setTokens(m_ai->getCave());
                 }
                 else {
-                    rationalAction.setAction(RELANCER);
+                    rationalAction.setAction(RAISE);
                     rationalAction.setTokens(m_ai->getCave());
                 }
             }
             //TAPIS et SE_COUCHER
-            if ((roughtAction.getAction() == TAPIS
-                    && rationalAction.getAction() == SE_COUCHER)
-                || (roughtAction.getAction() == SE_COUCHER
-                    && rationalAction.getAction() == TAPIS)) {
+            if ((roughtAction.getAction() == ALL_IN
+                    && rationalAction.getAction() == FOLD)
+                || (roughtAction.getAction() == FOLD
+                    && rationalAction.getAction() == ALL_IN)) {
 
                 int tokens = (m_ai->getCave() == 1) ? 1 : m_ai->getCave() / 2;
 
                 if (m_ai->getGame()->canCall(m_ai->getPosition())) {
-                    action = SUIVRE;
+                    action = CALL;
                 }
                 else if (m_ai->getGame()->canBet(m_ai->getPosition(),tokens)) {
-                    action = MISER;
+                    action = BET;
                     tokensToBet = tokens;
                 }
             }
             //TAPIS et CHECKER
-            if ((roughtAction.getAction() == TAPIS
-                    && rationalAction.getAction() == CHECKER)
-                 || (roughtAction.getAction() == CHECKER
-                     && rationalAction.getAction() == TAPIS)) {
+            if ((roughtAction.getAction() == ALL_IN
+                    && rationalAction.getAction() == CHECK)
+                 || (roughtAction.getAction() == CHECK
+                     && rationalAction.getAction() == ALL_IN)) {
                 if (m_ai->getGame()->canCall(m_ai->getPosition())) {
-                    action = SUIVRE;
+                    action = CALL;
                 }
                 else {
                     int tokens = (m_ai->getCave() == 1) ? 1 : m_ai->getCave() / 2;
 
                     if (m_ai->getGame()->canBet(m_ai->getPosition(),tokens)) {
-                        action = MISER;
+                        action = BET;
                         tokensToBet = tokens;
                     }
                 }
@@ -492,8 +492,8 @@ namespace ai {
 
        //Sinon, si l'action est relancer ou miser
        if (roughtAction.getAction() == rationalAction.getAction()
-               && (roughtAction.getAction() == ACTION::RELANCER
-                   || roughtAction.getAction() == ACTION::MISER)) {
+               && (roughtAction.getAction() == ACTION::RAISE
+                   || roughtAction.getAction() == ACTION::BET)) {
 
             action = roughtAction.getAction();
 
@@ -522,7 +522,7 @@ namespace ai {
             tokensToBet = tokensToBetMin + (ratio * abs(tokensToBetMax - tokensToBetMin));
 
         } else {
-           if (action == PAS_ENCORE_D_ACTION) {
+           if (action == NO_ACTION) {
                 action = roughtAction.getAction();
            }
         }

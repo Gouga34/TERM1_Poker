@@ -36,7 +36,6 @@ SOURCES += \
 QT+=widgets printsupport
 
 HEADERS += \
-    include/Constantes.h \
     include/Game/Action.h \
     include/Assessor/Assessor.h \
     include/Assessor/PlayerCards.h \
@@ -67,7 +66,8 @@ HEADERS += \
     include/Gui/OptionsDialog.h \
     include/Gui/TokensCounter.h \
     include/Gui/Window.h \
-    include/Gui/WindowContent.h
+    include/Gui/WindowContent.h \
+    include/Constants.h
 
 CONFIG += c++14
 !win32 {

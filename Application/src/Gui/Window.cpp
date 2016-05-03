@@ -80,7 +80,7 @@ namespace gui
         QString playerPseudo = "inconnu";
 
         if (m_game->getOptions().aiPlayer) {
-            p1 = new ai::ArtificialIntelligence(true, CAVE_JOUEURS, 0);
+            p1 = new ai::ArtificialIntelligence(true, PLAYERS_CAVE, 0);
             ai::ArtificialIntelligence *ai = static_cast<ai::ArtificialIntelligence*>(p1);
 
             // Si on lance une recherche de calibrage optimal ou si on a choisi le calibrage
@@ -99,7 +99,7 @@ namespace gui
             }
 
             m_content = new HumanWindowContent(m_game, this);
-            p1 = new game::HumanPlayer(true, CAVE_JOUEURS, 0, static_cast<HumanWindowContent*>(m_content));
+            p1 = new game::HumanPlayer(true, PLAYERS_CAVE, 0, static_cast<HumanWindowContent*>(m_content));
         }
 
         m_game->addPlayer(p1);
@@ -107,7 +107,7 @@ namespace gui
 
         /** IA qui profile **/
 
-        ai::ArtificialIntelligenceProfiling *ai = new ai::ArtificialIntelligenceProfiling(false, CAVE_JOUEURS, 1);
+        ai::ArtificialIntelligenceProfiling *ai = new ai::ArtificialIntelligenceProfiling(false, PLAYERS_CAVE, 1);
 
         if (m_game->getOptions().fixedProfilingAiCalibration) {
             ai->setCalibration(m_game->getOptions().profilingAi);

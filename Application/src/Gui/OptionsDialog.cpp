@@ -15,7 +15,7 @@ Specification: Fichier contenant les définitions de la classe
 #include <QTextStream>
 #include <QApplication>
 #include "../../include/Gui/OptionsDialog.h"
-#include "../../include/Constantes.h"
+#include "../../include/Constants.h"
 
 
 namespace gui

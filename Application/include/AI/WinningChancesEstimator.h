@@ -43,7 +43,7 @@ namespace ai {
 
         public:
 
-            WinningChancesEstimator(game::Game *game, game::Player *player, int testsNumber = NOMBRE_DE_TESTS);
+            WinningChancesEstimator(game::Game *game, game::Player *player, int testsNumber = TESTS_NUMBER);
             virtual ~WinningChancesEstimator();
 
             virtual double getEstimateResult() const;

@@ -7,7 +7,7 @@ Specification: Fichier contenant les définitions de la classe Evaluateur.
 =========================================================================*/
 
 #include "../../include/Assessor/PlayerCards.h"
-#include "../../include/Constantes.h"
+#include "../../include/Constants.h"
 
 namespace assessor {
 
@@ -21,7 +21,7 @@ namespace assessor {
 
     }
 
-    FORCE_MAIN PlayerCards::getHandCategory() const {
+    HAND_STRENGHT PlayerCards::getHandCategory() const {
         return m_handCategory;
     }
 
@@ -29,7 +29,7 @@ namespace assessor {
         return m_weight;
     }
 
-    void PlayerCards::setHandCategory(FORCE_MAIN handCategory) {
+    void PlayerCards::setHandCategory(HAND_STRENGHT handCategory) {
         m_handCategory = handCategory;
     }
 
@@ -130,7 +130,7 @@ namespace assessor {
                 //afin de pouvoir trouver plus tard si égalité la carte la plus haute de la couleur
                 //sans avoir à chercher à nouveau quelle couleur c'est
                 setWeight(i);
-                setHandCategory(COULEUR);
+                setHandCategory(FLUSH);
 
                 return true;
             }
@@ -144,7 +144,7 @@ namespace assessor {
         while (i < 4 && getHandCategory() == 0) {
             if (m_occurrences[14][i] >= 5) {
                 if (isStraight(9,i)) {
-                    setHandCategory(QUINTE_FLUSH_ROYALE);
+                    setHandCategory(ROYAL_FLUSH);
                     setWeight(14);
                     return true;
                 }
@@ -159,7 +159,7 @@ namespace assessor {
         int i = 0;
         while (i < 4 && getHandCategory() == 0) {
             if (m_occurrences[14][i] >= 5 && containsStraight(i)) {
-                setHandCategory(QUINTE_FLUSH);
+                setHandCategory(STRAIGHT_FLUSH);
                 return true;
             }
             ++i;
@@ -172,7 +172,7 @@ namespace assessor {
         int card = -1;
 
         if ((card = identicalCards(4)) > 0) {
-            setHandCategory(CARRE);
+            setHandCategory(FOUR_OF_A_KIND);
             setWeight(card);
             card = 0;
         }
@@ -183,7 +183,7 @@ namespace assessor {
         int card;
 
         if ((card = identicalCards(3)) > 0 && identicalCards(2) > 0) {
-            setHandCategory(FULL);
+            setHandCategory(FULL_HOUSE);
             setWeight(card);
             return true;
         }
@@ -195,7 +195,7 @@ namespace assessor {
         int card;
 
         if ((card = identicalCards(3)) > 0) {
-            setHandCategory(BRELAN);
+            setHandCategory(THREE_OF_A_KIND);
             setWeight(card);
             return true;
         }
@@ -206,7 +206,7 @@ namespace assessor {
         int card;
 
         if ((card = identicalCards(2,2)) > 0) {
-            setHandCategory(DOUBLE_PAIRE);
+            setHandCategory(TWO_PAIR);
             setWeight(card);
             return true;
         }
@@ -217,7 +217,7 @@ namespace assessor {
         int card;
 
         if ((card = identicalCards(2,1)) > 0) {
-            setHandCategory(PAIRE);
+            setHandCategory(PAIR);
             setWeight(card);
             return true;
         }
@@ -227,7 +227,7 @@ namespace assessor {
 
     bool PlayerCards::checkIfSuiteAndSetCombinaison() {
         if (containsStraight(4)) {
-            setHandCategory(SUITE);
+            setHandCategory(STRAIGHT);
             return true;
         }
 
@@ -274,16 +274,16 @@ namespace assessor {
 
         //Si on n'est rentré dans aucun cas,
         //la seule combinaison possible est la carte haute.
-        setHandCategory(CARTE_HAUTE);
+        setHandCategory(HIGHT_CARD);
     }
 
     void PlayerCards::setHighestCardWeight() {
         int lineNumber = -1;
 
-        if (getHandCategory() == COULEUR) {
+        if (getHandCategory() == FLUSH) {
             lineNumber = getWeight();
         }
-        else if (getHandCategory() == CARTE_HAUTE) {
+        else if (getHandCategory() == HIGHT_CARD) {
             lineNumber = 4;
         }
 
@@ -302,19 +302,19 @@ namespace assessor {
        setHighestCardWeight();
     }
 
-    RESULTAT_PARTIE PlayerCards::compareWeights(PlayerCards hand2) {
+    GAME_RESULT PlayerCards::compareWeights(PlayerCards hand2) {
         if (getWeight() > hand2.getWeight()) {
-            return GAGNE;
+            return WON;
         }
         else if (getWeight() < hand2.getWeight()) {
-            return PERDU;
+            return LOOSE;
         }
         else {
-            return EGALITE;
+            return EQUALITY;
         }
     }
 
-    RESULTAT_PARTIE PlayerCards::compareEqualFourOfAKind(PlayerCards hand2) {
+    GAME_RESULT PlayerCards::compareEqualFourOfAKind(PlayerCards hand2) {
         int i = 13;
 
         //On calcule la carte la plus haute autre que celles du carré pour this
@@ -340,14 +340,14 @@ namespace assessor {
         return compareWeights(hand2);
     }
 
-    RESULTAT_PARTIE PlayerCards::compareEqualFullHouse(PlayerCards hand2) {
+    GAME_RESULT PlayerCards::compareEqualFullHouse(PlayerCards hand2) {
         setWeight(identicalCards(2));
         hand2.setWeight(hand2.identicalCards(2));
 
         return compareWeights(hand2);
     }
 
-    RESULTAT_PARTIE PlayerCards::compareEqualFlush(PlayerCards hand2) {
+    GAME_RESULT PlayerCards::compareEqualFlush(PlayerCards hand2) {
         int i = 13;
         int color = getWeight();
 
@@ -372,7 +372,7 @@ namespace assessor {
         return compareWeights(hand2);
     }
 
-    RESULTAT_PARTIE PlayerCards::compareThreeOfAKind(PlayerCards hand2) {
+    GAME_RESULT PlayerCards::compareThreeOfAKind(PlayerCards hand2) {
         int i = 13;
 
         while (i > 0) {
@@ -394,7 +394,7 @@ namespace assessor {
         return compareWeights(hand2);
     }
 
-    RESULTAT_PARTIE PlayerCards::compareTwoPair(PlayerCards hand2) {
+    GAME_RESULT PlayerCards::compareTwoPair(PlayerCards hand2) {
         int i = 13;
         int poidsCarte = getWeight();
 
@@ -444,7 +444,7 @@ namespace assessor {
         return compareWeights(hand2);
     }
 
-    RESULTAT_PARTIE PlayerCards::comparePair(PlayerCards hand2) {
+    GAME_RESULT PlayerCards::comparePair(PlayerCards hand2) {
         int i = 13;
 
         while (i > 0) {
@@ -467,7 +467,7 @@ namespace assessor {
         return compareWeights(hand2);
     }
 
-    RESULTAT_PARTIE PlayerCards::compareHightCard(PlayerCards hand2) {
+    GAME_RESULT PlayerCards::compareHightCard(PlayerCards hand2) {
         int i = getWeight();
 
         while (i > 0) {
@@ -491,7 +491,7 @@ namespace assessor {
         return compareWeights(hand2);
     }
 
-    RESULTAT_PARTIE PlayerCards::compareEqualHandCategories(PlayerCards hand2) {
+    GAME_RESULT PlayerCards::compareEqualHandCategories(PlayerCards hand2) {
         if (getWeight() == 0) {
             calculateBasicWeight();
         }
@@ -500,23 +500,23 @@ namespace assessor {
         }
 
         if (getWeight() == hand2.getWeight()) {
-            if (getHandCategory() == CARRE) {
+            if (getHandCategory() == FOUR_OF_A_KIND) {
                return compareEqualFourOfAKind(hand2);
             }
 
-            else if (getHandCategory() == FULL) {
+            else if (getHandCategory() == FULL_HOUSE) {
                return compareEqualFullHouse(hand2);
             }
-            else if (getHandCategory() == COULEUR) {
+            else if (getHandCategory() == FLUSH) {
                return compareEqualFlush(hand2);
             }
-            else if (getHandCategory() == BRELAN) {
+            else if (getHandCategory() == THREE_OF_A_KIND) {
                 return compareThreeOfAKind(hand2);
             }
-            else if (getHandCategory() == DOUBLE_PAIRE) {
+            else if (getHandCategory() == TWO_PAIR) {
                return compareTwoPair(hand2);
             }
-            else if (getHandCategory() == PAIRE) {
+            else if (getHandCategory() == PAIR) {
                return comparePair(hand2);
             }
             else {
