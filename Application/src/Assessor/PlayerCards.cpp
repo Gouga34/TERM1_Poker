@@ -25,7 +25,7 @@ namespace assessor {
         return m_handCategory;
     }
 
-    int PlayerCards::getWeight() const {
+    unsigned int PlayerCards::getWeight() const {
         return m_weight;
     }
 
@@ -33,13 +33,13 @@ namespace assessor {
         m_handCategory = handCategory;
     }
 
-    void PlayerCards::setWeight(int weight) {
+    void PlayerCards::setWeight(unsigned int weight) {
         m_weight = weight;
     }
 
     void PlayerCards::initializeOccurrences() {
-        for (int i = 0; i < m_nbLines; ++i) {
-            for (int j = 0; j < m_nbRows; ++j) {
+        for (unsigned int i = 0; i < m_nbLines; ++i) {
+            for (unsigned int j = 0; j < m_nbRows; ++j) {
                 m_occurrences[i][j] = 0;
             }
         }
@@ -52,8 +52,8 @@ namespace assessor {
 
     void PlayerCards::registerCardsOccurrences(std::vector<game::Card> cardsList) {
         for (auto a_card : cardsList) {
-            int cardRank = a_card.getRank();
-            int cardColor = a_card.getColor();
+            unsigned int cardRank = a_card.getRank();
+            unsigned int cardColor = a_card.getColor();
 
             if (cardRank == AS) {
                 ++m_occurrences[0][cardColor];
@@ -70,23 +70,23 @@ namespace assessor {
         }
     }
 
-    bool PlayerCards::isStraight(int start, int line) const {
-        int i = start;
+    bool PlayerCards::isStraight(unsigned int start, unsigned int line) const {
+        unsigned int i = start;
 
         while (i < 14 && m_occurrences[i][line] >= 1 && (start + 5) > i) {
             ++i;
         }
 
-        int end = start + 5;
+        unsigned int end = start + 5;
 
         return (end == i);
     }
 
-    bool PlayerCards::containsStraight(int line) {
-        int i = 0;
-        int cpt = 0;
+    bool PlayerCards::containsStraight(unsigned int line) {
+        unsigned int i = 0;
+        unsigned int cpt = 0;
 
-        while (i < 14 && cpt < 5){
+        while (i < 14 && cpt < 5) {
             if (m_occurrences[i][line] >= 1) {
                 ++cpt;
             }
@@ -103,11 +103,11 @@ namespace assessor {
         return (cpt == 5);
     }
 
-    int PlayerCards::identicalCards(int nb, int nbTimes) const {
-        int weight = 0;
-        int cpt = 0;
+    int PlayerCards::identicalCards(unsigned int nb, unsigned int nbTimes) const {
+        unsigned int weight = 0;
+        unsigned int cpt = 0;
 
-        for (int i = 13; i > 0; --i) {
+        for (unsigned int i = 13; i > 0; --i) {
             if (m_occurrences[i][4] == nb) {
                 ++cpt;
 
@@ -124,7 +124,7 @@ namespace assessor {
     }
 
     bool PlayerCards::checkIfFlushAndSetCombinaison() {
-        for (int i = 0; i < 4; ++i) {
+        for (unsigned int i = 0; i < 4; ++i) {
             if (m_occurrences[14][i] >= 5) {
                 //Le poids est alors égal à la ligne de la couleur
                 //afin de pouvoir trouver plus tard si égalité la carte la plus haute de la couleur
@@ -140,7 +140,7 @@ namespace assessor {
     }
 
     bool PlayerCards::checkIfQuinteFlushRoyaleAndSetCombinaison() {
-        int i = 0;
+        unsigned int i = 0;
         while (i < 4 && getHandCategory() == 0) {
             if (m_occurrences[14][i] >= 5) {
                 if (isStraight(9,i)) {
@@ -156,7 +156,7 @@ namespace assessor {
     }
 
     bool PlayerCards::checkIfQuinteFlushAndSetCombinaison() {
-        int i = 0;
+        unsigned int i = 0;
         while (i < 4 && getHandCategory() == 0) {
             if (m_occurrences[14][i] >= 5 && containsStraight(i)) {
                 setHandCategory(STRAIGHT_FLUSH);
@@ -287,7 +287,7 @@ namespace assessor {
             lineNumber = 4;
         }
 
-        int i = 13;
+        unsigned int i = 13;
 
         while (i > 0) {
             if (m_occurrences[i][lineNumber] > 0) {
@@ -315,7 +315,7 @@ namespace assessor {
     }
 
     GAME_RESULT PlayerCards::compareEqualFourOfAKind(PlayerCards hand2) {
-        int i = 13;
+        unsigned int i = 13;
 
         //On calcule la carte la plus haute autre que celles du carré pour this
         while (i > 0) {
@@ -348,8 +348,8 @@ namespace assessor {
     }
 
     GAME_RESULT PlayerCards::compareEqualFlush(PlayerCards hand2) {
-        int i = 13;
-        int color = getWeight();
+        unsigned int i = 13;
+        unsigned int color = getWeight();
 
         while (i > 0) {
             hand2.setWeight(0);
@@ -373,7 +373,7 @@ namespace assessor {
     }
 
     GAME_RESULT PlayerCards::compareThreeOfAKind(PlayerCards hand2) {
-        int i = 13;
+        unsigned int i = 13;
 
         while (i > 0) {
             hand2.setWeight(0);
@@ -395,8 +395,8 @@ namespace assessor {
     }
 
     GAME_RESULT PlayerCards::compareTwoPair(PlayerCards hand2) {
-        int i = 13;
-        int poidsCarte = getWeight();
+        unsigned int i = 13;
+        unsigned int poidsCarte = getWeight();
 
         //On commence par comparer la seconde paire
         while (i > 0) {
@@ -419,7 +419,7 @@ namespace assessor {
         //Si la seconde paire est la même, on compare la carte la plus haute
         if (getWeight() == hand2.getWeight()) {
             i = 13;
-            int hand1PairCardWeight = getWeight(), hand2PairCardWeight = hand2.getWeight();
+            unsigned int hand1PairCardWeight = getWeight(), hand2PairCardWeight = hand2.getWeight();
 
             //On remet les poids à 0 pour compter juste une seule carte.
             setWeight(0);
@@ -445,7 +445,7 @@ namespace assessor {
     }
 
     GAME_RESULT PlayerCards::comparePair(PlayerCards hand2) {
-        int i = 13;
+        unsigned int i = 13;
 
         while (i > 0) {
             hand2.setWeight(0);
@@ -468,7 +468,7 @@ namespace assessor {
     }
 
     GAME_RESULT PlayerCards::compareHightCard(PlayerCards hand2) {
-        int i = getWeight();
+        unsigned int i = getWeight();
 
         while (i > 0) {
             hand2.setWeight(0);

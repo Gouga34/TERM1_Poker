@@ -67,7 +67,8 @@ HEADERS += \
     include/Gui/TokensCounter.h \
     include/Gui/Window.h \
     include/Gui/WindowContent.h \
-    include/Constants.h
+    include/Constants.h \
+    include/Assessor/Constants.h
 
 CONFIG += c++14
 !win32 {

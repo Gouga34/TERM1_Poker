@@ -11,6 +11,7 @@ Specification: Classe correspondant à la main d'un joueur,
 #define PLAYERCARDS_H
 
 #include "../Game/Card.h"
+#include "Constants.h"
 #include <iostream>
 #include <vector>
 #include <array>
@@ -27,16 +28,17 @@ namespace assessor {
                 La dernière colonne correspond au nombre de cartes d'une même couleurs.
             */
 
-            static const int m_nbRows = 5;
-            static const int m_nbLines = 15;
+            static const unsigned int m_nbRows = 5;
+            static const unsigned int m_nbLines = 15;
 
-            std::array< std::array< int, m_nbRows>, m_nbLines> m_occurrences;
+            std::array< std::array<unsigned int, m_nbRows>, m_nbLines> m_occurrences;
 
             //Combinaison la plus forte de la main du joueur.
+
             HAND_STRENGHT m_handCategory;
 
             //Poids de la main
-            int m_weight;
+            unsigned int m_weight;
 
             /**
              * @param combi combinaison
@@ -48,7 +50,7 @@ namespace assessor {
              * @param p poids
              * @action modifie le poids avec un nouveau poids
              */
-            virtual void setWeight(int weight);
+            virtual void setWeight(unsigned int weight);
 
             /**
              * @brief initializeOccurrences initialise le tableau des occurrences à 0.
@@ -74,20 +76,20 @@ namespace assessor {
              * @action regarde si on a une suite sur la ligne, à partir du départ (suite de 5 cartes minimum)
              * @return true si on a une suite, false sinon
              */
-            virtual bool isStraight(int start, int line) const;
+            virtual bool isStraight(unsigned int start, unsigned int line) const;
 
             /**
              * @param ligne ligne qui sera traitée
              * @return true si la ligne contient une suite
              */
-            virtual bool containsStraight(int line);
+            virtual bool containsStraight(unsigned int line);
 
             /**
              * @param nb nombre de cartes identiques cherchées
              * @param nbfois nombre de fois où l'on veut nb cartes identiques, 1 par défaut
              * @return la carte si on a nb cartes identiques nbfois fois, -1 sinon
              */
-            virtual int identicalCards(int nb, int nbTimes = 1) const;
+            virtual int identicalCards(unsigned int nb, unsigned int nbTimes = 1) const;
 
             /**
              * @action regarde si on a un flush (5 cartes de la même couleur)
@@ -247,7 +249,7 @@ namespace assessor {
              /**
               * @return le poids des cartes du joueur
               */
-             virtual int getWeight() const;
+             virtual unsigned int getWeight() const;
 
              /**
               * @param main2 la main à comparer avec this

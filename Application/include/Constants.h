@@ -61,22 +61,7 @@ enum CARD_RANK {
     AS  = 1
 };
 
-/**
- * Combinaisons des mains
- */
-enum HAND_STRENGHT {
 
-    ROYAL_FLUSH     = 10,
-    STRAIGHT_FLUSH  = 9,
-    FOUR_OF_A_KIND  = 8,
-    FULL_HOUSE      = 7,
-    FLUSH           = 6,
-    STRAIGHT        = 5,
-    THREE_OF_A_KIND = 4,
-    TWO_PAIR        = 3,
-    PAIR            = 2,
-    HIGHT_CARD      = 1
-};
 
 /**
   * Résultat d'une partie
