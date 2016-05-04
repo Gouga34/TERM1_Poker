@@ -71,8 +71,8 @@ namespace assessor {
             virtual void registerCardsOccurrences(std::vector<game::Card> cardsList);
 
             /**
-             * @param depart case à partir de laquelle on va commencer
-             * @param ligne ligne que l'on va traiter
+             * @param start case à partir de laquelle on va commencer
+             * @param line ligne que l'on va traiter
              * @action regarde si on a une suite sur la ligne, à partir du départ (suite de 5 cartes minimum)
              * @return true si on a une suite, false sinon
              */

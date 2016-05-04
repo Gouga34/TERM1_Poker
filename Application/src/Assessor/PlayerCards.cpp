@@ -38,11 +38,7 @@ namespace assessor {
     }
 
     void PlayerCards::initializeOccurrences() {
-        for (unsigned int i = 0; i < m_nbLines; ++i) {
-            for (unsigned int j = 0; j < m_nbRows; ++j) {
-                m_occurrences[i][j] = 0;
-            }
-        }
+        m_occurrences = {{0}};
     }
 
     void PlayerCards::fillTab(std::vector<game::Card> table, std::vector<game::Card> playersHand) {
@@ -174,9 +170,9 @@ namespace assessor {
         if ((card = identicalCards(4)) > 0) {
             setHandCategory(FOUR_OF_A_KIND);
             setWeight(card);
-            card = 0;
+            return true;
         }
-        return (card != -1);
+        return false;
     }
 
     bool PlayerCards::checkIfFullAndSetCombinaison() {
