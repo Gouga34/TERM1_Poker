@@ -239,7 +239,7 @@ namespace game {
             m_accumulatedBetsAndRaises = tokens;
 
             m_actions[getPlayer(playerPosition)->getPosition()].push_back(ACTION::BET);
-            getPlayer(playerPosition)->getActionsCounter()[0]++;
+            getPlayer(playerPosition)->addBet();
         }
         else{ //Sinon: tapis
             allIn(playerPosition, BET);
@@ -255,10 +255,10 @@ namespace game {
         m_accumulatedBetsAndRaises = getPlayer(playerPostion)->getAccumulatedBetsAndRaises();
 
         if (action == BET || action == RAISE) {
-            getPlayer(playerPostion)->getActionsCounter()[0]++;
+            getPlayer(playerPostion)->addBet();
         }
         else if (getPlayersLastAction(getOpponentsPosition(playerPostion)) == ALL_IN) {
-            getPlayer(playerPostion)->getActionsCounter()[1]++;
+            getPlayer(playerPostion)->addCall();
         }
     }
 
@@ -272,7 +272,7 @@ namespace game {
             m_accumulatedBetsAndRaises = getPlayer(playerPosition)->getAccumulatedBetsAndRaises();
 
             m_actions[getPlayer(playerPosition)->getPosition()].push_back(ACTION::RAISE);
-            getPlayer(playerPosition)->getActionsCounter()[0]++;
+            getPlayer(playerPosition)->addBet();
         }
         else{ //Sinon: tapis
             allIn(playerPosition, RAISE);
@@ -288,7 +288,7 @@ namespace game {
         if (getPlayer(playerPosition)->getCave() > tokensToAdd) {
             putMoneyIntoGame(playerPosition,tokensToAdd);
             m_actions[getPlayer(playerPosition)->getPosition()].push_back(ACTION::CALL);
-            getPlayer(playerPosition)->getActionsCounter()[1]++;
+            getPlayer(playerPosition)->addCall();
         }
         else {      // Sinon on fait tapis
             allIn(playerPosition, CALL);
@@ -297,7 +297,7 @@ namespace game {
 
     void Game::check(int playerPosition) {
         m_actions[getPlayer(playerPosition)->getPosition()].push_back(ACTION::CHECK);
-        getPlayer(playerPosition)->getActionsCounter()[2]++;
+        getPlayer(playerPosition)->addCheck();
     }
 
     void Game::fold(int playerPosition) {

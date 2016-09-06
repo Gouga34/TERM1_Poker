@@ -76,7 +76,7 @@ namespace ai {
     }
 
     game::Action ArtificialIntelligence::play() {
-        QString actions[] = {"mise", "relance", "suit", "check", "se couche", "rien", "fait tapis"};
+        std::vector<QString> actions { "mise", "relance", "suit", "check", "se couche", "rien", "fait tapis" };
 
         game::Action action = m_resolver->calculateAction();
 
