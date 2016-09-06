@@ -15,7 +15,7 @@ namespace game {
         protected:
             bool                m_isDealer;
             std::vector<game::Card>	m_hand;
-            int*                m_actionsCounter; //TODO passer en std::array
+            std::array<int, 3>  m_actionsCounter;
             int                 m_cave;
             int                 m_startingCave;
             Game*               m_game;
@@ -44,7 +44,7 @@ namespace game {
             virtual int	getPosition() const;
             virtual int getCurrentBet() const;
             virtual int	getHighestBet() const;
-            virtual int* getActionsCounter() const;
+            virtual std::array<int, 3> getActionsCounter() const;
             virtual int getAccumulatedBetsAndRaises() const;
             virtual int getTotalBet() const;
             virtual std::vector<game::Card>	getHand() const;
@@ -53,6 +53,9 @@ namespace game {
             virtual void setCave(int cave);
             virtual void setStartingCave(int cave);
             virtual void setGame(Game* game);
+            virtual void addBet();
+            virtual void addCall();
+            virtual void addCheck();
             virtual void setCurrentBet(int currentBet);
             virtual void setHighestBet(int highestBet);
             virtual void setAccumulatedBetsAndRaises(int accumulatedBetsAndRaises);

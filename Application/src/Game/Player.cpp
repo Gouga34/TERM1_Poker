@@ -5,12 +5,12 @@ namespace game {
 
     Player::Player(bool isDealer, int cave, int position)
         : m_isDealer(isDealer), m_cave(cave), m_position(position),
-          m_currentBet(0), m_highestBet(0), m_totalBet(0), m_actionsCounter(new int[3]()) {
+          m_currentBet(0), m_highestBet(0), m_totalBet(0) {
 
     }
 
     Player::~Player() {
-        delete [] m_actionsCounter;
+
     }
 
     double Player::getWinningChances() const {
@@ -73,8 +73,20 @@ namespace game {
         m_highestBet = highestBet;
     }
 
-    int* Player::getActionsCounter() const {
+    std::array<int, 3> Player::getActionsCounter() const {
         return m_actionsCounter;
+    }
+
+    void Player::addBet() {
+        m_actionsCounter[0]++;
+    }
+
+    void Player::addCall() {
+        m_actionsCounter[1]++;
+    }
+
+    void Player::addCheck() {
+        m_actionsCounter[2]++;
     }
 
     int Player::getAccumulatedBetsAndRaises() const {
@@ -136,6 +148,6 @@ namespace game {
     }
 
     void Player::resetActionsCounter() {
-        memset(m_actionsCounter, 0, 3);
+        m_actionsCounter.fill(0);
     }
 }

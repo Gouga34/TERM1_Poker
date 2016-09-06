@@ -35,7 +35,7 @@ namespace gui
 
         public:
 
-            static const QString colors[4];
+            static const std::array<QString, 4> colors;
 
             /**
              * @brief Constructeur de la carte graphique avec son rang et sa couleur

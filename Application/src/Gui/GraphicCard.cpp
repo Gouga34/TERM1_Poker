@@ -16,7 +16,7 @@ namespace gui
     const unsigned int GraphicCard::CARD_WIDTH = 73;
     const unsigned int GraphicCard::CARD_HEIGHT = 97;
 
-    const QString GraphicCard::colors[] = {"Pique", "Coeur", "Trèfle", "Carreau" };
+    const std::array<QString, 4> GraphicCard::colors = { "Pique", "Coeur", "Trèfle", "Carreau" };
 
 
     GraphicCard::GraphicCard(int rank, int color) : QLabel()

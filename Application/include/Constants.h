@@ -4,6 +4,7 @@
 #include <cstdint>
 #include <iostream>
 #include <string>
+#include <array>
 
 
 
@@ -77,13 +78,13 @@ enum GAME_RESULT {
  */
 enum ACTION
 {
-    BET,
-    RAISE,
-    CALL,
-    CHECK,
-    FOLD,
+    BET,            // Miser
+    RAISE,          // Relancer
+    CALL,           // Suivre
+    CHECK,          // Checker
+    FOLD,           // Se coucher
     NO_ACTION,
-    ALL_IN,
+    ALL_IN,         // Tapis
     SMALL_BLIND,
     BIG_BLIND
 };
@@ -208,7 +209,7 @@ namespace AGGRESSIVENESS {
 // Etapes de jeu
 enum GAME_STEPS { PREFLOP, FLOP, TURN, RIVER, STEPS_NB };
 
-const std::string stepsNames[STEPS_NB] = {"preflop", "flop", "turn", "river" };
+const std::array<std::string, STEPS_NB> stepsNames = { "preflop", "flop", "turn", "river" };
 
 
 namespace PLAYER_PROFILE {

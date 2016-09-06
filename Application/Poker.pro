@@ -33,7 +33,7 @@ SOURCES += \
     src/Gui/WindowContent.cpp
 
 
-QT+=widgets printsupport
+QT += widgets printsupport
 
 HEADERS += \
     include/Game/Action.h \
@@ -71,9 +71,6 @@ HEADERS += \
     include/Assessor/Constants.h
 
 CONFIG += c++14
-!win32 {
-    QMAKE_CXX = g++-4.9
-}
 QMAKE_CXXFLAGS += -std=c++14
 
 MOC_DIR = moc_dir

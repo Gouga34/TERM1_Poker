@@ -55,7 +55,7 @@ namespace gui
             enum { CHECK, BET, CALL, RAISE, DROP, ALL_IN, BUTTONS_NB };
 
             // Boutons d'action de jeu
-            QPushButton m_buttons[BUTTONS_NB];
+            std::array<QPushButton, BUTTONS_NB> m_buttons;
 
             ACTION m_userAction;
 
