@@ -17,6 +17,8 @@ namespace gui
     WindowContent::WindowContent(game::Game *game) : QWidget(), m_game(game)
     {
         Logger::createInstance(this);
+
+        m_logs = new QTextEdit;
     }
 
     WindowContent::~WindowContent()
@@ -26,10 +28,10 @@ namespace gui
 
     void WindowContent::addLogs(QString content)
     {
-        m_logs.setText(m_logs.toPlainText() + content + "\n");
+        m_logs->setText(m_logs->toPlainText() + content + "\n");
 
         // Scroll automatique vers la fin
-        QScrollBar *sb = m_logs.verticalScrollBar();
+        QScrollBar *sb = m_logs->verticalScrollBar();
         sb->setValue(sb->maximum());
     }
 }

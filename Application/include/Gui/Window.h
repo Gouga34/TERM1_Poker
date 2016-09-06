@@ -26,7 +26,7 @@ namespace gui
 
             game::Game *m_game;
 
-            QPushButton m_startButton;
+            QPushButton *m_startButton;
 
             WindowContent *m_content;
 

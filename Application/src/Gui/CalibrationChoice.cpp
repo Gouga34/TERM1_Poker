@@ -25,30 +25,30 @@ namespace gui
         // Rationalité
         QHBoxLayout *rationalityLayout = new QHBoxLayout;
 
-        m_rationality.setRange(0, 100);
-        m_rationality.setValue(50);
-        m_rationality.setOrientation(Qt::Horizontal);
+        m_rationality = new QSlider(Qt::Horizontal);
+        m_rationality->setRange(0, 100);
+        m_rationality->setValue(50);
 
         QLabel *rationalityValue = new QLabel(QString::number(50));
 
-        connect(&m_rationality, SIGNAL(valueChanged(int)), rationalityValue, SLOT(setNum(int)));
+        connect(m_rationality, SIGNAL(valueChanged(int)), rationalityValue, SLOT(setNum(int)));
 
-        rationalityLayout->addWidget(&m_rationality);
+        rationalityLayout->addWidget(m_rationality);
         rationalityLayout->addWidget(rationalityValue);
 
 
         // Agressivité
         QHBoxLayout *aggressivenessLayout = new QHBoxLayout;
 
-        m_aggressiveness.setRange(0, 100);
-        m_aggressiveness.setValue(50);
-        m_aggressiveness.setOrientation(Qt::Horizontal);
+        m_aggressiveness = new QSlider(Qt::Horizontal);
+        m_aggressiveness->setRange(0, 100);
+        m_aggressiveness->setValue(50);
 
         QLabel *aggressivenessValue = new QLabel(QString::number(50));
 
-        connect(&m_aggressiveness, SIGNAL(valueChanged(int)), aggressivenessValue, SLOT(setNum(int)));
+        connect(m_aggressiveness, SIGNAL(valueChanged(int)), aggressivenessValue, SLOT(setNum(int)));
 
-        aggressivenessLayout->addWidget(&m_aggressiveness);
+        aggressivenessLayout->addWidget(m_aggressiveness);
         aggressivenessLayout->addWidget(aggressivenessValue);
 
         layout->addRow("Agressivité", aggressivenessLayout);
@@ -66,8 +66,8 @@ namespace gui
     {
         profiling::Profile profile;
 
-        profile.setAggressiveness(m_aggressiveness.value());
-        profile.setRationality(m_rationality.value());
+        profile.setAggressiveness(m_aggressiveness->value());
+        profile.setRationality(m_rationality->value());
 
         return profile;
     }
