@@ -12,8 +12,8 @@ namespace game {
 
         srand((unsigned)time(0));
 
-        this->m_deck = newDeck();
-        this->shuffleDeck();
+        m_deck = newDeck();
+        shuffleDeck();
     }
 
     Game::~Game() {
@@ -450,7 +450,7 @@ namespace game {
                 calculateWinningChances();
             }
 
-            GAME_RESULT comparaisonMains = assessor::Assessor::compareHands(this->getTable(), this->getPlayer(0)->getHand(), this->getPlayer(1)->getHand());
+            GAME_RESULT comparaisonMains = assessor::Assessor::compareHands(getTable(), getPlayer(0)->getHand(), getPlayer(1)->getHand());
 
             if (comparaisonMains == WON) {
 

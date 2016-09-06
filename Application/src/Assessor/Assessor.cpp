@@ -5,6 +5,7 @@ Projet: Profilage par essais et erreurs au poker
 --------------------------------------------------------------------------
 Specification: Fichier contenant les définitions de la classe Evaluateur.
 =========================================================================*/
+
 #include "../../include/Assessor/Assessor.h"
 #include "../../include/Constants.h"
 

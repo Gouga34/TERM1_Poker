@@ -35,7 +35,7 @@ namespace gui
     {
         QLayoutItem *item;
 
-        while ((item = this->takeAt(0)) != 0) {
+        while ((item = takeAt(0)) != 0) {
             delete item->widget();
             delete item;
         }
