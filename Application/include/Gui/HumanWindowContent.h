@@ -29,33 +29,33 @@ namespace gui
         private:
 
             // Informations jeu
-            QLineEdit m_aiActionDone;
-            QLabel m_partResult;
+            QLineEdit *m_aiActionDone;
+            QLabel *m_partResult;
 
             // Logs
-            QPushButton m_logsButton;
+            QPushButton *m_logsButton;
 
             // Liste des cartes
-            CardsList m_handLayout;
-            CardsList m_opponentHandLayout;
-            CardsList m_commonCardsLayout;
+            CardsList *m_handLayout;
+            CardsList *m_opponentHandLayout;
+            CardsList *m_commonCardsLayout;
 
             // Compteur du pot et des caves des joueurs
-            TokensCounter m_pot;
-            TokensCounter m_playerCave;
-            TokensCounter m_aiCave;
+            TokensCounter *m_pot;
+            TokensCounter *m_playerCave;
+            TokensCounter *m_aiCave;
 
             // Boite de saisie du montant de la mise
-            QSpinBox m_betValue;
+            QSpinBox *m_betValue;
 
-            QPushButton m_startButton;
-            QCheckBox m_cardsChoiceButton;
+            QPushButton *m_startButton;
+            QCheckBox *m_cardsChoiceButton;
 
 
             enum { CHECK, BET, CALL, RAISE, DROP, ALL_IN, BUTTONS_NB };
 
             // Boutons d'action de jeu
-            std::array<QPushButton, BUTTONS_NB> m_buttons;
+            std::array<QPushButton*, BUTTONS_NB> m_buttons;
 
             ACTION m_userAction;
 

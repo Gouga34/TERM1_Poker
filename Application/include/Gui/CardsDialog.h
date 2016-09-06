@@ -25,14 +25,14 @@ namespace gui
 
             enum CardsList { PLAYER, AI, MIDDLE };
 
-            QGridLayout m_cardsLayout;
+            QGridLayout *m_cardsLayout;
 
             // Vecteur des identifants des cartes choisies (2 Joueur, 2 IA, 5 milieu)
             std::vector<int> m_selectedCards;
 
-            QRadioButton m_playerChoice;
-            QRadioButton m_aiChoice;
-            QRadioButton m_middleChoice;
+            QRadioButton *m_playerChoice;
+            QRadioButton *m_aiChoice;
+            QRadioButton *m_middleChoice;
 
             /**
              * @brief Ajoute la carte sélectionnée dans la liste de cartes correspondante

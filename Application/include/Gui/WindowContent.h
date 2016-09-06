@@ -21,7 +21,7 @@ namespace gui
 
             game::Game *m_game;
 
-            QTextEdit m_logs;
+            QTextEdit *m_logs;
 
         public:
 

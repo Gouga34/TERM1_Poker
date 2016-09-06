@@ -55,33 +55,33 @@ namespace gui
 
     private :
 
-       QRadioButton m_profilingMode;
-       QRadioButton m_optimalCalibrationMode;
+       QRadioButton *m_profilingMode;
+       QRadioButton *m_optimalCalibrationMode;
 
-       QStackedLayout m_parametersLayout;
+       QStackedLayout *m_parametersLayout;
 
        //// Paramètres profilage ////
 
        QLineEdit *m_pseudoField;
-       QGroupBox m_opponentChoice;
-       QSpinBox m_calibrationsNumberBox;
-       QSpinBox m_partsNumberBox;
+       QGroupBox *m_opponentChoice;
+       QSpinBox *m_calibrationsNumberBox;
+       QSpinBox *m_partsNumberBox;
 
-       QSpinBox m_profilingPartsNumberBox;
-       QSpinBox m_reprofilingPartsNumberBox;
-       QSpinBox m_winningsPartsNumberBox;
+       QSpinBox *m_profilingPartsNumberBox;
+       QSpinBox *m_reprofilingPartsNumberBox;
+       QSpinBox *m_winningsPartsNumberBox;
 
-       QCheckBox m_winningsAnalysisCheckBox;
-       QCheckBox m_resetCavesCheckBox;
+       QCheckBox *m_winningsAnalysisCheckBox;
+       QCheckBox *m_resetCavesCheckBox;
 
-       CalibrationChoice m_profiledAiCalibration;
-       CalibrationChoice m_profilingAiCalibration;
+       CalibrationChoice *m_profiledAiCalibration;
+       CalibrationChoice *m_profilingAiCalibration;
 
        //// Paramètres calibrage optimal ////
 
-       QSpinBox m_optimalCalibrationPartsNumberBox;
+       QSpinBox *m_optimalCalibrationPartsNumberBox;
 
-       CalibrationChoice m_opponentCalibration;
+       CalibrationChoice *m_opponentCalibration;
 
 
     public :

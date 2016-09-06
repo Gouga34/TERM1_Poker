@@ -30,10 +30,11 @@ namespace gui
 
         // Layout principal
         m_layout = new QVBoxLayout;
-        m_startButton.setFixedSize(100, 30);
+        m_startButton = new QPushButton;
+        m_startButton->setFixedSize(100, 30);
 
         m_layout->setAlignment(Qt::AlignCenter);
-        m_layout->addWidget(&m_startButton);
+        m_layout->addWidget(m_startButton);
 
         initialize();
 
@@ -121,22 +122,22 @@ namespace gui
 
         /** Bouton démarrer **/
 
-        disconnect(&m_startButton, SIGNAL(clicked()), this, SLOT(initialize()));
+        disconnect(m_startButton, SIGNAL(clicked()), this, SLOT(initialize()));
         if (m_game->getOptions().profiling) {
-            connect(&m_startButton, SIGNAL(clicked()), this, SLOT(startGame()));
+            connect(m_startButton, SIGNAL(clicked()), this, SLOT(startGame()));
         }
         else {
-            connect(&m_startButton, SIGNAL(clicked()), this, SLOT(startOptimalCalibration()));
+            connect(m_startButton, SIGNAL(clicked()), this, SLOT(startOptimalCalibration()));
         }
 
-        m_startButton.setText("Démarrer");
+        m_startButton->setText("Démarrer");
         m_layout->addWidget(m_content);
         show();
     }
 
     void Window::startGame()
     {
-        m_startButton.hide();
+        m_startButton->hide();
 
         int nbCalibrations = m_game->getOptions().nbCalibrations;
         int nbParts = m_game->getOptions().nbParts;
@@ -185,10 +186,10 @@ namespace gui
             profilingAi->writeEarningsAnalysis();
         }
 
-        disconnect(&m_startButton, SIGNAL(clicked()), this, SLOT(startGame()));
-        connect(&m_startButton, SIGNAL(clicked()), this, SLOT(initialize()));
-        m_startButton.setText("Réinitialiser");
-        m_startButton.show();
+        disconnect(m_startButton, SIGNAL(clicked()), this, SLOT(startGame()));
+        connect(m_startButton, SIGNAL(clicked()), this, SLOT(initialize()));
+        m_startButton->setText("Réinitialiser");
+        m_startButton->show();
     }
 
     void Window::startOptimalCalibration()

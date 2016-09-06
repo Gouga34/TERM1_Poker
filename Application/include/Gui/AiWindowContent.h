@@ -23,14 +23,14 @@ namespace gui
     {
         private:
 
-            QLabel m_partsState;
-            QTableWidget m_partsSummary;
+            QLabel *m_partsState;
+            QTableWidget *m_partsSummary;
 
-            QTableWidget m_globalResults;
+            QTableWidget *m_globalResults;
 
-            QLabel m_profiledAiCalibration;
+            QLabel *m_profiledAiCalibration;
 
-            QCustomPlot m_resultsGraph;
+            QCustomPlot *m_resultsGraph;
 
             QVector<double> m_partsNumberPoints;            // Nombre de parties
             QVector<double> m_similarityRatePoints;         // Taux de similarité

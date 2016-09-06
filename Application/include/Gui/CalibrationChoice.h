@@ -21,8 +21,8 @@ namespace gui
     {
     private:
 
-        QSlider m_rationality;
-        QSlider m_aggressiveness;
+        QSlider *m_rationality;
+        QSlider *m_aggressiveness;
 
     public:
 

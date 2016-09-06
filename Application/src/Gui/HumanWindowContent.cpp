@@ -38,23 +38,24 @@ namespace gui
         dashboardTitle->setFixedSize(300, 50);
         dashboardTitle->setStyleSheet("QLabel {color : #89DF57; text-align:center; font-weight:bold;}");
 
-        m_logs.setReadOnly(true);
-        m_logs.setMaximumSize(300, 300);
+        m_logs->setReadOnly(true);
+        m_logs->setMaximumSize(300, 300);
 
+        m_logsButton = new QPushButton("Afficher/Cacher");
+        m_logsButton->setFixedWidth(300);
 
-        m_logsButton.setText("Afficher/Cacher");
-        m_logsButton.setFixedWidth(300);
+        m_partResult = new QLabel;
 
         logsLayout->setAlignment(Qt::AlignTop);
         logsLayout->setAlignment(Qt::AlignHCenter);
         logsLayout->setSpacing(20);
 
         logsLayout->addWidget(dashboardTitle);
-        logsLayout->addWidget(&m_logs);
-        logsLayout->addWidget(&m_logsButton);
-        logsLayout->addWidget(&m_partResult);
+        logsLayout->addWidget(m_logs);
+        logsLayout->addWidget(m_logsButton);
+        logsLayout->addWidget(m_partResult);
 
-        connect(&m_logsButton, SIGNAL(clicked()), this, SLOT(logsDisplay()));
+        connect(m_logsButton, SIGNAL(clicked()), this, SLOT(logsDisplay()));
 
 
         // ////////////////////////////////////////////////////
@@ -71,19 +72,25 @@ namespace gui
         QHBoxLayout *opponentLayout =new QHBoxLayout;
 
         //Sous-layout IA
-        m_aiActionDone.setReadOnly(true);
-        m_aiActionDone.setFixedWidth(80);
-        m_aiActionDone.setPlaceholderText("Action");
+        m_aiActionDone = new QLineEdit;
+        m_aiActionDone->setReadOnly(true);
+        m_aiActionDone->setFixedWidth(80);
+        m_aiActionDone->setPlaceholderText("Action");
 
-        opponentLayout->addLayout(&m_opponentHandLayout);
-        opponentLayout->addWidget(&m_aiActionDone);
+        m_opponentHandLayout = new CardsList;
+
+        opponentLayout->addLayout(m_opponentHandLayout);
+        opponentLayout->addWidget(m_aiActionDone);
+
+        m_handLayout = new CardsList;
+        m_commonCardsLayout = new CardsList;
 
         gameLayout->setSpacing(150);
         gameLayout->setAlignment(Qt::AlignTop);
 
         gameLayout->addLayout(opponentLayout);
-        gameLayout->addLayout(&m_commonCardsLayout);
-        gameLayout->addLayout(&m_handLayout);
+        gameLayout->addLayout(m_commonCardsLayout);
+        gameLayout->addLayout(m_handLayout);
 
 
         // ////////////////////////////////////////////////////
@@ -92,20 +99,20 @@ namespace gui
 
         QHBoxLayout *startLayout = new QHBoxLayout;
 
-        m_startButton.setText("Démarrage partie");
-        m_startButton.setMaximumWidth(150);
-        m_startButton.hide();
-        connect(&m_startButton, SIGNAL(clicked()), window, SLOT(startGame()));
+        m_startButton = new QPushButton("Démarrage partie");
+        m_startButton->setMaximumWidth(150);
+        m_startButton->hide();
+        connect(m_startButton, SIGNAL(clicked()), window, SLOT(startGame()));
 
-        m_cardsChoiceButton.setChecked(false);
-        m_cardsChoiceButton.setText("Choix des cartes");
-        m_cardsChoiceButton.setObjectName(QString("Checkbox"));
-        m_cardsChoiceButton.setStyleSheet("QWidget#Checkbox { background-color: rgb(255, 255, 255); border-style: solid; border-color: black; border-width: 1px; padding : 3px; }");
+        m_cardsChoiceButton = new QCheckBox("Choix des cartes");
+        m_cardsChoiceButton->setChecked(false);
+        m_cardsChoiceButton->setObjectName(QString("Checkbox"));
+        m_cardsChoiceButton->setStyleSheet("QWidget#Checkbox { background-color: rgb(255, 255, 255); border-style: solid; border-color: black; border-width: 1px; padding : 3px; }");
 
         startLayout->setAlignment(Qt::AlignLeft);
         startLayout->setSpacing(10);
-        startLayout->addWidget(&m_startButton);
-        startLayout->addWidget(&m_cardsChoiceButton);
+        startLayout->addWidget(m_startButton);
+        startLayout->addWidget(m_cardsChoiceButton);
 
 
         QVBoxLayout *buttonsLayout = new QVBoxLayout;
@@ -113,41 +120,46 @@ namespace gui
         buttonsLayout->setSpacing(10);
         buttonsLayout->setAlignment(Qt::AlignTop);
 
-        m_buttons[CHECK].setText("Checker");
-        m_buttons[BET].setText("Miser");
-        m_buttons[CALL].setText("Suivre");
-        m_buttons[RAISE].setText("Relancer");
-        m_buttons[DROP].setText("Se coucher");
-        m_buttons[ALL_IN].setText("Tapis");
+        m_buttons[CHECK] = new QPushButton("Checker");
+        m_buttons[BET] = new QPushButton("Miser");
+        m_buttons[CALL] = new QPushButton("Suivre");
+        m_buttons[RAISE] = new QPushButton("Relancer");
+        m_buttons[DROP] = new QPushButton("Se coucher");
+        m_buttons[ALL_IN] = new QPushButton("Tapis");
 
-        buttonsLayout->addWidget(&m_buttons[CHECK]);
-        buttonsLayout->addWidget(&m_buttons[BET]);
-        buttonsLayout->addWidget(&m_buttons[CALL]);
-        buttonsLayout->addWidget(&m_buttons[RAISE]);
-        buttonsLayout->addWidget(&m_buttons[DROP]);
-        buttonsLayout->addWidget(&m_buttons[ALL_IN]);
+        buttonsLayout->addWidget(m_buttons[CHECK]);
+        buttonsLayout->addWidget(m_buttons[BET]);
+        buttonsLayout->addWidget(m_buttons[CALL]);
+        buttonsLayout->addWidget(m_buttons[RAISE]);
+        buttonsLayout->addWidget(m_buttons[DROP]);
+        buttonsLayout->addWidget(m_buttons[ALL_IN]);
 
-        connect(&m_buttons[CHECK], SIGNAL(clicked()), this, SLOT(check()));
-        connect(&m_buttons[BET], SIGNAL(clicked()), this, SLOT(bet()));
-        connect(&m_buttons[CALL], SIGNAL(clicked()), this, SLOT(call()));
-        connect(&m_buttons[RAISE], SIGNAL(clicked()), this, SLOT(raise()));
-        connect(&m_buttons[DROP], SIGNAL(clicked()), this, SLOT(drop()));
-        connect(&m_buttons[ALL_IN], SIGNAL(clicked()), this, SLOT(allIn()));
+        connect(m_buttons[CHECK], SIGNAL(clicked()), this, SLOT(check()));
+        connect(m_buttons[BET], SIGNAL(clicked()), this, SLOT(bet()));
+        connect(m_buttons[CALL], SIGNAL(clicked()), this, SLOT(call()));
+        connect(m_buttons[RAISE], SIGNAL(clicked()), this, SLOT(raise()));
+        connect(m_buttons[DROP], SIGNAL(clicked()), this, SLOT(drop()));
+        connect(m_buttons[ALL_IN], SIGNAL(clicked()), this, SLOT(allIn()));
 
 
         // ////////////////////////////////////////////////////
         // Fenetre
         // ////////////////////////////////////////////////////
 
+        m_pot = new TokensCounter;
+        m_playerCave = new TokensCounter;
+        m_aiCave = new TokensCounter;
+
         QHBoxLayout *playerLayout = new QHBoxLayout;
 
-        m_betValue.setRange(1, 10000);
+        m_betValue = new QSpinBox;
+        m_betValue->setRange(1, 10000);
 
         playerLayout->setAlignment(Qt::AlignRight);
         playerLayout->setSpacing(50);
 
-        playerLayout->addWidget(&m_playerCave);
-        playerLayout->addWidget(&m_betValue);
+        playerLayout->addWidget(m_playerCave);
+        playerLayout->addWidget(m_betValue);
         playerLayout->addLayout(buttonsLayout);
 
 
@@ -157,8 +169,8 @@ namespace gui
         optionsLayout->setAlignment(Qt::AlignHCenter);
 
         optionsLayout->addLayout(startLayout);
-        optionsLayout->addWidget(&m_aiCave);
-        optionsLayout->addWidget(&m_pot);
+        optionsLayout->addWidget(m_aiCave);
+        optionsLayout->addWidget(m_pot);
         optionsLayout->addLayout(playerLayout);
 
         // Layout principal
@@ -178,7 +190,7 @@ namespace gui
     void HumanWindowContent::startPart()
     {
         // Sélection des cartes par l'utilisateur
-        if (m_cardsChoiceButton.isChecked()) {
+        if (m_cardsChoiceButton->isChecked()) {
             CardsDialog cardsWindow(this);
             std::vector<int> ids = cardsWindow.cardsChoice();
 
@@ -187,9 +199,9 @@ namespace gui
             }
         }
 
-        m_startButton.hide();
-        m_cardsChoiceButton.hide();
-        m_partResult.clear();
+        m_startButton->hide();
+        m_cardsChoiceButton->hide();
+        m_partResult->clear();
 
         Logger::getInstance()->addLogs("Distribution des cartes");
         displayTable();
@@ -205,15 +217,15 @@ namespace gui
         }
 
         // Main du joueur
-        m_handLayout.clear();
-        m_handLayout.addCards(m_game->getPlayer(0)->getHand());
+        m_handLayout->clear();
+        m_handLayout->addCards(m_game->getPlayer(0)->getHand());
 
         // Cartes communes
-        m_commonCardsLayout.clear();
+        m_commonCardsLayout->clear();
 
         for (int i = 0; i < 5; i++) {
             GraphicCard *back = new GraphicCard(0, 0);
-            m_commonCardsLayout.addWidget(back);
+            m_commonCardsLayout->addWidget(back);
         }
 
         // Main adverse
@@ -221,20 +233,20 @@ namespace gui
         GraphicCard *back = new GraphicCard(0, 0);
         GraphicCard *back2 = new GraphicCard(0, 0);
 
-        m_opponentHandLayout.clear();
-        m_opponentHandLayout.addWidget(back);
-        m_opponentHandLayout.addWidget(back2);
+        m_opponentHandLayout->clear();
+        m_opponentHandLayout->addWidget(back);
+        m_opponentHandLayout->addWidget(back2);
 
         enableButtons(false);
     }
 
     void HumanWindowContent::refresh()
     {
-        m_pot.display(m_game->getPot());
-        m_playerCave.display(m_game->getPlayer(0)->getCave());
-        m_aiCave.display(m_game->getPlayer(1)->getCave());
+        m_pot->display(m_game->getPot());
+        m_playerCave->display(m_game->getPlayer(0)->getCave());
+        m_aiCave->display(m_game->getPlayer(1)->getCave());
 
-        m_betValue.setMinimum(m_game->getBlind());
+        m_betValue->setMinimum(m_game->getBlind());
 
         endOfPart();
     }
@@ -243,9 +255,9 @@ namespace gui
     {
         // Mise à jour des informations
         displayTable();
-        m_pot.display(m_game->getPot());
-        m_playerCave.display(m_game->getPlayer(0)->getCave());
-        m_aiCave.display(m_game->getPlayer(1)->getCave());
+        m_pot->display(m_game->getPot());
+        m_playerCave->display(m_game->getPlayer(0)->getCave());
+        m_aiCave->display(m_game->getPlayer(1)->getCave());
 
         enableButtons(true);
 
@@ -256,14 +268,14 @@ namespace gui
 
         enableButtons(false);
 
-        return game::Action(m_userAction, m_betValue.value());
+        return game::Action(m_userAction, m_betValue->value());
     }
 
     void HumanWindowContent::logsDisplay()
     {
-        bool visible = !m_logs.isHidden();
+        bool visible = !m_logs->isHidden();
 
-        m_logs.setHidden(visible);
+        m_logs->setHidden(visible);
     }
 
     void HumanWindowContent::enableButtons(bool value)
@@ -271,7 +283,7 @@ namespace gui
         // On désactive tous les boutons en fin de tour
         if (!value) {
             for (int i = 0; i < BUTTONS_NB; i++) {
-                m_buttons[i].setEnabled(false);
+                m_buttons[i]->setEnabled(false);
             }
         }
         else {      // Sinon on vérifie les actions possibles pour les activer
@@ -280,29 +292,29 @@ namespace gui
                 switch (i) {
 
                     case CHECK:
-                        m_buttons[i].setEnabled(m_game->canCheck(0));
+                        m_buttons[i]->setEnabled(m_game->canCheck(0));
                         break;
 
                     case BET:
-                        m_buttons[i].setEnabled(m_game->canBet(0, 1));
+                        m_buttons[i]->setEnabled(m_game->canBet(0, 1));
                         break;
 
                     case CALL:
-                        m_buttons[i].setEnabled(m_game->canCall(0));
+                        m_buttons[i]->setEnabled(m_game->canCall(0));
                         break;
 
                     case RAISE:
-                        m_buttons[i].setEnabled(m_game->canRaise(0, 2 * m_game->getCurrentBet()));
+                        m_buttons[i]->setEnabled(m_game->canRaise(0, 2 * m_game->getCurrentBet()));
                         break;
 
                     default:
-                        m_buttons[i].setEnabled(true);
+                        m_buttons[i]->setEnabled(true);
                         break;
                 }
             }
 
-            m_betValue.setMinimum(2 * m_game->getCurrentBet());
-            m_betValue.setMaximum(m_game->getPlayer(0)->getCave());
+            m_betValue->setMinimum(2 * m_game->getCurrentBet());
+            m_betValue->setMaximum(m_game->getPlayer(0)->getCave());
         }
     }
 
@@ -310,13 +322,13 @@ namespace gui
     {
         std::vector<game::Card> table = m_game->getTable();
 
-        m_commonCardsLayout.clear();
-        m_commonCardsLayout.addCards(table);
+        m_commonCardsLayout->clear();
+        m_commonCardsLayout->addCards(table);
 
         // On complète la table avec des dos de carte
         for (unsigned int i = 0; i < 5 - table.size(); i++) {
             GraphicCard *back = new GraphicCard(0, 0);
-            m_commonCardsLayout.addWidget(back);
+            m_commonCardsLayout->addWidget(back);
         }
     }
 
@@ -333,7 +345,7 @@ namespace gui
     {
         m_userAction = ACTION::BET;
 
-        Logger::getInstance()->addLogs("Joueur 1 mise " + QString::number(m_betValue.value()));
+        Logger::getInstance()->addLogs("Joueur 1 mise " + QString::number(m_betValue->value()));
 
         emit actionSelected();
     }
@@ -351,7 +363,7 @@ namespace gui
     {
         m_userAction = ACTION::RAISE;
 
-        Logger::getInstance()->addLogs("Joueur 1 relance " + QString::number(m_betValue.value()));
+        Logger::getInstance()->addLogs("Joueur 1 relance " + QString::number(m_betValue->value()));
 
         emit actionSelected();
     }
@@ -379,28 +391,28 @@ namespace gui
         Logger::getInstance()->addLogs("Partie terminée !");
         enableButtons(false);
 
-        m_opponentHandLayout.clear();
-        m_opponentHandLayout.addCards(m_game->getPlayer(1)->getHand());
+        m_opponentHandLayout->clear();
+        m_opponentHandLayout->addCards(m_game->getPlayer(1)->getHand());
 
         displayTable();
 
         int result = m_game->getGameResult();
 
         if (result == WON) {
-            m_partResult.setStyleSheet("QLabel {color : #89DF57; font-size : 40px; text-align:center; padding-left:80px; font-weight:bold;}");
-            m_partResult.setText("Gagné !");
+            m_partResult->setStyleSheet("QLabel {color : #89DF57; font-size : 40px; text-align:center; padding-left:80px; font-weight:bold;}");
+            m_partResult->setText("Gagné !");
         }
         else if (result == EQUALITY) {
-            m_partResult.setStyleSheet("QLabel {color : #23BDFE; font-size : 40px; text-align:center; padding-left:80px; font-weight:bold;}");
-            m_partResult.setText("Egalité");
+            m_partResult->setStyleSheet("QLabel {color : #23BDFE; font-size : 40px; text-align:center; padding-left:80px; font-weight:bold;}");
+            m_partResult->setText("Egalité");
         }
         else {
-            m_partResult.setStyleSheet("QLabel {color : #FE0000; font-size : 40px; text-align:center; padding-left:70px; font-weight:bold;}");
-            m_partResult.setText("Perdu !");
+            m_partResult->setStyleSheet("QLabel {color : #FE0000; font-size : 40px; text-align:center; padding-left:70px; font-weight:bold;}");
+            m_partResult->setText("Perdu !");
         }
 
-        m_startButton.setText("Rejouer");
-        m_startButton.show();
-        m_cardsChoiceButton.show();
+        m_startButton->setText("Rejouer");
+        m_startButton->show();
+        m_cardsChoiceButton->show();
     }
 }

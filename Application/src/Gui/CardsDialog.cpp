@@ -23,34 +23,36 @@ namespace gui
 
         QHBoxLayout *layout = new QHBoxLayout;
 
+        m_cardsLayout = new QGridLayout;
+
         for (int i = 0; i < 4; i++) {
-            m_cardsLayout.setRowMinimumHeight(i, 107);
+            m_cardsLayout->setRowMinimumHeight(i, 107);
         }
 
         for (int i = 1; i <= 13; i++) {
-            m_cardsLayout.setColumnMinimumWidth(i-1, 83);
+            m_cardsLayout->setColumnMinimumWidth(i-1, 83);
 
             for (int j = 0; j < 4; j++) {
                 ClickableCard *card = new ClickableCard(i, j);
-                m_cardsLayout.addWidget(card, j, i, Qt::AlignCenter);
+                m_cardsLayout->addWidget(card, j, i, Qt::AlignCenter);
 
                 connect(card, SIGNAL(clicked(int)), this, SLOT(cardSelected(int)));
             }
         }
 
         QDialogButtonBox *dialogButton = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
-        m_cardsLayout.addWidget(dialogButton, 4, 12, 1, 2);
+        m_cardsLayout->addWidget(dialogButton, 4, 12, 1, 2);
 
         QVBoxLayout *buttonsLayout = new QVBoxLayout;
 
-        m_playerChoice.setText("Joueur");
-        m_aiChoice.setText("IA");
-        m_middleChoice.setText("Milieu");
-        m_playerChoice.setChecked(true);
+        m_playerChoice = new QRadioButton("Joueur");
+        m_aiChoice = new QRadioButton("IA");
+        m_middleChoice = new QRadioButton("Milieu");
+        m_playerChoice->setChecked(true);
 
-        buttonsLayout->addWidget(&m_playerChoice);
-        buttonsLayout->addWidget(&m_aiChoice);
-        buttonsLayout->addWidget(&m_middleChoice);
+        buttonsLayout->addWidget(m_playerChoice);
+        buttonsLayout->addWidget(m_aiChoice);
+        buttonsLayout->addWidget(m_middleChoice);
 
         QWidget *buttons = new QWidget;
         buttons->setLayout(buttonsLayout);
@@ -59,7 +61,7 @@ namespace gui
 
         layout->setSpacing(3);
         layout->addWidget(buttons);
-        layout->addLayout(&m_cardsLayout);
+        layout->addLayout(m_cardsLayout);
 
         setLayout(layout);
 
@@ -113,15 +115,15 @@ namespace gui
         QString style = "border: 5px solid ";
         CardsList list;
 
-        if (m_playerChoice.isChecked()) {
+        if (m_playerChoice->isChecked()) {
             style += "blue";
             list = PLAYER;
         }
-        else if (m_aiChoice.isChecked()) {
+        else if (m_aiChoice->isChecked()) {
             style += "red";
             list = AI;
         }
-        else if (m_middleChoice.isChecked()) {
+        else if (m_middleChoice->isChecked()) {
             style += "rgb(100, 250, 100)";
             list = MIDDLE;
         }
@@ -130,7 +132,7 @@ namespace gui
         int rank = id % 13 + 1;
         int color = id / 13;
 
-        QWidget *item = m_cardsLayout.itemAtPosition(color, rank)->widget();
+        QWidget *item = m_cardsLayout->itemAtPosition(color, rank)->widget();
 
         std::vector<int>::iterator it = std::find(m_selectedCards.begin(), m_selectedCards.end(), id);
 
